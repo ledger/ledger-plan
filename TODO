@@ -6,6 +6,194 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+TAGS: EMACS(e) FEATURE(f) DOCS(d) WEBSITE(w) BUILD(b)
 #+CATEGORY: Ledger
 
+* TODO [#B] The -n option isn't working on this given sample data			 :ATTACH:
+  The following two commands do not generate the correct output:
+  :SCRIPT:
+ledger -f %data% -n reg ^exp | wc -l
+ledger -f %data% -n reg | wc -l
+  :END:
+  The latter command should report more, or the same, number of lines as the
+  first, but this is not happening.  It seems that without a regexp, the -n
+  report is dropping out several entries altogether.
+  :PROPERTIES:
+  :Submitter: Drew Raines <aaraines@gmail.com>
+  :Version: 2.6.1
+  :ID: 313ACEEC-CFEB-45B9-9EB1-4DCAE40BFBDE
+  :Attachments: gistde47de0f5a466f84a2b0-174c35de8c1af0f3c00d552b448042f6206a7d1b.tar.gz
+  :END:
+  [2008-10-26 Sun 19:06]
+* DONE [#B] %2.2X format string doesn't work
+  - State "DONE"       [2009-01-20 Tue 21:02] \\
+    Fixed in 2.6.2.
+  If I use %2.2X in a format string, I would expect to either get the string
+  "! ", the string "* " or " ", but for the non-cleared case, it doesn't print
+  any spaces, and the columns don't line up.  Other optional formatting (such
+  as %C) seem to work with width indicators.
+
+  I've worked around this by putting the %X as the last thing in the register,
+  but it would be nice to be able to see it next to the amounts.
+  :PROPERTIES:
+  :Submitter: David Brown <ledger@davidb.org>
+  :Version: 2.6.1
+  :URL: message:%3C20090120084407.GA13140@linode.davidb.org%3E
+  :ID: 19909091-7A05-46FB-8654-3413E955BFCD
+  :END:
+  [2009-01-18 Sun 21:39]
+* DONE [#B] When --no-cache is used, a file named '<none>' is being written out
+  - State "DONE"       [2009-01-20 Tue 21:02] \\
+    Fixed in 2.6.2.
+  I'm running off of the v2.6.1 tag in git.  I occasionally find that the
+  ledger cache has a few problems, usually causing transactions to have the
+  wrong sign.  I haven't figured out exactly how to reproduce this.
+  
+  I've put --no-cache in my ~/.ledgerrc, but this seems to just cause it to
+  write the cache to a file in the current directory called "<none>".  I'm not
+  sure if it reads the file or not.
+  :PROPERTIES:
+  :Submitter: David Brown <ledger@davidb.org>
+  :Version: 2.6.1
+  :URL: message:%3C20090119013953.GA31608@linode.davidb.org%3E
+  :ID: EB3B079A-2783-4716-89B5-E658DE5A1FAC
+  :END:
+  [2009-01-18 Sun 21:39]
+* TODO [#B] getquote script for UK users					 :FEATURE:ATTACH:
+  This is a little python file for downloading quotes for UK shares and unit
+  trusts. An unusual wrinkle is that UK shares must have ".L" in them - but
+  Ledger doesn't support this kind of format.
+
+  By way of example, if you have Glaxosmithklein shares, its symbol is
+  "GSK.L".  In Ledger, you must set up its symbol as GSK_L. Do not set it up
+  as merely GSK or GSK.L -- because errors will occur.  _getquote-uk.py_
+  (which you must symlink to getquote somewhere in your path) translates the
+  underscores into dots. So if Ledger tries to download a quote, it will
+  execute the command
+  :SCRIPT:
+getquote GSK_L
+  :END:
+  which (if you have symlinked it to my python file) will get the correct
+  price for your share.
+
+  OEICs and Unit Trusts are also supported.  If you own Fidelity Special
+  Situations, for example, its symbol is GB0003875100GBP -- a bit of a
+  mouthful, but it is correct when used in Ledger.
+
+  I attached a revised version. For some reason, Ledger want to get a quote
+  for £, which causes problems. I therefore give a quote of £1.00 in such
+  circumstances.
+  :PROPERTIES:
+  :Submitter: Mark Carter <alt.mcarter@googlemail.com>
+  :Version: 2.6.1
+  :URL: message://62f2a66e0811070641v7fe3a574mc9ea5a9eb3dfa1cf@mail.gmail.com
+  :ID: E400651B-FB69-4815-AE15-726E8B0675C3
+  :Attachments: getquote-uk.py
+  :END:
+  [2008-12-08 Mon 23:59]
+* TODO [#B] --prices-db not performing tilde expansion in .ledgerrc
+  It seems that the --priced-db option in .ledgerrc does not perform tilde
+  expansion on the filename specified, and so does not update the prices
+  database file.
+  
+  For example, if my .ledgerrc file reads
+  :DATA:
+--file ~/docs/ledger/ledger.dat
+--price-db ~/docs/ledger/prices.dat
+  :END:
+  and I issue the command
+  :SCRIPT:
+ledger -QV bal .
+  :END:
+  then I notice that my prices.dat file is not updated.
+  
+  However, if I specify an absolute path in .ledgerrc:
+  :DATA:
+--file ~/docs/ledger/ledger.dat
+--price-db /Users/mcarter/docs/ledger/prices.dat
+  :END:
+  and issue the command, then prices.dat is properly updated.
+  :PROPERTIES:
+  :Submitter: Mark Carter <alt.mcarter@googlemail.com>
+  :Version: 2.6.1
+  :URL: message://a4942fb2-a459-4ba7-b6b9-0331baa42878@o40g2000prn.googlegroups.com
+  :ID: 70E63F8E-8561-41F9-A1F1-48AB75A435AA
+  :END:
+  [2008-12-08 Mon 23:59]
+* TODO [#B] Have an option so that weeks begin on Monday 				:FEATURE:
+  :PROPERTIES:
+  :Submitter: Simon Michael <simon@joyful.com>
+  :Version: 2.6.1
+  :ID: 9FF37C33-EBEF-4EC0-91F7-0E8681416D60
+  :END:
+  [2008-12-08 Mon 23:59]
+* TODO [#B] Bug in account balance display
+  :DATA:
+2008/01/01 * previous balances
+    liabilities:credit cards:discover 4462            $-1094.38
+    equity:opening balances
+
+2008/01/18 * DISCOVER FEES
+    liabilities:credit cards:discover 4462:interest          $-36.59
+    assets:bank:wells fargo:checking
+
+2008/01/18 * DISCOVER FEES
+    liabilities:credit cards:discover 4462:fee          $-39
+    liabilities:credit cards:discover 4462:interest    $-28.17
+    assets:bank:wells fargo:checking
+
+2008/3/1 * discover card payment
+    liabilities:credit cards:discover 4462        $1198.14
+    assets:bank:wells fargo:checking
+  :END:
+  that triggers it..
+  :SCRIPT:
+ledger -f test.ledger -s bal discover
+  :END:
+  :PROPERTIES:
+  :Submitter: Simon Michael <simon@joyful.com>
+  :Version: 2.6.1
+  :ID: 55831A79-0556-4872-A81F-F082A7B2E96B
+  :END:
+  [2008-11-20 Thu 23:48]
+* DONE [#B] Check out skanthak's fix to ledger --reconcile
+  - State "DONE"       [2008-11-23 Sun 23:43]
+  http://github.com/skanthak/ledger/tree/fix-reconcile
+  :PROPERTIES:
+  :Submitter: Sebastian Kanthak <skanthak@gmail.com>
+  :Version: 2.6.1
+  :ID: FFFE432A-FE8F-4584-B4AB-E111F31174DC
+  :END:
+  [2008-11-20 Thu 19:14]
+* TODO [#C] Devise a way to publish the Buildbot ledger builds
+  Michal Wallace has offered hosting space: [[message://3226fffd-f75a-4a17-8df0-34ee4d5f227f@m36g2000hse.googlegroups.com][buildbot but no builds?]]
+  :PROPERTIES:
+  :ID: AFFBA1FA-6D2A-45B6-B56A-A57FEE8B93CA
+  :END:
+  [2008-10-25 Sat 00:50]
+* TODO [#B] Allow xact value expressions to access account totals
+  I'd like to create entries that use a formula to compute the values, which
+  doesn't seem to be supported (but I hope I'm wrong).
+  
+  I imagine something like:
+  :DATA:
+11/5 mortgage payment
+  Assets:Checking                           $-2000
+  Expenses:Mortgage Interest        0.05*(Liabilities:Mortgage)
+  Expenses:Tax                                 $500
+  Liabilities:Mortgage
+  :END:
+
+  So that I could automatically keep track of how much the principle still is
+  on my mortgage.  Of course, I could write a script to generate this payment,
+  but I'd rather not bother.  Is there a syntax for formulas like this? The
+  closest I could see was the tithing example, but I'd like this to be a real
+  account and a real (non- virtual) transaction.  On the other hand, perhaps
+  it wouldn't hurt to allow the Liabilities:Mortgage account to be virtual,
+  since I never directly access it...
+  :PROPERTIES:
+  :Submitter: David Roundy <droundy@darcs.net>
+  :Version: 2.6.1
+  :ID: B5CB8346-581D-4EBC-A980-B399CDD24961
+  :END:
+  [2008-11-01 Sat 11:43]
 * TODO [#A] Forecasting fails to work
   John sent out an email about forecasting 2006/04/06, and I created a simple
   ledger with this content snipped from his email:
@@ -263,7 +451,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
   :Ticket: 210
   :ID: B6A502D1-D8A8-4986-9D96-301C2E13E020
   :END:
-* TODO [#B] An example of using effective dates on transactions		  :DOCS:
+* TODO [#B] An example of using effective dates on transactions				   :DOCS:
   "I don't yet have a good idea of why an individual transaction could need to
   specify its own actual *and* effective date. Does anyone have a good
   example?"
@@ -372,14 +560,14 @@ ledger -f journal.txt reg
   :ID: 13965214-EFDD-43DF-BD9F-9EC72DC509AD
   :END:
   [2008-10-15 Wed 06:39]
-* TODO [#B] Make sure it's possible to sort by the entry code	       :FEATURE:
+* TODO [#B] Make sure it's possible to sort by the entry code				:FEATURE:
   :PROPERTIES:
   :Submitter: Christopher <christopher.illies@ki.se>
   :Version: 2.6.1
   :ID: FE972418-2D3B-41B5-B028-D2F6C477415E
   :END:
   [2008-10-13 Mon 10:28]
-* TODO [#B] Make a note of the published Ledger manual on the webpage  :WEBSITE:
+* TODO [#B] Make a note of the published Ledger manual on the webpage			:WEBSITE:
   one big page: http://joyful.com/repos/ledger/doc/ledger.html
   many pages: http://joyful.com/repos/ledger/doc/ledger/
   pdf: http://joyful.com/repos/ledger/doc/ledger.pdf
@@ -390,13 +578,12 @@ ledger -f journal.txt reg
   :END:
   [2008-10-25 Sat 23:59]
 * TODO [#B] Integrate omari's changes into 3.0
-  SCHEDULED: <2008-10-21 Tue>
   :PROPERTIES:
   :ID: 8241124E-4FC6-46CD-9A64-1A79B59F426F
   :END:
   [2008-10-21 Tue 14:03]
-* TODO [#B] Ledger is currently failing 'make check'
-  SCHEDULED: <2008-10-21 Tue>
+* DONE [#B] Ledger is currently failing 'make check'
+  - State "DONE"       [2008-11-23 Sun 23:43]
   :PROPERTIES:
   :ID: 15CFAA5C-5A95-43FD-8343-06047CF7440B
   :END:
@@ -408,7 +595,6 @@ ledger -f journal.txt reg
   :END:
   [2008-10-15 Wed 16:45]
 * TODO [#B] Ledger is crashing on Thomas' computer when -O2 is used
-  SCHEDULED: <2008-10-06 Mon>
   - Note taken on [2008-10-26 Sun 00:44] \\
     When putting printf statements, the statements in my main() routine are
     executed up till the one right before the parse_and_report call. In the
@@ -610,7 +796,7 @@ ledger -f journal.txt reg
   :ID: 434EA2BD-BB4D-4F97-BB2A-BB983797F1AE
   :END:
   [2008-04-11 Fri]
-* TODO [#B] Allow for quicker reporting commands in ledger.el		 :EMACS:
+* TODO [#B] Allow for quicker reporting commands in ledger.el				  :EMACS:
   :PROPERTIES:
   :Version: 2.6
   :Ticket: 117
@@ -820,7 +1006,7 @@ $ ledger -l 'd<=[30/06/2006]' -w equity ^Assets:Super
   :ID: 1CF1EEC2-74F2-4538-8508-F0B424BA5D19
   :END:
   [2007-12-10 Mon]
-* TODO [#B] Change ledger.el to intelligently handle inserting		 :EMACS:
+* TODO [#B] Change ledger.el to intelligently handle inserting				  :EMACS:
   :PROPERTIES:
   :Version: 2.6
   :Ticket: 104
@@ -1134,14 +1320,14 @@ ledger -Y --forecast 'T>0' reg food
   :ID: A81F98B1-38AE-4550-8056-C3D7D35691B3
   :END:
   [2008-04-11 Fri]
-* TODO [#B] Have ledger.el warn if the ledger version is too old	 :EMACS:
+* TODO [#B] Have ledger.el warn if the ledger version is too old			  :EMACS:
   :PROPERTIES:
   :Version: 2.6
   :Ticket: 163
   :ID: 5F20A546-046B-4CC6-B1EF-89C5962B55BE
   :END:
   [2008-04-11 Fri]
-* TODO [#B] Highlight transaction lines in based on their status	 :EMACS:
+* TODO [#B] Highlight transaction lines in based on their status			  :EMACS:
   Here is a tweak to ledger-mode that I find useful. It makes uncleared lines
   pink and cleared lines green. C-c C-e to toggle the status.
   :SCRIPT:
@@ -1196,14 +1382,14 @@ ledger -Y --forecast 'T>0' reg food
   :ID: 5D1B0408-90D0-4019-AE0F-A914329C73CB
   :END:
   [2009-04-11 Sat]
-* TODO [#B] In ledger-mode, color directive lines firebrick red	       :FEATURE:
+* TODO [#B] In ledger-mode, color directive lines firebrick red				:FEATURE:
   :PROPERTIES:
   :Version: 2.6
   :Ticket: 186
   :ID: B34222A3-DD25-4717-B60B-865DB7F1DFD6
   :END:
   [2008-04-16 Wed]
-* TODO [#B] In ledger.el, fix toggle-current-transaction		 :EMACS:
+* TODO [#B] In ledger.el, fix toggle-current-transaction				  :EMACS:
   When all transactions have been cleared, the marks should be wiped and then
   ledger-toggle-current-entry called, rather than doing the entry clearing
   itself.
@@ -1247,7 +1433,7 @@ ledger -Y --forecast 'T>0' reg food
   :ID: 2FE8B7B7-15A3-4F02-9B53-3A629212561A
   :END:
   [2008-04-11 Fri]
-* TODO [#B] ledger.el: ledger-context-at-point fails to parse acct-transaction  :EMACS:
+* TODO [#B] ledger.el: ledger-context-at-point fails to parse acct-transaction		  :EMACS:
   - State "TODO"       [2007-11-07 Wed 04:06] \\
     Levin <zslevin@gmail.com> writes:
     > The following patch fixes problem of the amount with no ',':
@@ -1488,7 +1674,7 @@ Display P: a
   :ID: 68E4C919-14BA-4AB1-A60B-FC176E966B45
   :END:
   [2008-04-11 Fri]
-* TODO [#B] Post the Ledger manual in HTML format on newartisans.com	  :DOCS:
+* TODO [#B] Post the Ledger manual in HTML format on newartisans.com			   :DOCS:
   :PROPERTIES:
   :Version: 2.6
   :Ticket: 187
@@ -1616,7 +1802,7 @@ Error: Journal does not refer to file ''
   :ID: D3820740-8BFB-4234-8125-DE813A713032
   :END:
   [2007-12-10 Mon]
-* TODO [#B] Promote tagging to a first-class concept 		       :FEATURE:
+* TODO [#B] Promote tagging to a first-class concept					:FEATURE:
   - Tagging is indicated by the presence of ":tag:" in an entry note or a
     transaction note.
   - Entry note transactions apply also to all of their child entries.
@@ -1820,7 +2006,7 @@ D $1,000.00
   :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
   :END:
   [2008-08-14 Thu]
-* TODO [#B] Use of ledger.el with various invalid "ledger" binaries (and none) :EMACS:
+* TODO [#B] Use of ledger.el with various invalid "ledger" binaries (and none)		  :EMACS:
   :PROPERTIES:
   :Version: 2.6
   :Ticket: 175
@@ -1857,12 +2043,12 @@ D $1,000.00
   :ID: A1230B8C-EF48-40BB-A200-18E7E94620BE
   :END:
   [2008-04-11 Fri]
-* TODO [#B] Write unit tests for all core sections of Ledger and all reporting options
+* TODO [#B] Write unit tests for all of Ledger and its reporting options
   :PROPERTIES:
   :ID: A8DE6DCB-917B-433F-8D07-3ACE45A05F45
   :END:
   [2008-08-14 Thu]
-* TODO [#C] Use Python to create a per-account debit/credit report     :FEATURE:
+* TODO [#C] Use Python to create a per-account debit/credit report			:FEATURE:
   Is there a way to let ledger output its reports showing the accounts in the
   more conventional way as debit and credit accounts, instead of having a
   positive or negative saldo?
@@ -1893,7 +2079,6 @@ Tr.#	date		Text			debit		credit		saldo
   :END:
   [2008-10-08 Wed 00:58]
 * TODO [#C] Consider using mixed_amount_t instead of balance_t
-  SCHEDULED: <2008-10-21 Tue>
   :PROPERTIES:
   :ID: 34214DA1-8FFF-4AF5-8A68-7DD79EDE261B
   :END:
@@ -1946,7 +2131,7 @@ Tr.#	date		Text			debit		credit		saldo
   :ID: DCB44369-82CE-44CB-AD05-42B25BA6A492
   :END:
   [2008-04-11 Fri]
-* TODO [#C] Added a {{total}} syntax for lot price specification       :FEATURE:
+* TODO [#C] Added a {{total}} syntax for lot price specification			:FEATURE:
   I had another idea: do you remember I mentioned a problem I had, which that
   some of my trade confirmation slips provide the "adjusted cost base" and not
   the cost-per-share? This makes it a big ugly to enter such postings, even
@@ -1971,14 +2156,14 @@ Tr.#	date		Text			debit		credit		saldo
   :ID: C9E09993-CC01-41C6-BADC-0A9AA1221419
   :END:
   [2008-04-20 Sun]
-* TODO [#C] Allow pre-declaration of account and commodity names, and account commodities
+* TODO [#C] Pre-declaration of accounts, commodities, and acc. comms.			:FEATURE:
   :PROPERTIES:
   :Version: 2.6
   :Ticket: 184
   :ID: 9FF8CF75-8F7C-4C54-BBD7-46177EA2768F
   :END:
   [2008-04-17 Thu]
-* TODO [#C] Allow reports, such as completed tasks last week, etc.	 :EMACS:
+* TODO [#C] Allow reports, such as completed tasks last week, etc.			  :EMACS:
   :PROPERTIES:
   :ID: D9B4D001-21E4-4247-ADF6-56C00B2C8F3A
   :END:
@@ -2001,13 +2186,14 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
   :ID: 41716CDE-670C-4F41-825F-FE64B624AF97
   :END:
   [2007-12-10 Mon]
-* TODO [#C] C-c C-c on a cleared entry doesn't unclear it		 :EMACS:
+* TODO [#C] C-c C-c on a cleared entry doesn't unclear it				  :EMACS:
   :PROPERTIES:
   :Version: 2.6.0.90
   :Ticket: 212
   :ID: 863C0EE8-C193-46EE-9BAA-3A37DE73E4DB
   :END:
-* TODO [#C] Change the binary cache reader to use Boost.Interprocess to read it in as a memory mapped file
+* TODO [#C] Change the binary cache reader to use Boost.Interprocess
+  ...to read it in as a memory mapped file
   :PROPERTIES:
   :ID: A978C1E9-86EA-4074-B8E8-2A3DF1A12ED2
   :END:
@@ -2029,7 +2215,7 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
   :ID: 2599B64E-7888-4E56-9C46-718EFEF822BA
   :END:
   [2008-09-04 Thu]
-* TODO [#C] Enhanced comments					       :FEATURE:
+* TODO [#C] Enhanced comments								:FEATURE:
   - Note taken on [2008-07-21 Mon 18:53] \\
     I agree that we need something like this.  Also, whatever format is chosen, we
     should look at adding a flexible properties/tags/annotation mechanism for
@@ -2157,7 +2343,7 @@ $ ledger -E -j -p 2006.12 reg Travel
   :ID: D27098A4-647A-4EEA-B0B8-3088E069214D
   :END:
   [2008-04-05 Sat]
-* TODO [#C] There is a need for some extensive examples with commentary	  :DOCS:
+* TODO [#C] There is a need for some extensive examples with commentary			   :DOCS:
   :PROPERTIES:
   :Version: 2.6
   :Ticket: 19
@@ -2205,7 +2391,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :END:
   [2007-10-29 Mon]
 * DONE [#A] 'ledger -b 2007/08/16 -s reg food' is completely broken
-  SCHEDULED: <2007-08-23 Thu> ARCHIVED: <2007-08-23 Thu>
   - State "DONE"       [2007-08-23 Thu 21:22] \\
     Fixed by the following change:
        * walk.cc (handle_value): The transaction xdata.dflags were being
@@ -2225,7 +2410,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :END:
   [2008-07-27 Sun]
 * DONE [#B] Add a link to the Fink package for Ledger on the Ledger page
-  SCHEDULED: <2007-10-28 Sun>
   - State "DONE"       [2007-10-28 Sun 22:33]
   :PROPERTIES:
   :ARCHIVE_TIME: 2007-11-04 Sun 23:42
@@ -2283,7 +2467,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :END:
   [2008-04-24 Thu]
 * DONE [#B] Find out why master fails to build on tdelaet's OpenBSD box
-  SCHEDULED: <2008-08-17 Sun>
   - State "DONE"       [2008-08-17 Sun 06:33] \\
     It's because his Boost isn't up to date.  I'll have to wait until he has Boost
     1.35 working OpenBSD 4.4 before we can build anything other than v2.6.1b on
@@ -2315,7 +2498,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :END:
   [2008-04-21 Mon]
 * DONE [#B] Fix the link on my Ledger project page to sourceforge.net
-  SCHEDULED: <2007-11-06 Tue>
   - State "DONE"       [2007-11-07 Wed 03:56]
   :PROPERTIES:
   :ARCHIVE_TIME: 2007-11-14 Wed 17:14
@@ -2333,7 +2515,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :END:
   [2008-07-31 Thu]
 * DONE [#B] Format ledger.texi in the same manner as the SBCL manual
-  SCHEDULED: <2007-12-04 Tue>
   - State "DONE"       [2007-12-04 Tue 18:14]
   :PROPERTIES:
   :ARCHIVE_TIME: 2007-12-11 Tue 18:33
@@ -2374,7 +2555,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :END:
   [2008-07-26 Sat]
 * DONE [#B] Get transactional assignments working again
-  SCHEDULED: <2008-09-13 Sat>
   - State "DONE"       [2008-09-14 Sun 06:26]
   - State "STARTED"    [2008-09-06 Sat 08:11]
   Another thing that needs to happen is that these assignments are stored
@@ -2401,7 +2581,8 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :ID: 116B0437-6BA9-4211-B5DE-3BBFA69F1D33
   :END:
   [2008-04-11 Fri]
-* DONE [#B] If an exception occurs while --verify --verbose is on, it shows lots and lots of leaked memory
+* DONE [#B] If an exception occurs while --verify --verbose is on
+  ...it shows lots and lots of leaked memory
   - State "DONE"       [2008-08-10 Sun]
   :PROPERTIES:
   :ID: AAB6A9CC-4122-45F0-A69B-5DC7C59901F5
@@ -2440,7 +2621,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :END:
   [2007-10-29 Mon]
 * DONE [#B] Organize my ledger todo file and integrate it into the main agenda
-  SCHEDULED: <2007-09-30 Sun>
   - State "DONE"       [2007-10-01 Mon 03:40] \\
     Done, although I still need to pull all of my old data from Trac and Merlin.
   :PROPERTIES:
@@ -2473,7 +2653,7 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :ID: 05D95071-2F29-4056-9146-708A13EED837
   :END:
   [2008-08-03 Sun]
-* DONE [#B] Restore the VCS history for Ledger from April to September 2004 from backups
+* DONE [#B] Restore VCS history for Ledger from April to September 2004 from backups
   - State "DONE"       [2008-07-15 Tue]
   :PROPERTIES:
   :ID: 844BCBC7-7DAB-479B-A448-9062F6F5480C
@@ -2519,19 +2699,20 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
   :ID: C86755E1-199A-4587-93A8-C18C04FC4996
   :END:
   [2008-07-25 Fri]
-* DONE [#B] Special care needs to be taken that legitimate uses of exceptions are not too expensive.
+* DONE [#B] Special care needs to be taken that legitimate uses of exceptions
+  ...are not too expensive.
   :PROPERTIES:
   :ID: 525657CE-DA76-4B4B-B88C-595F799A12A7
   :END:
   [2008-08-14 Thu]
-* DONE [#B] Split binary.cc into journal-specific and generic, and put the generic one in libamounts
+* DONE [#B] Split binary.cc into journal-specific and generic
+  ...and put the generic one in libamounts
   - State "DONE"       [2008-08-04 Mon]
   :PROPERTIES:
   :ID: 12C3D67F-0E7C-46D4-AE7B-7E1E22456997
   :END:
   [2008-07-29 Tue]
 * DONE [#B] The Buildbot is failing to build master
-  SCHEDULED: <2008-08-17 Sun>
   - State "DONE"       [2008-08-17 Sun 06:32] \\
     Fixed now.
   :OUTPUT:
@@ -2558,7 +2739,6 @@ make[1]: *** [libledger_la-journal.lo] Error 1
   :END:
   [2008-03-26 Wed]
 * DONE [#B] Upgrade to use local-time-0.9.2
-  SCHEDULED: <2007-11-25 Sun>
   - State "DONE"       [2007-11-25 Sun 21:02]
   :PROPERTIES:
   :ARCHIVE_TIME: 2007-12-03 Mon 17:50
@@ -2573,7 +2753,6 @@ make[1]: *** [libledger_la-journal.lo] Error 1
   :END:
   [2008-08-04 Mon]
 * DONE [#C] Build Ledger master on Ubuntu so I can figure out Nafai's problem
-  SCHEDULED: <2008-08-31 Sun>
   - State "DONE"       [2008-08-31 Sun 21:21] \\
     It's all working now, after three commits to fix things.
   - State "STARTED"    [2008-08-31 Sun 20:00] \\
@@ -2588,7 +2767,6 @@ make[1]: *** [libledger_la-journal.lo] Error 1
   :END:
   [2008-08-27 Wed]
 * DONE [#C] Get the PowerBook's buildbot working again
-  SCHEDULED: <2008-08-16 Sat>
   - State "DONE"       [2008-08-17 Sun 02:52]
   :PROPERTIES:
   :ID: 6B92EE7F-9F6A-452A-B242-347FB9206832
@@ -2610,7 +2788,6 @@ make[1]: *** [libledger_la-journal.lo] Error 1
   :END:
   [2008-04-11 Fri]
 * WORKSFORME [#A] Thomas is experiencing a crash when running the balance command
-  SCHEDULED: <2008-08-16 Sat>
   - State "WORKSFORME" [2008-08-17 Sun 06:32] \\
     Thomas can't reproduce this anymore, after I logged into his machine to try
     and debug it directly.
@@ -2642,7 +2819,6 @@ make[1]: *** [libledger_la-journal.lo] Error 1
   > that must balance.  The `AMOUNT' can be followed by a per-unit
   > transaction cost, by specifying `@ AMOUNT', or a complete
   > transaction cost with `@@ AMOUNT'.  Lastly
-  SCHEDULED: <2008-09-10 Wed>
   :PROPERTIES:
   :Submitter: Par Kurlberg <kurlberg@math.kth.se>
   :ID: ED900734-1655-4229-A88F-9BCB96634E00
