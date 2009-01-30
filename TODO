@@ -7,6 +7,21 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * 3.0
+** TODO [#B] Build .deb, .rpm, .exe (in .zip), and .pkg installs			  :Build:
+   :PROPERTIES:
+   :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
+   :END:
+   [2009-01-29 Thu 19:40]
+** TODO [#B] Make M-x ledger-sort work on the current region				  :Emacs:
+   :PROPERTIES:
+   :ID: C390F6D0-FA81-4A1B-877A-C6946EA51105
+   :END:
+   [2009-01-29 Thu 19:36]
+** TODO [#B] Think about making streamable and xml_streamable interfaces		:Feature:
+   :PROPERTIES:
+   :ID: E777B7FF-F109-4199-B5AA-89CC9DA92A9E
+   :END:
+   [2009-01-29 Thu 18:31]
 ** TODO [#B] 'derive_new_entry' shouldn't add accounts to the journal
    :PROPERTIES:
    :Version: 2.6
