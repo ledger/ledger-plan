@@ -7,6 +7,114 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * 3.0
+** TODO [#B] Document new command-line query syntax					   :Docs:
+  :DATA:
+I've completed putting the finishing touches on the command-line query syntax
+for Ledger 3.0, and thought I would share with you all how it works now.
+
+In 2.6, you may have been familiar with queries like this:
+
+ ledger reg food -dining -- chang
+
+Which says, "I want all accounts containing food, but not dining, where the
+payee/description contained the word chang."
+
+One big problem with this syntax is that it forced all option settings to
+occur before the command verb.  So, I've done away with the use of "-" as a
+query character.
+
+Now the following is supported:
+
+ ledger [OPTIONS] <COMMAND> <SEARCH-TERMS>
+
+Where COMMAND is any command verb, OPTIONS can occur _anywhere_, and
+SEARCH-TERM is one or more of the following:
+
+ word              search for any account containing 'word'
+ TERM and TERM     boolean AND between terms
+ TERM or TERM      boolean OR between terms
+ not TERM          invert the meaning of the term
+ payee word        search for any payee containing 'word'
+ @word             shorthand for 'payee word'
+ desc word         alternate for 'payee word'
+ note word         search for any note containing 'word'
+ &word             shorthand for 'note word'
+ tag word          search for any metadata tag containing 'word'
+ tag word=value    search for any metadata tag containing 'word'
+                   whose value contains 'value'
+ %word             shorthand for 'tag word'
+ %word=value       shorthand for 'tag word=value'
+ meta word         alternate for 'tag word'
+ meta word=value   alternate for 'tag word=value'
+ expr 'EXPR'       apply the given value expression as a predicate
+ '=EXPR'           shorthand for 'expr EXPR'
+ \( TERMS \)       group terms; useful if using and/or/not
+
+So, the example given at the top of this e-mail could now be:
+
+ ledger reg food not dining @chang
+ ledger reg food and not dining and not payee chang
+ ledger reg food not dining expr 'payee =~ /chang/'
+
+All three are equivalent.
+  :END:
+  :PROPERTIES:
+  :ID: 720A2006-AA19-4133-8A07-B445D7CC3AA0
+  :END:
+  [2009-02-02 Mon 03:08]
+** TODO [#B] Document the new metadata syntax						   :Docs:
+  :DATA:
+Ledger 3.0 now supports entry and transaction "notes", which may contain new
+metadata and tag markers.  Here's an example:
+
+2004/05/27 (100) Credit card company
+    ; This is an entry note!
+    ; Sample: Value
+    Liabilities:MasterCard         $20.00
+    ; This is a transaction note!
+    ; Sample: Another Value
+    ; :MyTag:
+    Assets:Bank:Checking
+    ; :AnotherTag:
+
+An indented paragraph starting with ';' is parsed as a persistent note for its
+preceding category. These notes will get printed back to you with the "print"
+command.  They are accessible to value expressions using the "note" variable.
+
+Further, any occurrence of ":foo:" in a note will cause a metadata tag for
+"foo" to be registered for that entry.  You can then search for such
+transactions using:
+
+ ledger reg %foo
+ ledger reg tag foo
+
+Also, if any word in the note ends (but does not start) with a colon, the
+remainder of that line will be taken to be the metadata value for that tag.
+That is:
+
+ ; :foo:bar:baz:  <-- These are three tags
+ ; name: value    <-- this is a tag with a value
+
+Tags with value can be searched for just like tags.  In addition, you can
+further limit your tag search by looking for only those tags that have
+specific values:
+
+ ledger reg %name=value
+ ledger reg tag name=value
+
+Comments that are occur before an entry, or which starts at column zero, are
+always ignored and are neither searched nor printed back.
+  :END:
+  :PROPERTIES:
+  :ID: 1CAE6761-AC44-4DAC-A466-A3D72550ED06
+  :END:
+  [2009-02-02 Mon 03:08]
+** TODO [#B] Make sure every value function validates its arguments
+   And throws a usage message if there is any violation.
+   :PROPERTIES:
+   :ID: 225B6A3D-1B9C-44B7-9450-CD0D9CC9531F
+   :END:
+   [2009-02-01 Sun 23:00]
 ** TODO [#A] Binary cache is invalidated if LEDGER_FILE is changed
   - State "DEFERRED"   [2008-09-17 Wed 05:06] \\
     This bug is deferred until 3.0, since it is so rare there is no need to change
