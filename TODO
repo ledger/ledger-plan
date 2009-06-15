@@ -7,6 +7,69 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * 3.0
+** DONE [#B] Cost parsing bug
+   - State "DONE"       from "TODO"       [2009-06-15 Mon 17:01]
+   [[message://2aaaa8b6-4a51-4acb-8a73-ac4c98578b59@d7g2000prl.googlegroups.com][Re: Tracking fuel and milage]]
+   :PROPERTIES:
+   :ID: 04C5E1CA-1B39-4214-81C7-FD5AA785308F
+   :ARCHIVE_TIME: 2009-06-15 Mon 17:13
+   :ARCHIVE_CATEGORY: Ledger
+   :END:
+   [2009-06-03 Wed 19:11]
+** DONE [#B] Rounding bug
+   - State "DONE"       from "TODO"       [2009-06-15 Mon 17:13]
+   [[message://20090411120649.GZ1037@lavos.net][Another rounding issue]]
+   :DATA:
+D $1,000.00
+
+2009/01/01 Sample
+   assets  134.123 FOO @ $8.88
+   assets  100 BAR @ $8.88
+   equity
+   :END:
+   :PROPERTIES:
+   :ID: B68FFB0D-A9A0-479C-A6C0-68853F229333
+   :ARCHIVE_TIME: 2009-06-15 Mon 17:13
+   :ARCHIVE_CATEGORY: Ledger
+   :END:
+   [2009-06-03 Wed 19:11]
+** DONE [#B] Balance report is still broken
+   - State "DONE"       from "TODO"       [2009-06-15 Mon 17:53]
+  :SCRIPT:
+./ledger -f test/input/drewr.dat bal assets
+  :END:
+  This produces an erroneous balance report if I change drewr.dat.
+  :OUTPUT:
+         $ -3,804.00  Assets
+             $ 30.00    Checking:Business
+         $ -5,200.00    Savings
+--------------------
+         $ -3,804.00
+  :END:
+  It should be:
+  :OUTPUT:
+         $ -3,804.00  Assets
+          $ 1,366.00    Checking
+             $ 30.00      Business
+         $ -5,200.00    Savings
+--------------------
+         $ -3,804.00
+  :END:
+  :PROPERTIES:
+  :ID: 5A03CFC3-1A76-4F93-A1FE-555F98438C5A
+  :ARCHIVE_TIME: 2009-06-15 Mon 17:53
+  :ARCHIVE_CATEGORY: Ledger
+  :END:
+  [2009-03-24 Tue 18:38]
+** DONE [#B] In the expression parser, 40% should mean 0.40				:Feature:
+   SCHEDULED: <2009-05-14 Thu>
+   - State "DONE"       from "TODO"       [2009-05-14 Thu 04:06]
+   :PROPERTIES:
+   :ID: CEC3AE64-64C8-4339-B4DB-86A4FBDBBD98
+   :ARCHIVE_TIME: 2009-05-15 Fri 18:00
+   :ARCHIVE_CATEGORY: Ledger
+   :END:
+   [2009-05-14 Thu 02:06]
 ** DONE [#B] Balance report was missing the parent account
    SCHEDULED: <2009-03-15 Sun>
    - State "DONE"       [2009-03-16 Mon 04:06]
@@ -50,13 +113,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: A3B72BA7-5D50-4370-822B-FA63DF01B6F5
    :END:
    [2009-03-09 Mon 17:56]
-** DONE [#B] Add a "dependencies" phase, which installs all of Ledger's deps
-   SCHEDULED: <2009-03-09 Mon>
-   - State "DONE"       [2009-03-09 Mon 17:22]
-   :PROPERTIES:
-   :ID: 62A2C553-30DA-48D5-9654-A6956A216D09
-   :END:
-   [2009-03-09 Mon 13:57]
 ** DONE [#B] Move system.hh.gch into the build directory
    SCHEDULED: <2009-03-09 Mon>
    - State "DONE"       [2009-03-09 Mon 17:22]
@@ -64,6 +120,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 81C1D1E9-3F33-4EFF-B8BD-4B4BF3520289
    :END:
    [2009-03-09 Mon 13:56]
+** DONE [#B] Add a "dependencies" phase, which installs all of Ledger's deps
+   SCHEDULED: <2009-03-09 Mon>
+   - State "DONE"       [2009-03-09 Mon 17:22]
+   :PROPERTIES:
+   :ID: 62A2C553-30DA-48D5-9654-A6956A216D09
+   :END:
+   [2009-03-09 Mon 13:57]
 ** DONE [#B] UtilTests is currently getting a bus error, with the new acprep
    SCHEDULED: <2009-03-09 Mon>
    - State "DONE"       [2009-03-09 Mon 22:02]
@@ -161,25 +224,25 @@ make: *** [release-distcheck] Error 2
    SCHEDULED: <2009-03-04 Wed>
    - State "DONE"       [2009-03-05 Thu 05:03]
    - [X] During parsing, each account is given a pointer to the posts it
-         contains, in a deque.
+	 contains, in a deque.
    - [X] calc_xacts should only compute the amount, and store it in the post's
-         xdata.
+	 xdata.
    - [X] It then marks the post as "visited".
    - [X] When session_t::clean_posts is called, it should clear the "visited"
 	 flag.
    - [ ] The running total is not stored with the post, but is calculated as
-         needed by the format_xacts object.
+	 needed by the format_xacts object.
    - [ ] Which means that format_xacts now need to know the display predicate,
-         much like format_accounts.
+	 much like format_accounts.
    - [X] account_t's xdata must remember whether or not the amount/total for
-         the account has been calculated (with a different bool for each).
+	 the account has been calculated (with a different bool for each).
    - [X] account_t exposes two methods: family_total and self_total, which
-         performs and caches a calculation based on walking the "visited"
-         posts relating to that account.
+	 performs and caches a calculation based on walking the "visited"
+	 posts relating to that account.
    - [X] These calculations must be lazy, so that if a report never uses them,
-         it never calculates either one.
+	 it never calculates either one.
    - [X] The same goes for statistics, which can determined from the list of
-         posts.
+	 posts.
    :PROPERTIES:
    :ID: 240CAF9A-2681-4AE9-A0DF-F17416E31C60
    :END:
@@ -450,9 +513,9 @@ PASS: RegressTests
 ** DONE [#A] 'ledger -b 2007/08/16 -s reg food' is completely broken
    - State "DONE"       [2007-08-23 Thu 21:22] \\
      Fixed by the following change:
-       	* walk.cc (handle_value): The xact xdata.dflags were being
-       	set too late; the XACT_COMPOUND setting was being thrown
-       	away as a result.
+	* walk.cc (handle_value): The xact xdata.dflags were being
+	set too late; the XACT_COMPOUND setting was being thrown
+	away as a result.
    Although reg without shows a ton of Expenses:Food expenses, searching for
    food expenses shows none.
    :PROPERTIES:
@@ -3206,11 +3269,11 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    - [X] Treat -00.00 the same as hB300.00 : I found myself making this mistake
 	 frequently.
    - [X] Print the out offending posting and the 'out of balance' amount
-         in the 'unbalanced posting' error message.
+	 in the 'unbalanced posting' error message.
    - [X] It would be nice if the 'xact' command could be modified to assume
-         the amount is the same as last time if you dont supply it.  It also
-         doesn't seem to reproduce multiple-split postings either -- it
-         seems you only get the first split line.
+	 the amount is the same as last time if you dont supply it.  It also
+	 doesn't seem to reproduce multiple-split postings either -- it
+	 seems you only get the first split line.
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 121
@@ -3709,6 +3772,36 @@ getquote GSK_L
    :ID: 5C4EA977-7231-42E4-BAB5-77F9963D846F
    :END:
    [2008-05-29 Thu]
+** DONE [#B] acprep upload is deleting the file after it uploads it			    :Net:
+   SCHEDULED: <2009-03-31 Tue>
+   - State "DONE"       from "TODO"       [2009-03-31 Tue 16:24]
+   :PROPERTIES:
+   :ID: E4EFE47F-2014-4AEF-A515-CBB3B5186C38
+   :ARCHIVE_TIME: 2009-04-12 Sun 20:34
+   :ARCHIVE_CATEGORY: Ledger
+   :END:
+   [2009-03-31 Tue 06:27]
+
+** CANCELLED [#B] Nuke the doc/INSTALL file, since it's not accurate
+   - State "CANCELLED"  [2009-03-19 Thu 03:41]
+   :PROPERTIES:
+   :ID: A441A43B-25F6-42C4-B950-CF54A7C55F6F
+   :ARCHIVE_TIME: 2009-04-12 Sun 20:34
+   :ARCHIVE_CATEGORY: Ledger
+   :END:
+   [2009-03-11 Wed 18:58]
+
+** DONE [#B] The period "Dec 2008" gives all of 2008
+   SCHEDULED: <2009-03-22 Sun>
+   - State "DONE"       from "STARTED"    [2009-03-23 Mon 01:15]
+   - State "STARTED"    [2009-03-19 Thu 05:30]
+   :PROPERTIES:
+   :ID: 4C97E70D-5338-4360-93A6-F4EFD98BF2B1
+   :ARCHIVE_TIME: 2009-04-12 Sun 20:34
+   :ARCHIVE_CATEGORY: Ledger
+   :END:
+   [2009-03-06 Fri 00:02]
+
 * 2.6.2
 ** DONE [#A] Command-line options don't always override init-file options
    - State "DONE"       [2009-01-21 Wed 18:53] \\
