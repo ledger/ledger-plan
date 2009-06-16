@@ -126,6 +126,54 @@ C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
    :ID: 4F3C7E27-FB4B-4058-A08C-5B2E28AC720E
    :END:
    [2009-03-05 Thu 04:17]
+** TODO [#B] Regression: add support back for a "terminus" date
+   Here's something I would like to open up for discussion.
+ 
+   Suppose I have the ledger file:
+   :DATA:
+2008/01/01 * Purchase Apple shares
+       Equities        1000 AAPL @ $2
+       Cash
+
+2008/06/30 * Sell some Apple shares
+       Equities        -500 AAPL @ $2.5
+       Cash
+
+P 2008/10/01 02:18:02 AAPL $3
+P 2009/01/31 02:18:02 AAPL $4
+P 3000/01/01 02:18:02 APPL $100
+   :END:
+   At end of 2008, I have 500 AAPL shares.
+ 
+   If I type
+   :SCRIPT:
+ledger -f example01.txt --end 2008/12/31 -JV bal Equities
+   :END:
+   I get the output:
+   :OUTPUT:
+2009-03-29 2000
+   :END:
+   I would argue that the output should be
+   :OUTPUT:
+2008-12-31 1500
+   :END:
+
+   My argument is that if I specify an end date, then I want ledger to assume
+   that the current date is the end date I specify, and perform all reports and
+   calculations on that basis. After all, if you stick with the current
+   implementation, it could easily mess up any historical reporting you try to
+   do.
+   :PROPERTIES:
+   :Submitter: Mark Carter <alt.mcarter@googlemail.com>
+   :Message: [[message://62f2a66e0903290043l2e98bad4jfe20e0a313064674@mail.gmail.com][Discussion/bug about end/current dates]]
+   :ID: 647D5DB9-DBBB-47C8-80CE-F3F70E3B0253
+   :END:
+   [2009-04-01 Wed 18:55]
+** TODO [#B] Valexpr strings cannot have chars like \n
+   :PROPERTIES:
+   :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
+   :END:
+   [2009-02-27 Fri 13:19]
 ** TODO [#B] --budget not including "~ Monthly" entry					 :ATTACH:
    Thanks for your response.  I've attached a sample ledger file that I
    successfully reproduced the behaviour with.  Maybe it's something to do with
@@ -169,37 +217,6 @@ See LICENSE file included with the distribution for details and disclaimer.
    :Attachments: testledger.dat
    :END:
    [2009-04-01 Wed 19:40]
-** TODO [#B] Ledger is still getting confused by trailing whitespace			 :ATTACH:
-   I just noticed that ledger ist confused by whitespace at the end of
-   lines. Attached is a simple testcase where ledger reports:
-   :OUTPUT:
-% ledger -f test.ldg bal
-            -17,94€  Aktiva:Bank
-            -17,94€    Girokonto
-           -800,00€    Girokonto
-            800,00€    Sparkonto
-             17,94€  Aufwand:Einkauf:Lebensmittel
---------------------
-                  0
-   :END:
-   instead of:
-   :OUTPUT:
-% ledger -f test.ldg bal
-            -17,94€  Aktiva:Bank
-           -817,94€    Girokonto
-            800,00€    Sparkonto
-             17,94€  Aufwand:Einkauf:Lebensmittel
---------------------
-                  0
-   :END:
-   This is caused by an extra space at the end of line 12.
-   :PROPERTIES:
-   :Submitter: Johann Klähn <kljohann@gmail.com>
-   :Message: [[message://b0bc07100903260936n26b7c404nc1a9aaa2c9aa2da0@mail.gmail.com][Ledger bug: whitespace at eol]]
-   :ID: C523E23F-CFAC-4A53-B0C6-21226640E763
-   :Attachments: test.ldg
-   :END:
-   [2009-04-01 Wed 18:50]
 ** TODO [#B] Ledger 2.6 is not building on Debian 5 latest				  :Build:
    :PROPERTIES:
    :ID: 427F8D8D-39CB-47ED-8438-BF07BBBE6672
@@ -211,52 +228,11 @@ See LICENSE file included with the distribution for details and disclaimer.
    :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
    :END:
    [2009-03-26 Thu 02:09]
-** TODO [#B] Create a phase for packaging up and uploading ledger-3.0a.dmg		  :Build:
-   :PROPERTIES:
-   :ID: 206551B6-6CF2-4D48-BC5C-7469C00F395C
-   :END:
-   [2009-03-19 Thu 03:04]
-** TODO [#B] Avoid having to rm -fr ledger-proof					  :Build:
-   :OUTPUT:
-acprep: INFO: === Wiping build directory /home/nafai/Products/ledger-proof/default ===
-acprep: ERROR: Caught exception
-Traceback (most recent call last):
-  File "./acprep", line 141, in run
-    exit_code = self.main(*main_args)
-  File "./acprep", line 297, in main
-    PrepareBuild.__dict__['phase_' + cmd](self, *args)
-  File "./acprep", line 1239, in phase_proof
-    self.configure_flavor('default')
-  File "./acprep", line 1176, in configure_flavor
-    shutil.rmtree(self.build_directory())
-  File "/usr/lib/python2.5/shutil.py", line 175, in rmtree
-    rmtree(fullname, ignore_errors, onerror)
-  File "/usr/lib/python2.5/shutil.py", line 180, in rmtree
-    onerror(os.remove, fullname, sys.exc_info())
-  File "/usr/lib/python2.5/shutil.py", line 178, in rmtree
-    os.remove(fullname)
-OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/default/ledger-3.0/config.sub'
-   :END:
-   :PROPERTIES:
-   :ID: 12D4AB31-964F-4206-8AA0-2CA9C509DA30
-   :END:
-   [2009-03-11 Wed 20:54]
-** TODO [#B] Accept multiple phases in acprep if they can be recognized as such		  :Build:
-   :PROPERTIES:
-   :ID: B8B9F5ED-32F0-4BFA-8E84-6B0F6064E88A
-   :END:
-   [2009-03-10 Tue 16:29]
 ** TODO [#B] Build .deb, .rpm, .exe (in .zip), and .pkg installs			  :Build:
    :PROPERTIES:
    :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
    :END:
    [2009-01-29 Thu 19:40]
-** TODO [#B] Devise a way to publish the Buildbot ledger builds				  :Build:
-   Michal Wallace has offered hosting space: [[message://3226fffd-f75a-4a17-8df0-34ee4d5f227f@m36g2000hse.googlegroups.com][buildbot but no builds?]]
-   :PROPERTIES:
-   :ID: AFFBA1FA-6D2A-45B6-B56A-A57FEE8B93CA
-   :END:
-   [2008-10-25 Sat 00:50]
 ** TODO [#B] Write an article titled "Accounting for Programmers"			   :Docs:
    Programmers make money, and they're technically savvy, so Ledger makes for a
    perfect fit.
@@ -271,7 +247,7 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 8C9A4F0A-75B6-4F7D-913C-B8D8D84A882E
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Added a section in the manual specifically about stocks			   :Docs:
+** TODO [#B] Add a section in the manual specifically about stocks 			   :Docs:
    There is no explicit section right now which details how to handle stock
    transactions.
    :PROPERTIES:
@@ -334,11 +310,6 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 1B5B2517-360E-4F33-9A1E-C88F884ACAD2
    :END:
    [2008-04-24 Thu]
-** TODO [#B] Complete the internal documentation, exported using Doxygen		   :Docs:
-   :PROPERTIES:
-   :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
-   :END:
-   [2008-08-14 Thu]
 ** TODO [#B] Complete the new manual							   :Docs:
    :PROPERTIES:
    :ID: D2F43032-A889-4ED3-AEE8-8A93D6594EDD
@@ -492,26 +463,12 @@ always ignored and are neither searched nor printed back.
    :ID: F71EA52C-0F99-4689-9DA5-DF6B131D81EE
    :END:
    [2008-10-15 Wed 16:45]
-** TODO [#B] Post the Ledger manual in HTML format on newartisans.com			   :Docs:
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 187
-   :ID: C6E7C61C-13A3-4812-AA28-CD3E247D6F8C
-   :END:
-   [2008-08-14 Thu]
-** TODO [#B] Respond to billk's question about options /email				   :Docs:
+** TODO [#B] Respond to billk's question about options					   :Docs:
    New Artisans LLC :: View topic - stock options
    :PROPERTIES:
    :ID: 2F635B10-27B8-4FF4-8584-F84A3AF7D42C
    :END:
    [2008-08-14 Thu]
-** TODO [#B] There is a need for some extensive examples with commentary		   :Docs:
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 19
-   :ID: C7C7EC3C-D05E-4C8A-BDCC-ED04ADD28CC5
-   :END:
-   [2007-12-10 Mon]
 ** TODO [#B] Using Ledger as a scientific analysis tool					   :Docs:
    :PROPERTIES:
    :Version: 2.6
@@ -572,24 +529,11 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 78B2F4A4-DCE5-1B40-9C21-86195584ACF1
    :END:
    [2009-03-01 Sun 01:08]
-** TODO [#B] When a negative amount ends with the Euro symbol, Eshell bugs		  :Emacs:
-   This happens when --colors is being used, and the \e[0m; falls right after
-   the Euro symbol.
-   :PROPERTIES:
-   :ID: A70F7F64-4C51-4BE4-967C-AAE8B96AB9D1
-   :END:
-   [2009-02-21 Sat 21:50]
 ** TODO [#B] Allow for quicker reporting commands in ledger.el				  :Emacs:
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 117
    :ID: 932324E2-4A3F-4319-9586-1F33DFE29527
-   :END:
-** TODO [#B] C-c C-c on a cleared entry doesn't unclear it				  :Emacs:
-   :PROPERTIES:
-   :Version: 2.6.0.90
-   :Ticket: 212
-   :ID: 863C0EE8-C193-46EE-9BAA-3A37DE73E4DB
    :END:
 ** TODO [#B] Change ledger.el to intelligently handle inserting				  :Emacs:
    :PROPERTIES:
@@ -609,7 +553,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 5F20A546-046B-4CC6-B1EF-89C5962B55BE
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Highlight transaction lines in based on their status			  :Emacs:
+** TODO [#B] Highlight transaction lines based on their status				  :Emacs:
    Here is a tweak to ledger-mode that I find useful. It makes uncleared lines
    pink and cleared lines green. C-c C-e to toggle the status.
    :SCRIPT:
@@ -718,49 +662,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: D9B4D001-21E4-4247-ADF6-56C00B2C8F3A
    :END:
    [2008-05-12 Mon]
-** TODO [#B] Regression: add support back for a "terminus" date				:Feature:
-   Here's something I would like to open up for discussion.
- 
-   Suppose I have the ledger file:
-   :DATA:
-2008/01/01 * Purchase Apple shares
-       Equities        1000 AAPL @ $2
-       Cash
-
-2008/06/30 * Sell some Apple shares
-       Equities        -500 AAPL @ $2.5
-       Cash
-
-P 2008/10/01 02:18:02 AAPL $3
-P 2009/01/31 02:18:02 AAPL $4
-P 3000/01/01 02:18:02 APPL $100
-   :END:
-   At end of 2008, I have 500 AAPL shares.
- 
-   If I type
-   :SCRIPT:
-ledger -f example01.txt --end 2008/12/31 -JV bal Equities
-   :END:
-   I get the output:
-   :OUTPUT:
-2009-03-29 2000
-   :END:
-   I would argue that the output should be
-   :OUTPUT:
-2008-12-31 1500
-   :END:
-
-   My argument is that if I specify an end date, then I want ledger to assume
-   that the current date is the end date I specify, and perform all reports and
-   calculations on that basis. After all, if you stick with the current
-   implementation, it could easily mess up any historical reporting you try to
-   do.
-   :PROPERTIES:
-   :Submitter: Mark Carter <alt.mcarter@googlemail.com>
-   :Message: [[message://62f2a66e0903290043l2e98bad4jfe20e0a313064674@mail.gmail.com][Discussion/bug about end/current dates]]
-   :ID: 647D5DB9-DBBB-47C8-80CE-F3F70E3B0253
-   :END:
-   [2009-04-01 Wed 18:55]
 ** TODO [#B] @@ -- allow negative costs							:Feature:
    I am quite keen on the @@ syntax, as I like to deal with commodities on a
    net basis. However, there is a bit of an inconsistency between @@ and @.
@@ -826,12 +727,12 @@ Error: A posting's cost may not be negative
    :ID: 7D084EBD-3D4C-4967-9A4B-7F014E625DF6
    :END:
    [2009-03-11 Wed 15:11]
-** TODO [#B] Add a "ledger verify" command						:Feature:
+** TODO [#B] The --strict option should also prevent new commodities 			:Feature:
    :PROPERTIES:
    :ID: 3254504D-FA9F-4E60-B56D-414C6EF03BFE
    :END:
    [2009-03-07 Sat 00:31]
-** TODO [#B] The CSV report should generate a "title line"				:Feature:
+** TODO [#B] The CSV report should optionally generate a "title line" 			:Feature:
    :PROPERTIES:
    :ID: 65B7E207-1BCC-4448-881C-1574623346D7
    :END:
@@ -871,21 +772,11 @@ Error: A posting's cost may not be negative
    :ID: BD78C023-BB16-446C-9347-2F1AA16C7C5C
    :END:
    [2009-02-27 Fri 15:35]
-** TODO [#B] Valexpr strings cannot have chars like \n right now			:Feature:
-   :PROPERTIES:
-   :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
-   :END:
-   [2009-02-27 Fri 13:19]
 ** TODO [#B] Add support for command aliases, to allow "canned reports"			:Feature:
    :PROPERTIES:
    :ID: ADD3FB96-D19A-47F0-9F0B-1896328D6380
    :END:
    [2009-02-04 Wed 19:57]
-** TODO [#B] Create new files for commodity_pool and annotated commodities		:Feature:
-   :PROPERTIES:
-   :ID: BAE2292F-6B8B-4703-A6B6-8217390673DC
-   :END:
-   [2009-02-07 Sat 18:20]
 ** TODO [#B] --price option in lot_sales branch						:Feature:
    message://m24q2rwrym.fsf_-_@newartisans.com
    message://m2k6bl3vr3.fsf@newartisans.com
@@ -970,13 +861,6 @@ Error: A posting's cost may not be negative
    :ID: BBD4F6F0-1250-4216-BB0E-3E86785D5E44
    :END:
    [2008-04-11 Fri]
-** TODO [#B] In ledger-mode, color directive lines firebrick red			:Feature:
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 186
-   :ID: B34222A3-DD25-4717-B60B-865DB7F1DFD6
-   :END:
-   [2008-04-16 Wed]
 ** TODO [#B] In the "pricesdb" report, output commodity conversions			:Feature:
    ... and "N" commands.
    :PROPERTIES:
@@ -991,14 +875,6 @@ Error: A posting's cost may not be negative
    :Version: 2.6
    :Ticket: 154
    :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
-   :END:
-   [2008-04-11 Fri]
-** TODO [#B] Support for exceptions to interval_t					:Feature:
-   For example, "monthly except June".
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 147
-   :ID: A8AC5063-AB2F-4031-8821-2084B7B6497C
    :END:
    [2008-04-11 Fri]
 ** TODO [#B] Create a "cleared" report for balances 					:Feature:
@@ -1773,67 +1649,6 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :ID: D7A942B0-A071-496D-B2CE-E916837D50D6
    :END:
    [2009-02-05 Thu 03:36]
-** DONE [#B] Rounding problem
-   SCHEDULED: <2009-02-24 Tue>
-   - State "DONE"       [2009-02-24 Tue 11:42]
-   I seem to have a rounding problem when I use the -B option, if I have a
-   ledger that looks like this:
-   :DATA:
-2008/01/01	* Checking balance
-	Assets:Bank:Checking 				£0.00
-	Equity:Opening Balances
-
-2008/02/02	Salary
-	Income:Employer						$-512.85
-	Assets:Bank:Checking 				$512.85 @@ £334.00
-
-2008/03/02	Salary
-	Income:Employer						$-404.82
-	Assets:Bank:Checking 				$404.82 @@ £248.07
-   :END:
-   Then issue the command "ledger -Bf test.ledger bal" I get this out:
-   :OUTPUT:
-           £582.07  Assets
-    £-582.06999876  Income
---------------------
-       £0.00000124
-   :END:
-   :PROPERTIES:
-   :Submitter: Tony Edgecombe <tonyedgecombe@gmail.com>
-   :Version: 2.6.1
-   :ID: 5FBF2ED8-EEAA-440E-AED5-67401B107E44
-   :END:
-   [2008-10-21 Tue 19:00]
-** DONE [#B] The -V flag is not working
-   SCHEDULED: <2009-02-24 Tue>
-   - State "DONE"       [2009-02-24 Tue 11:42]
-   Here's the data input
-   :DATA:
-2008/04/15 * Paid expenses back from cie.
-   Expenses:Cie-Reimbursements    2000 CAD @ 1.10 EUR
-   Assets:Checking
-
-P 2008/04/20 00:00:00 CAD 1.20 EUR
-   :END:
- 
-   When I run the following command this does not work:
-   :OUTPUT:
-Hermes:/Users/johnw $ ledger -f /tmp/test.dat -V reg
-2008/04/15 Paid expenses back.. Ex:Cie-Reimbursements   2200.00 EUR  2200.00 EUR
-                                Assets:Checking        -2200.00 EUR            0
-2008/04/07 Commodities revalued                            2000 CAD
-                                                       -2200.00 EUR     2000 CAD
-                                                                    -2200.00 EUR
-   :END:
- 
-   It should have reported in terms of Euros only.
-   :PROPERTIES:
-   :Submitter: Martin Blais <blais@furius.ca>
-   :Version: 2.6
-   :Ticket: 53
-   :ID: D943AE0F-44EA-47EE-BA85-AFC513E039EB
-   :END:
-   [2008-04-07 Mon]
 ** DONE [#B] The following, with -B or -V, does not output correctly
    SCHEDULED: <2009-02-24 Tue>
    - State "DONE"       [2009-02-24 Tue 11:43]
@@ -3146,6 +2961,12 @@ ledger -f %data% -n reg | wc -l
    :ID: FF734E1D-5A6F-4E1E-927B-6D6D60075FAC
    :END:
    [2009-03-06 Fri 17:55]
+** DONE [#B] Create a phase for packaging up and uploading ledger-3.0a.dmg		  :Build:
+   - State "DONE"       from "TODO"       [2009-06-16 Tue 17:08]
+   :PROPERTIES:
+   :ID: 206551B6-6CF2-4D48-BC5C-7469C00F395C
+   :END:
+   [2009-03-19 Thu 03:04]
 ** DONE [#B] Restore old Ledger tests, like tools/confirm.py				  :Build:
    SCHEDULED: <2009-02-24 Tue>
    - State "DONE"       [2009-02-24 Tue 22:32]
@@ -3295,6 +3116,14 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: 6B92EE7F-9F6A-452A-B242-347FB9206832
    :END:
    [2008-08-16 Sat]
+** DONE [#B] Post the Ledger manual in HTML format on newartisans.com			   :Docs:
+   - State "DONE"       from "TODO"       [2009-06-16 Tue 17:10]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 187
+   :ID: C6E7C61C-13A3-4812-AA28-CD3E247D6F8C
+   :END:
+   [2008-08-14 Thu]
 ** DONE [#B] Add license headers to every file						   :Docs:
    - State "DONE"       [2009-01-29 Thu 15:29]
    :PROPERTIES:
@@ -3326,6 +3155,21 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: 30ED70CB-0679-4651-A1C3-1247764B250D
    :END:
    [2008-03-26 Wed]
+** DONE [#B] C-c C-c on a cleared entry doesn't unclear it				  :Emacs:
+   - State "DONE"       from "TODO"       [2009-06-16 Tue 18:11]
+   :PROPERTIES:
+   :Version: 2.6.0.90
+   :Ticket: 212
+   :ID: 863C0EE8-C193-46EE-9BAA-3A37DE73E4DB
+   :END:
+** DONE [#B] In ledger-mode, color directive lines a different color			  :Emacs:
+   - State "DONE"       from "TODO"       [2009-06-16 Tue 18:13]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 186
+   :ID: B34222A3-DD25-4717-B60B-865DB7F1DFD6
+   :END:
+   [2008-04-16 Wed]
 ** DONE [#B] In the expression parser, 40% should mean 0.40				:Feature:
    SCHEDULED: <2009-05-14 Thu>
    - State "DONE"       from "TODO"       [2009-05-14 Thu 04:06]
@@ -3924,6 +3768,59 @@ getquote GSK_L
    :ID: 05025EE8-7B6E-40DA-8846-C7321BBDDB02
    :END:
    [2009-02-15 Sun 05:05]
+** DEFERRED [#B] Avoid having to rm -fr ledger-proof					  :Build:
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
+   :OUTPUT:
+acprep: INFO: === Wiping build directory /home/nafai/Products/ledger-proof/default ===
+acprep: ERROR: Caught exception
+Traceback (most recent call last):
+  File "./acprep", line 141, in run
+    exit_code = self.main(*main_args)
+  File "./acprep", line 297, in main
+    PrepareBuild.__dict__['phase_' + cmd](self, *args)
+  File "./acprep", line 1239, in phase_proof
+    self.configure_flavor('default')
+  File "./acprep", line 1176, in configure_flavor
+    shutil.rmtree(self.build_directory())
+  File "/usr/lib/python2.5/shutil.py", line 175, in rmtree
+    rmtree(fullname, ignore_errors, onerror)
+  File "/usr/lib/python2.5/shutil.py", line 180, in rmtree
+    onerror(os.remove, fullname, sys.exc_info())
+  File "/usr/lib/python2.5/shutil.py", line 178, in rmtree
+    os.remove(fullname)
+OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/default/ledger-3.0/config.sub'
+   :END:
+   :PROPERTIES:
+   :ID: 12D4AB31-964F-4206-8AA0-2CA9C509DA30
+   :END:
+   [2009-03-11 Wed 20:54]
+** DEFERRED [#B] Accept multiple phases in acprep if they can be recognized as such	  :Build:
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
+   :PROPERTIES:
+   :ID: B8B9F5ED-32F0-4BFA-8E84-6B0F6064E88A
+   :END:
+   [2009-03-10 Tue 16:29]
+** DEFERRED [#B] Complete the internal documentation, exported using Doxygen		   :Docs:
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:10]
+   :PROPERTIES:
+   :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
+   :END:
+   [2008-08-14 Thu]
+** DEFERRED [#B] Create new files for commodity_pool and annotated commodities		:Feature:
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:12]
+   :PROPERTIES:
+   :ID: BAE2292F-6B8B-4703-A6B6-8217390673DC
+   :END:
+   [2009-02-07 Sat 18:20]
+** DEFERRED [#B] Support for exceptions to interval_t					:Feature:
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:13]
+   For example, "monthly except June".
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 147
+   :ID: A8AC5063-AB2F-4031-8821-2084B7B6497C
+   :END:
+   [2008-04-11 Fri]
 ** DEFERRED [#B] Add complete calculation history in Ledger				:Feature:
    - State "DEFERRED"   [2009-02-24 Tue 04:00]
    :PROPERTIES:
@@ -4409,6 +4306,13 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 567B5118-7A77-42B9-A1CD-C5DA688AC406
    :END:
    [2007-10-29 Mon]
+** CANCELLED [#B] Devise a way to publish the Buildbot ledger builds			  :Build:
+   - State "CANCELLED"  from "TODO"       [2009-06-16 Tue 17:08]
+   Michal Wallace has offered hosting space: [[message://3226fffd-f75a-4a17-8df0-34ee4d5f227f@m36g2000hse.googlegroups.com][buildbot but no builds?]]
+   :PROPERTIES:
+   :ID: AFFBA1FA-6D2A-45B6-B56A-A57FEE8B93CA
+   :END:
+   [2008-10-25 Sat 00:50]
 ** CANCELLED [#B] Create a fully static binary for OS X					  :Build:
    - State "CANCELLED"  [2009-03-08 Sun 04:30]
    :PROPERTIES:
@@ -4860,6 +4764,69 @@ ledger -f test.ledger -s bal discover
    :Ticket: 181
    :ID: 3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
    :END:
+** TESTED [#B] Rounding problem
+   SCHEDULED: <2009-02-24 Tue>
+   - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:27]
+   - State "DONE"       [2009-02-24 Tue 11:42]
+   I seem to have a rounding problem when I use the -B option, if I have a
+   ledger that looks like this:
+   :DATA:
+2008/01/01	* Checking balance
+	Assets:Bank:Checking 				£0.00
+	Equity:Opening Balances
+
+2008/02/02	Salary
+	Income:Employer						$-512.85
+	Assets:Bank:Checking 				$512.85 @@ £334.00
+
+2008/03/02	Salary
+	Income:Employer						$-404.82
+	Assets:Bank:Checking 				$404.82 @@ £248.07
+   :END:
+   Then issue the command "ledger -Bf test.ledger bal" I get this out:
+   :OUTPUT:
+           £582.07  Assets
+    £-582.06999876  Income
+--------------------
+       £0.00000124
+   :END:
+   :PROPERTIES:
+   :Submitter: Tony Edgecombe <tonyedgecombe@gmail.com>
+   :Version: 2.6.1
+   :ID: 5FBF2ED8-EEAA-440E-AED5-67401B107E44
+   :END:
+   [2008-10-21 Tue 19:00]
+** TESTED [#B] The -V flag is not working
+   SCHEDULED: <2009-02-24 Tue>
+   - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:28]
+   - State "DONE"       [2009-02-24 Tue 11:42]
+   Here's the data input
+   :DATA:
+2008/04/15 * Paid expenses back from cie.
+   Expenses:Cie-Reimbursements    2000 CAD @ 1.10 EUR
+   Assets:Checking
+
+P 2008/04/20 00:00:00 CAD 1.20 EUR
+   :END:
+ 
+   When I run the following command this does not work:
+   :OUTPUT:
+Hermes:/Users/johnw $ ledger -f /tmp/test.dat -V reg
+2008/04/15 Paid expenses back.. Ex:Cie-Reimbursements   2200.00 EUR  2200.00 EUR
+                                Assets:Checking        -2200.00 EUR            0
+2008/04/07 Commodities revalued                            2000 CAD
+                                                       -2200.00 EUR     2000 CAD
+                                                                    -2200.00 EUR
+   :END:
+ 
+   It should have reported in terms of Euros only.
+   :PROPERTIES:
+   :Submitter: Martin Blais <blais@furius.ca>
+   :Version: 2.6
+   :Ticket: 53
+   :ID: D943AE0F-44EA-47EE-BA85-AFC513E039EB
+   :END:
+   [2008-04-07 Mon]
 ** TESTED [#B] The entry command is broken
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:17]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:15]
@@ -5147,6 +5114,39 @@ $ ledger -f <DATA> register
    :ID: 3AB70168-D4B6-48CE-8C61-8C775E5B0E1B
    :END:
    [2008-10-08 Wed 15:43]
+** TESTED [#B] Ledger is still getting confused by trailing whitespace			 :ATTACH:
+   - State "TESTED"     from "DONE"       [2009-06-16 Tue 17:04]
+   - State "DONE"       from "TODO"       [2009-06-16 Tue 17:03]
+   I just noticed that ledger ist confused by whitespace at the end of
+   lines. Attached is a simple testcase where ledger reports:
+   :OUTPUT:
+% ledger -f test.ldg bal
+            -17,94€  Aktiva:Bank
+            -17,94€    Girokonto
+           -800,00€    Girokonto
+            800,00€    Sparkonto
+             17,94€  Aufwand:Einkauf:Lebensmittel
+--------------------
+                  0
+   :END:
+   instead of:
+   :OUTPUT:
+% ledger -f test.ldg bal
+            -17,94€  Aktiva:Bank
+           -817,94€    Girokonto
+            800,00€    Sparkonto
+             17,94€  Aufwand:Einkauf:Lebensmittel
+--------------------
+                  0
+   :END:
+   This is caused by an extra space at the end of line 12.
+   :PROPERTIES:
+   :Submitter: Johann Klähn <kljohann@gmail.com>
+   :Message: [[message://b0bc07100903260936n26b7c404nc1a9aaa2c9aa2da0@mail.gmail.com][Ledger bug: whitespace at eol]]
+   :ID: C523E23F-CFAC-4A53-B0C6-21226640E763
+   :Attachments: test.ldg
+   :END:
+   [2009-04-01 Wed 18:50]
 
 * 2.6.2
 ** DONE [#A] Command-line options don't always override init-file options
