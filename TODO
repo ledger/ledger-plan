@@ -7,6 +7,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * 3.0
+** TODO [#B] The period -p "june 2008" ranges from 6/2008-1/2009
+   SCHEDULED: <2009-06-17 Wed>
+   :PROPERTIES:
+   :ID: BBFA1759-3E90-402B-93A7-FC4E7E342B08
+   :END:
+   [2009-06-17 Wed 17:07]
+** TODO [#B] Added a --no-color option for Ledger
+   SCHEDULED: <2009-06-17 Wed>
+   :PROPERTIES:
+   :ID: E924C732-C3F9-40C7-8E69-8F20566EB920
+   :END:
+   [2009-06-17 Wed 16:45]
 ** TODO [#B] Left justifying an amount with %-12{amount} does nothing
    :PROPERTIES:
    :ID: F559EC12-7645-465D-8B2D-D3BC61030493
@@ -126,7 +138,9 @@ C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
    :ID: 4F3C7E27-FB4B-4058-A08C-5B2E28AC720E
    :END:
    [2009-03-05 Thu 04:17]
-** TODO [#B] Regression: add support back for a "terminus" date
+** TESTED [#B] Regression: add support back for a "terminus" date
+   - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:46]
+   - State "DONE"       from "TODO"       [2009-06-16 Tue 18:46]
    Here's something I would like to open up for discussion.
  
    Suppose I have the ledger file:
@@ -1165,23 +1179,6 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: C6C58983-0EB1-49EC-AB04-AB00DE67D61D
    :END:
    [2009-02-06 Fri 15:23]
-** TODO [#B] Make a note of the published Ledger manual on the webpage			:Website:
-   one big page: http://joyful.com/repos/ledger/doc/ledger.html
-   many pages: http://joyful.com/repos/ledger/doc/ledger/
-   pdf: http://joyful.com/repos/ledger/doc/ledger.pdf
-   :PROPERTIES:
-   :Submitter: Simon Michael <simon@joyful.com>
-   :Version: 2.6.1
-   :ID: B5748AF6-A3D8-4F49-B0B0-7C8E463883AB
-   :END:
-   [2008-10-25 Sat 23:59]
-** TODO [#B] Mention Martin's beancount project from the Ledger home page		:Website:
-   "Beancount on PyPi" from Martin Blais <blais@furius.ca>
-   :PROPERTIES:
-   :Submitter: Martin Blais <blais@furius.ca>
-   :ID: 81540394-3662-4CBA-8747-3F6CEAEE61D5
-   :END:
-   [2008-08-14 Thu]
 ** DONE [#A] Changes to make to the way things are calculated [8/10]
    SCHEDULED: <2009-03-04 Wed>
    - State "DONE"       [2009-03-05 Thu 05:03]
@@ -3748,6 +3745,25 @@ getquote GSK_L
    :ID: 5C4EA977-7231-42E4-BAB5-77F9963D846F
    :END:
    [2008-05-29 Thu]
+** DONE [#B] Make a note of the published Ledger manual on the webpage			:Website:
+   - State "DONE"       from "TODO"       [2009-06-16 Tue 18:30]
+   one big page: http://joyful.com/repos/ledger/doc/ledger.html
+   many pages: http://joyful.com/repos/ledger/doc/ledger/
+   pdf: http://joyful.com/repos/ledger/doc/ledger.pdf
+   :PROPERTIES:
+   :Submitter: Simon Michael <simon@joyful.com>
+   :Version: 2.6.1
+   :ID: B5748AF6-A3D8-4F49-B0B0-7C8E463883AB
+   :END:
+   [2008-10-25 Sat 23:59]
+** DONE [#B] Mention Martin's beancount project from the Ledger home page		:Website:
+   - State "DONE"       from "TODO"       [2009-06-16 Tue 18:30]
+   "Beancount on PyPi" from Martin Blais <blais@furius.ca>
+   :PROPERTIES:
+   :Submitter: Martin Blais <blais@furius.ca>
+   :ID: 81540394-3662-4CBA-8747-3F6CEAEE61D5
+   :END:
+   [2008-08-14 Thu]
 ** DEFERRED [#B] 'ledger -f src/value.h bal capital' crashes
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:24]
    :PROPERTIES:
