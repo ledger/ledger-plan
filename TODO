@@ -7,8 +7,143 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * 3.0
-** TODO [#B] The period -p "june 2008" ranges from 6/2008-1/2009
+** TODO [#B] Major areas of implementation remaining [99/114] 				  :Tests:
+   - [X] abbrev_len_
+   - [X] account_
+   - [X] account_width_
+   - [X] actual
+   - [X] add_budget
+   - [X] amount_
+   - [X] amount_data
+   - [X] amount_width_
+   - [X] anon
+   - [X] args_only
+   - [X] average
+   - [X] balance_format_
+   - [X] base
+   - [X] basis
+   - [X] basis, cost
+   - [X] begin_
+   - [X] budget
+   - [X] by_payee
+   - [X] cleared
+   - [X] code_as_account
+   - [X] code_as_payee
+   - [X] collapse
+   - [X] collapse_if_zero
+   - [X] color
+   - [X] columns_
+   - [X] comm_as_account, commodity_as_account
+   - [X] comm_as_payee, commodity_as_payee
+   - [X] csv_format_
+   - [X] current
+   - [X] daily
+   - [X] date_format_
+   - [X] date_width_
+   - [X] debug_
+   - [X] depth_
+   - [X] deviation
+   - [X] display_
+   - [X] display_amount_
+   - [X] display_total_
+   - [X] dow
+   - [ ] download
+   - [X] effective
+   - [X] empty
+   - [X] end_
+   - [X] equity
+   - [X] exact
+   - [X] exchange
+   - [X] file_
+   - [X] flat
+   - [X] forecast_while_, forecast_
+   - [X] format_
+   - [X] gain
+   - [X] head_, first_
+   - [X] init_file_
+   - [X] input_date_format_
+   - [X] invert
+   - [ ] price_exp_, leeway_
+   - [X] limit_
+   - [X] lot_dates
+   - [X] lot_prices
+   - [X] lot_tags
+   - [X] lots
+   - [X] lots_actual
+   - [X] market
+   - [X] monthly
+   - [ ] only_
+   - [X] output_
+   - [X] pager_
+   - [X] payee_as_account
+   - [X] payee_width_
+   - [X] pending
+   - [ ] percentage
+   - [X] period_
+   - [ ] period_sort_
+   - [X] plot_amount_format_
+   - [X] plot_total_format_
+   - [ ] price
+   - [ ] price_db_
+   - [X] prices_format_
+   - [X] pricesdb_format_
+   - [X] print_format_
+   - [X] quantity
+   - [X] quarterly
+   - [X] raw
+   - [X] real
+   - [X] register_format_
+   - [X] related
+   - [X] related_all
+   - [X] revalued
+   - [X] revalued_only
+   - [X] script_
+   - [X] seed_
+   - [X] set_account_
+   - [X] set_payee_
+   - [ ] sort_
+   - [ ] sort_all_
+   - [ ] sort_entries_
+   - [X] strict
+   - [X] start_of_week_
+   - [ ] subtotal
+   - [X] tail_, last_
+   - [ ] total_
+   - [ ] total_data
+   - [X] total_width_
+   - [X] trace_
+   - [ ] truncate_
+   - [X] unbudgeted
+   - [X] uncleared
+   - [ ] unround
+   - [X] verbose
+   - [X] verify
+   - [X] version
+   - [X] weekly
+   - [X] wide
+   - [X] yearly
+   :PROPERTIES:
+   :ID: C6C58983-0EB1-49EC-AB04-AB00DE67D61D
+   :END:
+   [2009-02-06 Fri 15:23]
+** TODO [#B] The Great Renaming still needs to take place in ledger.el
+   SCHEDULED: <2009-06-19 Fri>
+   :PROPERTIES:
+   :ID: 721AC8F7-9189-4151-8611-2BBC0D1E8267
+   :END:
+   [2009-06-19 Fri 00:49]
+** TESTED [#B] Cannot use uncommoditized amounts as a per-unit cost
+   SCHEDULED: <2009-06-18 Thu>
+   - State "TESTED"     from "DONE"       [2009-06-18 Thu 16:08]
+   - State "DONE"       from "TODO"       [2009-06-18 Thu 16:08]
+   :PROPERTIES:
+   :ID: 86D2BDC4-53A4-4039-99C9-F8C0370A89FB
+   :END:
+   [2009-06-18 Thu 16:07]
+** TESTED [#B] The period -p "june 2008" ranges from 6/2008-1/2009
    SCHEDULED: <2009-06-17 Wed>
+   - State "TESTED"     from "DONE"       [2009-06-18 Thu 01:14]
+   - State "DONE"       from "TODO"       [2009-06-18 Thu 01:13]
    :PROPERTIES:
    :ID: BBFA1759-3E90-402B-93A7-FC4E7E342B08
    :END:
@@ -1054,131 +1189,6 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
    :END:
    [2009-02-21 Sat 17:36]
-** TODO [#B] Major areas of implementation remaining 					  :Tests:
-*** Restoring all of the 2.6.1 command options [83/116]
-    - [X] abbrev_len_
-    - [X] account_
-    - [X] account_width_
-    - [X] actual
-    - [X] add_budget
-    - [X] amount_
-    - [X] amount_data
-    - [X] amount_width_
-    - [X] anon
-    - [X] args_only
-    - [X] average
-    - [X] balance_format_
-    - [X] base
-    - [X] basis
-    - [X] basis, cost
-    - [X] begin_
-    - [X] budget
-    - [X] by_payee
-    - [X] cleared
-    - [X] code_as_account
-    - [X] code_as_payee
-    - [X] collapse
-    - [X] collapse_if_zero
-    - [X] color
-    - [X] columns_
-    - [X] comm_as_account, commodity_as_account
-    - [X] comm_as_payee, commodity_as_payee
-    - [X] csv_format_
-    - [X] current
-    - [X] daily
-    - [X] date_format_
-    - [X] date_width_
-    - [X] debug_
-    - [X] depth_
-    - [X] deviation
-    - [X] display_
-    - [X] display_amount_
-    - [X] display_total_
-    - [X] dow
-    - [ ] download
-    - [X] effective
-    - [X] empty
-    - [X] end_
-    - [X] equity
-    - [X] exact
-    - [X] exchange
-    - [X] file_
-    - [X] flat
-    - [X] forecast_while_, forecast_
-    - [X] format_
-    - [X] gain
-    - [X] head_, first_
-    - [X] init_file_
-    - [ ] input_date_format_
-    - [X] invert
-    - [ ] price_exp_, leeway_
-    - [ ] limit_
-    - [X] lot_dates
-    - [X] lot_prices
-    - [ ] lot_tags
-    - [X] lots
-    - [ ] lots_actual
-    - [X] market
-    - [X] monthly
-    - [ ] only_
-    - [X] output_
-    - [X] pager_
-    - [X] payee_as_account
-    - [X] payee_width_
-    - [X] pending
-    - [ ] percentage
-    - [ ] period_
-    - [ ] period_sort_
-    - [ ] plot_amount_format_
-    - [ ] plot_total_format_
-    - [ ] price
-    - [ ] price_db_
-    - [ ] prices_format_
-    - [ ] pricesdb_format_
-    - [ ] print_format_
-    - [ ] quantity
-    - [X] quarterly
-    - [X] raw
-    - [ ] real
-    - [ ] register_format_
-    - [ ] related
-    - [ ] related_all
-    - [X] revalued
-    - [X] revalued_only
-    - [ ] revalued_total
-    - [X] script_
-    - [ ] seed_
-    - [X] set_account_
-    - [X] set_payee_
-    - [ ] set_price_
-    - [ ] sort_
-    - [ ] sort_all_
-    - [ ] sort_entries_
-    - [X] strict
-    - [X] start_of_week_
-    - [ ] subtotal
-    - [X] tail_, last_
-    - [ ] total_
-    - [ ] total_data
-    - [X] total_width_
-    - [X] trace_
-    - [ ] truncate_
-    - [X] unbudgeted
-    - [X] uncleared
-    - [ ] unround
-    - [X] verbose
-    - [X] verify
-    - [X] version
-    - [X] weekly
-    - [X] wide
-    - [X] yearly
-*** Writing the user manual
-*** Writing unit tests
-*** Improving usability of the REPL
-   :PROPERTIES:
-   :ID: C6C58983-0EB1-49EC-AB04-AB00DE67D61D
-   :END:
-   [2009-02-06 Fri 15:23]
 ** DONE [#A] Changes to make to the way things are calculated [8/10]
    SCHEDULED: <2009-03-04 Wed>
    - State "DONE"       [2009-03-05 Thu 05:03]
