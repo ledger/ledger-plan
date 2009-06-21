@@ -7,7 +7,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * 3.0
-** TODO [#B] Major areas of implementation remaining [99/114] 				  :Tests:
+** TODO [#B] Major areas of implementation remaining [109/113] 				  :Tests:
    - [X] abbrev_len_
    - [X] account_
    - [X] account_width_
@@ -72,15 +72,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    - [X] lots_actual
    - [X] market
    - [X] monthly
-   - [ ] only_
+   - [X] only_
    - [X] output_
    - [X] pager_
    - [X] payee_as_account
    - [X] payee_width_
    - [X] pending
-   - [ ] percentage
+   - [X] percent
    - [X] period_
-   - [ ] period_sort_
    - [X] plot_amount_format_
    - [X] plot_total_format_
    - [ ] price
@@ -101,21 +100,21 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    - [X] seed_
    - [X] set_account_
    - [X] set_payee_
-   - [ ] sort_
-   - [ ] sort_all_
-   - [ ] sort_entries_
+   - [X] sort_
+   - [X] sort_all_
+   - [X] sort_xacts_
    - [X] strict
    - [X] start_of_week_
-   - [ ] subtotal
+   - [X] subtotal
    - [X] tail_, last_
-   - [ ] total_
-   - [ ] total_data
+   - [X] total_
+   - [X] total_data
    - [X] total_width_
    - [X] trace_
-   - [ ] truncate_
+   - [X] truncate_
    - [X] unbudgeted
    - [X] uncleared
-   - [ ] unround
+   - [X] unround
    - [X] verbose
    - [X] verify
    - [X] version
