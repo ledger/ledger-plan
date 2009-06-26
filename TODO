@@ -7,146 +7,24 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * 3.0
-** TODO [#B] Major areas of implementation remaining [109/113] 				  :Tests:
-   - [X] abbrev_len_
-   - [X] account_
-   - [X] account_width_
-   - [X] actual
-   - [X] add_budget
-   - [X] amount_
-   - [X] amount_data
-   - [X] amount_width_
-   - [X] anon
-   - [X] args_only
-   - [X] average
-   - [X] balance_format_
-   - [X] base
-   - [X] basis
-   - [X] basis, cost
-   - [X] begin_
-   - [X] budget
-   - [X] by_payee
-   - [X] cleared
-   - [X] code_as_account
-   - [X] code_as_payee
-   - [X] collapse
-   - [X] collapse_if_zero
-   - [X] color
-   - [X] columns_
-   - [X] comm_as_account, commodity_as_account
-   - [X] comm_as_payee, commodity_as_payee
-   - [X] csv_format_
-   - [X] current
-   - [X] daily
-   - [X] date_format_
-   - [X] date_width_
-   - [X] debug_
-   - [X] depth_
-   - [X] deviation
-   - [X] display_
-   - [X] display_amount_
-   - [X] display_total_
-   - [X] dow
-   - [ ] download
-   - [X] effective
-   - [X] empty
-   - [X] end_
-   - [X] equity
-   - [X] exact
-   - [X] exchange
-   - [X] file_
-   - [X] flat
-   - [X] forecast_while_, forecast_
-   - [X] format_
-   - [X] gain
-   - [X] head_, first_
-   - [X] init_file_
-   - [X] input_date_format_
-   - [X] invert
-   - [ ] price_exp_, leeway_
-   - [X] limit_
-   - [X] lot_dates
-   - [X] lot_prices
-   - [X] lot_tags
-   - [X] lots
-   - [X] lots_actual
-   - [X] market
-   - [X] monthly
-   - [X] only_
-   - [X] output_
-   - [X] pager_
-   - [X] payee_as_account
-   - [X] payee_width_
-   - [X] pending
-   - [X] percent
-   - [X] period_
-   - [X] plot_amount_format_
-   - [X] plot_total_format_
-   - [ ] price
-   - [ ] price_db_
-   - [X] prices_format_
-   - [X] pricesdb_format_
-   - [X] print_format_
-   - [X] quantity
-   - [X] quarterly
-   - [X] raw
-   - [X] real
-   - [X] register_format_
-   - [X] related
-   - [X] related_all
-   - [X] revalued
-   - [X] revalued_only
-   - [X] script_
-   - [X] seed_
-   - [X] set_account_
-   - [X] set_payee_
-   - [X] sort_
-   - [X] sort_all_
-   - [X] sort_xacts_
-   - [X] strict
-   - [X] start_of_week_
-   - [X] subtotal
-   - [X] tail_, last_
-   - [X] total_
-   - [X] total_data
-   - [X] total_width_
-   - [X] trace_
-   - [X] truncate_
-   - [X] unbudgeted
-   - [X] uncleared
-   - [X] unround
-   - [X] verbose
-   - [X] verify
-   - [X] version
-   - [X] weekly
-   - [X] wide
-   - [X] yearly
+** TODO [#B] Allow a Python function to be used to download quotes
+   SCHEDULED: <2009-06-24 Wed>
    :PROPERTIES:
-   :ID: C6C58983-0EB1-49EC-AB04-AB00DE67D61D
+   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
    :END:
-   [2009-02-06 Fri 15:23]
+   [2009-06-24 Wed 17:27]
+** TODO [#B] With --args-only, don't read ~/.pricedb
+   SCHEDULED: <2009-06-24 Wed>
+   :PROPERTIES:
+   :ID: 5B07AD77-4920-4654-88F4-56CA55566BB4
+   :END:
+   [2009-06-24 Wed 14:18]
 ** TODO [#B] The Great Renaming still needs to take place in ledger.el
    SCHEDULED: <2009-06-19 Fri>
    :PROPERTIES:
    :ID: 721AC8F7-9189-4151-8611-2BBC0D1E8267
    :END:
    [2009-06-19 Fri 00:49]
-** TESTED [#B] Cannot use uncommoditized amounts as a per-unit cost
-   SCHEDULED: <2009-06-18 Thu>
-   - State "TESTED"     from "DONE"       [2009-06-18 Thu 16:08]
-   - State "DONE"       from "TODO"       [2009-06-18 Thu 16:08]
-   :PROPERTIES:
-   :ID: 86D2BDC4-53A4-4039-99C9-F8C0370A89FB
-   :END:
-   [2009-06-18 Thu 16:07]
-** TESTED [#B] The period -p "june 2008" ranges from 6/2008-1/2009
-   SCHEDULED: <2009-06-17 Wed>
-   - State "TESTED"     from "DONE"       [2009-06-18 Thu 01:14]
-   - State "DONE"       from "TODO"       [2009-06-18 Thu 01:13]
-   :PROPERTIES:
-   :ID: BBFA1759-3E90-402B-93A7-FC4E7E342B08
-   :END:
-   [2009-06-17 Wed 17:07]
 ** TODO [#B] Added a --no-color option for Ledger
    SCHEDULED: <2009-06-17 Wed>
    :PROPERTIES:
@@ -272,51 +150,6 @@ C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
    :ID: 4F3C7E27-FB4B-4058-A08C-5B2E28AC720E
    :END:
    [2009-03-05 Thu 04:17]
-** TESTED [#B] Regression: add support back for a "terminus" date
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:46]
-   - State "DONE"       from "TODO"       [2009-06-16 Tue 18:46]
-   Here's something I would like to open up for discussion.
- 
-   Suppose I have the ledger file:
-   :DATA:
-2008/01/01 * Purchase Apple shares
-       Equities        1000 AAPL @ $2
-       Cash
-
-2008/06/30 * Sell some Apple shares
-       Equities        -500 AAPL @ $2.5
-       Cash
-
-P 2008/10/01 02:18:02 AAPL $3
-P 2009/01/31 02:18:02 AAPL $4
-P 3000/01/01 02:18:02 APPL $100
-   :END:
-   At end of 2008, I have 500 AAPL shares.
- 
-   If I type
-   :SCRIPT:
-ledger -f example01.txt --end 2008/12/31 -JV bal Equities
-   :END:
-   I get the output:
-   :OUTPUT:
-2009-03-29 2000
-   :END:
-   I would argue that the output should be
-   :OUTPUT:
-2008-12-31 1500
-   :END:
-
-   My argument is that if I specify an end date, then I want ledger to assume
-   that the current date is the end date I specify, and perform all reports and
-   calculations on that basis. After all, if you stick with the current
-   implementation, it could easily mess up any historical reporting you try to
-   do.
-   :PROPERTIES:
-   :Submitter: Mark Carter <alt.mcarter@googlemail.com>
-   :Message: [[message://62f2a66e0903290043l2e98bad4jfe20e0a313064674@mail.gmail.com][Discussion/bug about end/current dates]]
-   :ID: 647D5DB9-DBBB-47C8-80CE-F3F70E3B0253
-   :END:
-   [2009-04-01 Wed 18:55]
 ** TODO [#B] Valexpr strings cannot have chars like \n
    :PROPERTIES:
    :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
@@ -4789,6 +4622,67 @@ ledger -f test.ledger -s bal discover
    :Ticket: 181
    :ID: 3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
    :END:
+** TESTED [#B] Cannot use uncommoditized amounts as a per-unit cost
+   SCHEDULED: <2009-06-18 Thu>
+   - State "TESTED"     from "DONE"       [2009-06-18 Thu 16:08]
+   - State "DONE"       from "TODO"       [2009-06-18 Thu 16:08]
+   :PROPERTIES:
+   :ID: 86D2BDC4-53A4-4039-99C9-F8C0370A89FB
+   :END:
+   [2009-06-18 Thu 16:07]
+** TESTED [#B] The period -p "june 2008" ranges from 6/2008-1/2009
+   SCHEDULED: <2009-06-17 Wed>
+   - State "TESTED"     from "DONE"       [2009-06-18 Thu 01:14]
+   - State "DONE"       from "TODO"       [2009-06-18 Thu 01:13]
+   :PROPERTIES:
+   :ID: BBFA1759-3E90-402B-93A7-FC4E7E342B08
+   :END:
+   [2009-06-17 Wed 17:07]
+** TESTED [#B] Regression: add support back for a "terminus" date
+   - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:46]
+   - State "DONE"       from "TODO"       [2009-06-16 Tue 18:46]
+   Here's something I would like to open up for discussion.
+ 
+   Suppose I have the ledger file:
+   :DATA:
+2008/01/01 * Purchase Apple shares
+       Equities        1000 AAPL @ $2
+       Cash
+
+2008/06/30 * Sell some Apple shares
+       Equities        -500 AAPL @ $2.5
+       Cash
+
+P 2008/10/01 02:18:02 AAPL $3
+P 2009/01/31 02:18:02 AAPL $4
+P 3000/01/01 02:18:02 APPL $100
+   :END:
+   At end of 2008, I have 500 AAPL shares.
+ 
+   If I type
+   :SCRIPT:
+ledger -f example01.txt --end 2008/12/31 -JV bal Equities
+   :END:
+   I get the output:
+   :OUTPUT:
+2009-03-29 2000
+   :END:
+   I would argue that the output should be
+   :OUTPUT:
+2008-12-31 1500
+   :END:
+
+   My argument is that if I specify an end date, then I want ledger to assume
+   that the current date is the end date I specify, and perform all reports and
+   calculations on that basis. After all, if you stick with the current
+   implementation, it could easily mess up any historical reporting you try to
+   do.
+   :PROPERTIES:
+   :Submitter: Mark Carter <alt.mcarter@googlemail.com>
+   :Message: [[message://62f2a66e0903290043l2e98bad4jfe20e0a313064674@mail.gmail.com][Discussion/bug about end/current dates]]
+   :ID: 647D5DB9-DBBB-47C8-80CE-F3F70E3B0253
+   :END:
+   [2009-04-01 Wed 18:55]
 ** TESTED [#B] Rounding problem
    SCHEDULED: <2009-02-24 Tue>
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:27]
@@ -5172,6 +5066,127 @@ $ ledger -f <DATA> register
    :Attachments: test.ldg
    :END:
    [2009-04-01 Wed 18:50]
+** TESTED [#B] Major areas of implementation remaining [113/113]			  :Tests:
+   - State "TESTED"     from "DONE"       [2009-06-26 Fri 17:49] \\
+     These are all being tested (except for those marked).
+   - State "DONE"       from "TODO"       [2009-06-26 Fri 17:49]
+   - [X] abbrev_len_
+   - [X] account_
+   - [X] account_width_
+   - [X] actual
+   - [X] add_budget
+   - [X] amount_
+   - [X] amount_data
+   - [X] amount_width_
+   - [X] anon
+   - [X] args_only
+   - [X] average
+   - [X] balance_format_
+   - [X] base
+   - [X] basis
+   - [X] basis, cost
+   - [X] begin_
+   - [X] budget
+   - [X] by_payee
+   - [X] cleared
+   - [X] code_as_account
+   - [X] code_as_payee
+   - [X] collapse
+   - [X] collapse_if_zero
+   - [X] color
+   - [X] columns_
+   - [X] comm_as_account, commodity_as_account
+   - [X] comm_as_payee, commodity_as_payee
+   - [X] csv_format_
+   - [X] current
+   - [X] daily
+   - [X] date_format_
+   - [X] date_width_
+   - [X] debug_
+   - [X] depth_
+   - [X] deviation
+   - [X] display_
+   - [X] display_amount_
+   - [X] display_total_
+   - [X] dow
+   - [X] download [NOT TO BE TESTED]
+   - [X] effective
+   - [X] empty
+   - [X] end_
+   - [X] equity
+   - [X] exact
+   - [X] exchange
+   - [X] file_
+   - [X] flat
+   - [X] forecast_while_, forecast_ [TIME DEPENDENT]
+   - [X] format_
+   - [X] gain
+   - [X] head_, first_
+   - [X] init_file_
+   - [X] input_date_format_
+   - [X] invert
+   - [X] price_exp_, leeway_ [NOT TO BE TESTED]
+   - [X] limit_
+   - [X] lot_dates
+   - [X] lot_prices
+   - [X] lot_tags
+   - [X] lots
+   - [X] lots_actual
+   - [X] market
+   - [X] monthly
+   - [X] only_
+   - [X] output_
+   - [X] pager_
+   - [X] payee_as_account
+   - [X] payee_width_
+   - [X] pending
+   - [X] percent
+   - [X] period_
+   - [X] plot_amount_format_
+   - [X] plot_total_format_
+   - [X] price
+   - [X] price_db_ [NOT TO BE TESTED]
+   - [X] prices_format_
+   - [X] pricesdb_format_
+   - [X] print_format_
+   - [X] quantity
+   - [X] quarterly
+   - [X] raw
+   - [X] real
+   - [X] register_format_
+   - [X] related
+   - [X] related_all
+   - [X] revalued
+   - [X] revalued_only
+   - [X] script_
+   - [X] seed_
+   - [X] set_account_
+   - [X] set_payee_
+   - [X] sort_
+   - [X] sort_all_
+   - [X] sort_xacts_
+   - [X] strict
+   - [X] start_of_week_
+   - [X] subtotal
+   - [X] tail_, last_
+   - [X] total_
+   - [X] total_data
+   - [X] total_width_
+   - [X] trace_
+   - [X] truncate_
+   - [X] unbudgeted
+   - [X] uncleared
+   - [X] unround
+   - [X] verbose
+   - [X] verify
+   - [X] version
+   - [X] weekly
+   - [X] wide
+   - [X] yearly
+   :PROPERTIES:
+   :ID: C6C58983-0EB1-49EC-AB04-AB00DE67D61D
+   :END:
+   [2009-02-06 Fri 15:23]
 
 * 2.6.2
 ** DONE [#A] Command-line options don't always override init-file options
