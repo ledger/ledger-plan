@@ -7,30 +7,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * 3.0
-** TODO [#B] Allow a Python function to be used to download quotes
-   SCHEDULED: <2009-06-24 Wed>
+** TODO [#B] If a quote comes back in the wrong commodity, ignore it
+   SCHEDULED: <2009-06-26 Fri>
    :PROPERTIES:
-   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
+   :ID: CD45A03D-0A90-4C60-BA81-81BAEC554544
    :END:
-   [2009-06-24 Wed 17:27]
+   [2009-06-26 Fri 17:50]
 ** TODO [#B] With --args-only, don't read ~/.pricedb
    SCHEDULED: <2009-06-24 Wed>
    :PROPERTIES:
    :ID: 5B07AD77-4920-4654-88F4-56CA55566BB4
    :END:
    [2009-06-24 Wed 14:18]
-** TODO [#B] The Great Renaming still needs to take place in ledger.el
-   SCHEDULED: <2009-06-19 Fri>
-   :PROPERTIES:
-   :ID: 721AC8F7-9189-4151-8611-2BBC0D1E8267
-   :END:
-   [2009-06-19 Fri 00:49]
-** TODO [#B] Added a --no-color option for Ledger
-   SCHEDULED: <2009-06-17 Wed>
-   :PROPERTIES:
-   :ID: E924C732-C3F9-40C7-8E69-8F20566EB920
-   :END:
-   [2009-06-17 Wed 16:45]
 ** TODO [#B] Left justifying an amount with %-12{amount} does nothing
    :PROPERTIES:
    :ID: F559EC12-7645-465D-8B2D-D3BC61030493
@@ -643,6 +631,12 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: D9B4D001-21E4-4247-ADF6-56C00B2C8F3A
    :END:
    [2008-05-12 Mon]
+** TODO [#B] The Great Renaming still needs to take place in ledger.el			  :Emacs:
+   SCHEDULED: <2009-06-19 Fri>
+   :PROPERTIES:
+   :ID: 721AC8F7-9189-4151-8611-2BBC0D1E8267
+   :END:
+   [2009-06-19 Fri 00:49]
 ** TODO [#B] @@ -- allow negative costs							:Feature:
    I am quite keen on the @@ syntax, as I like to deal with commodities on a
    net basis. However, there is a bit of an inconsistency between @@ and @.
@@ -974,6 +968,12 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 444EFEE1-D873-4FD3-BB07-4E605BCB2BF4
    :END:
    [2008-10-08 Wed 00:58]
+** TODO [#B] Allow a Python function to be used to download quotes			 :Python:
+   SCHEDULED: <2009-06-24 Wed>
+   :PROPERTIES:
+   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
+   :END:
+   [2009-06-24 Wed 17:27]
 ** TODO [#B] Ledger is still failing the higher-numbered generation seed tests		  :Tests:
    :PROPERTIES:
    :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
@@ -1083,13 +1083,6 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: E9F130C5-33AA-4841-B238-1148506B3DDF
    :END:
    [2009-03-15 Sun 22:32]
-** DONE [#B] Write the balance reporting algorithm for sm
-   SCHEDULED: <2009-03-11 Wed>
-   - State "DONE"       [2009-03-11 Wed 15:53]
-   :PROPERTIES:
-   :ID: 96737B51-1E78-473D-BE6A-B94094C20EB6
-   :END:
-   [2009-03-11 Wed 15:34]
 ** DONE [#B] Break up interval_t and move range_t into value_t
    - State "DONE"       [2009-03-16 Mon 04:56]
    - State "STARTED"    [2009-03-10 Tue 23:14]
@@ -1097,109 +1090,6 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: FFD34FF1-66E2-4209-93A7-A6C09073B02A
    :END:
    [2009-03-10 Tue 19:40]
-** DONE [#B] g++-4.3 core dumps when trying to use system.hh.gch
-   - State "DONE"       [2009-03-16 Mon 04:56] \\
-     The problem was that my pre-compiled header file was not the very first
-     #include in every .cc file.
-   :PROPERTIES:
-   :ID: 3165A1E3-F216-4BA2-A09E-9C442D900802
-   :END:
-   [2009-03-09 Mon 20:16]
-** DONE [#B] Add a BOOST_PREFIX envvar, and much more debugging info
-   SCHEDULED: <2009-03-09 Mon>
-   - State "DONE"       [2009-03-09 Mon 22:02]
-   :PROPERTIES:
-   :ID: A3B72BA7-5D50-4370-822B-FA63DF01B6F5
-   :END:
-   [2009-03-09 Mon 17:56]
-** DONE [#B] Move system.hh.gch into the build directory
-   SCHEDULED: <2009-03-09 Mon>
-   - State "DONE"       [2009-03-09 Mon 17:22]
-   :PROPERTIES:
-   :ID: 81C1D1E9-3F33-4EFF-B8BD-4B4BF3520289
-   :END:
-   [2009-03-09 Mon 13:56]
-** DONE [#B] Add a "dependencies" phase, which installs all of Ledger's deps
-   SCHEDULED: <2009-03-09 Mon>
-   - State "DONE"       [2009-03-09 Mon 17:22]
-   :PROPERTIES:
-   :ID: 62A2C553-30DA-48D5-9654-A6956A216D09
-   :END:
-   [2009-03-09 Mon 13:57]
-** DONE [#B] UtilTests is currently getting a bus error, with the new acprep
-   SCHEDULED: <2009-03-09 Mon>
-   - State "DONE"       [2009-03-09 Mon 22:02]
-   :PROPERTIES:
-   :ID: C89561FB-C59F-43EE-AD70-AFC01EF93F2A
-   :END:
-   [2009-03-09 Mon 05:26]
-** DONE [#B] Can't build tests with -j3
-   SCHEDULED: <2009-03-08 Sun>
-   - State "DONE"       [2009-03-08 Sun 18:46]
-   :OUTPUT:
-g++ -DHAVE_CONFIG_H -I. -I..  -I../test -I../src -I../lib -I../lib/utfcpp/source -isystem /usr/local/stow/cppunit/include  -isystem /usr/local/include -isystem /usr/local/include/boost-1_38 -isystem /usr/include/python2.5 -isystem /opt/local/include  -pipe -c -o ReportTests-ReportTests.o `test -f 'test/ReportTests.cc' || echo '../'`test/ReportTests.cc
-/opt/local/bin/python ../test/convert.py ../test/unit/t_utils.cc test/python/t_utils.py
-/opt/local/bin/python ../test/convert.py ../test/unit/t_times.cc test/python/t_times.py
-Traceback (most recent call last):
-  File "../test/convert.py", line 45, in <module>
-    os.makedirs(dirname)
-  File "/System/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/os.py", line 172, in makedirs
-    mkdir(name, mode)
-OSError: [Errno 17] File exists: '/private/tmp/ledger/ledger-3.0/_build/test/python'
-make[5]: *** [test/python/t_utils.py] Error 1
-make[5]: *** Waiting for unfinished jobs....
-make[4]: *** [check-am] Error 2
-make[3]: *** [check-recursive] Error 1
-make[2]: *** [check] Error 2
-make[1]: *** [distcheck] Error 2
-make: *** [release-distcheck] Error 2
-%%% FAILED to build release-distcheck %%%
-   :END:
-   :PROPERTIES:
-   :ID: 7E6E57B8-A011-4F47-904C-71AD5D03EADF
-   :END:
-   [2009-03-08 Sun 18:43]
-** DONE [#B] Gather together the Ledger products directories
-   SCHEDULED: <2009-03-08 Sun>
-   - State "DONE"       [2009-03-09 Mon 05:52]
-   For example, collect them all under ~/Products/ledger/<branch>/<type>
-   :PROPERTIES:
-   :ID: E82A95D4-D423-4739-A024-EF01A32409DA
-   :END:
-   [2009-03-08 Sun 18:40]
-** DONE [#B] Stop using Doxygen to generate code documentation
-   SCHEDULED: <2009-03-06 Fri>
-   - State "DONE"       [2009-03-06 Fri 17:52]
-   :PROPERTIES:
-   :ID: A7A589D0-2799-40ED-9729-BDB6892EB279
-   :END:
-   [2009-03-06 Fri 04:21]
-** DONE [#B] The regression tests are failing with the latest changes
-   SCHEDULED: <2009-03-05 Thu>
-   - State "DONE"       [2009-03-06 Fri 02:37]
-   :PROPERTIES:
-   :ID: E01A104A-2D45-4C0A-AF3C-93AF12324C53
-   :END:
-   [2009-03-05 Thu 05:12]
-** DONE [#B] Ensure only the minimum amount of compilation is being done
-   SCHEDULED: <2009-03-04 Wed>
-   - State "DONE"       [2009-03-05 Thu 00:07]
-   :PROPERTIES:
-   :ID: 8E14BB51-28FF-484E-BEC1-F132A5C0F657
-   :END:
-   [2009-03-04 Wed 20:44]
-** DONE [#B] Ledger performance breakdown
-   - State "DONE"       [2009-03-06 Fri 04:11]
-   50% parsing
-      7% balancing transactions
-      7% parsing posting amounts
-     36% applying automated transactions
-   50% reporting
-     38% calculating (due to balance copying in +=)
-   :PROPERTIES:
-   :ID: FD55C52B-46D3-4EAE-ABE5-571B7426B842
-   :END:
-   [2009-03-04 Wed 04:43]
 ** DONE [#B] Fold gather_statistics into calc_posts
    SCHEDULED: <2009-03-03 Tue>
    - State "DONE"       [2009-03-04 Wed 04:41]
@@ -1263,13 +1153,6 @@ make: *** [release-distcheck] Error 2
    :ID: EAF588B2-BDD6-4B3E-A8BB-4D5047476140
    :END:
    [2009-02-28 Sat 05:39]
-** DONE [#B] Fix the warnings that g++ 4.3.3 finds
-   SCHEDULED: <2009-02-27 Fri>
-   - State "DONE"       [2009-02-28 Sat 05:02]
-   :PROPERTIES:
-   :ID: 56EACF79-5A4F-4880-878B-605731F7F0FC
-   :END:
-   [2009-02-27 Fri 21:33]
 ** DONE [#B] "ledger parse 'foo(1, 2, 3)'" now crashes
    SCHEDULED: <2009-02-27 Fri>
    - State "DONE"       [2009-02-28 Sat 06:10]
@@ -1291,13 +1174,6 @@ make: *** [release-distcheck] Error 2
    :ID: E02F85C9-B369-42AB-8463-0C9ACF601DA3
    :END:
    [2009-02-27 Fri 04:30]
-** DONE [#B] Enable lot spec generation in generate.cc
-   SCHEDULED: <2009-02-27 Fri>
-   - State "DONE"       [2009-02-27 Fri 16:22]
-   :PROPERTIES:
-   :ID: C23B7780-378A-412D-AEB1-235B9788F78D
-   :END:
-   [2009-02-27 Fri 04:22]
 ** DONE [#B] Recursive printing causes costs to extend precision each time
    SCHEDULED: <2009-02-27 Fri>
    - State "DONE"       [2009-02-27 Fri 16:22]
@@ -1312,89 +1188,6 @@ make: *** [release-distcheck] Error 2
    :ID: C0709A2B-2D63-405A-B7EC-B5FD97E62A72
    :END:
    [2009-02-26 Thu 23:16]
-** DONE [#B] Why does the make process keep regenerating files
-   SCHEDULED: <2009-02-26 Thu>
-   - State "DONE"       [2009-02-27 Fri 04:11]
-   :OUTPUT:
-$ git --no-pager commit -F - --all --amend
-make  check-recursive
-Making check in po
-make ledger.pot-update
-if LC_ALL=C grep 'GNU ledger' ../* 2>/dev/null | grep -v 'libtool:' >/dev/null; then \
-	  package_gnu='GNU '; \
-	else \
-	  package_gnu=''; \
-	fi; \
-	if test -n '' || test 'johnw@newartisans.com' = '@'PACKAGE_BUGREPORT'@'; then \
-	  msgid_bugs_address=''; \
-	else \
-	  msgid_bugs_address='johnw@newartisans.com'; \
-	fi; \
-	case `/opt/local/bin/xgettext --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
-	  '' | 0.[0-9] | 0.[0-9].* | 0.1[0-5] | 0.1[0-5].* | 0.16 | 0.16.[0-1]*) \
-	    /opt/local/bin/xgettext --default-domain=ledger --directory=.. \
-	      --add-comments=TRANSLATORS: --keyword=_ --keyword=N_  \
-	      --files-from=./POTFILES.in \
-	      --copyright-holder='Free Software Foundation, Inc.' \
-	      --msgid-bugs-address="$msgid_bugs_address" \
-	    ;; \
-	  *) \
-	    /opt/local/bin/xgettext --default-domain=ledger --directory=.. \
-	      --add-comments=TRANSLATORS: --keyword=_ --keyword=N_  \
-	      --files-from=./POTFILES.in \
-	      --copyright-holder='Free Software Foundation, Inc.' \
-	      --package-name="${package_gnu}ledger" \
-	      --package-version='unknown' \
-	      --msgid-bugs-address="$msgid_bugs_address" \
-	    ;; \
-	esac
-test ! -f ledger.po || { \
-	  if test -f ./ledger.pot; then \
-	    sed -f remove-potcdate.sed < ./ledger.pot > ledger.1po && \
-	    sed -f remove-potcdate.sed < ledger.po > ledger.2po && \
-	    if cmp ledger.1po ledger.2po >/dev/null 2>&1; then \
-	      rm -f ledger.1po ledger.2po ledger.po; \
-	    else \
-	      rm -f ledger.1po ledger.2po ./ledger.pot && \
-	      mv ledger.po ./ledger.pot; \
-	    fi; \
-	  else \
-	    mv ledger.po ./ledger.pot; \
-	  fi; \
-	}
-test ! -f ./ledger.pot || \
-	  test -z "" || make 
-Making check in intl
-make[2]: Nothing to be done for `check'.
-make  RegressTests BaselineTests ConfirmTests UtilTests MathTests ExprTests DataTests ReportTests PyUnitTests
-echo "/usr/bin/python ./test/RegressTests.py ./ledger ./test/regress" > RegressTests
-chmod 755 RegressTests
-echo "/usr/bin/python ./test/RegressTests.py ./ledger ./test/baseline" > BaselineTests
-chmod 755 BaselineTests
-echo "/usr/bin/python ./test/ConfirmTests.py ./ledger ./test/input" > ConfirmTests
-chmod 755 ConfirmTests
-    LD UtilTests
-    LD MathTests
-    LD ExprTests
-    LD DataTests
-    LD ReportTests
-/usr/bin/python ./test/convert.py test/unit/t_utils.cc test/python/t_utils.py
-/usr/bin/python ./test/convert.py test/unit/t_times.cc test/python/t_times.py
-/usr/bin/python ./test/convert.py test/unit/t_commodity.cc test/python/t_commodity.py
-/usr/bin/python ./test/convert.py test/unit/t_amount.cc test/python/t_amount.py
-/usr/bin/python ./test/convert.py test/unit/t_balance.cc test/python/t_balance.py
-/usr/bin/python ./test/convert.py test/unit/t_expr.cc test/python/t_expr.py
-chmod 755 PyUnitTests
-make  check-TESTS
-. . . . . . .
-OK (7) 
-PASS: RegressTests
-. . . . . . .
-   :END:
-   :PROPERTIES:
-   :ID: 8CF2975B-3082-482B-9185-F265B756378D
-   :END:
-   [2009-02-26 Thu 05:53]
 ** DONE [#B] Improve changed_value_xacts so it reports rounding discrepancies
    SCHEDULED: <2009-02-25 Wed>
    - State "DONE"       [2009-02-26 Thu 03:18]
@@ -1584,27 +1377,6 @@ D $1,000.00
    :ID: B42F7688-FC26-4A0A-9C36-AB9D30FBD864
    :END:
    [2009-02-21 Sat 16:14]
-** DONE [#B] myacprep and tools/build shoud accept --opt, --prof, --gcov
-   SCHEDULED: <2009-02-21 Sat>
-   - State "DONE"       [2009-02-21 Sat 15:53]
-   :PROPERTIES:
-   :ID: 4CCF74DD-62AC-47F6-9E84-9D4C2EA6FB37
-   :END:
-   [2009-02-21 Sat 15:19]
-** DONE [#B] Change --help* so it runs "man ledger"
-   SCHEDULED: <2009-02-21 Sat>
-   - State "DONE"       [2009-02-21 Sat 16:32]
-   :PROPERTIES:
-   :ID: 69F58499-2EE7-4A76-9B1B-E9F8495D9514
-   :END:
-   [2009-02-21 Sat 15:02]
-** DONE [#B] Start a real manpage
-   SCHEDULED: <2009-02-21 Sat>
-   - State "DONE"       [2009-02-21 Sat 14:50]
-   :PROPERTIES:
-   :ID: 9ED06BD9-774E-411E-9942-F1D672EB67C8
-   :END:
-   [2009-02-21 Sat 12:49]
 ** DONE [#B] Change strip() function to more general scrub()
    SCHEDULED: <2009-02-21 Sat>
    - State "DONE"       [2009-02-21 Sat 19:17]
@@ -1872,13 +1644,6 @@ The last non-future posting was: 1 day ago
    :ID: 93DFA8A2-B54B-4BB5-809D-3857C8ECD472
    :END:
    [2009-02-10 Tue 04:34]
-** DONE [#B] Describe the new balance algorithm in pseudocode for sm
-   SCHEDULED: <2009-02-17 Tue>
-   - State "DONE"       [2009-02-17 Tue 17:43]
-   :PROPERTIES:
-   :ID: 68EA6398-E410-45A2-8EB3-7ACFEA5238CC
-   :END:
-   [2009-02-17 Tue 07:20]
 ** DONE [#B] ledger -Z causes a bad memory reference
    SCHEDULED: <2009-02-16 Mon>
    - State "DONE"       [2009-02-16 Mon 16:56]
@@ -2165,15 +1930,6 @@ The last non-future posting was: 1 day ago
    :ID: 2594BA36-AC89-4A83-BE3E-D0ED75C89658
    :END:
    [2009-02-08 Sun 18:12]
-** DONE [#B] I can simplify the Python integration even further with scopes
-   SCHEDULED: <2009-02-08 Sun>
-   - State "DONE"       [2009-02-09 Mon 00:04]
-   Rather than exposing post_t, I can just do __getattr__ lookups in the
-   current scope_t, the same way that value expressions would.
-   :PROPERTIES:
-   :ID: DF2D6FE9-8598-4747-8B35-88075C6D7EAA
-   :END:
-   [2009-02-08 Sun 15:09]
 ** DONE [#B] Command shows nothing: ledger -f doc/sample.dat -r reg @book 
    - State "DONE"       [2009-02-15 Sun 23:18]
    :PROPERTIES:
@@ -2302,36 +2058,6 @@ Display P: a
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2009-01-07 Wed 23:14]
-** DONE [#B] Check out Mark Carter's Ledger page
-   SCHEDULED: <2008-12-09 Tue>
-   - State "DONE"       [2008-12-09 Tue 20:39]
-   http://mcarter.myzen.co.uk/ledger/ledger.htm
-   :PROPERTIES:
-   :ID: D6BE0562-9DE3-42CC-ADE5-3909B8140A63
-   :ARCHIVE_TIME: 2008-12-17 Wed 14:08
-   :ARCHIVE_CATEGORY: Computer
-   :END:
-   [2008-12-09 Tue 02:39]
-** DONE [#B] Create a MacPorts Portfile for Ledger
-   SCHEDULED: <2008-09-28 Sun>
-   - State "DONE"       [2008-09-28 Sun 17:09]
-   :PROPERTIES:
-   :ID: 03B44F60-68CC-4A32-80AC-3C38E319750D
-   :ARCHIVE_TIME: 2008-10-15 Wed 17:17
-   :ARCHIVE_CATEGORY: Computer
-   :END:
-   [2008-09-28 Sun 16:45]
-** DONE [#B] Convert 10 Trac bugs to the Ledger TODO file
-   - State "DONE"       [2008-09-17 Wed 08:31]
-   - State "DONE"       [2008-09-10 Wed 22:00]
-   - State "DONE"       [2008-09-08 Mon 05:46]
-   - State "DONE"       [2008-08-29 Fri 04:27]
-   :PROPERTIES:
-   :ID: 4372A987-E157-4F44-A22F-F5A2E85A974B
-   :ARCHIVE_TIME: 2008-10-15 Wed 17:18
-   :ARCHIVE_CATEGORY: Computer
-   :END:
-   [2008-08-26 Tue]
 ** DONE [#B] Add error handling to value expression parser/evaluator
    SCHEDULED: <2009-01-22 Thu>
    - State "DONE"       [2009-01-23 Fri 01:58]
@@ -2341,24 +2067,6 @@ Display P: a
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2009-01-21 Wed 15:41]
-** DONE [#B] Ledger: Add INFO statement regarding Python starting, etc.
-   SCHEDULED: <2009-01-23 Fri>
-   - State "DONE"       [2009-01-23 Fri 15:40]
-   :PROPERTIES:
-   :ID: 2BAE44BE-2EA4-4A51-B6A0-1DE6E7DFAA27
-   :ARCHIVE_TIME: 2009-02-01 Sun 15:50
-   :ARCHIVE_CATEGORY: Computer
-   :END:
-   [2009-01-23 Fri 03:41]
-** DONE [#B] Have Ledger fire up the Python interpreter only "as needed"
-   SCHEDULED: <2009-01-23 Fri>
-   - State "DONE"       [2009-01-24 Sat 05:24]
-   :PROPERTIES:
-   :ID: A98BDA0B-8B08-433F-B292-AFCAFB675DE9
-   :ARCHIVE_TIME: 2009-02-01 Sun 15:50
-   :ARCHIVE_CATEGORY: Computer
-   :END:
-   [2009-01-23 Fri 03:39]
 ** DONE [#B] Try converting Unicode only in the Ledger elision function
    SCHEDULED: <2009-01-23 Fri>
    - State "DONE"       [2009-01-24 Sat 00:14]
@@ -2388,13 +2096,6 @@ Display P: a
    :ID: 45FE9185-591D-4965-A91A-99B7F708627B
    :END:
    [2009-02-05 Thu 04:35]
-** DONE [#B] Quiet the Makefile by reducing the Python link lines
-   SCHEDULED: <2009-02-05 Thu>
-   - State "DONE"       [2009-02-05 Thu 21:55]
-   :PROPERTIES:
-   :ID: FC243C26-63F1-4969-88C0-FEC720DE0248
-   :END:
-   [2009-02-05 Thu 03:42]
 ** DONE [#B] main.cc still needs cleaning up; move global_scope to global.cc
    SCHEDULED: <2009-02-05 Thu>
    - State "DONE"       [2009-02-05 Thu 21:55]
@@ -2800,6 +2501,163 @@ ledger -f %data% -n reg | wc -l
    :ID: FF734E1D-5A6F-4E1E-927B-6D6D60075FAC
    :END:
    [2009-03-06 Fri 17:55]
+** DONE [#B] g++-4.3 core dumps when trying to use system.hh.gch			  :Build:
+   - State "DONE"       [2009-03-16 Mon 04:56] \\
+     The problem was that my pre-compiled header file was not the very first
+     #include in every .cc file.
+   :PROPERTIES:
+   :ID: 3165A1E3-F216-4BA2-A09E-9C442D900802
+   :END:
+   [2009-03-09 Mon 20:16]
+** DONE [#B] Add a BOOST_PREFIX envvar, and much more debugging info			  :Build:
+   SCHEDULED: <2009-03-09 Mon>
+   - State "DONE"       [2009-03-09 Mon 22:02]
+   :PROPERTIES:
+   :ID: A3B72BA7-5D50-4370-822B-FA63DF01B6F5
+   :END:
+   [2009-03-09 Mon 17:56]
+** DONE [#B] Move system.hh.gch into the build directory				  :Build:
+   SCHEDULED: <2009-03-09 Mon>
+   - State "DONE"       [2009-03-09 Mon 17:22]
+   :PROPERTIES:
+   :ID: 81C1D1E9-3F33-4EFF-B8BD-4B4BF3520289
+   :END:
+   [2009-03-09 Mon 13:56]
+** DONE [#B] Add a "dependencies" phase, which installs all of Ledger's deps		  :Build:
+   SCHEDULED: <2009-03-09 Mon>
+   - State "DONE"       [2009-03-09 Mon 17:22]
+   :PROPERTIES:
+   :ID: 62A2C553-30DA-48D5-9654-A6956A216D09
+   :END:
+   [2009-03-09 Mon 13:57]
+** DONE [#B] Gather together the Ledger products directories				  :Build:
+   SCHEDULED: <2009-03-08 Sun>
+   - State "DONE"       [2009-03-09 Mon 05:52]
+   For example, collect them all under ~/Products/ledger/<branch>/<type>
+   :PROPERTIES:
+   :ID: E82A95D4-D423-4739-A024-EF01A32409DA
+   :END:
+   [2009-03-08 Sun 18:40]
+** DONE [#B] Ensure only the minimum amount of compilation is being done		  :Build:
+   SCHEDULED: <2009-03-04 Wed>
+   - State "DONE"       [2009-03-05 Thu 00:07]
+   :PROPERTIES:
+   :ID: 8E14BB51-28FF-484E-BEC1-F132A5C0F657
+   :END:
+   [2009-03-04 Wed 20:44]
+** DONE [#B] Fix the warnings that g++ 4.3.3 finds					  :Build:
+   SCHEDULED: <2009-02-27 Fri>
+   - State "DONE"       [2009-02-28 Sat 05:02]
+   :PROPERTIES:
+   :ID: 56EACF79-5A4F-4880-878B-605731F7F0FC
+   :END:
+   [2009-02-27 Fri 21:33]
+** DONE [#B] Why does the make process keep regenerating files				  :Build:
+   SCHEDULED: <2009-02-26 Thu>
+   - State "DONE"       [2009-02-27 Fri 04:11]
+   :OUTPUT:
+$ git --no-pager commit -F - --all --amend
+make  check-recursive
+Making check in po
+make ledger.pot-update
+if LC_ALL=C grep 'GNU ledger' ../* 2>/dev/null | grep -v 'libtool:' >/dev/null; then \
+	  package_gnu='GNU '; \
+	else \
+	  package_gnu=''; \
+	fi; \
+	if test -n '' || test 'johnw@newartisans.com' = '@'PACKAGE_BUGREPORT'@'; then \
+	  msgid_bugs_address=''; \
+	else \
+	  msgid_bugs_address='johnw@newartisans.com'; \
+	fi; \
+	case `/opt/local/bin/xgettext --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+	  '' | 0.[0-9] | 0.[0-9].* | 0.1[0-5] | 0.1[0-5].* | 0.16 | 0.16.[0-1]*) \
+	    /opt/local/bin/xgettext --default-domain=ledger --directory=.. \
+	      --add-comments=TRANSLATORS: --keyword=_ --keyword=N_  \
+	      --files-from=./POTFILES.in \
+	      --copyright-holder='Free Software Foundation, Inc.' \
+	      --msgid-bugs-address="$msgid_bugs_address" \
+	    ;; \
+	  *) \
+	    /opt/local/bin/xgettext --default-domain=ledger --directory=.. \
+	      --add-comments=TRANSLATORS: --keyword=_ --keyword=N_  \
+	      --files-from=./POTFILES.in \
+	      --copyright-holder='Free Software Foundation, Inc.' \
+	      --package-name="${package_gnu}ledger" \
+	      --package-version='unknown' \
+	      --msgid-bugs-address="$msgid_bugs_address" \
+	    ;; \
+	esac
+test ! -f ledger.po || { \
+	  if test -f ./ledger.pot; then \
+	    sed -f remove-potcdate.sed < ./ledger.pot > ledger.1po && \
+	    sed -f remove-potcdate.sed < ledger.po > ledger.2po && \
+	    if cmp ledger.1po ledger.2po >/dev/null 2>&1; then \
+	      rm -f ledger.1po ledger.2po ledger.po; \
+	    else \
+	      rm -f ledger.1po ledger.2po ./ledger.pot && \
+	      mv ledger.po ./ledger.pot; \
+	    fi; \
+	  else \
+	    mv ledger.po ./ledger.pot; \
+	  fi; \
+	}
+test ! -f ./ledger.pot || \
+	  test -z "" || make 
+Making check in intl
+make[2]: Nothing to be done for `check'.
+make  RegressTests BaselineTests ConfirmTests UtilTests MathTests ExprTests DataTests ReportTests PyUnitTests
+echo "/usr/bin/python ./test/RegressTests.py ./ledger ./test/regress" > RegressTests
+chmod 755 RegressTests
+echo "/usr/bin/python ./test/RegressTests.py ./ledger ./test/baseline" > BaselineTests
+chmod 755 BaselineTests
+echo "/usr/bin/python ./test/ConfirmTests.py ./ledger ./test/input" > ConfirmTests
+chmod 755 ConfirmTests
+    LD UtilTests
+    LD MathTests
+    LD ExprTests
+    LD DataTests
+    LD ReportTests
+/usr/bin/python ./test/convert.py test/unit/t_utils.cc test/python/t_utils.py
+/usr/bin/python ./test/convert.py test/unit/t_times.cc test/python/t_times.py
+/usr/bin/python ./test/convert.py test/unit/t_commodity.cc test/python/t_commodity.py
+/usr/bin/python ./test/convert.py test/unit/t_amount.cc test/python/t_amount.py
+/usr/bin/python ./test/convert.py test/unit/t_balance.cc test/python/t_balance.py
+/usr/bin/python ./test/convert.py test/unit/t_expr.cc test/python/t_expr.py
+chmod 755 PyUnitTests
+make  check-TESTS
+. . . . . . .
+OK (7) 
+PASS: RegressTests
+. . . . . . .
+   :END:
+   :PROPERTIES:
+   :ID: 8CF2975B-3082-482B-9185-F265B756378D
+   :END:
+   [2009-02-26 Thu 05:53]
+** DONE [#B] myacprep and tools/build shoud accept --opt, --prof, --gcov		  :Build:
+   SCHEDULED: <2009-02-21 Sat>
+   - State "DONE"       [2009-02-21 Sat 15:53]
+   :PROPERTIES:
+   :ID: 4CCF74DD-62AC-47F6-9E84-9D4C2EA6FB37
+   :END:
+   [2009-02-21 Sat 15:19]
+** DONE [#B] Create a MacPorts Portfile for Ledger					  :Build:
+   SCHEDULED: <2008-09-28 Sun>
+   - State "DONE"       [2008-09-28 Sun 17:09]
+   :PROPERTIES:
+   :ID: 03B44F60-68CC-4A32-80AC-3C38E319750D
+   :ARCHIVE_TIME: 2008-10-15 Wed 17:17
+   :ARCHIVE_CATEGORY: Computer
+   :END:
+   [2008-09-28 Sun 16:45]
+** DONE [#B] Quiet the Makefile by reducing the Python link lines			  :Build:
+   SCHEDULED: <2009-02-05 Thu>
+   - State "DONE"       [2009-02-05 Thu 21:55]
+   :PROPERTIES:
+   :ID: FC243C26-63F1-4969-88C0-FEC720DE0248
+   :END:
+   [2009-02-05 Thu 03:42]
 ** DONE [#B] Create a phase for packaging up and uploading ledger-3.0a.dmg		  :Build:
    - State "DONE"       from "TODO"       [2009-06-16 Tue 17:08]
    :PROPERTIES:
@@ -2955,6 +2813,41 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: 6B92EE7F-9F6A-452A-B242-347FB9206832
    :END:
    [2008-08-16 Sat]
+** DONE [#B] Write the balance reporting algorithm for sm				   :Docs:
+   SCHEDULED: <2009-03-11 Wed>
+   - State "DONE"       [2009-03-11 Wed 15:53]
+   :PROPERTIES:
+   :ID: 96737B51-1E78-473D-BE6A-B94094C20EB6
+   :END:
+   [2009-03-11 Wed 15:34]
+** DONE [#B] Stop using Doxygen to generate code documentation				   :Docs:
+   SCHEDULED: <2009-03-06 Fri>
+   - State "DONE"       [2009-03-06 Fri 17:52]
+   :PROPERTIES:
+   :ID: A7A589D0-2799-40ED-9729-BDB6892EB279
+   :END:
+   [2009-03-06 Fri 04:21]
+** DONE [#B] Change --help* so it runs "man ledger"					   :Docs:
+   SCHEDULED: <2009-02-21 Sat>
+   - State "DONE"       [2009-02-21 Sat 16:32]
+   :PROPERTIES:
+   :ID: 69F58499-2EE7-4A76-9B1B-E9F8495D9514
+   :END:
+   [2009-02-21 Sat 15:02]
+** DONE [#B] Start a real manpage							   :Docs:
+   SCHEDULED: <2009-02-21 Sat>
+   - State "DONE"       [2009-02-21 Sat 14:50]
+   :PROPERTIES:
+   :ID: 9ED06BD9-774E-411E-9942-F1D672EB67C8
+   :END:
+   [2009-02-21 Sat 12:49]
+** DONE [#B] Describe the new balance algorithm in pseudocode for sm			   :Docs:
+   SCHEDULED: <2009-02-17 Tue>
+   - State "DONE"       [2009-02-17 Tue 17:43]
+   :PROPERTIES:
+   :ID: 68EA6398-E410-45A2-8EB3-7ACFEA5238CC
+   :END:
+   [2009-02-17 Tue 07:20]
 ** DONE [#B] Post the Ledger manual in HTML format on newartisans.com			   :Docs:
    - State "DONE"       from "TODO"       [2009-06-16 Tue 17:10]
    :PROPERTIES:
@@ -3009,6 +2902,13 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: B34222A3-DD25-4717-B60B-865DB7F1DFD6
    :END:
    [2008-04-16 Wed]
+** DONE [#B] Add a --no-color option for Ledger						:Feature:
+   SCHEDULED: <2009-06-17 Wed>
+   - State "DONE"       from "TODO"       [2009-06-26 Fri 17:51]
+   :PROPERTIES:
+   :ID: E924C732-C3F9-40C7-8E69-8F20566EB920
+   :END:
+   [2009-06-17 Wed 16:45]
 ** DONE [#B] In the expression parser, 40% should mean 0.40				:Feature:
    SCHEDULED: <2009-05-14 Thu>
    - State "DONE"       from "TODO"       [2009-05-14 Thu 04:06]
@@ -3486,6 +3386,33 @@ getquote GSK_L
    :ID: EE45BD4D-E792-4668-98C5-B4CD50F9B3B7
    :END:
    [2009-02-01 Sun 03:03]
+** DONE [#B] I can simplify the Python integration even further with scopes		 :Python:
+   SCHEDULED: <2009-02-08 Sun>
+   - State "DONE"       [2009-02-09 Mon 00:04]
+   Rather than exposing post_t, I can just do __getattr__ lookups in the
+   current scope_t, the same way that value expressions would.
+   :PROPERTIES:
+   :ID: DF2D6FE9-8598-4747-8B35-88075C6D7EAA
+   :END:
+   [2009-02-08 Sun 15:09]
+** DONE [#B] Ledger: Add INFO statement regarding Python starting, etc.			 :Python:
+   SCHEDULED: <2009-01-23 Fri>
+   - State "DONE"       [2009-01-23 Fri 15:40]
+   :PROPERTIES:
+   :ID: 2BAE44BE-2EA4-4A51-B6A0-1DE6E7DFAA27
+   :ARCHIVE_TIME: 2009-02-01 Sun 15:50
+   :ARCHIVE_CATEGORY: Computer
+   :END:
+   [2009-01-23 Fri 03:41]
+** DONE [#B] Have Ledger fire up the Python interpreter only "as needed"		 :Python:
+   SCHEDULED: <2009-01-23 Fri>
+   - State "DONE"       [2009-01-24 Sat 05:24]
+   :PROPERTIES:
+   :ID: A98BDA0B-8B08-433F-B292-AFCAFB675DE9
+   :ARCHIVE_TIME: 2009-02-01 Sun 15:50
+   :ARCHIVE_CATEGORY: Computer
+   :END:
+   [2009-01-23 Fri 03:39]
 ** DONE [#B] Restore py_amount, and the Python unit tests				 :Python:
    - State "DONE"       [2009-02-27 Fri 16:31]
    :PROPERTIES:
@@ -3508,6 +3435,65 @@ getquote GSK_L
    :ID: D4CFF147-B825-43E2-B85C-28501936EEAE
    :END:
    [2009-02-24 Tue 11:08]
+** DONE [#B] UtilTests is currently getting a bus error, with the new acprep		  :Tests:
+   SCHEDULED: <2009-03-09 Mon>
+   - State "DONE"       [2009-03-09 Mon 22:02]
+   :PROPERTIES:
+   :ID: C89561FB-C59F-43EE-AD70-AFC01EF93F2A
+   :END:
+   [2009-03-09 Mon 05:26]
+** DONE [#B] Can't build tests with -j3							  :Tests:
+   SCHEDULED: <2009-03-08 Sun>
+   - State "DONE"       [2009-03-08 Sun 18:46]
+   :OUTPUT:
+g++ -DHAVE_CONFIG_H -I. -I..  -I../test -I../src -I../lib -I../lib/utfcpp/source -isystem /usr/local/stow/cppunit/include  -isystem /usr/local/include -isystem /usr/local/include/boost-1_38 -isystem /usr/include/python2.5 -isystem /opt/local/include  -pipe -c -o ReportTests-ReportTests.o `test -f 'test/ReportTests.cc' || echo '../'`test/ReportTests.cc
+/opt/local/bin/python ../test/convert.py ../test/unit/t_utils.cc test/python/t_utils.py
+/opt/local/bin/python ../test/convert.py ../test/unit/t_times.cc test/python/t_times.py
+Traceback (most recent call last):
+  File "../test/convert.py", line 45, in <module>
+    os.makedirs(dirname)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/os.py", line 172, in makedirs
+    mkdir(name, mode)
+OSError: [Errno 17] File exists: '/private/tmp/ledger/ledger-3.0/_build/test/python'
+make[5]: *** [test/python/t_utils.py] Error 1
+make[5]: *** Waiting for unfinished jobs....
+make[4]: *** [check-am] Error 2
+make[3]: *** [check-recursive] Error 1
+make[2]: *** [check] Error 2
+make[1]: *** [distcheck] Error 2
+make: *** [release-distcheck] Error 2
+%%% FAILED to build release-distcheck %%%
+   :END:
+   :PROPERTIES:
+   :ID: 7E6E57B8-A011-4F47-904C-71AD5D03EADF
+   :END:
+   [2009-03-08 Sun 18:43]
+** DONE [#B] The regression tests are failing with the latest changes			  :Tests:
+   SCHEDULED: <2009-03-05 Thu>
+   - State "DONE"       [2009-03-06 Fri 02:37]
+   :PROPERTIES:
+   :ID: E01A104A-2D45-4C0A-AF3C-93AF12324C53
+   :END:
+   [2009-03-05 Thu 05:12]
+** DONE [#B] Ledger performance breakdown						  :Tests:
+   - State "DONE"       [2009-03-06 Fri 04:11]
+   50% parsing
+      7% balancing transactions
+      7% parsing posting amounts
+     36% applying automated transactions
+   50% reporting
+     38% calculating (due to balance copying in +=)
+   :PROPERTIES:
+   :ID: FD55C52B-46D3-4EAE-ABE5-571B7426B842
+   :END:
+   [2009-03-04 Wed 04:43]
+** DONE [#B] Enable lot spec generation in generate.cc					  :Tests:
+   SCHEDULED: <2009-02-27 Fri>
+   - State "DONE"       [2009-02-27 Fri 16:22]
+   :PROPERTIES:
+   :ID: C23B7780-378A-412D-AEB1-235B9788F78D
+   :END:
+   [2009-02-27 Fri 04:22]
 ** DONE [#B] tools/proof is failing							  :Tests:
    - State "DONE"       [2009-03-08 Sun 04:31]
    :PROPERTIES:
@@ -3547,6 +3533,27 @@ getquote GSK_L
    :ID: 031DAD5C-8C92-40C1-837F-ABE6F29D4046
    :END:
    [2009-02-24 Tue 21:46]
+** DONE [#B] Check out Mark Carter's Ledger page					:Website:
+   SCHEDULED: <2008-12-09 Tue>
+   - State "DONE"       [2008-12-09 Tue 20:39]
+   http://mcarter.myzen.co.uk/ledger/ledger.htm
+   :PROPERTIES:
+   :ID: D6BE0562-9DE3-42CC-ADE5-3909B8140A63
+   :ARCHIVE_TIME: 2008-12-17 Wed 14:08
+   :ARCHIVE_CATEGORY: Computer
+   :END:
+   [2008-12-09 Tue 02:39]
+** DONE [#B] Convert 10 Trac bugs to the Ledger TODO file				:Website:
+   - State "DONE"       [2008-09-17 Wed 08:31]
+   - State "DONE"       [2008-09-10 Wed 22:00]
+   - State "DONE"       [2008-09-08 Mon 05:46]
+   - State "DONE"       [2008-08-29 Fri 04:27]
+   :PROPERTIES:
+   :ID: 4372A987-E157-4F44-A22F-F5A2E85A974B
+   :ARCHIVE_TIME: 2008-10-15 Wed 17:18
+   :ARCHIVE_CATEGORY: Computer
+   :END:
+   [2008-08-26 Tue]
 ** DONE [#B] Add a link to the Fink package for Ledger on the Ledger page		:Website:
    - State "DONE"       [2007-10-28 Sun 22:33]
    :PROPERTIES:
