@@ -7,6 +7,134 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * 3.0
+** TODO [#B] Major areas of implementation remaining [113/118]				  :Tests:
+   - State "TODO"       from "TESTED"     [2009-06-27 Sat 01:44]
+   - State "TESTED"     from "DONE"       [2009-06-26 Fri 17:49] \\
+     These are all being tested (except for those marked).
+   - State "DONE"       from "TODO"       [2009-06-26 Fri 17:49]
+   - [ ] color
+   - [ ] comm-as-account
+   - [ ] comm-as-payee
+   - [ ] forecast-while
+   - [ ] no-total
+   - [X] abbrev_len_
+   - [X] account_
+   - [X] account_width_
+   - [X] actual
+   - [X] add_budget
+   - [X] amount_
+   - [X] amount_data
+   - [X] amount_width_
+   - [X] anon
+   - [X] args_only
+   - [X] average
+   - [X] balance_format_
+   - [X] base
+   - [X] basis
+   - [X] basis, cost
+   - [X] begin_
+   - [X] budget
+   - [X] by_payee
+   - [X] cleared
+   - [X] code_as_account
+   - [X] code_as_payee
+   - [X] collapse
+   - [X] collapse_if_zero
+   - [X] color
+   - [X] columns_
+   - [X] comm_as_account, commodity_as_account
+   - [X] comm_as_payee, commodity_as_payee
+   - [X] csv_format_
+   - [X] current
+   - [X] daily
+   - [X] date_format_
+   - [X] date_width_
+   - [X] debug_
+   - [X] depth_
+   - [X] deviation
+   - [X] display_
+   - [X] display_amount_
+   - [X] display_total_
+   - [X] dow
+   - [X] download [NOT TO BE TESTED]
+   - [X] effective
+   - [X] empty
+   - [X] end_
+   - [X] equity
+   - [X] exact
+   - [X] exchange
+   - [X] file_
+   - [X] flat
+   - [X] forecast_while_, forecast_ [TIME DEPENDENT]
+   - [X] format_
+   - [X] gain
+   - [X] head_, first_
+   - [X] init_file_
+   - [X] input_date_format_
+   - [X] invert
+   - [X] limit_
+   - [X] lot_dates
+   - [X] lot_prices
+   - [X] lot_tags
+   - [X] lots
+   - [X] lots_actual
+   - [X] market
+   - [X] monthly
+   - [X] only_
+   - [X] output_
+   - [X] pager_
+   - [X] payee_as_account
+   - [X] payee_width_
+   - [X] pending
+   - [X] percent
+   - [X] period_
+   - [X] plot_amount_format_
+   - [X] plot_total_format_
+   - [X] price
+   - [X] price_db_ [NOT TO BE TESTED]
+   - [X] price_exp_, leeway_ [NOT TO BE TESTED]
+   - [X] prices_format_
+   - [X] pricesdb_format_
+   - [X] print_format_
+   - [X] quantity
+   - [X] quarterly
+   - [X] raw
+   - [X] real
+   - [X] register_format_
+   - [X] related
+   - [X] related_all
+   - [X] revalued
+   - [X] revalued_only
+   - [X] script_
+   - [X] seed_
+   - [X] set_account_
+   - [X] set_payee_
+   - [X] sort_
+   - [X] sort_all_
+   - [X] sort_xacts_
+   - [X] start_of_week_
+   - [X] strict
+   - [X] subtotal
+   - [X] tail_, last_
+   - [X] total_
+   - [X] total_data
+   - [X] total_width_
+   - [X] trace_
+   - [X] truncate_
+   - [X] unbudgeted
+   - [X] uncleared
+   - [X] unround
+   - [X] verbose
+   - [X] verify
+   - [X] version
+   - [X] weekly
+   - [X] wide
+   - [X] yearly
+   :PROPERTIES:
+   :ID: C6C58983-0EB1-49EC-AB04-AB00DE67D61D
+   :END:
+   [2009-02-06 Fri 15:23]
+
 ** TODO [#B] If a quote comes back in the wrong commodity, ignore it
    SCHEDULED: <2009-06-26 Fri>
    :PROPERTIES:
@@ -5073,128 +5201,6 @@ $ ledger -f <DATA> register
    :Attachments: test.ldg
    :END:
    [2009-04-01 Wed 18:50]
-** TESTED [#B] Major areas of implementation remaining [113/113]			  :Tests:
-   - State "TESTED"     from "DONE"       [2009-06-26 Fri 17:49] \\
-     These are all being tested (except for those marked).
-   - State "DONE"       from "TODO"       [2009-06-26 Fri 17:49]
-   - [X] abbrev_len_
-   - [X] account_
-   - [X] account_width_
-   - [X] actual
-   - [X] add_budget
-   - [X] amount_
-   - [X] amount_data
-   - [X] amount_width_
-   - [X] anon
-   - [X] args_only
-   - [X] average
-   - [X] balance_format_
-   - [X] base
-   - [X] basis
-   - [X] basis, cost
-   - [X] begin_
-   - [X] budget
-   - [X] by_payee
-   - [X] cleared
-   - [X] code_as_account
-   - [X] code_as_payee
-   - [X] collapse
-   - [X] collapse_if_zero
-   - [X] color
-   - [X] columns_
-   - [X] comm_as_account, commodity_as_account
-   - [X] comm_as_payee, commodity_as_payee
-   - [X] csv_format_
-   - [X] current
-   - [X] daily
-   - [X] date_format_
-   - [X] date_width_
-   - [X] debug_
-   - [X] depth_
-   - [X] deviation
-   - [X] display_
-   - [X] display_amount_
-   - [X] display_total_
-   - [X] dow
-   - [X] download [NOT TO BE TESTED]
-   - [X] effective
-   - [X] empty
-   - [X] end_
-   - [X] equity
-   - [X] exact
-   - [X] exchange
-   - [X] file_
-   - [X] flat
-   - [X] forecast_while_, forecast_ [TIME DEPENDENT]
-   - [X] format_
-   - [X] gain
-   - [X] head_, first_
-   - [X] init_file_
-   - [X] input_date_format_
-   - [X] invert
-   - [X] price_exp_, leeway_ [NOT TO BE TESTED]
-   - [X] limit_
-   - [X] lot_dates
-   - [X] lot_prices
-   - [X] lot_tags
-   - [X] lots
-   - [X] lots_actual
-   - [X] market
-   - [X] monthly
-   - [X] only_
-   - [X] output_
-   - [X] pager_
-   - [X] payee_as_account
-   - [X] payee_width_
-   - [X] pending
-   - [X] percent
-   - [X] period_
-   - [X] plot_amount_format_
-   - [X] plot_total_format_
-   - [X] price
-   - [X] price_db_ [NOT TO BE TESTED]
-   - [X] prices_format_
-   - [X] pricesdb_format_
-   - [X] print_format_
-   - [X] quantity
-   - [X] quarterly
-   - [X] raw
-   - [X] real
-   - [X] register_format_
-   - [X] related
-   - [X] related_all
-   - [X] revalued
-   - [X] revalued_only
-   - [X] script_
-   - [X] seed_
-   - [X] set_account_
-   - [X] set_payee_
-   - [X] sort_
-   - [X] sort_all_
-   - [X] sort_xacts_
-   - [X] strict
-   - [X] start_of_week_
-   - [X] subtotal
-   - [X] tail_, last_
-   - [X] total_
-   - [X] total_data
-   - [X] total_width_
-   - [X] trace_
-   - [X] truncate_
-   - [X] unbudgeted
-   - [X] uncleared
-   - [X] unround
-   - [X] verbose
-   - [X] verify
-   - [X] version
-   - [X] weekly
-   - [X] wide
-   - [X] yearly
-   :PROPERTIES:
-   :ID: C6C58983-0EB1-49EC-AB04-AB00DE67D61D
-   :END:
-   [2009-02-06 Fri 15:23]
-
 * 2.6.2
 ** DONE [#A] Command-line options don't always override init-file options
    - State "DONE"       [2009-01-21 Wed 18:53] \\
