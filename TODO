@@ -1,54 +1,60 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content
-#+ARCHIVE: TODO-OLD::
 #+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
 #+CATEGORY: Ledger
 
 * Bugs
-** TODO [#B] Handle email 'Re: Master and emacs'
+** TODO Handle email 'Re: Master and emacs'
+   SCHEDULED: <2009-10-22 Thu>
    message://01BBC0A5-1185-4FCF-8D8C-72E29FA86675@gmail.com
    :PROPERTIES:
    :ID: AC756278-72D5-4CAC-82A7-334A9BB6F7EE
    :END:
    [2009-10-03 Sat 03:23]
-** TODO [#B] Handle email 'Precision error in latest master'
+** TODO Handle email 'Precision error in latest master'
+   SCHEDULED: <2009-10-22 Thu>
    [[message://1253475930.3701.41.camel@mithos.talinet.net]]
    :PROPERTIES:
    :ID: 77D3A0A9-35DF-4A4D-8469-8928E3954441
    :END:
    [2009-10-03 Sat 03:23]
-** TODO [#B] Handle email '[Ledger-discuss] Unexpected exclamation marks...
+** TODO Handle email '[Ledger-discuss] Unexpected exclamation marks...
+   SCHEDULED: <2009-10-22 Thu>
    message://87k4zts56n.fsf@red-bean.com
    :PROPERTIES:
    :ID: BCA69D92-8F2F-4074-8E32-84F3BC205A96
    :END:
    [2009-10-03 Sat 03:23]
-** TODO [#B] Handle email 'Re: Precision error in latest master'
+** TODO Handle email 'Re: Precision error in latest master'
+   SCHEDULED: <2009-10-22 Thu>
    message://056fbfed-cd56-48c3-8d22-40b1b60514f1@o9g2000prg.googlegroups.com
    :PROPERTIES:
    :ID: 7C2DC744-C7C2-404B-BEAA-1ACC509D8157
    :END:
    [2009-10-03 Sat 03:23]
-** TODO [#B] Handle email 'ledger: corrupted double-linked list'
+** TODO Handle email 'ledger: corrupted double-linked list'
+   SCHEDULED: <2009-10-22 Thu>
    message://4AA8F383.3010801@gmail.com
    :PROPERTIES:
    :ID: 8C22A64E-6095-4933-9D66-FA970CCD1590
    :END:
    [2009-10-03 Sat 03:23]
-** TODO [#B] Handle email 'Re: Tutorial on multiple currency accounting'
+** TODO Handle email 'Re: Tutorial on multiple currency accounting'
+   SCHEDULED: <2009-10-22 Thu>
    message://20090901235339.081385C27E@chase.mathstat.dal.ca
    :PROPERTIES:
    :ID: 3DF146C8-30BF-431A-8B4D-1FD4F236C34F
    :END:
    [2009-10-03 Sat 03:24]
-** TODO [#B] Handle email '[MacPorts] #20788: ledger: ofx variant is incomplete'
+** TODO Handle email '[MacPorts] #20788: ledger: ofx variant is incomplete'
+   SCHEDULED: <2009-10-22 Thu>
    message://059.f519d22e7986fc67d18492a768a191bd@macports.org
    :PROPERTIES:
    :ID: B2EE4EC9-E783-4FE7-BF3E-E3956E2032D3
    :END:
    [2009-10-03 Sat 03:24]
-** TODO [#B] Combine a random seed when hashing when using --anon
+** TODO Combine a random seed when hashing when using --anon
    Please keep in mind that the dictionary one pulls account names from is MUCH
    smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
    a string $foo, it is easy to tell if this is the hash of "Bar, Inc." or
@@ -63,7 +69,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message: [[message://20090703063943.GB16282@chivetta.org][Re: sample ledgers and anonymising]]
    :END:
    [2009-07-03 Fri 08:38]
-** TODO [#B] Change processing of ~/.ledgerrc
+** TODO Change processing of ~/.ledgerrc
    1. Before parsing, run through and handle options that session_t and
       global_scope_t know about.
    2. Before reporting or loading the REPL, run through and handle all other
@@ -72,14 +78,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 71FE0FAB-622D-403C-A944-C7541948AFFF
    :END:
    [2009-02-19 Thu 15:10]
-** TODO [#B] Clear out all #if 0 and jww commented sections
+** TODO Clear out all #if 0 and jww commented sections
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 97
    :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Forecasting command with -Y doesn't do any forecasting
+** TODO Forecasting command with -Y doesn't do any forecasting
    The command is:
    :SCRIPT:
 ledger -Y --forecast 'T>0' reg food
@@ -91,7 +97,7 @@ ledger -Y --forecast 'T>0' reg food
    :ID: E2DF7C6C-BA02-4F3D-8C3C-B73F8BC30CD6
    :END:
    [2007-12-10 Mon]
-** TODO [#B] Forecasting goes too far
+** TODO Forecasting goes too far
    - Note taken on [2007-12-10 Mon 19:04] \\
      Because of the way that forecasting is (currently) implemented, you will often
      see an entry that is "one beyond" the condition of your forecast. I hope to
@@ -111,7 +117,7 @@ tim@yggdrasil [/Users/tim]# ledger --forecast 'd<=[2006/08/27]' reg
    :ID: E627C594-A019-4D87-A6B4-C8E75F6D8FC0
    :END:
    [2007-12-10 Mon]
-** TODO [#B] The entry command drops price specifications
+** TODO The entry command drops price specifications
    If you enter a pricing command like this in Emacs:
    :DATA:
 C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
@@ -123,18 +129,18 @@ C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
    :ID: 03C6208E-E48F-45BB-BFBF-2C38B129458A
    :END:
    [2008-05-03 Sat]
-** TODO [#B] Fill out Software Conservancy form from Bradley
+** TODO Fill out Software Conservancy form from Bradley
    [[message://87vdra1ejf.fsf@ebb.org][Re: Request for application form]]
    :PROPERTIES:
    :ID: 55F5C87B-F9BE-4957-B4C7-3B8222DDB548
    :END:
    [2009-02-16 Mon 14:28]
-** TODO [#B] Change self_total to amount, and family_total to total
+** TODO Change self_total to amount, and family_total to total
    :PROPERTIES:
    :ID: AEDAEAE2-5A2D-4908-B733-B0FC80C5FC58
    :END:
    [2009-03-05 Thu 04:56]
-** TODO [#B] --budget not including "~ Monthly" entry					 :ATTACH:
+** TODO --budget not including "~ Monthly" entry					 :ATTACH:
    Thanks for your response.  I've attached a sample ledger file that I
    successfully reproduced the behaviour with.  Maybe it's something to do with
    it being the first of the month today?
@@ -177,54 +183,51 @@ See LICENSE file included with the distribution for details and disclaimer.
    :Attachments: testledger.dat
    :END:
    [2009-04-01 Wed 19:40]
-** DEFERRED [#B] Valexpr strings cannot have chars like \n
+** TODO Valexpr strings cannot have chars like \n
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
    - State "DEFERRED"   from "TODO"       [2009-06-28 Sun 17:37]
    :PROPERTIES:
    :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
    :END:
    [2009-02-27 Fri 13:19]
-** DEFERRED [#B] 'ledger -f src/value.h bal capital' crashes
+** TODO 'ledger -f src/value.h bal capital' crashes
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:24]
    :PROPERTIES:
    :ID: 25A099C9-EE9C-42E2-A18A-202DE9B9E157
    :END:
    [2009-02-27 Fri 15:38]
-** DEFERRED [#B] Fix boost::optional translation class for Dmitriy
+** TODO Fix boost::optional translation class for Dmitriy
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:27]
    [[message://2fd72fb20901281006u181318bke33c44a25098dfd8@mail.gmail.com][Re: boost::optional and boost::python]]
    :PROPERTIES:
    :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
    :END:
    [2009-02-02 Mon 03:13]
-** DEFERRED [#B] Add debugging code through filters.cc
-   - State "DEFERRED"   [2009-02-15 Sun 18:03]
-   :PROPERTIES:
-   :ID: 05025EE8-7B6E-40DA-8846-C7321BBDDB02
-   :END:
-   [2009-02-15 Sun 05:05]
 * Build
-** TODO [#B] Setup virtual machines for every OS Ledger should run on
+** TODO Setup virtual machines for every OS Ledger should run on
    :PROPERTIES:
    :ID: C91FEFD0-CF11-41C2-B2D0-B6BED7E142A2
    :END:
    [2009-10-08 Thu 17:12]
-** TODO [#B] Ledger 2.6 is not building on Debian 5 latest
+** TODO Ledger 2.6 is not building on Debian 5 latest
    :PROPERTIES:
    :ID: 427F8D8D-39CB-47ED-8438-BF07BBBE6672
    :END:
    [2009-04-24 Fri 17:13]
-** TODO [#B] Add some more configure arguments
+** TODO Add some more configure arguments
    ./configure .... with-gmp=...  with-mpfr= ... with-python=...
    :PROPERTIES:
    :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
    :END:
    [2009-03-26 Thu 02:09]
-** TODO [#B] Build .deb, .rpm, .exe (in .zip), and .pkg installs
+** TODO Build .deb, .rpm, .exe (in .zip), and .pkg installs
    :PROPERTIES:
    :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
    :END:
    [2009-01-29 Thu 19:40]
-** DEFERRED [#B] Avoid having to rm -fr ledger-proof
+** DEFERRED Avoid having to rm -fr ledger-proof
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
    :OUTPUT:
 acprep: INFO: === Wiping build directory /home/nafai/Products/ledger-proof/default ===
@@ -250,28 +253,29 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 12D4AB31-964F-4206-8AA0-2CA9C509DA30
    :END:
    [2009-03-11 Wed 20:54]
-** DEFERRED [#B] Accept multiple phases in acprep if they can be recognized as such
+** CANCELLED Accept multiple phases in acprep if they can be recognized as such
+   - State "CANCELLED"  from "DEFERRED"   [2009-10-22 Thu 07:35]
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
    :PROPERTIES:
    :ID: B8B9F5ED-32F0-4BFA-8E84-6B0F6064E88A
    :END:
    [2009-03-10 Tue 16:29]
 * Docs
-** TODO [#B] Write an article titled "Accounting for Programmers"
+** TODO Write an article titled "Accounting for Engineers"
    Programmers make money, and they're technically savvy, so Ledger makes for a
    perfect fit.
    :PROPERTIES:
    :ID: 6D26F1EA-4FC6-4376-8232-DF985FAC48AA
    :END:
    [2009-04-01 Wed 05:17]
-** TODO [#B] A need for some extensive examples with commentary
+** TODO A need for some extensive examples with commentary
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 166
    :ID: 8C9A4F0A-75B6-4F7D-913C-B8D8D84A882E
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Add a section in the manual specifically about stocks
+** TODO Add a section in the manual specifically about stocks
    There is no explicit section right now which details how to handle stock
    transactions.
    :PROPERTIES:
@@ -280,7 +284,7 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 7AD3B6F2-765B-41A5-A481-BFAB39A55824
    :END:
    [2008-04-21 Mon]
-** TODO [#B] An example of using effective dates on transactions
+** TODO An example of using effective dates on transactions
    "I don't yet have a good idea of why an individual transaction could need to
    specify its own actual *and* effective date. Does anyone have a good
    example?"
@@ -327,38 +331,38 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: C926E8BF-EF44-45E8-A37F-04A30A97215D
    :END:
    [2008-10-26 Sun 19:06]
-** TODO [#B] Answer Martin's question about Capital gains
+** TODO Answer Martin's question about Capital gains
    [[message://20080423221130.4D77D1144C3@banane.furius.ca]["capital gains" from Martin Blais <blais@furius.ca>]]
    [[message://1209097067.1413.1249786835@webmail.messagingengine.com]["Here is one valid way to book capital gains" from Martin Blais <blais@furius.ca>]]
    :PROPERTIES:
    :ID: 1B5B2517-360E-4F33-9A1E-C88F884ACAD2
    :END:
    [2008-04-24 Thu]
-** TODO [#B] Complete the new manual
+** TODO Complete the new manual
    :PROPERTIES:
    :ID: D2F43032-A889-4ED3-AEE8-8A93D6594EDD
    :END:
    [2008-08-14 Thu]
-** TODO [#B] Create a Wiki page titled "Who's using Ledger?"
+** TODO Create a Wiki page titled "Who's using Ledger?"
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 93
    :ID: F50ADD18-F246-4FDC-85A2-65C435ADE1A4
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Document all breaking and non-breaking changes in the NEWS file
+** TODO Document all breaking and non-breaking changes in the NEWS file
    :PROPERTIES:
    :ID: AF04D0D7-2C9D-4783-9C22-5EC39CAC4247
    :END:
    [2009-02-16 Mon 04:52]
-** TODO [#B] Document inline math in the .texi file.
+** TODO Document inline math in the .texi file.
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 102
    :ID: 5CDAC007-A2B6-42A6-8E8C-09A1078404C8
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Document new command-line query syntax
+** TODO Document new command-line query syntax
    :DATA:
 I've completed putting the finishing touches on the command-line query syntax
 for Ledger 3.0, and thought I would share with you all how it works now.
@@ -413,7 +417,7 @@ All three are equivalent.
    :ID: 720A2006-AA19-4133-8A07-B445D7CC3AA0
    :END:
    [2009-02-02 Mon 03:08]
-** TODO [#B] Document the new metadata syntax
+** TODO Document the new metadata syntax
    :DATA:
 Ledger 3.0 now supports entry and transaction "notes", which may contain new
 metadata and tag markers.  Here's an example:
@@ -460,12 +464,12 @@ always ignored and are neither searched nor printed back.
    :ID: 1CAE6761-AC44-4DAC-A466-A3D72550ED06
    :END:
    [2009-02-02 Mon 03:08]
-** TODO [#B] Greatly improve Ledger's help system
+** TODO Greatly improve Ledger's help system
    :PROPERTIES:
    :ID: 2E0D3A34-41DF-470C-8A2D-0A66B1DAA6E9
    :END:
    [2009-02-04 Wed 19:57]
-** TODO [#B] Handling funds
+** TODO Handling funds
    message://m2fylicj1e.fsf@Majdhub.local
    :PROPERTIES:
    :Version: 2.6
@@ -473,7 +477,7 @@ always ignored and are neither searched nor printed back.
    :ID: B5C1EE3D-8F66-4116-A88B-D1D568CF46B7
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Ledger example: building a better "du"
+** TODO Ledger example: building a better "du"
    message://m2odzwxupz.fsf@newartisans.com
    :PROPERTIES:
    :Version: 2.6
@@ -481,31 +485,31 @@ always ignored and are neither searched nor printed back.
    :ID: 85DAE1AB-F6D3-4AAC-A4F7-99D146B355E7
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Mention hledger in the Ledger docs and webpage
+** TODO Mention hledger in the Ledger docs and webpage
    http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hledger-0.1
    :PROPERTIES:
    :ID: F71EA52C-0F99-4689-9DA5-DF6B131D81EE
    :END:
    [2008-10-15 Wed 16:45]
-** TODO [#B] Respond to billk's question about options
+** TODO Respond to billk's question about options
    New Artisans LLC :: View topic - stock options
    :PROPERTIES:
    :ID: 2F635B10-27B8-4FF4-8584-F84A3AF7D42C
    :END:
    [2008-08-14 Thu]
-** TODO [#B] Using Ledger as a scientific analysis tool
+** TODO Using Ledger as a scientific analysis tool
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 173
    :ID: C653003E-52A8-4D06-9DEB-634B1156B04C
    :END:
-** TODO [#B] Using Ledger to track inventory
+** TODO Using Ledger to track inventory
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 174
    :ID: F7A6A833-5AC6-4ED0-A5EA-93CD6B97EEBF
    :END:
-** TODO [#B] Another value expression change
+** TODO Another value expression change
    message://m2fyle3zdy.fsf@newartisans.com
    :PROPERTIES:
    :Version: 2.6
@@ -513,7 +517,7 @@ always ignored and are neither searched nor printed back.
    :ID: 356DB3E1-3613-4DE2-8245-A8F8E4937FBD
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Extended lot indentification support
+** TODO Extended lot indentification support
    message://m2veuvq0al.fsf@newartisans.com
    :PROPERTIES:
    :Version: 2.6
@@ -521,14 +525,14 @@ always ignored and are neither searched nor printed back.
    :ID: 9CC55CD0-30C3-4C4F-BCB6-E980FD1F44DA
    :END:
    [2008-04-11 Fri]
-** DEFERRED [#B] Complete the internal documentation, exported using Doxygen
+** DEFERRED Complete the internal documentation, exported using Doxygen
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:10]
    :PROPERTIES:
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
 * Emacs
-** TODO [#B] Inserting comments in ledger-mode is inserting leading whitespace
+** TODO Inserting comments in ledger-mode is inserting leading whitespace
    Comments in ledger-mode are inserted with whitespace at the beginning of the
    line, which makes ledger.dat unusable.  One has to delete the extra
    whitespace manually afterwards.
@@ -544,12 +548,12 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: BEBC59BB-C7FF-4295-9EE5-171354CCEBBC
    :END:
    [2009-04-01 Wed 18:57]
-** TODO [#B] Allow reconciling postings in multiple included files
+** TODO Allow reconciling postings in multiple included files
    :PROPERTIES:
    :ID: 29AC8129-C451-4782-8371-B74588609E9F
    :END:
    [2009-03-03 Tue 00:10]
-** TODO [#B] ledger.el should define its own faces
+** TODO ledger.el should define its own faces
    This would allow people to describe how they want cleared and uncleared
    payee names to appear.
    :PROPERTIES:
@@ -560,31 +564,31 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 78B2F4A4-DCE5-1B40-9C21-86195584ACF1
    :END:
    [2009-03-01 Sun 01:08]
-** TODO [#B] Allow for quicker reporting commands in ledger.el
+** TODO Allow for quicker reporting commands in ledger.el
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 117
    :ID: 932324E2-4A3F-4319-9586-1F33DFE29527
    :END:
-** TODO [#B] Change ledger.el to intelligently handle inserting
+** TODO Change ledger.el to intelligently handle inserting
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 104
    :ID: 902D50A8-B54C-4254-9BD6-B3F40FEC2515
    :END:
-** TODO [#B] Have ledger.el communicate with a Ledger REPL
+** TODO Have ledger.el communicate with a Ledger REPL
    :PROPERTIES:
    :ID: 03DE871B-8166-4BF8-AF50-6248F8A8DE64
    :END:
    [2009-02-12 Thu 19:10]
-** TODO [#B] Have ledger.el warn if the ledger version is too old
+** TODO Have ledger.el warn if the ledger version is too old
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 163
    :ID: 5F20A546-046B-4CC6-B1EF-89C5962B55BE
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Highlight transaction lines based on their status
+** TODO Highlight transaction lines based on their status
    Here is a tweak to ledger-mode that I find useful. It makes uncleared lines
    pink and cleared lines green. C-c C-e to toggle the status.
    :SCRIPT:
@@ -598,7 +602,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 1C870658-6460-423C-9199-E46C48074688
    :END:
    [2008-07-13 Sun]
-** TODO [#B] If a file !include's other files, it cannot be reconciled
+** TODO If a file !include's other files, it cannot be reconciled
    ... since hitting space will not mark the right entry.
    :PROPERTIES:
    :Version: 2.6
@@ -606,7 +610,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: B75AB1CF-1D91-4CD9-8EF2-92D794D94C88
    :END:
    [2008-04-11 Fri]
-** TODO [#B] In ledger.el, fix toggle-current-transaction
+** TODO In ledger.el, fix toggle-current-transaction
    When all transactions have been cleared, the marks should be wiped and then
    ledger-toggle-current-entry called, rather than doing the entry clearing
    itself.
@@ -616,7 +620,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 465231DF-6EF2-4C4F-BF0D-9FED19AB99A3
    :END:
    [2008-04-11 Fri]
-** TODO [#B] ledger.el: ledger-context-at-point fails to parse acct-transaction
+** TODO ledger.el: ledger-context-at-point fails to parse acct-transaction
    - State "TODO"       [2007-11-07 Wed 04:06] \\
      Levin <zslevin@gmail.com> writes:
      > The following patch fixes problem of the amount with no ',':
@@ -666,40 +670,157 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 2558642F-EE17-4DCB-B6DB-50490FB0CF83
    :END:
    [2007-11-07 Wed]
-** TODO [#B] Look at making ledger's new entry completion behavior cyclic
+** TODO Look at making ledger's new entry completion behavior cyclic
    :PROPERTIES:
    :ID: B443E186-4E6F-4FB5-8421-4F703DC9353C
    :END:
    [2009-02-13 Fri 05:17]
-** TODO [#B] Make M-x ledger-sort work on the current region
+** TODO Make M-x ledger-sort work on the current region
    :PROPERTIES:
    :ID: C390F6D0-FA81-4A1B-877A-C6946EA51105
    :END:
    [2009-01-29 Thu 19:36]
-** TODO [#B] Pressing C-c C-c on an entry line should clear it
+** TODO Pressing C-c C-c on an entry line should clear it
    :PROPERTIES:
    :ID: FEE28C4E-B113-4280-85F5-42E2B8EE603B
    :END:
    [2009-01-31 Sat 06:13]
-** TODO [#B] Use of ledger.el with various invalid "ledger" binaries (and none)
+** TODO Use of ledger.el with various invalid "ledger" binaries (and none)
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 175
    :ID: 8735E6AB-DB0A-4F66-BD81-BBFFEE66A68E
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Allow reports, such as completed tasks last week, etc.
+** TODO Allow reports, such as completed tasks last week, etc.
    :PROPERTIES:
    :ID: D9B4D001-21E4-4247-ADF6-56C00B2C8F3A
    :END:
    [2008-05-12 Mon]
-** TODO [#B] The Great Renaming still needs to take place in ledger.el
+** TODO The Great Renaming still needs to take place in ledger.el
    :PROPERTIES:
    :ID: 721AC8F7-9189-4151-8611-2BBC0D1E8267
    :END:
    [2009-06-19 Fri 00:49]
+* Python
+** TODO Get ledger python to run within the build tree
+   :PROPERTIES:
+   :ID: 7274224C-3470-4A9F-B56E-A499F39E13C9
+   :END:
+   [2009-03-09 Mon 20:33]
+** TODO Create a Python wrapper for op_t objects
+   If it's evaluated in a value context, like str, int or __repr__, then
+   calculate and determine the value.  Otherwise, don't calculate so it remains
+   callable.
+   :PROPERTIES:
+   :ID: 3040E933-2068-4C78-954F-F78A7BAFB2D6
+   :END:
+   [2009-02-24 Tue 22:15]
+** TODO The error output when calling Python is out of order
+   :OUTPUT:
+TypeError: No to_python (by-value) converter found for C++ type: ledger::value_t
+While evaluating value expression:
+  myvalue(23)
+  ^^^^^^^^^^^
+Error: While calling Python function 'myvalue'
+   :END:
+   This should be:
+   :OUTPUT:
+While evaluating value expression:
+  myvalue(23)
+  ^^^^^^^^^^^
+While calling Python function 'myvalue':
+Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::value_t
+   :END:
+   :PROPERTIES:
+   :ID: 7CF0160B-A3FF-4BE7-B6D3-788F9556A20F
+   :END:
+   [2009-01-23 Fri 15:57]
+** TODO Use Python to create a per-account debit/credit report
+   Is there a way to let ledger output its reports showing the accounts in the
+   more conventional way as debit and credit accounts, instead of having a
+   positive or negative saldo?
+ 
+   Here is one example:
+   :OUTPUT:
+Assets:Bank
+Tr.#	date		Text			debit		credit		saldo
+1	2008-01-01	Mr. Sponsor		500				500
+2	2008-01-02	Bill					100		400
+
+Income:Donations
+Tr.#	date		Text			debit		credit		saldo
+1	2008-01-01	Mr. Sponsor				500		-500
+
+Expenses:Electricity
+Tr.#	date		Text			debit		credit		saldo
+2	2008-01-02	Bill			100				100
+   :END:
+   There should be a way of distinguishing between debit accounts, as assets
+   and expenses, and credit accounts, as Income and liabilities. It is of
+   course possible to processs ledger's output to achieve this, but it would be
+   nice if it could be done in ledger directly.
+   :PROPERTIES:
+   :Submitter: Christopher <christopher.illies@ki.se>
+   :Version: 2.6.1
+   :ID: 444EFEE1-D873-4FD3-BB07-4E605BCB2BF4
+   :END:
+   [2008-10-08 Wed 00:58]
+** TODO Allow a Python function to be used to download quotes
+   :PROPERTIES:
+   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
+   :END:
+   [2009-06-24 Wed 17:27]
+* Tests
+** TODO Ledger is still failing the higher-numbered generation seed tests
+   :PROPERTIES:
+   :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
+   :END:
+   [2009-03-03 Tue 15:47]
+** TODO New tests to create for Ledger
+   - [ ] GarbageTests
+	 Feed every one of the distribution's source files back to Ledger, to
+         make sure it dies gracefully.
+   - [ ] RandomTests
+	 Feed random data (probably base64) both as options and input.
+   - [ ] ScrambleTests
+	 Pass random combinations of options.
+   :PROPERTIES:
+   :ID: F866DFA5-7350-45D3-BF76-286D68755A2A
+   :END:
+   [2009-02-27 Fri 16:19]
+** TODO Write an org-mode function to turn a bug TODO into a regression test
+   :PROPERTIES:
+   :ID: 6A4F436B-E69C-45B2-ABBA-7E550EDBCFCD
+   :END:
+   [2009-02-27 Fri 04:41]
+** TODO Run Ledger through the profiler, against mondo.dat (to beat 11s)
+   :PROPERTIES:
+   :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
+   :END:
+   [2009-02-25 Wed 04:15]
+** TODO Create regression tests for all the closed 2.6.1 bugs
+   :PROPERTIES:
+   :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
+   :END:
+   [2008-08-14 Thu]
+** TODO Use coverage analysis to determine if all of Ledger is being tested
+   :PROPERTIES:
+   :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
+   :END:
+   [2008-08-14 Thu]
+** TODO The opt-forecast-while test is time sensitive, and is now failing
+   :PROPERTIES:
+   :ID: 7B8D466B-6F38-41E6-B2B1-964B8378C929
+   :END:
+   [2009-03-01 Sun 05:36]
+** TODO Convert *all* valexpr functions to use interactive_t
+   :PROPERTIES:
+   :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
+   :END:
+   [2009-02-21 Sat 17:36]
 * Features
-** TODO [#B] Add folding support to ledger.el
+** TODO Add folding support to ledger.el
    - State "TODO"       from "DELEGATED"  [2009-10-22 Thu 06:46]
    - State "DELEGATED"  from "TODO"       [2009-10-11 Sun 05:31] \\
      Demosthenes said that the author of loccur was going to look into this.
@@ -708,7 +829,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: E98B3CBD-B76F-4917-92A5-4B9E69833131
    :END:
    [2009-10-06 Tue 17:29]
-** TODO [#B] @@ -- allow negative costs
+** TODO @@ -- allow negative costs
    I am quite keen on the @@ syntax, as I like to deal with commodities on a
    net basis. However, there is a bit of an inconsistency between @@ and @.
  
@@ -768,27 +889,27 @@ Error: A posting's cost may not be negative
    :ID: 4F81E261-E6C6-401B-B6CA-0B356072D770
    :END:
    [2009-04-01 Wed 18:52]
-** TODO [#B] When --flat is being used, sort against all accounts
+** TODO When --flat is being used, sort against all accounts
    :PROPERTIES:
    :ID: 7D084EBD-3D4C-4967-9A4B-7F014E625DF6
    :END:
    [2009-03-11 Wed 15:11]
-** TODO [#B] The --strict option should also prevent new commodities
+** TODO The --strict option should also prevent new commodities
    :PROPERTIES:
    :ID: 3254504D-FA9F-4E60-B56D-414C6EF03BFE
    :END:
    [2009-03-07 Sat 00:31]
-** TODO [#B] The CSV report should optionally generate a "title line"
+** TODO The CSV report should optionally generate a "title line"
    :PROPERTIES:
    :ID: 65B7E207-1BCC-4448-881C-1574623346D7
    :END:
    [2009-03-03 Tue 21:49]
-** TODO [#B] The Ledger REPL argument parser should honor quoting syntax
+** TODO The Ledger REPL argument parser should honor quoting syntax
    :PROPERTIES:
    :ID: 7A3DF3DE-5425-491F-90AA-C8C162F1085A
    :END:
    [2009-03-03 Tue 03:02]
-** TODO [#B] Add a feature for "object descriptions"
+** TODO Add a feature for "object descriptions"
    For example:
 
    def OBJECT NAME
@@ -813,17 +934,17 @@ Error: A posting's cost may not be negative
    :ID: B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
    :END:
    [2009-03-02 Mon 20:39]
-** TODO [#B] Make alias names for directives, like convert for C
+** TODO Make alias names for directives, like convert for C
    :PROPERTIES:
    :ID: BD78C023-BB16-446C-9347-2F1AA16C7C5C
    :END:
    [2009-02-27 Fri 15:35]
-** TODO [#B] Add support for command aliases, to allow "canned reports"
+** TODO Add support for command aliases, to allow "canned reports"
    :PROPERTIES:
    :ID: ADD3FB96-D19A-47F0-9F0B-1896328D6380
    :END:
    [2009-02-04 Wed 19:57]
-** TODO [#B] --price option in lot_sales branch
+** TODO --price option in lot_sales branch
    message://m24q2rwrym.fsf_-_@newartisans.com
    message://m2k6bl3vr3.fsf@newartisans.com
    :PROPERTIES:
@@ -832,12 +953,12 @@ Error: A posting's cost may not be negative
    :ID: F6120E58-8985-4D76-908B-93A319E6D1D1
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Add a --actual option to override --effective if in .ledgerc
+** TODO Add a --actual option to override --effective if in .ledgerc
    :PROPERTIES:
    :ID: 84C7C18B-8B06-4248-9C4F-A8E377FACA49
    :END:
    [2008-10-03 Fri]
-** TODO [#B] Add an entry type for specifying value constraints
+** TODO Add an entry type for specifying value constraints
    I'd like to see a more general syntax for this based on value expressions,
    which would offer a full constraints mechanism.  For example, to constrain
    all transactions to being less than $10,000 in an account:
@@ -872,7 +993,7 @@ Error: A posting's cost may not be negative
    :ID: 31E75D27-157E-452B-B817-7AD570AFE357
    :END:
    [2008-04-05 Sat]
-** TODO [#B] Added a {{total}} syntax for lot price specification
+** TODO Added a {{total}} syntax for lot price specification
    I had another idea: do you remember I mentioned a problem I had, which that
    some of my trade confirmation slips provide the "adjusted cost base" and not
    the cost-per-share? This makes it a big ugly to enter such postings, even
@@ -897,7 +1018,7 @@ Error: A posting's cost may not be negative
    :ID: C9E09993-CC01-41C6-BADC-0A9AA1221419
    :END:
    [2008-04-20 Sun]
-** TODO [#B] Allow forecasting from a specific date
+** TODO Allow forecasting from a specific date
    This would make it possible to see expected vs. actual cash flows, for
    example, if the date chosen is before the end of actual transactions.  Kind
    of like a modified version of budgeting.
@@ -907,7 +1028,7 @@ Error: A posting's cost may not be negative
    :ID: BBD4F6F0-1250-4216-BB0E-3E86785D5E44
    :END:
    [2008-04-11 Fri]
-** TODO [#B] In the "pricesdb" report, output commodity conversions
+** TODO In the "pricesdb" report, output commodity conversions
    ... and "N" commands.
    :PROPERTIES:
    :Version: 2.6
@@ -915,7 +1036,7 @@ Error: A posting's cost may not be negative
    :ID: 1BE0C80D-AC4D-4372-B830-14193554EF6B
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Option --bold-if
+** TODO Option --bold-if
    Which will bold the whole transaction line if it matches the given predicate
    :PROPERTIES:
    :Version: 2.6
@@ -923,7 +1044,7 @@ Error: A posting's cost may not be negative
    :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
    :END:
    [2008-04-11 Fri]
-** TODO [#B] Create a "cleared" report for balances
+** TODO Create a "cleared" report for balances
    The idea for this report would be to show very nicely when the last date an
    account was balanced to was.  For example (from blais):
    :OUTPUT:
@@ -968,7 +1089,7 @@ Error: A posting's cost may not be negative
    :ID: 4D175527-AE30-4030-B1B7-DD6A92B6F067
    :END:
    [2008-04-14 Mon]
-** TODO [#B] Value expressions for getting at the lot date
+** TODO Value expressions for getting at the lot date
    For example: lotdate, lotdateof(x)
    :PROPERTIES:
    :Version: 2.6
@@ -976,13 +1097,13 @@ Error: A posting's cost may not be negative
    :ID: A1230B8C-EF48-40BB-A200-18E7E94620BE
    :END:
    [2008-04-11 Fri]
-** DEFERRED [#B] Create new files for commodity_pool and annotated commodities
+** DEFERRED Create new files for commodity_pool and annotated commodities
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:12]
    :PROPERTIES:
    :ID: BAE2292F-6B8B-4703-A6B6-8217390673DC
    :END:
    [2009-02-07 Sat 18:20]
-** DEFERRED [#B] Support for exceptions to interval_t
+** DEFERRED Support for exceptions to interval_t
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:13]
    For example, "monthly except June".
    :PROPERTIES:
@@ -991,14 +1112,14 @@ Error: A posting's cost may not be negative
    :ID: A8AC5063-AB2F-4031-8821-2084B7B6497C
    :END:
    [2008-04-11 Fri]
-** DEFERRED [#B] Add complete calculation history in Ledger
+** DEFERRED Add complete calculation history in Ledger
    - State "DEFERRED"   [2009-02-24 Tue 04:00]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 146
    :ID: B1F0071C-BD7D-4311-8DF2-7868F9CA7A29
    :END:
-** DEFERRED [#B] Annotations should allow for HH:MM:SS
+** DEFERRED Annotations should allow for HH:MM:SS
    - State "DEFERRED"   [2009-02-24 Tue 04:02]
    And also datetime should display this if it's there (but not if it's
    midnight).
@@ -1013,7 +1134,7 @@ Error: A posting's cost may not be negative
    :ID: F7DDD7D6-D219-4645-BB02-33AF74BED44B
    :END:
    [2008-04-11 Fri]
-** DEFERRED [#B] In the equity report, if the "collapse" option is used ...
+** DEFERRED In the equity report, if the "collapse" option is used ...
    - State "DEFERRED"   [2009-02-24 Tue 04:04]
    ... output only one entry.  Otherwise, output an entry for every top-level
    account.
@@ -1023,7 +1144,7 @@ Error: A posting's cost may not be negative
    :ID: 29D7E913-1A5C-4ED2-8AB8-53D895021615
    :END:
    [2008-04-11 Fri]
-** DEFERRED [#B] Performance in forecasting would be weak with a lot of period xacts
+** DEFERRED Performance in forecasting would be weak with a lot of period xacts
    - State "DEFERRED"   [2009-02-24 Tue 04:05]
    What happens to performance with lots of accounts, of commodities?
    :PROPERTIES:
@@ -1032,120 +1153,3 @@ Error: A posting's cost may not be negative
    :ID: 68E4C919-14BA-4AB1-A60B-FC176E966B45
    :END:
    [2008-04-11 Fri]
-* Python
-** TODO [#B] Get ledger python to run within the build tree
-   :PROPERTIES:
-   :ID: 7274224C-3470-4A9F-B56E-A499F39E13C9
-   :END:
-   [2009-03-09 Mon 20:33]
-** TODO [#B] Create a Python wrapper for op_t objects
-   If it's evaluated in a value context, like str, int or __repr__, then
-   calculate and determine the value.  Otherwise, don't calculate so it remains
-   callable.
-   :PROPERTIES:
-   :ID: 3040E933-2068-4C78-954F-F78A7BAFB2D6
-   :END:
-   [2009-02-24 Tue 22:15]
-** TODO [#B] The error output when calling Python is out of order
-   :OUTPUT:
-TypeError: No to_python (by-value) converter found for C++ type: ledger::value_t
-While evaluating value expression:
-  myvalue(23)
-  ^^^^^^^^^^^
-Error: While calling Python function 'myvalue'
-   :END:
-   This should be:
-   :OUTPUT:
-While evaluating value expression:
-  myvalue(23)
-  ^^^^^^^^^^^
-While calling Python function 'myvalue':
-Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::value_t
-   :END:
-   :PROPERTIES:
-   :ID: 7CF0160B-A3FF-4BE7-B6D3-788F9556A20F
-   :END:
-   [2009-01-23 Fri 15:57]
-** TODO [#B] Use Python to create a per-account debit/credit report
-   Is there a way to let ledger output its reports showing the accounts in the
-   more conventional way as debit and credit accounts, instead of having a
-   positive or negative saldo?
- 
-   Here is one example:
-   :OUTPUT:
-Assets:Bank
-Tr.#	date		Text			debit		credit		saldo
-1	2008-01-01	Mr. Sponsor		500				500
-2	2008-01-02	Bill					100		400
-
-Income:Donations
-Tr.#	date		Text			debit		credit		saldo
-1	2008-01-01	Mr. Sponsor				500		-500
-
-Expenses:Electricity
-Tr.#	date		Text			debit		credit		saldo
-2	2008-01-02	Bill			100				100
-   :END:
-   There should be a way of distinguishing between debit accounts, as assets
-   and expenses, and credit accounts, as Income and liabilities. It is of
-   course possible to processs ledger's output to achieve this, but it would be
-   nice if it could be done in ledger directly.
-   :PROPERTIES:
-   :Submitter: Christopher <christopher.illies@ki.se>
-   :Version: 2.6.1
-   :ID: 444EFEE1-D873-4FD3-BB07-4E605BCB2BF4
-   :END:
-   [2008-10-08 Wed 00:58]
-** TODO [#B] Allow a Python function to be used to download quotes
-   :PROPERTIES:
-   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
-   :END:
-   [2009-06-24 Wed 17:27]
-* Tests
-** TODO [#B] Ledger is still failing the higher-numbered generation seed tests
-   :PROPERTIES:
-   :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
-   :END:
-   [2009-03-03 Tue 15:47]
-** TODO [#B] New tests to create for Ledger
-   - [ ] GarbageTests
-	 Feed every one of the distribution's source files back to Ledger, to
-         make sure it dies gracefully.
-   - [ ] RandomTests
-	 Feed random data (probably base64) both as options and input.
-   - [ ] ScrambleTests
-	 Pass random combinations of options.
-   :PROPERTIES:
-   :ID: F866DFA5-7350-45D3-BF76-286D68755A2A
-   :END:
-   [2009-02-27 Fri 16:19]
-** TODO [#B] Write an org-mode function to turn a bug TODO into a regression test
-   :PROPERTIES:
-   :ID: 6A4F436B-E69C-45B2-ABBA-7E550EDBCFCD
-   :END:
-   [2009-02-27 Fri 04:41]
-** TODO [#B] Run Ledger through the profiler, against mondo.dat (to beat 11s)
-   :PROPERTIES:
-   :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
-   :END:
-   [2009-02-25 Wed 04:15]
-** TODO [#B] Create regression tests for all the closed 2.6.1 bugs
-   :PROPERTIES:
-   :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
-   :END:
-   [2008-08-14 Thu]
-** TODO [#B] Use coverage analysis to determine if all of Ledger is being tested
-   :PROPERTIES:
-   :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
-   :END:
-   [2008-08-14 Thu]
-** TODO [#B] The opt-forecast-while test is time sensitive, and is now failing
-   :PROPERTIES:
-   :ID: 7B8D466B-6F38-41E6-B2B1-964B8378C929
-   :END:
-   [2009-03-01 Sun 05:36]
-** TODO [#B] Convert *all* valexpr functions to use interactive_t
-   :PROPERTIES:
-   :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
-   :END:
-   [2009-02-21 Sat 17:36]

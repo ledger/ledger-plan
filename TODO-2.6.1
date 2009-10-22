@@ -234,7 +234,7 @@ arete$ ledger xact 2007/11/11 safeway groceries \$10.00 american
    :ID: FB2330E1-AD78-4559-A885-A488DFDF3DC1
    :END:
    [2007-09-22 Sat]
-** DONE [#B] -e doesn't seem to work for providing an end date
+** DONE -e doesn't seem to work for providing an end date
    - State "DONE"       [2008-04-04 Fri 14:34] \\
      There was a problem with the -e date parsing.  I now interpret "-e june"
      to mean that you want the report to end AT June, rather than IN June.
@@ -281,7 +281,7 @@ $
    :ID: 1DE6FB08-93D2-47C8-A5A3-3379BA76360D
    :END:
    [2008-04-04 Fri]
-** DONE [#B] Command results in assertion failure
+** DONE Command results in assertion failure
    - State "DONE"       [2008-07-17 Thu 17:44]
    The command is:
    :SCRIPT:
@@ -295,7 +295,7 @@ ledger -s bal --sort O wedding
    :ID: AB684BBE-F093-4F77-BCFB-2F4E0D60AA9C
    :END:
    [2007-12-10 Mon]
-** DONE [#B] Coredump.
+** DONE Coredump.
    - State "DONE"       [2008-07-17 Thu 17:50]
    :DATA:
 2008/01/02 * Sell -- on 2007/12/27 -- CRA  --  APPLERA CORP COM CELERA GROUP CA EXCHANGE RATE     .96760
@@ -313,7 +313,7 @@ ledger -s bal --sort O wedding
    :ID: A18B37A4-68DB-4F3A-92D5-3962D010CA0B
    :END:
    [2008-04-06 Sun]
-** DONE [#B] Crash on input -- spurious comma
+** DONE Crash on input -- spurious comma
    - State "DONE"       [2008-07-17 Thu 17:49]
    :DATA:
 2008/02/25 * bla bla bnla
@@ -329,7 +329,7 @@ ledger -s bal --sort O wedding
    :ID: 517CB118-49A5-42B2-ACFD-1A63DCF163AA
    :END:
    [2008-04-06 Sun]
-** DONE [#B] Crash on input.
+** DONE Crash on input.
    - State "DONE"       [2008-07-17 Thu 17:45]
    :DATA:
 2008/01/02 ! Sell -- on 2007/12/27 -- CRA  --  APPLERA CORP COM CELERA GROUP CA EXCHANGE RATE     .96760
@@ -345,7 +345,7 @@ ledger -s bal --sort O wedding
    :ID: 93CFAFEB-46EA-4E47-8F0A-069309D6EE3A
    :END:
    [2008-04-06 Sun]
-** DONE [#B] Crash reading .timelog file
+** DONE Crash reading .timelog file
    - State "DONE"       [2008-07-17 Thu 18:08]
    2.6b aborts if the last xact is the timelog is an "in" event.
    :PROPERTIES:
@@ -355,7 +355,7 @@ ledger -s bal --sort O wedding
    :ID: C7A32276-11A7-44F1-99CD-6F0CA7330340
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Do not adjust display precision when parsing a pricing xact
+** DONE Do not adjust display precision when parsing a pricing xact
    - State "DONE"       [2008-09-17 Wed 05:12]
    :PROPERTIES:
    :Submitter: John Wiegley <johnw@newartisans.com>
@@ -364,7 +364,7 @@ ledger -s bal --sort O wedding
    :ID: 7E5D2A6C-A15F-4BC8-A851-04A48E3E30F4
    :END:
    [2008-07-28 Mon]
-** DONE [#B] Expressions don't work.
+** DONE Expressions don't work.
    - State "DONE"       [2008-07-17 Thu 21:37]
    - State "TODO"       [2008-04-12 Sat 14:58] \\
      Martin Blais <blais@furius.ca> writes:
@@ -381,7 +381,7 @@ ledger -s bal --sort O wedding
    :ID: DA9F2346-CD90-4E22-B2F0-2670532456BA
    :END:
    [2008-04-12 Sat]
-** DONE [#B] Getting an abort with a self-referential pricing statement
+** DONE Getting an abort with a self-referential pricing statement
    - State "DONE"       [2008-07-17 Thu 17:51] \\
      Getting this to work correctly is going to need more work (which has already
      been logged as another bug).
@@ -398,7 +398,7 @@ ledger -s bal --sort O wedding
    :ID: A21E4DCC-6112-441F-B76D-95CF47BA658D
    :END:
    [2008-04-06 Sun]
-** DONE [#B] Ignore [TEXT] in a xact which does not specify a date
+** DONE Ignore [TEXT] in a xact which does not specify a date
    - State "DONE"       [2008-09-17 Wed 05:10] \\
      Fixed, by simply ignoring when something that looks [TEXT] in a xact
      note fails to parse as a date.
@@ -412,7 +412,7 @@ ledger -s bal --sort O wedding
    :ID: 96DDA4B9-E216-4C7A-8D0E-02B0F39CA256
    :END:
    [2008-08-27 Wed]
-** DONE [#B] Install patches for Ledger 2.6 from Simon Michael
+** DONE Install patches for Ledger 2.6 from Simon Michael
    - State "DONE"       [2008-07-17 Thu 21:41] \\
      I'm only taking the first patch for 2.6.  The other two need a bit more
      polish before I would put them in the standard distro, instead of just
@@ -425,7 +425,7 @@ ledger -s bal --sort O wedding
    :Attachments: sm001.patch sm002.patch sm004.patch 
    :END:
    [2008-04-11 Fri]
-** DONE [#B] ledger SVN doesn't compile on freebsd-8
+** DONE ledger SVN doesn't compile on freebsd-8
    - State "DONE"       [2008-03-17 Mon 16:22] \\
      Clemens writes:
      > Just for the record, there's a fix:
@@ -489,7 +489,7 @@ gmake: *** [all] Error 2
    :ID: C1BE11BD-958D-4E67-8B85-5DA14CD375B4
    :END:
    [2008-03-14 Fri]
-** DONE [#B] Segmentation fault on import from GnuCash
+** DONE Segmentation fault on import from GnuCash
    - State "DONE"       [2008-07-17 Thu 20:04]
    - State "TODO"       [2008-06-16 Mon 16:05] \\
      Luben Manolov <lubo@manolov.org> writes:
@@ -510,7 +510,7 @@ While balancing xact:
    :Attachments: sample.gnucash
    :END:
    [2008-06-16 Mon]
-** DONE [#B] Unbalanced posts due to rounding problems
+** DONE Unbalanced posts due to rounding problems
    - State "DONE"       [2008-09-17 Wed 05:03] \\
      The cents disappeared because 'D $1,000.00' must be specified at the beginning
      of the file, since you never use dollar figures outside of the pricing.
@@ -659,7 +659,7 @@ Error: Cannot compare amounts with different commodities: EC and $
    :ID: A4F87484-1B1D-4C76-B0AB-70E20FBA9D1B
    :END:
    [2008-04-23 Wed]
-** WONTFIX [#B] No commodity when amount contains simple math operation
+** WONTFIX No commodity when amount contains simple math operation
    - State "WONTFIX"    [2007-11-09 Fri 23:34] \\
      This expected behavior.  If you multiply or divide two commoditized
      amounts together, the second commodity is dropped in favor of the first.
@@ -689,7 +689,7 @@ $ ledger -f sample2.dat bal
    :ID: 4290A2E5-8CFB-4529-87DE-F088719AF13A
    :END:
    [2007-11-09 Fri]
-** WONTFIX [#B] Problem with pricing specification in prices.db file
+** WONTFIX Problem with pricing specification in prices.db file
    - State "WONTFIX"    [2008-07-17 Thu 21:42] \\
      Pricing info is not used for balancing posts.  For that, you'd need to use
      "@ ... USD" for the halfg and gouda amounts, so that Ledger could be certain
@@ -804,7 +804,7 @@ ledger --weekly reg food
    :ID: 30383931-3060-4999-8FD3-9002E02366A0
    :END:
    [2007-12-10 Mon]
-** WORKSFORME [#B] ledger -MA doesn't give a monthly report if some months have no posts
+** WORKSFORME ledger -MA doesn't give a monthly report if some months have no posts
    - State "WORKSFORME" [2008-07-17 Thu 20:14] \\
      This works for me.
    :PROPERTIES:
@@ -814,7 +814,7 @@ ledger --weekly reg food
    :ID: FD118D79-3B8F-48CE-89D0-F0FFD46F6C49
    :END:
    [2008-04-11 Fri]
-** WORKSFORME [#B] Problems with the prices.db file
+** WORKSFORME Problems with the prices.db file
    - State "WORKSFORME" [2008-07-17 Thu 21:45] \\
      Pricing posts must start with a capital P, not a lowercase p.
  
@@ -866,7 +866,7 @@ Error: Errors parsing file 'life/finances/ledger/prices.db'
    :ID: 2C3B5DCE-AB7F-41A2-BF93-56CC1222AE64
    :END:
    [2008-04-11 Fri]
-** INVALID [#B] Remove bogus reference to Emacs in project documentation (2.6)
+** INVALID Remove bogus reference to Emacs in project documentation (2.6)
    - State "INVALID"    [2008-07-13 Sun 22:16]
    :PROPERTIES:
    :Submitter: John Wiegley <johnw@newartisans.com>
@@ -912,7 +912,7 @@ Error: Errors parsing file 'life/finances/ledger/prices.db'
    :ID: 6DF2250F-C54D-4F67-AFB6-F8656020D394
    :END:
    [2008-04-11 Fri]
-** DUPLICATE [#B] Need to strip \r from \r\n line endings
+** DUPLICATE Need to strip \r from \r\n line endings
    - State "DUPLICATE"  [2008-07-13 Sun 22:38]
    :PROPERTIES:
    :Submitter: John Wiegley <johnw@newartisans.com>
@@ -921,7 +921,7 @@ Error: Errors parsing file 'life/finances/ledger/prices.db'
    :ID: C7A61E89-08D1-4151-AF2E-92F666148F19
    :END:
    [2008-04-11 Fri]
-** DUPLICATE [#B] Problems parsing an xact
+** DUPLICATE Problems parsing an xact
    - State "DUPLICATE"  [2008-07-18 Fri 02:12]
    :OUTPUT:
 djw@hector:~$ ledger bal 
@@ -976,7 +976,7 @@ Error: "/home/vinod/data/ledger.dat", line 52379: Xact does not balance
    :END:
    [2008-07-28 Mon]
 * Docs
-** DONE [#B] Some at-signs are not properly escaped in documentation
+** DONE Some at-signs are not properly escaped in documentation
    - State "DONE"       [2008-03-27 Thu 19:42]
    Some of the at signs are not properly escaped in the texi
    documentation. This leads to great confusion when trying to figure out how
@@ -1023,7 +1023,7 @@ Error: "/home/vinod/data/ledger.dat", line 52379: Xact does not balance
    :ID: 7A8C49FB-F9B8-4ECF-8720-9E29559F3CA6
    :END:
    [2008-04-11 Fri]
-** DONE [#B] ledger.el requires an absolute pathname for the ledger-binary-path
+** DONE ledger.el requires an absolute pathname for the ledger-binary-path
    - State "DONE"       [2008-07-17 Thu 22:09]
    This caused me pain after a ledger upgrade. "ledger" should be sufficient if
    it's in the path.
@@ -1034,7 +1034,7 @@ Error: "/home/vinod/data/ledger.dat", line 52379: Xact does not balance
    :ID: 7D40038A-DEED-47FA-8D02-0951E94CA175
    :END:
    [2008-07-12 Sat]
-** DUPLICATE [#B] Reconciling doesn't work in ledger.el
+** DUPLICATE Reconciling doesn't work in ledger.el
    - State "DUPLICATE"  [2008-07-16 Wed 03:56] \\
      Duplicated by #64.
    I've tried version 2.5 but have had some problems.

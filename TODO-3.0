@@ -52,13 +52,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 6CAF45D7-9098-41B4-A25A-12F8A8166006
    :END:
    [2007-08-22 Wed]
-** DONE [#B] If a quote comes back in the wrong commodity, ignore it
+** DONE If a quote comes back in the wrong commodity, ignore it
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:19]
    :PROPERTIES:
    :ID: CD45A03D-0A90-4C60-BA81-81BAEC554544
    :END:
    [2009-06-26 Fri 17:50]
-** DONE [#B] If there are multiple balancing xacts, print shows them all
+** DONE If there are multiple balancing xacts, print shows them all
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:56] \\
      This was fixed by implying --actual whenever "print" is used.
    :DATA:
@@ -85,59 +85,59 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: E2E479BC-BC00-4539-A330-895B2C1C8D57
    :END:
    [2009-02-27 Fri 04:10]
-** DONE [#B] Fix --anon so it preserves account hierarchy structure
+** DONE Fix --anon so it preserves account hierarchy structure
    - State "DONE"       from "TODO"       [2009-06-27 Sat 14:11]
    :PROPERTIES:
    :ID: 76C15815-4D3C-46AC-996C-C6C26396283F
    :END:
    [2009-06-26 Fri 23:02]
-** DONE [#B] Balance report was missing the parent account
+** DONE Balance report was missing the parent account
    - State "DONE"       [2009-03-16 Mon 04:06]
    :PROPERTIES:
    :ID: 461980A1-86DE-4C76-9CB1-1480B5606624
    :END:
    [2009-03-15 Sun 22:32]
-** DONE [#B] Balance report wasn't reporting a final total
+** DONE Balance report wasn't reporting a final total
    - State "DONE"       [2009-03-16 Mon 04:06]
    :PROPERTIES:
    :ID: E9F130C5-33AA-4841-B238-1148506B3DDF
    :END:
    [2009-03-15 Sun 22:32]
-** DONE [#B] Break up interval_t and move range_t into value_t
+** DONE Break up interval_t and move range_t into value_t
    - State "DONE"       [2009-03-16 Mon 04:56]
    - State "STARTED"    [2009-03-10 Tue 23:14]
    :PROPERTIES:
    :ID: FFD34FF1-66E2-4209-93A7-A6C09073B02A
    :END:
    [2009-03-10 Tue 19:40]
-** DONE [#B] Fold gather_statistics into calc_posts
+** DONE Fold gather_statistics into calc_posts
    - State "DONE"       [2009-03-04 Wed 04:41]
    :PROPERTIES:
    :ID: D64F0CA1-4810-4FD0-BAF5-E6614C69DB42
    :END:
    [2009-03-03 Tue 17:14]
-** DONE [#B] Find an efficient way to make account_amount, etc., always available
+** DONE Find an efficient way to make account_amount, etc., always available
    - State "DONE"       [2009-03-03 Tue 17:13]
    For example, in the register report we don't do any account tabulation.
    :PROPERTIES:
    :ID: 75E8A4EB-4596-47E0-B358-9C078C07C21F
    :END:
    [2009-03-03 Tue 16:29]
-** DONE [#B] Determine if pre-reading the textual ledger speeds up parsing
+** DONE Determine if pre-reading the textual ledger speeds up parsing
    - State "DONE"       [2009-03-06 Fri 04:12] \\
      This is not where the slowness is, according to the profiler.
    :PROPERTIES:
    :ID: 5F272418-F871-4881-AE03-E12C1057E682
    :END:
    [2009-03-03 Tue 00:09]
-** DONE [#B] Add a "show" report query term
+** DONE Add a "show" report query term
    - State "DONE"       [2009-03-02 Mon 22:44]
    So that a person can say: ledger bal exp show expenses\$
    :PROPERTIES:
    :ID: 42637863-3BFE-43BB-8246-0F14C365B11D
    :END:
    [2009-03-02 Mon 16:52]
-** DONE [#B] The formatter should itself call justify and scrub
+** DONE The formatter should itself call justify and scrub
    - State "DONE"       [2009-03-03 Tue 03:18]
    The user can use %{} to avoid any other calls.
 
@@ -150,7 +150,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 5B31A223-DD34-4F97-ABC6-1C18FADC5389
    :END:
    [2009-03-02 Mon 05:25]
-** DONE [#B] The 'entry' command is showing an effective date
+** DONE The 'entry' command is showing an effective date
    - State "DONE"       [2009-03-02 Mon 04:41]
    The entry that it prints out should not have an effective date.
    :PROPERTIES:
@@ -160,44 +160,44 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 9457CE97-8EF2-F5B4-B31A-A8D06175EBF3
    :END:
    [2009-03-01 Sun 01:09]
-** DONE [#B] "ledger parse 'foo(1, 2, 3, 4, (5, 6))'" doesn't parse right
+** DONE "ledger parse 'foo(1, 2, 3, 4, (5, 6))'" doesn't parse right
    - State "DONE"       [2009-03-03 Tue 16:02]
    - State "STARTED"    [2009-03-03 Tue 15:28]
    :PROPERTIES:
    :ID: EAF588B2-BDD6-4B3E-A8BB-4D5047476140
    :END:
    [2009-02-28 Sat 05:39]
-** DONE [#B] "ledger parse 'foo(1, 2, 3)'" now crashes
+** DONE "ledger parse 'foo(1, 2, 3)'" now crashes
    - State "DONE"       [2009-02-28 Sat 06:10]
    :PROPERTIES:
    :ID: 0307B1C1-A2AC-43E2-AE2E-E3BE2617C5AD
    :END:
    [2009-02-27 Fri 21:32]
-** DONE [#B] For unrounded numbers, trim zeroes but not less than display precision
+** DONE For unrounded numbers, trim zeroes but not less than display precision
    - State "DONE"       [2009-02-27 Fri 13:14]
    :PROPERTIES:
    :ID: 0BAD4288-C129-425D-8700-D4B2DD129007
    :END:
    [2009-02-27 Fri 04:30]
-** DONE [#B] Use --head to limit post generation (and speed up GenerateTests!)
+** DONE Use --head to limit post generation (and speed up GenerateTests!)
    - State "DONE"       [2009-02-27 Fri 13:14]
    :PROPERTIES:
    :ID: E02F85C9-B369-42AB-8463-0C9ACF601DA3
    :END:
    [2009-02-27 Fri 04:30]
-** DONE [#B] Recursive printing causes costs to extend precision each time
+** DONE Recursive printing causes costs to extend precision each time
    - State "DONE"       [2009-02-27 Fri 16:22]
    :PROPERTIES:
    :ID: 78F75F38-9069-4812-99E4-0D9FCDE14DFB
    :END:
    [2009-02-27 Fri 03:03]
-** DONE [#B] foo(1, 2, 3) is printing as foo(1, (2, 3))
+** DONE foo(1, 2, 3) is printing as foo(1, (2, 3))
    - State "DONE"       [2009-02-27 Fri 13:15]
    :PROPERTIES:
    :ID: C0709A2B-2D63-405A-B7EC-B5FD97E62A72
    :END:
    [2009-02-26 Thu 23:16]
-** DONE [#B] Improve changed_value_xacts so it reports rounding discrepancies
+** DONE Improve changed_value_xacts so it reports rounding discrepancies
    - State "DONE"       [2009-02-26 Thu 03:18]
    This will require adding a --revalued-amount options, and verifying that the
    last_balance plus this amount equals the new balance.
@@ -205,19 +205,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 0854BABC-CB9F-4415-8984-D74F39374535
    :END:
    [2009-02-25 Wed 14:05]
-** DONE [#B] Perhaps the -x option should be -X, to pair with -V
+** DONE Perhaps the -x option should be -X, to pair with -V
    - State "DONE"       [2009-02-25 Wed 13:49]
    :PROPERTIES:
    :ID: 3BEF3BCD-EE9A-4D29-B5A0-90D6AC868556
    :END:
    [2009-02-25 Wed 04:27]
-** DONE [#B] Change streaming to std::cerr to use WARN
+** DONE Change streaming to std::cerr to use WARN
    - State "DONE"       [2009-02-26 Thu 04:53]
    :PROPERTIES:
    :ID: 142B89D4-7741-4951-A636-707273C1FE3D
    :END:
    [2009-02-25 Wed 01:32]
-** DONE [#B] Error when running my 'bal' script
+** DONE Error when running my 'bal' script
    - State "DONE"       [2009-02-26 Thu 05:07]
    When using my bal script, if there is an error in the large valexpr I use,
    it doesn't show the full context, only the valueof statement.
@@ -227,25 +227,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 88468528-A332-47E7-AA34-5E4F8126E3E7
    :END:
    [2007-12-10 Mon]
-** DONE [#B] Ditch POST_AUTO for ITEM_GENERATED
+** DONE Ditch POST_AUTO for ITEM_GENERATED
    - State "DONE"       [2009-02-24 Tue 01:01]
    :PROPERTIES:
    :ID: D579B743-D87C-4168-8E83-7A49A77917F6
    :END:
    [2009-02-23 Mon 21:35]
-** DONE [#B] Move the samples in contrib/scripts perhaps to contrib/?
+** DONE Move the samples in contrib/scripts perhaps to contrib/?
    - State "DONE"       [2009-02-24 Tue 04:07]
    :PROPERTIES:
    :ID: 079B7BEC-73F9-4598-A6F6-6D9717B37F34
    :END:
    [2009-02-04 Wed 20:56]
-** DONE [#B] Need to rename entry->xact and xact->post
+** DONE Need to rename entry->xact and xact->post
    - State "DONE"       [2009-02-23 Mon 18:49]
    :PROPERTIES:
    :ID: CCD63092-FB8B-48DA-BA86-2C6710C6034A
    :END:
    [2009-02-23 Mon 03:46]
-** DONE [#B] Problem with basis report
+** DONE Problem with basis report
    - State "DONE"       [2009-02-24 Tue 11:38]
    The command is:
    :SCRIPT:
@@ -259,7 +259,7 @@ ledger -f utils/standard.dat -e 2004/4 -B reg 401
    :ID: 41B5FF94-DF20-4530-81A5-20E78EEEDED2
    :END:
    [2007-12-10 Mon]
-** DONE [#B] Problem with capital gains report
+** DONE Problem with capital gains report
    - State "DONE"       [2009-02-24 Tue 11:37]
    The command is:
    :SCRIPT:
@@ -276,13 +276,13 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :ID: 51DD2F71-F5D0-4C89-AEBD-9BFCF56C1FDB
    :END:
    [2007-12-10 Mon]
-** DONE [#B] reg -V -f doc/sample.dat is currently completely broken
+** DONE reg -V -f doc/sample.dat is currently completely broken
    - State "DONE"       [2009-02-24 Tue 11:37]
    :PROPERTIES:
    :ID: D7A942B0-A071-496D-B2CE-E916837D50D6
    :END:
    [2009-02-05 Thu 03:36]
-** DONE [#B] The following, with -B or -V, does not output correctly
+** DONE The following, with -B or -V, does not output correctly
    - State "DONE"       [2009-02-24 Tue 11:43]
    If you do a register report using this input:
    :DATA:
@@ -307,104 +307,104 @@ D $1,000.00
    :ID: F5ABB1B6-B2C1-45B2-A9AE-174736521687
    :END:
    [2008-07-13 Sun]
-** DONE [#B] The print command isn't showing the transaction cost
+** DONE The print command isn't showing the transaction cost
    - State "DONE"       [2009-02-24 Tue 15:04]
    :PROPERTIES:
    :ID: 69C29ACE-3685-405A-8EB6-D66941FF6A51
    :END:
    [2009-02-22 Sun 21:01]
-** DONE [#B] Need to internationalize error messages
+** DONE Need to internationalize error messages
    - State "DONE"       [2009-02-25 Wed 04:15]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 138
    :ID: 6838FEA5-9283-462D-8651-351B0B6A6A0E
    :END:
-** DONE [#B] There are too many O_CONS levels for parsing '((1, 2), 3)'
+** DONE There are too many O_CONS levels for parsing '((1, 2), 3)'
    - State "DONE"       [2009-02-23 Mon 05:29]
    :PROPERTIES:
    :ID: 539F3920-0426-40D0-AB6A-091EE1AC9B1B
    :END:
    [2009-02-23 Mon 05:07]
-** DONE [#B] Fix the rendering of O_CONS and O_CALL
+** DONE Fix the rendering of O_CONS and O_CALL
    - State "DONE"       [2009-02-23 Mon 14:21]
    :PROPERTIES:
    :ID: BE1CB9AB-6FE9-45EC-BD61-63D1F3AE612D
    :END:
    [2009-02-23 Mon 05:07]
-** DONE [#B] If an option was not used, options.foo should return a null value
+** DONE If an option was not used, options.foo should return a null value
    - State "DONE"       [2009-02-22 Sun 15:16]
    :PROPERTIES:
    :ID: BA21ACF9-8213-4794-BF32-57C786E50B67
    :END:
    [2009-02-22 Sun 05:11]
-** DONE [#B] Allow --exchange to take a comma-separated list of commodities
+** DONE Allow --exchange to take a comma-separated list of commodities
    - State "DONE"       [2009-02-22 Sun 16:12]
    :PROPERTIES:
    :ID: 924DA74D-7D4F-4412-AE2A-251DC139D86A
    :END:
    [2009-02-22 Sun 04:33]
-** DONE [#B] The -- sequence isn't stopping option parsing from happening
+** DONE The -- sequence isn't stopping option parsing from happening
    - State "DONE"       [2009-02-22 Sun 18:36]
    :PROPERTIES:
    :ID: 9CEDF17E-E7F2-4FBC-8B6E-3E90F33DB70A
    :END:
    [2009-02-22 Sun 03:10]
-** DONE [#B] The string accumulator is swallowing strings
+** DONE The string accumulator is swallowing strings
    - State "DONE"       [2009-02-21 Sat 23:43]
    :PROPERTIES:
    :ID: C5D32CCE-7FD4-4A39-B8F2-20147A4F6902
    :END:
    [2009-02-21 Sat 21:33]
-** DONE [#B] 'q' in ledger-report should bury the report buffer
+** DONE 'q' in ledger-report should bury the report buffer
    - State "DONE"       [2009-02-21 Sat 19:40]
    :PROPERTIES:
    :ID: 084BCE44-1D07-4353-8719-4C46C7F45273
    :END:
    [2009-02-21 Sat 18:09]
-** DONE [#B] Create an interactive_t object to do argument parsing
+** DONE Create an interactive_t object to do argument parsing
    - State "DONE"       [2009-02-21 Sat 18:57]
    :PROPERTIES:
    :ID: B42F7688-FC26-4A0A-9C36-AB9D30FBD864
    :END:
    [2009-02-21 Sat 16:14]
-** DONE [#B] Change strip() function to more general scrub()
+** DONE Change strip() function to more general scrub()
    - State "DONE"       [2009-02-21 Sat 19:17]
    :PROPERTIES:
    :ID: F10BB0FD-86C6-4B61-A2BA-473820F27BD6
    :END:
    [2009-02-21 Sat 12:30]
-** DONE [#B] Enable gettext, but only for exceptions and public strings
+** DONE Enable gettext, but only for exceptions and public strings
    - State "DONE"       [2009-02-21 Sat 20:08]
    :PROPERTIES:
    :ID: C6772BE2-04DF-4027-AF96-16B677E08603
    :END:
    [2009-02-21 Sat 12:28]
-** DONE [#B] Make --empty tests for bal, bal -n, weekly, etc.
+** DONE Make --empty tests for bal, bal -n, weekly, etc.
    - State "DONE"       [2009-02-21 Sat 20:59]
    :PROPERTIES:
    :ID: EDE71916-D0FC-4EF3-99A5-34FF0B35F58F
    :END:
    [2009-02-21 Sat 12:27]
-** DONE [#B] Amount reduction is not working
+** DONE Amount reduction is not working
    - State "DONE"       [2009-02-21 Sat 01:39]
    :PROPERTIES:
    :ID: 363C38F0-FDE6-461C-8114-9B172F4B8115
    :END:
    [2009-02-20 Fri 13:17]
-** DONE [#B] If --strict, warn if an uncleared account has never been seen before
+** DONE If --strict, warn if an uncleared account has never been seen before
    - State "DONE"       [2009-02-19 Thu 22:28]
    :PROPERTIES:
    :ID: 27E4A5B5-F9B9-46EA-9582-82573507F612
    :END:
    [2009-02-19 Thu 15:59]
-** DONE [#B] Have ledger automatically fill up the terminal window
+** DONE Have ledger automatically fill up the terminal window
    - State "DONE"       [2009-02-19 Thu 15:11]
    :PROPERTIES:
    :ID: E05F54E7-FEA9-4B89-8A2E-75151FB7BF32
    :END:
    [2009-02-19 Thu 14:25]
-** DONE [#B] An error message is printing incorrectly from Ledger
+** DONE An error message is printing incorrectly from Ledger
    - State "DONE"       [2009-02-19 Thu 13:09]
    :OUTPUT:
 While calculating posting from "doc/sample.dat", line 11:
@@ -415,7 +415,7 @@ While calculating posting from "doc/sample.dat", line 11:
    :ID: F769BA6B-EE23-4E1F-A318-C3E51848104D
    :END:
    [2009-02-19 Thu 01:12]
-** DONE [#B] --prices-db not performing tilde expansion in .ledgerrc
+** DONE --prices-db not performing tilde expansion in .ledgerrc
    - State "DONE"       [2009-02-18 Wed 20:54]
    It seems that the --priced-db option in .ledgerrc does not perform tilde
    expansion on the filename specified, and so does not update the prices
@@ -445,14 +445,14 @@ ledger -QV bal .
    :ID: 70E63F8E-8561-41F9-A1F1-48AB75A435AA
    :END:
    [2008-12-08 Mon 23:59]
-** DONE [#B] Attempting to make a negative cost posting fails
+** DONE Attempting to make a negative cost posting fails
    - State "DONE"       [2009-02-19 Thu 15:13]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 68
    :ID: 0C13AABF-F0CC-40ED-BC20-D322AF1DD784
    :END:
-** DONE [#B] Balance command gets the sorting wrong
+** DONE Balance command gets the sorting wrong
    - State "DONE"       [2009-02-19 Thu 22:28]
    The command is:
    :SCRIPT:
@@ -464,7 +464,7 @@ ledger -S -t -s bal wedding
    :ID: D913FCEE-88FF-41D1-98AB-2561382C7933
    :END:
    [2007-12-10 Mon]
-** DONE [#B] Command does not sort correctly
+** DONE Command does not sort correctly
    - State "DONE"       [2009-02-19 Thu 17:28]
    The command is:
    :SCRIPT:
@@ -476,7 +476,7 @@ ledger -f utils/cases/1032.dat -S t bal
    :ID: 72DA9574-0B30-4140-96EC-D721F73B7888
    :END:
    [2007-12-10 Mon]
-** DONE [#B] Command fails to read any xacts (timelog support)
+** DONE Command fails to read any xacts (timelog support)
    - State "DONE"       [2009-02-19 Thu 17:28]
    :SCRIPT:
    ./ledger -f 2.6.2/tests/cases/1032.dat bal
@@ -485,7 +485,7 @@ ledger -f utils/cases/1032.dat -S t bal
    :ID: 48C39B0D-0B6A-4512-B60E-A5A1852B481D
    :END:
    [2009-02-16 Mon 14:48]
-** DONE [#B] Ledger should output empty values with -E -j
+** DONE Ledger should output empty values with -E -j
    - State "DONE"       [2009-02-19 Thu 13:25]
    The -E flag should cause Ledger to report null figures:
    :OUTPUT:
@@ -509,13 +509,13 @@ $ ledger -E -j -p 2006.12 reg Travel
    :ID: 86C0F968-F05B-4881-96B8-1C8CA8BB1315
    :END:
    [2008-04-05 Sat]
-** DONE [#B] Ledger's long options should support --foo=value
+** DONE Ledger's long options should support --foo=value
    - State "DONE"       [2009-02-19 Thu 13:06]
    :PROPERTIES:
    :ID: 9ADBF039-BCA2-4FFE-9567-3857467E82AA
    :END:
    [2009-02-16 Mon 20:19]
-** DONE [#B] More issues with price file parsing
+** DONE More issues with price file parsing
    - State "DONE"       [2009-02-19 Thu 15:02]
    - Note taken on [2008-07-18 Fri 22:44] \\
      Solving this is going to be part of a larger revising of the way commodities
@@ -541,13 +541,13 @@ $ ledger -E -j -p 2006.12 reg Travel
    :Attachments: prices.db
    :END:
    [2008-04-11 Fri]
-** DONE [#B] './ledger -f doc/sample.dat -E bal liab' shows the Assets account
+** DONE './ledger -f doc/sample.dat -E bal liab' shows the Assets account
    - State "DONE"       [2009-02-17 Tue 04:51]
    :PROPERTIES:
    :ID: 10D19C11-3698-4A95-AD8D-5CC3551F4567
    :END:
    [2009-02-16 Mon 23:52]
-** DONE [#B] 'ledger -f doc/sample.dat reg -s -n liab' elides too much
+** DONE 'ledger -f doc/sample.dat reg -s -n liab' elides too much
    - State "DONE"       [2009-02-17 Tue 05:29]
    It collapses the account down to "<Total>", even though there was only one
    account!
@@ -555,7 +555,7 @@ $ ledger -E -j -p 2006.12 reg Travel
    :ID: 82763D86-E75E-4731-86A0-FB318E9B5F9B
    :END:
    [2009-02-16 Mon 21:55]
-** DONE [#B] --begin and --end not working correctly
+** DONE --begin and --end not working correctly
    - State "DONE"       [2009-02-17 Tue 22:49]
    :PROPERTIES:
    :Version: 2.6
@@ -563,19 +563,19 @@ $ ledger -E -j -p 2006.12 reg Travel
    :ID: C0F9D986-4A39-49D3-9799-E6CFCF76E49A
    :END:
    [2008-04-11 Fri]
-** DONE [#B] -p 2004/01 should strictly be an alias for -b 2004/01/01 -e 2004/01/31
+** DONE -p 2004/01 should strictly be an alias for -b 2004/01/01 -e 2004/01/31
    - State "DONE"       [2009-02-18 Wed 01:00]
    :PROPERTIES:
    :ID: 7AC5356B-04BF-4D05-BD39-0826D616D840
    :END:
    [2009-02-17 Tue 22:48]
-** DONE [#B] Cannot stop the file parser by pressing Control-C
+** DONE Cannot stop the file parser by pressing Control-C
    - State "DONE"       [2009-02-16 Mon 04:16]
    :PROPERTIES:
    :ID: 51159E59-18E6-46D8-BBF6-60EFA98BFC6E
    :END:
    [2009-02-10 Tue 22:29]
-** DONE [#B] Command fails to report monthly averages
+** DONE Command fails to report monthly averages
    - State "DONE"       [2009-02-16 Mon 16:57]
    - State "TODO"       [2008-07-17 Thu 20:43] \\
      The output from this command is not what people would think it is, because it
@@ -593,7 +593,7 @@ ledger -p "this year" -MAs bal ^Expenses
    :ID: 5EDCE9E9-8610-4D31-950E-3659D1CD9218
    :END:
    [2007-12-10 Mon]
-** DONE [#B] Complete the "stats" command
+** DONE Complete the "stats" command
    - State "DONE"       [2009-02-16 Mon 05:17]
    An example from ledgerstat:
    :OUTPUT:
@@ -617,37 +617,37 @@ The last non-future posting was: 1 day ago
    :ID: 93DFA8A2-B54B-4BB5-809D-3857C8ECD472
    :END:
    [2009-02-10 Tue 04:34]
-** DONE [#B] ledger -Z causes a bad memory reference
+** DONE ledger -Z causes a bad memory reference
    - State "DONE"       [2009-02-16 Mon 16:56]
    :PROPERTIES:
    :ID: 8D55C469-CBA2-4F9D-B3E5-F4AFBA0A7A6B
    :END:
    [2009-02-07 Sat 05:04]
-** DONE [#B] Move code at the bottom of report.h back into derive.h
+** DONE Move code at the bottom of report.h back into derive.h
    - State "DONE"       [2009-02-16 Mon 04:13]
    :PROPERTIES:
    :ID: 5031CD23-FD35-4622-B0D6-90E8FFAD33D4
    :END:
    [2009-02-12 Thu 01:17]
-** DONE [#B] Use %32(" ") instead of %32| in the formatting codes
+** DONE Use %32(" ") instead of %32| in the formatting codes
    - State "DONE"       [2009-02-17 Tue 18:07]
    :PROPERTIES:
    :ID: 382031D0-4E3D-48B5-9112-51C40F2C8528
    :END:
    [2009-02-17 Tue 07:22]
-** DONE [#B] Using an invalid option should generate an error
+** DONE Using an invalid option should generate an error
    - State "DONE"       [2009-02-16 Mon 22:59]
    :PROPERTIES:
    :ID: 85C833A1-B710-484C-B892-EEE0E7240959
    :END:
    [2009-02-07 Sat 05:04]
-** DONE [#B] When Nafai uses -E bal, it shows *all* accounts
+** DONE When Nafai uses -E bal, it shows *all* accounts
    - State "DONE"       [2009-02-17 Tue 05:29]
    :PROPERTIES:
    :ID: 56B4B9CF-AAC4-455A-887F-6E2B359CD4DE
    :END:
    [2009-02-16 Mon 20:19]
-** DONE [#B] Command gets reporting periods entirely wrong
+** DONE Command gets reporting periods entirely wrong
    - State "DONE"       [2009-02-16 Mon 03:09]
    :SCRIPT:
    reg -f tools/drewr.dat --effective -n -p 2004/01 \( ^exp ^liab ^assets:sav \) and not %nobudget and not mastercard
@@ -657,7 +657,7 @@ The last non-future posting was: 1 day ago
    :ID: D77C48E5-7584-4CA7-9BBC-B2AAFF120C87
    :END:
    [2009-02-15 Sun 23:31]
-** DONE [#B] Command ignores -b option entirely
+** DONE Command ignores -b option entirely
    - State "DONE"       [2009-02-16 Mon 01:09]
    Part of the reason is --effective
    :SCRIPT:
@@ -667,61 +667,61 @@ The last non-future posting was: 1 day ago
    :ID: 6EB9DDEA-2526-40D6-A18D-CAC614DF5E45
    :END:
    [2009-02-15 Sun 23:31]
-** DONE [#B] 'ledger -f doc/sample.dat -n reg' shows $0.00 on first post
+** DONE 'ledger -f doc/sample.dat -n reg' shows $0.00 on first post
    - State "DONE"       [2009-02-16 Mon 03:51]
    :PROPERTIES:
    :ID: F524E251-C79C-4103-8DDC-A651B62A890C
    :END:
    [2009-02-15 Sun 21:55]
-** DONE [#B] Move the new ledger xact completion to M-TAB
+** DONE Move the new ledger xact completion to M-TAB
    - State "DONE"       [2009-02-15 Sun 18:03]
    :PROPERTIES:
    :ID: C6AC5776-AB18-4132-87E4-DE2A89E781CF
    :END:
    [2009-02-15 Sun 05:23]
-** DONE [#B] -M is doubling the running totals
+** DONE -M is doubling the running totals
    - State "DONE"       [2009-02-15 Sun 15:40]
    :PROPERTIES:
    :ID: 3378AF83-AC53-49DF-9FB3-8254E4D6FC5B
    :END:
    [2009-02-15 Sun 05:07]
-** DONE [#B] Remove special parsing of %!, in favor of '%(ansi(foo))'
+** DONE Remove special parsing of %!, in favor of '%(ansi(foo))'
    - State "DONE"       [2009-02-15 Sun 15:55]
    :PROPERTIES:
    :ID: 9C04DE6C-5539-4B55-B669-57284F34FD63
    :END:
    [2009-02-15 Sun 05:06]
-** DONE [#B] Create a fmt_ handler category, for reading %P as %(payee)
+** DONE Create a fmt_ handler category, for reading %P as %(payee)
    - State "DONE"       [2009-02-15 Sun 18:34]
    :PROPERTIES:
    :ID: 525D3608-5CA8-40B5-A0A6-D1A0BF37C06A
    :END:
    [2009-02-15 Sun 05:06]
-** DONE [#B] Remove total_cost, all I need is amount_expr = cost
+** DONE Remove total_cost, all I need is amount_expr = cost
    - State "DONE"       [2009-02-15 Sun 15:55]
    :PROPERTIES:
    :ID: 7ACCA78F-81BE-48D7-B7EE-42C1DA67DE62
    :END:
    [2009-02-15 Sun 05:06]
-** DONE [#B] Create set_expr method for HANDLER(limit_), removing append_predicate
+** DONE Create set_expr method for HANDLER(limit_), removing append_predicate
    - State "DONE"       [2009-02-15 Sun 18:21]
    :PROPERTIES:
    :ID: E0346AE8-DA9F-4C11-B297-5D8937C5B05F
    :END:
    [2009-02-15 Sun 05:06]
-** DONE [#B] Change op.calc debug class to expr.calc
+** DONE Change op.calc debug class to expr.calc
    - State "DONE"       [2009-02-15 Sun 15:40]
    :PROPERTIES:
    :ID: E62413C7-8ADD-4221-B397-83AF6086E515
    :END:
    [2009-02-15 Sun 05:05]
-** DONE [#B] interval_posts needs to keep its null_posts on temp-lists
+** DONE interval_posts needs to keep its null_posts on temp-lists
    - State "DONE"       [2009-02-15 Sun 05:21]
    :PROPERTIES:
    :ID: 7B23FA1A-9AD3-48A3-A82E-5B0559A6448B
    :END:
    [2009-02-14 Sat 06:12]
-** DONE [#B] Restore the -A reporting option
+** DONE Restore the -A reporting option
    - State "DONE"       [2009-02-15 Sun 15:41]
    This will require a new post/account valexpr variable: count.  For
    postings, it counts the number of postings calculated thus far.  For
@@ -730,25 +730,25 @@ The last non-future posting was: 1 day ago
    :ID: 9CEB14C0-63A1-489A-90E0-453D1125DFFF
    :END:
    [2009-02-14 Sat 05:39]
-** DONE [#B] Make sure -E can report an "empty month" when using -M
+** DONE Make sure -E can report an "empty month" when using -M
    - State "DONE"       [2009-02-15 Sun 23:16]
    :PROPERTIES:
    :ID: 1F47D0AF-0015-4CD6-8AE1-92D0791D61DE
    :END:
    [2009-02-13 Fri 20:51]
-** DONE [#B] The print format should conform to what I use in my ledger.dat
+** DONE The print format should conform to what I use in my ledger.dat
    - State "DONE"       [2009-02-13 Fri 18:43]
    :PROPERTIES:
    :ID: 42174465-88BE-465D-B15C-4EDD150C1D17
    :END:
    [2009-02-12 Thu 19:10]
-** DONE [#B] The sort needs to be able to reverse order of strings and dates
+** DONE The sort needs to be able to reverse order of strings and dates
    - State "DONE"       [2009-02-15 Sun 23:17]
    :PROPERTIES:
    :ID: 1745DA15-B4A3-42EE-B8F0-11273A33627C
    :END:
    [2009-02-12 Thu 16:15]
-** DONE [#B] Change the prices report again
+** DONE Change the prices report again
    - State "DONE"       [2009-02-13 Fri 21:08]
    PAYEE   = commodity of history price
    ACCOUNT = commodity
@@ -757,155 +757,155 @@ The last non-future posting was: 1 day ago
    :ID: D083AAA7-B90B-4A3A-86EB-0C502DABB16C
    :END:
    [2009-02-12 Thu 05:13]
-** DONE [#B] Allow for sorting by multiple criteria, like -S date,payee
+** DONE Allow for sorting by multiple criteria, like -S date,payee
    - State "DONE"       [2009-02-15 Sun 23:17]
    :PROPERTIES:
    :ID: AFAFB804-E156-4D94-B897-3AB4A9E611CB
    :END:
    [2009-02-12 Thu 04:54]
-** DONE [#B] "reg food" is broken now, looks like a boost::variant issue
+** DONE "reg food" is broken now, looks like a boost::variant issue
    - State "DONE"       [2009-02-12 Thu 03:11]
    :PROPERTIES:
    :ID: 8FFE1ACF-87B8-4EFD-AAEC-EFC1766A29ED
    :END:
    [2009-02-12 Thu 02:02]
-** DONE [#B] Have the xact command recognize days of the week
+** DONE Have the xact command recognize days of the week
    - State "DONE"       [2009-02-11 Wed 21:26]
    :PROPERTIES:
    :ID: A3F247BB-699E-40D5-B4D6-75A60192643A
    :END:
    [2009-02-11 Wed 19:18]
-** DONE [#B] Running gettextize may be worse than autoreconf --intl
+** DONE Running gettextize may be worse than autoreconf --intl
    - State "DONE"       [2009-02-15 Sun 23:17]
    :PROPERTIES:
    :ID: 81B2C4E9-2360-4055-88C2-076ACF88B97A
    :END:
    [2009-02-11 Wed 15:36]
-** DONE [#B] release-distcheck fails because we're passing all args to configure
+** DONE release-distcheck fails because we're passing all args to configure
    - State "DONE"       [2009-02-11 Wed 21:26]
    :PROPERTIES:
    :ID: 903AC319-A260-4166-8318-34C5ACC95AE8
    :END:
    [2009-02-11 Wed 15:12]
-** DONE [#B] Restore the "xact" command
+** DONE Restore the "xact" command
    - State "DONE"       [2009-02-15 Sun 23:17]
    :PROPERTIES:
    :ID: 3B6F9C53-E7D6-413F-8356-DFD34822DE3B
    :END:
    [2009-02-10 Tue 21:17]
-** DONE [#B] The file in tools/sample.drewr isn't working with the command it shows
+** DONE The file in tools/sample.drewr isn't working with the command it shows
    - State "DONE"       [2009-02-15 Sun 23:18]
    :PROPERTIES:
    :ID: AC7EAD11-1ECE-4E05-AC68-E2DB745F8A9B
    :END:
    [2009-02-10 Tue 21:17]
-** DONE [#B] Make sure "make release-distcheck" still works for Ledger
+** DONE Make sure "make release-distcheck" still works for Ledger
    - State "DONE"       [2009-02-08 Sun 16:01]
    :PROPERTIES:
    :ID: F3B3E622-AD73-4B8A-8839-F1CF87D7CC7C
    :END:
    [2009-01-23 Fri 19:07]
-** DONE [#B] For the parse command, create a dummy post/account to test against
+** DONE For the parse command, create a dummy post/account to test against
    - State "DONE"       [2009-02-09 Mon 17:33]
    - State "STARTED"    [2009-02-09 Mon 17:08]
    :PROPERTIES:
    :ID: 038CB629-A628-4B12-9356-5CA2097B45D2
    :END:
    [2009-02-09 Mon 15:45]
-** DONE [#B] drewr says --effective doesn't work either
+** DONE drewr says --effective doesn't work either
    - State "DONE"       [2009-02-09 Mon 17:33]
    - State "STARTED"    [2009-02-09 Mon 16:47]
    :PROPERTIES:
    :ID: E0E258D8-E5FD-44D5-9BC9-01A6131E66ED
    :END:
    [2009-02-09 Mon 15:19]
-** DONE [#B] The -y option doesn't work
+** DONE The -y option doesn't work
    - State "DONE"       [2009-02-09 Mon 17:33]
    - State "STARTED"    [2009-02-09 Mon 17:01]
    :PROPERTIES:
    :ID: 0C00E4C0-3BA3-4785-8F29-52C8FA702AD4
    :END:
    [2009-02-09 Mon 15:19]
-** DONE [#B] The expression "foo.bar.baz" gets precedence wrong too
+** DONE The expression "foo.bar.baz" gets precedence wrong too
    - State "DONE"       [2009-02-09 Mon 18:17]
    :PROPERTIES:
    :ID: 6632F5DF-77E9-4B2A-AA87-49C276F1C108
    :END:
    [2009-02-09 Mon 15:15]
-** DONE [#B] For the "ledger parse" command line, concat the args
+** DONE For the "ledger parse" command line, concat the args
    - State "DONE"       [2009-02-09 Mon 17:33]
    :PROPERTIES:
    :ID: 7070FBC8-35F1-41C7-95DD-FAFF9D0BC7DB
    :END:
    [2009-02-09 Mon 15:15]
-** DONE [#B] with ledger, "a or b and c" should be "(a or b) and c"
+** DONE with ledger, "a or b and c" should be "(a or b) and c"
    - State "DONE"       [2009-02-09 Mon 18:27]
    :PROPERTIES:
    :ID: 25E8D531-9B09-4993-A8BB-CD8C5B88CCA5
    :END:
    [2009-02-09 Mon 15:12]
-** DONE [#B] There is #if 0'd code in filters.cc stopping sample.sh from working
+** DONE There is #if 0'd code in filters.cc stopping sample.sh from working
    - State "DONE"       [2009-02-09 Mon 15:10]
    :PROPERTIES:
    :ID: 2987030C-0911-46BC-95D6-4494319492D6
    :END:
    [2009-02-09 Mon 01:01]
-** DONE [#B] Make Ledger not be so whitespace sensitive
+** DONE Make Ledger not be so whitespace sensitive
    - State "DONE"       [2009-02-15 Sun 23:18]
    :PROPERTIES:
    :ID: C2B7ED9B-7C4D-4F52-98A2-157671FDF83F
    :END:
    [2009-02-08 Sun 22:46]
-** DONE [#B] "reg -p this" gives an assertion whenever used at the REPL
+** DONE "reg -p this" gives an assertion whenever used at the REPL
    - State "DONE"       [2009-02-15 Sun 23:18]
    :PROPERTIES:
    :ID: FBD10B54-DC5E-420D-B558-450002C00F40
    :END:
    [2009-02-08 Sun 20:38]
-** DONE [#B] The following command doesn't work: ledger -S display_date reg
+** DONE The following command doesn't work: ledger -S display_date reg
    - State "DONE"       [2009-02-15 Sun 23:18]
    :PROPERTIES:
    :ID: D360E561-2F8E-43F3-AC51-D023A372C205
    :END:
    [2009-02-08 Sun 19:07]
-** DONE [#B] Get PCH support working again for the Ledger build
+** DONE Get PCH support working again for the Ledger build
    - State "DONE"       [2009-02-08 Sun 20:26]
    - State "STARTED"    [2009-02-08 Sun 18:12]
    :PROPERTIES:
    :ID: 2594BA36-AC89-4A83-BE3E-D0ED75C89658
    :END:
    [2009-02-08 Sun 18:12]
-** DONE [#B] Command shows nothing: ledger -f doc/sample.dat -r reg @book 
+** DONE Command shows nothing: ledger -f doc/sample.dat -r reg @book 
    - State "DONE"       [2009-02-15 Sun 23:18]
    :PROPERTIES:
    :ID: 03D5A6A1-94FF-4D36-883D-E04024F19DA5
    :END:
    [2009-02-08 Sun 05:17]
-** DONE [#B] Get rid of all uses of "ident"
+** DONE Get rid of all uses of "ident"
    - State "DONE"       [2009-02-08 Sun 02:30]
    :PROPERTIES:
    :ID: EB366809-44CB-45AF-ABF1-3D3E3540773D
    :END:
    [2009-02-07 Sat 18:14]
-** DONE [#B] --verify --verbose is showing object memory still in use
+** DONE --verify --verbose is showing object memory still in use
    - State "DONE"       [2009-02-08 Sun 16:04]
    :PROPERTIES:
    :ID: B3051A24-F835-4B2A-A601-501BC0FD69B8
    :END:
    [2009-01-31 Sat 06:18]
-** DONE [#B] At the moment it seems that .ledgerrc is required
+** DONE At the moment it seems that .ledgerrc is required
    - State "DONE"       [2009-02-08 Sun 16:04]
    :PROPERTIES:
    :ID: F13F5E8A-B40D-4ABA-9E2C-25DF45F4F6CF
    :END:
    [2008-08-31 Sun]
-** DONE [#B] Don't use -s for bal the way it's used now
+** DONE Don't use -s for bal the way it's used now
    - State "DONE"       [2009-02-08 Sun 16:04]
    :PROPERTIES:
    :ID: C27BABD9-CEAF-41E9-84D9-F1B97C785F50
    :END:
    [2008-08-14 Thu]
-** DONE [#B] Have -T and -t set the expression template
+** DONE Have -T and -t set the expression template
    - State "DONE"       [2009-02-08 Sun 16:05]
    ... so that # may be used to refer to whatever the previous value (set by
    other options) was
@@ -915,13 +915,13 @@ The last non-future posting was: 1 day ago
    :ID: A81F98B1-38AE-4550-8056-C3D7D35691B3
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Integrate omari's changes into 3.0
+** DONE Integrate omari's changes into 3.0
    - State "DONE"       [2009-02-08 Sun 16:05]
    :PROPERTIES:
    :ID: 8241124E-4FC6-46CD-9A64-1A79B59F426F
    :END:
    [2008-10-21 Tue 14:03]
-** DONE [#B] Multiple -f options fail silently
+** DONE Multiple -f options fail silently
    - State "DONE"       [2009-02-08 Sun 16:05]
    Ledger does not seem to be able to accept multiple -f options (further -f's
    get ignored silently). It should simply concatenate all the specified files
@@ -955,7 +955,7 @@ Display P: a
    :ID: B1E49EA5-18B9-413A-ACD6-9F9795F25722
    :END:
    [2008-04-07 Mon]
-** DONE [#B] Problem reading Russian prices file
+** DONE Problem reading Russian prices file
    - State "DONE"       [2009-02-15 Sun 23:21]
    :PROPERTIES:
    :Version: 2.6
@@ -964,7 +964,7 @@ Display P: a
    :Attachments: bug.100
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Set the beginning and ending line/position for xacts
+** DONE Set the beginning and ending line/position for xacts
    - State "DONE"       [2009-02-08 Sun 16:06]
    ... that are in other files types: OFX.
    :PROPERTIES:
@@ -973,7 +973,7 @@ Display P: a
    :ID: 50357AC3-2CF8-4BBE-A679-7B3540139C44
    :END:
    [2008-04-11 Fri]
-** DONE [#B] The operators in valexpr.cc shouldn't just assert
+** DONE The operators in valexpr.cc shouldn't just assert
    - State "DONE"       [2009-02-15 Sun 23:21]
    ... but if somebody says "T&", it should give a syntax error.
    :PROPERTIES:
@@ -982,14 +982,14 @@ Display P: a
    :ID: AA448F9B-4200-4042-A4D6-57F6466D878C
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Value expressions should be able to access option values
+** DONE Value expressions should be able to access option values
    - State "DONE"       [2009-02-07 Sat 05:57]
    For example: "options.limit", would return HANDLER(limit_).str().
    :PROPERTIES:
    :ID: 21779153-CBB4-4B5B-B0A8-2E1C8DA08870
    :END:
    [2009-02-07 Sat 05:05]
-** DONE [#B] The -U flag for Ledger isn't working at all
+** DONE The -U flag for Ledger isn't working at all
    - State "DONE"       [2009-01-14 Wed 00:36]
    :SCRIPT:
    ./ledger -U --tail 30 -f /Volumes/Files/ledger.dat reg trade:brok
@@ -1000,7 +1000,7 @@ Display P: a
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2009-01-07 Wed 23:14]
-** DONE [#B] Add error handling to value expression parser/evaluator
+** DONE Add error handling to value expression parser/evaluator
    - State "DONE"       [2009-01-23 Fri 01:58]
    :PROPERTIES:
    :ID: FAF5D00C-7D45-40F3-8410-786273EA2F6E
@@ -1008,7 +1008,7 @@ Display P: a
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2009-01-21 Wed 15:41]
-** DONE [#B] Try converting Unicode only in the Ledger elision function
+** DONE Try converting Unicode only in the Ledger elision function
    - State "DONE"       [2009-01-24 Sat 00:14]
    - State "STARTED"    [2009-01-23 Fri 15:42]
    :PROPERTIES:
@@ -1017,7 +1017,7 @@ Display P: a
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2009-01-23 Fri 03:28]
-** DONE [#B] Revise the way that option/command/etc handlers are defined
+** DONE Revise the way that option/command/etc handlers are defined
    - State "DONE"       [2009-02-05 Thu 21:54]
    - [ ] option
    - [ ] command
@@ -1028,50 +1028,50 @@ Display P: a
    :ID: 4D752AEF-B4C4-47A8-A5D8-CB36F5BFBE50
    :END:
    [2009-02-05 Thu 13:49]
-** DONE [#B] Move --pager back to report_t
+** DONE Move --pager back to report_t
    - State "DONE"       [2009-02-05 Thu 21:54]
    :PROPERTIES:
    :ID: 45FE9185-591D-4965-A91A-99B7F708627B
    :END:
    [2009-02-05 Thu 04:35]
-** DONE [#B] main.cc still needs cleaning up; move global_scope to global.cc
+** DONE main.cc still needs cleaning up; move global_scope to global.cc
    - State "DONE"       [2009-02-05 Thu 21:55]
    :PROPERTIES:
    :ID: AD30D495-EFEB-4FB5-A831-6C452FF53D56
    :END:
    [2009-02-05 Thu 03:38]
-** DONE [#B] Clean up the code in main.cc again, move stripwhite to utils.cc
+** DONE Clean up the code in main.cc again, move stripwhite to utils.cc
    - State "DONE"       [2009-02-05 Thu 21:55]
    :PROPERTIES:
    :ID: D98F86D8-1789-4757-BC8D-C2E2A7AFA3C4
    :END:
    [2009-02-04 Wed 21:48]
-** DONE [#B] Catch Control-C within the Ledger REPL
+** DONE Catch Control-C within the Ledger REPL
    - State "DONE"       [2009-02-04 Wed 21:01]
    :PROPERTIES:
    :ID: E755A238-65AE-485F-84C0-2D9DA8AFA8A1
    :END:
    [2009-02-04 Wed 19:58]
-** DONE [#B] Remove all references to cache_file
+** DONE Remove all references to cache_file
    - State "DONE"       [2009-02-04 Wed 21:01]
    :PROPERTIES:
    :ID: AC1C1163-1EB0-4A8F-B4F5-CD0122442A64
    :END:
    [2009-02-04 Wed 18:17]
-** DONE [#B] Separate out session option handlers from report.cc
+** DONE Separate out session option handlers from report.cc
    - State "DONE"       [2009-02-06 Fri 03:32]
    :PROPERTIES:
    :ID: 1B28673D-C55E-48A5-86AB-6052BB583D52
    :END:
    [2009-02-04 Wed 15:53]
-** DONE [#B] The use of automated expressions increases invocation by 50%
+** DONE The use of automated expressions increases invocation by 50%
    - State "DONE"       [2009-02-04 Wed 04:00] \\
      This is because value expressions are being calculated for every xact.
    :PROPERTIES:
    :ID: 13567C8B-DB84-4658-8C66-40AB211B7BF0
    :END:
    [2009-02-03 Tue 19:02]
-** DONE [#B] Now that caching is not being used, simplification can be made
+** DONE Now that caching is not being used, simplification can be made
    - State "DONE"       [2009-02-03 Tue 18:53]
    - [X] No need for src_idx
    - [X] No need to store the amount/cost expr
@@ -1079,31 +1079,31 @@ Display P: a
    :ID: 53742416-2085-450C-8E4E-9D2CD631C691
    :END:
    [2009-02-03 Tue 17:33]
-** DONE [#B] Parse xact metadata that occurs at the end of the line
+** DONE Parse xact metadata that occurs at the end of the line
    - State "DONE"       [2009-02-04 Wed 04:00]
    :PROPERTIES:
    :ID: D3AD59D7-DAF4-41E7-92DE-397D7A1F449D
    :END:
    [2009-02-03 Tue 16:57]
-** DONE [#B] Parse xact notes that occur at the end of the line
+** DONE Parse xact notes that occur at the end of the line
    - State "DONE"       [2009-02-04 Wed 04:00]
    :PROPERTIES:
    :ID: 18728C2C-FE0E-495C-9DAF-6DC7F7EF34D9
    :END:
    [2009-02-03 Tue 16:19]
-** DONE [#B] Integrate support for gettext() into Ledger
+** DONE Integrate support for gettext() into Ledger
    - State "DONE"       [2009-02-03 Tue 01:15]
    :PROPERTIES:
    :ID: D599561A-5CB2-4647-8A9E-FB1E558C04FD
    :END:
    [2009-02-02 Mon 17:01]
-** DONE [#B] Document the new command-line query syntax for Ledger
+** DONE Document the new command-line query syntax for Ledger
    - State "DONE"       [2009-02-02 Mon 00:32]
    :PROPERTIES:
    :ID: BC8E6D64-2C61-464A-9B58-7BE039F7C97B
    :END:
    [2009-02-01 Sun 22:12]
-** DONE [#B] Add full support for expression and metadata to the query expr
+** DONE Add full support for expression and metadata to the query expr
    - State "DONE"       [2009-02-01 Sun 22:11]
    - State "STARTED"    [2009-02-01 Sun 18:40]
    For example:
@@ -1114,14 +1114,14 @@ Display P: a
    :ID: 3F363529-B7C8-4624-BE10-8FDB5401A162
    :END:
    [2009-02-01 Sun 15:40]
-** DONE [#B] When printing posts and xact, include post/pre comments
+** DONE When printing posts and xact, include post/pre comments
    - State "DONE"       [2009-02-01 Sun 22:11]
    - State "STARTED"    [2009-02-01 Sun 20:50]
    :PROPERTIES:
    :ID: 67E8E92B-25D5-4016-94F0-5C7F0EF05D89
    :END:
    [2009-02-01 Sun 15:40]
-** DONE [#B] Complete the outputting of error context throughout Ledger
+** DONE Complete the outputting of error context throughout Ledger
    - State "DONE"       [2009-02-02 Mon 00:32]
    - [ ] While parsing a file
    - [ ] In an included file
@@ -1133,14 +1133,14 @@ Display P: a
    :ID: 9572CF73-D8E9-47B0-A00F-658C3A22EE9F
    :END:
    [2009-02-01 Sun 15:16]
-** DONE [#B] 2.x value expression syntax must be restored
+** DONE 2.x value expression syntax must be restored
    - State "DONE"       [2008-08-04 Mon]
    The only way this is going to really be possible is with a battery of unit tests.
    :PROPERTIES:
    :ID: AEB2D4B6-6968-44A6-A3F5-63A42CEDF254
    :END:
    [2008-07-27 Sun]
-** DONE [#B] Check out skanthak's fix to ledger --reconcile
+** DONE Check out skanthak's fix to ledger --reconcile
    - State "DONE"       [2008-11-23 Sun 23:43]
    http://github.com/skanthak/ledger/tree/fix-reconcile
    :PROPERTIES:
@@ -1149,7 +1149,7 @@ Display P: a
    :ID: FFFE432A-FE8F-4584-B4AB-E111F31174DC
    :END:
    [2008-11-20 Thu 19:14]
-** DONE [#B] Compile errors with gcc 4.3
+** DONE Compile errors with gcc 4.3
    - State "DONE"       [2008-05-23 Fri 03:59] \\
      Thanks for that update; the earlier one failed to build on openbsd-x86-normal.
    - State "TODO"       [2008-05-22 Thu 20:50] \\
@@ -1171,7 +1171,7 @@ Display P: a
    :Attachments: 0001-Fix-compile-errors-with-gcc-4.3.patch 0002-Fix-compile-errors-with-gcc-4.3.patch
    :END:
    [2008-05-20 Tue]
-** DONE [#B] Enable the parsing of XML on standard input
+** DONE Enable the parsing of XML on standard input
    - State "DONE"       [2009-01-29 Thu 15:32]
    :PROPERTIES:
    :Version: 2.6
@@ -1179,7 +1179,7 @@ Display P: a
    :ID: E97BCC81-4E9E-49AA-A905-051C9524B769
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Fix the Ledger v2.6.1 branch
+** DONE Fix the Ledger v2.6.1 branch
    - State "DONE"       [2008-05-08 Thu]
    - Every commit must relate to an issue, and name that issue in the commit message.
    - The comment for every fixed issue must reference the commit that fixed it.
@@ -1189,13 +1189,13 @@ Display P: a
    :ID: 1F5B58EB-F5ED-4467-8362-1E5094C19F80
    :END:
    [2008-04-21 Mon]
-** DONE [#B] Get the register report to work again
+** DONE Get the register report to work again
    - State "DONE"       [2008-08-04 Mon]
    :PROPERTIES:
    :ID: 7D031D7C-A50D-479E-8C31-168D5F3E8CAB
    :END:
    [2008-07-26 Sat]
-** DONE [#B] Get xactal assignments working again
+** DONE Get xactal assignments working again
    - State "DONE"       [2008-09-14 Sun 06:26]
    - State "STARTED"    [2008-09-06 Sat 08:11]
    Another thing that needs to happen is that these assignments are stored
@@ -1206,7 +1206,7 @@ Display P: a
    :ID: E6B6E93B-655B-4895-B72F-7B82E1E5D741
    :END:
    [2008-08-24 Sun]
-** DONE [#B] How do I solve the fact that individual posts ...
+** DONE How do I solve the fact that individual posts ...
    - State "DONE"       [2008-07-13 Sun 21:43]
    ... cannot be marked "cleared"?  This causes troubles when multiple accounts
    are reconciled that involve common posts.
@@ -1216,20 +1216,20 @@ Display P: a
    :ID: 116B0437-6BA9-4211-B5DE-3BBFA69F1D33
    :END:
    [2008-04-11 Fri]
-** DONE [#B] If an exception occurs while --verify --verbose is on
+** DONE If an exception occurs while --verify --verbose is on
    ...it shows lots and lots of leaked memory
    - State "DONE"       [2008-08-10 Sun]
    :PROPERTIES:
    :ID: AAB6A9CC-4122-45F0-A69B-5DC7C59901F5
    :END:
    [2008-07-27 Sun]
-** DONE [#B] Ledger is currently failing 'make check'
+** DONE Ledger is currently failing 'make check'
    - State "DONE"       [2008-11-23 Sun 23:43]
    :PROPERTIES:
    :ID: 15CFAA5C-5A95-43FD-8343-06047CF7440B
    :END:
    [2008-10-11 Sat 20:11]
-** DONE [#B] Make it so that nil is considered a valid commodity
+** DONE Make it so that nil is considered a valid commodity
    - State "DONE"       [2007-10-22 Mon 03:23]
    :PROPERTIES:
    :ARCHIVE_TIME: 2007-10-29 Mon 04:29
@@ -1239,13 +1239,13 @@ Display P: a
    This is rather than testing for nil everywhere; just have the generic
    functions relating to commodities able to act on null.
    [2007-10-20 Sat]
-** DONE [#B] Make sure that every delete is a checked_delete
+** DONE Make sure that every delete is a checked_delete
    - State "DONE"       [2008-07-27 Sun]
    :PROPERTIES:
    :ID: 5768AB32-D4BB-480E-AD7D-35AF842E2D32
    :END:
    [2008-07-25 Fri]
-** DONE [#B] Multi-byte characters (like UTF-8) throws off the "emacs" report
+** DONE Multi-byte characters (like UTF-8) throws off the "emacs" report
    - State "DONE"       [2008-08-25 Mon 23:54] \\
      This has been implemented.
    The emacs report uses byte-positioning to indicate the beginning of posts
@@ -1261,25 +1261,25 @@ Display P: a
    :Attachments: line-positioning.patch
    :END:
    [2007-10-29 Mon]
-** DONE [#B] Restore command-line regexps
+** DONE Restore command-line regexps
    - State "DONE"       [2008-08-04 Mon]
    :PROPERTIES:
    :ID: 0356C673-4300-4CB8-B4A4-869EF0773AF9
    :END:
    [2008-08-03 Sun]
-** DONE [#B] Restore deleted directories from src/ledger/lib
+** DONE Restore deleted directories from src/ledger/lib
    - State "DONE"       [2008-08-13 Wed]
    :PROPERTIES:
    :ID: E40F6364-3155-49C1-B5B2-A2308C1F401A
    :END:
    [2008-08-13 Wed]
-** DONE [#B] Restore reporting filters
+** DONE Restore reporting filters
    - State "DONE"       [2008-08-04 Mon]
    :PROPERTIES:
    :ID: 05D95071-2F29-4056-9146-708A13EED837
    :END:
    [2008-08-03 Sun]
-** DONE [#B] Review the changes I've made to ledger::master since 2.6.0.90
+** DONE Review the changes I've made to ledger::master since 2.6.0.90
    - State "DONE"       [2008-05-07 Wed]
      The only questionable change is the abortive fix to -e.  This should be
      reverted until a proper fix is found.
@@ -1312,27 +1312,27 @@ Display P: a
    :ID: CD409D8E-9926-4130-BB83-1179CF5AE84F
    :END:
    [2008-04-24 Thu]
-** DONE [#B] Revise the way that error contexts are passed up
+** DONE Revise the way that error contexts are passed up
    - State "DONE"       [2008-08-04 Mon]
    Special care needs to be taken that legitimate uses of exceptions are not too expensive.
    :PROPERTIES:
    :ID: C86755E1-199A-4587-93A8-C18C04FC4996
    :END:
    [2008-07-25 Fri]
-** DONE [#B] Special care needs to be taken that legitimate uses of exceptions
+** DONE Special care needs to be taken that legitimate uses of exceptions
    ...are not too expensive.
    :PROPERTIES:
    :ID: 525657CE-DA76-4B4B-B88C-595F799A12A7
    :END:
    [2008-08-14 Thu]
-** DONE [#B] Split binary.cc into journal-specific and generic
+** DONE Split binary.cc into journal-specific and generic
    ...and put the generic one in libamounts
    - State "DONE"       [2008-08-04 Mon]
    :PROPERTIES:
    :ID: 12C3D67F-0E7C-46D4-AE7B-7E1E22456997
    :END:
    [2008-07-29 Tue]
-** DONE [#B] The period "Dec 2008" gives all of 2008
+** DONE The period "Dec 2008" gives all of 2008
    - State "DONE"       from "STARTED"    [2009-03-23 Mon 01:15]
    - State "STARTED"    [2009-03-19 Thu 05:30]
    :PROPERTIES:
@@ -1341,7 +1341,7 @@ Display P: a
    :ARCHIVE_CATEGORY: Ledger
    :END:
    [2009-03-06 Fri 00:02]
-** DONE [#B] The -n option isn't working on this given sample data			 :ATTACH:
+** DONE The -n option isn't working on this given sample data			 :ATTACH:
    - State "DONE"       [2009-02-16 Mon 05:21]
    The following two commands do not generate the correct output:
    :SCRIPT:
@@ -1358,14 +1358,14 @@ ledger -f %data% -n reg | wc -l
    :Attachments: gistde47de0f5a466f84a2b0-174c35de8c1af0f3c00d552b448042f6206a7d1b.tar.gz
    :END:
    [2008-10-26 Sun 19:06]
-** DONE [#B] drewr is seeing doubled postings with his data file
+** DONE drewr is seeing doubled postings with his data file
    - State "DONE"       [2009-02-08 Sun 20:26]
    - State "STARTED"    [2009-02-08 Sun 18:28]
    :PROPERTIES:
    :ID: 09C9F3F1-FEE9-45E7-9DD4-6AA1D232918B
    :END:
    [2009-02-07 Sat 18:20]
-** DONE [#B] Post about the new Ledger commodities feature
+** DONE Post about the new Ledger commodities feature
    - State "DONE"       [2009-01-21 Wed 20:16]
    :PROPERTIES:
    :ID: 9DC97062-391A-4C48-99E1-3B6037716469
@@ -1373,13 +1373,13 @@ ledger -f %data% -n reg | wc -l
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2009-01-20 Tue 16:45]
-** DONE [#B] PPC buildbot is failing due to a bad TeX installation
+** DONE PPC buildbot is failing due to a bad TeX installation
    - State "DONE"       [2009-02-03 Tue 14:20]
    :PROPERTIES:
    :ID: 560E59C8-8748-4679-9A17-C76893BDDDEF
    :END:
    [2009-02-01 Sun 03:03]
-** DONE [#B] acprep upload is deleting the file after it uploads it
+** DONE acprep upload is deleting the file after it uploads it
    - State "DONE"       from "TODO"       [2009-03-31 Tue 16:24]
    :PROPERTIES:
    :ID: E4EFE47F-2014-4AEF-A515-CBB3B5186C38
@@ -1455,7 +1455,7 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: A98BFCBA-012D-4E18-9CBB-4D880CDBFE7E
    :END:
    [2008-10-05 Sun 20:59]
-** CANCELLED [#B] Rationalize register and balance total calculation
+** CANCELLED Rationalize register and balance total calculation
    - State "CANCELLED"  [2009-03-03 Tue 03:02]
    Rather than keeping the running total for the register report in each
    posting's xdata, perhaps it should be kept in the grand total for the master
@@ -1464,26 +1464,26 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: E242CF42-062A-4B4C-A1A8-390465448F73
    :END:
    [2009-03-02 Mon 16:11]
-** CANCELLED [#B] Finish my tickets script, so that I post from Org to Unfuddle
+** CANCELLED Finish my tickets script, so that I post from Org to Unfuddle
    - State "CANCELLED"  [2009-03-06 Fri 04:12]
    :PROPERTIES:
    :ID: 988239F0-3A75-4C6E-B12B-0701DFE173F1
    :END:
    [2009-03-01 Sun 05:23]
-** CANCELLED [#B] bal -l 'depth<=2' has no effect in the REPL
+** CANCELLED bal -l 'depth<=2' has no effect in the REPL
    - State "CANCELLED"  [2009-03-03 Tue 03:02] \\
      It's because the REPL isn't honoring shell quoting syntax
    :PROPERTIES:
    :ID: 6DD90AF2-0088-4E4E-ACE4-FDD373B921A6
    :END:
    [2009-02-24 Tue 12:11]
-** CANCELLED [#B] Change Ledger to use shave
+** CANCELLED Change Ledger to use shave
    - State "CANCELLED"  [2009-02-24 Tue 01:01]
    :PROPERTIES:
    :ID: 54DAEF67-80D7-402A-BAF2-36EF86064DCD
    :END:
    [2009-02-24 Tue 00:22]
-** CANCELLED [#B] Periodic budgeting problem when Yxxxx is used
+** CANCELLED Periodic budgeting problem when Yxxxx is used
    - State "CANCELLED"  [2009-02-24 Tue 04:07]
    Yeah, it works as expected for me as well.  I have since changed my ledger
    files to use YYYY/MM/DD strings.  In the past I was using the Yxxxx
@@ -1496,20 +1496,20 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: F2FC7C2B-0CB1-47E7-AE2E-C9E744A47927
    :END:
    [2007-12-10 Mon]
-** CANCELLED [#B] Create an options_t object for inside of report_t
+** CANCELLED Create an options_t object for inside of report_t
    - State "CANCELLED"  [2009-02-19 Thu 14:47]
    :PROPERTIES:
    :ID: 8984D061-9749-4543-A5DB-C4B239F16F55
    :END:
    [2009-02-15 Sun 05:08]
-** CANCELLED [#B] Give an error if --input-date-format contains a space (or should it?)
+** CANCELLED Give an error if --input-date-format contains a space (or should it?)
    - State "CANCELLED"  [2009-02-20 Fri 13:08]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 144
    :ID: 60B631E4-9819-4460-ABC0-6B789865646D
    :END:
-** CANCELLED [#B] Ledger is crashing on Thomas' computer when -O2 is used
+** CANCELLED Ledger is crashing on Thomas' computer when -O2 is used
    - State "CANCELLED"  [2009-02-19 Thu 14:46]
    - Note taken on [2008-10-26 Sun 00:44] \\
      When putting printf statements, the statements in my main() routine are
@@ -1522,7 +1522,7 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: 00DA5F10-6B76-4CB0-89E3-152A80BFBCED
    :END:
    [2008-10-06 Mon 19:15]
-** CANCELLED [#B] Problem with piping input to ledger
+** CANCELLED Problem with piping input to ledger
    - State "CANCELLED"  [2009-02-19 Thu 14:49]
    I decided to just go ahead and push my whole ledger file through "print".
    At first I had been a little nervous about the possibility that I might goof
@@ -1600,39 +1600,39 @@ Error: Journal does not refer to file ''
    :ID: D3820740-8BFB-4234-8125-DE813A713032
    :END:
    [2007-12-10 Mon]
-** CANCELLED [#B] 'derive_new_xact' shouldn't add accounts to the journal
+** CANCELLED 'derive_new_xact' shouldn't add accounts to the journal
    - State "CANCELLED"  [2009-02-16 Mon 05:18]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 119
    :ID: F229CDEA-1AED-4DBB-8DB6-24BEF30FC1E6
    :END:
-** CANCELLED [#B] Have ledger.el only use fancy TAB if there are no accounts
+** CANCELLED Have ledger.el only use fancy TAB if there are no accounts
    - State "CANCELLED"  [2009-02-15 Sun 23:17] \\
      I don't use fancy TAB, now it's fancy C-u TAB.
    :PROPERTIES:
    :ID: 545A16E5-49BE-44DB-AFAF-F0ABA87BF29E
    :END:
    [2009-02-12 Thu 19:12]
-** CANCELLED [#B] Add comprehensive sanity checking to the XML parsers
+** CANCELLED Add comprehensive sanity checking to the XML parsers
    - State "CANCELLED"  [2009-02-08 Sun 16:01]
    :PROPERTIES:
    :ID: E2AC23FB-CCCF-4B2A-A925-43BD74EE30B0
    :END:
    [2009-01-24 Sat 04:47]
-** CANCELLED [#B] Make every Ledger object able to render itself as XML
+** CANCELLED Make every Ledger object able to render itself as XML
    - State "CANCELLED"  [2009-02-08 Sun 16:01]
    :PROPERTIES:
    :ID: B25DC71B-87DB-453F-87E9-D2015CCBAB26
    :END:
    [2009-01-24 Sat 04:01]
-** CANCELLED [#B] Get gdtoa's tests working under "make check"
+** CANCELLED Get gdtoa's tests working under "make check"
    - State "CANCELLED"  [2009-02-08 Sun 16:01]
    :PROPERTIES:
    :ID: 51B006B4-E3B4-41B6-865F-5E81926F8F73
    :END:
    [2009-01-23 Fri 18:36]
-** CANCELLED [#B] Using -f - gives drewr a bus error
+** CANCELLED Using -f - gives drewr a bus error
    - State "CANCELLED"  [2009-02-15 Sun 23:18]
    - State "TODO"       [2009-02-11 Wed 03:53]
    - State "STARTED"    [2009-02-10 Tue 05:50] \\
@@ -1641,13 +1641,13 @@ Error: Journal does not refer to file ''
    :ID: D4C96EA8-57B3-43D8-A136-8FDB2309B011
    :END:
    [2009-02-10 Tue 00:55]
-** CANCELLED [#B] CSV output needs a column for every commodity
+** CANCELLED CSV output needs a column for every commodity
    - State "CANCELLED"  [2009-02-08 Sun 02:30]
    :PROPERTIES:
    :ID: 1DB41F13-E745-4081-8DEA-57F986EF8113
    :END:
    [2009-02-07 Sat 16:12]
-** CANCELLED [#B] Binary cache is invalidated if LEDGER_FILE is changed
+** CANCELLED Binary cache is invalidated if LEDGER_FILE is changed
    - State "CANCELLED"  [2009-02-08 Sun 15:59]
    - State "DEFERRED"   [2008-09-17 Wed 05:06] \\
      This bug is deferred until 3.0, since it is so rare there is no need to change
@@ -1666,13 +1666,13 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: C65875E1-CF5D-4923-8546-9784EB08AC9D
    :END:
    [2008-08-05 Tue]
-** CANCELLED [#B] --debug isn't taking a regular expression
+** CANCELLED --debug isn't taking a regular expression
    - State "CANCELLED"  [2009-02-15 Sun 23:18]
    :PROPERTIES:
    :ID: 5936E070-F86A-4E52-B165-B70CE24C8109
    :END:
    [2008-07-24 Thu]
-** CANCELLED [#B] Add to the commodity flags in the XML data
+** CANCELLED Add to the commodity flags in the XML data
    - State "CANCELLED"  [2009-02-08 Sun 16:04]
    ... whether it should never be downloaded or not (N).
    :PROPERTIES:
@@ -1681,7 +1681,7 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: FEAD4FEA-64FC-4DCA-8653-1C29DC6BC66E
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Another problem with XML output
+** CANCELLED Another problem with XML output
    - State "CANCELLED"  [2009-02-08 Sun 16:04]
    [[message://20060918231625.11184.qmail@web30708.mail.mud.yahoo.com][Re: Ledger 3 XML processing]]
    :PROPERTIES:
@@ -1690,7 +1690,7 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: 0AC36F03-A438-4547-8764-E2B90F6E2A1C
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Command output-xml
+** CANCELLED Command output-xml
    - State "CANCELLED"  [2009-02-08 Sun 16:04]
    As a corollary to the output command, have an output-xml command, which
    writes a complete Ledger file (including all automated xacts, etc) to an
@@ -1701,7 +1701,7 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: 5D17A372-FB03-4E1D-9917-113E10211880
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Finish implementing QIF parser, and document its use
+** CANCELLED Finish implementing QIF parser, and document its use
    - State "CANCELLED"  [2009-02-08 Sun 16:05]
    :PROPERTIES:
    :Version: 2.6
@@ -1709,7 +1709,7 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: F7FFB324-9AC2-42A6-A6DD-38C02F30BEF7
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Odditing in name of XML namespaces in Ledger
+** CANCELLED Odditing in name of XML namespaces in Ledger
    - State "CANCELLED"  [2009-02-08 Sun 16:05]
    [[message://20060304.181355.96677625.arb46@cornell.edu][e-mail]] one
    [[message://20060802015747.27838.qmail@web30706.mail.mud.yahoo.com][e-mail]] two
@@ -1719,7 +1719,7 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: 9F69B516-9F57-4204-9EF2-BA0AB42B1401
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] There are a few thorny issues remaining with the binary cache
+** CANCELLED There are a few thorny issues remaining with the binary cache
    - State "CANCELLED"  [2009-02-08 Sun 16:06]
    1. What happens to value expressions that have been compiled?  The FUNCTION
       operand must remember the name of the function it was compiled to; but
@@ -1733,14 +1733,14 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: 69B51A07-5E5F-42F9-AB97-CEECAF4BB085
    :END:
    [2008-08-15 Fri]
-** CANCELLED [#B] Use &lt; when writing out XML, instead of <
+** CANCELLED Use &lt; when writing out XML, instead of <
    - State "CANCELLED"  [2009-02-08 Sun 16:06]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 143
    :ID: BD664021-204A-4F16-B4F7-3ECEBA808530
    :END:
-** CANCELLED [#B] Make !rex reverse a regexp
+** CANCELLED Make !rex reverse a regexp
    - State "CANCELLED"  [2009-01-29 Thu 15:33] \\
      I now use "not rex".
    This is instead of -rex, allowing options to appear anywhere on the line.
@@ -1749,7 +1749,7 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: 72B2202C-EC63-4A2E-A5C9-0C9A4991FB06
    :END:
    [2008-08-14 Thu]
-** CANCELLED [#B] Nuke the doc/INSTALL file, since it's not accurate
+** CANCELLED Nuke the doc/INSTALL file, since it's not accurate
    - State "CANCELLED"  [2009-03-19 Thu 03:41]
    :PROPERTIES:
    :ID: A441A43B-25F6-42C4-B950-CF54A7C55F6F
@@ -1878,7 +1878,7 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 567B5118-7A77-42B9-A1CD-C5DA688AC406
    :END:
    [2007-10-29 Mon]
-** WONTFIX [#B] Change all the source code to utf-8
+** WONTFIX Change all the source code to utf-8
    - State "WONTFIX"    [2008-07-13 Sun 21:45] \\
      The source code itself doesn't use international characters!
    :PROPERTIES:
@@ -1947,13 +1947,13 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: D0D130E3-EDC0-4D9F-A77A-0B62E115D25A
    :END:
    [2008-08-16 Sat]
-** WORKSFORME [#B] 'xact' sometimes produces transactions without commodities
+** WORKSFORME 'xact' sometimes produces transactions without commodities
    - State "WORKSFORME" from "TODO"       [2009-06-28 Sun 15:25]
    :PROPERTIES:
    :ID: 0134251E-89B8-4F66-9B9C-253F6786E3A3
    :END:
    [2009-03-03 Tue 01:04]
-** DUPLICATE [#B] Ledger formats UTF-8 strings incorrectly
+** DUPLICATE Ledger formats UTF-8 strings incorrectly
    The report `ledger --tail 20 reg nrl:checking` has errors in the tabulation
    because of the width of UTF-8 characters that are larger than 8-bit.
    :PROPERTIES:
@@ -1962,7 +1962,7 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 2FE8B7B7-15A3-4F02-9B53-3A629212561A
    :END:
    [2008-04-11 Fri]
-** DUPLICATE [#B] Support multiple -f options
+** DUPLICATE Support multiple -f options
    - State "DUPLICATE"  [2009-01-29 Thu 15:36] \\
      Duplicated by B1E49EA5-18B9-413A-ACD6-9F9795F25722.
    So that add-in report files can be specified
@@ -1972,14 +1972,14 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 146B0BE4-C5EB-4A5B-A332-FE512B40D375
    :END:
    [2008-04-11 Fri]
-** CLOSED [#B] With --args-only, don't read ~/.pricedb
+** CLOSED With --args-only, don't read ~/.pricedb
    - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:24]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:21]
    :PROPERTIES:
    :ID: 5B07AD77-4920-4654-88F4-56CA55566BB4
    :END:
    [2009-06-24 Wed 14:18]
-** CLOSED [#B] value_t::dump should render a string as it would parse it
+** CLOSED value_t::dump should render a string as it would parse it
    - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:28]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:28]
    For example, what if "foo\"bar"?
@@ -1987,7 +1987,7 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: BA74FF13-7F2C-487A-922F-8E6931025B61
    :END:
    [2009-02-27 Fri 04:45]
-** CLOSED [#B] Bug in account balance display
+** CLOSED Bug in account balance display
    - State "CLOSED"     [2009-02-24 Tue 14:02] \\
      Simon can't remember exactly was the bug was here, so I'm closing it.
    - State "WAITING"    [2009-02-20 Fri 01:59]
@@ -2019,7 +2019,7 @@ ledger -f test.ledger -s bal discover
    :ID: 55831A79-0556-4872-A81F-F082A7B2E96B
    :END:
    [2008-11-20 Thu 23:48]
-** CLOSED [#B] Implied rates.
+** CLOSED Implied rates.
    - State "CLOSED"     [2009-02-24 Tue 13:36]
    Not sure what you should do in this case:
    :DATA:
@@ -2046,28 +2046,28 @@ ledger -f test.ledger -s bal discover
    :Ticket: 181
    :ID: 3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
    :END:
-** TESTED [#B] Left justifying an amount with %-12{amount} does nothing
+** TESTED Left justifying an amount with %-12{amount} does nothing
    - State "TESTED"     from "DONE"       [2009-06-28 Sun 15:24]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:23]
    :PROPERTIES:
    :ID: F559EC12-7645-465D-8B2D-D3BC61030493
    :END:
    [2009-03-03 Tue 04:12]
-** TESTED [#B] Cannot use uncommoditized amounts as a per-unit cost
+** TESTED Cannot use uncommoditized amounts as a per-unit cost
    - State "TESTED"     from "DONE"       [2009-06-18 Thu 16:08]
    - State "DONE"       from "TODO"       [2009-06-18 Thu 16:08]
    :PROPERTIES:
    :ID: 86D2BDC4-53A4-4039-99C9-F8C0370A89FB
    :END:
    [2009-06-18 Thu 16:07]
-** TESTED [#B] The period -p "june 2008" ranges from 6/2008-1/2009
+** TESTED The period -p "june 2008" ranges from 6/2008-1/2009
    - State "TESTED"     from "DONE"       [2009-06-18 Thu 01:14]
    - State "DONE"       from "TODO"       [2009-06-18 Thu 01:13]
    :PROPERTIES:
    :ID: BBFA1759-3E90-402B-93A7-FC4E7E342B08
    :END:
    [2009-06-17 Wed 17:07]
-** TESTED [#B] Regression: add support back for a "terminus" date
+** TESTED Regression: add support back for a "terminus" date
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:46]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 18:46]
    Here's something I would like to open up for discussion.
@@ -2112,7 +2112,7 @@ ledger -f example01.txt --end 2008/12/31 -JV bal Equities
    :ID: 647D5DB9-DBBB-47C8-80CE-F3F70E3B0253
    :END:
    [2009-04-01 Wed 18:55]
-** TESTED [#B] Rounding problem
+** TESTED Rounding problem
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:27]
    - State "DONE"       [2009-02-24 Tue 11:42]
    I seem to have a rounding problem when I use the -B option, if I have a
@@ -2143,7 +2143,7 @@ ledger -f example01.txt --end 2008/12/31 -JV bal Equities
    :ID: 5FBF2ED8-EEAA-440E-AED5-67401B107E44
    :END:
    [2008-10-21 Tue 19:00]
-** TESTED [#B] The -V flag is not working
+** TESTED The -V flag is not working
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:28]
    - State "DONE"       [2009-02-24 Tue 11:42]
    Here's the data input
@@ -2173,7 +2173,7 @@ Hermes:/Users/johnw $ ledger -f /tmp/test.dat -V reg
    :ID: D943AE0F-44EA-47EE-BA85-AFC513E039EB
    :END:
    [2008-04-07 Mon]
-** TESTED [#B] The entry command is broken
+** TESTED The entry command is broken
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:17]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:15]
    :SCRIPT:
@@ -2190,21 +2190,21 @@ Error: Transaction does not balance
    :ID: 793F6BF0-9CDE-4741-967A-2CEA697476B4
    :END:
    [2009-03-24 Tue 18:31]
-** TESTED [#B] An amount like 0h @ $70 gives divide by zero error
+** TESTED An amount like 0h @ $70 gives divide by zero error
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:23]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:23]
    :PROPERTIES:
    :ID: 6DAB9FE3-1399-4727-9AB1-FE413FB85A03
    :END:
    [2009-03-11 Wed 19:24]
-** TESTED [#B] 'ledger -f doc/sample.dat --color reg' is showing a red zero
+** TESTED 'ledger -f doc/sample.dat --color reg' is showing a red zero
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:52]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:27]
    :PROPERTIES:
    :ID: 727B2DF8-A2A1-4716-9C15-547F20D5F933
    :END:
    [2009-02-23 Mon 02:47]
-** TESTED [#B] Cost parsing bug
+** TESTED Cost parsing bug
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 15:41]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:01]
    [[message://2aaaa8b6-4a51-4acb-8a73-ac4c98578b59@d7g2000prl.googlegroups.com][Re: Tracking fuel and milage]]
@@ -2214,7 +2214,7 @@ Error: Transaction does not balance
    :ARCHIVE_CATEGORY: Ledger
    :END:
    [2009-06-03 Wed 19:11]
-** TESTED [#B] Rounding bug
+** TESTED Rounding bug
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 15:43]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:13]
    [[message://20090411120649.GZ1037@lavos.net][Another rounding issue]]
@@ -2232,7 +2232,7 @@ D $1,000.00
    :ARCHIVE_CATEGORY: Ledger
    :END:
    [2009-06-03 Wed 19:11]
-** TESTED [#B] Balance report is still broken
+** TESTED Balance report is still broken
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 15:44]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:53]
    :SCRIPT:
@@ -2261,7 +2261,7 @@ D $1,000.00
    :ARCHIVE_CATEGORY: Ledger
    :END:
    [2009-03-24 Tue 18:38]
-** TESTED [#B] Problem when specifying the year in a data file
+** TESTED Problem when specifying the year in a data file
    When I use this file:
    :DATA:
 Y2008
@@ -2302,7 +2302,7 @@ ledger -f journal.txt reg
    :ID: 13965214-EFDD-43DF-BD9F-9EC72DC509AD
    :END:
    [2008-10-15 Wed 06:39]
-** TESTED [#B] Balances with non-matching exchange rates is ambiguous
+** TESTED Balances with non-matching exchange rates is ambiguous
    - State "TESTED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 01:55]
    Not sure what it should say here... it balances in EUR, but not in
@@ -2334,7 +2334,7 @@ Compilation exited abnormally with code 1 at Sat Apr 12 12:35:43
    :ID: 2E3496BD-143C-4D3E-8815-A01FFD31D132
    :END:
    [2008-04-12 Sat]
-** TESTED [#B] Bug in ledger equity output
+** TESTED Bug in ledger equity output
    - State "TESTED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:06]
    Seeing as how I've reached the end of my financial year my thoughts turned
@@ -2380,7 +2380,7 @@ $ ledger -l 'd<=[30/06/2006]' -w equity ^Assets:Super
    :ID: 1CF1EEC2-74F2-4538-8508-F0B424BA5D19
    :END:
    [2007-12-10 Mon]
-** TESTED [#B] Completing currency fails
+** TESTED Completing currency fails
    - State "TESTED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:08]
    Strange bug with inference of currency:
@@ -2432,7 +2432,7 @@ ledger -w -f bug.txt  reg
    :ID: E4C9A8EA-296B-443F-937A-80182B21AA20
    :END:
    [2008-04-07 Mon]
-** TESTED [#B] Weird timelog report bug
+** TESTED Weird timelog report bug
    - State "TESTED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:19]
    ledger 2.6.1 can report wrong numbers for midnight-spanning timelog records
@@ -2455,7 +2455,7 @@ $ ledger -f <DATA> register
    :ID: 3AB70168-D4B6-48CE-8C61-8C775E5B0E1B
    :END:
    [2008-10-08 Wed 15:43]
-** TESTED [#B] Ledger is still getting confused by trailing whitespace			 :ATTACH:
+** TESTED Ledger is still getting confused by trailing whitespace			 :ATTACH:
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 17:04]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 17:03]
    I just noticed that ledger ist confused by whitespace at the end of
@@ -2503,7 +2503,7 @@ $ ledger -f <DATA> register
    :ID: FF734E1D-5A6F-4E1E-927B-6D6D60075FAC
    :END:
    [2009-03-06 Fri 17:55]
-** DONE [#B] g++-4.3 core dumps when trying to use system.hh.gch
+** DONE g++-4.3 core dumps when trying to use system.hh.gch
    - State "DONE"       [2009-03-16 Mon 04:56] \\
      The problem was that my pre-compiled header file was not the very first
      #include in every .cc file.
@@ -2511,44 +2511,44 @@ $ ledger -f <DATA> register
    :ID: 3165A1E3-F216-4BA2-A09E-9C442D900802
    :END:
    [2009-03-09 Mon 20:16]
-** DONE [#B] Add a BOOST_PREFIX envvar, and much more debugging info
+** DONE Add a BOOST_PREFIX envvar, and much more debugging info
    - State "DONE"       [2009-03-09 Mon 22:02]
    :PROPERTIES:
    :ID: A3B72BA7-5D50-4370-822B-FA63DF01B6F5
    :END:
    [2009-03-09 Mon 17:56]
-** DONE [#B] Move system.hh.gch into the build directory
+** DONE Move system.hh.gch into the build directory
    - State "DONE"       [2009-03-09 Mon 17:22]
    :PROPERTIES:
    :ID: 81C1D1E9-3F33-4EFF-B8BD-4B4BF3520289
    :END:
    [2009-03-09 Mon 13:56]
-** DONE [#B] Add a "dependencies" phase, which installs all of Ledger's deps
+** DONE Add a "dependencies" phase, which installs all of Ledger's deps
    - State "DONE"       [2009-03-09 Mon 17:22]
    :PROPERTIES:
    :ID: 62A2C553-30DA-48D5-9654-A6956A216D09
    :END:
    [2009-03-09 Mon 13:57]
-** DONE [#B] Gather together the Ledger products directories
+** DONE Gather together the Ledger products directories
    - State "DONE"       [2009-03-09 Mon 05:52]
    For example, collect them all under ~/Products/ledger/<branch>/<type>
    :PROPERTIES:
    :ID: E82A95D4-D423-4739-A024-EF01A32409DA
    :END:
    [2009-03-08 Sun 18:40]
-** DONE [#B] Ensure only the minimum amount of compilation is being done
+** DONE Ensure only the minimum amount of compilation is being done
    - State "DONE"       [2009-03-05 Thu 00:07]
    :PROPERTIES:
    :ID: 8E14BB51-28FF-484E-BEC1-F132A5C0F657
    :END:
    [2009-03-04 Wed 20:44]
-** DONE [#B] Fix the warnings that g++ 4.3.3 finds
+** DONE Fix the warnings that g++ 4.3.3 finds
    - State "DONE"       [2009-02-28 Sat 05:02]
    :PROPERTIES:
    :ID: 56EACF79-5A4F-4880-878B-605731F7F0FC
    :END:
    [2009-02-27 Fri 21:33]
-** DONE [#B] Why does the make process keep regenerating files
+** DONE Why does the make process keep regenerating files
    - State "DONE"       [2009-02-27 Fri 04:11]
    :OUTPUT:
 $ git --no-pager commit -F - --all --amend
@@ -2630,13 +2630,13 @@ PASS: RegressTests
    :ID: 8CF2975B-3082-482B-9185-F265B756378D
    :END:
    [2009-02-26 Thu 05:53]
-** DONE [#B] myacprep and tools/build shoud accept --opt, --prof, --gcov
+** DONE myacprep and tools/build shoud accept --opt, --prof, --gcov
    - State "DONE"       [2009-02-21 Sat 15:53]
    :PROPERTIES:
    :ID: 4CCF74DD-62AC-47F6-9E84-9D4C2EA6FB37
    :END:
    [2009-02-21 Sat 15:19]
-** DONE [#B] Create a MacPorts Portfile for Ledger
+** DONE Create a MacPorts Portfile for Ledger
    - State "DONE"       [2008-09-28 Sun 17:09]
    :PROPERTIES:
    :ID: 03B44F60-68CC-4A32-80AC-3C38E319750D
@@ -2644,55 +2644,55 @@ PASS: RegressTests
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2008-09-28 Sun 16:45]
-** DONE [#B] Quiet the Makefile by reducing the Python link lines
+** DONE Quiet the Makefile by reducing the Python link lines
    - State "DONE"       [2009-02-05 Thu 21:55]
    :PROPERTIES:
    :ID: FC243C26-63F1-4969-88C0-FEC720DE0248
    :END:
    [2009-02-05 Thu 03:42]
-** DONE [#B] Create a phase for packaging up and uploading ledger-3.0a.dmg
+** DONE Create a phase for packaging up and uploading ledger-3.0a.dmg
    - State "DONE"       from "TODO"       [2009-06-16 Tue 17:08]
    :PROPERTIES:
    :ID: 206551B6-6CF2-4D48-BC5C-7469C00F395C
    :END:
    [2009-03-19 Thu 03:04]
-** DONE [#B] Restore old Ledger tests, like tools/confirm.py
+** DONE Restore old Ledger tests, like tools/confirm.py
    - State "DONE"       [2009-02-24 Tue 22:32]
    :PROPERTIES:
    :ID: 53E1B0D6-1CD9-44C1-B066-E40F4A3D461D
    :END:
    [2009-02-24 Tue 11:08]
-** DONE [#B] Write unit tests for all of Ledger and its reporting options
+** DONE Write unit tests for all of Ledger and its reporting options
    - State "DONE"       [2009-02-24 Tue 04:06]
    :PROPERTIES:
    :ID: A8DE6DCB-917B-433F-8D07-3ACE45A05F45
    :END:
    [2008-08-14 Thu]
-** DONE [#B] Improve my pre-commit so it checks out everything it needs to
+** DONE Improve my pre-commit so it checks out everything it needs to
    - State "DONE"       [2009-02-21 Sat 16:32]
    :PROPERTIES:
    :ID: 5374E1C7-41CA-474D-A16F-54D26BD18AF3
    :END:
    [2009-02-21 Sat 02:09]
-** DONE [#B] Add a way for building in any directory (other than ~/Products) in acprep
+** DONE Add a way for building in any directory (other than ~/Products) in acprep
    - State "DONE"       [2008-08-08 Fri]
    :PROPERTIES:
    :ID: FFA63988-237E-4B2A-AC12-6CA362AEC7B1
    :END:
    [2008-07-24 Thu]
-** DONE [#B] Create an MacPorts build of Ledger
+** DONE Create an MacPorts build of Ledger
    - State "DONE"       [2009-01-29 Thu 15:31]
    :PROPERTIES:
    :ID: 7F75AEF6-BBB8-4BBA-BCCA-FE328037EBC4
    :END:
    [2008-08-08 Fri]
-** DONE [#B] Enable "buildbot try" on the VPS
+** DONE Enable "buildbot try" on the VPS
    - State "DONE"       [2008-05-03 Sat]
    :PROPERTIES:
    :ID: 6A9A8E1B-29E9-4B06-9AE3-BBB2D5BB6D9E
    :END:
    [2008-04-24 Thu]
-** DONE [#B] Find out how to submit a build against a specific branch on Buildbot
+** DONE Find out how to submit a build against a specific branch on Buildbot
    - State "DONE"       [2008-07-26 Sat]
    This may simply be a matter of telling the scheduler and Git() object to
    watch other branches.
@@ -2700,7 +2700,7 @@ PASS: RegressTests
    :ID: 4B291AFD-00BF-479B-A067-0B01139BA475
    :END:
    [2008-04-24 Thu]
-** DONE [#B] Find out why master fails to build on tdelaet's OpenBSD box
+** DONE Find out why master fails to build on tdelaet's OpenBSD box
    - State "DONE"       [2008-08-17 Sun 06:33] \\
      It's because his Boost isn't up to date.  I'll have to wait until he has Boost
      1.35 working OpenBSD 4.4 before we can build anything other than v2.6.1b on
@@ -2710,45 +2710,45 @@ PASS: RegressTests
    :ID: 30186BD0-CD2E-4B22-AD4C-84D7F6552D4B
    :END:
    [2008-08-14 Thu]
-** DONE [#B] Get 'make check' working again for Ledger 2.7
+** DONE Get 'make check' working again for Ledger 2.7
    - State "DONE"       [2008-07-27 Sun]
    This means getting the unit tests running again.
    :PROPERTIES:
    :ID: 987FB7D3-B04E-44E4-9CC4-F0694F96051E
    :END:
    [2008-07-26 Sat]
-** DONE [#B] Get 'make distcheck' working again with Ledger 2.6.1
+** DONE Get 'make distcheck' working again with Ledger 2.6.1
    - State "DONE"       [2008-07-28 Mon]
    :PROPERTIES:
    :ID: F5850319-0C51-429B-90BE-DDA4400F7F02
    :END:
    [2008-04-23 Wed]
-** DONE [#B] Get 'make distcheck' working again with Ledger 2.7
+** DONE Get 'make distcheck' working again with Ledger 2.7
    - State "DONE"       [2008-08-08 Fri]
    :PROPERTIES:
    :ID: A6AA8D89-51B0-434B-8259-A557FB15BC47
    :END:
    [2008-07-27 Sun]
-** DONE [#B] Get Buildbot builds to work on my MacBook Pro
+** DONE Get Buildbot builds to work on my MacBook Pro
    - State "DONE"       [2008-04-26 Sat]
    make[1]: *** No rule to make target `all'.  Stop.
    :PROPERTIES:
    :ID: 1D0FD629-FD7B-4E7F-8E8F-3D73FD725F32
    :END:
    [2008-04-24 Thu]
-** DONE [#B] Have the version in Ledger's configure.in based off of git-describe
+** DONE Have the version in Ledger's configure.in based off of git-describe
    - State "DONE"       [2008-05-18 Sun]
    :PROPERTIES:
    :ID: 08E58F60-5437-46BE-A81B-1839FA4921FB
    :END:
    [2008-05-08 Thu]
-** DONE [#B] Restore VCS history for Ledger from April to September 2004 from backups
+** DONE Restore VCS history for Ledger from April to September 2004 from backups
    - State "DONE"       [2008-07-15 Tue]
    :PROPERTIES:
    :ID: 844BCBC7-7DAB-479B-A448-9062F6F5480C
    :END:
    [2008-05-28 Wed]
-** DONE [#B] The Buildbot is failing to build master
+** DONE The Buildbot is failing to build master
   - State "DONE"       [2008-08-17 Sun 06:32] \\
     Fixed now.
    :OUTPUT:
@@ -2761,7 +2761,7 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: FFE100BB-3383-4E27-ADD9-08AFF0518846
    :END:
    [2008-08-16 Sat]
-** DONE [#B] Upgrade to use local-time-0.9.2
+** DONE Upgrade to use local-time-0.9.2
    - State "DONE"       [2007-11-25 Sun 21:02]
    :PROPERTIES:
    :ARCHIVE_TIME: 2007-12-03 Mon 17:50
@@ -2769,7 +2769,7 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: D7354D27-EFEA-4747-8185-B2A48E2F5FF3
    :END:
    [2007-11-24 Sat]
-** DONE [#B] Using my PowerPC, build a universal Ledger binary for OS X Leopard
+** DONE Using my PowerPC, build a universal Ledger binary for OS X Leopard
    - State "DONE"       [2008-08-08 Fri]
    :PROPERTIES:
    :ID: DF73E41F-A867-4A29-BA88-BC9F69A139CD
@@ -2802,20 +2802,20 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: 6B92EE7F-9F6A-452A-B242-347FB9206832
    :END:
    [2008-08-16 Sat]
-** CANCELLED [#B] Devise a way to publish the Buildbot ledger builds
+** CANCELLED Devise a way to publish the Buildbot ledger builds
    - State "CANCELLED"  from "TODO"       [2009-06-16 Tue 17:08]
    Michal Wallace has offered hosting space: [[message://3226fffd-f75a-4a17-8df0-34ee4d5f227f@m36g2000hse.googlegroups.com][buildbot but no builds?]]
    :PROPERTIES:
    :ID: AFFBA1FA-6D2A-45B6-B56A-A57FEE8B93CA
    :END:
    [2008-10-25 Sat 00:50]
-** CANCELLED [#B] Create a fully static binary for OS X
+** CANCELLED Create a fully static binary for OS X
    - State "CANCELLED"  [2009-03-08 Sun 04:30]
    :PROPERTIES:
    :ID: 0ECCBFEB-C2F6-4F13-95C4-95D835E7030C
    :END:
    [2009-02-21 Sat 15:20]
-** CANCELLED [#B] Create a Puppet script for setting up a Ledger build slave
+** CANCELLED Create a Puppet script for setting up a Ledger build slave
    - State "CANCELLED"  [2009-03-08 Sun 04:30]
    This should work for any platform, so that I can fire up a virtual
    buildslave on Solaris, Ubuntu, CentOS, OS X, etc.
@@ -2823,7 +2823,7 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: 2599B64E-7888-4E56-9C46-718EFEF822BA
    :END:
    [2008-09-04 Thu]
-** CANCELLED [#B] Problems with CVS version under Debian
+** CANCELLED Problems with CVS version under Debian
    - State "CANCELLED"  [2009-02-08 Sun 16:03] \\
      This might not apply any longer.
   - State "TODO"       [2008-07-17 Thu 21:46] \\
@@ -2919,37 +2919,37 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2007-12-10 Mon]
 * Docs
-** DONE [#B] Write the balance reporting algorithm for sm
+** DONE Write the balance reporting algorithm for sm
    - State "DONE"       [2009-03-11 Wed 15:53]
    :PROPERTIES:
    :ID: 96737B51-1E78-473D-BE6A-B94094C20EB6
    :END:
    [2009-03-11 Wed 15:34]
-** DONE [#B] Stop using Doxygen to generate code documentation
+** DONE Stop using Doxygen to generate code documentation
    - State "DONE"       [2009-03-06 Fri 17:52]
    :PROPERTIES:
    :ID: A7A589D0-2799-40ED-9729-BDB6892EB279
    :END:
    [2009-03-06 Fri 04:21]
-** DONE [#B] Change --help* so it runs "man ledger"
+** DONE Change --help* so it runs "man ledger"
    - State "DONE"       [2009-02-21 Sat 16:32]
    :PROPERTIES:
    :ID: 69F58499-2EE7-4A76-9B1B-E9F8495D9514
    :END:
    [2009-02-21 Sat 15:02]
-** DONE [#B] Start a real manpage
+** DONE Start a real manpage
    - State "DONE"       [2009-02-21 Sat 14:50]
    :PROPERTIES:
    :ID: 9ED06BD9-774E-411E-9942-F1D672EB67C8
    :END:
    [2009-02-21 Sat 12:49]
-** DONE [#B] Describe the new balance algorithm in pseudocode for sm
+** DONE Describe the new balance algorithm in pseudocode for sm
    - State "DONE"       [2009-02-17 Tue 17:43]
    :PROPERTIES:
    :ID: 68EA6398-E410-45A2-8EB3-7ACFEA5238CC
    :END:
    [2009-02-17 Tue 07:20]
-** DONE [#B] Post the Ledger manual in HTML format on newartisans.com
+** DONE Post the Ledger manual in HTML format on newartisans.com
    - State "DONE"       from "TODO"       [2009-06-16 Tue 17:10]
    :PROPERTIES:
    :Version: 2.6
@@ -2957,7 +2957,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: C6E7C61C-13A3-4812-AA28-CD3E247D6F8C
    :END:
    [2008-08-14 Thu]
-** DONE [#B] Add license headers to every file
+** DONE Add license headers to every file
    - State "DONE"       [2009-01-29 Thu 15:29]
    :PROPERTIES:
    :Version: 2.6
@@ -2965,7 +2965,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: E99806BC-8781-4469-9FEF-B77C23BB3413
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Format ledger.texi in the same manner as the SBCL manual
+** DONE Format ledger.texi in the same manner as the SBCL manual
    - State "DONE"       [2007-12-04 Tue 18:14]
    :PROPERTIES:
    :ARCHIVE_TIME: 2007-12-11 Tue 18:33
@@ -2973,7 +2973,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 7D3DE56C-34E2-4992-87CA-B129E19B6FD1
    :END:
    [2007-11-28 Wed]
-** DONE [#B] Organize my ledger todo file and integrate it into the main agenda
+** DONE Organize my ledger todo file and integrate it into the main agenda
    - State "DONE"       [2007-10-01 Mon 03:40] \\
      Done, although I still need to pull all of my old data from Trac and Merlin.
    :PROPERTIES:
@@ -2982,13 +2982,13 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: B89FA87D-CAE6-4F78-9442-E25EE572E8FD
    :END:
    [2007-09-27 Thu]
-** DONE [#B] There is an issue with unescaped @ signs in the Ledger docs
+** DONE There is an issue with unescaped @ signs in the Ledger docs
    - State "DONE"       [2008-03-27 Thu]
    :PROPERTIES:
    :ID: 30ED70CB-0679-4651-A1C3-1247764B250D
    :END:
    [2008-03-26 Wed]
-** DUPLICATE [#B] Apply fix to the Ledger documentation
+** DUPLICATE Apply fix to the Ledger documentation
    - State "DUPLICATE"  [2008-09-11 Thu 03:08] \\
      This has already been fixed by A7CA0F5B-1F08-417A-9071-A223601100CA.
    I found a tiny bug in the info documentation for ledger, version
@@ -3017,14 +3017,14 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-09-02 Tue 06:26]
 * Emacs
-** DONE [#B] C-c C-c on a cleared entry doesn't unclear it
+** DONE C-c C-c on a cleared entry doesn't unclear it
    - State "DONE"       from "TODO"       [2009-06-16 Tue 18:11]
    :PROPERTIES:
    :Version: 2.6.0.90
    :Ticket: 212
    :ID: 863C0EE8-C193-46EE-9BAA-3A37DE73E4DB
    :END:
-** DONE [#B] In ledger-mode, color directive lines a different color
+** DONE In ledger-mode, color directive lines a different color
    - State "DONE"       from "TODO"       [2009-06-16 Tue 18:13]
    :PROPERTIES:
    :Version: 2.6
@@ -3033,13 +3033,13 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
-** DONE [#B] Add a --no-color option for Ledger
+** DONE Add a --no-color option for Ledger
    - State "DONE"       from "TODO"       [2009-06-26 Fri 17:51]
    :PROPERTIES:
    :ID: E924C732-C3F9-40C7-8E69-8F20566EB920
    :END:
    [2009-06-17 Wed 16:45]
-** DONE [#B] In the expression parser, 40% should mean 0.40
+** DONE In the expression parser, 40% should mean 0.40
    - State "DONE"       from "TODO"       [2009-05-14 Thu 04:06]
    :PROPERTIES:
    :ID: CEC3AE64-64C8-4339-B4DB-86A4FBDBBD98
@@ -3047,7 +3047,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ARCHIVE_CATEGORY: Ledger
    :END:
    [2009-05-14 Thu 02:06]
-** DONE [#B] In daily budget report, there's no budgeting entry for "today"
+** DONE In daily budget report, there's no budgeting entry for "today"
    - State "DONE"       [2009-03-08 Sun 04:21]
    :PROPERTIES:
    :Version: 2.6
@@ -3055,7 +3055,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 5D1B0408-90D0-4019-AE0F-A914329C73CB
    :END:
    [2009-04-11 Sat]
-** DONE [#B] Allow balance reports to have multiple totals columns
+** DONE Allow balance reports to have multiple totals columns
    - State "DONE"       [2009-03-03 Tue 03:18]
    For example, to show commodity quantities vs. market values; or to show
    date of latest cleared entry and cleared total vs. date of last queried
@@ -3067,7 +3067,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: D737F702-9848-F001-5AC1-9924A9C3E5BA
    :END:
    [2009-02-28 Sat 20:38]
-** DONE [#B] Allow for fixed commodities, whose market value does not change
+** DONE Allow for fixed commodities, whose market value does not change
    - State "DONE"       [2009-03-02 Mon 17:06]
    Actually, this can be done with lot pricing, if I add a feature where a
    posting of a certain form causes it to fixate:
@@ -3079,13 +3079,13 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: FB85DEF4-7D65-45B5-898B-20B511FEE022
    :END:
    [2009-02-10 Tue 04:10]
-** DONE [#B] Support "a; b" in value expressions
+** DONE Support "a; b" in value expressions
    - State "DONE"       [2009-03-03 Tue 16:03]
    :PROPERTIES:
    :ID: 6AEE70BA-673E-446F-9131-A3C29195A499
    :END:
    [2009-02-23 Mon 05:07]
-** DONE [#B] A mask by itself should generate a helpful error message
+** DONE A mask by itself should generate a helpful error message
    - State "DONE"       [2009-02-26 Thu 04:10]
    Especially since people from 2.6 will want to use "/foo/" intead of "account
    =~ /foo".
@@ -3093,7 +3093,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: F21E8B63-C6C9-4B09-90B2-2441FBD1F517
    :END:
    [2008-08-26 Tue]
-** DONE [#B] Allow xact value expressions to access account totals
+** DONE Allow xact value expressions to access account totals
    - State "DONE"       [2009-03-03 Tue 16:29]
    I'd like to create entries that use a formula to compute the values, which
    doesn't seem to be supported (but I hope I'm wrong).
@@ -3120,34 +3120,34 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: B5CB8346-581D-4EBC-A980-B399CDD24961
    :END:
    [2008-11-01 Sat 11:43]
-** DONE [#B] Make the balance report separator bar a format code
+** DONE Make the balance report separator bar a format code
    - State "DONE"       [2009-02-27 Fri 16:31]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 124
    :ID: 373A0146-BE4B-4C7E-9DA2-38D1EB275216
    :END:
-** DONE [#B] Add more color to the register report
+** DONE Add more color to the register report
    - State "DONE"       [2009-02-24 Tue 04:00]
    :PROPERTIES:
    :ID: BD2F22FC-CB2C-45A8-8C07-3366A96B6034
    :END:
    [2008-08-23 Sat]
-** DONE [#B] Allow column width to be specified
+** DONE Allow column width to be specified
    - State "DONE"       [2009-02-24 Tue 04:01]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 161
    :ID: 1F0FD61B-1734-4A30-9EB5-D7AC4A6C7D7B
    :END:
-** DONE [#B] Make a helper macro to validate valexpr func args
+** DONE Make a helper macro to validate valexpr func args
    - State "DONE"       [2009-02-24 Tue 04:04]
    USAGE("ss:i");   <-- function expects two strings and an optional integer
    :PROPERTIES:
    :ID: D6049000-77E0-40EA-A15B-74490D0FFF3D
    :END:
    [2009-02-07 Sat 15:40]
-** DONE [#B] Make sure it's possible to sort by the entry code
+** DONE Make sure it's possible to sort by the entry code
    - State "DONE"       [2009-02-24 Tue 04:04]
    :PROPERTIES:
    :Submitter: Christopher <christopher.illies@ki.se>
@@ -3155,7 +3155,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: FE972418-2D3B-41B5-B028-D2F6C477415E
    :END:
    [2008-10-13 Mon 10:28]
-** DONE [#B] Have an option so that weeks begin on Monday
+** DONE Have an option so that weeks begin on Monday
    - State "DONE"       [2009-02-21 Sat 01:37]
    :PROPERTIES:
    :Submitter: Simon Michael <simon@joyful.com>
@@ -3163,7 +3163,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 9FF37C33-EBEF-4EC0-91F7-0E8681416D60
    :END:
    [2008-12-08 Mon 23:59]
-** DONE [#B] Implement a --raw flag for print, to show what the user entered
+** DONE Implement a --raw flag for print, to show what the user entered
    - State "DONE"       [2009-02-21 Sat 19:40]
    - State "TODO"       [2009-02-21 Sat 01:38]
    - State "CANCELLED"  [2009-02-21 Sat 01:37]
@@ -3172,13 +3172,13 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 9F074119-FF1C-4568-9297-54A8C31258D2
    :END:
    [2008-09-17 Wed]
-** DONE [#B] Add support for "xact notes"
+** DONE Add support for "xact notes"
    - State "DONE"       [2009-02-16 Mon 05:22]
    :PROPERTIES:
    :ID: 334E9E08-0943-42DB-BB7A-A4D147508706
    :END:
    [2008-08-05 Tue]
-** DONE [#B] Allow for data file assertions
+** DONE Allow for data file assertions
    - State "DONE"       [2009-02-16 Mon 05:23]
    A use for these would be after reconciling the bank balance, you want to
    assert that the cleared balance on that day is a given amount and if it ever
@@ -3189,7 +3189,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 434EA2BD-BB4D-4F97-BB2A-BB983797F1AE
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Need a flag for sorting the amounts in a -M report in ledger
+** DONE Need a flag for sorting the amounts in a -M report in ledger
    - State "DONE"       [2009-02-16 Mon 14:26] \\
      The user can sort by display_amount.
    :PROPERTIES:
@@ -3197,7 +3197,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :Ticket: 69
    :ID: D97CB3FC-C80F-428C-B2D6-D2B204E3D4D9
    :END:
-** DONE [#B] Optimize parsing of posting amounts
+** DONE Optimize parsing of posting amounts
    - State "DONE"       [2009-02-16 Mon 05:24]
    :PROPERTIES:
    :Version: 2.6
@@ -3205,7 +3205,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 5EBDDE91-BF8A-4925-B53D-2533361583A5
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Promote tagging to a first-class concept
+** DONE Promote tagging to a first-class concept
    - State "DONE"       [2009-02-16 Mon 05:24]
    - Tagging is indicated by the presence of ":tag:" in an xact note or a
      posting note.
@@ -3219,7 +3219,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: E7595DA3-4634-4275-A793-701A6D9438A4
    :END:
    [2008-08-01 Fri]
-** DONE [#B] Remove dependency on all globals:
+** DONE Remove dependency on all globals:
    - State "DONE"       [2009-02-16 Mon 05:24]
    :PROPERTIES:
    :Version: 2.6
@@ -3227,7 +3227,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 0C030979-3BF9-404D-9B39-5BDEAD77A749
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Remove global commodities map
+** DONE Remove global commodities map
    - State "DONE"       [2009-02-16 Mon 05:24]
    Create a commodity_pool, which is linked to a journal (and which every
    amount has a pointer to).
@@ -3237,7 +3237,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: E41E5A1F-BD14-419D-BF0D-6CCF990A59B1
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Revise the concept of commodities
+** DONE Revise the concept of commodities
    - State "DONE"       [2009-02-16 Mon 05:25]
    At the moment, commodities, conversions, exchanges and prices all relate to
    the same underlying ideas, but they're unfortunately spread out throughout
@@ -3248,7 +3248,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 29E1CF5D-FEA9-4A23-90F0-4E14C374D908
    :END:
    [2008-04-12 Sat]
-** DONE [#B] Rewrite the concept of error contexts
+** DONE Rewrite the concept of error contexts
    - State "DONE"       [2009-02-16 Mon 05:25]
    :PROPERTIES:
    :Version: 2.6
@@ -3256,7 +3256,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 6FE3032D-5862-4213-B40F-80D5BDFB68E2
    :END:
    [2008-04-11 Fri]
-** DONE [#B] A few changes for the textual parser [4/4]
+** DONE A few changes for the textual parser [4/4]
    - State "DONE"       [2009-02-15 Sun 23:22]
    - [X] Ignore any line like /^\s*;/ as a comment -even in the middle of a
 	 posting
@@ -3274,7 +3274,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 8C5FD48A-F498-4B97-9C6E-DD8B5A50B773
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Add a "scramble" command
+** DONE Add a "scramble" command
    - State "DONE"       [2009-01-29 Thu 15:29]
    The purpose of this command is to anonymize the user's data so that they can
    submit a bug report without revealing any sensitive information about
@@ -3285,14 +3285,14 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 5B6D773A-E90F-4F36-8C97-79613427CA01
    :END:
    [2008-04-11 Fri]
-** DONE [#B] Add UTF-8 support for input files, commands and reports
+** DONE Add UTF-8 support for input files, commands and reports
    - State "DONE"       [2009-01-29 Thu 15:30]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 140
    :ID: BDBB79F0-9FC4-4B91-B922-D128E18982BA
    :END:
-** DONE [#B] Formalize tagging
+** DONE Formalize tagging
    - State "DONE"       [2008-08-05 Tue]
    Search with "account / tags", similar to "account -- payee".
    Tagging is any note with :tag: in it.
@@ -3301,7 +3301,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 7D8F14BE-4E84-4B40-8C3E-D563B291D4CA
    :END:
    [2008-07-31 Thu]
-** DONE [#B] getquote script for UK users						 :ATTACH:
+** DONE getquote script for UK users						 :ATTACH:
    This is a little python file for downloading quotes for UK shares and unit
    trusts. An unusual wrinkle is that UK shares must have ".L" in them - but
    Ledger doesn't support this kind of format.
@@ -3459,14 +3459,14 @@ getquote GSK_L
    :ID: AC4FCEC6-7F38-4229-88AD-B0032C49AE93
    :END:
    [2008-07-21 Mon]
-** CANCELLED [#B] Tie-in with beancounter and quantlib
+** CANCELLED Tie-in with beancounter and quantlib
    - State "CANCELLED"  [2009-02-27 Fri 16:31]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 118
    :ID: 7A8607F3-87C8-4A85-A4EF-BA090BB81EDE
    :END:
-** CANCELLED [#B] Make ^ be a power operator
+** CANCELLED Make ^ be a power operator
    - State "CANCELLED"  [2009-02-24 Tue 04:04]
    So that 0.234 * 10^7 notation is possible.
    :PROPERTIES:
@@ -3475,14 +3475,14 @@ getquote GSK_L
    :ID: CE06A271-419D-4F27-87C6-74412BE546E1
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Make commodity_t::qualified_symbol a virtual function
+** CANCELLED Make commodity_t::qualified_symbol a virtual function
    - State "CANCELLED"  [2009-02-24 Tue 04:04]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 158
    :ID: B20E725A-B218-4A13-B08B-D74659B35F32
    :END:
-** CANCELLED [#B] Option --transform VALEXPR
+** CANCELLED Option --transform VALEXPR
    - State "CANCELLED"  [2009-02-24 Tue 04:05]
    Which is a handler that applies valexpr to each transaction and outputs a
    temporary transaction with that amount -- or is this just the same as -t?
@@ -3492,7 +3492,7 @@ getquote GSK_L
    :ID: C112D47E-7814-47D1-AE8C-B777AEFB7C56
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Value expression descriptions
+** CANCELLED Value expression descriptions
    - State "CANCELLED"  [2009-02-24 Tue 04:05]
    When parsing a value expression, allowing keeping a description tag, so that
    when an exception is fired the user can be told where the value expression
@@ -3503,7 +3503,7 @@ getquote GSK_L
    :ID: 81340878-2C17-485B-BBA7-62A271925401
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Get rid of --print-format, and have print use hdr-format
+** CANCELLED Get rid of --print-format, and have print use hdr-format
    - State "CANCELLED"  [2009-02-21 Sat 01:38]
    ... and post-format, which output uses.
    :PROPERTIES:
@@ -3512,14 +3512,14 @@ getquote GSK_L
    :ID: 9D95A1BB-AC3C-41C5-9AE3-C6324F13458A
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Add item sequence list to journal_t
+** CANCELLED Add item sequence list to journal_t
    - State "CANCELLED"  [2009-02-16 Mon 05:22]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 145
    :ID: 2BA660CC-E09A-4358-944F-4527BF11F19C
    :END:
-** CANCELLED [#B] Add the ability to map OFX numbers to specific accounts
+** CANCELLED Add the ability to map OFX numbers to specific accounts
    - State "CANCELLED"  [2009-02-16 Mon 05:22]
    By allowing a directive like this:
    :DATA:
@@ -3534,7 +3534,7 @@ getquote GSK_L
    :ID: 4FE37F8F-99F4-4548-88F3-D64CF7A76856
    :END:
    [2008-04-07 Mon]
-** CANCELLED [#B] Allow Payee | Description for an xact payee
+** CANCELLED Allow Payee | Description for an xact payee
    - State "CANCELLED"  [2009-02-16 Mon 05:23]
    :PROPERTIES:
    :Version: 2.6
@@ -3542,7 +3542,7 @@ getquote GSK_L
    :ID: 383C04EE-94AF-4D01-BDEF-E644A12E97BF
    :END:
    [2008-04-20 Sun]
-** CANCELLED [#B] New reporting options: --descend and --descend-if
+** CANCELLED New reporting options: --descend and --descend-if
    - State "CANCELLED"  [2009-02-16 Mon 05:24]
    message://m2slpojqjc.fsf@newartisans.com
    :PROPERTIES:
@@ -3551,7 +3551,7 @@ getquote GSK_L
    :ID: 06F4D252-4049-42D5-BBD4-F52130ED3F82
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Normalize automated postings
+** CANCELLED Normalize automated postings
    - State "CANCELLED"  [2009-02-16 Mon 05:24]
    So that there is no functional difference between the binary and textual
    data formats; this is needed for the GUI so that if xacts are added or
@@ -3562,21 +3562,21 @@ getquote GSK_L
    :ID: F6E6FDE5-15FA-4AFB-B451-493F0C77F37C
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Output error messages in a way that compilation-mode can parse
+** CANCELLED Output error messages in a way that compilation-mode can parse
    - State "CANCELLED"  [2009-02-16 Mon 05:24]
    message://20080421160053.C6CE61144C3@banane.furius.ca
    :PROPERTIES:
    :ID: EB8AAF67-40A1-479F-BF96-7CB17D9492C1
    :END:
    [2008-08-14 Thu]
-** CANCELLED [#B] Support --read-format and --write-format
+** CANCELLED Support --read-format and --write-format
    - State "CANCELLED"  [2009-02-16 Mon 05:25]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 120
    :ID: 2BDB9BCA-6C3F-4766-9AFC-F363237C9049
    :END:
-** CANCELLED [#B] read_xml and write_xml methods for values
+** CANCELLED read_xml and write_xml methods for values
    - State "CANCELLED"  [2009-02-08 Sun 16:06]
    :PROPERTIES:
    :Version: 2.6
@@ -3584,7 +3584,7 @@ getquote GSK_L
    :ID: 415F72A7-A744-41EE-A849-D9E80237E00C
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#B] Think about making streamable and xml_streamable interfaces
+** CANCELLED Think about making streamable and xml_streamable interfaces
    - State "CANCELLED"  [2009-02-08 Sun 16:07]
    :PROPERTIES:
    :ID: E777B7FF-F109-4199-B5AA-89CC9DA92A9E
@@ -3615,7 +3615,7 @@ getquote GSK_L
    :ID: 60AC4948-4B40-46D4-A346-26C394C8F1F9
    :END:
    [2008-08-14 Thu]
-** DUPLICATE [#B] Preserve XML comments
+** DUPLICATE Preserve XML comments
    - State "DUPLICATE"  [2009-01-29 Thu 15:38] \\
      Duplicated by D27098A4-647A-4EEA-B0B8-3088E069214D.
    :PROPERTIES:
@@ -3625,7 +3625,7 @@ getquote GSK_L
    :END:
    [2008-04-11 Fri]
 * Python
-** DONE [#B] I can simplify the Python integration even further with scopes
+** DONE I can simplify the Python integration even further with scopes
    - State "DONE"       [2009-02-09 Mon 00:04]
    Rather than exposing post_t, I can just do __getattr__ lookups in the
    current scope_t, the same way that value expressions would.
@@ -3633,7 +3633,7 @@ getquote GSK_L
    :ID: DF2D6FE9-8598-4747-8B35-88075C6D7EAA
    :END:
    [2009-02-08 Sun 15:09]
-** DONE [#B] Ledger: Add INFO statement regarding Python starting, etc.
+** DONE Ledger: Add INFO statement regarding Python starting, etc.
    - State "DONE"       [2009-01-23 Fri 15:40]
    :PROPERTIES:
    :ID: 2BAE44BE-2EA4-4A51-B6A0-1DE6E7DFAA27
@@ -3641,7 +3641,7 @@ getquote GSK_L
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2009-01-23 Fri 03:41]
-** DONE [#B] Have Ledger fire up the Python interpreter only "as needed"
+** DONE Have Ledger fire up the Python interpreter only "as needed"
    - State "DONE"       [2009-01-24 Sat 05:24]
    :PROPERTIES:
    :ID: A98BDA0B-8B08-433F-B292-AFCAFB675DE9
@@ -3649,19 +3649,19 @@ getquote GSK_L
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2009-01-23 Fri 03:39]
-** DONE [#B] Restore py_amount, and the Python unit tests
+** DONE Restore py_amount, and the Python unit tests
    - State "DONE"       [2009-02-27 Fri 16:31]
    :PROPERTIES:
    :ID: 4F5490B3-7FE8-4CE7-B86C-71BCF3AE9918
    :END:
    [2009-02-21 Sat 12:35]
-** DONE [#B] Move python/*.cc files into src/, so python/ can contain .py files
+** DONE Move python/*.cc files into src/, so python/ can contain .py files
    - State "DONE"       [2009-02-24 Tue 16:13]
    :PROPERTIES:
    :ID: DB0E282A-F1D4-4009-BBE0-B2D97EACA9B5
    :END:
    [2009-02-24 Tue 15:04]
-** DONE [#B] Create some standard Python modules for Ledger: http
+** DONE Create some standard Python modules for Ledger: http
    - State "DONE"       [2009-02-24 Tue 20:01]
    This would install from python/ledger/http.py, and would get activated if
    someone used the http command.
@@ -3670,20 +3670,20 @@ getquote GSK_L
    :END:
    [2009-02-24 Tue 11:08]
 * Tests
-** DONE [#B] opt-prices-format.test is failing due to timezone differences
+** DONE opt-prices-format.test is failing due to timezone differences
    - State "DONE"       from "TODO"       [2009-10-22 Thu 07:09]
    :PROPERTIES:
    :ID: 70828011-2F1E-4823-8D7D-422720A0F8E8
    :Message: [[message://b0bc07100906260800m28db8cb1xd1199dd1e05675ea@mail.gmail.com][Test failure (opt-prices-format test) with git HEAD]]
    :END:
    [2009-07-02 Thu 18:09]
-** DONE [#B] UtilTests is currently getting a bus error, with the new acprep
+** DONE UtilTests is currently getting a bus error, with the new acprep
    - State "DONE"       [2009-03-09 Mon 22:02]
    :PROPERTIES:
    :ID: C89561FB-C59F-43EE-AD70-AFC01EF93F2A
    :END:
    [2009-03-09 Mon 05:26]
-** DONE [#B] Can't build tests with -j3
+** DONE Can't build tests with -j3
    - State "DONE"       [2009-03-08 Sun 18:46]
    :OUTPUT:
 g++ -DHAVE_CONFIG_H -I. -I..  -I../test -I../src -I../lib -I../lib/utfcpp/source -isystem /usr/local/stow/cppunit/include  -isystem /usr/local/include -isystem /usr/local/include/boost-1_38 -isystem /usr/include/python2.5 -isystem /opt/local/include  -pipe -c -o ReportTests-ReportTests.o `test -f 'test/ReportTests.cc' || echo '../'`test/ReportTests.cc
@@ -3708,13 +3708,13 @@ make: *** [release-distcheck] Error 2
    :ID: 7E6E57B8-A011-4F47-904C-71AD5D03EADF
    :END:
    [2009-03-08 Sun 18:43]
-** DONE [#B] The regression tests are failing with the latest changes
+** DONE The regression tests are failing with the latest changes
    - State "DONE"       [2009-03-06 Fri 02:37]
    :PROPERTIES:
    :ID: E01A104A-2D45-4C0A-AF3C-93AF12324C53
    :END:
    [2009-03-05 Thu 05:12]
-** DONE [#B] Ledger performance breakdown
+** DONE Ledger performance breakdown
    - State "DONE"       [2009-03-06 Fri 04:11]
    50% parsing
       7% balancing transactions
@@ -3726,25 +3726,25 @@ make: *** [release-distcheck] Error 2
    :ID: FD55C52B-46D3-4EAE-ABE5-571B7426B842
    :END:
    [2009-03-04 Wed 04:43]
-** DONE [#B] Enable lot spec generation in generate.cc
+** DONE Enable lot spec generation in generate.cc
    - State "DONE"       [2009-02-27 Fri 16:22]
    :PROPERTIES:
    :ID: C23B7780-378A-412D-AEB1-235B9788F78D
    :END:
    [2009-02-27 Fri 04:22]
-** DONE [#B] tools/proof is failing
+** DONE tools/proof is failing
    - State "DONE"       [2009-03-08 Sun 04:31]
    :PROPERTIES:
    :ID: 72621A77-F08E-4DED-A2C6-F0B1F337CD9A
    :END:
    [2009-03-01 Sun 16:22]
-** DONE [#B] The regression test 13965214.test is time sensitive
+** DONE The regression test 13965214.test is time sensitive
    - State "DONE"       [2009-03-02 Mon 04:41]
    :PROPERTIES:
    :ID: 8ED593A1-B953-4629-B0BD-411B82FF283F
    :END:
    [2009-03-01 Sun 05:36]
-** DONE [#B] Abstract RegressTests.py (was: opt-lots should use input/wow.dat)
+** DONE Abstract RegressTests.py (was: opt-lots should use input/wow.dat)
    - State "DONE"       [2009-03-03 Tue 03:18]
    This means that RegressTests.py needs to be sensitive to whether -f was
    explicitly specified, and should substitute $test for the input directory.
@@ -3755,19 +3755,19 @@ make: *** [release-distcheck] Error 2
    :ID: AEEB769E-9D44-428A-A028-D88E79D76B8D
    :END:
    [2009-02-28 Sat 06:17]
-** DONE [#B] tools/regtest is producing errors
+** DONE tools/regtest is producing errors
    - State "DONE"       [2009-02-26 Thu 04:10]
    :PROPERTIES:
    :ID: C7C5BDBF-59E9-4D75-924E-0167B077F35F
    :END:
    [2009-02-24 Tue 22:32]
-** DONE [#B] Write an "xact generator", to create random xacts for testing
+** DONE Write an "xact generator", to create random xacts for testing
    - State "DONE"       [2009-02-27 Fri 04:11]
    :PROPERTIES:
    :ID: 031DAD5C-8C92-40C1-837F-ABE6F29D4046
    :END:
    [2009-02-24 Tue 21:46]
-** TESTED [#B] Major areas of implementation remaining [117/117]
+** TESTED Major areas of implementation remaining [117/117]
    - State "TESTED"     from "DONE"       [2009-06-28 Sun 15:14]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:14]
    - State "TODO"       from "TESTED"     [2009-06-27 Sat 01:44]
@@ -3896,7 +3896,7 @@ make: *** [release-distcheck] Error 2
    :END:
    [2009-02-06 Fri 15:23]
 * Website
-** DONE [#B] Check out Mark Carter's Ledger page
+** DONE Check out Mark Carter's Ledger page
    - State "DONE"       [2008-12-09 Tue 20:39]
    http://mcarter.myzen.co.uk/ledger/ledger.htm
    :PROPERTIES:
@@ -3905,7 +3905,7 @@ make: *** [release-distcheck] Error 2
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2008-12-09 Tue 02:39]
-** DONE [#B] Convert 10 Trac bugs to the Ledger TODO file
+** DONE Convert 10 Trac bugs to the Ledger TODO file
    - State "DONE"       [2008-09-17 Wed 08:31]
    - State "DONE"       [2008-09-10 Wed 22:00]
    - State "DONE"       [2008-09-08 Mon 05:46]
@@ -3916,7 +3916,7 @@ make: *** [release-distcheck] Error 2
    :ARCHIVE_CATEGORY: Computer
    :END:
    [2008-08-26 Tue]
-** DONE [#B] Add a link to the Fink package for Ledger on the Ledger page
+** DONE Add a link to the Fink package for Ledger on the Ledger page
    - State "DONE"       [2007-10-28 Sun 22:33]
    :PROPERTIES:
    :ARCHIVE_TIME: 2007-11-04 Sun 23:42
@@ -3924,7 +3924,7 @@ make: *** [release-distcheck] Error 2
    :ID: BEAF3CBA-298C-4711-95EC-E437915D2D3E
    :END:
    [2007-10-27 Sat] [[message://m2ve8rnc8c.fsf@dnab423967.stanford.edu][fink package for ledger]]
-** DONE [#B] Find out why Thomas can't fetch my git repo over HTTP
+** DONE Find out why Thomas can't fetch my git repo over HTTP
    - State "DONE"       [2008-04-26 Sat]
      error: pick-rref: refs/heads/master not found No such ref
      refs/heads/master at http://newartisans.com/git/ledger.git
@@ -3935,7 +3935,7 @@ make: *** [release-distcheck] Error 2
    :ID: 5B36755A-03D7-47FF-BE7F-4AFFC570C5FB
    :END:
    [2008-04-25 Fri]
-** DONE [#B] Fix the link on my Ledger project page to sourceforge.net
+** DONE Fix the link on my Ledger project page to sourceforge.net
    - State "DONE"       [2007-11-07 Wed 03:56]
    :PROPERTIES:
    :ARCHIVE_TIME: 2007-11-14 Wed 17:14
@@ -3943,20 +3943,20 @@ make: *** [release-distcheck] Error 2
    :ID: 753361B3-7BE0-45CE-A8E5-B8A277F259C9
    :END:
    [2007-11-06 Tue]
-** DONE [#B] Post to the Ledger forums about Ledger's new direction
+** DONE Post to the Ledger forums about Ledger's new direction
    - State "DONE"       [2008-08-04 Mon]
    :PROPERTIES:
    :ID: A11857E2-776B-4A0D-8BE1-D6D75843FBA2
    :END:
    [2008-04-24 Thu]
-** DONE [#B] The Ledger project page is not formatted correctly
+** DONE The Ledger project page is not formatted correctly
    - State "DONE"       [2008-06-26 Thu]
    It appears that the MultiMarkdown codes are being ignored.
    :PROPERTIES:
    :ID: 5C4EA977-7231-42E4-BAB5-77F9963D846F
    :END:
    [2008-05-29 Thu]
-** DONE [#B] Make a note of the published Ledger manual on the webpage
+** DONE Make a note of the published Ledger manual on the webpage
    - State "DONE"       from "TODO"       [2009-06-16 Tue 18:30]
    one big page: http://joyful.com/repos/ledger/doc/ledger.html
    many pages: http://joyful.com/repos/ledger/doc/ledger/
@@ -3967,7 +3967,7 @@ make: *** [release-distcheck] Error 2
    :ID: B5748AF6-A3D8-4F49-B0B0-7C8E463883AB
    :END:
    [2008-10-25 Sat 23:59]
-** DONE [#B] Mention Martin's beancount project from the Ledger home page
+** DONE Mention Martin's beancount project from the Ledger home page
    - State "DONE"       from "TODO"       [2009-06-16 Tue 18:30]
    "Beancount on PyPi" from Martin Blais <blais@furius.ca>
    :PROPERTIES:
