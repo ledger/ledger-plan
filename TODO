@@ -4,56 +4,60 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
 #+CATEGORY: Ledger
 
-* Bugs
+* Inbox
 ** TODO Handle email 'Re: Master and emacs'
-   SCHEDULED: <2009-10-22 Thu>
    message://01BBC0A5-1185-4FCF-8D8C-72E29FA86675@gmail.com
    :PROPERTIES:
    :ID: AC756278-72D5-4CAC-82A7-334A9BB6F7EE
    :END:
    [2009-10-03 Sat 03:23]
 ** TODO Handle email 'Precision error in latest master'
-   SCHEDULED: <2009-10-22 Thu>
    [[message://1253475930.3701.41.camel@mithos.talinet.net]]
    :PROPERTIES:
    :ID: 77D3A0A9-35DF-4A4D-8469-8928E3954441
    :END:
    [2009-10-03 Sat 03:23]
 ** TODO Handle email '[Ledger-discuss] Unexpected exclamation marks...
-   SCHEDULED: <2009-10-22 Thu>
    message://87k4zts56n.fsf@red-bean.com
    :PROPERTIES:
    :ID: BCA69D92-8F2F-4074-8E32-84F3BC205A96
    :END:
    [2009-10-03 Sat 03:23]
 ** TODO Handle email 'Re: Precision error in latest master'
-   SCHEDULED: <2009-10-22 Thu>
    message://056fbfed-cd56-48c3-8d22-40b1b60514f1@o9g2000prg.googlegroups.com
    :PROPERTIES:
    :ID: 7C2DC744-C7C2-404B-BEAA-1ACC509D8157
    :END:
    [2009-10-03 Sat 03:23]
 ** TODO Handle email 'ledger: corrupted double-linked list'
-   SCHEDULED: <2009-10-22 Thu>
    message://4AA8F383.3010801@gmail.com
    :PROPERTIES:
    :ID: 8C22A64E-6095-4933-9D66-FA970CCD1590
    :END:
    [2009-10-03 Sat 03:23]
 ** TODO Handle email 'Re: Tutorial on multiple currency accounting'
-   SCHEDULED: <2009-10-22 Thu>
    message://20090901235339.081385C27E@chase.mathstat.dal.ca
    :PROPERTIES:
    :ID: 3DF146C8-30BF-431A-8B4D-1FD4F236C34F
    :END:
    [2009-10-03 Sat 03:24]
 ** TODO Handle email '[MacPorts] #20788: ledger: ofx variant is incomplete'
-   SCHEDULED: <2009-10-22 Thu>
    message://059.f519d22e7986fc67d18492a768a191bd@macports.org
    :PROPERTIES:
    :ID: B2EE4EC9-E783-4FE7-BF3E-E3956E2032D3
    :END:
    [2009-10-03 Sat 03:24]
+* Bugs
+** TODO Don't make uncommoditized amounts display differently
+   :PROPERTIES:
+   :ID: 677CB18D-C7EE-446A-8123-57D80E3EFDD4
+   :END:
+   [2009-10-23 Fri 06:13]
+** TODO Make balance assignment failures into a warning
+   :PROPERTIES:
+   :ID: B3F65D45-C77F-4E01-A8FC-3EDC92A9CB45
+   :END:
+   [2009-10-23 Fri 06:13]
 ** TODO Combine a random seed when hashing when using --anon
    Please keep in mind that the dictionary one pulls account names from is MUCH
    smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
@@ -206,6 +210,11 @@ See LICENSE file included with the distribution for details and disclaimer.
    :END:
    [2009-02-02 Mon 03:13]
 * Build
+** TODO acprep should call submodule
+   :PROPERTIES:
+   :ID: 7A3A602A-3F31-4E4C-9941-F5BBF0D58ED6
+   :END:
+   [2009-10-23 Fri 06:13]
 ** TODO Setup virtual machines for every OS Ledger should run on
    :PROPERTIES:
    :ID: C91FEFD0-CF11-41C2-B2D0-B6BED7E142A2
@@ -227,32 +236,6 @@ See LICENSE file included with the distribution for details and disclaimer.
    :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
    :END:
    [2009-01-29 Thu 19:40]
-** DEFERRED Avoid having to rm -fr ledger-proof
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
-   :OUTPUT:
-acprep: INFO: === Wiping build directory /home/nafai/Products/ledger-proof/default ===
-acprep: ERROR: Caught exception
-Traceback (most recent call last):
-  File "./acprep", line 141, in run
-    exit_code = self.main(*main_args)
-  File "./acprep", line 297, in main
-    PrepareBuild.__dict__['phase_' + cmd](self, *args)
-  File "./acprep", line 1239, in phase_proof
-    self.configure_flavor('default')
-  File "./acprep", line 1176, in configure_flavor
-    shutil.rmtree(self.build_directory())
-  File "/usr/lib/python2.5/shutil.py", line 175, in rmtree
-    rmtree(fullname, ignore_errors, onerror)
-  File "/usr/lib/python2.5/shutil.py", line 180, in rmtree
-    onerror(os.remove, fullname, sys.exc_info())
-  File "/usr/lib/python2.5/shutil.py", line 178, in rmtree
-    os.remove(fullname)
-OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/default/ledger-3.0/config.sub'
-   :END:
-   :PROPERTIES:
-   :ID: 12D4AB31-964F-4206-8AA0-2CA9C509DA30
-   :END:
-   [2009-03-11 Wed 20:54]
 ** CANCELLED Accept multiple phases in acprep if they can be recognized as such
    - State "CANCELLED"  from "DEFERRED"   [2009-10-22 Thu 07:35]
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
@@ -525,13 +508,58 @@ always ignored and are neither searched nor printed back.
    :ID: 9CC55CD0-30C3-4C4F-BCB6-E980FD1F44DA
    :END:
    [2008-04-11 Fri]
-** DEFERRED Complete the internal documentation, exported using Doxygen
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:10]
-   :PROPERTIES:
-   :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
-   :END:
-   [2008-08-14 Thu]
 * Emacs
+** TODO Add folding support to ledger.el
+   - State "TODO"       from "DELEGATED"  [2009-10-22 Thu 06:46]
+   - State "DELEGATED"  from "TODO"       [2009-10-11 Sun 05:31] \\
+     Demosthenes said that the author of loccur was going to look into this.
+   For example, show only transactions matching a given report query.
+   :PROPERTIES:
+   :ID: E98B3CBD-B76F-4917-92A5-4B9E69833131
+   :END:
+   [2009-10-06 Tue 17:29]
+** TODO Redesign ledger.el
+   It should always be talking with Ledger via the REPL.
+   :PROPERTIES:
+   :ID: BADF02BF-CAA1-4990-B9FF-DA20BA025FE0
+   :END:
+   [2009-10-23 Fri 06:11]
+** TODO C-c C-c should be magical in ledger-mode
+   It should auto-generate reports, for example, if the user does it in an
+   account or payee name.
+   :PROPERTIES:
+   :ID: 5C52F851-18CF-41A3-953B-49DA4EF67C00
+   :END:
+   [2009-10-23 Fri 06:12]
+** TODO Break ledger.el up into sections
+   - Font-locking
+   - REPL interaction
+   - Parsing
+   - Utility functions
+   - Manipulation (sorting, etc)
+   - Reconciling
+   - Reports
+   :PROPERTIES:
+   :ID: 770D07CF-9F28-4A9B-B4E8-48ACC4926E06
+   :END:
+   [2009-10-23 Fri 06:12]
+** TODO Create a hotkey for creating Ledger transactions
+   :PROPERTIES:
+   :ID: CAAE8C68-A26F-4BED-A626-751A98B57E7E
+   :END:
+   [2009-10-23 Fri 06:13]
+** TODO Make TAB more magical in ledger-mode
+   It should do what C-c TAB does, but still cycle.  Or, it should move around.
+   Or, if in payee and preceding char is a digit, call ledger xact.
+   :PROPERTIES:
+   :ID: 2A9F5DDB-4DB6-4E87-A755-392F51CF0C2D
+   :END:
+   [2009-10-23 Fri 06:13]
+** TODO Use yasnippet with ledger-mode
+   :PROPERTIES:
+   :ID: 178EC4C8-F87A-40C2-91CE-C5BD9CA50BD3
+   :END:
+   [2009-10-23 Fri 06:14]
 ** TODO Inserting comments in ledger-mode is inserting leading whitespace
    Comments in ledger-mode are inserted with whitespace at the beginning of the
    line, which makes ledger.dat unusable.  One has to delete the extra
@@ -820,15 +848,65 @@ Tr.#	date		Text			debit		credit		saldo
    :END:
    [2009-02-21 Sat 17:36]
 * Features
-** TODO Add folding support to ledger.el
-   - State "TODO"       from "DELEGATED"  [2009-10-22 Thu 06:46]
-   - State "DELEGATED"  from "TODO"       [2009-10-11 Sun 05:31] \\
-     Demosthenes said that the author of loccur was going to look into this.
-   For example, show only transactions matching a given report query.
+** TODO [#B] When abbreviate account names, expand to fill
+   For example, Assets:NRL:Checking in 15 chars should be:
+     As:NRL:Checking
+   The algorithm should only shorten the initial account names as much as
+   needed, giving any surplus to the penultimate member.
    :PROPERTIES:
-   :ID: E98B3CBD-B76F-4917-92A5-4B9E69833131
+   :ID: 9135540C-C5F5-460B-AAEC-10D07FB67C21
    :END:
-   [2009-10-06 Tue 17:29]
+   [2009-10-24 Sat 19:19]
+** TODO Add an md5 valexpr function
+   Russell can generate a report using this instead of storing a string.
+   :PROPERTIES:
+   :ID: 18ADEF7A-6C43-4427-BC79-79F1E2905B85
+   :END:
+   [2009-10-23 Fri 06:10]
+** TODO Support alert warnings in Ledger
+   Like if expenses during a given month are too high.  This could be
+   implemented using automated transactions with a "warn" function as the
+   amount of a bogus account.
+   :PROPERTIES:
+   :ID: 28BD75AE-219C-4DF5-9D19-E7774BFC8DED
+   :END:
+   [2009-10-23 Fri 06:12]
+** TODO Check for duplicated transactions
+   Either by date/payee/magnitude, or even payee/magnitude if
+   --check-for-duplicates is enabled.
+   :PROPERTIES:
+   :ID: 4F58ACC1-498A-41A5-9164-93CD30B3CAC5
+   :END:
+   [2009-10-23 Fri 06:12]
+** TODO Allow to read an encrypted ledger file directly
+   This would be done using libgpg.
+   :PROPERTIES:
+   :ID: 58512060-B3DD-438D-9BFE-D64D5DB9439B
+   :END:
+   [2009-10-23 Fri 06:13]
+** TODO Make a curses or http GUI for Ledger
+   :PROPERTIES:
+   :ID: 8716A41C-3570-4193-A95D-9829F4FF8798
+   :END:
+   [2009-10-23 Fri 06:13]
+** TODO Allow for payee name mappings
+   After, create an "unaccounted" report for payees unknown to the matcher
+   :PROPERTIES:
+   :ID: 144F519E-9441-4FBA-9F6A-6757CA3F704A
+   :END:
+   [2009-10-23 Fri 06:14]
+** DONE Valexpr function: magnitude
+   - State "DONE"       from "TODO"       [2009-10-24 Sat 17:49]
+   The largest positive value of a balance.
+   :PROPERTIES:
+   :ID: C53A9D20-ADB6-4B7C-BEA6-0074242044F9
+   :END:
+   [2009-10-23 Fri 06:14]
+** TODO Create an operator for value + post
+   :PROPERTIES:
+   :ID: 28CE49A7-919B-4C93-9754-966DCC435DBA
+   :END:
+   [2009-10-23 Fri 06:14]
 ** TODO @@ -- allow negative costs
    I am quite keen on the @@ syntax, as I like to deal with commodities on a
    net basis. However, there is a bit of an inconsistency between @@ and @.
@@ -1095,61 +1173,5 @@ Error: A posting's cost may not be negative
    :Version: 2.6
    :Ticket: 148
    :ID: A1230B8C-EF48-40BB-A200-18E7E94620BE
-   :END:
-   [2008-04-11 Fri]
-** DEFERRED Create new files for commodity_pool and annotated commodities
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:12]
-   :PROPERTIES:
-   :ID: BAE2292F-6B8B-4703-A6B6-8217390673DC
-   :END:
-   [2009-02-07 Sat 18:20]
-** DEFERRED Support for exceptions to interval_t
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:13]
-   For example, "monthly except June".
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 147
-   :ID: A8AC5063-AB2F-4031-8821-2084B7B6497C
-   :END:
-   [2008-04-11 Fri]
-** DEFERRED Add complete calculation history in Ledger
-   - State "DEFERRED"   [2009-02-24 Tue 04:00]
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 146
-   :ID: B1F0071C-BD7D-4311-8DF2-7868F9CA7A29
-   :END:
-** DEFERRED Annotations should allow for HH:MM:SS
-   - State "DEFERRED"   [2009-02-24 Tue 04:02]
-   And also datetime should display this if it's there (but not if it's
-   midnight).
-
-   To implement this, add a parsing option that if, before the code, there is a
-   string fitting HH:MM:SS, then it is taken to be a time value.  This will
-   require making the parsing of date_t and datetime_t flexible and adaptive
-   (and stream-based).
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 149
-   :ID: F7DDD7D6-D219-4645-BB02-33AF74BED44B
-   :END:
-   [2008-04-11 Fri]
-** DEFERRED In the equity report, if the "collapse" option is used ...
-   - State "DEFERRED"   [2009-02-24 Tue 04:04]
-   ... output only one entry.  Otherwise, output an entry for every top-level
-   account.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 111
-   :ID: 29D7E913-1A5C-4ED2-8AB8-53D895021615
-   :END:
-   [2008-04-11 Fri]
-** DEFERRED Performance in forecasting would be weak with a lot of period xacts
-   - State "DEFERRED"   [2009-02-24 Tue 04:05]
-   What happens to performance with lots of accounts, of commodities?
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 115
-   :ID: 68E4C919-14BA-4AB1-A60B-FC176E966B45
    :END:
    [2008-04-11 Fri]

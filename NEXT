@@ -1,0 +1,101 @@
+LEDGER  -*- mode: org; fill-column: 78 -*-
+
+#+STARTUP: content
+#+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
+#+CATEGORY: Ledger
+
+* Bugs
+* Build
+** DEFERRED Avoid having to rm -fr ledger-proof
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
+   :OUTPUT:
+acprep: INFO: === Wiping build directory /home/nafai/Products/ledger-proof/default ===
+acprep: ERROR: Caught exception
+Traceback (most recent call last):
+  File "./acprep", line 141, in run
+    exit_code = self.main(*main_args)
+  File "./acprep", line 297, in main
+    PrepareBuild.__dict__['phase_' + cmd](self, *args)
+  File "./acprep", line 1239, in phase_proof
+    self.configure_flavor('default')
+  File "./acprep", line 1176, in configure_flavor
+    shutil.rmtree(self.build_directory())
+  File "/usr/lib/python2.5/shutil.py", line 175, in rmtree
+    rmtree(fullname, ignore_errors, onerror)
+  File "/usr/lib/python2.5/shutil.py", line 180, in rmtree
+    onerror(os.remove, fullname, sys.exc_info())
+  File "/usr/lib/python2.5/shutil.py", line 178, in rmtree
+    os.remove(fullname)
+OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/default/ledger-3.0/config.sub'
+   :END:
+   :PROPERTIES:
+   :ID: 12D4AB31-964F-4206-8AA0-2CA9C509DA30
+   :END:
+   [2009-03-11 Wed 20:54]
+* Docs
+** DEFERRED Complete the internal documentation, exported using Doxygen
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:10]
+   :PROPERTIES:
+   :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
+   :END:
+   [2008-08-14 Thu]
+* Emacs
+* Python
+* Tests
+* Features
+** DEFERRED Create new files for commodity_pool and annotated commodities
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:12]
+   :PROPERTIES:
+   :ID: BAE2292F-6B8B-4703-A6B6-8217390673DC
+   :END:
+   [2009-02-07 Sat 18:20]
+** DEFERRED Support for exceptions to interval_t
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:13]
+   For example, "monthly except June".
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 147
+   :ID: A8AC5063-AB2F-4031-8821-2084B7B6497C
+   :END:
+   [2008-04-11 Fri]
+** DEFERRED Add complete calculation history in Ledger
+   - State "DEFERRED"   [2009-02-24 Tue 04:00]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 146
+   :ID: B1F0071C-BD7D-4311-8DF2-7868F9CA7A29
+   :END:
+** DEFERRED Annotations should allow for HH:MM:SS
+   - State "DEFERRED"   [2009-02-24 Tue 04:02]
+   And also datetime should display this if it's there (but not if it's
+   midnight).
+
+   To implement this, add a parsing option that if, before the code, there is a
+   string fitting HH:MM:SS, then it is taken to be a time value.  This will
+   require making the parsing of date_t and datetime_t flexible and adaptive
+   (and stream-based).
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 149
+   :ID: F7DDD7D6-D219-4645-BB02-33AF74BED44B
+   :END:
+   [2008-04-11 Fri]
+** DEFERRED In the equity report, if the "collapse" option is used ...
+   - State "DEFERRED"   [2009-02-24 Tue 04:04]
+   ... output only one entry.  Otherwise, output an entry for every top-level
+   account.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 111
+   :ID: 29D7E913-1A5C-4ED2-8AB8-53D895021615
+   :END:
+   [2008-04-11 Fri]
+** DEFERRED Performance in forecasting would be weak with a lot of period xacts
+   - State "DEFERRED"   [2009-02-24 Tue 04:05]
+   What happens to performance with lots of accounts, of commodities?
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 115
+   :ID: 68E4C919-14BA-4AB1-A60B-FC176E966B45
+   :END:
+   [2008-04-11 Fri]
