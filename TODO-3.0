@@ -2488,7 +2488,127 @@ $ ledger -f <DATA> register
    :Attachments: test.ldg
    :END:
    [2009-04-01 Wed 18:50]
+** NOTE Found a very nasty interaction with g++-mp-4.4 and Boost
+   - Note taken on [2009-10-25 Sun 04:04] \\
+     I've created a [[https://trac.macports.org/ticket/22234][MacPorts ticket]] for this issue.
+   - Note taken on [2009-10-25 Sun 03:45] \\
+     Apparently I have to use the following configure option:
+     --enable-fully-dynamic-string.  Paolo Carlini [[message://20091025055053.32533.qmail@sourceware.org][writes]]:
+     
+     The Snow Leopard case is different, apparently they decided to build the
+     system compiler with --enable-fully-dynamic-string and then that shows up
+     everywhere, see [[http://gcc.gnu.org/bugzilla/show_bug.cgi%3Fid%3D41645][41645]]. As far as we can understand so far, people willing
+     to experiment with recent GCCs on Snow Leopard have to use that configure
+     time switch.
+
+   I'm actually getting this same error on Snow Leopard (Mac OS X 10.6.0).
+   It's pretty easy to reproduce with Boost (1.40):
+   :SOURCE:
+   #include <string>
+   #include <sstream>
+   
+   #include <boost/variant.hpp>
+   
+   int main()
+   {
+     std::ostringstream buf;
+     boost::variant<bool, std::string> data;
+     data = buf.str();
+     data = false;
+     return 0;
+   }
+   :END:
+   :SCRIPT:
+   $ g++ -I/opt/local/include -o bug bug.cc
+   :END:
+   
+   What happens here is that ostringstream, which is in libstdc++.dylib,
+   returns an empty string which does not match the notion of empty string
+   compiled into my executable; thus when Boost tries to deconstruct the
+   string it stored in order to store the boolean, it crashes trying to
+   deallocate a foreign lib's empty string.
+   
+   This doesn't happen with the same Boost using the stock compiler (g++ 4.2).
+
+   With the stock compiler, g++ 4.2.1:
+   :OUTPUT:
+   vulcan /tmp $ otool -L bug
+   bug:
+           /usr/lib/libstdc++.6.dylib (compatibility version 7.0.0, current
+   version 7.9.0)
+           /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current
+   version 123.0.0)
+   vulcan /tmp $ nm -o /usr/lib/libstdc++.6.dylib | grep empty_rep
+   0003f200 T __ZNSbIwSt11char_traitsIwESaIwEE12_S_empty_repEv
+   0003f2fd T __ZNSbIwSt11char_traitsIwESaIwEE4_Rep12_S_empty_repEv
+   0006fe50 S __ZNSbIwSt11char_traitsIwESaIwEE4_Rep20_S_empty_rep_storageE
+   0002fae3 T __ZNSs12_S_empty_repEv
+   0002fbe7 T __ZNSs4_Rep12_S_empty_repEv
+   0006fdb0 S __ZNSs4_Rep20_S_empty_rep_storageE
+   vulcan /tmp $ nm bug | grep empty_rep                       
+   0000000100001fc7 T __ZNSs12_S_empty_repEv
+   0000000100001f14 T __ZNSs4_Rep12_S_empty_repEv
+   000000010000dd00 D __ZNSs4_Rep20_S_empty_rep_storageE
+   :END:
+   
+   With the compiler built from MacPorts, g++ 4.4.2:
+   :OUTPUT:
+   vulcan /tmp $ otool -L bug                                                    
+   bug:
+           /opt/local/lib/gcc44/libstdc++.6.dylib (compatibility version 7.0.0,
+   current version 7.13.0)
+           /opt/local/lib/gcc44/libgcc_s.1.dylib (compatibility version 1.0.0,
+   current version 1.0.0)
+           /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current
+   version 123.0.0)
+   vulcan /tmp $ nm /opt/local/lib/gcc44/libstdc++.6.dylib | grep empty_rep 
+   00000000000655c0 T __ZNSbIwSt11char_traitsIwESaIwEE12_S_empty_repEv
+   00000000000658c0 T __ZNSbIwSt11char_traitsIwESaIwEE4_Rep12_S_empty_repEv
+   00000000000bbe40 D __ZNSbIwSt11char_traitsIwESaIwEE4_Rep20_S_empty_rep_storageE
+   000000000004de20 T __ZNSs12_S_empty_repEv
+   000000000004e0e0 T __ZNSs4_Rep12_S_empty_repEv
+   00000000000bbdc0 D __ZNSs4_Rep20_S_empty_rep_storageE
+   vulcan /tmp $ nm bug | grep empty_rep                       
+   000000010000193b T __ZNSs4_Rep12_S_empty_repEv
+   0000000100007820 D __ZNSs4_Rep20_S_empty_rep_storageE
+   :END:
+
+   It likes like the S vs. D is the main difference.  Is it how MacPorts is
+   building g++?  I've logged this information into the GCC bugs database:
+   [[http://gcc.gnu.org/bugzilla/show_bug.cgi%3Fid%3D24196][Using string instances to pass arguments to dlls fails]].
+
+   This discrepancy only occurs when _GLIBCXX_DEBUG=1.
+   :PROPERTIES:
+   :ID: E4156C53-FC70-49CD-80A1-552C4B508010
+   :VISIBILITY: folded
+   :END:
+   [2009-10-25 Sun 01:44]
+** NOTE Problem using boost::regex on Snow Leopard with g++ 4.4
+   The following code shows the exception:
+   :SOURCE:
+   #include <string>
+
+   #include <boost/regex.hpp>
+   
+   int main(int argc, char **argv)
+   {
+     std::string s("(.*)bar|(.*)bah");
+     boost::regex re_node(s);
+     return 1;
+   }
+   :END:
+   :PROPERTIES:
+   :ID: 3C40259C-BE0C-4657-A379-80E2F2B61286
+   :VISIBILITY: folded
+   :END:
+   [2009-10-25 Sun 03:38]
 * Build
+** DONE acprep should call submodule
+   - State "DONE"       from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: 7A3A602A-3F31-4E4C-9941-F5BBF0D58ED6
+   :END:
+   [2009-10-23 Fri 06:13]
 ** DONE [#A] tools/proof is failing
    - State "DONE"       [2009-03-08 Sun 01:24]
    - State "STARTED"    [2009-03-06 Fri 17:59]
@@ -2802,6 +2922,13 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: 6B92EE7F-9F6A-452A-B242-347FB9206832
    :END:
    [2008-08-16 Sat]
+** CANCELLED Accept multiple phases in acprep if they can be recognized as such
+   - State "CANCELLED"  from "DEFERRED"   [2009-10-22 Thu 07:35]
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
+   :PROPERTIES:
+   :ID: B8B9F5ED-32F0-4BFA-8E84-6B0F6064E88A
+   :END:
+   [2009-03-10 Tue 16:29]
 ** CANCELLED Devise a way to publish the Buildbot ledger builds
    - State "CANCELLED"  from "TODO"       [2009-06-16 Tue 17:08]
    Michal Wallace has offered hosting space: [[message://3226fffd-f75a-4a17-8df0-34ee4d5f227f@m36g2000hse.googlegroups.com][buildbot but no builds?]]
@@ -3033,6 +3160,20 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
+** DONE Add an md5 valexpr function
+   - State "DONE"       from "TODO"       [2009-10-25 Sun 22:01]
+   Russell can generate a report using this instead of storing a string.
+   :PROPERTIES:
+   :ID: 18ADEF7A-6C43-4427-BC79-79F1E2905B85
+   :END:
+   [2009-10-23 Fri 06:10]
+** DONE Valexpr function: magnitude
+   - State "DONE"       from "TODO"       [2009-10-24 Sat 17:49]
+   The largest positive value of a balance.
+   :PROPERTIES:
+   :ID: C53A9D20-ADB6-4B7C-BEA6-0074242044F9
+   :END:
+   [2009-10-23 Fri 06:14]
 ** DONE Add a --no-color option for Ledger
    - State "DONE"       from "TODO"       [2009-06-26 Fri 17:51]
    :PROPERTIES:
@@ -3670,6 +3811,12 @@ getquote GSK_L
    :END:
    [2009-02-24 Tue 11:08]
 * Tests
+** DONE Write an org-mode function to turn a bug TODO into a regression test
+   - State "DONE"       from "TODO"       [2009-10-25 Sun 21:58]
+   :PROPERTIES:
+   :ID: 6A4F436B-E69C-45B2-ABBA-7E550EDBCFCD
+   :END:
+   [2009-02-27 Fri 04:41]
 ** DONE opt-prices-format.test is failing due to timezone differences
    - State "DONE"       from "TODO"       [2009-10-22 Thu 07:09]
    :PROPERTIES:
@@ -3976,3 +4123,14 @@ make: *** [release-distcheck] Error 2
    :END:
    [2008-08-14 Thu]
 
+* Misc
+** NOTE Speed comparison of strptime/strftime to Boost time_facet
+   |                   |  Debug | Optimized |
+   |-------------------+--------+-----------|
+   | strptime/strftime |  9.356 |     3.355 |
+   | Boost time_facet  | 10.367 |     3.765 |
+   :PROPERTIES:
+   :ID: BFA80E12-0390-47A5-8B4C-5604DAB44E08
+   :VISIBILITY: folded
+   :END:
+   [2009-10-25 Sun 19:02]

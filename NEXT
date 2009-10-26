@@ -4,8 +4,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
 #+CATEGORY: Ledger
 
-* Bugs
 * Build
+** DEFERRED Setup virtual machines for every OS Ledger should run on
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: C91FEFD0-CF11-41C2-B2D0-B6BED7E142A2
+   :END:
+   [2009-10-08 Thu 17:12]
+** DEFERRED Ledger 2.6 is not building on Debian 5 latest
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: 427F8D8D-39CB-47ED-8438-BF07BBBE6672
+   :END:
+   [2009-04-24 Fri 17:13]
+** DEFERRED Build .deb, .rpm, .exe (in .zip), and .pkg installs
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
+   :END:
+   [2009-01-29 Thu 19:40]
 ** DEFERRED Avoid having to rm -fr ledger-proof
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
    :OUTPUT:
@@ -39,10 +56,21 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
-* Emacs
-* Python
-* Tests
 * Features
+** DEFERRED Allow reading an encrypted ledger file directly
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:00]
+   This would be done using libgpg.
+   :PROPERTIES:
+   :ID: 58512060-B3DD-438D-9BFE-D64D5DB9439B
+   :END:
+   [2009-10-23 Fri 06:13]
+** DEFERRED Make a curses or http GUI for Ledger
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:00] \\
+     This is waiting for either the new Emacs rewrite, or the Python support code.
+   :PROPERTIES:
+   :ID: 8716A41C-3570-4193-A95D-9829F4FF8798
+   :END:
+   [2009-10-23 Fri 06:13]
 ** DEFERRED Create new files for commodity_pool and annotated commodities
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:12]
    :PROPERTIES:
@@ -99,3 +127,543 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 68E4C919-14BA-4AB1-A60B-FC176E966B45
    :END:
    [2008-04-11 Fri]
+** DEFERRED Greatly improve Ledger's help system
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   :PROPERTIES:
+   :ID: 2E0D3A34-41DF-470C-8A2D-0A66B1DAA6E9
+   :END:
+   [2009-02-04 Wed 19:57]
+** DEFERRED When abbreviate account names, expand to fill
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   For example, Assets:NRL:Checking in 15 chars should be:
+     As:NRL:Checking
+   The algorithm should only shorten the initial account names as much as
+   needed, giving any surplus to the penultimate member.
+   :PROPERTIES:
+   :ID: 9135540C-C5F5-460B-AAEC-10D07FB67C21
+   :END:
+   [2009-10-24 Sat 19:19]
+** DEFERRED Support alert warnings in Ledger
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   Like if expenses during a given month are too high.  This could be
+   implemented using automated transactions with a "warn" function as the
+   amount of a bogus account.
+   :PROPERTIES:
+   :ID: 28BD75AE-219C-4DF5-9D19-E7774BFC8DED
+   :END:
+   [2009-10-23 Fri 06:12]
+** DEFERRED Check for duplicated transactions
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   Either by date/payee/magnitude, or even payee/magnitude if --strict is on.
+   :PROPERTIES:
+   :ID: 4F58ACC1-498A-41A5-9164-93CD30B3CAC5
+   :END:
+   [2009-10-23 Fri 06:12]
+** DEFERRED Allow for payee name mappings
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   After, create an "unaccounted" report for payees unknown to the matcher
+   :PROPERTIES:
+   :ID: 144F519E-9441-4FBA-9F6A-6757CA3F704A
+   :END:
+   [2009-10-23 Fri 06:14]
+** DEFERRED Create an operator for value + post
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   :PROPERTIES:
+   :ID: 28CE49A7-919B-4C93-9754-966DCC435DBA
+   :END:
+   [2009-10-23 Fri 06:14]
+** DEFERRED @@ -- allow negative costs
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   I am quite keen on the @@ syntax, as I like to deal with commodities on a
+   net basis. However, there is a bit of an inconsistency between @@ and @.
+ 
+   Suppose I have the ledger file:
+   :DATA:
+2008/01/01 * Purchase Apple shares
+       Equities        1000 AAPL @ $2
+       Cash
+
+2008/06/30 * Sell some Apple shares
+       Equities        -500 AAPL @ $2.5
+       Cash
+   :END:
+   If I type:
+   :SCRIPT:
+ledger -f example01.txt -jB reg Equities
+   :END:
+   I get the output:
+   :OUTPUT:
+2008-01-01 2000
+2008-06-30 -1250
+   :END:
+ 
+   The above is correct. $2000 goes in as equities as an asset, and £1250 is
+   marked as a negative, thereby reducing the equity balance.
+ 
+   Now. Suppose I decide I would rather use the @@ command. I would have a
+   ledger file:
+   :DATA:
+2008/01/01 * Purchase Apple shares
+   Equities    1000 AAPL @@ $2000
+   Cash
+
+2008/06/30 * Sell some Apple shares
+   Equities    -500 AAPL @@ $1250
+   Cash
+   :END:
+   If I type:
+   :SCRIPT:
+ledger -f example01.txt -jB reg Equities
+   :END:
+   I now get the output:
+   :OUTPUT:
+2008-01-01 2000
+2008-06-30 1250
+   :END:
+ 
+   The above is incorrect, because the +1250 has changed to -1250. It implies
+   the purchase of shares, rather than a sale. I can't just change the $1250 to
+   -$1250 in the ledger file, either, because it complains:
+   :OUTPUT:
+Error: A posting's cost may not be negative
+   :END:
+   :PROPERTIES:
+   :Submitter: Mark Carter <alt.mcarter@googlemail.com>
+   :Message: [[message://62f2a66e0903280703g1826cc25u19cca48606e4e40@mail.gmail.com][RFE: @@ - allow negative costs]]
+   :ID: 4F81E261-E6C6-401B-B6CA-0B356072D770
+   :END:
+   [2009-04-01 Wed 18:52]
+** DEFERRED The CSV report should optionally generate a "title line"
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   :PROPERTIES:
+   :ID: 65B7E207-1BCC-4448-881C-1574623346D7
+   :END:
+   [2009-03-03 Tue 21:49]
+** DEFERRED Add a feature for "object descriptions"
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   For example:
+
+   def OBJECT NAME
+     alias NAME
+     commodities NAME[, NAME...]
+     report NAME[, NAME...]
+     set NAME EXPR
+     assert EXPR
+   end def
+
+   def commodity GAL
+     set fixed_commodity true
+     set another_value $100 * 20
+   end def
+
+   def account Expenses:Food
+     alias Chow
+     commodities $, EUR
+     report $
+   end def
+   :PROPERTIES:
+   :ID: B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
+   :END:
+   [2009-03-02 Mon 20:39]
+** DEFERRED Make alias names for directives, like convert for C
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   :PROPERTIES:
+   :ID: BD78C023-BB16-446C-9347-2F1AA16C7C5C
+   :END:
+   [2009-02-27 Fri 15:35]
+** DEFERRED Add support for command aliases, to allow "canned reports"
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   :PROPERTIES:
+   :ID: ADD3FB96-D19A-47F0-9F0B-1896328D6380
+   :END:
+   [2009-02-04 Wed 19:57]
+** DEFERRED --price option in lot_sales branch
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   message://m24q2rwrym.fsf_-_@newartisans.com
+   message://m2k6bl3vr3.fsf@newartisans.com
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 172
+   :ID: F6120E58-8985-4D76-908B-93A319E6D1D1
+   :END:
+   [2008-04-11 Fri]
+** DEFERRED Add an entry type for specifying value constraints
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   I'd like to see a more general syntax for this based on value expressions,
+   which would offer a full constraints mechanism.  For example, to constrain
+   all transactions to being less than $10,000 in an account:
+   :DATA:
+? Constrain all transactions to less than $10,000
+  /Expenses:Food/      a < $10,000
+   :END:
+
+   The "?" indicates a "constraints entry".  Each transaction would have two
+   value expressions: one to match every applicable transaction in the file,
+   and another to provide the boolean logic of the constraint.
+ 
+   Then, while the file is being parsed, any violations of a constraint would
+   be treated as an error, the same as when an entry fails to balance to zero.
+   I suppose making these warnings could be a possibility as well.
+ 
+   Here is how you'd constrain commodities in this model:
+   :DATA:
+? Guarantee commodities within accounts
+  Assets:Checking    comm(a) == $1.00
+   :END:
+ 
+   (At the moment there is no value expr function that would allow: comm(a) ==
+   "$")
+ 
+   Then, of course, there could be a specific declaration option -- such as you
+   have above -- for just this case, which internally would be parsed as a
+   constraints entry.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 39
+   :ID: 31E75D27-157E-452B-B817-7AD570AFE357
+   :END:
+   [2008-04-05 Sat]
+** DEFERRED Add a {{total}} syntax for lot price specification
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   I had another idea: do you remember I mentioned a problem I had, which that
+   some of my trade confirmation slips provide the "adjusted cost base" and not
+   the cost-per-share? This makes it a big ugly to enter such postings, even
+   with expressions:
+   :DATA:
+     BrokerAccount    -29.435 WIDGETS {353.51435/29.435 USD} @ 13.02 USD
+   :END:
+   (I didn't test the above, by the way, that was your suggestion when we
+   talked last time.)
+
+   I propose this syntax:
+   :DATA:
+     BrokerAccount    -29.435 WIDGETS {{353.51435 USD}} @ 13.02 USD
+   :END:
+   It's a bit similar to the idea of @ vs. @@ where the single char (@) is for
+   price, and the double (@@) is for total amount. Using {{ ... }} refers to
+   the total cost, while { ... } refers to the cost price (per share).
+   :PROPERTIES:
+   :Submitter: Martin Blais <blais@furius.ca>
+   :Version: 2.6
+   :Ticket: 188
+   :ID: C9E09993-CC01-41C6-BADC-0A9AA1221419
+   :END:
+   [2008-04-20 Sun]
+** DEFERRED Allow forecasting from a specific date
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   This would make it possible to see expected vs. actual cash flows, for
+   example, if the date chosen is before the end of actual transactions.  Kind
+   of like a modified version of budgeting.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 94
+   :ID: BBD4F6F0-1250-4216-BB0E-3E86785D5E44
+   :END:
+   [2008-04-11 Fri]
+** DEFERRED Option --bold-if
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   Which will bold the whole transaction line if it matches the given predicate
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 154
+   :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
+   :END:
+   [2008-04-11 Fri]
+* Emacs
+** DEFERRED Redesign ledger.el
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   It should always be talking with Ledger via the REPL.
+   :PROPERTIES:
+   :ID: BADF02BF-CAA1-4990-B9FF-DA20BA025FE0
+   :END:
+   [2009-10-23 Fri 06:11]
+** DEFERRED Add folding support to ledger.el
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   - State "TODO"       from "DELEGATED"  [2009-10-22 Thu 06:46]
+   - State "DELEGATED"  from "TODO"       [2009-10-11 Sun 05:31] \\
+     Demosthenes said that the author of loccur was going to look into this.
+   For example, show only transactions matching a given report query.
+   :PROPERTIES:
+   :ID: E98B3CBD-B76F-4917-92A5-4B9E69833131
+   :END:
+   [2009-10-06 Tue 17:29]
+** DEFERRED C-c C-c should be magical in ledger-mode
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   It should auto-generate reports, for example, if the user does it in an
+   account or payee name.
+   :PROPERTIES:
+   :ID: 5C52F851-18CF-41A3-953B-49DA4EF67C00
+   :END:
+   [2009-10-23 Fri 06:12]
+** DEFERRED Break ledger.el up into sections
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   - Font-locking
+   - REPL interaction
+   - Parsing
+   - Utility functions
+   - Manipulation (sorting, etc)
+   - Reconciling
+   - Reports
+   :PROPERTIES:
+   :ID: 770D07CF-9F28-4A9B-B4E8-48ACC4926E06
+   :END:
+   [2009-10-23 Fri 06:12]
+** DEFERRED Create a hotkey for creating Ledger transactions
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   :PROPERTIES:
+   :ID: CAAE8C68-A26F-4BED-A626-751A98B57E7E
+   :END:
+   [2009-10-23 Fri 06:13]
+** DEFERRED Make TAB more magical in ledger-mode
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   It should do what C-c TAB does, but still cycle.  Or, it should move around.
+   Or, if in payee and preceding char is a digit, call ledger xact.
+   :PROPERTIES:
+   :ID: 2A9F5DDB-4DB6-4E87-A755-392F51CF0C2D
+   :END:
+   [2009-10-23 Fri 06:13]
+** DEFERRED Use yasnippet with ledger-mode
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   :PROPERTIES:
+   :ID: 178EC4C8-F87A-40C2-91CE-C5BD9CA50BD3
+   :END:
+   [2009-10-23 Fri 06:14]
+** DEFERRED Inserting comments in ledger-mode is inserting leading whitespace
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   Comments in ledger-mode are inserted with whitespace at the beginning of the
+   line, which makes ledger.dat unusable.  One has to delete the extra
+   whitespace manually afterwards.
+   :OUTPUT:
+do! ledger bal bank
+Error: "ledger.dat", line 341: Line begins with whitespace
+Error: "ledger.dat", line 342: Line begins with whitespace
+Error: "ledger.dat", line 343: Line begins with whitespace
+   :END:
+   :PROPERTIES:
+   :Submitter: Henry Atting <nsmp_01@online.de>
+   :Message: [[message://87y6ukqwyy.fsf@online.de][inserting comments in ledger-mode ]]
+   :ID: BEBC59BB-C7FF-4295-9EE5-171354CCEBBC
+   :END:
+   [2009-04-01 Wed 18:57]
+** DEFERRED Allow reconciling postings in multiple included files
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   :PROPERTIES:
+   :ID: 29AC8129-C451-4782-8371-B74588609E9F
+   :END:
+   [2009-03-03 Tue 00:10]
+** DEFERRED ledger.el should define its own faces
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   This would allow people to describe how they want cleared and uncleared
+   payee names to appear.
+   :PROPERTIES:
+   :Submitter: John Wiegley <johnw@newartisans.com>
+   :Version: 2.6.1
+   :Milestone: 3.0
+   :Ticket: 2
+   :ID: 78B2F4A4-DCE5-1B40-9C21-86195584ACF1
+   :END:
+   [2009-03-01 Sun 01:08]
+** DEFERRED Allow for quicker reporting commands in ledger.el
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 117
+   :ID: 932324E2-4A3F-4319-9586-1F33DFE29527
+   :END:
+** DEFERRED Have ledger.el warn if the ledger version is too old
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 163
+   :ID: 5F20A546-046B-4CC6-B1EF-89C5962B55BE
+   :END:
+   [2008-04-11 Fri]
+** DEFERRED Highlight transaction lines based on their status
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   Here is a tweak to ledger-mode that I find useful. It makes uncleared lines
+   pink and cleared lines green. C-c C-e to toggle the status.
+   :SCRIPT:
+(add-hook 'ledger-mode-hook (lambda ()
+                             (highlight-lines-matching-regexp "^..\\(..\\)?/..?/..?[ 	]+[^\\*]" (quote hi-pink))
+                             (highlight-lines-matching-regexp "^..\\(..\\)?/..?/..?[ 	]+\\*" (quote hi-green))))
+   :END:
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 200
+   :ID: 1C870658-6460-423C-9199-E46C48074688
+   :END:
+   [2008-07-13 Sun]
+** DEFERRED Fix toggle-current-transaction
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   When all transactions have been cleared, the marks should be wiped and then
+   ledger-toggle-current-entry called, rather than doing the entry clearing
+   itself.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 130
+   :ID: 465231DF-6EF2-4C4F-BF0D-9FED19AB99A3
+   :END:
+   [2008-04-11 Fri]
+** DEFERRED Ledger-context-at-point fails to parse acct-transaction
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   - State "TODO"       [2007-11-07 Wed 04:06] \\
+     Levin <zslevin@gmail.com> writes:
+     > The following patch fixes problem of the amount with no ',':
+     :PATCH:
+@@ -648,10 +648,12 @@
+        (indent account amount nil commodity comment))
+       ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]+\\(.*?\\)[ \t]*$"
+        (indent account amount nil commodity))
+-      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?\\(\\.[0-9]*\\)\\)[ \t]+\\(.*?\\)[ \t]*;[ \t]*\\(.*?\\)[ \t]*$"
++      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]+\\(.*?\\)[ \t]*;[ \t]*\\(.*?\\)[ \t]*$"
+        (indent account amount nil commodity comment))
+-      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?\\(\\.[0-9]*\\)\\)[ \t]+\\(.*?\\)[ \t]*$"
++      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]+\\(.*?\\)[ \t]*$"
+        (indent account amount nil commodity))
++      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]*$"
++       (indent account amount nil))
+       ("\\(^[ \t]+\\)\\(.*?\\)[ \t]*;[ \t]*\\(.*?\\)[ \t]*$"
+        (indent account comment))
+       ("\\(^[ \t]+\\)\\(.*?\\)[ \t]*$"
+     :END:
+     > BTW, the amount regexp is a bit complex here. Do we need the fraction
+     > part of the amount? And it should recognize the ',' in amount.
+   Use the following ledger data
+   :DATA:
+2004/05/01 * Checking balance
+  Assets:Bank:Checking        1000.00
+  Equity:Opening Balances
+   :END:
+
+   With cursor on the beginning of the second line, eval
+   `(ledger-context-at-point)`, which returns:
+   :OUTPUT:
+(acct-transaction account ((indent "  " 31) (account "Assets:Bank:Checking        1000.00" 33)))
+   :END:
+   It is not correct, since 1000.00 ought to be amount.
+ 
+   ledger-context-at-point also fails to parse amount with ',' in it, such as:
+   :DATA:
+2004/05/01 * Checking balance
+  Assets:Bank:Checking        $1,000.00
+  Equity:Opening Balances
+   :END:
+   :PROPERTIES:
+   :Submitter: Levin <zslevin@gmail.com>
+   :Version: 2.6
+   :Ticket: 6
+   :ID: 2558642F-EE17-4DCB-B6DB-50490FB0CF83
+   :END:
+   [2007-11-07 Wed]
+** DEFERRED Look at making ledger's new entry completion behavior cyclic
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :ID: B443E186-4E6F-4FB5-8421-4F703DC9353C
+   :END:
+   [2009-02-13 Fri 05:17]
+** DEFERRED Make M-x ledger-sort work on the current region
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :ID: C390F6D0-FA81-4A1B-877A-C6946EA51105
+   :END:
+   [2009-01-29 Thu 19:36]
+** DEFERRED Pressing C-c C-c on an entry line should clear it
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :ID: FEE28C4E-B113-4280-85F5-42E2B8EE603B
+   :END:
+   [2009-01-31 Sat 06:13]
+** DEFERRED Use of ledger.el with various invalid "ledger" binaries (and none)
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 175
+   :ID: 8735E6AB-DB0A-4F66-BD81-BBFFEE66A68E
+   :END:
+   [2008-04-11 Fri]
+** DEFERRED Allow reports, such as completed tasks last week, etc.
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :ID: D9B4D001-21E4-4247-ADF6-56C00B2C8F3A
+   :END:
+   [2008-05-12 Mon]
+** DEFERRED The Great Renaming still needs to take place in ledger.el
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :ID: 721AC8F7-9189-4151-8611-2BBC0D1E8267
+   :END:
+   [2009-06-19 Fri 00:49]
+* Python
+** DEFERRED Get ledger python to run within the build tree
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :ID: 7274224C-3470-4A9F-B56E-A499F39E13C9
+   :END:
+   [2009-03-09 Mon 20:33]
+** DEFERRED Create a Python wrapper for op_t objects
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   If it's evaluated in a value context, like str, int or __repr__, then
+   calculate and determine the value.  Otherwise, don't calculate so it remains
+   callable.
+   :PROPERTIES:
+   :ID: 3040E933-2068-4C78-954F-F78A7BAFB2D6
+   :END:
+   [2009-02-24 Tue 22:15]
+** DEFERRED The error output when calling Python is out of order
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :OUTPUT:
+TypeError: No to_python (by-value) converter found for C++ type: ledger::value_t
+While evaluating value expression:
+  myvalue(23)
+  ^^^^^^^^^^^
+Error: While calling Python function 'myvalue'
+   :END:
+   This should be:
+   :OUTPUT:
+While evaluating value expression:
+  myvalue(23)
+  ^^^^^^^^^^^
+While calling Python function 'myvalue':
+Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::value_t
+   :END:
+   :PROPERTIES:
+   :ID: 7CF0160B-A3FF-4BE7-B6D3-788F9556A20F
+   :END:
+   [2009-01-23 Fri 15:57]
+** DEFERRED Use Python to create a per-account debit/credit report
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   Is there a way to let ledger output its reports showing the accounts in the
+   more conventional way as debit and credit accounts, instead of having a
+   positive or negative saldo?
+ 
+   Here is one example:
+   :OUTPUT:
+Assets:Bank
+Tr.#	date		Text			debit		credit		saldo
+1	2008-01-01	Mr. Sponsor		500				500
+2	2008-01-02	Bill					100		400
+
+Income:Donations
+Tr.#	date		Text			debit		credit		saldo
+1	2008-01-01	Mr. Sponsor				500		-500
+
+Expenses:Electricity
+Tr.#	date		Text			debit		credit		saldo
+2	2008-01-02	Bill			100				100
+   :END:
+   There should be a way of distinguishing between debit accounts, as assets
+   and expenses, and credit accounts, as Income and liabilities. It is of
+   course possible to processs ledger's output to achieve this, but it would be
+   nice if it could be done in ledger directly.
+   :PROPERTIES:
+   :Submitter: Christopher <christopher.illies@ki.se>
+   :Version: 2.6.1
+   :ID: 444EFEE1-D873-4FD3-BB07-4E605BCB2BF4
+   :END:
+   [2008-10-08 Wed 00:58]
+** DEFERRED Allow a Python function to be used to download quotes
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
+   :END:
+   [2009-06-24 Wed 17:27]
