@@ -477,6 +477,11 @@ always ignored and are neither searched nor printed back.
    :END:
    [2008-04-11 Fri]
 * Features
+** TODO Restore the XML parser (code is in xml local branch)
+   :PROPERTIES:
+   :ID: 5332850A-B67B-4CF2-B553-BFA23EA9DB6F
+   :END:
+   [2009-10-25 Sun 22:47]
 ** TODO Convert *all* valexpr functions to use interactive_t
    :PROPERTIES:
    :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
