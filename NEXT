@@ -56,6 +56,64 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
+** DEFERRED [#C] Ledger example: building a better "du"				    :LINK:ATTACH:
+   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
+   Since Ledger does not internally focus on finance, there is no reason why
+   it can't be used in any situation where amounts are either kept in certain
+   places, or moved from place to place, including:
+   
+   - tracking time
+   - recording data transfers between computers
+   - recording scientific data (converting any input to any output)
+   - reporting on the layout of your hard drive
+   
+   To show an example of this, I'm written a Python script called "ledger-du"
+   which simply outputs whatever directories you specify as arguments in the
+   form of Ledger entries.  There is one entry per file, where the "payee" is
+   the file name, the "account" is a colon-separated directory hierarchy, and
+   the "date" is the last modified time of the file.
+   
+   By running this script and sending the output to "/tmp/out.dat", you can
+   now perform some very sophisticated queries on your data -- including
+   showing you the same kind of information that the venerable "du" itself
+   would show.  Except that now you can see the tree hierarchy with the
+   "balance" command, and other enhancements to the basic form of "du".
+   
+   For example, here's a command that shows me where all my C++ source files
+   are, subtotaled by the sub-directory that contains them, and sorted by
+   total size.  The "equity" account (where all the bytes are balanced) even
+   ends up telling me the total size of all C++ files in my queried directory:
+   :SCRIPT:
+   ledger --format \
+     "%D %-.20P\n  %-.52A %12.67t %12.80T\n%/  %-.52A %12.67t %12.80T\n" \
+     -f /tmp/out.dat -s -S "-U(t)" register -- \\.cc\$
+   :END:
+   
+   I specified a new format string here (a variation on the default balance
+   format) so that I could see account totals each on their own line, since
+   some of the account names get very long.
+   :PROPERTIES:
+   :Version:  2.6
+   :Ticket:   169
+   :ID:       85DAE1AB-F6D3-4AAC-A4F7-99D146B355E7
+   :Message:  message://m2odzwxupz.fsf@newartisans.com
+   :Attachments: ledger-du
+   :END:
+   [2006-03-24 Fri]
+** DEFERRED [#C] Using Ledger as a scientific analysis tool
+   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 173
+   :ID: C653003E-52A8-4D06-9DEB-634B1156B04C
+   :END:
+** DEFERRED [#C] Using Ledger to track inventory
+   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 174
+   :ID: F7A6A833-5AC6-4ED0-A5EA-93CD6B97EEBF
+   :END:
 * Features
 ** DEFERRED Allow reading an encrypted ledger file directly
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:00]
@@ -369,6 +427,20 @@ Error: A posting's cost may not be negative
    :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
    :END:
    [2008-04-11 Fri]
+* Tests
+** DEFERRED [#C] New tests to create for Ledger [0/3]
+   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 21:54]
+   - [ ] GarbageTests
+	 Feed every one of the distribution's source files back to Ledger, to
+         make sure it dies gracefully.
+   - [ ] RandomTests
+	 Feed random data (probably base64) both as options and input.
+   - [ ] ScrambleTests
+	 Pass random combinations of options.
+   :PROPERTIES:
+   :ID: F866DFA5-7350-45D3-BF76-286D68755A2A
+   :END:
+   [2009-02-27 Fri 16:19]
 * Emacs
 ** DEFERRED Redesign ledger.el
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
