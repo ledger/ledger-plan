@@ -191,7 +191,7 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 2E0D3A34-41DF-470C-8A2D-0A66B1DAA6E9
    :END:
    [2009-02-04 Wed 19:57]
-** DEFERRED When abbreviate account names, expand to fill
+** DEFERRED When abbreviating account names, expand to fill
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    For example, Assets:NRL:Checking in 15 chars should be:
      As:NRL:Checking

@@ -62,6 +62,37 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 6CAF45D7-9098-41B4-A25A-12F8A8166006
    :END:
    [2007-08-22 Wed]
+** DONE --budget doesn't produce correct output						   :LINK:
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 05:51]
+   I have a budget transaction like this:
+   :SOURCE:
+   ~ Monthly
+     Expenses:Auto:Fuel           $ 120.00
+     Expenses:Food:Out            $ 100.00
+     Expenses:Food:Groceries      $ 350.00
+     Assets
+   :END:
+
+   It doesn't, however, seem to take effect with --budget:
+   :OUTPUT:
+   % ledger bal --p this --flat auto:fuel food:out
+               	$ 67.15  Expenses:Auto:Fuel
+               	$ 18.30  Expenses:Food:Out
+   --------------------
+               	$ 85.45
+   % ledger bal --p this --budget --flat auto:fuel food:out
+               	$ 67.15  Expenses:Auto:Fuel
+               	$ 18.30  Expenses:Food:Out
+   --------------------
+               	$ 85.45
+   % ledger --version | head -1
+   Ledger next-0-g752677e, the command-line accounting tool
+   :END:
+   :PROPERTIES:
+   :ID: 8254755E-7B61-47C8-B48E-A2A7FD79EB80
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/5
+   :END:
+   [2009-10-26 Mon 21:27]
 ** DONE [#B] Latest build of next f35bc939 produces slow binary				   :LINK:
    - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
    :PROPERTIES:
@@ -1963,6 +1994,63 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: D00D1F5A-8BD5-43B5-B8E0-1FEBB98F610A
    :END:
    [2008-04-11 Fri]
+** WORKSFORME [#A] Corrupted double-linked list in the register report			   :LINK:
+   - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
+   - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:26] \\
+     I'm waiting on a test case to come back from the user, as I've never seen this
+     behavior.
+   :PROPERTIES:
+   :ID:       8C22A64E-6095-4933-9D66-FA970CCD1590
+   :Message:  message://4AA8F383.3010801@gmail.com
+   :END:
+   [2009-10-03 Sat 03:23]
+** WORKSFORME [#A] --budget not including "~ Monthly" entry			    :LINK:ATTACH:
+   - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
+   - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:41] \\
+     I've asked the user for more information; I can't see what's wrong with just
+     the test case he sent, and I cannot find the original message.
+   Thanks for your response.  I've attached a sample ledger file that I
+   successfully reproduced the behaviour with.  Maybe it's something to do with
+   it being the first of the month today?
+ 
+   Here's what I'm seeing on the command-line:
+   :OUTPUT:
+   sayotte@damocles:~$ ledger -p april --budget reg
+   2009/04/01 Budget entry         Assets:Bank:Checking     $-25000.00   $-25000.00
+   2009/04/01 Budget entry         In:Ludicrous Salary       $25000.00            0
+   2009/04/01 Budget entry         Expenses:Food              $-350.00     $-350.00
+   2009/04/01 Budget entry         Assets:Bank:Checking        $350.00            0
+   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
+                                  Assets:Bank:Checking         $-6.50            0
+   2009/04/10 Lienholder Bank      Assets:Bank:Checking       $-450.00     $-450.00
+   :END:
+   :OUTPUT:
+   sayotte@damocles:~$ ledger -p april --budget reg Food
+   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
+   :END:
+   :OUTPUT:
+   sayotte@damocles:~$ date
+   Wed Apr  1 19:07:20 EDT 2009
+   :END:
+   :OUTPUT:
+   sayotte@damocles:~$ ledger --version
+   Ledger 2.6.1, the command-line accounting tool
+   
+   Copyright (c) 2003-2008, John Wiegley.  All rights reserved.
+   
+   This program is made available under the terms of the BSD Public License.
+   See LICENSE file included with the distribution for details and disclaimer.
+   
+   (modules: gmp, pcre)
+   :END:
+   :PROPERTIES:
+   :Submitter: Stephen Ayotte <stephen.ayotte@gmail.com>
+   :Message: [[x-devonthink-item://%3C837b29c80904011614x79fed2b0la56f8a44a8dc45cb@mail.gmail.com%3E][ledger-2.6.1: --budget not including ~Monthly entry]]
+   :Version: 2.6.1
+   :ID: 655F6DF5-A30D-4CD9-AA06-787A2DB3C5C2
+   :Attachments: testledger.dat
+   :END:
+   [2009-04-01 Wed 19:40]
 ** WORKSFORME [#A] Minor inaccuracies in 2.6.1
    - State "WORKSFORME" [2009-02-01 Sun 00:41] \\
      This works as expected in 3.0.
@@ -2023,6 +2111,15 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: D0D130E3-EDC0-4D9F-A77A-0B62E115D25A
    :END:
    [2008-08-16 Sat]
+** WORKSFORME ledger bal --flat --display 'depth <= 2' fails to show any accounts	   :LINK:
+   - State "WORKSFORME" from "TODO"       [2009-10-26 Mon 22:14] \\
+     This is working fine in 3.0.
+   It works fine without --flat, but not with.
+   :PROPERTIES:
+   :ID: CEA59DB9-93E4-44A9-977C-F68A9E2D308A
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/2
+   :END:
+   [2009-10-26 Mon 21:32]
 ** WORKSFORME Forecasting command with -Y doesn't do any forecasting
    - State "WORKSFORME" from "TODO"       [2009-10-26 Mon 21:09] \\
      This is working now in 3.0.
@@ -3564,6 +3661,66 @@ getquote GSK_L
    :Attachments: getquote-uk.py
    :END:
    [2008-12-08 Mon 23:59]
+** DONE [#C] Create a "cleared" report for balances
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 08:05]
+   The idea for this report would be to show very nicely when the last date an
+   account was balanced to was.  For example (from blais):
+   :OUTPUT:
+  .
+  |----------------------------------------------------------------------------+-------------------------------------------------------------------------------+----------------------------------------------------------------------------+---------------------------------------------------------------------------|
+  |                                                                            | -- Current                                                                    |                                                                            |                                                                           |
+  |                                                                            |                                                                               | -- HSBC                                                                    |                                                                           |
+  |                                                                            |                                                                               |                                                                            | -- Checking                                      2007-12-31 -> 2007-12-31 |
+  |                                                                            |                                                                               |                                                                            | -- Savings                                       2007-12-31 -> 2008-03-28 |
+  |                                                                            |                                                                               | `-- Secured                                       2007-12-31 -> 2008-03-28 |                                                                           |
+  |                                                                            | `-- RBC                                                                       |                                                                            |                                                                           |
+  |                                                                            |                                                                               | -- Checking                                      2007-12-31 -> 2008-04-02  |                                                                           |
+  |                                                                            |                                                                               | -- Checking-US                                   2007-12-31 -> 2008-03-03  |                                                                           |
+  |                                                                            | `-- Savings                                       2007-12-31 -> 2008-04-02    |                                                                            |                                                                           |
+  | `-- Investments                                                            |                                                                               |                                                                            |                                                                           |
+  |                                                                            | -- HSBC-Broker                                       2007-12-31 -> 2008-04-13 |                                                                            |                                                                           |
+  |                                                                            | -- OANDA                                             2007-12-31 -> 2007-12-31 |                                                                            |                                                                           |
+  | `-- RBC-Broker                                                             |                                                                               |                                                                            |                                                                           |
+  |                                                                            | -- Account-CA                                    2008-01-01 -> 2008-04-01     |                                                                            |                                                                           |
+  |                                                                            | -- Account-RSP                                   2007-12-31 -> 2008-01-31     |                                                                            |                                                                           |
+  | `-- Account-US                                    2008-01-01 -> 2008-04-01 |                                                                               |                                                                            |                                                                           |
+  `-- Liabilities
+      |-- Credit-Card
+      |   |-- HSBC-MasterCard                                   2007-12-31 -> 2008-04-04
+      |   `-- RBC-VISA                                          2007-12-31 -> 2008-04-02
+      `-- RBC
+          |-- Credit-Line                                       2007-12-31 -> 2007-12-31
+          `-- Mortgage
+              |-- Credit-Line                                   2007-12-31 -> 2007-12-31
+              `-- Loan                                          2007-12-31 -> 2007-12-31
+   :END:
+   To implement this I'll need the following value expressions items:
+   - latest_cleared
+   - latest
+   - earliest
+   All the kinds of things collected for the stats report, actually.  Maybe I
+   should implement that report as a simple format string?
+   :PROPERTIES:
+   :Submitter: Martin Blais <blais@furius.ca>
+   :Version: 2.6
+   :Ticket: 182
+   :ID: 4D175527-AE30-4030-B1B7-DD6A92B6F067
+   :END:
+   [2008-04-14 Mon]
+** DONE [#C] Add a multi-column budget balance report					   :LINK:
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 07:47]
+   Incidentally, it would be great to see something like:
+   :OUTPUT:
+   % ledger bal --p this --budget auto:fuel food:out
+   $ 67.15  $ 120.00   $ -52.85  56%  Expenses:Auto:Fuel
+   $ 18.30  $ 100.00   $ -81.70  18%  Expenses:Food:Out
+   $ 85.45  $ 220.00  $ -134.55  39%  Total
+   :END:
+   :PROPERTIES:
+   :ID: 8254755E-7B61-47C8-B48E-A2A7FD79EB80
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/5
+   :END:
+   [2009-10-26 Mon 21:29]
 ** DONE [#C] Add the concept of spatially delimited "pages"
    - State "DONE"       [2009-02-26 Thu 05:05]
    Another way to associate a custag tag/field to entries is by virtue of their
@@ -4213,6 +4370,14 @@ make: *** [release-distcheck] Error 2
    :END:
    [2008-08-14 Thu]
 
+** DONE [#C] Create a Wiki page titled "Who's using Ledger?"
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 22:19]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 93
+   :ID: F50ADD18-F246-4FDC-85A2-65C435ADE1A4
+   :END:
+   [2008-04-11 Fri]
 * Misc
 ** NOTE Speed comparison of strptime/strftime to Boost time_facet
    |                   |  Debug | Optimized |
