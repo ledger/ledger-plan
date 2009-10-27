@@ -6,6 +6,72 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * Bugs
+** DONE [#B] Latest build of next f35bc939 produces slow binary
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
+   :PROPERTIES:
+   :ID: 18B7E853-848A-4211-BF98-C0C1B845E94F
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/3
+   :END:
+   [2009-10-26 Mon 21:31]
+** DONE Expenses:Wedding appears twice in the attached balance command
+   SCHEDULED: <2009-10-26 Mon>
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:11]
+   :SCRIPT:
+   ledger bal --sort amount --flat 'expenses:(auto|wedding)'
+   :END:
+   :PROPERTIES:
+   :ID: 5F1BAF17-2A7C-4992-ACCA-B1111104E4EE
+   :END:
+   [2009-10-26 Mon 17:21]
+** DONE The Ledger REPL argument parser should honor quoting syntax
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 17:17]
+   :PROPERTIES:
+   :ID: 7A3DF3DE-5425-491F-90AA-C8C162F1085A
+   :END:
+   [2009-03-03 Tue 03:02]
+** DONE When --flat is being used, sort against all accounts
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 18:52]
+   :PROPERTIES:
+   :ID: 7D084EBD-3D4C-4967-9A4B-7F014E625DF6
+   :END:
+   [2009-03-11 Wed 15:11]
+** DONE Make balance assignment failures into a warning
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 19:54]
+   :PROPERTIES:
+   :ID: B3F65D45-C77F-4E01-A8FC-3EDC92A9CB45
+   :END:
+   [2009-10-23 Fri 06:13]
+** DONE Forecasting goes too far
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 20:55] \\
+     This is fixed in 3.0.
+   - Note taken on [2007-12-10 Mon 19:04] \\
+     Because of the way that forecasting is (currently) implemented, you will often
+     see an entry that is "one beyond" the condition of your forecast. I hope to
+     remedy this in the near future.
+   :OUTPUT:
+tim@yggdrasil [/Users/tim]# ledger --forecast 'd<=[2006/08/27]' reg
+^assets
+[some entries which balance correctly]
+2006/09/01 Forecast entry       Assets                      $-1322.00    $13313.99
+   :END:
+   Why is the last entry being displayed?  Doesn't the date predicate prevent
+   that from happening?
+   :PROPERTIES:
+   :Submitter: <tim@scarybright.org>
+   :Version: 2.6
+   :Ticket: 15
+   :ID: E627C594-A019-4D87-A6B4-C8E75F6D8FC0
+   :END:
+   [2007-12-10 Mon]
+** DONE [#A] 'ledger -f src/value.h bal capital' crashes
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 16:41] \\
+     It now reports a series of errors and exits.
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:24]
+   :PROPERTIES:
+   :ID: 25A099C9-EE9C-42E2-A18A-202DE9B9E157
+   :END:
+   [2009-02-27 Fri 15:38]
 ** DONE [#A] Changes to make to the way things are calculated [8/10]
    - State "DONE"       [2009-03-05 Thu 05:03]
    - [X] During parsing, each account is given a pointer to the posts it
@@ -1878,6 +1944,15 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 567B5118-7A77-42B9-A1CD-C5DA688AC406
    :END:
    [2007-10-29 Mon]
+** WONTFIX Precision error
+   - State "WONTFIX"    from "TODO"       [2009-10-26 Mon 00:52] \\
+     This is expected behavior, based on the fact that a 3 decimal place dollar
+     value was used before the transaction giving the error.
+   [[message://1253475930.3701.41.camel@mithos.talinet.net]]
+   :PROPERTIES:
+   :ID: 77D3A0A9-35DF-4A4D-8469-8928E3954441
+   :END:
+   [2009-10-03 Sat 03:23]
 ** WONTFIX Change all the source code to utf-8
    - State "WONTFIX"    [2008-07-13 Sun 21:45] \\
      The source code itself doesn't use international characters!
@@ -1887,6 +1962,20 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: D00D1F5A-8BD5-43B5-B8E0-1FEBB98F610A
    :END:
    [2008-04-11 Fri]
+** WORKSFORME Forecasting command with -Y doesn't do any forecasting
+   - State "WORKSFORME" from "TODO"       [2009-10-26 Mon 21:09] \\
+     This is working now in 3.0.
+   The command is:
+   :SCRIPT:
+ledger -Y --forecast 'T>0' reg food
+   :END:
+   Doesn't do any forecasting!  If the -Y is dropped it does.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 28
+   :ID: E2DF7C6C-BA02-4F3D-8C3C-B73F8BC30CD6
+   :END:
+   [2007-12-10 Mon]
 ** WORKSFORME [#A] Minor inaccuracies in 2.6.1
    - State "WORKSFORME" [2009-02-01 Sun 00:41] \\
      This works as expected in 3.0.
