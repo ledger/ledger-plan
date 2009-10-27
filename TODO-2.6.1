@@ -1,13 +1,13 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content
-#+ARCHIVE: TODO-OLD::
 #+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
-#+TAGS: Emacs(E) Python(P) Feature(F) Docs(D) Website(W) Build(B) Tests(T)
 #+CATEGORY: Ledger
+#+TAGS: LINK(l)
+#+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
 
 * Bugs
-** DONE [#A] -p "this month" doesn't work at all anymore
+** DONE [#A] -p "this month" doesn't work at all anymore				 :ATTACH:
    - State "DONE"       [2008-07-17 Thu 18:14] \\
      This has been fixed, and represents a very major set of fixes to date
      handling in general.  Thanks to Nathan for hitting the nail on the head.
@@ -130,7 +130,7 @@ banane:~/__accounting/.../rbcinv/invest$
    :ID: B2B79746-5E3B-40D3-B6ED-CCF27364DD5F
    :END:
    [2008-04-06 Sun]
-** DONE [#A] Dates (used with -b -e and -p parameters) are broken
+** DONE [#A] Dates (used with -b -e and -p parameters) are broken			 :ATTACH:
    - State "DONE"       [2008-07-17 Thu 06:20] \\
      Patch checked in.  Thanks, Nathan!
    - State "TODO"       [2008-04-06 Sun 21:59] \\
@@ -215,7 +215,7 @@ arete$ ledger xact 2007/11/11 safeway groceries \$10.00 american
    :ID: 458B2B74-AF2D-4D9D-89E4-D8AC26CFD531
    :END:
    [2008-04-05 Sat]
-** DONE [#A] trailing whitespace is significant in 2.6
+** DONE [#A] trailing whitespace is significant in 2.6					 :ATTACH:
    - State "DONE"       [2008-04-05 Sat 18:56] \\
      The first patch fixes parsing account names when a single space follows.
      This might close ticket #3.
@@ -412,7 +412,7 @@ ledger -s bal --sort O wedding
    :ID: 96DDA4B9-E216-4C7A-8D0E-02B0F39CA256
    :END:
    [2008-08-27 Wed]
-** DONE Install patches for Ledger 2.6 from Simon Michael
+** DONE Install patches for Ledger 2.6 from Simon Michael				 :ATTACH:
    - State "DONE"       [2008-07-17 Thu 21:41] \\
      I'm only taking the first patch for 2.6.  The other two need a bit more
      polish before I would put them in the standard distro, instead of just
@@ -489,7 +489,7 @@ gmake: *** [all] Error 2
    :ID: C1BE11BD-958D-4E67-8B85-5DA14CD375B4
    :END:
    [2008-03-14 Fri]
-** DONE Segmentation fault on import from GnuCash
+** DONE Segmentation fault on import from GnuCash					 :ATTACH:
    - State "DONE"       [2008-07-17 Thu 20:04]
    - State "TODO"       [2008-06-16 Mon 16:05] \\
      Luben Manolov <lubo@manolov.org> writes:
@@ -588,14 +588,14 @@ $ ledger xact 2008/07/18 "Foo Bar" food 20 checking
    :ID: FF8CE4C5-03B3-4FCA-85BD-52A9DB191B4B
    :END:
    [2008-07-18 Fri]
-** DONE [#C] Merge Levin's changes into v2.6.1b
+** DONE [#C] Merge Levin's changes into v2.6.1b						   :LINK:
    - State "DONE"       [2008-08-26 Tue 10:11]
    These are from http://github.com/levindu/ledger
    :PROPERTIES:
    :ID: C9167249-98C3-4C7E-8076-35B81A580B38
    :END:
    [2008-08-21 Thu]
-** DONE [#C] Multiple commodities in gnucash crash ledger
+** DONE [#C] Multiple commodities in gnucash crash ledger				 :ATTACH:
    - State "DONE"       [2008-07-17 Thu 21:26]
    - State "TODO"       [2008-03-27 Thu 19:54] \\
      I still have to review the patch and make the changes, before this gets
@@ -976,7 +976,7 @@ Error: "/home/vinod/data/ledger.dat", line 52379: Xact does not balance
    :END:
    [2008-07-28 Mon]
 * Docs
-** DONE Some at-signs are not properly escaped in documentation
+** DONE Some at-signs are not properly escaped in documentation				 :ATTACH:
    - State "DONE"       [2008-03-27 Thu 19:42]
    Some of the at signs are not properly escaped in the texi
    documentation. This leads to great confusion when trying to figure out how

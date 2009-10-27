@@ -3,140 +3,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+STARTUP: content
 #+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
 #+CATEGORY: Ledger
+#+TAGS: LINK(l)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
 
 * Bugs
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#B] --budget doesn't produce correct output
-   I have a budget transaction like this:
-   :SOURCE:
-   ~ Monthly
-     Expenses:Auto:Fuel           $ 120.00
-     Expenses:Food:Out            $ 100.00
-     Expenses:Food:Groceries      $ 350.00
-     Assets
-   :END:
-
-   It doesn't, however, seem to take effect with --budget:
-   :OUTPUT:
-   % ledger bal --p this --flat auto:fuel food:out
-               	$ 67.15  Expenses:Auto:Fuel
-               	$ 18.30  Expenses:Food:Out
-   --------------------
-               	$ 85.45
-   % ledger bal --p this --budget --flat auto:fuel food:out
-               	$ 67.15  Expenses:Auto:Fuel
-               	$ 18.30  Expenses:Food:Out
-   --------------------
-               	$ 85.45
-   % ledger --version | head -1
-   Ledger next-0-g752677e, the command-line accounting tool
-   :END:
-
-   Incidentally, it would be great to see something like:
-   :OUTPUT:
-   % ledger bal --p this --budget auto:fuel food:out
-   $ 67.15  $ 120.00   $ -52.85  56%  Expenses:Auto:Fuel
-   $ 18.30  $ 100.00   $ -81.70  18%  Expenses:Food:Out
-   $ 85.45  $ 220.00  $ -134.55  39%  Total
-   :END:
-   :PROPERTIES:
-   :ID: 8254755E-7B61-47C8-B48E-A2A7FD79EB80
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/5
-   :END:
-   [2009-10-26 Mon 21:27]
-** TODO [#B] ~/.ledgerrc not being consulted
-   :OUTPUT:
-   % git log -1
-   commit <a href="/jwiegley/ledger/commit/f35bc939c96c3a3bf09c5881d638b5ba60449c03">f35bc93</a>
-   Author: John Wiegley <johnw@newartisans.com>
-   Date:   Sun Oct 11 14:07:55 2009 -0400
-   
-       Added a note about "acprep update" to README
-   % more ~/.ledgerrc            
-   --date-format %Y/%m/%d
-   % ./ledger reg -p this grocer | head -1
-   09-Oct-02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
-   % ./ledger reg --date-format %Y/%m/%d -p this grocer | head -1
-   2009/10/02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
-   :END:
-   :PROPERTIES:
-   :ID:       863A769C-E97C-4CA6-B89F-B72C47F07543
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/4
-   :END:
-   [2009-10-26 Mon 21:29]
-** TODO [#B] ledger bal --flat --display 'depth <= 2' fails to show any accounts
-   It works fine without --flat, but not with.
-   :PROPERTIES:
-   :ID: CEA59DB9-93E4-44A9-977C-F68A9E2D308A
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/2
-   :END:
-   [2009-10-26 Mon 21:32]
-** TODO Found bugs in the report query syntax parser
-   Fails to parse:
-   :SCRIPT:
-   ledger bal --sort total --flat -X '$' not '(Income|Liabilities)'
-   :END:
-   :PROPERTIES:
-   :ID: 373540CC-613B-47BC-B72F-C6D347157736
-   :END:
-   [2009-10-26 Mon 17:50]
-** TODO [#C] In the "pricesdb" report, output commodity conversions
-   ... and "N" commands.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 110
-   :ID: 1BE0C80D-AC4D-4372-B830-14193554EF6B
-   :END:
-   [2008-04-11 Fri]
-** TODO [#C] The --strict option should also prevent new commodities
-   :PROPERTIES:
-   :ID: 3254504D-FA9F-4E60-B56D-414C6EF03BFE
-   :END:
-   [2009-03-07 Sat 00:31]
-** TODO [#C] Don't make uncommoditized amounts display differently
-   :PROPERTIES:
-   :ID: 677CB18D-C7EE-446A-8123-57D80E3EFDD4
-   :END:
-   [2009-10-23 Fri 06:13]
-** TODO Change processing of ~/.ledgerrc
-   1. Before parsing, run through and handle options that session_t and
-      global_scope_t know about.
-   2. Before reporting or loading the REPL, run through and handle all other
-      options and any commands found.
-   :PROPERTIES:
-   :ID: 71FE0FAB-622D-403C-A944-C7541948AFFF
-   :END:
-   [2009-02-19 Thu 15:10]
-** TODO [#C] Clear out all #if 0 and jww commented sections
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 97
-   :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
-   :END:
-   [2008-04-11 Fri]
-** TODO [#C] The entry command drops price specifications
-   If you enter a pricing command like this in Emacs:
-   :DATA:
-C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
-   :END:
-   The resulting entry omits the '@ ...' part.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 192
-   :ID: 03C6208E-E48F-45BB-BFBF-2C38B129458A
-   :END:
-   [2008-05-03 Sat]
-** TODO [#C] Valexpr strings cannot have chars like \n
-   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
-   - State "DEFERRED"   from "TODO"       [2009-06-28 Sun 17:37]
-   :PROPERTIES:
-   :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
-   :END:
-   [2009-02-27 Fri 13:19]
-** WAITING [#A] Corrupted double-linked list in the register report
+** WAITING [#A] Corrupted double-linked list in the register report			   :LINK:
    - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:26] \\
      I'm waiting on a test case to come back from the user, as I've never seen this
      behavior.
@@ -145,7 +19,7 @@ C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
    :ID: 8C22A64E-6095-4933-9D66-FA970CCD1590
    :END:
    [2009-10-03 Sat 03:23]
-** WAITING [#A] --budget not including "~ Monthly" entry				 :ATTACH:
+** WAITING [#A] --budget not including "~ Monthly" entry			    :LINK:ATTACH:
    - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:41] \\
      I've asked the user for more information; I can't see what's wrong with just
      the test case he sent, and I cannot find the original message.
@@ -191,6 +65,133 @@ See LICENSE file included with the distribution for details and disclaimer.
    :Attachments: testledger.dat
    :END:
    [2009-04-01 Wed 19:40]
+** TODO --budget doesn't produce correct output 					   :LINK:
+   I have a budget transaction like this:
+   :SOURCE:
+   ~ Monthly
+     Expenses:Auto:Fuel           $ 120.00
+     Expenses:Food:Out            $ 100.00
+     Expenses:Food:Groceries      $ 350.00
+     Assets
+   :END:
+
+   It doesn't, however, seem to take effect with --budget:
+   :OUTPUT:
+   % ledger bal --p this --flat auto:fuel food:out
+               	$ 67.15  Expenses:Auto:Fuel
+               	$ 18.30  Expenses:Food:Out
+   --------------------
+               	$ 85.45
+   % ledger bal --p this --budget --flat auto:fuel food:out
+               	$ 67.15  Expenses:Auto:Fuel
+               	$ 18.30  Expenses:Food:Out
+   --------------------
+               	$ 85.45
+   % ledger --version | head -1
+   Ledger next-0-g752677e, the command-line accounting tool
+   :END:
+
+   Incidentally, it would be great to see something like:
+   :OUTPUT:
+   % ledger bal --p this --budget auto:fuel food:out
+   $ 67.15  $ 120.00   $ -52.85  56%  Expenses:Auto:Fuel
+   $ 18.30  $ 100.00   $ -81.70  18%  Expenses:Food:Out
+   $ 85.45  $ 220.00  $ -134.55  39%  Total
+   :END:
+   :PROPERTIES:
+   :ID: 8254755E-7B61-47C8-B48E-A2A7FD79EB80
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/5
+   :END:
+   [2009-10-26 Mon 21:27]
+** TODO ~/.ledgerrc not being consulted 						   :LINK:
+   :OUTPUT:
+   % git log -1
+   commit <a href="/jwiegley/ledger/commit/f35bc939c96c3a3bf09c5881d638b5ba60449c03">f35bc93</a>
+   Author: John Wiegley <johnw@newartisans.com>
+   Date:   Sun Oct 11 14:07:55 2009 -0400
+   
+       Added a note about "acprep update" to README
+   % more ~/.ledgerrc            
+   --date-format %Y/%m/%d
+   % ./ledger reg -p this grocer | head -1
+   09-Oct-02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
+   % ./ledger reg --date-format %Y/%m/%d -p this grocer | head -1
+   2009/10/02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
+   :END:
+   :PROPERTIES:
+   :ID:       863A769C-E97C-4CA6-B89F-B72C47F07543
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/4
+   :END:
+   [2009-10-26 Mon 21:29]
+** TODO ledger bal --flat --display 'depth <= 2' fails to show any accounts 		   :LINK:
+   It works fine without --flat, but not with.
+   :PROPERTIES:
+   :ID: CEA59DB9-93E4-44A9-977C-F68A9E2D308A
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/2
+   :END:
+   [2009-10-26 Mon 21:32]
+** TODO Found bugs in the report query syntax parser
+   Fails to parse:
+   :SCRIPT:
+   ledger bal --sort total --flat -X '$' not '(Income|Liabilities)'
+   :END:
+   :PROPERTIES:
+   :ID: 373540CC-613B-47BC-B72F-C6D347157736
+   :END:
+   [2009-10-26 Mon 17:50]
+** TODO Change processing of ~/.ledgerrc
+   1. Before parsing, run through and handle options that session_t and
+      global_scope_t know about.
+   2. Before reporting or loading the REPL, run through and handle all other
+      options and any commands found.
+   :PROPERTIES:
+   :ID: 71FE0FAB-622D-403C-A944-C7541948AFFF
+   :END:
+   [2009-02-19 Thu 15:10]
+** TODO [#C] In the "pricesdb" report, output commodity conversions
+   ... and "N" commands.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 110
+   :ID: 1BE0C80D-AC4D-4372-B830-14193554EF6B
+   :END:
+   [2008-04-11 Fri]
+** TODO [#C] The --strict option should also prevent new commodities
+   :PROPERTIES:
+   :ID: 3254504D-FA9F-4E60-B56D-414C6EF03BFE
+   :END:
+   [2009-03-07 Sat 00:31]
+** TODO [#C] Don't make uncommoditized amounts display differently
+   :PROPERTIES:
+   :ID: 677CB18D-C7EE-446A-8123-57D80E3EFDD4
+   :END:
+   [2009-10-23 Fri 06:13]
+** TODO [#C] Clear out all #if 0 and jww commented sections
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 97
+   :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
+   :END:
+   [2008-04-11 Fri]
+** TODO [#C] The entry command drops price specifications
+   If you enter a pricing command like this in Emacs:
+   :DATA:
+C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
+   :END:
+   The resulting entry omits the '@ ...' part.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 192
+   :ID: 03C6208E-E48F-45BB-BFBF-2C38B129458A
+   :END:
+   [2008-05-03 Sat]
+** TODO [#C] Valexpr strings cannot have chars like \n
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
+   - State "DEFERRED"   from "TODO"       [2009-06-28 Sun 17:37]
+   :PROPERTIES:
+   :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
+   :END:
+   [2009-02-27 Fri 13:19]
 * Build
   :PROPERTIES:
   :CATEGORY: Build
@@ -205,6 +206,21 @@ See LICENSE file included with the distribution for details and disclaimer.
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
+** TODO Run Ledger through the profiler, against mondo.dat (to beat 11s)
+   :PROPERTIES:
+   :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
+   :END:
+   [2009-02-25 Wed 04:15]
+** TODO Create regression tests for all the closed 2.6.1 and 3.0 bugs
+   :PROPERTIES:
+   :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
+   :END:
+   [2008-08-14 Thu]
+** TODO Use coverage analysis to determine if all of Ledger is being tested
+   :PROPERTIES:
+   :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
+   :END:
+   [2008-08-14 Thu]
 ** TODO [#C] Ledger is still failing the higher-numbered generation seed tests
    :PROPERTIES:
    :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
@@ -222,21 +238,6 @@ See LICENSE file included with the distribution for details and disclaimer.
    :ID: F866DFA5-7350-45D3-BF76-286D68755A2A
    :END:
    [2009-02-27 Fri 16:19]
-** TODO Run Ledger through the profiler, against mondo.dat (to beat 11s)
-   :PROPERTIES:
-   :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
-   :END:
-   [2009-02-25 Wed 04:15]
-** TODO Create regression tests for all the closed 2.6.1 and 3.0 bugs
-   :PROPERTIES:
-   :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
-   :END:
-   [2008-08-14 Thu]
-** TODO Use coverage analysis to determine if all of Ledger is being tested
-   :PROPERTIES:
-   :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
-   :END:
-   [2008-08-14 Thu]
 ** TODO [#C] The opt-forecast-while test is time sensitive, and is failing
    :PROPERTIES:
    :ID: 7B8D466B-6F38-41E6-B2B1-964B8378C929
@@ -246,17 +247,17 @@ See LICENSE file included with the distribution for details and disclaimer.
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
-** TODO [#A] Pressing space bar on items on the reconcile window does nothing
- message://01BBC0A5-1185-4FCF-8D8C-72E29FA86675@gmail.com
- :PROPERTIES:
- :ID: AC756278-72D5-4CAC-82A7-334A9BB6F7EE
- :END:
- [2009-10-03 Sat 03:23]
+** TODO [#A] Pressing space bar on items on the reconcile window does nothing		   :LINK:
+   message://01BBC0A5-1185-4FCF-8D8C-72E29FA86675@gmail.com
+   :PROPERTIES:
+   :ID: AC756278-72D5-4CAC-82A7-334A9BB6F7EE
+   :END:
+   [2009-10-03 Sat 03:23]
 * Misc
   :PROPERTIES:
   :CATEGORY: Misc
   :END:
-** TODO [#C] Fix boost::optional translation class for Dmitriy
+** TODO [#C] Fix boost::optional translation class for Dmitriy				   :LINK:
    - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:27]
    [[message://2fd72fb20901281006u181318bke33c44a25098dfd8@mail.gmail.com][Re: boost::optional and boost::python]]
@@ -264,7 +265,7 @@ See LICENSE file included with the distribution for details and disclaimer.
    :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
    :END:
    [2009-02-02 Mon 03:13]
-** TODO [#C] Fill out Software Conservancy form from Bradley
+** TODO [#C] Fill out Software Conservancy form from Bradley				   :LINK:
    [[message://87vdra1ejf.fsf@ebb.org][Re: Request for application form]]
    :PROPERTIES:
    :ID: 55F5C87B-F9BE-4957-B4C7-3B8222DDB548
@@ -344,7 +345,7 @@ See LICENSE file included with the distribution for details and disclaimer.
    :ID: C926E8BF-EF44-45E8-A37F-04A30A97215D
    :END:
    [2008-10-26 Sun 19:06]
-** TODO Answer Martin's question about capital gains
+** TODO Answer Martin's question about capital gains					   :LINK:
    [[message://20080423221130.4D77D1144C3@banane.furius.ca]["capital gains" from Martin Blais <blais@furius.ca>]]
    [[message://1209097067.1413.1249786835@webmail.messagingengine.com]["Here is one valid way to book capital gains" from Martin Blais <blais@furius.ca>]]
    :PROPERTIES:
@@ -465,7 +466,29 @@ always ignored and are neither searched nor printed back.
    :ID: 1CAE6761-AC44-4DAC-A466-A3D72550ED06
    :END:
    [2009-02-02 Mon 03:08]
-** TODO [#C] Handling funds
+** TODO Respond to billk's question about options
+   New Artisans LLC :: View topic - stock options
+   :PROPERTIES:
+   :ID: 2F635B10-27B8-4FF4-8584-F84A3AF7D42C
+   :END:
+   [2008-08-14 Thu]
+** TODO Another value expression change							   :LINK:
+   message://m2fyle3zdy.fsf@newartisans.com
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 171
+   :ID: 356DB3E1-3613-4DE2-8245-A8F8E4937FBD
+   :END:
+   [2008-04-11 Fri]
+** TODO Extended lot indentification support						   :LINK:
+   message://m2veuvq0al.fsf@newartisans.com
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 167
+   :ID: 9CC55CD0-30C3-4C4F-BCB6-E980FD1F44DA
+   :END:
+   [2008-04-11 Fri]
+** TODO [#C] Handling funds								   :LINK:
    message://m2fylicj1e.fsf@Majdhub.local
    :PROPERTIES:
    :Version: 2.6
@@ -473,7 +496,7 @@ always ignored and are neither searched nor printed back.
    :ID: B5C1EE3D-8F66-4116-A88B-D1D568CF46B7
    :END:
    [2008-04-11 Fri]
-** TODO [#C] Ledger example: building a better "du"
+** TODO [#C] Ledger example: building a better "du"					   :LINK:
    message://m2odzwxupz.fsf@newartisans.com
    :PROPERTIES:
    :Version: 2.6
@@ -481,12 +504,6 @@ always ignored and are neither searched nor printed back.
    :ID: 85DAE1AB-F6D3-4AAC-A4F7-99D146B355E7
    :END:
    [2008-04-11 Fri]
-** TODO Respond to billk's question about options
-   New Artisans LLC :: View topic - stock options
-   :PROPERTIES:
-   :ID: 2F635B10-27B8-4FF4-8584-F84A3AF7D42C
-   :END:
-   [2008-08-14 Thu]
 ** TODO [#C] Using Ledger as a scientific analysis tool
    :PROPERTIES:
    :Version: 2.6
@@ -499,27 +516,11 @@ always ignored and are neither searched nor printed back.
    :Ticket: 174
    :ID: F7A6A833-5AC6-4ED0-A5EA-93CD6B97EEBF
    :END:
-** TODO Another value expression change
-   message://m2fyle3zdy.fsf@newartisans.com
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 171
-   :ID: 356DB3E1-3613-4DE2-8245-A8F8E4937FBD
-   :END:
-   [2008-04-11 Fri]
-** TODO Extended lot indentification support
-   message://m2veuvq0al.fsf@newartisans.com
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 167
-   :ID: 9CC55CD0-30C3-4C4F-BCB6-E980FD1F44DA
-   :END:
-   [2008-04-11 Fri]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [#B] Add a multi-column budget balance report
+** TODO Add a multi-column budget balance report					   :LINK:
    I have a budget transaction like this:
    :SOURCE:
    ~ Monthly
@@ -567,12 +568,25 @@ always ignored and are neither searched nor printed back.
    :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
    :END:
    [2009-02-21 Sat 17:36]
+** TODO Add an --actual option to override --effective if in .ledgerc
+   :PROPERTIES:
+   :ID: 84C7C18B-8B06-4248-9C4F-A8E377FACA49
+   :END:
+   [2008-10-03 Fri]
+** TODO Value expressions for getting at the lot date
+   For example: lotdate, lotdateof(x)
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 148
+   :ID: A1230B8C-EF48-40BB-A200-18E7E94620BE
+   :END:
+   [2008-04-11 Fri]
 ** TODO [#C] Change self_total to amount, and family_total to total
    :PROPERTIES:
    :ID: AEDAEAE2-5A2D-4908-B733-B0FC80C5FC58
    :END:
    [2009-03-05 Thu 04:56]
-** TODO [#C] Combine a random seed when hashing when using --anon
+** TODO [#C] Combine a random seed when hashing when using --anon			   :LINK:
    Please keep in mind that the dictionary one pulls account names from is MUCH
    smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
    a string $foo, it is easy to tell if this is the hash of "Bar, Inc." or
@@ -587,11 +601,6 @@ always ignored and are neither searched nor printed back.
    :Message: [[message://20090703063943.GB16282@chivetta.org][Re: sample ledgers and anonymising]]
    :END:
    [2009-07-03 Fri 08:38]
-** TODO Add an --actual option to override --effective if in .ledgerc
-   :PROPERTIES:
-   :ID: 84C7C18B-8B06-4248-9C4F-A8E377FACA49
-   :END:
-   [2008-10-03 Fri]
 ** TODO [#C] Create a "cleared" report for balances
    The idea for this report would be to show very nicely when the last date an
    account was balanced to was.  For example (from blais):
@@ -637,19 +646,11 @@ always ignored and are neither searched nor printed back.
    :ID: 4D175527-AE30-4030-B1B7-DD6A92B6F067
    :END:
    [2008-04-14 Mon]
-** TODO Value expressions for getting at the lot date
-   For example: lotdate, lotdateof(x)
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 148
-   :ID: A1230B8C-EF48-40BB-A200-18E7E94620BE
-   :END:
-   [2008-04-11 Fri]
 * Website
   :PROPERTIES:
   :CATEGORY: Website
   :END:
-** TODO [#C] Mention hledger in the Ledger docs and webpage
+** TODO [#C] Mention hledger in the Ledger docs and webpage				   :LINK:
    http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hledger-0.1
    :PROPERTIES:
    :ID: F71EA52C-0F99-4689-9DA5-DF6B131D81EE
