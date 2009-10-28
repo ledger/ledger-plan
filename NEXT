@@ -115,6 +115,12 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: F7A6A833-5AC6-4ED0-A5EA-93CD6B97EEBF
    :END:
 * Features
+** DEFERRED Restore the XML parser (code is in xml local branch)
+   - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:15]
+   :PROPERTIES:
+   :ID: 5332850A-B67B-4CF2-B553-BFA23EA9DB6F
+   :END:
+   [2009-10-25 Sun 22:47]
 ** DEFERRED Allow reading an encrypted ledger file directly
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:00]
    This would be done using libgpg.
@@ -666,6 +672,15 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :END:
    [2009-06-19 Fri 00:49]
 * Python
+** DEFERRED [#C] Fix boost::optional translation class for Dmitriy			   :LINK:
+   - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:11]
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:27]
+   [[message://2fd72fb20901281006u181318bke33c44a25098dfd8@mail.gmail.com][Re: boost::optional and boost::python]]
+   :PROPERTIES:
+   :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
+   :END:
+   [2009-02-02 Mon 03:13]
 ** DEFERRED Get ledger python to run within the build tree
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:

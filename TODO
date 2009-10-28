@@ -10,27 +10,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO ~/.ledgerrc not being consulted 						   :LINK:
-   :OUTPUT:
-   % git log -1
-   commit <a href="/jwiegley/ledger/commit/f35bc939c96c3a3bf09c5881d638b5ba60449c03">f35bc93</a>
-   Author: John Wiegley <johnw@newartisans.com>
-   Date:   Sun Oct 11 14:07:55 2009 -0400
-   
-       Added a note about "acprep update" to README
-   % more ~/.ledgerrc            
-   --date-format %Y/%m/%d
-   % ./ledger reg -p this grocer | head -1
-   09-Oct-02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
-   % ./ledger reg --date-format %Y/%m/%d -p this grocer | head -1
-   2009/10/02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
-   :END:
-   :PROPERTIES:
-   :ID:       863A769C-E97C-4CA6-B89F-B72C47F07543
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/4
-   :END:
-   [2009-10-26 Mon 21:29]
-** TODO Found bugs in the report query syntax parser
+** TODO [#A] Found bugs in the report query syntax parser
    Fails to parse:
    :SCRIPT:
    ledger bal --sort total --flat -X '$' not '(Income|Liabilities)'
@@ -39,7 +19,9 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 373540CC-613B-47BC-B72F-C6D347157736
    :END:
    [2009-10-26 Mon 17:50]
-** TODO [#C] Change processing of ~/.ledgerrc
+** TODO [#A] Change processing of ~/.ledgerrc
+   - Note taken on [2009-10-27 Tue 22:02] \\
+     Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
    1. Before parsing, run through and handle options that session_t and
       global_scope_t know about.
    2. Before reporting or loading the REPL, run through and handle all other
@@ -48,7 +30,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 71FE0FAB-622D-403C-A944-C7541948AFFF
    :END:
    [2009-02-19 Thu 15:10]
-** TODO [#C] In the "pricesdb" report, output commodity conversions
+** TODO In the "pricesdb" report, output commodity conversions
    ... and "N" commands.
    :PROPERTIES:
    :Version: 2.6
@@ -56,16 +38,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 1BE0C80D-AC4D-4372-B830-14193554EF6B
    :END:
    [2008-04-11 Fri]
-** TODO [#C] The --strict option should also prevent new commodities
+** TODO The --strict option should also prevent new commodities
    :PROPERTIES:
    :ID: 3254504D-FA9F-4E60-B56D-414C6EF03BFE
    :END:
    [2009-03-07 Sat 00:31]
-** TODO [#C] Don't make uncommoditized amounts display differently
-   :PROPERTIES:
-   :ID: 677CB18D-C7EE-446A-8123-57D80E3EFDD4
-   :END:
-   [2009-10-23 Fri 06:13]
 ** TODO [#C] Clear out all #if 0 and jww commented sections
    :PROPERTIES:
    :Version: 2.6
@@ -73,7 +50,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
    :END:
    [2008-04-11 Fri]
-** TODO [#C] The entry command drops price specifications
+** TODO The entry command drops price specifications
    If you enter a pricing command like this in Emacs:
    :DATA:
    C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
@@ -85,26 +62,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 03C6208E-E48F-45BB-BFBF-2C38B129458A
    :END:
    [2008-05-03 Sat]
-** TODO [#C] Valexpr strings cannot have chars like \n
+** TODO Valexpr strings cannot have chars like \n
    - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
    - State "DEFERRED"   from "TODO"       [2009-06-28 Sun 17:37]
    :PROPERTIES:
    :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
    :END:
    [2009-02-27 Fri 13:19]
-** TODO [#C] Fix boost::optional translation class for Dmitriy				   :LINK:
-   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:27]
-   [[message://2fd72fb20901281006u181318bke33c44a25098dfd8@mail.gmail.com][Re: boost::optional and boost::python]]
-   :PROPERTIES:
-   :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
-   :END:
-   [2009-02-02 Mon 03:13]
 * Build
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [#C] Add some more configure arguments
+** TODO Add some more configure arguments
    ./configure .... with-gmp=...  with-mpfr= ... with-python=...
    :PROPERTIES:
    :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
@@ -134,11 +103,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
    :END:
    [2009-03-03 Tue 15:47]
-** TODO [#C] The opt-forecast-while test is time sensitive, and is failing
-   :PROPERTIES:
-   :ID: 7B8D466B-6F38-41E6-B2B1-964B8378C929
-   :END:
-   [2009-03-01 Sun 05:36]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
@@ -153,21 +117,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO Restore the XML parser (code is in xml local branch)
-   :PROPERTIES:
-   :ID: 5332850A-B67B-4CF2-B553-BFA23EA9DB6F
-   :END:
-   [2009-10-25 Sun 22:47]
-** TODO [#C] Convert *all* valexpr functions to use interactive_t
-   :PROPERTIES:
-   :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
-   :END:
-   [2009-02-21 Sat 17:36]
-** TODO Add an --actual option to override --effective if in .ledgerc
-   :PROPERTIES:
-   :ID: 84C7C18B-8B06-4248-9C4F-A8E377FACA49
-   :END:
-   [2008-10-03 Fri]
 ** TODO Value expressions for getting at the lot date
    For example: lotdate, lotdateof(x)
    :PROPERTIES:
@@ -176,11 +125,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: A1230B8C-EF48-40BB-A200-18E7E94620BE
    :END:
    [2008-04-11 Fri]
-** TODO [#C] Change self_total to amount, and family_total to total
+** TODO Convert *all* valexpr functions to use interactive_t
    :PROPERTIES:
-   :ID: AEDAEAE2-5A2D-4908-B733-B0FC80C5FC58
+   :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
    :END:
-   [2009-03-05 Thu 04:56]
+   [2009-02-21 Sat 17:36]
 ** TODO [#C] Combine a random seed when hashing when using --anon			   :LINK:
    Please keep in mind that the dictionary one pulls account names from is MUCH
    smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
@@ -200,21 +149,21 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO Write an article titled "Accounting for Engineers"
+** Write an article titled "Accounting for Engineers"
    Programmers make money, and they're technically savvy, so Ledger makes for a
    perfect fit.
    :PROPERTIES:
    :ID: 6D26F1EA-4FC6-4376-8232-DF985FAC48AA
    :END:
    [2009-04-01 Wed 05:17]
-** TODO A need for some extensive examples with commentary
+** A need for some extensive examples with commentary
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 166
    :ID: 8C9A4F0A-75B6-4F7D-913C-B8D8D84A882E
    :END:
    [2008-04-11 Fri]
-** TODO Add a section in the manual specifically about stocks
+** Add a section in the manual specifically about stocks
    There is no explicit section right now which details how to handle stock
    transactions.
    :PROPERTIES:
@@ -223,7 +172,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 7AD3B6F2-765B-41A5-A481-BFAB39A55824
    :END:
    [2008-04-21 Mon]
-** TODO An example of using effective dates on transactions
+** An example of using effective dates on transactions
    "I don't yet have a good idea of why an individual transaction could need to
    specify its own actual *and* effective date. Does anyone have a good
    example?"
@@ -270,26 +219,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: C926E8BF-EF44-45E8-A37F-04A30A97215D
    :END:
    [2008-10-26 Sun 19:06]
-** TODO [#C] Answer Martin's question about capital gains				   :LINK:
-   [[message://20080423221130.4D77D1144C3@banane.furius.ca]["capital gains" from Martin Blais <blais@furius.ca>]]
-   [[message://1209097067.1413.1249786835@webmail.messagingengine.com]["Here is one valid way to book capital gains" from Martin Blais <blais@furius.ca>]]
-   :PROPERTIES:
-   :ID: 1B5B2517-360E-4F33-9A1E-C88F884ACAD2
-   :END:
-   [2008-04-24 Thu]
-** TODO Document all breaking and non-breaking changes in the NEWS file
+** Document all breaking and non-breaking changes in the NEWS file
    :PROPERTIES:
    :ID: AF04D0D7-2C9D-4783-9C22-5EC39CAC4247
    :END:
    [2009-02-16 Mon 04:52]
-** TODO Document inline math in the .texi file.
+** Document inline math in the .texi file.
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 102
    :ID: 5CDAC007-A2B6-42A6-8E8C-09A1078404C8
    :END:
    [2008-04-11 Fri]
-** TODO Document new command-line query syntax
+** Document new command-line query syntax
    I've completed putting the finishing touches on the command-line query
    syntax for Ledger 3.0, and thought I would share with you all how it works
    now.
@@ -347,7 +289,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 720A2006-AA19-4133-8A07-B445D7CC3AA0
    :END:
    [2009-02-02 Mon 03:08]
-** TODO Document the new metadata syntax
+** Document the new metadata syntax
    Ledger 3.0 now supports entry and transaction "notes", which may contain new
    metadata and tag markers.  Here's an example:
    :SOURCE:
@@ -396,7 +338,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 1CAE6761-AC44-4DAC-A466-A3D72550ED06
    :END:
    [2009-02-02 Mon 03:08]
-** TODO Another value expression change							   :LINK:
+** Another value expression change 							   :LINK:
    I've tossed out inline math (which was a specialized mini-parser) and
    instead made it so all transaction amounts are parsed as value expressions.
    If they don't use math, I'll optimize away the expression-ness, but if
@@ -438,7 +380,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  message://m2fyle3zdy.fsf@newartisans.com
    :END:
    [2006-03-19 Sun]
-** TODO Extended lot indentification support						   :LINK:
+** Extended lot indentification support 						   :LINK:
    Well, the old scheme of --lots had several problems, the worst of which is
    that it was pretty ugly on the inside (read: a bolt-on hack that never felt
    natural).  But, many happy episodes of X-Files were watched while coding
@@ -560,7 +502,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  message://m2veuvq0al.fsf@newartisans.com
    :END:
    [2006-03-03 Fri]
-** TODO [#C] Handling funds								   :LINK:
+** [#C] Answer Martin's question about capital gains 					   :LINK:
+   [[message://20080423221130.4D77D1144C3@banane.furius.ca]["capital gains" from Martin Blais <blais@furius.ca>]]
+   [[message://1209097067.1413.1249786835@webmail.messagingengine.com]["Here is one valid way to book capital gains" from Martin Blais <blais@furius.ca>]]
+   :PROPERTIES:
+   :ID: 1B5B2517-360E-4F33-9A1E-C88F884ACAD2
+   :END:
+   [2008-04-24 Thu]
+** [#C] Handling funds 									   :LINK:
    Ok, I gave this a LOT more thought (I actually sat down and did nothing but
    think on it for a half hour), and I think I've found an answer.  The way I
    was approaching it before was completely wrong; and further, what I came up
@@ -680,7 +629,3 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  message://m2fylicj1e.fsf@Majdhub.local
    :END:
    [2006-03-16 Thu]
-* Website
-  :PROPERTIES:
-  :CATEGORY: Website
-  :END:

@@ -62,6 +62,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 6CAF45D7-9098-41B4-A25A-12F8A8166006
    :END:
    [2007-08-22 Wed]
+** DONE ITEM_TEMP posts must be removed from xacts and accounts properly
+   SCHEDULED: <2009-10-27 Tue>
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
+   :PROPERTIES:
+   :ID: F1D055D3-DDCE-49A2-A670-A84D1FD0C299
+   :END:
+   [2009-10-27 Tue 05:13]
 ** DONE --budget doesn't produce correct output						   :LINK:
    - State "DONE"       from "TODO"       [2009-10-27 Tue 05:51]
    I have a budget transaction like this:
@@ -93,7 +100,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :URL:      http://github.com/jwiegley/ledger/issues#issue/5
    :END:
    [2009-10-26 Mon 21:27]
-** DONE [#B] Latest build of next f35bc939 produces slow binary				   :LINK:
+** DONE Latest build of next f35bc939 produces slow binary				   :LINK:
    - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
    :PROPERTIES:
    :ID: 18B7E853-848A-4211-BF98-C0C1B845E94F
@@ -1724,6 +1731,12 @@ Error: Journal does not refer to file ''
    :ID: B25DC71B-87DB-453F-87E9-D2015CCBAB26
    :END:
    [2009-01-24 Sat 04:01]
+** CANCELLED Don't make uncommoditized amounts display differently
+   - State "CANCELLED"  from "TODO"       [2009-10-27 Tue 22:03]
+   :PROPERTIES:
+   :ID: 677CB18D-C7EE-446A-8123-57D80E3EFDD4
+   :END:
+   [2009-10-23 Fri 06:13]
 ** CANCELLED Get gdtoa's tests working under "make check"
    - State "CANCELLED"  [2009-02-08 Sun 16:01]
    :PROPERTIES:
@@ -3661,6 +3674,19 @@ getquote GSK_L
    :Attachments: getquote-uk.py
    :END:
    [2008-12-08 Mon 23:59]
+** DONE Add an --actual option to override --effective if in .ledgerc
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 19:15] \\
+     It's called --actual-dates
+   :PROPERTIES:
+   :ID: 84C7C18B-8B06-4248-9C4F-A8E377FACA49
+   :END:
+   [2008-10-03 Fri]
+** DONE [#C] Change self_total to amount, and family_total to total
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 19:04]
+   :PROPERTIES:
+   :ID: AEDAEAE2-5A2D-4908-B733-B0FC80C5FC58
+   :END:
+   [2009-03-05 Thu 04:56]
 ** DONE [#C] Create a "cleared" report for balances
    - State "DONE"       from "TODO"       [2009-10-27 Tue 08:05]
    The idea for this report would be to show very nicely when the last date an
@@ -4003,6 +4029,28 @@ getquote GSK_L
    :ID: 60AC4948-4B40-46D4-A346-26C394C8F1F9
    :END:
    [2008-08-14 Thu]
+** DUPLICATE ~/.ledgerrc not being consulted						   :LINK:
+   - State "DUPLICATE"  from "TODO"       [2009-10-27 Tue 21:58] \\
+     This is being caused by [[id:71FE0FAB-622D-403C-A944-C7541948AFFF]].
+   :OUTPUT:
+   % git log -1
+   commit <a href="/jwiegley/ledger/commit/f35bc939c96c3a3bf09c5881d638b5ba60449c03">f35bc93</a>
+   Author: John Wiegley <johnw@newartisans.com>
+   Date:   Sun Oct 11 14:07:55 2009 -0400
+   
+       Added a note about "acprep update" to README
+   % more ~/.ledgerrc            
+   --date-format %Y/%m/%d
+   % ./ledger reg -p this grocer | head -1
+   09-Oct-02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
+   % ./ledger reg --date-format %Y/%m/%d -p this grocer | head -1
+   2009/10/02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
+   :END:
+   :PROPERTIES:
+   :ID:       863A769C-E97C-4CA6-B89F-B72C47F07543
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/4
+   :END:
+   [2009-10-26 Mon 21:29]
 ** DUPLICATE Preserve XML comments
    - State "DUPLICATE"  [2009-01-29 Thu 15:38] \\
      Duplicated by D27098A4-647A-4EEA-B0B8-3088E069214D.
@@ -4161,6 +4209,12 @@ make: *** [release-distcheck] Error 2
    :ID: 031DAD5C-8C92-40C1-837F-ABE6F29D4046
    :END:
    [2009-02-24 Tue 21:46]
+** DONE [#C] The opt-forecast-while test is time sensitive, and is failing
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 19:11]
+   :PROPERTIES:
+   :ID: 7B8D466B-6F38-41E6-B2B1-964B8378C929
+   :END:
+   [2009-03-01 Sun 05:36]
 ** TESTED Major areas of implementation remaining [117/117]
    - State "TESTED"     from "DONE"       [2009-06-28 Sun 15:14]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:14]
