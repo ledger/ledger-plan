@@ -62,6 +62,49 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 6CAF45D7-9098-41B4-A25A-12F8A8166006
    :END:
    [2007-08-22 Wed]
+** DONE [#A] Found bugs in the report query syntax parser
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 23:09]
+   Fails to parse:
+   :SCRIPT:
+   ledger bal --sort total --flat -X '$' not '(Income|Liabilities)'
+   :END:
+   :PROPERTIES:
+   :ID: 373540CC-613B-47BC-B72F-C6D347157736
+   :END:
+   [2009-10-26 Mon 17:50]
+** DONE [#A] Change processing of ~/.ledgerrc
+   - State "DONE"       from "TODO"       [2009-10-29 Thu 00:51]
+   - Note taken on [2009-10-27 Tue 22:02] \\
+     Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
+   1. Before parsing, run through and handle options that session_t and
+      global_scope_t know about.
+   2. Before reporting or loading the REPL, run through and handle all other
+      options and any commands found.
+   :PROPERTIES:
+   :ID: 71FE0FAB-622D-403C-A944-C7541948AFFF
+   :END:
+   [2009-02-19 Thu 15:10]
+** DONE Don't print trailing spaces after amount-elided postings
+   SCHEDULED: <2009-10-27 Tue>
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:40]
+   :PROPERTIES:
+   :ID: 68C50F8D-4407-430F-8FE1-40B96D38173A
+   :END:
+   [2009-10-27 Tue 22:42]
+** DONE --verify fails to run now
+   SCHEDULED: <2009-10-27 Tue>
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:35]
+   :PROPERTIES:
+   :ID: A697E1A4-83D0-49EB-9533-29EB82659565
+   :END:
+   [2009-10-27 Tue 23:20]
+** DONE iterations.cc, and maybe others, need to use temporaries_t
+   SCHEDULED: <2009-10-27 Tue>
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:19]
+   :PROPERTIES:
+   :ID: CE2AA70E-0B44-4A50-8D36-1DC1451F5473
+   :END:
+   [2009-10-27 Tue 23:20]
 ** DONE ITEM_TEMP posts must be removed from xacts and accounts properly
    SCHEDULED: <2009-10-27 Tue>
    - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
@@ -3360,6 +3403,48 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
+** DONE Allow // regex in the query parser
+   SCHEDULED: <2009-10-28 Wed>
+   - State "DONE"       from "TODO"       [2009-10-29 Thu 00:25]
+   :PROPERTIES:
+   :ID: 112D575E-51DB-4792-9280-3B559747BB00
+   :END:
+   [2009-10-28 Wed 17:28]
+** DONE Use a "token context" in the query parser
+   SCHEDULED: <2009-10-28 Wed>
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]
+   :PROPERTIES:
+   :ID: A77821CD-DB8D-46A1-B873-4257F2796A5B
+   :END:
+   [2009-10-28 Wed 17:28]
+** DONE The query parser should produce ptr_op_t trees directly
+   SCHEDULED: <2009-10-28 Wed>
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]
+   :PROPERTIES:
+   :ID: 9165C59D-8933-4115-8684-5851A1D059C6
+   :END:
+   [2009-10-28 Wed 17:29]
+** DONE Sort register reports by date by default
+   SCHEDULED: <2009-10-27 Tue>
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:20]
+   :PROPERTIES:
+   :ID: 926078B5-07B9-4258-B769-8C3FD4BC0C81
+   :END:
+   [2009-10-27 Tue 22:44]
+** DONE Make -D a synonym for --daily, instead of --deviation
+   SCHEDULED: <2009-10-27 Tue>
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:20]
+   :PROPERTIES:
+   :ID: 6DCB7E25-5D3B-47A6-9651-9B7F3EF71FB2
+   :END:
+   [2009-10-27 Tue 22:48]
+** DONE Default to reading ~/.ledger if no -f is used
+   SCHEDULED: <2009-10-27 Tue>
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 02:09]
+   :PROPERTIES:
+   :ID: A76909EF-6C29-4424-8E0C-F99A60D5A3D4
+   :END:
+   [2009-10-27 Tue 22:38]
 ** DONE Add an md5 valexpr function
    - State "DONE"       from "TODO"       [2009-10-25 Sun 22:01]
    Russell can generate a report using this instead of storing a string.
@@ -4106,6 +4191,13 @@ getquote GSK_L
    :END:
    [2009-02-24 Tue 11:08]
 * Tests
+** DONE The tokenizer unit test can just iterate the token stream
+   SCHEDULED: <2009-10-28 Wed>
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]
+   :PROPERTIES:
+   :ID: ABCB7791-E098-4C32-A2F6-129E61CC4B10
+   :END:
+   [2009-10-28 Wed 17:29]
 ** DONE Write an org-mode function to turn a bug TODO into a regression test
    - State "DONE"       from "TODO"       [2009-10-25 Sun 21:58]
    :PROPERTIES:

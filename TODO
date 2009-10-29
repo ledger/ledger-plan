@@ -10,65 +10,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] Found bugs in the report query syntax parser
-   Fails to parse:
-   :SCRIPT:
-   ledger bal --sort total --flat -X '$' not '(Income|Liabilities)'
-   :END:
-   :PROPERTIES:
-   :ID: 373540CC-613B-47BC-B72F-C6D347157736
-   :END:
-   [2009-10-26 Mon 17:50]
-** TODO [#A] Change processing of ~/.ledgerrc
-   - Note taken on [2009-10-27 Tue 22:02] \\
-     Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
-   1. Before parsing, run through and handle options that session_t and
-      global_scope_t know about.
-   2. Before reporting or loading the REPL, run through and handle all other
-      options and any commands found.
-   :PROPERTIES:
-   :ID: 71FE0FAB-622D-403C-A944-C7541948AFFF
-   :END:
-   [2009-02-19 Thu 15:10]
-** TODO In the "pricesdb" report, output commodity conversions
-   ... and "N" commands.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 110
-   :ID: 1BE0C80D-AC4D-4372-B830-14193554EF6B
-   :END:
-   [2008-04-11 Fri]
-** TODO The --strict option should also prevent new commodities
-   :PROPERTIES:
-   :ID: 3254504D-FA9F-4E60-B56D-414C6EF03BFE
-   :END:
-   [2009-03-07 Sat 00:31]
-** TODO [#C] Clear out all #if 0 and jww commented sections
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 97
-   :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
-   :END:
-   [2008-04-11 Fri]
-** TODO The entry command drops price specifications
-   If you enter a pricing command like this in Emacs:
-   :DATA:
-   C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
-   :END:
-   The resulting entry omits the '@ ...' part.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 192
-   :ID: 03C6208E-E48F-45BB-BFBF-2C38B129458A
-   :END:
-   [2008-05-03 Sat]
-** TODO Valexpr strings cannot have chars like \n
-   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
-   - State "DEFERRED"   from "TODO"       [2009-06-28 Sun 17:37]
-   :PROPERTIES:
-   :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
-   :END:
-   [2009-02-27 Fri 13:19]
 * Build
   :PROPERTIES:
   :CATEGORY: Build
@@ -83,6 +24,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
+** TODO Clear out all #if 0 and jww commented sections
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 97
+   :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
+   :END:
+   [2008-04-11 Fri]
 ** TODO [#C] Run Ledger through the profiler, against mondo.dat (to beat 11s)
    :PROPERTIES:
    :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
@@ -117,6 +65,44 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO In the "pricesdb" report, output commodity conversions
+   ... and "N" commands.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 110
+   :ID: 1BE0C80D-AC4D-4372-B830-14193554EF6B
+   :END:
+   [2008-04-11 Fri]
+** TODO The --strict option should also prevent new commodities
+   :PROPERTIES:
+   :ID: 3254504D-FA9F-4E60-B56D-414C6EF03BFE
+   :END:
+   [2009-03-07 Sat 00:31]
+** TODO The entry command drops price specifications
+   If you enter a pricing command like this in Emacs:
+   :DATA:
+   C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
+   :END:
+   The resulting entry omits the '@ ...' part.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 192
+   :ID: 03C6208E-E48F-45BB-BFBF-2C38B129458A
+   :END:
+   [2008-05-03 Sat]
+** TODO Valexpr strings cannot have chars like \n
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
+   - State "DEFERRED"   from "TODO"       [2009-06-28 Sun 17:37]
+   :PROPERTIES:
+   :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
+   :END:
+   [2009-02-27 Fri 13:19]
+** TODO Have an option --forecast-years
+   SCHEDULED: <2009-10-28 Wed>
+   :PROPERTIES:
+   :ID: C6B21504-DF86-43AC-AEFE-2F3D843DDB0B
+   :END:
+   [2009-10-28 Wed 17:28]
 ** TODO Value expressions for getting at the lot date
    For example: lotdate, lotdateof(x)
    :PROPERTIES:
