@@ -4267,6 +4267,14 @@ getquote GSK_L
    :END:
    [2009-02-24 Tue 11:08]
 * Tests
+** DONE Clear out all #if 0 and jww commented sections
+   - State "DONE"       from ""           [2009-10-31 Sat 04:33]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 97
+   :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
+   :END:
+   [2008-04-11 Fri]
 ** DONE The tokenizer unit test can just iterate the token stream
    SCHEDULED: <2009-10-28 Wed>
    - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]

@@ -26,18 +26,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** Clear out all #if 0 and jww commented sections
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 97
-   :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
-   :END:
-   [2008-04-11 Fri]
-** Run Ledger through the profiler, against mondo.dat (to beat 11s)
-   :PROPERTIES:
-   :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
-   :END:
-   [2009-02-25 Wed 04:15]
 ** Create regression tests for all closed 2.6.1 and 3.0 bugs
    :PROPERTIES:
    :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
@@ -48,6 +36,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
    :END:
    [2008-08-14 Thu]
+** Run Ledger through the profiler, against mondo.dat (to beat 11s)
+   :PROPERTIES:
+   :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
+   :END:
+   [2009-02-25 Wed 04:15]
 * Docs
   :PROPERTIES:
   :CATEGORY: Docs
