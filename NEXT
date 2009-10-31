@@ -5,6 +5,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * Build
+** DEFERRED Add some more configure arguments
+   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
+   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
+   :PROPERTIES:
+   :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
+   :END:
+   [2009-03-26 Thu 02:09]
 ** DEFERRED Setup virtual machines for every OS Ledger should run on
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
    :PROPERTIES:

@@ -3399,6 +3399,13 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-09-02 Tue 06:26]
 * Emacs
+** DONE [#A] Pressing space bar on items on the reconcile window does nothing		   :LINK:
+   - State "DONE"       from "TODO"       [2009-10-31 Sat 04:16]
+   message://01BBC0A5-1185-4FCF-8D8C-72E29FA86675@gmail.com
+   :PROPERTIES:
+   :ID: AC756278-72D5-4CAC-82A7-334A9BB6F7EE
+   :END:
+   [2009-10-03 Sat 03:23]
 ** DONE C-c C-c on a cleared entry doesn't unclear it
    - State "DONE"       from "TODO"       [2009-06-16 Tue 18:11]
    :PROPERTIES:
@@ -3415,6 +3422,63 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
+** DONE In the "pricesdb" report, output commodity conversions
+   - State "DONE"       from "TODO"       [2009-10-31 Sat 03:22]
+   ... and "N" commands.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 110
+   :ID: 1BE0C80D-AC4D-4372-B830-14193554EF6B
+   :END:
+   [2008-04-11 Fri]
+** DONE Convert *all* valexpr functions to use interactive_t
+   - State "DONE"       from "TODO"       [2009-10-31 Sat 03:33]
+   :PROPERTIES:
+   :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
+   :END:
+   [2009-02-21 Sat 17:36]
+** DONE The --strict option should also prevent new commodities
+   - State "DONE"       from "TODO"       [2009-10-31 Sat 03:08]
+   :PROPERTIES:
+   :ID: 3254504D-FA9F-4E60-B56D-414C6EF03BFE
+   :END:
+   [2009-03-07 Sat 00:31]
+** DONE The entry command drops price specifications
+   - State "DONE"       from "TODO"       [2009-10-31 Sat 02:54]
+   If you enter a pricing command like this in Emacs:
+   :DATA:
+   C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
+   :END:
+   The resulting entry omits the '@ ...' part.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 192
+   :ID: 03C6208E-E48F-45BB-BFBF-2C38B129458A
+   :END:
+   [2008-05-03 Sat]
+** DONE Valexpr strings cannot have chars like \n
+   - State "DONE"       from "TODO"       [2009-10-31 Sat 02:59]
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
+   - State "DEFERRED"   from "TODO"       [2009-06-28 Sun 17:37]
+   :PROPERTIES:
+   :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
+   :END:
+   [2009-02-27 Fri 13:19]
+** DONE Have an option --forecast-years
+   - State "DONE"       from "TODO"       [2009-10-31 Sat 03:06]
+   :PROPERTIES:
+   :ID: C6B21504-DF86-43AC-AEFE-2F3D843DDB0B
+   :END:
+   [2009-10-28 Wed 17:28]
+** DONE Value expressions for getting at the lot date
+   - State "DONE"       from "TODO"       [2009-10-31 Sat 03:10]
+   For example: lotdate, lotdateof(x)
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 148
+   :ID: A1230B8C-EF48-40BB-A200-18E7E94620BE
+   :END:
+   [2008-04-11 Fri]
 ** DONE Allow // regex in the query parser
    SCHEDULED: <2009-10-28 Wed>
    - State "DONE"       from "TODO"       [2009-10-29 Thu 00:25]

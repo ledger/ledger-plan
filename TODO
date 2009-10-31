@@ -14,104 +14,36 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO In the "pricesdb" report, output commodity conversions
-   ... and "N" commands.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 110
-   :ID: 1BE0C80D-AC4D-4372-B830-14193554EF6B
-   :END:
-   [2008-04-11 Fri]
-** TODO The --strict option should also prevent new commodities
-   :PROPERTIES:
-   :ID: 3254504D-FA9F-4E60-B56D-414C6EF03BFE
-   :END:
-   [2009-03-07 Sat 00:31]
-** TODO The entry command drops price specifications
-   If you enter a pricing command like this in Emacs:
-   :DATA:
-   C -c C-a 2008/02/19 chevron 'GAL 11.118 @ $ 2.879'
-   :END:
-   The resulting entry omits the '@ ...' part.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 192
-   :ID: 03C6208E-E48F-45BB-BFBF-2C38B129458A
-   :END:
-   [2008-05-03 Sat]
-** TODO Valexpr strings cannot have chars like \n
-   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
-   - State "DEFERRED"   from "TODO"       [2009-06-28 Sun 17:37]
-   :PROPERTIES:
-   :ID: 23680D4C-0361-46DA-AC8F-C98CFF79F47B
-   :END:
-   [2009-02-27 Fri 13:19]
-** TODO Have an option --forecast-years
-   :PROPERTIES:
-   :ID: C6B21504-DF86-43AC-AEFE-2F3D843DDB0B
-   :END:
-   [2009-10-28 Wed 17:28]
-** TODO Value expressions for getting at the lot date
-   For example: lotdate, lotdateof(x)
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 148
-   :ID: A1230B8C-EF48-40BB-A200-18E7E94620BE
-   :END:
-   [2008-04-11 Fri]
-** TODO Convert *all* valexpr functions to use interactive_t
-   :PROPERTIES:
-   :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
-   :END:
-   [2009-02-21 Sat 17:36]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
-** TODO [#A] Pressing space bar on items on the reconcile window does nothing		   :LINK:
-   message://01BBC0A5-1185-4FCF-8D8C-72E29FA86675@gmail.com
-   :PROPERTIES:
-   :ID: AC756278-72D5-4CAC-82A7-334A9BB6F7EE
-   :END:
-   [2009-10-03 Sat 03:23]
 * Build
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO Add some more configure arguments
-   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
-   :PROPERTIES:
-   :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
-   :END:
-   [2009-03-26 Thu 02:09]
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** TODO [#C] Run acprep proof nightly until the 3.0 release is ready
-   SCHEDULED: <2009-10-30 Fri>
-   :PROPERTIES:
-   :ID: 04574A9F-3EA6-4EFF-BA99-241A298A01EF
-   :END:
-   [2009-10-29 Thu 01:15]
-** TODO Clear out all #if 0 and jww commented sections
+** Clear out all #if 0 and jww commented sections
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 97
    :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
    :END:
    [2008-04-11 Fri]
-** TODO Run Ledger through the profiler, against mondo.dat (to beat 11s)
+** Run Ledger through the profiler, against mondo.dat (to beat 11s)
    :PROPERTIES:
    :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
    :END:
    [2009-02-25 Wed 04:15]
-** TODO Create regression tests for all the closed 2.6.1 and 3.0 bugs
+** Create regression tests for all closed 2.6.1 and 3.0 bugs
    :PROPERTIES:
    :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
    :END:
    [2008-08-14 Thu]
-** TODO Use coverage analysis to determine if all of Ledger is being tested
+** Use coverage analysis to determine if everything is being tested
    :PROPERTIES:
    :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
    :END:
