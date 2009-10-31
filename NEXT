@@ -4,123 +4,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
 #+CATEGORY: Ledger
 
-* Build
-** DEFERRED Add some more configure arguments
-   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
-   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
-   :PROPERTIES:
-   :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
-   :END:
-   [2009-03-26 Thu 02:09]
-** DEFERRED Setup virtual machines for every OS Ledger should run on
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
-   :PROPERTIES:
-   :ID: C91FEFD0-CF11-41C2-B2D0-B6BED7E142A2
-   :END:
-   [2009-10-08 Thu 17:12]
-** DEFERRED Ledger 2.6 is not building on Debian 5 latest
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
-   :PROPERTIES:
-   :ID: 427F8D8D-39CB-47ED-8438-BF07BBBE6672
-   :END:
-   [2009-04-24 Fri 17:13]
-** DEFERRED Build .deb, .rpm, .exe (in .zip), and .pkg installs
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
-   :PROPERTIES:
-   :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
-   :END:
-   [2009-01-29 Thu 19:40]
-** DEFERRED Avoid having to rm -fr ledger-proof
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
-   :OUTPUT:
-acprep: INFO: === Wiping build directory /home/nafai/Products/ledger-proof/default ===
-acprep: ERROR: Caught exception
-Traceback (most recent call last):
-  File "./acprep", line 141, in run
-    exit_code = self.main(*main_args)
-  File "./acprep", line 297, in main
-    PrepareBuild.__dict__['phase_' + cmd](self, *args)
-  File "./acprep", line 1239, in phase_proof
-    self.configure_flavor('default')
-  File "./acprep", line 1176, in configure_flavor
-    shutil.rmtree(self.build_directory())
-  File "/usr/lib/python2.5/shutil.py", line 175, in rmtree
-    rmtree(fullname, ignore_errors, onerror)
-  File "/usr/lib/python2.5/shutil.py", line 180, in rmtree
-    onerror(os.remove, fullname, sys.exc_info())
-  File "/usr/lib/python2.5/shutil.py", line 178, in rmtree
-    os.remove(fullname)
-OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/default/ledger-3.0/config.sub'
-   :END:
-   :PROPERTIES:
-   :ID: 12D4AB31-964F-4206-8AA0-2CA9C509DA30
-   :END:
-   [2009-03-11 Wed 20:54]
-* Docs
-** DEFERRED Complete the internal documentation, exported using Doxygen
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:10]
-   :PROPERTIES:
-   :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
-   :END:
-   [2008-08-14 Thu]
-** DEFERRED [#C] Ledger example: building a better "du"				    :LINK:ATTACH:
-   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
-   Since Ledger does not internally focus on finance, there is no reason why
-   it can't be used in any situation where amounts are either kept in certain
-   places, or moved from place to place, including:
-   
-   - tracking time
-   - recording data transfers between computers
-   - recording scientific data (converting any input to any output)
-   - reporting on the layout of your hard drive
-   
-   To show an example of this, I'm written a Python script called "ledger-du"
-   which simply outputs whatever directories you specify as arguments in the
-   form of Ledger entries.  There is one entry per file, where the "payee" is
-   the file name, the "account" is a colon-separated directory hierarchy, and
-   the "date" is the last modified time of the file.
-   
-   By running this script and sending the output to "/tmp/out.dat", you can
-   now perform some very sophisticated queries on your data -- including
-   showing you the same kind of information that the venerable "du" itself
-   would show.  Except that now you can see the tree hierarchy with the
-   "balance" command, and other enhancements to the basic form of "du".
-   
-   For example, here's a command that shows me where all my C++ source files
-   are, subtotaled by the sub-directory that contains them, and sorted by
-   total size.  The "equity" account (where all the bytes are balanced) even
-   ends up telling me the total size of all C++ files in my queried directory:
-   :SCRIPT:
-   ledger --format \
-     "%D %-.20P\n  %-.52A %12.67t %12.80T\n%/  %-.52A %12.67t %12.80T\n" \
-     -f /tmp/out.dat -s -S "-U(t)" register -- \\.cc\$
-   :END:
-   
-   I specified a new format string here (a variation on the default balance
-   format) so that I could see account totals each on their own line, since
-   some of the account names get very long.
-   :PROPERTIES:
-   :Version:  2.6
-   :Ticket:   169
-   :ID:       85DAE1AB-F6D3-4AAC-A4F7-99D146B355E7
-   :Message:  message://m2odzwxupz.fsf@newartisans.com
-   :Attachments: ledger-du
-   :END:
-   [2006-03-24 Fri]
-** DEFERRED [#C] Using Ledger as a scientific analysis tool
-   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 173
-   :ID: C653003E-52A8-4D06-9DEB-634B1156B04C
-   :END:
-** DEFERRED [#C] Using Ledger to track inventory
-   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 174
-   :ID: F7A6A833-5AC6-4ED0-A5EA-93CD6B97EEBF
-   :END:
 * Features
 ** DEFERRED Restore the XML parser (code is in xml local branch)
    - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:15]
@@ -456,27 +339,14 @@ Error: A posting's cost may not be negative
    :Message: [[message://20090703063943.GB16282@chivetta.org][Re: sample ledgers and anonymising]]
    :END:
    [2009-07-03 Fri 08:38]
-* Tests
-** DEFERRED [#C] Ledger is still failing the higher-numbered generation seed tests
-   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
-   :PROPERTIES:
-   :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
-   :END:
-   [2009-03-03 Tue 15:47]
-** DEFERRED [#C] New tests to create for Ledger [0/3]
-   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 21:54]
-   - [ ] GarbageTests
-	 Feed every one of the distribution's source files back to Ledger, to
-         make sure it dies gracefully.
-   - [ ] RandomTests
-	 Feed random data (probably base64) both as options and input.
-   - [ ] ScrambleTests
-	 Pass random combinations of options.
-   :PROPERTIES:
-   :ID: F866DFA5-7350-45D3-BF76-286D68755A2A
-   :END:
-   [2009-02-27 Fri 16:19]
 * Emacs
+** DEFERRED Add colorized highlighting to the reconciler
+   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
+   http://thread.gmane.org/gmane.comp.finance.ledger.general/483
+   :PROPERTIES:
+   :ID: C7E28F7F-93F9-4C3F-956A-4F4B84868CBF
+   :END:
+   [2009-10-31 Sat 00:06]
 ** DEFERRED Redesign ledger.el
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    It should always be talking with Ledger via the REPL.
@@ -783,3 +653,140 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
    :END:
    [2009-06-24 Wed 17:27]
+* Build
+** DEFERRED Add some more configure arguments
+   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
+   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
+   :PROPERTIES:
+   :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
+   :END:
+   [2009-03-26 Thu 02:09]
+** DEFERRED Setup virtual machines for every OS Ledger should run on
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: C91FEFD0-CF11-41C2-B2D0-B6BED7E142A2
+   :END:
+   [2009-10-08 Thu 17:12]
+** DEFERRED Ledger 2.6 is not building on Debian 5 latest
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: 427F8D8D-39CB-47ED-8438-BF07BBBE6672
+   :END:
+   [2009-04-24 Fri 17:13]
+** DEFERRED Build .deb, .rpm, .exe (in .zip), and .pkg installs
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
+   :END:
+   [2009-01-29 Thu 19:40]
+** DEFERRED Avoid having to rm -fr ledger-proof
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
+   :OUTPUT:
+acprep: INFO: === Wiping build directory /home/nafai/Products/ledger-proof/default ===
+acprep: ERROR: Caught exception
+Traceback (most recent call last):
+  File "./acprep", line 141, in run
+    exit_code = self.main(*main_args)
+  File "./acprep", line 297, in main
+    PrepareBuild.__dict__['phase_' + cmd](self, *args)
+  File "./acprep", line 1239, in phase_proof
+    self.configure_flavor('default')
+  File "./acprep", line 1176, in configure_flavor
+    shutil.rmtree(self.build_directory())
+  File "/usr/lib/python2.5/shutil.py", line 175, in rmtree
+    rmtree(fullname, ignore_errors, onerror)
+  File "/usr/lib/python2.5/shutil.py", line 180, in rmtree
+    onerror(os.remove, fullname, sys.exc_info())
+  File "/usr/lib/python2.5/shutil.py", line 178, in rmtree
+    os.remove(fullname)
+OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/default/ledger-3.0/config.sub'
+   :END:
+   :PROPERTIES:
+   :ID: 12D4AB31-964F-4206-8AA0-2CA9C509DA30
+   :END:
+   [2009-03-11 Wed 20:54]
+* Tests
+** DEFERRED [#C] Ledger is still failing the higher-numbered generation seed tests
+   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
+   :PROPERTIES:
+   :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
+   :END:
+   [2009-03-03 Tue 15:47]
+** DEFERRED [#C] New tests to create for Ledger [0/3]
+   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 21:54]
+   - [ ] GarbageTests
+	 Feed every one of the distribution's source files back to Ledger, to
+         make sure it dies gracefully.
+   - [ ] RandomTests
+	 Feed random data (probably base64) both as options and input.
+   - [ ] ScrambleTests
+	 Pass random combinations of options.
+   :PROPERTIES:
+   :ID: F866DFA5-7350-45D3-BF76-286D68755A2A
+   :END:
+   [2009-02-27 Fri 16:19]
+* Docs
+** DEFERRED Complete the internal documentation, exported using Doxygen
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:10]
+   :PROPERTIES:
+   :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
+   :END:
+   [2008-08-14 Thu]
+** DEFERRED [#C] Ledger example: building a better "du"				    :LINK:ATTACH:
+   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
+   Since Ledger does not internally focus on finance, there is no reason why
+   it can't be used in any situation where amounts are either kept in certain
+   places, or moved from place to place, including:
+   
+   - tracking time
+   - recording data transfers between computers
+   - recording scientific data (converting any input to any output)
+   - reporting on the layout of your hard drive
+   
+   To show an example of this, I'm written a Python script called "ledger-du"
+   which simply outputs whatever directories you specify as arguments in the
+   form of Ledger entries.  There is one entry per file, where the "payee" is
+   the file name, the "account" is a colon-separated directory hierarchy, and
+   the "date" is the last modified time of the file.
+   
+   By running this script and sending the output to "/tmp/out.dat", you can
+   now perform some very sophisticated queries on your data -- including
+   showing you the same kind of information that the venerable "du" itself
+   would show.  Except that now you can see the tree hierarchy with the
+   "balance" command, and other enhancements to the basic form of "du".
+   
+   For example, here's a command that shows me where all my C++ source files
+   are, subtotaled by the sub-directory that contains them, and sorted by
+   total size.  The "equity" account (where all the bytes are balanced) even
+   ends up telling me the total size of all C++ files in my queried directory:
+   :SCRIPT:
+   ledger --format \
+     "%D %-.20P\n  %-.52A %12.67t %12.80T\n%/  %-.52A %12.67t %12.80T\n" \
+     -f /tmp/out.dat -s -S "-U(t)" register -- \\.cc\$
+   :END:
+   
+   I specified a new format string here (a variation on the default balance
+   format) so that I could see account totals each on their own line, since
+   some of the account names get very long.
+   :PROPERTIES:
+   :Version:  2.6
+   :Ticket:   169
+   :ID:       85DAE1AB-F6D3-4AAC-A4F7-99D146B355E7
+   :Message:  message://m2odzwxupz.fsf@newartisans.com
+   :Attachments: ledger-du
+   :END:
+   [2006-03-24 Fri]
+** DEFERRED [#C] Using Ledger as a scientific analysis tool
+   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 173
+   :ID: C653003E-52A8-4D06-9DEB-634B1156B04C
+   :END:
+** DEFERRED [#C] Using Ledger to track inventory
+   - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 174
+   :ID: F7A6A833-5AC6-4ED0-A5EA-93CD6B97EEBF
+   :END:
