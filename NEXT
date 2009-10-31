@@ -433,7 +433,29 @@ Error: A posting's cost may not be negative
    :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
    :END:
    [2008-04-11 Fri]
+** DEFERRED [#C] Combine a random seed when hashing when using --anon			   :LINK:
+   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
+   Please keep in mind that the dictionary one pulls account names from is MUCH
+   smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
+   a string $foo, it is easy to tell if this is the hash of "Bar, Inc." or
+   "Baz, Inc.".  So, while in theory it is hard to reverse, it becomes very
+   easy in practice if I know anything about your company or even the language
+   that the accounts will be in.  Finally, because of rainbow tables, these
+   might even be easy to reverse without knowing anything about the target
+   company.
+   :PROPERTIES:
+   :Submitter: Anthony Chivetta <anthony@chivetta.org>
+   :ID: 03DA2F5B-9E0C-4E3B-B19D-531A4F77C050
+   :Message: [[message://20090703063943.GB16282@chivetta.org][Re: sample ledgers and anonymising]]
+   :END:
+   [2009-07-03 Fri 08:38]
 * Tests
+** DEFERRED [#C] Ledger is still failing the higher-numbered generation seed tests
+   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
+   :PROPERTIES:
+   :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
+   :END:
+   [2009-03-03 Tue 15:47]
 ** DEFERRED [#C] New tests to create for Ledger [0/3]
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 21:54]
    - [ ] GarbageTests

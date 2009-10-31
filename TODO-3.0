@@ -2830,7 +2830,6 @@ $ ledger -f <DATA> register
    The following code shows the exception:
    :SOURCE:
    #include <string>
-
    #include <boost/regex.hpp>
    
    int main(int argc, char **argv)
@@ -2840,11 +2839,24 @@ $ ledger -f <DATA> register
      return 1;
    }
    :END:
+
+   This happens when there is a mismatch in the use of _GLIBCXX_DEBUG.
    :PROPERTIES:
    :ID: 3C40259C-BE0C-4657-A379-80E2F2B61286
    :VISIBILITY: folded
    :END:
    [2009-10-25 Sun 03:38]
+** NOTE Building Boost with g++-4.4:
+   boost/tools/build/v2/user-config.jam:
+     using gcc : 4.4 : g++-4.4 ;
+   boost/tools/build/v2/tools/darwin.jam:
+     local command = [ common.get-invocation-command darwin : g++ : g++-mp-4.4 ] ;
+     flags darwin.compile OPTIONS : -gdwarf-2 ;
+   :PROPERTIES:
+   :ID: 0C8CDAC9-5280-4111-82DE-91C0B7206714
+   :VISIBILITY: folded
+   :END:
+   [2009-10-29 Thu 23:09]
 * Build
 ** DONE [#A] tools/proof is failing
    - State "DONE"       [2009-03-08 Sun 01:24]

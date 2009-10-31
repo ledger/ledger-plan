@@ -10,57 +10,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-* Build
-  :PROPERTIES:
-  :CATEGORY: Build
-  :END:
-** TODO Add some more configure arguments
-   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
-   :PROPERTIES:
-   :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
-   :END:
-   [2009-03-26 Thu 02:09]
-* Tests
-  :PROPERTIES:
-  :CATEGORY: Tests
-  :END:
-** TODO Clear out all #if 0 and jww commented sections
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 97
-   :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
-   :END:
-   [2008-04-11 Fri]
-** TODO [#C] Run Ledger through the profiler, against mondo.dat (to beat 11s)
-   :PROPERTIES:
-   :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
-   :END:
-   [2009-02-25 Wed 04:15]
-** TODO [#C] Create regression tests for all the closed 2.6.1 and 3.0 bugs
-   :PROPERTIES:
-   :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
-   :END:
-   [2008-08-14 Thu]
-** TODO [#C] Use coverage analysis to determine if all of Ledger is being tested
-   :PROPERTIES:
-   :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
-   :END:
-   [2008-08-14 Thu]
-** TODO [#C] Ledger is still failing the higher-numbered generation seed tests
-   :PROPERTIES:
-   :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
-   :END:
-   [2009-03-03 Tue 15:47]
-* Emacs
-  :PROPERTIES:
-  :CATEGORY: Emacs
-  :END:
-** TODO [#A] Pressing space bar on items on the reconcile window does nothing		   :LINK:
-   message://01BBC0A5-1185-4FCF-8D8C-72E29FA86675@gmail.com
-   :PROPERTIES:
-   :ID: AC756278-72D5-4CAC-82A7-334A9BB6F7EE
-   :END:
-   [2009-10-03 Sat 03:23]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
@@ -98,7 +47,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-02-27 Fri 13:19]
 ** TODO Have an option --forecast-years
-   SCHEDULED: <2009-10-28 Wed>
    :PROPERTIES:
    :ID: C6B21504-DF86-43AC-AEFE-2F3D843DDB0B
    :END:
@@ -116,21 +64,58 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: DF11A428-9958-44EB-99A8-34C48AB8365C
    :END:
    [2009-02-21 Sat 17:36]
-** TODO [#C] Combine a random seed when hashing when using --anon			   :LINK:
-   Please keep in mind that the dictionary one pulls account names from is MUCH
-   smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
-   a string $foo, it is easy to tell if this is the hash of "Bar, Inc." or
-   "Baz, Inc.".  So, while in theory it is hard to reverse, it becomes very
-   easy in practice if I know anything about your company or even the language
-   that the accounts will be in.  Finally, because of rainbow tables, these
-   might even be easy to reverse without knowing anything about the target
-   company.
+* Emacs
+  :PROPERTIES:
+  :CATEGORY: Emacs
+  :END:
+** TODO [#A] Pressing space bar on items on the reconcile window does nothing		   :LINK:
+   message://01BBC0A5-1185-4FCF-8D8C-72E29FA86675@gmail.com
    :PROPERTIES:
-   :Submitter: Anthony Chivetta <anthony@chivetta.org>
-   :ID: 03DA2F5B-9E0C-4E3B-B19D-531A4F77C050
-   :Message: [[message://20090703063943.GB16282@chivetta.org][Re: sample ledgers and anonymising]]
+   :ID: AC756278-72D5-4CAC-82A7-334A9BB6F7EE
    :END:
-   [2009-07-03 Fri 08:38]
+   [2009-10-03 Sat 03:23]
+* Build
+  :PROPERTIES:
+  :CATEGORY: Build
+  :END:
+** TODO Add some more configure arguments
+   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
+   :PROPERTIES:
+   :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
+   :END:
+   [2009-03-26 Thu 02:09]
+* Tests
+  :PROPERTIES:
+  :CATEGORY: Tests
+  :END:
+** TODO [#C] Run acprep proof nightly until the 3.0 release is ready
+   SCHEDULED: <2009-10-30 Fri>
+   :PROPERTIES:
+   :ID: 04574A9F-3EA6-4EFF-BA99-241A298A01EF
+   :END:
+   [2009-10-29 Thu 01:15]
+** TODO Clear out all #if 0 and jww commented sections
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 97
+   :ID: 7C87DEC8-1FB6-47FC-ADAC-01980020924B
+   :END:
+   [2008-04-11 Fri]
+** TODO Run Ledger through the profiler, against mondo.dat (to beat 11s)
+   :PROPERTIES:
+   :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
+   :END:
+   [2009-02-25 Wed 04:15]
+** TODO Create regression tests for all the closed 2.6.1 and 3.0 bugs
+   :PROPERTIES:
+   :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
+   :END:
+   [2008-08-14 Thu]
+** TODO Use coverage analysis to determine if all of Ledger is being tested
+   :PROPERTIES:
+   :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
+   :END:
+   [2008-08-14 Thu]
 * Docs
   :PROPERTIES:
   :CATEGORY: Docs
