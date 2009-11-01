@@ -571,15 +571,97 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :END:
    [2009-06-19 Fri 00:49]
 * Python
-** DEFERRED [#C] Fix boost::optional translation class for Dmitriy			   :LINK:
-   - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:11]
-   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:27]
-   [[message://2fd72fb20901281006u181318bke33c44a25098dfd8@mail.gmail.com][Re: boost::optional and boost::python]]
+** DEFERRED Complete Python integration [0/85]
+   - State "DEFERRED"   from "TODO"       [2009-11-01 Sun 06:28]
+   - [ ] account_t
+   - [ ] acct_value_t
+   - [ ] amount_t
+   - [ ] annotated_commodity_t
+   - [ ] annotation_t
+   - [ ] archive_t
+   - [ ] auto_xact_t
+   - [ ] balance_t
+   - [ ] base_t
+   - [ ] basic_flags_t
+   - [ ] bind_scope_t
+   - [ ] call_scope_t
+   - [ ] child_scope_t
+   - [ ] commodity_pool_t
+   - [ ] commodity_t
+   - [ ] date_interval_t
+   - [ ] expr_t
+   - [ ] format_t
+   - [ ] func_finalizer_t
+   - [ ] functor_t
+   - [ ] global_scope_t
+   - [ ] hooks_t
+   - [ ] in_context_t
+   - [ ] instance_t
+   - [ ] interactive_t
+   - [ ] item_t
+   - [ ] journal_t
+   - [ ] keep_details_t
+   - [ ] mask_t
+   - [ ] op_t
+   - [ ] option_t
+   - [ ] output_stream_t
+   - [ ] parser_t
+   - [ ] period_xact_t
+   - [ ] post_t
+   - [ ] push_to_posts_list
+   - [ ] python_interpreter_t
+   - [ ] query_lexer_t
+   - [ ] query_parser_t
+   - [ ] report_t
+   - [ ] scope_t
+   - [ ] session_t
+   - [ ] storage_t
+   - [ ] symbol_scope_t
+   - [ ] temporal_io_t
+   - [ ] temporaries_t
+   - [ ] time_log_t
+   - [ ] time_xact_t
+   - [ ] value_t
+   - [ ] xact_base_t
+   - [ ] xact_finalizer_t
+   - [ ] xact_t
+   - [ ] amount_t
+   - [ ] annotation_t
+   - [ ] auto_xact_finalizer_t
+   - [ ] bigint_t
+   - [ ] bool_to_python
+   - [ ] context_t
+   - [ ] cost_breakdown_t
+   - [ ] date_to_python
+   - [ ] datetime_to_python
+   - [ ] details_t
+   - [ ] duration_t
+   - [ ] element_t
+   - [ ] expr_t
+   - [ ] fileinfo_t
+   - [ ] history_t
+   - [ ] istream_to_python
+   - [ ] keep_details_t
+   - [ ] op_bool_char_tuple
+   - [ ] optional_to_python
+   - [ ] ostream_to_python
+   - [ ] position_t
+   - [ ] post_template_t
+   - [ ] price_point_t
+   - [ ] py_xact_finalizer_t
+   - [ ] register_optional_to_python
+   - [ ] sort_value_t
+   - [ ] string_to_python
+   - [ ] timer_t
+   - [ ] token_t
+   - [ ] varied_history_t
+   - [ ] xact_finalizer_t
+   - [ ] xact_template_t
+   - [ ] xdata_t
    :PROPERTIES:
-   :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
+   :ID: 380C8009-E5AD-4E9F-A285-4CB45FA1DD92
    :END:
-   [2009-02-02 Mon 03:13]
+   [2009-11-01 Sun 06:27]
 ** DEFERRED Get ledger python to run within the build tree
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
@@ -653,6 +735,15 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
    :END:
    [2009-06-24 Wed 17:27]
+** DEFERRED [#C] Fix boost::optional translation class for Dmitriy			   :LINK:
+   - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:11]
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:27]
+   [[message://2fd72fb20901281006u181318bke33c44a25098dfd8@mail.gmail.com][Re: boost::optional and boost::python]]
+   :PROPERTIES:
+   :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
+   :END:
+   [2009-02-02 Mon 03:13]
 * Build
 ** DEFERRED Add some more configure arguments
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
