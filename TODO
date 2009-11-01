@@ -10,6 +10,70 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO !include statememt no longer accepts simple filenames
+   SCHEDULED: <2009-11-01 Sun>
+   It needs the full path to the file.
+   :PROPERTIES:
+   :ID: 272532BD-9BC5-46AA-B94C-BBAD05F35893
+   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
+   :END:
+   [2009-11-01 Sun 05:50]
+** TODO No error message is thrown if cannot find an included file
+   SCHEDULED: <2009-11-01 Sun>
+   :PROPERTIES:
+   :ID: 6188B0EC-A38F-41AE-9B65-8E155641AB99
+   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
+   :END:
+   [2009-11-01 Sun 05:50]
+** TODO Make sure the period flag (-p) can accept "YYYY/MM"
+   SCHEDULED: <2009-11-01 Sun>
+   :PROPERTIES:
+   :ID: 7F3650FD-7225-47D5-AB77-A0D5025B4941
+   :Message:  [[message://741c09a4-9f52-4346-9e6f-2f4d407e5e49@s31g2000yqs.googlegroups.com][Re: All known bugs and features for 3.0 implemented]]
+   :END:
+   [2009-11-01 Sun 05:51]
+** TODO budget misbehavior with account tree
+   SCHEDULED: <2009-11-01 Sun>
+   The budget command behaves slightly different than I would expect
+   for parent accounts.  Here is example output:
+   :OUTPUT:
+   % ledger budget -p this --effective --flat food
+       $ 490.46     $ 925.00    $ -434.54   53%  Expenses:Food
+       $ 361.11     $ 325.00      $ 36.11  111%  Expenses:Food:Groceries
+       $ 129.35     $ 100.00      $ 29.35  129%  Expenses:Food:Out
+   ------------ ------------ ------------ -----
+       $ 490.46     $ 925.00    $ -434.54   53%
+   :END:
+
+   The relevant journal context:
+   :SOURCE:
+   ~ Monthly
+     Expenses:Food                $ 500.00
+     Expenses:Food:Out            $ 100.00
+     Expenses:Food:Groceries      $ 325.00
+     Assets
+   :END:
+
+   It looks like :Food gets added to its children instead of picking up the
+   slack.  If I remove the children and let the parent provide a budget for it
+   and its descendants, I get nothing.
+
+   :SOURCE:
+   ~ Monthly
+     Expenses:Food                $ 500.00
+     Assets
+   :END:
+   :OUTPUT:
+   % ledger budget -p this --effective --flat food
+              0     $ 500.00    $ -500.00     0  Expenses:Food
+   :END:
+
+   That's on the same journal data.
+   :PROPERTIES:
+   :ID: D060256A-D0BD-429F-87B9-C9F73A24C0D3
+   :Message:  [[message://4aec9a0bee27d_4b733fce572cbaf4188@fe3.rs.github.com.tmail][{GitHub} drewr sent you a message]]
+   :END:
+   [2009-11-01 Sun 05:51]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
@@ -17,10 +81,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
-  :END:
-* Build
-  :PROPERTIES:
-  :CATEGORY: Build
   :END:
 * Tests
   :PROPERTIES:
@@ -41,487 +101,3 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
    :END:
    [2009-02-25 Wed 04:15]
-* Docs
-  :PROPERTIES:
-  :CATEGORY: Docs
-  :END:
-** Write an article titled "Accounting for Engineers"
-   Programmers make money, and they're technically savvy, so Ledger makes for a
-   perfect fit.
-   :PROPERTIES:
-   :ID: 6D26F1EA-4FC6-4376-8232-DF985FAC48AA
-   :END:
-   [2009-04-01 Wed 05:17]
-** A need for some extensive examples with commentary
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 166
-   :ID: 8C9A4F0A-75B6-4F7D-913C-B8D8D84A882E
-   :END:
-   [2008-04-11 Fri]
-** Add a section in the manual specifically about stocks
-   There is no explicit section right now which details how to handle stock
-   transactions.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 189
-   :ID: 7AD3B6F2-765B-41A5-A481-BFAB39A55824
-   :END:
-   [2008-04-21 Mon]
-** An example of using effective dates on transactions
-   "I don't yet have a good idea of why an individual transaction could need to
-   specify its own actual *and* effective date. Does anyone have a good
-   example?"
- 
-   I'll give you one from the other day.  My wife and I just prepaid into a
-   local vegetable co-op that sustains us through the winter.  It cost $225 to
-   join the program, so we wrote a check.  I didn't want our October grocery
-   budget to be that much out of whack, however.  What I really wanted was for
-   the money to be evenly distributed over the next six months so that our
-   monthly budgets gradually take a hit for the vegetables we'll pick up from
-   the co-op, even though we've already paid for them.
- 
-   These entries accomplish this.  Every month until April we'll start with an
-   automatic $37.50 deficit like we should, while our checking account really
-   knows that it debited $225 this month.
-   :DATA:
-   2008/10/16 * (2090) Bountiful Blessings Farm
-      Expenses:Food:Groceries                 $ 225.00
-      Assets:Checking
-   
-   2008/10/16 Veggies Distribution
-      Expenses:Food:Groceries                  $ 37.50  ; [2008/10/16=2008/10/01]
-      Expenses:Food:Groceries                  $ 37.50  ; [2008/10/16=2008/11/01]
-      Expenses:Food:Groceries                  $ 37.50  ; [2008/10/16=2008/12/01]
-      Expenses:Food:Groceries                  $ 37.50  ; [2008/10/16=2009/01/01]
-      Expenses:Food:Groceries                  $ 37.50  ; [2008/10/16=2009/02/01]
-      Expenses:Food:Groceries                  $ 37.50  ; [2008/10/16=2009/03/01]
-      Expenses:Food:Groceries                $ -225.00
-   :END:
- 
-   If you're curious, I use the entry-based effective dates for things like
-   when my bank auto-pays some bills at the beginning of the month, but they
-   back-date them sometime before the 1st to compensate for a weekend.  So, my
-   mortgage might go out on 08/31, but for budgeting I really want it to affect
-   September:
-   :DATA:
-   2008/08/31=2008/09/01 Lender
-      Liabilities...                     $ 1,000.00
-      Assets:Checking
-   :END:
-   :PROPERTIES:
-   :Submitter: Drew Raines <aaraines@gmail.com>
-   :Version: 2.6.1
-   :ID: C926E8BF-EF44-45E8-A37F-04A30A97215D
-   :END:
-   [2008-10-26 Sun 19:06]
-** Document all breaking and non-breaking changes in the NEWS file
-   :PROPERTIES:
-   :ID: AF04D0D7-2C9D-4783-9C22-5EC39CAC4247
-   :END:
-   [2009-02-16 Mon 04:52]
-** Document inline math in the .texi file.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 102
-   :ID: 5CDAC007-A2B6-42A6-8E8C-09A1078404C8
-   :END:
-   [2008-04-11 Fri]
-** Document new command-line query syntax
-   I've completed putting the finishing touches on the command-line query
-   syntax for Ledger 3.0, and thought I would share with you all how it works
-   now.
-   
-   In 2.6, you may have been familiar with queries like this:
-   :SCRIPT:
-   ledger reg food -dining -- chang
-   :END:
-   
-   Which says, "I want all accounts containing food, but not dining, where the
-   payee/description contained the word chang."
-   
-   One big problem with this syntax is that it forced all option settings to
-   occur before the command verb.  So, I've done away with the use of "-" as a
-   query character.
-   
-   Now the following is supported:
-   :SCRIPT:
-   ledger [OPTIONS] <COMMAND> <SEARCH-TERMS>
-   :END:
-   
-   Where COMMAND is any command verb, OPTIONS can occur _anywhere_, and
-   SEARCH-TERM is one or more of the following:
-   :OUTPUT:
-   word              search for any account containing 'word'
-   TERM and TERM     boolean AND between terms
-   TERM or TERM      boolean OR between terms
-   not TERM          invert the meaning of the term
-   payee word        search for any payee containing 'word'
-   @word             shorthand for 'payee word'
-   desc word         alternate for 'payee word'
-   note word         search for any note containing 'word'
-   &word             shorthand for 'note word'
-   tag word          search for any metadata tag containing 'word'
-   tag word=value    search for any metadata tag containing 'word'
-                     whose value contains 'value'
-   %word             shorthand for 'tag word'
-   %word=value       shorthand for 'tag word=value'
-   meta word         alternate for 'tag word'
-   meta word=value   alternate for 'tag word=value'
-   expr 'EXPR'       apply the given value expression as a predicate
-   '=EXPR'           shorthand for 'expr EXPR'
-   \( TERMS \)       group terms; useful if using and/or/not
-   :END:
-   
-   So, the example given at the top of this e-mail could now be:
-   :SCRIPT:
-   ledger reg food not dining @chang
-   ledger reg food and not dining and not payee chang
-   ledger reg food not dining expr 'payee =~ /chang/'
-   :END:
-   
-   All three are equivalent.
-   :PROPERTIES:
-   :ID: 720A2006-AA19-4133-8A07-B445D7CC3AA0
-   :END:
-   [2009-02-02 Mon 03:08]
-** Document the new metadata syntax
-   Ledger 3.0 now supports entry and transaction "notes", which may contain new
-   metadata and tag markers.  Here's an example:
-   :SOURCE:
-   2004/05/27 (100) Credit card company
-       ; This is an entry note!
-       ; Sample: Value
-       Liabilities:MasterCard         $20.00
-       ; This is a transaction note!
-       ; Sample: Another Value
-       ; :MyTag:
-       Assets:Bank:Checking
-       ; :AnotherTag:
-   :END:
-   
-   An indented paragraph starting with ';' is parsed as a persistent note for its
-   preceding category. These notes will get printed back to you with the "print"
-   command.  They are accessible to value expressions using the "note" variable.
-   
-   Further, any occurrence of ":foo:" in a note will cause a metadata tag for
-   "foo" to be registered for that entry.  You can then search for such
-   transactions using:
-   :SCRIPT:
-   ledger reg %foo
-   ledger reg tag foo
-   :END:
-   
-   Also, if any word in the note ends (but does not start) with a colon, the
-   remainder of that line will be taken to be the metadata value for that tag.
-   That is:
-   :SCRIPT:
-   ; :foo:bar:baz:  <-- These are three tags
-   ; name: value    <-- this is a tag with a value
-   :END:
-   
-   Tags with value can be searched for just like tags.  In addition, you can
-   further limit your tag search by looking for only those tags that have
-   specific values:
-   :SCRIPT:
-   ledger reg %name=value
-   ledger reg tag name=value
-   :END:
-   
-   Comments that are occur before an entry, or which starts at column zero, are
-   always ignored and are neither searched nor printed back.
-   :PROPERTIES:
-   :ID: 1CAE6761-AC44-4DAC-A466-A3D72550ED06
-   :END:
-   [2009-02-02 Mon 03:08]
-** Another value expression change 							   :LINK:
-   I've tossed out inline math (which was a specialized mini-parser) and
-   instead made it so all transaction amounts are parsed as value expressions.
-   If they don't use math, I'll optimize away the expression-ness, but if
-   they, I'll preserve it, and even "print" will repeat it back for you now.
-   
-   To accomodate amounts-as-value-expressions, the value expression parser is
-   now a bit looser.  If something can be interpreted as an amount -- whether
-   annotated or not -- it is; if it can be interpreted as a symbol, it is.
-   This leads to ambiguity in a few select cases, but there are now also ways
-   to disambiguate.
-   
-   Some examples:
-   :OUTPUT:
-   AAPL -10           ; Interpreted as -10 shares of AAPL, since
-                        this looks like an amount
-   @AAPL -10          ; This is the symbol 'AAPL' minus 10
-   - AAPL 10          ; Always interpreted as an amount
-   10,20              ; Interpreted as European style 10.20!
-   10, 20             ; This is 10 comma 20
-   {10,20}            ; This is 10.20 too
-   :END:
-   
-   In short, use @ to force something to be interpreted as an identifier (it
-   will not be if it's seen as an amount commodity), and use {} to force
-   something to always be interpreted as an amount.  Also, always use space
-   after a comma, in case a number appears after the comma (if no number
-   appears then it's safe to drop the space).
-   
-   Using this scheme, value expressions are the same everywhere, and you can
-   now have transaction amounts like this:
-   :SOURCE:
-   ; Pay $2 for every day since oct 20!
-   Expenses:Cash       $2.00 * ((now - [2005/10/20])/3600/24)
-   :END:
-   :PROPERTIES:
-   :Version:  2.6
-   :Ticket:   171
-   :ID:       356DB3E1-3613-4DE2-8245-A8F8E4937FBD
-   :Message:  message://m2fyle3zdy.fsf@newartisans.com
-   :END:
-   [2006-03-19 Sun]
-** Extended lot indentification support 						   :LINK:
-   Well, the old scheme of --lots had several problems, the worst of which is
-   that it was pretty ugly on the inside (read: a bolt-on hack that never felt
-   natural).  But, many happy episodes of X-Files were watched while coding
-   it, so hearing Scully doubt Moulder again on the TV will undoubtedly bring
-   up memories of writing it.
-   
-   I decided instead to completely redo the way commodities are tracked by
-   Ledger, resulting in a much cleaner, consistent scheme.  Furthermore, the
-   new "annotated commodities" may associate any of three pieces of
-   information with an amount's commodity:
-   :OUTPUT:
-   The lot price for the commodity:    10 AAPL {$35.00}
-   The purchase date:                  10 AAPL [2005/10/20]
-   A general purpose ID tag:           10 AAPL (this is a tag)
-   :END:
-   
-   You can use more than one at once, although presently they must occur in
-   the order above (adding to my todo list now...), for example:
-   :SOURCE:
-   10 AAPL {$35.00} [2005/10/20]
-   10 AAPL {$35.00} (a note)
-   10 AAPL [2005/10/20] (a note)
-   :END:
-   
-   And so on.
-   
-   If you don't specify any annotation details, and your entry implies a
-   *commodity conversion*, Ledger will automatically annotate your commodities
-   for you.  For example, here are two different entries, both of which result
-   in a conversion:
-   :SOURCE:
-   2005/10/20 (ID#2) Conversion transaction
-       Broker                100 AAPL
-       Bank                  $1000
-  
-   2005/10/20 (ID#3) Conversion transaction
-       Broker                100 AAPL @ $10
-       Bank
-   :END:
-   
-   In both cases, one commodity (dollars in this case), is "turning into"
-   another commodity.  This implies a conversion, which means that annotation
-   details should be kept.  For both of the entries above, Ledger will
-   remember the following:
-   
-   1. The price per unit of the converted commodity.  The converted commodity
-      is always the commodity of the top transaction in the first entry above,
-      or the commodity of any priced transaction (one that uses the "@ PRICE"
-      syntax).
-  
-   2. The date of the conversion.  In this case, the entry's date is used.
-  
-   3. The entry code (here they are "ID#2" and "ID#3").
-   
-   Here's what the above looks like with a regular "balance" command:
-   :OUTPUT:
-              200 AAPL  Broker
-   --------------------
-              200 AAPL  
-   :END:
-   
-   And now here's --lots:
-   :OUTPUT:
-   100 AAPL {$10.00} [2005/10/20] (ID#2)
-   100 AAPL {$10.00} [2005/10/20] (ID#3)  Broker
-   --------------------
-   100 AAPL {$10.00} [2005/10/20] (ID#2)
-   100 AAPL {$10.00} [2005/10/20] (ID#3)  
-   :END:
-   
-   Or the new --lot-prices:
-   :OUTPUT:
-     200 AAPL {$10.00}  Broker
-   --------------------
-     200 AAPL {$10.00}  
-   :END:
-   
-   And --lot-dates:
-   :OUTPUT:
-   200 AAPL [2005/10/20]  Broker
-   --------------------
-   200 AAPL [2005/10/20]  
-   :END:
-   
-   And --lot-tags:
-   :OUTPUT:
-       100 AAPL (ID#2)
-       100 AAPL (ID#3)  Broker
-   --------------------
-       100 AAPL (ID#2)
-       100 AAPL (ID#3)  
-   :END:
-   
-   As you can see, where appropriate Ledger will merge together similar lots;
-   thus, both --lot-prices and --lot-dates have only a single balance figure,
-   while --lots and --lot-tags show two balance figures.
-   
-   For current users of Ledger none of this will matter, because all of the
-   extra annotation detail is reduced away.  But once you start using the new
-   --lot* switches, you can get much finer detail from your commodity reports.
-   
-   I intend to implement support for several new value expressions, to get at
-   this information:
-   :OUTPUT:
-   price(VALUE)         - the lot price of the value
-   date(VALUE)          - the date of the amount, or 0 if multiple
-   datecmp(VALUE, DATE) - returns -1 if all dates in VALUE are less
-                          than DATE, 1 if they are all greater, and
-                          0 if neither is true
-   :END:
-   
-   Lot reduction is now universal, too, so you can even use lot annotations in
-   a value expression, and the result of that value expression will display
-   according to the --lot* flags.
-   :PROPERTIES:
-   :Version:  2.6
-   :Ticket:   167
-   :ID:       9CC55CD0-30C3-4C4F-BCB6-E980FD1F44DA
-   :Message:  message://m2veuvq0al.fsf@newartisans.com
-   :END:
-   [2006-03-03 Fri]
-** [#C] Answer Martin's question about capital gains 					   :LINK:
-   [[message://20080423221130.4D77D1144C3@banane.furius.ca]["capital gains" from Martin Blais <blais@furius.ca>]]
-   [[message://1209097067.1413.1249786835@webmail.messagingengine.com]["Here is one valid way to book capital gains" from Martin Blais <blais@furius.ca>]]
-   :PROPERTIES:
-   :ID: 1B5B2517-360E-4F33-9A1E-C88F884ACAD2
-   :END:
-   [2008-04-24 Thu]
-** [#C] Handling funds 									   :LINK:
-   Ok, I gave this a LOT more thought (I actually sat down and did nothing but
-   think on it for a half hour), and I think I've found an answer.  The way I
-   was approaching it before was completely wrong; and further, what I came up
-   with sounds a lot like how stocks work...
-   
-   What you do is this: Take your total portfolio value on the day you want to
-   start selling "shares" in your portfolio.  Decide how many shares are going
-   to be available.  Picking a multiple of ten for this is a good idea.  Let's
-   say you want to make 1000 shares available for sale.  For the sake of
-   example, my starting portfolio has $1000 of cash in it:
-   :SOURCE:
-   2006/03/01 Basis
-       Assets:Pool             $1000
-       (Shares)                 1000 shares
-       Equity
-  
-   P 2006/03/01 shares $1.00
-   :END:
-   
-   Now, as the price of your portfolio goes up or down from this moment, the
-   price of each share increases or decreases in value by the same.  *The
-   share price is always 1/1000 of the portfolio's pool value*.  The important
-   thing is not to include any money paid to you for buying shares in the
-   pool.  You can take this into account by placing that money someplace else.
-   Here is a sample share purchase:
-   :SOURCE:
-   = /^Payable/
-     (Shares)  1.00
-  
-   2006/03/10 Purchase
-       (Payable:You)            -500 shares
-       Assets:Investment        $500
-       Income:Investments      $-500
-   :END:
-   
-   Now we have a liability account, Payable:You, which is payable to the
-   person who bought 500 shares.  I use an automated transaction to ensure
-   that Shares is always affected by the same amount.  Then, we add money paid
-   for the shares to "Assets:Investment".  What's nice is that we never have
-   to give this money back -- though we might have to pay out the entire pool
-   -- so we can start investing some of it.
-   
-   A few days pass, and you make gains on a sale (sorry, this is
-   over-simplified, I hope you can fill in the blanks):
-   :SOURCE:
-   2006/03/16 Growth
-       Assets:Pool              $500
-       Income:Capital Gains
-   :END:
-   
-   What's important here is that the gains end up in "Assets:Pool", which
-   determines the base price for each share.  Since the Pool is now worth
-   $1500 -- and the share price is always 1/1000 of the Pool -- we can add an
-   new pricing entry to the ledger file:
-   :SOURCE:
-   P 2006/03/16 shares $1.50
-   :END:
-   
-   Our investor wants to cash out.  We don't want to decrease the size of the
-   pool, nor is it accurate to decrease the size of "Assets:Investment" --
-   since there may not be enough there to cover it.  What we do is decrease
-   the parent "Assets" account itself, knowing that the value of Assets will
-   always be greater than or equal to "Assets:Investment" -- no matter how
-   much money we may lose in the stock market.  It also means you should try
-   your best to keep "Assets" near to the value of "Assets:Pool", in case
-   several people choose to cash out at the same time.  (The money you have in
-   "Assets:Investment", plus a balance of buying/selling based on profit/loss,
-   should make this possible.  I guess that is part of the job of a fund
-   manager...)  Here's what the Ledger entry looks like for a cash-out:
-   :SOURCE:
-   2006/03/20 Cash out
-       (Payable:You)             250 shares
-       Expenses:Investors
-       Assets                   (- valueof({1 shares}) * 250)
-   :END:
-   
-   Note: If you ever need to allocate more shares to sell, you'll have to
-   double (or multiply by 10) the number of shares available, and at the same
-   time half (or divide by 10) the current share price.  This is essentially
-   what stock splits and joins are all about: making shares available for more
-   buyers, or lessening the "share space" if there are too many unsold shares.
-   
-   Some of the advantages to this accounting method is that there are several
-   meaningful reports you can derive from this data:
-   
-   - Your current pool value (assuming you have shares of real stock in
-     Assets:Pool now, in addition to cash):
-     :SCRIPT:
-     ledger -V bal assets:pool
-     :END:
-   
-   - Your cash on hand (look only at the $ figures in the report):
-     :SCRIPT:
-     ledger bal assets
-     :END:
-   
-   - The price of remaining shares (how much you can sell them for):
-     :SCRIPT:
-     ledger -V bal shares
-     :END:
-   
-   - The dollar cost outstanding (what you'd have to pay out if everyone
-     called in their shares right now):
-     :SCRIPT:
-     ledger -V bal payable
-     :END:
-   
-   If you keep the right liquid balance, then no matter how much your fund
-   goes up or down, when everyone cashes out you will be left with the
-   original pool value.  There is no profit made, nor loss realized for you,
-   the fund manager.  You are simply giving people an opportunity to benefit
-   or lose based on your investment strategies.
-   :PROPERTIES:
-   :Version:  2.6
-   :Ticket:   170
-   :ID:       B5C1EE3D-8F66-4116-A88B-D1D568CF46B7
-   :Message:  message://m2fylicj1e.fsf@Majdhub.local
-   :END:
-   [2006-03-16 Thu]
