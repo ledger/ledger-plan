@@ -10,8 +10,54 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO [#B] Move session.cc read_journal code into journal_t
+   :PROPERTIES:
+   :ID: 1E297D28-3012-4DF8-A456-4CC09086EB88
+   :END:
+   [2009-11-02 Mon 17:11]
+** TODO [#B] Rename basket to bucket
+   :PROPERTIES:
+   :ID: 4BC2BE6E-7A3D-4207-8F43-6BF07303B9DF
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO [#B] Pass the default report object into the textual parser
+   :PROPERTIES:
+   :ID: 048E2C5A-8AFA-4CF2-A1E6-F8693F96A9EE
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO [#B] Default sorting should happen as late as possible
+   :PROPERTIES:
+   :ID: C8153A4A-7EF3-485C-AA25-CB76AEB5710D
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO [#B] Does the print command work with xact notes?
+   :PROPERTIES:
+   :ID: 59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO [#B] Textual.cc should report about illegal options
+   :PROPERTIES:
+   :ID: 7A2732AF-FF0C-4418-AF38-BA65834866F0
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO [#B] Make sure read_init is called twice, and args-only ignores both
+   :PROPERTIES:
+   :ID: 72091F12-D9FB-4585-A45D-E402365B74E2
+   :END:
+   [2009-11-02 Mon 05:08]
+** TODO Segfault when parsing a simple entry
+   :SOURCE:
+   2009/10/31 comment
+    Assets:checkbook                $700
+   ;
+    Liabilities:something
+   :END:
+   :PROPERTIES:
+   :ID: A9F19749-E5E3-4514-8523-3C672DE6D3AB
+   :Message:  [[message://4aedea3619437_55b43fbc7745aaec181@fe4.rs.github.com.tmail][{GitHub} gfuchedzhy sent you a message]]
+   :END:
+   [2009-11-01 Sun 17:49]
 ** TODO !include statememt no longer accepts simple filenames
-   SCHEDULED: <2009-11-01 Sun>
    It needs the full path to the file.
    :PROPERTIES:
    :ID: 272532BD-9BC5-46AA-B94C-BBAD05F35893
@@ -19,73 +65,69 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-11-01 Sun 05:50]
 ** TODO No error message is thrown if cannot find an included file
-   SCHEDULED: <2009-11-01 Sun>
    :PROPERTIES:
    :ID: 6188B0EC-A38F-41AE-9B65-8E155641AB99
    :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
    :END:
    [2009-11-01 Sun 05:50]
-** TODO Make sure the period flag (-p) can accept "YYYY/MM"
-   SCHEDULED: <2009-11-01 Sun>
-   :PROPERTIES:
-   :ID: 7F3650FD-7225-47D5-AB77-A0D5025B4941
-   :Message:  [[message://741c09a4-9f52-4346-9e6f-2f4d407e5e49@s31g2000yqs.googlegroups.com][Re: All known bugs and features for 3.0 implemented]]
-   :END:
-   [2009-11-01 Sun 05:51]
-** TODO budget misbehavior with account tree
-   SCHEDULED: <2009-11-01 Sun>
-   The budget command behaves slightly different than I would expect
-   for parent accounts.  Here is example output:
-   :OUTPUT:
-   % ledger budget -p this --effective --flat food
-       $ 490.46     $ 925.00    $ -434.54   53%  Expenses:Food
-       $ 361.11     $ 325.00      $ 36.11  111%  Expenses:Food:Groceries
-       $ 129.35     $ 100.00      $ 29.35  129%  Expenses:Food:Out
-   ------------ ------------ ------------ -----
-       $ 490.46     $ 925.00    $ -434.54   53%
-   :END:
-
-   The relevant journal context:
-   :SOURCE:
-   ~ Monthly
-     Expenses:Food                $ 500.00
-     Expenses:Food:Out            $ 100.00
-     Expenses:Food:Groceries      $ 325.00
-     Assets
-   :END:
-
-   It looks like :Food gets added to its children instead of picking up the
-   slack.  If I remove the children and let the parent provide a budget for it
-   and its descendants, I get nothing.
-
-   :SOURCE:
-   ~ Monthly
-     Expenses:Food                $ 500.00
-     Assets
-   :END:
-   :OUTPUT:
-   % ledger budget -p this --effective --flat food
-              0     $ 500.00    $ -500.00     0  Expenses:Food
-   :END:
-
-   That's on the same journal data.
-   :PROPERTIES:
-   :ID: D060256A-D0BD-429F-87B9-C9F73A24C0D3
-   :Message:  [[message://4aec9a0bee27d_4b733fce572cbaf4188@fe3.rs.github.com.tmail][{GitHub} drewr sent you a message]]
-   :END:
-   [2009-11-01 Sun 05:51]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO [#B] Warn if a file link points to a missing file
+   :PROPERTIES:
+   :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO Provide single-letter value expression shortcuts
+   This is for compatibility with 2.x.
+   :PROPERTIES:
+   :ID: 80339708-5B3E-4413-A770-89E4E9912C04
+   :END:
+   [2009-11-02 Mon 01:10]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
+* Python
+  :PROPERTIES:
+  :CATEGORY: Python
+  :END:
+** TODO [#B] Have methods for serializing to and from a string
+   :PROPERTIES:
+   :ID: 9383A1B7-34C8-4B3E-8FA0-B22A92F6B10F
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO [#B] Every ledger object should honor the iteration protocol
+   :PROPERTIES:
+   :ID: 4E160265-93EA-42EE-825D-078A2A459BCA
+   :END:
+   [2009-11-02 Mon 15:50]
+* Build
+  :PROPERTIES:
+  :CATEGORY: Build
+  :END:
+** TODO Build failure building latest Git version (archive.cc)
+   :PROPERTIES:
+   :ID: 9EF3FC3E-1699-4DFA-B7AF-27779BCAC510
+   :Message:  [[message://7ff1eb7d-2fbe-4b50-9d0a-373e7d929574@j19g2000yqk.googlegroups.com][Build failure latest git]]
+   :END:
+   [2009-11-01 Sun 17:49]
+** TODO acprep's --boost option does not accept a value
+   :PROPERTIES:
+   :ID: 36778975-47E7-4D79-98FF-4B6C8F650914
+   :END:
+   [2009-11-01 Sun 06:41]
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
+** Create a series of "manual" tests
+   These would confirm the validity of all the examples given in the manual.
+   :PROPERTIES:
+   :ID: 837B71B7-F46F-48E5-89E9-BD5E670B65A0
+   :END:
+   [2009-11-01 Sun 19:58]
 ** Create regression tests for all closed 2.6.1 and 3.0 bugs
    :PROPERTIES:
    :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D

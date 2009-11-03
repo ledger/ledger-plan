@@ -7,199 +7,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
 
 * Bugs
-** DONE [#A] 'ledger -f src/value.h bal capital' crashes
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 16:41] \\
-     It now reports a series of errors and exits.
-   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:24]
-   :PROPERTIES:
-   :ID: 25A099C9-EE9C-42E2-A18A-202DE9B9E157
-   :END:
-   [2009-02-27 Fri 15:38]
-** DONE [#A] Changes to make to the way things are calculated [8/10]
-   - State "DONE"       [2009-03-05 Thu 05:03]
-   - [X] During parsing, each account is given a pointer to the posts it
-	 contains, in a deque.
-   - [X] calc_xacts should only compute the amount, and store it in the post's
-	 xdata.
-   - [X] It then marks the post as "visited".
-   - [X] When session_t::clean_posts is called, it should clear the "visited"
-	 flag.
-   - [ ] The running total is not stored with the post, but is calculated as
-	 needed by the format_xacts object.
-   - [ ] Which means that format_xacts now need to know the display predicate,
-	 much like format_accounts.
-   - [X] account_t's xdata must remember whether or not the amount/total for
-	 the account has been calculated (with a different bool for each).
-   - [X] account_t exposes two methods: family_total and self_total, which
-	 performs and caches a calculation based on walking the "visited"
-	 posts relating to that account.
-   - [X] These calculations must be lazy, so that if a report never uses them,
-	 it never calculates either one.
-   - [X] The same goes for statistics, which can determined from the list of
-	 posts.
-   :PROPERTIES:
-   :ID: 240CAF9A-2681-4AE9-A0DF-F17416E31C60
-   :END:
-   [2009-03-04 Wed 15:34]
-** DONE [#A] My current ledger.dat file is not reporting
-   - State "DONE"       [2008-10-29 Wed 03:29]
-   :PROPERTIES:
-   :ID: 807E9D3D-3F30-4818-9045-FDBC20C1417A
-   :ARCHIVE_TIME: 2008-11-28 Fri 16:44
-   :ARCHIVE_CATEGORY: Finance
-   :END:
-   [2008-10-06 Mon 19:38]
-** DONE [#A] 'ledger -b 2007/08/16 -s reg food' is completely broken
-   - State "DONE"       [2007-08-23 Thu 21:22] \\
-     Fixed by the following change:
-	* walk.cc (handle_value): The xact xdata.dflags were being
-	set too late; the XACT_COMPOUND setting was being thrown
-	away as a result.
-   Although reg without shows a ton of Expenses:Food expenses, searching for
-   food expenses shows none.
-   :PROPERTIES:
-   :ID: 6CAF45D7-9098-41B4-A25A-12F8A8166006
-   :END:
-   [2007-08-22 Wed]
-** DONE [#A] Found bugs in the report query syntax parser
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 23:09]
-   Fails to parse:
-   :SCRIPT:
-   ledger bal --sort total --flat -X '$' not '(Income|Liabilities)'
-   :END:
-   :PROPERTIES:
-   :ID: 373540CC-613B-47BC-B72F-C6D347157736
-   :END:
-   [2009-10-26 Mon 17:50]
-** DONE [#A] Change processing of ~/.ledgerrc
-   - State "DONE"       from "TODO"       [2009-10-29 Thu 00:51]
-   - Note taken on [2009-10-27 Tue 22:02] \\
-     Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
-   1. Before parsing, run through and handle options that session_t and
-      global_scope_t know about.
-   2. Before reporting or loading the REPL, run through and handle all other
-      options and any commands found.
-   :PROPERTIES:
-   :ID: 71FE0FAB-622D-403C-A944-C7541948AFFF
-   :END:
-   [2009-02-19 Thu 15:10]
-** DONE Don't print trailing spaces after amount-elided postings
-   SCHEDULED: <2009-10-27 Tue>
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:40]
-   :PROPERTIES:
-   :ID: 68C50F8D-4407-430F-8FE1-40B96D38173A
-   :END:
-   [2009-10-27 Tue 22:42]
-** DONE --verify fails to run now
-   SCHEDULED: <2009-10-27 Tue>
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:35]
-   :PROPERTIES:
-   :ID: A697E1A4-83D0-49EB-9533-29EB82659565
-   :END:
-   [2009-10-27 Tue 23:20]
-** DONE iterations.cc, and maybe others, need to use temporaries_t
-   SCHEDULED: <2009-10-27 Tue>
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:19]
-   :PROPERTIES:
-   :ID: CE2AA70E-0B44-4A50-8D36-1DC1451F5473
-   :END:
-   [2009-10-27 Tue 23:20]
-** DONE ITEM_TEMP posts must be removed from xacts and accounts properly
-   SCHEDULED: <2009-10-27 Tue>
-   - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
-   :PROPERTIES:
-   :ID: F1D055D3-DDCE-49A2-A670-A84D1FD0C299
-   :END:
-   [2009-10-27 Tue 05:13]
-** DONE --budget doesn't produce correct output						   :LINK:
-   - State "DONE"       from "TODO"       [2009-10-27 Tue 05:51]
-   I have a budget transaction like this:
-   :SOURCE:
-   ~ Monthly
-     Expenses:Auto:Fuel           $ 120.00
-     Expenses:Food:Out            $ 100.00
-     Expenses:Food:Groceries      $ 350.00
-     Assets
-   :END:
-
-   It doesn't, however, seem to take effect with --budget:
-   :OUTPUT:
-   % ledger bal --p this --flat auto:fuel food:out
-               	$ 67.15  Expenses:Auto:Fuel
-               	$ 18.30  Expenses:Food:Out
-   --------------------
-               	$ 85.45
-   % ledger bal --p this --budget --flat auto:fuel food:out
-               	$ 67.15  Expenses:Auto:Fuel
-               	$ 18.30  Expenses:Food:Out
-   --------------------
-               	$ 85.45
-   % ledger --version | head -1
-   Ledger next-0-g752677e, the command-line accounting tool
-   :END:
-   :PROPERTIES:
-   :ID: 8254755E-7B61-47C8-B48E-A2A7FD79EB80
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/5
-   :END:
-   [2009-10-26 Mon 21:27]
-** DONE Latest build of next f35bc939 produces slow binary				   :LINK:
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
-   :PROPERTIES:
-   :ID: 18B7E853-848A-4211-BF98-C0C1B845E94F
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/3
-   :END:
-   [2009-10-26 Mon 21:31]
-** DONE Expenses:Wedding appears twice in the attached balance command
-   SCHEDULED: <2009-10-26 Mon>
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:11]
-   :SCRIPT:
-   ledger bal --sort amount --flat 'expenses:(auto|wedding)'
-   :END:
-   :PROPERTIES:
-   :ID: 5F1BAF17-2A7C-4992-ACCA-B1111104E4EE
-   :END:
-   [2009-10-26 Mon 17:21]
-** DONE The Ledger REPL argument parser should honor quoting syntax
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 17:17]
-   :PROPERTIES:
-   :ID: 7A3DF3DE-5425-491F-90AA-C8C162F1085A
-   :END:
-   [2009-03-03 Tue 03:02]
-** DONE When --flat is being used, sort against all accounts
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 18:52]
-   :PROPERTIES:
-   :ID: 7D084EBD-3D4C-4967-9A4B-7F014E625DF6
-   :END:
-   [2009-03-11 Wed 15:11]
-** DONE Make balance assignment failures into a warning
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 19:54]
-   :PROPERTIES:
-   :ID: B3F65D45-C77F-4E01-A8FC-3EDC92A9CB45
-   :END:
-   [2009-10-23 Fri 06:13]
-** DONE Forecasting goes too far
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 20:55] \\
-     This is fixed in 3.0.
-   - Note taken on [2007-12-10 Mon 19:04] \\
-     Because of the way that forecasting is (currently) implemented, you will often
-     see an entry that is "one beyond" the condition of your forecast. I hope to
-     remedy this in the near future.
-   :OUTPUT:
-tim@yggdrasil [/Users/tim]# ledger --forecast 'd<=[2006/08/27]' reg
-^assets
-[some entries which balance correctly]
-2006/09/01 Forecast entry       Assets                      $-1322.00    $13313.99
-   :END:
-   Why is the last entry being displayed?  Doesn't the date predicate prevent
-   that from happening?
-   :PROPERTIES:
-   :Submitter: <tim@scarybright.org>
-   :Version: 2.6
-   :Ticket: 15
-   :ID: E627C594-A019-4D87-A6B4-C8E75F6D8FC0
-   :END:
-   [2007-12-10 Mon]
 ** DONE If a quote comes back in the wrong commodity, ignore it
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:19]
    :PROPERTIES:
@@ -1603,6 +1410,15 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: A98BFCBA-012D-4E18-9CBB-4D880CDBFE7E
    :END:
    [2008-10-05 Sun 20:59]
+** CANCELLED Make balance assignment failures into a warning
+   - State "CANCELLED"  from "DONE"       [2009-11-02 Mon 01:41] \\
+     Instead, I've split this into assignments vs. assertions, where assertions are
+     errors.
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 19:54]
+   :PROPERTIES:
+   :ID: B3F65D45-C77F-4E01-A8FC-3EDC92A9CB45
+   :END:
+   [2009-10-23 Fri 06:13]
 ** CANCELLED Rationalize register and balance total calculation
    - State "CANCELLED"  [2009-03-03 Tue 03:02]
    Rather than keeping the running total for the register report in each
@@ -2060,53 +1876,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :Message:  message://4AA8F383.3010801@gmail.com
    :END:
    [2009-10-03 Sat 03:23]
-** WORKSFORME [#A] --budget not including "~ Monthly" entry			    :LINK:ATTACH:
-   - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
-   - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:41] \\
-     I've asked the user for more information; I can't see what's wrong with just
-     the test case he sent, and I cannot find the original message.
-   Thanks for your response.  I've attached a sample ledger file that I
-   successfully reproduced the behaviour with.  Maybe it's something to do with
-   it being the first of the month today?
- 
-   Here's what I'm seeing on the command-line:
-   :OUTPUT:
-   sayotte@damocles:~$ ledger -p april --budget reg
-   2009/04/01 Budget entry         Assets:Bank:Checking     $-25000.00   $-25000.00
-   2009/04/01 Budget entry         In:Ludicrous Salary       $25000.00            0
-   2009/04/01 Budget entry         Expenses:Food              $-350.00     $-350.00
-   2009/04/01 Budget entry         Assets:Bank:Checking        $350.00            0
-   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
-                                  Assets:Bank:Checking         $-6.50            0
-   2009/04/10 Lienholder Bank      Assets:Bank:Checking       $-450.00     $-450.00
-   :END:
-   :OUTPUT:
-   sayotte@damocles:~$ ledger -p april --budget reg Food
-   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
-   :END:
-   :OUTPUT:
-   sayotte@damocles:~$ date
-   Wed Apr  1 19:07:20 EDT 2009
-   :END:
-   :OUTPUT:
-   sayotte@damocles:~$ ledger --version
-   Ledger 2.6.1, the command-line accounting tool
-   
-   Copyright (c) 2003-2008, John Wiegley.  All rights reserved.
-   
-   This program is made available under the terms of the BSD Public License.
-   See LICENSE file included with the distribution for details and disclaimer.
-   
-   (modules: gmp, pcre)
-   :END:
-   :PROPERTIES:
-   :Submitter: Stephen Ayotte <stephen.ayotte@gmail.com>
-   :Message: [[x-devonthink-item://%3C837b29c80904011614x79fed2b0la56f8a44a8dc45cb@mail.gmail.com%3E][ledger-2.6.1: --budget not including ~Monthly entry]]
-   :Version: 2.6.1
-   :ID: 655F6DF5-A30D-4CD9-AA06-787A2DB3C5C2
-   :Attachments: testledger.dat
-   :END:
-   [2009-04-01 Wed 19:40]
 ** WORKSFORME [#A] Minor inaccuracies in 2.6.1
    - State "WORKSFORME" [2009-02-01 Sun 00:41] \\
      This works as expected in 3.0.
@@ -2215,6 +1984,107 @@ ledger -Y --forecast 'T>0' reg food
    :ID: 146B0BE4-C5EB-4A5B-A332-FE512B40D375
    :END:
    [2008-04-11 Fri]
+** CLOSED [#A] Changes to make to the way things are calculated [8/10]
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
+   - State "DONE"       [2009-03-05 Thu 05:03]
+   - [X] During parsing, each account is given a pointer to the posts it
+	 contains, in a deque.
+   - [X] calc_xacts should only compute the amount, and store it in the post's
+	 xdata.
+   - [X] It then marks the post as "visited".
+   - [X] When session_t::clean_posts is called, it should clear the "visited"
+	 flag.
+   - [ ] The running total is not stored with the post, but is calculated as
+	 needed by the format_xacts object.
+   - [ ] Which means that format_xacts now need to know the display predicate,
+	 much like format_accounts.
+   - [X] account_t's xdata must remember whether or not the amount/total for
+	 the account has been calculated (with a different bool for each).
+   - [X] account_t exposes two methods: family_total and self_total, which
+	 performs and caches a calculation based on walking the "visited"
+	 posts relating to that account.
+   - [X] These calculations must be lazy, so that if a report never uses them,
+	 it never calculates either one.
+   - [X] The same goes for statistics, which can determined from the list of
+	 posts.
+   :PROPERTIES:
+   :ID: 240CAF9A-2681-4AE9-A0DF-F17416E31C60
+   :END:
+   [2009-03-04 Wed 15:34]
+** CLOSED [#A] My current ledger.dat file is not reporting
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
+   - State "DONE"       [2008-10-29 Wed 03:29]
+   :PROPERTIES:
+   :ID: 807E9D3D-3F30-4818-9045-FDBC20C1417A
+   :ARCHIVE_TIME: 2008-11-28 Fri 16:44
+   :ARCHIVE_CATEGORY: Finance
+   :END:
+   [2008-10-06 Mon 19:38]
+** CLOSED [#A] 'ledger -b 2007/08/16 -s reg food' is completely broken
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
+   - State "DONE"       [2007-08-23 Thu 21:22] \\
+     Fixed by the following change:
+	* walk.cc (handle_value): The xact xdata.dflags were being
+	set too late; the XACT_COMPOUND setting was being thrown
+	away as a result.
+   Although reg without shows a ton of Expenses:Food expenses, searching for
+   food expenses shows none.
+   :PROPERTIES:
+   :ID: 6CAF45D7-9098-41B4-A25A-12F8A8166006
+   :END:
+   [2007-08-22 Wed]
+** CLOSED [#A] Change processing of ~/.ledgerrc
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "DONE"       from "TODO"       [2009-10-29 Thu 00:51]
+   - Note taken on [2009-10-27 Tue 22:02] \\
+     Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
+   1. Before parsing, run through and handle options that session_t and
+      global_scope_t know about.
+   2. Before reporting or loading the REPL, run through and handle all other
+      options and any commands found.
+   :PROPERTIES:
+   :ID: 71FE0FAB-622D-403C-A944-C7541948AFFF
+   :END:
+   [2009-02-19 Thu 15:10]
+** CLOSED --verify fails to run now
+   SCHEDULED: <2009-10-27 Tue>
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:35]
+   :PROPERTIES:
+   :ID: A697E1A4-83D0-49EB-9533-29EB82659565
+   :END:
+   [2009-10-27 Tue 23:20]
+** CLOSED iterations.cc, and maybe others, need to use temporaries_t
+   SCHEDULED: <2009-10-27 Tue>
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:19]
+   :PROPERTIES:
+   :ID: CE2AA70E-0B44-4A50-8D36-1DC1451F5473
+   :END:
+   [2009-10-27 Tue 23:20]
+** CLOSED ITEM_TEMP posts must be removed from xacts and accounts properly
+   SCHEDULED: <2009-10-27 Tue>
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
+   :PROPERTIES:
+   :ID: F1D055D3-DDCE-49A2-A670-A84D1FD0C299
+   :END:
+   [2009-10-27 Tue 05:13]
+** CLOSED Latest build of next f35bc939 produces slow binary				   :LINK:
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:10]
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
+   :PROPERTIES:
+   :ID: 18B7E853-848A-4211-BF98-C0C1B845E94F
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/3
+   :END:
+   [2009-10-26 Mon 21:31]
+** CLOSED The Ledger REPL argument parser should honor quoting syntax
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:22]
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 17:17]
+   :PROPERTIES:
+   :ID: 7A3DF3DE-5425-491F-90AA-C8C162F1085A
+   :END:
+   [2009-03-03 Tue 03:02]
 ** CLOSED With --args-only, don't read ~/.pricedb
    - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:24]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:21]
@@ -2289,6 +2159,210 @@ ledger -f test.ledger -s bal discover
    :Ticket: 181
    :ID: 3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
    :END:
+** TESTED [#A] 'ledger -f src/value.h bal capital' crashes
+   - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:48]
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 16:41] \\
+     It now reports a series of errors and exits.
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:24]
+   :PROPERTIES:
+   :ID: 25A099C9-EE9C-42E2-A18A-202DE9B9E157
+   :END:
+   [2009-02-27 Fri 15:38]
+** TESTED [#A] Found bugs in the report query syntax parser
+   - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 23:09]
+   Fails to parse:
+   :SCRIPT:
+   ledger bal --sort total --flat -X '$' not '(Income|Liabilities)'
+   :END:
+   :PROPERTIES:
+   :ID: 373540CC-613B-47BC-B72F-C6D347157736
+   :END:
+   [2009-10-26 Mon 17:50]
+** TESTED [#A] --budget not including "~ Monthly" entry				    :LINK:ATTACH:
+   - State "TESTED"     from "WORKSFORME" [2009-11-02 Mon 01:10] \\
+     Found this bug and fixed it.
+   - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
+   - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:41] \\
+     I've asked the user for more information; I can't see what's wrong with just
+     the test case he sent, and I cannot find the original message.
+   Thanks for your response.  I've attached a sample ledger file that I
+   successfully reproduced the behaviour with.  Maybe it's something to do with
+   it being the first of the month today?
+ 
+   Here's what I'm seeing on the command-line:
+   :OUTPUT:
+   sayotte@damocles:~$ ledger -p april --budget reg
+   2009/04/01 Budget entry         Assets:Bank:Checking     $-25000.00   $-25000.00
+   2009/04/01 Budget entry         In:Ludicrous Salary       $25000.00            0
+   2009/04/01 Budget entry         Expenses:Food              $-350.00     $-350.00
+   2009/04/01 Budget entry         Assets:Bank:Checking        $350.00            0
+   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
+                                  Assets:Bank:Checking         $-6.50            0
+   2009/04/10 Lienholder Bank      Assets:Bank:Checking       $-450.00     $-450.00
+   :END:
+   :OUTPUT:
+   sayotte@damocles:~$ ledger -p april --budget reg Food
+   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
+   :END:
+   :OUTPUT:
+   sayotte@damocles:~$ date
+   Wed Apr  1 19:07:20 EDT 2009
+   :END:
+   :OUTPUT:
+   sayotte@damocles:~$ ledger --version
+   Ledger 2.6.1, the command-line accounting tool
+   
+   Copyright (c) 2003-2008, John Wiegley.  All rights reserved.
+   
+   This program is made available under the terms of the BSD Public License.
+   See LICENSE file included with the distribution for details and disclaimer.
+   
+   (modules: gmp, pcre)
+   :END:
+   :PROPERTIES:
+   :Submitter: Stephen Ayotte <stephen.ayotte@gmail.com>
+   :Message: [[x-devonthink-item://%3C837b29c80904011614x79fed2b0la56f8a44a8dc45cb@mail.gmail.com%3E][ledger-2.6.1: --budget not including ~Monthly entry]]
+   :Version: 2.6.1
+   :ID: 655F6DF5-A30D-4CD9-AA06-787A2DB3C5C2
+   :Attachments: testledger.dat
+   :END:
+   [2009-04-01 Wed 19:40]
+** TESTED Make sure the period flag (-p) can accept "YYYY/MM"
+   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:59]
+   - State "DONE"       from "TODO"       [2009-11-02 Mon 01:59]
+   :PROPERTIES:
+   :ID: 7F3650FD-7225-47D5-AB77-A0D5025B4941
+   :Message:  [[message://741c09a4-9f52-4346-9e6f-2f4d407e5e49@s31g2000yqs.googlegroups.com][Re: All known bugs and features for 3.0 implemented]]
+   :END:
+   [2009-11-01 Sun 05:51]
+** TESTED Don't print trailing spaces after amount-elided postings
+   SCHEDULED: <2009-10-27 Tue>
+   - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:51] \\
+     This is being tested by several of the baseline tests.
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:40]
+   :PROPERTIES:
+   :ID: 68C50F8D-4407-430F-8FE1-40B96D38173A
+   :END:
+   [2009-10-27 Tue 22:42]
+** TESTED --budget doesn't produce correct output					   :LINK:
+   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:10]
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 05:51]
+   I have a budget transaction like this:
+   :SOURCE:
+   ~ Monthly
+     Expenses:Auto:Fuel           $ 120.00
+     Expenses:Food:Out            $ 100.00
+     Expenses:Food:Groceries      $ 350.00
+     Assets
+   :END:
+
+   It doesn't, however, seem to take effect with --budget:
+   :OUTPUT:
+   % ledger bal --p this --flat auto:fuel food:out
+               	$ 67.15  Expenses:Auto:Fuel
+               	$ 18.30  Expenses:Food:Out
+   --------------------
+               	$ 85.45
+   % ledger bal --p this --budget --flat auto:fuel food:out
+               	$ 67.15  Expenses:Auto:Fuel
+               	$ 18.30  Expenses:Food:Out
+   --------------------
+               	$ 85.45
+   % ledger --version | head -1
+   Ledger next-0-g752677e, the command-line accounting tool
+   :END:
+   :PROPERTIES:
+   :ID: 8254755E-7B61-47C8-B48E-A2A7FD79EB80
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/5
+   :END:
+   [2009-10-26 Mon 21:27]
+** TESTED Expenses:Wedding appears twice in the attached balance command
+   SCHEDULED: <2009-10-26 Mon>
+   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:21]
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:11]
+   :SCRIPT:
+   ledger bal --sort amount --flat expenses:foo
+   :END:
+   :PROPERTIES:
+   :ID: 5F1BAF17-2A7C-4992-ACCA-B1111104E4EE
+   :END:
+   [2009-10-26 Mon 17:21]
+** TESTED budget misbehavior with account tree
+   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:40]
+   - State "DONE"       from "TODO"       [2009-11-02 Mon 01:40]
+   The budget command behaves slightly different than I would expect
+   for parent accounts.  Here is example output:
+   :OUTPUT:
+   % ledger budget -p this --effective --flat food
+       $ 490.46     $ 925.00    $ -434.54   53%  Expenses:Food
+       $ 361.11     $ 325.00      $ 36.11  111%  Expenses:Food:Groceries
+       $ 129.35     $ 100.00      $ 29.35  129%  Expenses:Food:Out
+   ------------ ------------ ------------ -----
+       $ 490.46     $ 925.00    $ -434.54   53%
+   :END:
+
+   The relevant journal context:
+   :SOURCE:
+   ~ Monthly
+     Expenses:Food                $ 500.00
+     Expenses:Food:Out            $ 100.00
+     Expenses:Food:Groceries      $ 325.00
+     Assets
+   :END:
+
+   It looks like :Food gets added to its children instead of picking up the
+   slack.  If I remove the children and let the parent provide a budget for it
+   and its descendants, I get nothing.
+
+   :SOURCE:
+   ~ Monthly
+     Expenses:Food                $ 500.00
+     Assets
+   :END:
+   :OUTPUT:
+   % ledger budget -p this --effective --flat food
+              0     $ 500.00    $ -500.00     0  Expenses:Food
+   :END:
+
+   That's on the same journal data.
+   :PROPERTIES:
+   :ID:       D060256A-D0BD-429F-87B9-C9F73A24C0D3
+   :Message:  [[message://4aec9a0bee27d_4b733fce572cbaf4188@fe3.rs.github.com.tmail][{GitHub} drewr sent you a message]]
+   :Issue:    http://github.com/jwiegley/ledger/issues#issue/7
+   :END:
+   [2009-11-01 Sun 05:51]
+** TESTED When --flat is being used, sort against all accounts
+   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:40]
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 18:52]
+   :PROPERTIES:
+   :ID: 7D084EBD-3D4C-4967-9A4B-7F014E625DF6
+   :END:
+   [2009-03-11 Wed 15:11]
+** TESTED Forecasting goes too far
+   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:43]
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 20:55] \\
+     This is fixed in 3.0.
+   - Note taken on [2007-12-10 Mon 19:04] \\
+     Because of the way that forecasting is (currently) implemented, you will often
+     see an entry that is "one beyond" the condition of your forecast. I hope to
+     remedy this in the near future.
+   :OUTPUT:
+tim@yggdrasil [/Users/tim]# ledger --forecast 'd<=[2006/08/27]' reg
+^assets
+[some entries which balance correctly]
+2006/09/01 Forecast entry       Assets                      $-1322.00    $13313.99
+   :END:
+   Why is the last entry being displayed?  Doesn't the date predicate prevent
+   that from happening?
+   :PROPERTIES:
+   :Submitter: <tim@scarybright.org>
+   :Version: 2.6
+   :Ticket: 15
+   :ID: E627C594-A019-4D87-A6B4-C8E75F6D8FC0
+   :END:
+   [2007-12-10 Mon]
 ** TESTED Left justifying an amount with %-12{amount} does nothing
    - State "TESTED"     from "DONE"       [2009-06-28 Sun 15:24]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:23]
