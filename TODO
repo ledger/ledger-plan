@@ -10,37 +10,37 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#B] Move session.cc read_journal code into journal_t
+** TODO Move session.cc read_journal code into journal_t
    :PROPERTIES:
    :ID: 1E297D28-3012-4DF8-A456-4CC09086EB88
    :END:
    [2009-11-02 Mon 17:11]
-** TODO [#B] Rename basket to bucket
+** TODO Rename basket to bucket
    :PROPERTIES:
    :ID: 4BC2BE6E-7A3D-4207-8F43-6BF07303B9DF
    :END:
    [2009-11-02 Mon 15:50]
-** TODO [#B] Pass the default report object into the textual parser
+** TODO Pass the default report object into the textual parser
    :PROPERTIES:
    :ID: 048E2C5A-8AFA-4CF2-A1E6-F8693F96A9EE
    :END:
    [2009-11-02 Mon 15:50]
-** TODO [#B] Default sorting should happen as late as possible
+** TODO Default sorting should happen as late as possible
    :PROPERTIES:
    :ID: C8153A4A-7EF3-485C-AA25-CB76AEB5710D
    :END:
    [2009-11-02 Mon 15:50]
-** TODO [#B] Does the print command work with xact notes?
+** TODO Does the print command work with xact notes?
    :PROPERTIES:
    :ID: 59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
    :END:
    [2009-11-02 Mon 15:50]
-** TODO [#B] Textual.cc should report about illegal options
+** TODO Textual.cc should report about illegal options
    :PROPERTIES:
    :ID: 7A2732AF-FF0C-4418-AF38-BA65834866F0
    :END:
    [2009-11-02 Mon 15:50]
-** TODO [#B] Make sure read_init is called twice, and args-only ignores both
+** TODO Make sure read_init is called twice, and args-only ignores both
    :PROPERTIES:
    :ID: 72091F12-D9FB-4585-A45D-E402365B74E2
    :END:
@@ -74,7 +74,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [#B] Warn if a file link points to a missing file
+** TODO Warn if a file link points to a missing file
    :PROPERTIES:
    :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
    :END:
@@ -93,12 +93,50 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO [#B] Have methods for serializing to and from a string
+** TODO Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
+   SCHEDULED: <2009-11-03 Tue>
+   http://wiki.python.org/moin/boost.python/CallPolicy
+   :PROPERTIES:
+   :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
+   :END:
+   [2009-11-03 Tue 08:55]
+** TODO journal_t objects should be copyable
+   SCHEDULED: <2009-11-03 Tue>
+   This also has to do with making them serializable.  There should be a way to
+   "activate" a journal for the current session, which sets up the
+   commodity_pool reference for amount_t.
+   :PROPERTIES:
+   :ID: 9ECF98A8-8C8C-42D1-B8A0-EB42F49AAED9
+   :END:
+   [2009-11-03 Tue 07:41]
+** TODO Make sure journal and xact support the Python iteration protocol		   :LINK:
+   SCHEDULED: <2009-11-03 Tue>
+   http://wiki.python.org/moin/boost.python/iterator
+   :PROPERTIES:
+   :ID: 36026E30-95C9-4616-B39A-C1D30F807D12
+   :END:
+   [2009-11-03 Tue 07:59]
+** TODO Make the Python interface simpler
+   SCHEDULED: <2009-11-03 Tue>
+   For example, this should be possible:
+   :SOURCE:
+   from ledger import *
+
+   for txn in Journal("~/.ledger"):
+     print txn.payee
+     for post in txn:
+       print post.account        # str() calls fullname()
+   :END:
+   :PROPERTIES:
+   :ID: 68226663-9FF5-428A-AC39-DD70750F11B0
+   :END:
+   [2009-11-03 Tue 08:23]
+** TODO Have methods for serializing to and from a string
    :PROPERTIES:
    :ID: 9383A1B7-34C8-4B3E-8FA0-B22A92F6B10F
    :END:
    [2009-11-02 Mon 15:50]
-** TODO [#B] Every ledger object should honor the iteration protocol
+** TODO Every ledger object should honor the iteration protocol
    :PROPERTIES:
    :ID: 4E160265-93EA-42EE-825D-078A2A459BCA
    :END:
