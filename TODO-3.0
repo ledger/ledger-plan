@@ -7,6 +7,30 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
 
 * Bugs
+** DONE gfuchedzhy is seeing a segfault with a simple input file
+   - State "DONE"       from "TODO"       [2009-11-05 Thu 04:17]
+   :PROPERTIES:
+   :ID:       880BC301-3EF1-4701-8599-CA6170BCC9DA
+   :Issue:    http://github.com/jwiegley/ledger/issues#issue/8
+   :END:
+   [2009-11-03 Tue 14:09]
+** DONE Improve symbol lookup [0/5]
+   - State "DONE"       from "TODO"       [2009-11-05 Thu 04:17]
+   This is to support the following types of handlers registered from Python:
+   - [ ] Option
+   - [ ] Function (also should handle get_quote)
+   - [ ] Transform (chain handler (name determines sequence))
+   - [ ] Command
+   :PROPERTIES:
+   :ID: F35179B5-E29B-4EA5-B9EA-5AF811615551
+   :END:
+   [2009-11-03 Tue 13:55]
+** DONE Move session.cc read_journal code into journal_t
+   - State "DONE"       from "TODO"       [2009-11-05 Thu 04:17]
+   :PROPERTIES:
+   :ID: 1E297D28-3012-4DF8-A456-4CC09086EB88
+   :END:
+   [2009-11-02 Mon 17:11]
 ** DONE If a quote comes back in the wrong commodity, ignore it
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:19]
    :PROPERTIES:
@@ -1410,6 +1434,12 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: A98BFCBA-012D-4E18-9CBB-4D880CDBFE7E
    :END:
    [2008-10-05 Sun 20:59]
+** CANCELLED Pass the default report object into the textual parser
+   - State "CANCELLED"  from "TODO"       [2009-11-05 Thu 04:17]
+   :PROPERTIES:
+   :ID: 048E2C5A-8AFA-4CF2-A1E6-F8693F96A9EE
+   :END:
+   [2009-11-02 Mon 15:50]
 ** CANCELLED Make balance assignment failures into a warning
    - State "CANCELLED"  from "DONE"       [2009-11-02 Mon 01:41] \\
      Instead, I've split this into assignments vs. assertions, where assertions are
@@ -4296,6 +4326,34 @@ getquote GSK_L
    :END:
    [2008-04-11 Fri]
 * Python
+** DONE Delete unused python classes: op, token, parser
+   - State "DONE"       from "TODO"       [2009-11-05 Thu 04:21]
+   :PROPERTIES:
+   :ID: C5834D2D-562C-4037-84B5-30D58337434B
+   :END:
+   [2009-11-03 Tue 18:54]
+** DONE Make sure journal and xact support the Python iteration protocol		   :LINK:
+   - State "DONE"       from "TODO"       [2009-11-05 Thu 04:21]
+   http://wiki.python.org/moin/boost.python/iterator
+   :PROPERTIES:
+   :ID: 36026E30-95C9-4616-B39A-C1D30F807D12
+   :END:
+   [2009-11-03 Tue 07:59]
+** DONE Make the Python interface simpler
+   - State "DONE"       from "TODO"       [2009-11-05 Thu 04:22]
+   For example, this should be possible:
+   :SOURCE:
+   from ledger import *
+
+   for txn in Journal("~/.ledger"):
+     print txn.payee
+     for post in txn:
+       print post.account        # str() calls fullname()
+   :END:
+   :PROPERTIES:
+   :ID: 68226663-9FF5-428A-AC39-DD70750F11B0
+   :END:
+   [2009-11-03 Tue 08:23]
 ** DONE I can simplify the Python integration even further with scopes
    - State "DONE"       [2009-02-09 Mon 00:04]
    Rather than exposing post_t, I can just do __getattr__ lookups in the
@@ -4340,6 +4398,16 @@ getquote GSK_L
    :ID: D4CFF147-B825-43E2-B85C-28501936EEAE
    :END:
    [2009-02-24 Tue 11:08]
+** CANCELLED Create a Python wrapper for op_t objects
+   - State "CANCELLED"  from "DEFERRED"   [2009-11-05 Thu 04:23]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   If it's evaluated in a value context, like str, int or __repr__, then
+   calculate and determine the value.  Otherwise, don't calculate so it remains
+   callable.
+   :PROPERTIES:
+   :ID: 3040E933-2068-4C78-954F-F78A7BAFB2D6
+   :END:
+   [2009-02-24 Tue 22:15]
 * Tests
 ** DONE Clear out all #if 0 and jww commented sections
    - State "DONE"       from ""           [2009-10-31 Sat 04:33]

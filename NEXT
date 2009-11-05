@@ -668,15 +668,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 7274224C-3470-4A9F-B56E-A499F39E13C9
    :END:
    [2009-03-09 Mon 20:33]
-** DEFERRED Create a Python wrapper for op_t objects
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
-   If it's evaluated in a value context, like str, int or __repr__, then
-   calculate and determine the value.  Otherwise, don't calculate so it remains
-   callable.
-   :PROPERTIES:
-   :ID: 3040E933-2068-4C78-954F-F78A7BAFB2D6
-   :END:
-   [2009-02-24 Tue 22:15]
 ** DEFERRED The error output when calling Python is out of order
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :OUTPUT:
@@ -729,21 +720,6 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 444EFEE1-D873-4FD3-BB07-4E605BCB2BF4
    :END:
    [2008-10-08 Wed 00:58]
-** DEFERRED Allow a Python function to be used to download quotes
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
-   :PROPERTIES:
-   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
-   :END:
-   [2009-06-24 Wed 17:27]
-** DEFERRED [#C] Fix boost::optional translation class for Dmitriy			   :LINK:
-   - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:11]
-   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:27]
-   [[message://2fd72fb20901281006u181318bke33c44a25098dfd8@mail.gmail.com][Re: boost::optional and boost::python]]
-   :PROPERTIES:
-   :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
-   :END:
-   [2009-02-02 Mon 03:13]
 * Build
 ** DEFERRED Add some more configure arguments
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
