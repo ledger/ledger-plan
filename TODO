@@ -2,20 +2,42 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content
 #+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
-#+CATEGORY: Ledger
 #+TAGS: LINK(l)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
+#+CATEGORY: Ledger
 
 * Bugs
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO Scoping bug with defined value expression functions
+   SCHEDULED: <2009-11-05 Thu>
+   If I parse the following data:
+   :DATA:
+    def elec := account_total("Usage:Electricity")
+    
+    2009/01/13 * Electricity
+     Usage:Electricity          646,40 kWh
+     Equity:OpeningBalance
+    
+    2009/02/13 * Electricity
+     Usage:Electricity          (690,10 kWh - elec)
+     Supplier:Vattenfall
+   :END:
+   I get an error that account_total is unknown, because it's not finding the
+   report scope.  If I substitute the definition by hand, it works.
+   :PROPERTIES:
+   :ID: 53ACFFFA-E9DE-4526-ABBD-B38DAE0FBA6F
+   :END:
+   [2009-11-05 Thu 05:25]
 ** TODO When reporting an imbalance, show the amount to balance against
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: FE1E912D-7DFA-4489-98E9-8112B2B941CB
    :END:
    [2009-11-05 Thu 00:19]
 ** TODO --set-reported-account should just be --set-account
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: F35973AD-80AB-4B7A-9111-4A9480C73DFB
    :END:
@@ -35,11 +57,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 91D5206E-44BF-433B-9D53-08711ECE7DE9
    :END:
    [2009-11-03 Tue 18:55]
-** TODO Automate the production of new bindmg images
-   :PROPERTIES:
-   :ID: FC3248BA-E269-4847-A253-277D63C92B4A
-   :END:
-   [2009-11-03 Tue 15:18]
 ** TODO Problem with case sensitivity and UTF-8
    активы doesn't match Активы
    :PROPERTIES:
@@ -47,6 +64,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-11-03 Tue 15:27]
 ** TODO The bal report does not honor -r
+   SCHEDULED: <2009-11-05 Thu>
    If I run "bal simon -r" against this file:
    :SOURCE:
    10/26 trader joe's
@@ -75,16 +93,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-11-03 Tue 13:59]
 ** TODO Rename basket to bucket
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: 4BC2BE6E-7A3D-4207-8F43-6BF07303B9DF
    :END:
    [2009-11-02 Mon 15:50]
 ** TODO Default sorting should happen as late as possible
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: C8153A4A-7EF3-485C-AA25-CB76AEB5710D
    :END:
    [2009-11-02 Mon 15:50]
 ** TODO Does the print command work with xact notes?
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: 59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
    :END:
@@ -95,11 +116,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-11-02 Mon 15:50]
 ** TODO Make sure read_init is called twice, and args-only ignores both
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: 72091F12-D9FB-4585-A45D-E402365B74E2
    :END:
    [2009-11-02 Mon 05:08]
 ** TODO !include statememt no longer accepts simple filenames
+   SCHEDULED: <2009-11-05 Thu>
    It needs the full path to the file.
    :PROPERTIES:
    :ID: 272532BD-9BC5-46AA-B94C-BBAD05F35893
@@ -107,6 +130,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-11-01 Sun 05:50]
 ** TODO No error message if the parser cannot find an included file
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: 6188B0EC-A38F-41AE-9B65-8E155641AB99
    :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
@@ -116,7 +140,23 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO [#B] Create Expr, Query, Period, Template objects
+   SCHEDULED: <2009-11-05 Thu>
+   One to represent every expression type.
+   :PROPERTIES:
+   :ID: D3395691-2BD5-4ADF-A528-3DBB96FC3F98
+   :END:
+   [2009-11-05 Thu 08:27]
+** TODO [#B] All the expression types should have a review() method
+   SCHEDULED: <2009-11-05 Thu>
+   This code would come out of precmd.cc, and allow Python users to view the
+   same information.
+   :PROPERTIES:
+   :ID: 0A0A8D19-DEB9-4F64-A6CD-49F0B8C2FF12
+   :END:
+   [2009-11-05 Thu 08:28]
 ** TODO Add a "date" term to report queries
+   SCHEDULED: <2009-11-05 Thu>
    :SCRIPT:
    ledger reg checking show date "june last year"
    :END:
@@ -146,6 +186,31 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Python
   :END:
+** TODO [#B] In py_report.cc, export all the global functions
+   SCHEDULED: <2009-11-05 Thu>
+   :PROPERTIES:
+   :ID: 0912FE8A-79BE-4A6A-9B0F-6A73547A9B2C
+   :END:
+   [2009-11-05 Thu 08:28]
+** TODO [#B] When passing SCOPE args, always downcast
+   SCHEDULED: <2009-11-05 Thu>
+   This way I don't need to expose scope_t at all!
+   :PROPERTIES:
+   :ID: 2D867E72-2030-4451-9FEE-A77D77680847
+   :END:
+   [2009-11-05 Thu 08:29]
+** TODO [#B] account_total(X) should be account(X).total
+   SCHEDULED: <2009-11-05 Thu>
+   :PROPERTIES:
+   :ID: AB130FE5-33EC-4243-8F89-35C1A0848382
+   :END:
+   [2009-11-05 Thu 06:09]
+** TODO [#B] Expose journal_t::read to Python
+   SCHEDULED: <2009-11-05 Thu>
+   :PROPERTIES:
+   :ID: 9B059767-253E-451C-B65A-FD27FE27944D
+   :END:
+   [2009-11-05 Thu 06:09]
 ** TODO Allow a Python function to be used to download quotes
    - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
@@ -193,6 +258,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-11-03 Tue 18:54]
 ** TODO Rewrite py_scope.cc
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: 02F01290-311E-4A6C-9049-3EA78BA7CA1E
    :END:
@@ -217,6 +283,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-11-02 Mon 15:50]
 ** TODO Every ledger object should honor the iteration protocol
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: 4E160265-93EA-42EE-825D-078A2A459BCA
    :END:
@@ -231,6 +298,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-11-03 Tue 15:18]
 ** TODO Build failure building latest Git version (archive.cc)
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: 9EF3FC3E-1699-4DFA-B7AF-27779BCAC510
    :Message:  [[message://7ff1eb7d-2fbe-4b50-9d0a-373e7d929574@j19g2000yqk.googlegroups.com][Build failure latest git]]
@@ -246,6 +314,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :CATEGORY: Tests
   :END:
 ** TODO Use --cache=/dev/null when running the unit tests
+   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: 957CABA8-FEE1-4609-ABCD-0B285B49F2CE
    :END:
