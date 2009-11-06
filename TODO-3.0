@@ -7,7 +7,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
 
 * Bugs
-** DONE gfuchedzhy is seeing a segfault with a simple input file
+** DONE gfuchedzhy is seeing a segfault with a simple input file			   :LINK:
    - State "DONE"       from "TODO"       [2009-11-05 Thu 04:17]
    :PROPERTIES:
    :ID:       880BC301-3EF1-4701-8599-CA6170BCC9DA
@@ -76,6 +76,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 461980A1-86DE-4C76-9CB1-1480B5606624
    :END:
    [2009-03-15 Sun 22:32]
+** DONE When reporting an imbalance, show the amount to balance against
+   SCHEDULED: <2009-11-05 Thu>
+   - State "DONE"       from "TODO"       [2009-11-05 Thu 17:48]
+   :PROPERTIES:
+   :ID: FE1E912D-7DFA-4489-98E9-8112B2B941CB
+   :END:
+   [2009-11-05 Thu 00:19]
 ** DONE Balance report wasn't reporting a final total
    - State "DONE"       [2009-03-16 Mon 04:06]
    :PROPERTIES:
@@ -299,6 +306,12 @@ D $1,000.00
    :Ticket: 138
    :ID: 6838FEA5-9283-462D-8651-351B0B6A6A0E
    :END:
+** DONE --set-reported-account should just be --account
+   - State "DONE"       from "TODO"       [2009-11-06 Fri 02:18]
+   :PROPERTIES:
+   :ID: F35973AD-80AB-4B7A-9111-4A9480C73DFB
+   :END:
+   [2009-11-04 Wed 16:06]
 ** DONE There are too many O_CONS levels for parsing '((1, 2), 3)'
    - State "DONE"       [2009-02-23 Mon 05:29]
    :PROPERTIES:
@@ -2259,7 +2272,7 @@ ledger -f test.ledger -s bal discover
    :Attachments: testledger.dat
    :END:
    [2009-04-01 Wed 19:40]
-** TESTED Make sure the period flag (-p) can accept "YYYY/MM"
+** TESTED Make sure the period flag (-p) can accept "YYYY/MM"				   :LINK:
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:59]
    - State "DONE"       from "TODO"       [2009-11-02 Mon 01:59]
    :PROPERTIES:
@@ -2319,7 +2332,7 @@ ledger -f test.ledger -s bal discover
    :ID: 5F1BAF17-2A7C-4992-ACCA-B1111104E4EE
    :END:
    [2009-10-26 Mon 17:21]
-** TESTED budget misbehavior with account tree
+** TESTED budget misbehavior with account tree						   :LINK:
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:40]
    - State "DONE"       from "TODO"       [2009-11-02 Mon 01:40]
    The budget command behaves slightly different than I would expect
@@ -4326,6 +4339,14 @@ getquote GSK_L
    :END:
    [2008-04-11 Fri]
 * Python
+** DONE When passing SCOPE args, always downcast
+   SCHEDULED: <2009-11-05 Thu>
+   - State "DONE"       from "TODO"       [2009-11-05 Thu 17:17]
+   This way I don't need to expose scope_t at all!
+   :PROPERTIES:
+   :ID: 2D867E72-2030-4451-9FEE-A77D77680847
+   :END:
+   [2009-11-05 Thu 08:29]
 ** DONE Delete unused python classes: op, token, parser
    - State "DONE"       from "TODO"       [2009-11-05 Thu 04:21]
    :PROPERTIES:
@@ -4398,6 +4419,13 @@ getquote GSK_L
    :ID: D4CFF147-B825-43E2-B85C-28501936EEAE
    :END:
    [2009-02-24 Tue 11:08]
+** CANCELLED Rewrite py_scope.cc
+   SCHEDULED: <2009-11-05 Thu>
+   - State "CANCELLED"  from "TODO"       [2009-11-05 Thu 17:17]
+   :PROPERTIES:
+   :ID: 02F01290-311E-4A6C-9049-3EA78BA7CA1E
+   :END:
+   [2009-11-03 Tue 18:54]
 ** CANCELLED Create a Python wrapper for op_t objects
    - State "CANCELLED"  from "DEFERRED"   [2009-11-05 Thu 04:23]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]

@@ -2,9 +2,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content
 #+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
+#+TAGS: LINK(l)
+#+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
 #+CATEGORY: Ledger
 
 * Features
+** DEFERRED Add a "date" term to report queries
+   - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 01:55] \\
+     This has been coded, but is not being enabled yet until I see that it has some
+     value.
+   :SCRIPT:
+   ledger reg checking show date "june last year"
+   :END:
+   Write a compliance test to make sure that "june last year" (with --now) and
+   "june 2009" do what's expected.  Make ~ be the shortcut key, with parsing
+   behavior similar to =.
+   :PROPERTIES:
+   :ID: BBBD2434-3763-45DB-A8EC-59DD47B3E387
+   :END:
+   [2009-11-04 Wed 16:27]
 ** DEFERRED Restore the XML parser (code is in xml local branch)
    - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:15]
    :PROPERTIES:
@@ -126,7 +142,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 28CE49A7-919B-4C93-9754-966DCC435DBA
    :END:
    [2009-10-23 Fri 06:14]
-** DEFERRED @@ -- allow negative costs
+** DEFERRED @@ -- allow negative costs							   :LINK:
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    I am quite keen on the @@ syntax, as I like to deal with commodities on a
    net basis. However, there is a bit of an inconsistency between @@ and @.
@@ -231,7 +247,7 @@ Error: A posting's cost may not be negative
    :ID: ADD3FB96-D19A-47F0-9F0B-1896328D6380
    :END:
    [2009-02-04 Wed 19:57]
-** DEFERRED --price option in lot_sales branch
+** DEFERRED --price option in lot_sales branch						   :LINK:
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    message://m24q2rwrym.fsf_-_@newartisans.com
    message://m2k6bl3vr3.fsf@newartisans.com
@@ -340,7 +356,7 @@ Error: A posting's cost may not be negative
    :END:
    [2009-07-03 Fri 08:38]
 * Emacs
-** DEFERRED Add colorized highlighting to the reconciler
+** DEFERRED Add colorized highlighting to the reconciler				   :LINK:
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
    http://thread.gmane.org/gmane.comp.finance.ledger.general/483
    :PROPERTIES:
@@ -405,7 +421,7 @@ Error: A posting's cost may not be negative
    :ID: 178EC4C8-F87A-40C2-91CE-C5BD9CA50BD3
    :END:
    [2009-10-23 Fri 06:14]
-** DEFERRED Inserting comments in ledger-mode is inserting leading whitespace
+** DEFERRED Inserting comments in ledger-mode is inserting leading whitespace		   :LINK:
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    Comments in ledger-mode are inserted with whitespace at the beginning of the
    line, which makes ledger.dat unusable.  One has to delete the extra
@@ -773,6 +789,14 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :END:
    [2009-03-11 Wed 20:54]
 * Tests
+** DEFERRED Use --cache=/dev/null when running the unit tests
+   - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 02:08] \\
+     I cannot read/write the cache to /dev/null, so I'll have to use a temp file
+     that gets cleaned up.
+   :PROPERTIES:
+   :ID: 957CABA8-FEE1-4609-ABCD-0B285B49F2CE
+   :END:
+   [2009-11-03 Tue 18:55]
 ** DEFERRED [#C] Ledger is still failing the higher-numbered generation seed tests
    - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
    :PROPERTIES:

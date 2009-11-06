@@ -10,61 +10,44 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO Scoping bug with defined value expression functions
-   SCHEDULED: <2009-11-05 Thu>
-   If I parse the following data:
-   :DATA:
-    def elec := account_total("Usage:Electricity")
-    
-    2009/01/13 * Electricity
-     Usage:Electricity          646,40 kWh
-     Equity:OpeningBalance
-    
-    2009/02/13 * Electricity
-     Usage:Electricity          (690,10 kWh - elec)
-     Supplier:Vattenfall
-   :END:
-   I get an error that account_total is unknown, because it's not finding the
-   report scope.  If I substitute the definition by hand, it works.
+** TODO [#B] ledger date 2009/07/01 takes forever to return an error message
+   SCHEDULED: <2009-11-06 Fri>
    :PROPERTIES:
-   :ID: 53ACFFFA-E9DE-4526-ABBD-B38DAE0FBA6F
+   :ID: C444D9F0-55AF-4D70-8C65-609761672953
    :END:
-   [2009-11-05 Thu 05:25]
-** TODO When reporting an imbalance, show the amount to balance against
-   SCHEDULED: <2009-11-05 Thu>
+   [2009-11-06 Fri 02:44]
+** TODO [#A] The date parser needs to be rewritten
+   It needs to be a real parser, to handle these strings:
+   :SOURCE:
+   from july
+   from 2009
+   from 2009 july
+   from july 2009
+   from last july
+   :END:
    :PROPERTIES:
-   :ID: FE1E912D-7DFA-4489-98E9-8112B2B941CB
+   :ID: 28A80FB5-2475-45CD-B4AD-7BBA0038F9E6
    :END:
-   [2009-11-05 Thu 00:19]
-** TODO --set-reported-account should just be --set-account
-   SCHEDULED: <2009-11-05 Thu>
+   [2009-11-06 Fri 01:42]
+** TODO [#A] !include statememt no longer accepts simple filenames			   :LINK:
+   It needs the full path to the file.
    :PROPERTIES:
-   :ID: F35973AD-80AB-4B7A-9111-4A9480C73DFB
+   :ID: 272532BD-9BC5-46AA-B94C-BBAD05F35893
+   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
    :END:
-   [2009-11-04 Wed 16:06]
-** TODO Why are there still compiler warnings on Gentoo?
+   [2009-11-01 Sun 05:50]
+** TODO [#A] No error message if the parser cannot find an included file		   :LINK:
    :PROPERTIES:
-   :ID: 78ACF717-23F0-4A94-A134-54AD501FDE4D
+   :ID: 6188B0EC-A38F-41AE-9B65-8E155641AB99
+   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
    :END:
-   [2009-11-03 Tue 18:55]
-** TODO Build my copy of Boost with ICU regexps
+   [2009-11-01 Sun 05:50]
+** TODO [#A] Make sure read_init is called twice, and args-only ignores both
    :PROPERTIES:
-   :ID: 1B3138A7-BA00-4041-AA13-E68AE9820A79
+   :ID: 72091F12-D9FB-4585-A45D-E402365B74E2
    :END:
-   [2009-11-03 Tue 18:55]
-** TODO If a file's UTF8 coding is incorrect, display a meaningful error
-   :PROPERTIES:
-   :ID: 91D5206E-44BF-433B-9D53-08711ECE7DE9
-   :END:
-   [2009-11-03 Tue 18:55]
-** TODO Problem with case sensitivity and UTF-8
-   активы doesn't match Активы
-   :PROPERTIES:
-   :ID: FA84F4EF-0446-4237-98E1-381458645004
-   :END:
-   [2009-11-03 Tue 15:27]
-** TODO The bal report does not honor -r
-   SCHEDULED: <2009-11-05 Thu>
+   [2009-11-02 Mon 05:08]
+** TODO [#A] The bal report does not honor -r
    If I run "bal simon -r" against this file:
    :SOURCE:
    10/26 trader joe's
@@ -86,98 +69,112 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 178501DC-6777-4A27-A9D3-587A92FF62D0
    :END:
    [2009-11-03 Tue 15:57]
-** TODO Implement readline completion for the REPL
+** TODO [#A] Default sorting should happen as late as possible
+   :PROPERTIES:
+   :ID: C8153A4A-7EF3-485C-AA25-CB76AEB5710D
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO Standardize the find_account and find_commodity methods
+   It should be find_account(STR), find_account(MASK), and
+   find_or_create_account(STR).  Some with find_commodity, etc.
+   :PROPERTIES:
+   :ID: BC6E6475-14C8-4E20-BF4E-0A0FAD36F01D
+   :END:
+   [2009-11-05 Thu 16:11]
+** TODO Scoping bug with defined value expression functions
+   If I parse the following data:
+   :DATA:
+    def elec := account_total("Usage:Electricity")
+    
+    2009/01/13 * Electricity
+     Usage:Electricity          646,40 kWh
+     Equity:OpeningBalance
+    
+    2009/02/13 * Electricity
+     Usage:Electricity          (690,10 kWh - elec)
+     Supplier:Vattenfall
+   :END:
+   I get an error that account_total is unknown, because it's not finding the
+   report scope.  If I substitute the definition by hand, it works.
+   :PROPERTIES:
+   :ID: 53ACFFFA-E9DE-4526-ABBD-B38DAE0FBA6F
+   :END:
+   [2009-11-05 Thu 05:25]
+** TODO If a file's UTF8 coding is incorrect, display a meaningful error
+   :PROPERTIES:
+   :ID: 91D5206E-44BF-433B-9D53-08711ECE7DE9
+   :END:
+   [2009-11-03 Tue 18:55]
+** TODO Problem with case sensitivity and UTF-8
+   активы doesn't match Активы
+   :PROPERTIES:
+   :ID: FA84F4EF-0446-4237-98E1-381458645004
+   :END:
+   [2009-11-03 Tue 15:27]
+*** TODO Build my copy of Boost with ICU regexps
+    :PROPERTIES:
+    :ID: 1B3138A7-BA00-4041-AA13-E68AE9820A79
+    :END:
+    [2009-11-03 Tue 18:55]
+** TODO Rename basket to bucket
+   :PROPERTIES:
+   :ID: 4BC2BE6E-7A3D-4207-8F43-6BF07303B9DF
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO Does the print command work with xact notes?
+   :PROPERTIES:
+   :ID: 59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO textual.cc should report about illegal options
+   :PROPERTIES:
+   :ID: 7A2732AF-FF0C-4418-AF38-BA65834866F0
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO [#C] Implement readline completion for the REPL
    [[file:main.cc::jww%202009%2002%2005%20NYI][NYI]]
    :PROPERTIES:
    :ID: EF3D6703-AD14-48B3-A9EE-481E5FC295AB
    :END:
    [2009-11-03 Tue 13:59]
-** TODO Rename basket to bucket
-   SCHEDULED: <2009-11-05 Thu>
+** TODO [#C] Why are there still compiler warnings on Gentoo?
    :PROPERTIES:
-   :ID: 4BC2BE6E-7A3D-4207-8F43-6BF07303B9DF
+   :ID: 78ACF717-23F0-4A94-A134-54AD501FDE4D
    :END:
-   [2009-11-02 Mon 15:50]
-** TODO Default sorting should happen as late as possible
-   SCHEDULED: <2009-11-05 Thu>
+   [2009-11-03 Tue 18:55]
+** TODO [#C] Rewrite valexpr parser using Boost.Spirit and Boost.Phoenix
    :PROPERTIES:
-   :ID: C8153A4A-7EF3-485C-AA25-CB76AEB5710D
+   :ID: C1233CDA-DF8A-4BBB-89CE-4B8168AA898E
    :END:
-   [2009-11-02 Mon 15:50]
-** TODO Does the print command work with xact notes?
-   SCHEDULED: <2009-11-05 Thu>
-   :PROPERTIES:
-   :ID: 59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
-   :END:
-   [2009-11-02 Mon 15:50]
-** TODO Textual.cc should report about illegal options
-   :PROPERTIES:
-   :ID: 7A2732AF-FF0C-4418-AF38-BA65834866F0
-   :END:
-   [2009-11-02 Mon 15:50]
-** TODO Make sure read_init is called twice, and args-only ignores both
-   SCHEDULED: <2009-11-05 Thu>
-   :PROPERTIES:
-   :ID: 72091F12-D9FB-4585-A45D-E402365B74E2
-   :END:
-   [2009-11-02 Mon 05:08]
-** TODO !include statememt no longer accepts simple filenames
-   SCHEDULED: <2009-11-05 Thu>
-   It needs the full path to the file.
-   :PROPERTIES:
-   :ID: 272532BD-9BC5-46AA-B94C-BBAD05F35893
-   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
-   :END:
-   [2009-11-01 Sun 05:50]
-** TODO No error message if the parser cannot find an included file
-   SCHEDULED: <2009-11-05 Thu>
-   :PROPERTIES:
-   :ID: 6188B0EC-A38F-41AE-9B65-8E155641AB99
-   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
-   :END:
-   [2009-11-01 Sun 05:50]
+   [2009-11-05 Thu 23:01]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [#B] Create Expr, Query, Period, Template objects
-   SCHEDULED: <2009-11-05 Thu>
+** TODO [#A] Create Expr, Query, Period, Draft, Format objects
    One to represent every expression type.
    :PROPERTIES:
    :ID: D3395691-2BD5-4ADF-A528-3DBB96FC3F98
    :END:
    [2009-11-05 Thu 08:27]
-** TODO [#B] All the expression types should have a review() method
-   SCHEDULED: <2009-11-05 Thu>
+** TODO [#A] All the expression types should have a review() method
    This code would come out of precmd.cc, and allow Python users to view the
    same information.
    :PROPERTIES:
    :ID: 0A0A8D19-DEB9-4F64-A6CD-49F0B8C2FF12
    :END:
    [2009-11-05 Thu 08:28]
-** TODO Add a "date" term to report queries
-   SCHEDULED: <2009-11-05 Thu>
-   :SCRIPT:
-   ledger reg checking show date "june last year"
-   :END:
-   Write a compliance test to make sure that "june last year" (with --now) and
-   "june 2009" do what's expected.  Make ~ be the shortcut key, with parsing
-   behavior similar to =.
-   :PROPERTIES:
-   :ID: BBBD2434-3763-45DB-A8EC-59DD47B3E387
-   :END:
-   [2009-11-04 Wed 16:27]
-** TODO Warn if a file link points to a missing file
-   :PROPERTIES:
-   :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
-   :END:
-   [2009-11-02 Mon 15:50]
 ** TODO Provide single-letter value expression shortcuts
    This is for compatibility with 2.x.
    :PROPERTIES:
    :ID: 80339708-5B3E-4413-A770-89E4E9912C04
    :END:
    [2009-11-02 Mon 01:10]
+** TODO [#C] Warn if a file link points to a missing file
+   :PROPERTIES:
+   :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
+   :END:
+   [2009-11-02 Mon 15:50]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
@@ -186,38 +183,37 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO [#B] In py_report.cc, export all the global functions
-   SCHEDULED: <2009-11-05 Thu>
-   :PROPERTIES:
-   :ID: 0912FE8A-79BE-4A6A-9B0F-6A73547A9B2C
-   :END:
-   [2009-11-05 Thu 08:28]
-** TODO [#B] When passing SCOPE args, always downcast
-   SCHEDULED: <2009-11-05 Thu>
-   This way I don't need to expose scope_t at all!
-   :PROPERTIES:
-   :ID: 2D867E72-2030-4451-9FEE-A77D77680847
-   :END:
-   [2009-11-05 Thu 08:29]
-** TODO [#B] account_total(X) should be account(X).total
-   SCHEDULED: <2009-11-05 Thu>
-   :PROPERTIES:
-   :ID: AB130FE5-33EC-4243-8F89-35C1A0848382
-   :END:
-   [2009-11-05 Thu 06:09]
-** TODO [#B] Expose journal_t::read to Python
-   SCHEDULED: <2009-11-05 Thu>
+** TODO [#A] Expose journal_t::read to Python
    :PROPERTIES:
    :ID: 9B059767-253E-451C-B65A-FD27FE27944D
    :END:
    [2009-11-05 Thu 06:09]
-** TODO Allow a Python function to be used to download quotes
-   - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+** TODO [#A] Add expr_t(string) and expr_t::operator() for ease of use from Python
    :PROPERTIES:
-   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
+   :ID: 55B576FF-4448-4569-8E5B-56C63D9703D8
    :END:
-   [2009-06-24 Wed 17:27]
+   [2009-11-03 Tue 18:54]
+** TODO [#A] Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
+   http://wiki.python.org/moin/boost.python/CallPolicy
+   :PROPERTIES:
+   :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
+   :END:
+   [2009-11-03 Tue 08:55]
+** TODO In py_report.cc, export all the global functions
+   :PROPERTIES:
+   :ID: 0912FE8A-79BE-4A6A-9B0F-6A73547A9B2C
+   :END:
+   [2009-11-05 Thu 08:28]
+** TODO Every ledger object should honor the iteration protocol
+   :PROPERTIES:
+   :ID: 4E160265-93EA-42EE-825D-078A2A459BCA
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO account_total(X) should be account(X).amount
+   :PROPERTIES:
+   :ID: AB130FE5-33EC-4243-8F89-35C1A0848382
+   :END:
+   [2009-11-05 Thu 06:09]
 ** TODO Fix boost::optional translation class for Dmitriy				   :LINK:
    - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
    - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:11]
@@ -252,73 +248,50 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: B5D1ABA9-1580-4719-A1B5-CBE8EA89147D
    :END:
    [2009-11-03 Tue 14:00]
-** TODO Add expr_t(string) and expr_t::operator() for ease of use from Python
+** TODO [#C] Have methods for serializing to and from a string
+   [2009-11-03 Tue 07:41]
    :PROPERTIES:
-   :ID: 55B576FF-4448-4569-8E5B-56C63D9703D8
+   :ID: 9383A1B7-34C8-4B3E-8FA0-B22A92F6B10F
    :END:
-   [2009-11-03 Tue 18:54]
-** TODO Rewrite py_scope.cc
-   SCHEDULED: <2009-11-05 Thu>
-   :PROPERTIES:
-   :ID: 02F01290-311E-4A6C-9049-3EA78BA7CA1E
-   :END:
-   [2009-11-03 Tue 18:54]
-** TODO Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
-   http://wiki.python.org/moin/boost.python/CallPolicy
-   :PROPERTIES:
-   :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
-   :END:
-   [2009-11-03 Tue 08:55]
-** TODO journal_t objects should be copyable
+   [2009-11-02 Mon 15:50]
+** TODO [#C] journal_t objects should be copyable
    This also has to do with making them serializable.  There should be a way to
    "activate" a journal for the current session, which sets up the
    commodity_pool reference for amount_t.
    :PROPERTIES:
    :ID: 9ECF98A8-8C8C-42D1-B8A0-EB42F49AAED9
    :END:
-   [2009-11-03 Tue 07:41]
-** TODO Have methods for serializing to and from a string
+** TODO [#C] Allow a Python function to be used to download quotes
+   - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
-   :ID: 9383A1B7-34C8-4B3E-8FA0-B22A92F6B10F
+   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
    :END:
-   [2009-11-02 Mon 15:50]
-** TODO Every ledger object should honor the iteration protocol
-   SCHEDULED: <2009-11-05 Thu>
-   :PROPERTIES:
-   :ID: 4E160265-93EA-42EE-825D-078A2A459BCA
-   :END:
-   [2009-11-02 Mon 15:50]
+   [2009-06-24 Wed 17:27]
 * Build
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO Automate the production of new bindmg images
-   :PROPERTIES:
-   :ID: FC3248BA-E269-4847-A253-277D63C92B4A
-   :END:
+** TODO [#A] Build failure building latest Git version (archive.cc)			   :LINK:
    [2009-11-03 Tue 15:18]
-** TODO Build failure building latest Git version (archive.cc)
-   SCHEDULED: <2009-11-05 Thu>
    :PROPERTIES:
    :ID: 9EF3FC3E-1699-4DFA-B7AF-27779BCAC510
    :Message:  [[message://7ff1eb7d-2fbe-4b50-9d0a-373e7d929574@j19g2000yqk.googlegroups.com][Build failure latest git]]
    :END:
    [2009-11-01 Sun 17:49]
 ** TODO acprep's --boost option does not accept a value
+   :END:
    :PROPERTIES:
    :ID: 36778975-47E7-4D79-98FF-4B6C8F650914
    :END:
    [2009-11-01 Sun 06:41]
+** TODO Automate the production of new bindmg images
+   :PROPERTIES:
+   :ID: FC3248BA-E269-4847-A253-277D63C92B4A
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** TODO Use --cache=/dev/null when running the unit tests
-   SCHEDULED: <2009-11-05 Thu>
-   :PROPERTIES:
-   :ID: 957CABA8-FEE1-4609-ABCD-0B285B49F2CE
-   :END:
-   [2009-11-03 Tue 18:55]
 ** Create a series of "manual" tests
    These would confirm the validity of all the examples given in the manual.
    :PROPERTIES:
