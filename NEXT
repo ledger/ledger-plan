@@ -339,6 +339,28 @@ Error: A posting's cost may not be negative
    :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
    :END:
    [2008-04-11 Fri]
+** DEFERRED [#C] Implement readline completion for the REPL
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:31]
+   [[file:main.cc::jww%202009%2002%2005%20NYI][NYI]]
+   :PROPERTIES:
+   :ID: EF3D6703-AD14-48B3-A9EE-481E5FC295AB
+   :END:
+   [2009-11-03 Tue 13:59]
+** DEFERRED [#C] Warn if a file link points to a missing file
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:24]
+   :PROPERTIES:
+   :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
+   :END:
+   [2009-11-02 Mon 15:50]
+** DEFERRED [#C] journal_t objects should be copyable
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:23]
+   This also has to do with making them serializable.  There should be a way to
+   "activate" a journal for the current session, which sets up the
+   commodity_pool reference for amount_t.
+   :PROPERTIES:
+   :ID: 9ECF98A8-8C8C-42D1-B8A0-EB42F49AAED9
+   :END:
+  
 ** DEFERRED [#C] Combine a random seed when hashing when using --anon			   :LINK:
    - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
    Please keep in mind that the dictionary one pulls account names from is MUCH
@@ -587,97 +609,13 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :END:
    [2009-06-19 Fri 00:49]
 * Python
-** DEFERRED Complete Python integration [0/85]
-   - State "DEFERRED"   from "TODO"       [2009-11-01 Sun 06:28]
-   - [ ] account_t
-   - [ ] acct_value_t
-   - [ ] amount_t
-   - [ ] annotated_commodity_t
-   - [ ] annotation_t
-   - [ ] archive_t
-   - [ ] auto_xact_t
-   - [ ] balance_t
-   - [ ] base_t
-   - [ ] basic_flags_t
-   - [ ] bind_scope_t
-   - [ ] call_scope_t
-   - [ ] child_scope_t
-   - [ ] commodity_pool_t
-   - [ ] commodity_t
-   - [ ] date_interval_t
-   - [ ] expr_t
-   - [ ] format_t
-   - [ ] func_finalizer_t
-   - [ ] functor_t
-   - [ ] global_scope_t
-   - [ ] hooks_t
-   - [ ] in_context_t
-   - [ ] instance_t
-   - [ ] interactive_t
-   - [ ] item_t
-   - [ ] journal_t
-   - [ ] keep_details_t
-   - [ ] mask_t
-   - [ ] op_t
-   - [ ] option_t
-   - [ ] output_stream_t
-   - [ ] parser_t
-   - [ ] period_xact_t
-   - [ ] post_t
-   - [ ] push_to_posts_list
-   - [ ] python_interpreter_t
-   - [ ] query_lexer_t
-   - [ ] query_parser_t
-   - [ ] report_t
-   - [ ] scope_t
-   - [ ] session_t
-   - [ ] storage_t
-   - [ ] symbol_scope_t
-   - [ ] temporal_io_t
-   - [ ] temporaries_t
-   - [ ] time_log_t
-   - [ ] time_xact_t
-   - [ ] value_t
-   - [ ] xact_base_t
-   - [ ] xact_finalizer_t
-   - [ ] xact_t
-   - [ ] amount_t
-   - [ ] annotation_t
-   - [ ] auto_xact_finalizer_t
-   - [ ] bigint_t
-   - [ ] bool_to_python
-   - [ ] context_t
-   - [ ] cost_breakdown_t
-   - [ ] date_to_python
-   - [ ] datetime_to_python
-   - [ ] details_t
-   - [ ] duration_t
-   - [ ] element_t
-   - [ ] expr_t
-   - [ ] fileinfo_t
-   - [ ] history_t
-   - [ ] istream_to_python
-   - [ ] keep_details_t
-   - [ ] op_bool_char_tuple
-   - [ ] optional_to_python
-   - [ ] ostream_to_python
-   - [ ] position_t
-   - [ ] post_template_t
-   - [ ] price_point_t
-   - [ ] py_xact_finalizer_t
-   - [ ] register_optional_to_python
-   - [ ] sort_value_t
-   - [ ] string_to_python
-   - [ ] timer_t
-   - [ ] token_t
-   - [ ] varied_history_t
-   - [ ] xact_finalizer_t
-   - [ ] xact_template_t
-   - [ ] xdata_t
+** DEFERRED Add implicit conversion of mask_t to re
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:36]
+   [[file:py_value.cc::jww%202009%2011%2002%20Add%20implicit%20conversion%20of%20mask%20objects][py_value.cc]]
    :PROPERTIES:
-   :ID: 380C8009-E5AD-4E9F-A285-4CB45FA1DD92
+   :ID: DF00F985-18A8-438D-819C-EC5962EEE925
    :END:
-   [2009-11-01 Sun 06:27]
+   [2009-11-03 Tue 14:01]
 ** DEFERRED Get ledger python to run within the build tree
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
@@ -736,6 +674,13 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 444EFEE1-D873-4FD3-BB07-4E605BCB2BF4
    :END:
    [2008-10-08 Wed 00:58]
+** DEFERRED [#C] Have methods for serializing to and from a string
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:23]
+   [2009-11-03 Tue 07:41]
+   :PROPERTIES:
+   :ID: 9383A1B7-34C8-4B3E-8FA0-B22A92F6B10F
+   :END:
+   [2009-11-02 Mon 15:50]
 * Build
 ** DEFERRED Add some more configure arguments
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]

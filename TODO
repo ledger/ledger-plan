@@ -1,7 +1,7 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content
-#+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
+#+SEQ_TODO: TODO(@) STARTED WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
 #+TAGS: LINK(l)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
 #+CATEGORY: Ledger
@@ -10,13 +10,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#B] ledger date 2009/07/01 takes forever to return an error message
-   SCHEDULED: <2009-11-06 Fri>
+** STARTED The "ledger hello" command fails with "unknown function import_"
    :PROPERTIES:
-   :ID: C444D9F0-55AF-4D70-8C65-609761672953
+   :ID:       5FF900A4-8F86-406C-91F5-9314F74A9C6E
    :END:
-   [2009-11-06 Fri 02:44]
-** TODO [#A] The date parser needs to be rewritten
+   [2009-11-07 Sat 09:05]
+** TODO The date parser needs to be rewritten
    It needs to be a real parser, to handle these strings:
    :SOURCE:
    from july
@@ -42,38 +41,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
    :END:
    [2009-11-01 Sun 05:50]
-** TODO [#A] Make sure read_init is called twice, and args-only ignores both
+** TODO ledger date 2009/07/01 takes forever to return an error message
    :PROPERTIES:
-   :ID: 72091F12-D9FB-4585-A45D-E402365B74E2
+   :ID:       C444D9F0-55AF-4D70-8C65-609761672953
    :END:
-   [2009-11-02 Mon 05:08]
-** TODO [#A] The bal report does not honor -r
-   If I run "bal simon -r" against this file:
-   :SOURCE:
-   10/26 trader joe's
-       simon                         $-50
-       alice                         $-50
-       expenses:food:groceries
-   :END:
-   I see:
-   :OUTPUT:
-                   $-50  alice
-                   $100  expenses:food:groceries
-                   $-50  simon
-   --------------------
-                      0
-   :END:
-
-   The register version of this report works just fine.
-   :PROPERTIES:
-   :ID: 178501DC-6777-4A27-A9D3-587A92FF62D0
-   :END:
-   [2009-11-03 Tue 15:57]
-** TODO [#A] Default sorting should happen as late as possible
-   :PROPERTIES:
-   :ID: C8153A4A-7EF3-485C-AA25-CB76AEB5710D
-   :END:
-   [2009-11-02 Mon 15:50]
+   [2009-11-06 Fri 02:44]
 ** TODO Standardize the find_account and find_commodity methods
    It should be find_account(STR), find_account(MASK), and
    find_or_create_account(STR).  Some with find_commodity, etc.
@@ -81,6 +53,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: BC6E6475-14C8-4E20-BF4E-0A0FAD36F01D
    :END:
    [2009-11-05 Thu 16:11]
+** TODO Does the print command work with xact notes?
+   :PROPERTIES:
+   :ID:       59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
+   :END:
+   [2009-11-02 Mon 15:50]
 ** TODO Scoping bug with defined value expression functions
    If I parse the following data:
    :DATA:
@@ -100,64 +77,22 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 53ACFFFA-E9DE-4526-ABBD-B38DAE0FBA6F
    :END:
    [2009-11-05 Thu 05:25]
-** TODO If a file's UTF8 coding is incorrect, display a meaningful error
-   :PROPERTIES:
-   :ID: 91D5206E-44BF-433B-9D53-08711ECE7DE9
-   :END:
-   [2009-11-03 Tue 18:55]
-** TODO Problem with case sensitivity and UTF-8
-   активы doesn't match Активы
-   :PROPERTIES:
-   :ID: FA84F4EF-0446-4237-98E1-381458645004
-   :END:
-   [2009-11-03 Tue 15:27]
-*** TODO Build my copy of Boost with ICU regexps
-    :PROPERTIES:
-    :ID: 1B3138A7-BA00-4041-AA13-E68AE9820A79
-    :END:
-    [2009-11-03 Tue 18:55]
-** TODO Rename basket to bucket
-   :PROPERTIES:
-   :ID: 4BC2BE6E-7A3D-4207-8F43-6BF07303B9DF
-   :END:
-   [2009-11-02 Mon 15:50]
-** TODO Does the print command work with xact notes?
-   :PROPERTIES:
-   :ID: 59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
-   :END:
-   [2009-11-02 Mon 15:50]
-** TODO textual.cc should report about illegal options
-   :PROPERTIES:
-   :ID: 7A2732AF-FF0C-4418-AF38-BA65834866F0
-   :END:
-   [2009-11-02 Mon 15:50]
-** TODO [#C] Implement readline completion for the REPL
-   [[file:main.cc::jww%202009%2002%2005%20NYI][NYI]]
-   :PROPERTIES:
-   :ID: EF3D6703-AD14-48B3-A9EE-481E5FC295AB
-   :END:
-   [2009-11-03 Tue 13:59]
 ** TODO [#C] Why are there still compiler warnings on Gentoo?
    :PROPERTIES:
    :ID: 78ACF717-23F0-4A94-A134-54AD501FDE4D
    :END:
    [2009-11-03 Tue 18:55]
-** TODO [#C] Rewrite valexpr parser using Boost.Spirit and Boost.Phoenix
-   :PROPERTIES:
-   :ID: C1233CDA-DF8A-4BBB-89CE-4B8168AA898E
-   :END:
-   [2009-11-05 Thu 23:01]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [#A] Create Expr, Query, Period, Draft, Format objects
+** TODO Create Expr, Query, Period, Draft, Format objects
    One to represent every expression type.
    :PROPERTIES:
    :ID: D3395691-2BD5-4ADF-A528-3DBB96FC3F98
    :END:
    [2009-11-05 Thu 08:27]
-** TODO [#A] All the expression types should have a review() method
+** TODO All the expression types should have a review() method
    This code would come out of precmd.cc, and allow Python users to view the
    same information.
    :PROPERTIES:
@@ -170,11 +105,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 80339708-5B3E-4413-A770-89E4E9912C04
    :END:
    [2009-11-02 Mon 01:10]
-** TODO [#C] Warn if a file link points to a missing file
-   :PROPERTIES:
-   :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
-   :END:
-   [2009-11-02 Mon 15:50]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
@@ -183,37 +113,41 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO [#A] Expose journal_t::read to Python
+** TODO [#C] Deal with PyUnicode objects
    :PROPERTIES:
-   :ID: 9B059767-253E-451C-B65A-FD27FE27944D
+   :ID:       B7403D92-8C73-414F-A0EC-145D1F7101D4
    :END:
-   [2009-11-05 Thu 06:09]
-** TODO [#A] Add expr_t(string) and expr_t::operator() for ease of use from Python
+   [2009-11-07 Sat 06:35]
+** TODO Add expr_t(string) and expr_t::operator() for ease of use from Python
    :PROPERTIES:
    :ID: 55B576FF-4448-4569-8E5B-56C63D9703D8
    :END:
    [2009-11-03 Tue 18:54]
-** TODO [#A] Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
+** TODO Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
    http://wiki.python.org/moin/boost.python/CallPolicy
    :PROPERTIES:
    :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
    :END:
    [2009-11-03 Tue 08:55]
-** TODO In py_report.cc, export all the global functions
-   :PROPERTIES:
-   :ID: 0912FE8A-79BE-4A6A-9B0F-6A73547A9B2C
-   :END:
-   [2009-11-05 Thu 08:28]
-** TODO Every ledger object should honor the iteration protocol
-   :PROPERTIES:
-   :ID: 4E160265-93EA-42EE-825D-078A2A459BCA
-   :END:
-   [2009-11-02 Mon 15:50]
 ** TODO account_total(X) should be account(X).amount
    :PROPERTIES:
    :ID: AB130FE5-33EC-4243-8F89-35C1A0848382
    :END:
    [2009-11-05 Thu 06:09]
+** TODO Every ledger object should honor the iteration protocol
+   - Note taken on [2009-11-07 Sat 06:20] \\
+     The only ones left are balance_t and value_t.
+   :PROPERTIES:
+   :ID:       4E160265-93EA-42EE-825D-078A2A459BCA
+   :END:
+   [2009-11-02 Mon 15:50]
+** TODO In py_report.cc, export all "global" functions
+   Move as many of these functions as possible into their related class.  For
+   example, scrub should go into value_t::scrub.
+   :PROPERTIES:
+   :ID: 0912FE8A-79BE-4A6A-9B0F-6A73547A9B2C
+   :END:
+   [2009-11-05 Thu 08:28]
 ** TODO Fix boost::optional translation class for Dmitriy				   :LINK:
    - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
    - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:11]
@@ -224,43 +158,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
    :END:
    [2009-02-02 Mon 03:13]
-** TODO Distinguish between "no return" and values with unconvertable type
-   [[file:pyinterp.cc::jww%202009%2002%2024%20Distinguish%20between%20no%20return%20and%20values%20with][pyinterp.cc]]
-   :PROPERTIES:
-   :ID: 6F6B560E-B49A-41B8-8752-E1230DA69408
-   :END:
-   [2009-11-03 Tue 14:02]
-** TODO Add implicit conversion of mask objects
-   [[file:py_value.cc::jww%202009%2011%2002%20Add%20implicit%20conversion%20of%20mask%20objects][py_value.cc]]
-   :PROPERTIES:
-   :ID: DF00F985-18A8-438D-819C-EC5962EEE925
-   :END:
-   [2009-11-03 Tue 14:01]
-** TODO Need to support conversion of value_t::sequence_t
+** TODO Add implicit conversion of value_t::sequence_t to tuple
    [[file:py_value.cc::jww%202009%2011%2002%20Need%20to%20support%20conversion%20eof%20value_t%20sequence_t][py_value.cc]]
    :PROPERTIES:
    :ID: 9D00371D-44BC-44DB-B8FB-14AD2125876F
    :END:
    [2009-11-03 Tue 14:01]
-** TODO Convert time duration objects to PyDelta
+** TODO Add implicit conversion of duration_t to PyDelta
    [[file:py_times.cc::jww%202007%2005%2004%20Convert%20time%20duration%20objects%20to%20PyDelta][py_times.cc]]
    :PROPERTIES:
    :ID: B5D1ABA9-1580-4719-A1B5-CBE8EA89147D
    :END:
    [2009-11-03 Tue 14:00]
-** TODO [#C] Have methods for serializing to and from a string
-   [2009-11-03 Tue 07:41]
-   :PROPERTIES:
-   :ID: 9383A1B7-34C8-4B3E-8FA0-B22A92F6B10F
-   :END:
-   [2009-11-02 Mon 15:50]
-** TODO [#C] journal_t objects should be copyable
-   This also has to do with making them serializable.  There should be a way to
-   "activate" a journal for the current session, which sets up the
-   commodity_pool reference for amount_t.
-   :PROPERTIES:
-   :ID: 9ECF98A8-8C8C-42D1-B8A0-EB42F49AAED9
-   :END:
 ** TODO [#C] Allow a Python function to be used to download quotes
    - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
@@ -272,22 +181,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [#A] Build failure building latest Git version (archive.cc)			   :LINK:
-   [2009-11-03 Tue 15:18]
-   :PROPERTIES:
-   :ID: 9EF3FC3E-1699-4DFA-B7AF-27779BCAC510
-   :Message:  [[message://7ff1eb7d-2fbe-4b50-9d0a-373e7d929574@j19g2000yqk.googlegroups.com][Build failure latest git]]
-   :END:
-   [2009-11-01 Sun 17:49]
-** TODO acprep's --boost option does not accept a value
-   :END:
-   :PROPERTIES:
-   :ID: 36778975-47E7-4D79-98FF-4B6C8F650914
-   :END:
-   [2009-11-01 Sun 06:41]
-** TODO Automate the production of new bindmg images
-   :PROPERTIES:
-   :ID: FC3248BA-E269-4847-A253-277D63C92B4A
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests

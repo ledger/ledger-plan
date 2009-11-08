@@ -7,6 +7,42 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
 
 * Bugs
+** DONE [#A] The bal report does not honor -r
+   - State "DONE"       from "STARTED"    [2009-11-07 Sat 08:34]
+   If I run "bal simon -r" against this file:
+   :SOURCE:
+   10/26 trader joe's
+       simon                         $-50
+       alice                         $-50
+       expenses:food:groceries
+   :END:
+   I see:
+   :OUTPUT:
+                   $-50  alice
+                   $100  expenses:food:groceries
+                   $-50  simon
+   --------------------
+                      0
+   :END:
+
+   The register version of this report works just fine.
+   :PROPERTIES:
+   :ID: 178501DC-6777-4A27-A9D3-587A92FF62D0
+   :END:
+   [2009-11-03 Tue 15:57]
+** DONE textual.cc should report about illegal options
+   - State "DONE"       from "TODO"       [2009-11-07 Sat 08:34]
+   :PROPERTIES:
+   :ID: 7A2732AF-FF0C-4418-AF38-BA65834866F0
+   :END:
+   [2009-11-02 Mon 15:50]
+** DONE Problem with case sensitivity and UTF-8
+   - State "DONE"       from "STARTED"    [2009-11-07 Sat 08:23]
+   активы doesn't match Активы
+   :PROPERTIES:
+   :ID: FA84F4EF-0446-4237-98E1-381458645004
+   :END:
+   [2009-11-03 Tue 15:27]
 ** DONE gfuchedzhy is seeing a segfault with a simple input file			   :LINK:
    - State "DONE"       from "TODO"       [2009-11-05 Thu 04:17]
    :PROPERTIES:
@@ -312,6 +348,18 @@ D $1,000.00
    :ID: F35973AD-80AB-4B7A-9111-4A9480C73DFB
    :END:
    [2009-11-04 Wed 16:06]
+** DONE If a file's UTF8 coding is incorrect, display a meaningful error
+   - State "DONE"       from "TODO"       [2009-11-07 Sat 06:09]
+   :PROPERTIES:
+   :ID: 91D5206E-44BF-433B-9D53-08711ECE7DE9
+   :END:
+   [2009-11-03 Tue 18:55]
+** DONE Rename basket to bucket
+   - State "DONE"       from "TODO"       [2009-11-07 Sat 06:41]
+   :PROPERTIES:
+   :ID: 4BC2BE6E-7A3D-4207-8F43-6BF07303B9DF
+   :END:
+   [2009-11-02 Mon 15:50]
 ** DONE There are too many O_CONS levels for parsing '((1, 2), 3)'
    - State "DONE"       [2009-02-23 Mon 05:29]
    :PROPERTIES:
@@ -2975,6 +3023,14 @@ $ ledger -f <DATA> register
    :END:
    [2009-10-29 Thu 23:09]
 * Build
+** DONE [#A] Build failure building latest Git version (archive.cc)			   :LINK:
+   - State "DONE"       from "TODO"       [2009-11-07 Sat 06:51]
+   [2009-11-03 Tue 15:18]
+   :PROPERTIES:
+   :ID: 9EF3FC3E-1699-4DFA-B7AF-27779BCAC510
+   :Message:  [[message://7ff1eb7d-2fbe-4b50-9d0a-373e7d929574@j19g2000yqk.googlegroups.com][Build failure latest git]]
+   :END:
+   [2009-11-01 Sun 17:49]
 ** DONE [#A] tools/proof is failing
    - State "DONE"       [2009-03-08 Sun 01:24]
    - State "STARTED"    [2009-03-06 Fri 17:59]
@@ -3267,6 +3323,12 @@ make[1]: *** [libledger_la-journal.lo] Error 1
    :ID: DF73E41F-A867-4A29-BA88-BC9F69A139CD
    :END:
    [2008-08-04 Mon]
+** DONE acprep's --boost option does not accept a value
+   - State "DONE"       from "TODO"       [2009-11-07 Sat 06:34]
+   :PROPERTIES:
+   :ID: 36778975-47E7-4D79-98FF-4B6C8F650914
+   :END:
+   [2009-11-01 Sun 06:41]
 ** DONE [#C] Comb through the warnings generated when all warnings are enabled
    - State "DONE"       [2009-02-16 Mon 22:59]
    - State "STARTED"    [2009-02-16 Mon 14:25]
@@ -4339,6 +4401,12 @@ getquote GSK_L
    :END:
    [2008-04-11 Fri]
 * Python
+** DONE Expose journal_t::read to Python
+   - State "DONE"       from "TODO"       [2009-11-07 Sat 06:50]
+   :PROPERTIES:
+   :ID: 9B059767-253E-451C-B65A-FD27FE27944D
+   :END:
+   [2009-11-05 Thu 06:09]
 ** DONE When passing SCOPE args, always downcast
    SCHEDULED: <2009-11-05 Thu>
    - State "DONE"       from "TODO"       [2009-11-05 Thu 17:17]
