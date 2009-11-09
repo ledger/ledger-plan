@@ -10,12 +10,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#B] 1,00.00 should result in an amount parsing error
+** TODO [#A] Automated xact multipliers have no effect on null postings
+   :PROPERTIES:
+   :ID:       3A14C840-0407-465E-A5AC-09338BB6B707
+   :Message:  [[message://165AA794-0741-46E8-B4B5-44EB3DB9D337@surryhill.net][Re: ledger make fullcheck]]
+   :END:
+   [2009-11-09 Mon 02:47]
+** TODO [#A] 1,00.00 should result in an amount parsing error
    :PROPERTIES:
    :ID:       1A546C4D-42BF-44B4-A477-BF71FB42AE52
    :END:
    [2009-11-08 Sun 18:23]
-** STARTED The "ledger hello" command fails with "unknown function import_"
+** STARTED [#A] The "ledger hello" command fails with "unknown function import_"
    :PROPERTIES:
    :ID:       5FF900A4-8F86-406C-91F5-9314F74A9C6E
    :END:
@@ -46,7 +52,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
    :END:
    [2009-11-01 Sun 05:50]
-** TODO ledger date 2009/07/01 takes forever to return an error message
+** TODO [#C] ledger date 2009/07/01 takes forever to return an error message
    :PROPERTIES:
    :ID:       C444D9F0-55AF-4D70-8C65-609761672953
    :END:
@@ -91,7 +97,23 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Allow notes and metadata on timeclock entries
+   :PROPERTIES:
+   :ID:       F225EA85-49B6-4E0C-B861-38DD3E784048
+   :END:
+   [2009-11-09 Mon 01:44]
+** TODO [#C] Support a "prefix column" for all reports
+   For example, so that the register report could show the filename that each
+   posting is from.  This would require both a configuratino option for the
+   column's contents (if present), and the size it should be (default to 10?).
+   :PROPERTIES:
+   :ID:       38B3A6DB-5110-40B5-9B93-31BBCAB02180
+   :END:
+   [2009-11-09 Mon 13:55]
 ** TODO Create Expr, Query, Period, Draft, Format objects
+   - State "TODO"       from "DONE"       [2009-11-09 Mon 14:08] \\
+     I still need to expose this classes to Python.
+   - State "DONE"       from "TODO"       [2009-11-09 Mon 14:08]
    One to represent every expression type.  All the expression types should
    have a preview() method.
    :PROPERTIES:
@@ -112,12 +134,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO [#C] Deal with PyUnicode objects
+** TODO Deal with PyUnicode objects
    :PROPERTIES:
    :ID:       B7403D92-8C73-414F-A0EC-145D1F7101D4
    :END:
    [2009-11-07 Sat 06:35]
-** TODO Add expr_t(string) and expr_t::operator() for ease of use from Python
+** DONE Add expr_t(string) and expr_t::operator() for ease of use from Python
+   - State "DONE"       from "TODO"       [2009-11-09 Mon 14:08]
    :PROPERTIES:
    :ID: 55B576FF-4448-4569-8E5B-56C63D9703D8
    :END:
@@ -180,6 +203,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** TODO Create a PO file for Alexis to translate into German
+   :PROPERTIES:
+   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
+   :END:
+   [2009-11-09 Mon 03:40]
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
