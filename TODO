@@ -10,6 +10,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO [#B] 1,00.00 should result in an amount parsing error
+   :PROPERTIES:
+   :ID:       1A546C4D-42BF-44B4-A477-BF71FB42AE52
+   :END:
+   [2009-11-08 Sun 18:23]
 ** STARTED The "ledger hello" command fails with "unknown function import_"
    :PROPERTIES:
    :ID:       5FF900A4-8F86-406C-91F5-9314F74A9C6E
@@ -87,18 +92,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :CATEGORY: Features
   :END:
 ** TODO Create Expr, Query, Period, Draft, Format objects
-   One to represent every expression type.
+   One to represent every expression type.  All the expression types should
+   have a preview() method.
    :PROPERTIES:
    :ID: D3395691-2BD5-4ADF-A528-3DBB96FC3F98
    :END:
    [2009-11-05 Thu 08:27]
-** TODO All the expression types should have a review() method
-   This code would come out of precmd.cc, and allow Python users to view the
-   same information.
-   :PROPERTIES:
-   :ID: 0A0A8D19-DEB9-4F64-A6CD-49F0B8C2FF12
-   :END:
-   [2009-11-05 Thu 08:28]
 ** TODO Provide single-letter value expression shortcuts
    This is for compatibility with 2.x.
    :PROPERTIES:
