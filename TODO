@@ -10,53 +10,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] Automated xact multipliers have no effect on null postings
-   :PROPERTIES:
-   :ID:       3A14C840-0407-465E-A5AC-09338BB6B707
-   :Message:  [[message://165AA794-0741-46E8-B4B5-44EB3DB9D337@surryhill.net][Re: ledger make fullcheck]]
-   :END:
-   [2009-11-09 Mon 02:47]
-** TODO [#A] 1,00.00 should result in an amount parsing error
-   :PROPERTIES:
-   :ID:       1A546C4D-42BF-44B4-A477-BF71FB42AE52
-   :END:
-   [2009-11-08 Sun 18:23]
-** STARTED [#A] The "ledger hello" command fails with "unknown function import_"
+** TODO The "ledger hello" command fails with "unknown function import_"
+   - State "TODO"       from "STARTED"    [2009-11-10 Tue 02:49]
    :PROPERTIES:
    :ID:       5FF900A4-8F86-406C-91F5-9314F74A9C6E
    :END:
    [2009-11-07 Sat 09:05]
-** TODO The date parser needs to be rewritten
-   It needs to be a real parser, to handle these strings:
-   :SOURCE:
-   from july
-   from 2009
-   from 2009 july
-   from july 2009
-   from last july
-   :END:
-   :PROPERTIES:
-   :ID: 28A80FB5-2475-45CD-B4AD-7BBA0038F9E6
-   :END:
-   [2009-11-06 Fri 01:42]
-** TODO [#A] !include statememt no longer accepts simple filenames			   :LINK:
-   It needs the full path to the file.
-   :PROPERTIES:
-   :ID: 272532BD-9BC5-46AA-B94C-BBAD05F35893
-   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
-   :END:
-   [2009-11-01 Sun 05:50]
-** TODO [#A] No error message if the parser cannot find an included file		   :LINK:
-   :PROPERTIES:
-   :ID: 6188B0EC-A38F-41AE-9B65-8E155641AB99
-   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
-   :END:
-   [2009-11-01 Sun 05:50]
-** TODO [#C] ledger date 2009/07/01 takes forever to return an error message
-   :PROPERTIES:
-   :ID:       C444D9F0-55AF-4D70-8C65-609761672953
-   :END:
-   [2009-11-06 Fri 02:44]
 ** TODO Standardize the find_account and find_commodity methods
    It should be find_account(STR), find_account(MASK), and
    find_or_create_account(STR).  Some with find_commodity, etc.
@@ -69,25 +28,24 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
    :END:
    [2009-11-02 Mon 15:50]
-** TODO Scoping bug with defined value expression functions
-   If I parse the following data:
-   :DATA:
-    def elec := account_total("Usage:Electricity")
-    
-    2009/01/13 * Electricity
-     Usage:Electricity          646,40 kWh
-     Equity:OpeningBalance
-    
-    2009/02/13 * Electricity
-     Usage:Electricity          (690,10 kWh - elec)
-     Supplier:Vattenfall
+** TODO [#C] The date parser needs to be rewritten
+   It needs to be a real parser, to handle these strings:
+   :SOURCE:
+   from july
+   from 2009
+   from 2009 july
+   from july 2009
+   from last july
    :END:
-   I get an error that account_total is unknown, because it's not finding the
-   report scope.  If I substitute the definition by hand, it works.
    :PROPERTIES:
-   :ID: 53ACFFFA-E9DE-4526-ABBD-B38DAE0FBA6F
+   :ID: 28A80FB5-2475-45CD-B4AD-7BBA0038F9E6
    :END:
-   [2009-11-05 Thu 05:25]
+   [2009-11-06 Fri 01:42]
+** TODO [#C] ledger date 2009/07/01 takes forever to return an error message
+   :PROPERTIES:
+   :ID:       C444D9F0-55AF-4D70-8C65-609761672953
+   :END:
+   [2009-11-06 Fri 02:44]
 ** TODO [#C] Why are there still compiler warnings on Gentoo?
    :PROPERTIES:
    :ID: 78ACF717-23F0-4A94-A134-54AD501FDE4D
@@ -97,11 +55,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Come up with a consistent syntax for scoped directives
+   - master account
+   - bucket account
+   - common metadata
+   :PROPERTIES:
+   :ID:       687F2794-AECA-4E0B-BDED-E71425D1F4C6
+   :END:
+   [2009-11-09 Mon 19:19]
 ** TODO Allow notes and metadata on timeclock entries
    :PROPERTIES:
    :ID:       F225EA85-49B6-4E0C-B861-38DD3E784048
    :END:
    [2009-11-09 Mon 01:44]
+** TODO Provide single-letter value expression shortcuts
+   This is for compatibility with 2.x.
+   :PROPERTIES:
+   :ID: 80339708-5B3E-4413-A770-89E4E9912C04
+   :END:
+   [2009-11-02 Mon 01:10]
 ** TODO [#C] Support a "prefix column" for all reports
    For example, so that the register report could show the filename that each
    posting is from.  This would require both a configuratino option for the
@@ -110,22 +82,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       38B3A6DB-5110-40B5-9B93-31BBCAB02180
    :END:
    [2009-11-09 Mon 13:55]
-** TODO Create Expr, Query, Period, Draft, Format objects
-   - State "TODO"       from "DONE"       [2009-11-09 Mon 14:08] \\
-     I still need to expose this classes to Python.
-   - State "DONE"       from "TODO"       [2009-11-09 Mon 14:08]
-   One to represent every expression type.  All the expression types should
-   have a preview() method.
-   :PROPERTIES:
-   :ID: D3395691-2BD5-4ADF-A528-3DBB96FC3F98
-   :END:
-   [2009-11-05 Thu 08:27]
-** TODO Provide single-letter value expression shortcuts
-   This is for compatibility with 2.x.
-   :PROPERTIES:
-   :ID: 80339708-5B3E-4413-A770-89E4E9912C04
-   :END:
-   [2009-11-02 Mon 01:10]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
@@ -139,23 +95,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       B7403D92-8C73-414F-A0EC-145D1F7101D4
    :END:
    [2009-11-07 Sat 06:35]
-** DONE Add expr_t(string) and expr_t::operator() for ease of use from Python
-   - State "DONE"       from "TODO"       [2009-11-09 Mon 14:08]
-   :PROPERTIES:
-   :ID: 55B576FF-4448-4569-8E5B-56C63D9703D8
-   :END:
-   [2009-11-03 Tue 18:54]
 ** TODO Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
    http://wiki.python.org/moin/boost.python/CallPolicy
    :PROPERTIES:
    :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
    :END:
    [2009-11-03 Tue 08:55]
-** TODO account_total(X) should be account(X).amount
-   :PROPERTIES:
-   :ID: AB130FE5-33EC-4243-8F89-35C1A0848382
-   :END:
-   [2009-11-05 Thu 06:09]
 ** TODO Every ledger object should honor the iteration protocol
    - Note taken on [2009-11-07 Sat 06:20] \\
      The only ones left are balance_t and value_t.
@@ -203,6 +148,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** TODO Set the umask for the user back to 022 after a distcheck
+   :PROPERTIES:
+   :ID:       0B1BAD72-BF1A-4643-B2B5-C919B7BC71C3
+   :END:
+   [2009-11-09 Mon 17:10]
 ** TODO Create a PO file for Alexis to translate into German
    :PROPERTIES:
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394

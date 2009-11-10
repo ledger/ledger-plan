@@ -30,6 +30,87 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 178501DC-6777-4A27-A9D3-587A92FF62D0
    :END:
    [2009-11-03 Tue 15:57]
+** DONE [#A] Automated xact multipliers have no effect on null postings
+   - State "DONE"       from "TODO"       [2009-11-09 Mon 22:02]
+   :PROPERTIES:
+   :ID:       3A14C840-0407-465E-A5AC-09338BB6B707
+   :Message:  [[message://165AA794-0741-46E8-B4B5-44EB3DB9D337@surryhill.net][Re: ledger make fullcheck]]
+   :END:
+   [2009-11-09 Mon 02:47]
+** DONE [#A] Using ! erroneously in a data file causes a segfault
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 01:06]
+   :DATA:
+   ! Assets:Cash
+   
+   2008/01/01 January
+       Expenses:Books          $10.00
+       Assets:Cash
+   
+   !end
+   
+   2008/01/01 January
+       Expenses:One:Books          $10.00
+       Expenses:One:Two:Books          $10.00
+       Expenses:One:Two:Three:Books          $10.00
+       Assets:Cash
+   :END:
+   Running the reg command this data file produces:
+   :OUTPUT:
+   vulcan ~/src/ledger $ ledger -f /tmp/bug.dat reg
+   /opt/local/include/gcc44/c++/debug/list:242:error: attempt to access an 
+       element in an empty container.
+   
+   Objects involved in the operation:
+   sequence "this" @ 0x0x7fff5fbfac00 {
+     type = NSt7__debug4listIPN6ledger9account_tESaIS3_EEE;
+   }
+   zsh: abort      ledger -f /tmp/bug.dat reg
+   :END:
+   :PROPERTIES:
+   :ID:       D9C8EB08-C201-4FB0-9941-F4417BCF26BC
+   :END:
+   [2009-11-09 Mon 19:15]
+** DONE [#A] 1,00.00 should result in an amount parsing error
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 00:12]
+   :PROPERTIES:
+   :ID:       1A546C4D-42BF-44B4-A477-BF71FB42AE52
+   :END:
+   [2009-11-08 Sun 18:23]
+** DONE [#A] !include statememt no longer accepts simple filenames			   :LINK:
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 00:55]
+   It needs the full path to the file.
+   :PROPERTIES:
+   :ID: 272532BD-9BC5-46AA-B94C-BBAD05F35893
+   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
+   :END:
+   [2009-11-01 Sun 05:50]
+** DONE [#A] No error message if the parser cannot find an included file		   :LINK:
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 00:13]
+   :PROPERTIES:
+   :ID: 6188B0EC-A38F-41AE-9B65-8E155641AB99
+   :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
+   :END:
+   [2009-11-01 Sun 05:50]
+** DONE Scoping bug with defined value expression functions
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 02:28]
+   If I parse the following data:
+   :DATA:
+    def elec := account_total("Usage:Electricity")
+    
+    2009/01/13 * Electricity
+     Usage:Electricity          646,40 kWh
+     Equity:OpeningBalance
+    
+    2009/02/13 * Electricity
+     Usage:Electricity          (690,10 kWh - elec)
+     Supplier:Vattenfall
+   :END:
+   I get an error that account_total is unknown, because it's not finding the
+   report scope.  If I substitute the definition by hand, it works.
+   :PROPERTIES:
+   :ID: 53ACFFFA-E9DE-4526-ABBD-B38DAE0FBA6F
+   :END:
+   [2009-11-05 Thu 05:25]
 ** DONE textual.cc should report about illegal options
    - State "DONE"       from "TODO"       [2009-11-07 Sat 08:34]
    :PROPERTIES:
@@ -2056,6 +2137,35 @@ ledger -Y --forecast 'T>0' reg food
    :ID: 0134251E-89B8-4F66-9B9C-253F6786E3A3
    :END:
    [2009-03-03 Tue 01:04]
+** DUPLICATE [#A] The following example fails to apply automated transactions
+   - State "DUPLICATE"  from "DONE"       [2009-11-09 Mon 23:30]
+   - State "DONE"       from "TODO"       [2009-11-09 Mon 22:02]
+   :DATA:
+   = account =~ /^Assets:Cash/
+     Assets:Bank:Visa                  -1
+     Assets:Bank:Checking               1
+   
+   2008/01/01 January
+       Expenses:One:Books          $10.00
+       Expenses:One:Two:Books          $10.00
+       Expenses:One:Two:Three:Books          $10.00
+       Assets:Cash
+   
+   2008/01/01 January
+       Assets:Cash    0
+       Income:Books
+   
+   2008/01/01 January
+       Assets:Cash
+       Income:One:Books          $-10.00
+       Income:One:Two:Books          $-10.00
+       Income:One:Two:Three:Books          $-10.00
+   :END:
+   Doing a register report for Assets shows only the Assets:Cash line.
+   :PROPERTIES:
+   :ID:       C727C0E1-9996-4304-81DF-EDF03D1258F8
+   :END:
+   [2009-11-09 Mon 20:08]
 ** DUPLICATE Ledger formats UTF-8 strings incorrectly
    The report `ledger --tail 20 reg nrl:checking` has errors in the tabulation
    because of the width of UTF-8 characters that are larger than 8-bit.
@@ -3601,6 +3711,23 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
+** DONE Change automated expressions to use report query syntax
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 02:44]
+   :PROPERTIES:
+   :ID:       BBEF5801-56F2-44E0-BE3F-3B144F05328F
+   :END:
+   [2009-11-09 Mon 19:49]
+** DONE Create Expr, Query, Period, Draft, Format objects
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 02:48]
+   - State "TODO"       from "DONE"       [2009-11-09 Mon 14:08] \\
+     I still need to expose this classes to Python.
+   - State "DONE"       from "TODO"       [2009-11-09 Mon 14:08]
+   One to represent every expression type.  All the expression types should
+   have a preview() method.
+   :PROPERTIES:
+   :ID: D3395691-2BD5-4ADF-A528-3DBB96FC3F98
+   :END:
+   [2009-11-05 Thu 08:27]
 ** DONE In the "pricesdb" report, output commodity conversions
    - State "DONE"       from "TODO"       [2009-10-31 Sat 03:22]
    ... and "N" commands.
@@ -4401,6 +4528,18 @@ getquote GSK_L
    :END:
    [2008-04-11 Fri]
 * Python
+** DONE account_total(X) should be account(X).amount
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 02:45]
+   :PROPERTIES:
+   :ID: AB130FE5-33EC-4243-8F89-35C1A0848382
+   :END:
+   [2009-11-05 Thu 06:09]
+** DONE Add expr_t(string) and expr_t::operator() for ease of use from Python
+   - State "DONE"       from "TODO"       [2009-11-09 Mon 14:08]
+   :PROPERTIES:
+   :ID: 55B576FF-4448-4569-8E5B-56C63D9703D8
+   :END:
+   [2009-11-03 Tue 18:54]
 ** DONE Expose journal_t::read to Python
    - State "DONE"       from "TODO"       [2009-11-07 Sat 06:50]
    :PROPERTIES:
