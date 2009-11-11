@@ -10,25 +10,21 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO The "ledger hello" command fails with "unknown function import_"
-   - State "TODO"       from "STARTED"    [2009-11-10 Tue 02:49]
-   :PROPERTIES:
-   :ID:       5FF900A4-8F86-406C-91F5-9314F74A9C6E
-   :END:
-   [2009-11-07 Sat 09:05]
-** TODO Standardize the find_account and find_commodity methods
-   It should be find_account(STR), find_account(MASK), and
-   find_or_create_account(STR).  Some with find_commodity, etc.
-   :PROPERTIES:
-   :ID: BC6E6475-14C8-4E20-BF4E-0A0FAD36F01D
-   :END:
-   [2009-11-05 Thu 16:11]
 ** TODO Does the print command work with xact notes?
    :PROPERTIES:
    :ID:       59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
    :END:
    [2009-11-02 Mon 15:50]
-** TODO [#C] The date parser needs to be rewritten
+** TODO [#C] Why are there still compiler warnings on Gentoo?
+   :PROPERTIES:
+   :ID: 78ACF717-23F0-4A94-A134-54AD501FDE4D
+   :END:
+   [2009-11-03 Tue 18:55]
+* Features
+  :PROPERTIES:
+  :CATEGORY: Features
+  :END:
+** TODO The date parser needs to be rewritten
    It needs to be a real parser, to handle these strings:
    :SOURCE:
    from july
@@ -41,20 +37,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 28A80FB5-2475-45CD-B4AD-7BBA0038F9E6
    :END:
    [2009-11-06 Fri 01:42]
-** TODO [#C] ledger date 2009/07/01 takes forever to return an error message
+** TODO Provide single-letter value expression shortcuts
+   This is for compatibility with 2.x.
    :PROPERTIES:
-   :ID:       C444D9F0-55AF-4D70-8C65-609761672953
+   :ID: 80339708-5B3E-4413-A770-89E4E9912C04
    :END:
-   [2009-11-06 Fri 02:44]
-** TODO [#C] Why are there still compiler warnings on Gentoo?
-   :PROPERTIES:
-   :ID: 78ACF717-23F0-4A94-A134-54AD501FDE4D
-   :END:
-   [2009-11-03 Tue 18:55]
-* Features
-  :PROPERTIES:
-  :CATEGORY: Features
-  :END:
+   [2009-11-02 Mon 01:10]
 ** TODO Come up with a consistent syntax for scoped directives
    - master account
    - bucket account
@@ -63,25 +51,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       687F2794-AECA-4E0B-BDED-E71425D1F4C6
    :END:
    [2009-11-09 Mon 19:19]
-** TODO Allow notes and metadata on timeclock entries
-   :PROPERTIES:
-   :ID:       F225EA85-49B6-4E0C-B861-38DD3E784048
-   :END:
-   [2009-11-09 Mon 01:44]
-** TODO Provide single-letter value expression shortcuts
-   This is for compatibility with 2.x.
-   :PROPERTIES:
-   :ID: 80339708-5B3E-4413-A770-89E4E9912C04
-   :END:
-   [2009-11-02 Mon 01:10]
-** TODO [#C] Support a "prefix column" for all reports
-   For example, so that the register report could show the filename that each
-   posting is from.  This would require both a configuratino option for the
-   column's contents (if present), and the size it should be (default to 10?).
-   :PROPERTIES:
-   :ID:       38B3A6DB-5110-40B5-9B93-31BBCAB02180
-   :END:
-   [2009-11-09 Mon 13:55]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
@@ -90,17 +59,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO Deal with PyUnicode objects
+** TODO Standardize the find_account and find_commodity methods
+   It should be find_account(STR), find_account(MASK), and
+   find_or_create_account(STR).  Some with find_commodity, etc.
    :PROPERTIES:
-   :ID:       B7403D92-8C73-414F-A0EC-145D1F7101D4
+   :ID: BC6E6475-14C8-4E20-BF4E-0A0FAD36F01D
    :END:
-   [2009-11-07 Sat 06:35]
-** TODO Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
-   http://wiki.python.org/moin/boost.python/CallPolicy
-   :PROPERTIES:
-   :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
-   :END:
-   [2009-11-03 Tue 08:55]
+   [2009-11-05 Thu 16:11]
 ** TODO Every ledger object should honor the iteration protocol
    - Note taken on [2009-11-07 Sat 06:20] \\
      The only ones left are balance_t and value_t.
@@ -108,35 +73,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       4E160265-93EA-42EE-825D-078A2A459BCA
    :END:
    [2009-11-02 Mon 15:50]
-** TODO In py_report.cc, export all "global" functions
+** TODO Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
+   http://wiki.python.org/moin/boost.python/CallPolicy
+   :PROPERTIES:
+   :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
+   :END:
+   [2009-11-03 Tue 08:55]
+** TODO [#C] In py_report.cc, export all "global" functions
    Move as many of these functions as possible into their related class.  For
    example, scrub should go into value_t::scrub.
    :PROPERTIES:
    :ID: 0912FE8A-79BE-4A6A-9B0F-6A73547A9B2C
    :END:
    [2009-11-05 Thu 08:28]
-** TODO Fix boost::optional translation class for Dmitriy				   :LINK:
-   - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
-   - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:11]
-   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
-   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:27]
-   [[message://2fd72fb20901281006u181318bke33c44a25098dfd8@mail.gmail.com][Re: boost::optional and boost::python]]
-   :PROPERTIES:
-   :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
-   :END:
-   [2009-02-02 Mon 03:13]
-** TODO Add implicit conversion of value_t::sequence_t to tuple
-   [[file:py_value.cc::jww%202009%2011%2002%20Need%20to%20support%20conversion%20eof%20value_t%20sequence_t][py_value.cc]]
-   :PROPERTIES:
-   :ID: 9D00371D-44BC-44DB-B8FB-14AD2125876F
-   :END:
-   [2009-11-03 Tue 14:01]
-** TODO Add implicit conversion of duration_t to PyDelta
-   [[file:py_times.cc::jww%202007%2005%2004%20Convert%20time%20duration%20objects%20to%20PyDelta][py_times.cc]]
-   :PROPERTIES:
-   :ID: B5D1ABA9-1580-4719-A1B5-CBE8EA89147D
-   :END:
-   [2009-11-03 Tue 14:00]
 ** TODO [#C] Allow a Python function to be used to download quotes
    - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]

@@ -91,6 +91,42 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20091101095935.GB3138@jue.netz][Re: All known bugs and features for 3.0 implemented]]
    :END:
    [2009-11-01 Sun 05:50]
+** DONE [#A] Problem with automated transactions and the balance command
+   SCHEDULED: <2009-11-10 Tue>
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 00:27]
+   :SCRIPT:
+   % ledger --version | head -1
+   Ledger next-0-ga345f9e, the command-line accounting tool
+   % cat <<EOF | ledger --european -f - bal
+   = Income:Clients:
+     (Liabilities:Taxes:VAT)  ((1,00 / 1,19) * 0,19)
+   
+   2009/07/27 * Invoice
+     Assets:Bank:Checking                                           €    1.190,00
+     Income:Clients:ACME_Inc
+   EOF
+             € 1.190,00  Assets:Bank:Checking
+            € -1.190,00  Income:Clients:ACME_Inc
+   --------------------
+                      0
+   :END:
+   :SCRIPT:
+   % cat <<EOF | ledger --european -f - reg 
+   = Income:Clients:
+     (Liabilities:Taxes:VAT)  ((1,00 / 1,19) * 0,19)
+   
+   2009/07/27 * Invoice
+     Assets:Bank:Checking                                           €    1.190,00
+     Income:Clients:ACME_Inc
+   EOF
+   2009/07/27 Invoice               Assets:Bank:Checking    € 1.190,00   € 1.190,00
+                                    In:Clients:ACME_Inc    € -1.190,00            0
+                                    (L:Taxes:VAT)            € -190,00    € -190,00
+   :END:
+   :PROPERTIES:
+   :ID:       FDFBA165-7328-4C4F-BC1C-EDF9C629E2B3
+   :END:
+   [2009-11-10 Tue 15:13]
 ** DONE Scoping bug with defined value expression functions
    - State "DONE"       from "TODO"       [2009-11-10 Tue 02:28]
    If I parse the following data:
@@ -3133,6 +3169,13 @@ $ ledger -f <DATA> register
    :END:
    [2009-10-29 Thu 23:09]
 * Build
+** DONE [#A] Add a --no-git option to acprep for orc_emac
+   SCHEDULED: <2009-11-10 Tue>
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 20:05]
+   :PROPERTIES:
+   :ID:       833997BF-EE60-4F81-BCBC-D9F7C607472F
+   :END:
+   [2009-11-10 Tue 15:13]
 ** DONE [#A] Build failure building latest Git version (archive.cc)			   :LINK:
    - State "DONE"       from "TODO"       [2009-11-07 Sat 06:51]
    [2009-11-03 Tue 15:18]
@@ -3711,6 +3754,22 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
+** DONE Add a mechanism that allows VAT to be calculated
+   SCHEDULED: <2009-11-11 Wed>
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 04:37]
+   This means adding mathematical functions like floor, round, ceiling, etc.
+   But also it means have a value expression variable that refer to the
+   incoming amount which an automated expression will be calculated against.
+   :PROPERTIES:
+   :ID:       BD29154A-6BB5-487E-9201-A306B7F9FD53
+   :END:
+   [2009-11-11 Wed 02:58]
+** DONE Allow notes and metadata on timeclock entries
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 01:54]
+   :PROPERTIES:
+   :ID:       F225EA85-49B6-4E0C-B861-38DD3E784048
+   :END:
+   [2009-11-09 Mon 01:44]
 ** DONE Change automated expressions to use report query syntax
    - State "DONE"       from "TODO"       [2009-11-10 Tue 02:44]
    :PROPERTIES:
@@ -4148,6 +4207,15 @@ getquote GSK_L
    :ID: 84C7C18B-8B06-4248-9C4F-A8E377FACA49
    :END:
    [2008-10-03 Fri]
+** DONE [#C] Support a "prefix column" for all reports
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 01:55]
+   For example, so that the register report could show the filename that each
+   posting is from.  This would require both a configuratino option for the
+   column's contents (if present), and the size it should be (default to 10?).
+   :PROPERTIES:
+   :ID:       38B3A6DB-5110-40B5-9B93-31BBCAB02180
+   :END:
+   [2009-11-09 Mon 13:55]
 ** DONE [#C] Change self_total to amount, and family_total to total
    - State "DONE"       from "TODO"       [2009-10-27 Tue 19:04]
    :PROPERTIES:
@@ -4478,6 +4546,15 @@ getquote GSK_L
    :ID: A978C1E9-86EA-4074-B8E8-2A3DF1A12ED2
    :END:
    [2008-08-05 Tue]
+** CANCELLED [#C] ledger date 2009/07/01 takes forever to return an error message
+   - State "CANCELLED"  from "TODO"       [2009-11-10 Tue 14:21] \\
+     This is somewhat necessary, as I need to parse the main data file before
+     normalizing command options -- which must be done before looking up the
+     command!
+   :PROPERTIES:
+   :ID:       C444D9F0-55AF-4D70-8C65-609761672953
+   :END:
+   [2009-11-06 Fri 02:44]
 ** CANCELLED [#C] Consider using mixed_amount_t instead of balance_t
    - State "CANCELLED"  [2009-02-10 Tue 02:07]
    :PROPERTIES:
@@ -4528,6 +4605,27 @@ getquote GSK_L
    :END:
    [2008-04-11 Fri]
 * Python
+** DONE Add implicit conversion of value_t::sequence_t to tuple
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 04:48]
+   [[file:py_value.cc::jww%202009%2011%2002%20Need%20to%20support%20conversion%20eof%20value_t%20sequence_t][py_value.cc]]
+   :PROPERTIES:
+   :ID: 9D00371D-44BC-44DB-B8FB-14AD2125876F
+   :END:
+   [2009-11-03 Tue 14:01]
+** DONE The "ledger hello" command fails with "unknown function import_"
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 13:47] \\
+     I've removed the "hello" command, and fixed the underlying problem.
+   - State "TODO"       from "STARTED"    [2009-11-10 Tue 02:49]
+   :PROPERTIES:
+   :ID:       5FF900A4-8F86-406C-91F5-9314F74A9C6E
+   :END:
+   [2009-11-07 Sat 09:05]
+** DONE Deal with PyUnicode objects
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 14:15]
+   :PROPERTIES:
+   :ID:       B7403D92-8C73-414F-A0EC-145D1F7101D4
+   :END:
+   [2009-11-07 Sat 06:35]
 ** DONE account_total(X) should be account(X).amount
    - State "DONE"       from "TODO"       [2009-11-10 Tue 02:45]
    :PROPERTIES:
@@ -4626,6 +4724,31 @@ getquote GSK_L
    :ID: D4CFF147-B825-43E2-B85C-28501936EEAE
    :END:
    [2009-02-24 Tue 11:08]
+** DONE Ledger should always hand Unicode strings back to Python
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 20:14]
+   :PROPERTIES:
+   :ID:       802AE33C-8AA3-4799-9277-79621D11E290
+   :END:
+   [2009-11-10 Tue 14:41]
+** DONE Add implicit conversion of duration_t to PyDelta
+   - State "DONE"       from "TODO"       [2009-11-10 Tue 20:34]
+   [[file:py_times.cc::jww%202007%2005%2004%20Convert%20time%20duration%20objects%20to%20PyDelta][py_times.cc]]
+   :PROPERTIES:
+   :ID: B5D1ABA9-1580-4719-A1B5-CBE8EA89147D
+   :END:
+   [2009-11-03 Tue 14:00]
+** CANCELLED Fix boost::optional translation class for Dmitriy				   :LINK:
+   - State "CANCELLED"  from "DEFERRED"   [2009-11-10 Tue 20:34]
+   - State "DEFERRED"   from "TODO"       [2009-11-10 Tue 20:16]
+   - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
+   - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:11]
+   - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 16:27]
+   [[message://2fd72fb20901281006u181318bke33c44a25098dfd8@mail.gmail.com][Re: boost::optional and boost::python]]
+   :PROPERTIES:
+   :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
+   :END:
+   [2009-02-02 Mon 03:13]
 ** CANCELLED Rewrite py_scope.cc
    SCHEDULED: <2009-11-05 Thu>
    - State "CANCELLED"  from "TODO"       [2009-11-05 Thu 17:17]

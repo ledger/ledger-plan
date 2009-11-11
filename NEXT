@@ -7,6 +7,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * Features
+** DEFERRED Add the ability to have "typed" metadata
+   - State "DEFERRED"   from "TODO"       [2009-11-11 Wed 04:37]
+   For example, a metadata property that contains a date, which could then be
+   used to generate reports from.
+   :PROPERTIES:
+   :ID:       D919FE3B-3FA9-4E9D-B3F5-42A9BD33A2C4
+   :END:
+   [2009-11-11 Wed 04:28]
 ** DEFERRED Add a "date" term to report queries
    - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 01:55] \\
      This has been coded, but is not being enabled yet until I see that it has some
