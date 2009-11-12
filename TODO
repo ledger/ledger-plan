@@ -10,16 +10,21 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO Does the print command work with xact notes?
+** TODO reg --dow -n does not do what I expect
+   It collapses everything down to one day of the week, not within each.
    :PROPERTIES:
-   :ID:       59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
+   :ID:       900859E4-BAFD-4821-AA97-2A70274EAC18
    :END:
-   [2009-11-02 Mon 15:50]
-** TODO [#C] Why are there still compiler warnings on Gentoo?
+   [2009-11-12 Thu 01:21]
+** TODO Equity command doesn't handle multiple account commodities
+   As seen in:
+   :SCRIPT:
+   ledger -f doc/sample.dat equity
+   :END:
    :PROPERTIES:
-   :ID: 78ACF717-23F0-4A94-A134-54AD501FDE4D
+   :ID:       49EE4C3B-6FA9-4564-9434-6B3EB359DA6B
    :END:
-   [2009-11-03 Tue 18:55]
+   [2009-11-11 Wed 23:23]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
@@ -39,6 +44,33 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    [2009-11-06 Fri 01:42]
 ** TODO Provide single-letter value expression shortcuts
    This is for compatibility with 2.x.
+   - m :: now, today
+   - a :: amount
+   - i :: price
+   - b :: cost
+   - d :: date
+   - X :: cleared
+   - Y :: pending
+   - R :: real
+   - L :: actual
+   - n :: index
+   - N :: count
+   - l :: depth
+   - O :: total
+   - I :: total_price
+   - B :: total_cost
+   - t :: display_amount
+   - T :: display_total
+   - U :: abs
+   - S :: quantity
+   - A :: avg, mean, average
+   - P :: market_value [general]
+   - v :: market_value(amount)
+   - V :: market_value(total)
+   - g :: gain
+   - G :: total_gain
+   - min
+   - max
    :PROPERTIES:
    :ID: 80339708-5B3E-4413-A770-89E4E9912C04
    :END:
@@ -59,49 +91,10 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO Standardize the find_account and find_commodity methods
-   It should be find_account(STR), find_account(MASK), and
-   find_or_create_account(STR).  Some with find_commodity, etc.
-   :PROPERTIES:
-   :ID: BC6E6475-14C8-4E20-BF4E-0A0FAD36F01D
-   :END:
-   [2009-11-05 Thu 16:11]
-** TODO Every ledger object should honor the iteration protocol
-   - Note taken on [2009-11-07 Sat 06:20] \\
-     The only ones left are balance_t and value_t.
-   :PROPERTIES:
-   :ID:       4E160265-93EA-42EE-825D-078A2A459BCA
-   :END:
-   [2009-11-02 Mon 15:50]
-** TODO Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
-   http://wiki.python.org/moin/boost.python/CallPolicy
-   :PROPERTIES:
-   :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
-   :END:
-   [2009-11-03 Tue 08:55]
-** TODO [#C] In py_report.cc, export all "global" functions
-   Move as many of these functions as possible into their related class.  For
-   example, scrub should go into value_t::scrub.
-   :PROPERTIES:
-   :ID: 0912FE8A-79BE-4A6A-9B0F-6A73547A9B2C
-   :END:
-   [2009-11-05 Thu 08:28]
-** TODO [#C] Allow a Python function to be used to download quotes
-   - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
-   :PROPERTIES:
-   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
-   :END:
-   [2009-06-24 Wed 17:27]
 * Build
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO Set the umask for the user back to 022 after a distcheck
-   :PROPERTIES:
-   :ID:       0B1BAD72-BF1A-4643-B2B5-C919B7BC71C3
-   :END:
-   [2009-11-09 Mon 17:10]
 ** TODO Create a PO file for Alexis to translate into German
    :PROPERTIES:
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394

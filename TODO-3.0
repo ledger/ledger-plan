@@ -127,6 +127,31 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       FDFBA165-7328-4C4F-BC1C-EDF9C629E2B3
    :END:
    [2009-11-10 Tue 15:13]
+** DONE Only use ledger::string if VERIFY_ON or HAVE_BOOST_PYTHON
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 16:38]
+   Otherwise, it results in empty function calls for optimized builds.
+   :PROPERTIES:
+   :ID:       3CAB257E-B4B5-47C4-BD19-74056E8B5A1C
+   :END:
+   [2009-11-11 Wed 15:09]
+** DONE After applying automated transactions, verify the xact's balance
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 20:43]
+   :PROPERTIES:
+   :ID:       3F07C9B0-B14E-4C59-A919-0D50A1DE85E2
+   :END:
+   [2009-11-11 Wed 05:15]
+** DONE Abstract a function to verify a transaction double-entry status
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 20:43]
+   :PROPERTIES:
+   :ID:       F9185DA2-634C-4B74-8F3B-EAAA21E6BB26
+   :END:
+   [2009-11-11 Wed 05:15]
+** DONE Does the print command work with xact notes?
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 21:39]
+   :PROPERTIES:
+   :ID:       59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
+   :END:
+   [2009-11-02 Mon 15:50]
 ** DONE Scoping bug with defined value expression functions
    - State "DONE"       from "TODO"       [2009-11-10 Tue 02:28]
    If I parse the following data:
@@ -3754,6 +3779,18 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
+** DONE Add a --date option, for setting the date of each posting
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 21:30]
+   :PROPERTIES:
+   :ID:       3CDC68C4-FB2A-44AA-824A-E3F5261647DF
+   :END:
+   [2009-11-11 Wed 05:15]
+** DONE Add conversion valexpr methods, like to_date(STR)
+   - State "DONE"       from "TODO"       [2009-11-11 Wed 21:30]
+   :PROPERTIES:
+   :ID:       496A6351-BE11-47DE-A1C3-5DE1257B14F7
+   :END:
+   [2009-11-11 Wed 05:15]
 ** DONE Add a mechanism that allows VAT to be calculated
    SCHEDULED: <2009-11-11 Wed>
    - State "DONE"       from "TODO"       [2009-11-11 Wed 04:37]

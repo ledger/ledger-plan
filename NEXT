@@ -617,6 +617,52 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :END:
    [2009-06-19 Fri 00:49]
 * Python
+** DEFERRED Do a complete review of all the Python bindings
+   - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
+   Looking for correctness, consistency, and rationality of interfaces.
+   :PROPERTIES:
+   :ID:       DFC8101B-CB9D-4522-8B93-F7546183BB66
+   :END:
+   [2009-11-11 Wed 21:38]
+** DEFERRED Standardize the find_account and find_commodity methods
+   - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
+   It should be find_account(STR), find_account(MASK), and
+   find_or_create_account(STR).  Some with find_commodity, etc.
+   :PROPERTIES:
+   :ID: BC6E6475-14C8-4E20-BF4E-0A0FAD36F01D
+   :END:
+   [2009-11-05 Thu 16:11]
+** DEFERRED Every ledger object should honor the iteration protocol
+   - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
+   - Note taken on [2009-11-07 Sat 06:20] \\
+     The only ones left are balance_t and value_t.
+   :PROPERTIES:
+   :ID:       4E160265-93EA-42EE-825D-078A2A459BCA
+   :END:
+   [2009-11-02 Mon 15:50]
+** DEFERRED Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
+   - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
+   http://wiki.python.org/moin/boost.python/CallPolicy
+   :PROPERTIES:
+   :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
+   :END:
+   [2009-11-03 Tue 08:55]
+** DEFERRED In py_report.cc, export all "global" functions
+   - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
+   Move as many of these functions as possible into their related class.  For
+   example, scrub should go into value_t::scrub.
+   :PROPERTIES:
+   :ID: 0912FE8A-79BE-4A6A-9B0F-6A73547A9B2C
+   :END:
+   [2009-11-05 Thu 08:28]
+** DEFERRED Allow a Python function to be used to download quotes
+   - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:27]
+   - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
+   :END:
+   [2009-06-24 Wed 17:27]
 ** DEFERRED Add implicit conversion of mask_t to re
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:36]
    [[file:py_value.cc::jww%202009%2011%2002%20Add%20implicit%20conversion%20of%20mask%20objects][py_value.cc]]
