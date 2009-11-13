@@ -10,6 +10,36 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO There is bad column formatting with UTF-8 formatting
+   :SCRIPT:
+   ledger -f doc/sample.dat --columns=80 reg
+   :END:
+   :OUTPUT:
+   04-May-14 Another dày in whic.. ..Bá:Ch:As:Bá:Chécking      $500.00   $-1,000.00
+                                                                            50 AAPL
+                                   Income:Salary              $-500.00   $-1,500.00
+                                                                            50 AAPL
+   04-May-14 Another dày in whic.. Ру:Ак:Ру:Русский язык     $1,000.00     $-500.00
+                                                                            50 AAPL
+                                   Income:Salary            $-1,000.00   $-1,500.00
+                                                                            50 AAPL
+   :END:
+   :PROPERTIES:
+   :ID:       72B0ACB4-37EB-492A-8EFE-8CC65CB66EC8
+   :END:
+   [2009-11-12 Thu 18:33]
+** DONE If --date is used, don't change the item's real date
+   - State "DONE"       from "TODO"       [2009-11-12 Thu 18:25]
+   :PROPERTIES:
+   :ID:       3508313E-3C25-4B36-BEC8-7C04A966A850
+   :END:
+   [2009-11-12 Thu 06:05]
+** TODO Monthly transactions via -M have the payee bolded
+   This is because the temporary transaction is not mark CLEARED.
+   :PROPERTIES:
+   :ID:       162C0700-B636-4E6C-B2AB-E778E2D20E33
+   :END:
+   [2009-11-12 Thu 05:04]
 ** TODO reg --dow -n does not do what I expect
    It collapses everything down to one day of the week, not within each.
    :PROPERTIES:
