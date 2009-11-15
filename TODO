@@ -10,51 +10,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO There is bad column formatting with UTF-8 formatting
+** TODO [#B] The parser thinks [[link][desc]] is an invalid transaction date
+   :PROPERTIES:
+   :ID:       8B15C4DD-31A1-403A-9BBF-DE41E08C2DD8
+   :END:
+   [2009-11-14 Sat 17:08]
+** TODO Ledger is not parsing value expressions in report query correctly
+   In this command, the '=' gets interpreted as a token.
    :SCRIPT:
-   ledger -f doc/sample.dat --columns=80 reg
-   :END:
-   :OUTPUT:
-   04-May-14 Another dày in whic.. ..Bá:Ch:As:Bá:Chécking      $500.00   $-1,000.00
-                                                                            50 AAPL
-                                   Income:Salary              $-500.00   $-1,500.00
-                                                                            50 AAPL
-   04-May-14 Another dày in whic.. Ру:Ак:Ру:Русский язык     $1,000.00     $-500.00
-                                                                            50 AAPL
-                                   Income:Salary            $-1,000.00   $-1,500.00
-                                                                            50 AAPL
+   ledger reg @another expr '(amount=$1000)'
    :END:
    :PROPERTIES:
-   :ID:       72B0ACB4-37EB-492A-8EFE-8CC65CB66EC8
+   :ID:       3E0E985B-4AE0-462E-9E61-5C0B1BF1A864
    :END:
-   [2009-11-12 Thu 18:33]
-** DONE If --date is used, don't change the item's real date
-   - State "DONE"       from "TODO"       [2009-11-12 Thu 18:25]
-   :PROPERTIES:
-   :ID:       3508313E-3C25-4B36-BEC8-7C04A966A850
-   :END:
-   [2009-11-12 Thu 06:05]
-** TODO Monthly transactions via -M have the payee bolded
-   This is because the temporary transaction is not mark CLEARED.
-   :PROPERTIES:
-   :ID:       162C0700-B636-4E6C-B2AB-E778E2D20E33
-   :END:
-   [2009-11-12 Thu 05:04]
-** TODO reg --dow -n does not do what I expect
-   It collapses everything down to one day of the week, not within each.
-   :PROPERTIES:
-   :ID:       900859E4-BAFD-4821-AA97-2A70274EAC18
-   :END:
-   [2009-11-12 Thu 01:21]
-** TODO Equity command doesn't handle multiple account commodities
-   As seen in:
-   :SCRIPT:
-   ledger -f doc/sample.dat equity
-   :END:
-   :PROPERTIES:
-   :ID:       49EE4C3B-6FA9-4564-9434-6B3EB359DA6B
-   :END:
-   [2009-11-11 Wed 23:23]
+   [2009-11-14 Sat 02:42]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
@@ -72,39 +41,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 28A80FB5-2475-45CD-B4AD-7BBA0038F9E6
    :END:
    [2009-11-06 Fri 01:42]
-** TODO Provide single-letter value expression shortcuts
-   This is for compatibility with 2.x.
-   - m :: now, today
-   - a :: amount
-   - i :: price
-   - b :: cost
-   - d :: date
-   - X :: cleared
-   - Y :: pending
-   - R :: real
-   - L :: actual
-   - n :: index
-   - N :: count
-   - l :: depth
-   - O :: total
-   - I :: total_price
-   - B :: total_cost
-   - t :: display_amount
-   - T :: display_total
-   - U :: abs
-   - S :: quantity
-   - A :: avg, mean, average
-   - P :: market_value [general]
-   - v :: market_value(amount)
-   - V :: market_value(total)
-   - g :: gain
-   - G :: total_gain
-   - min
-   - max
-   :PROPERTIES:
-   :ID: 80339708-5B3E-4413-A770-89E4E9912C04
-   :END:
-   [2009-11-02 Mon 01:10]
 ** TODO Come up with a consistent syntax for scoped directives
    - master account
    - bucket account

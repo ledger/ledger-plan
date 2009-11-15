@@ -152,6 +152,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
    :END:
    [2009-11-02 Mon 15:50]
+** DONE If --date is used, don't change the item's real date
+   - State "DONE"       from "TODO"       [2009-11-12 Thu 18:25]
+   :PROPERTIES:
+   :ID:       3508313E-3C25-4B36-BEC8-7C04A966A850
+   :END:
+   [2009-11-12 Thu 06:05]
+** DONE Monthly transactions via -M have the payee bolded
+   - State "DONE"       from "TODO"       [2009-11-13 Fri 19:00]
+   This is because the temporary transaction is not mark CLEARED.
+   :PROPERTIES:
+   :ID:       162C0700-B636-4E6C-B2AB-E778E2D20E33
+   :END:
+   [2009-11-12 Thu 05:04]
 ** DONE Scoping bug with defined value expression functions
    - State "DONE"       from "TODO"       [2009-11-10 Tue 02:28]
    If I parse the following data:
@@ -242,6 +255,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: E2E479BC-BC00-4539-A330-895B2C1C8D57
    :END:
    [2009-02-27 Fri 04:10]
+** DONE Equity command doesn't handle multiple account commodities
+   - State "DONE"       from "TODO"       [2009-11-14 Sat 02:32]
+   As seen in:
+   :SCRIPT:
+   ledger -f doc/sample.dat equity
+   :END:
+   :PROPERTIES:
+   :ID:       49EE4C3B-6FA9-4564-9434-6B3EB359DA6B
+   :END:
+   [2009-11-11 Wed 23:23]
 ** DONE Fix --anon so it preserves account hierarchy structure
    - State "DONE"       from "TODO"       [2009-06-27 Sat 14:11]
    :PROPERTIES:
@@ -2081,6 +2104,27 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 567B5118-7A77-42B9-A1CD-C5DA688AC406
    :END:
    [2007-10-29 Mon]
+** INVALID There is bad column alignment with certain UTF-8 characters
+   - State "INVALID"    from "TODO"       [2009-11-14 Sat 02:49] \\
+     This only happens in Eshell, it works fine in a Terminal window with UTF-8
+     display support.
+   :SCRIPT:
+   ledger -f doc/sample.dat --columns=80 reg
+   :END:
+   :OUTPUT:
+   04-May-14 Another dày in whic.. ..Bá:Ch:As:Bá:Chécking      $500.00   $-1,000.00
+                                                                            50 AAPL
+                                   Income:Salary              $-500.00   $-1,500.00
+                                                                            50 AAPL
+   04-May-14 Another dày in whic.. Ру:Ак:Ру:Русский язык     $1,000.00     $-500.00
+                                                                            50 AAPL
+                                   Income:Salary            $-1,000.00   $-1,500.00
+                                                                            50 AAPL
+   :END:
+   :PROPERTIES:
+   :ID:       72B0ACB4-37EB-492A-8EFE-8CC65CB66EC8
+   :END:
+   [2009-11-12 Thu 18:33]
 ** WONTFIX Precision error								   :LINK:
    - State "WONTFIX"    from "TODO"       [2009-10-26 Mon 00:52] \\
      This is expected behavior, based on the fact that a 3 decimal place dollar
@@ -3779,6 +3823,40 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
+** DONE Provide single-letter value expression shortcuts
+   - State "DONE"       from "TODO"       [2009-11-14 Sat 03:13]
+   This is for compatibility with 2.x.
+   - m :: now, today
+   - a :: amount
+   - i :: price
+   - b :: cost
+   - d :: date
+   - X :: cleared
+   - Y :: pending
+   - R :: real
+   - L :: actual
+   - n :: index
+   - N :: count
+   - l :: depth
+   - O :: total
+   - I :: total_price
+   - B :: total_cost
+   - t :: display_amount
+   - T :: display_total
+   - U :: abs
+   - S :: quantity
+   - A :: avg, mean, average
+   - P :: market_value [general]
+   - v :: market_value(amount)
+   - V :: market_value(total)
+   - g :: gain
+   - G :: total_gain
+   - min
+   - max
+   :PROPERTIES:
+   :ID: 80339708-5B3E-4413-A770-89E4E9912C04
+   :END:
+   [2009-11-02 Mon 01:10]
 ** DONE Add a --date option, for setting the date of each posting
    - State "DONE"       from "TODO"       [2009-11-11 Wed 21:30]
    :PROPERTIES:
