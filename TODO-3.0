@@ -127,6 +127,22 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       FDFBA165-7328-4C4F-BC1C-EDF9C629E2B3
    :END:
    [2009-11-10 Tue 15:13]
+** DONE The parser thinks [[link][desc]] is an invalid transaction date
+   - State "DONE"       from "TODO"       [2009-11-15 Sun 05:05]
+   :PROPERTIES:
+   :ID:       8B15C4DD-31A1-403A-9BBF-DE41E08C2DD8
+   :END:
+   [2009-11-14 Sat 17:08]
+** DONE Ledger is not parsing value expressions in report query correctly
+   - State "DONE"       from "TODO"       [2009-11-15 Sun 05:16]
+   In this command, the '=' gets interpreted as a token.
+   :SCRIPT:
+   ledger reg @another expr '(amount=$1000)'
+   :END:
+   :PROPERTIES:
+   :ID:       3E0E985B-4AE0-462E-9E61-5C0B1BF1A864
+   :END:
+   [2009-11-14 Sat 02:42]
 ** DONE Only use ledger::string if VERIFY_ON or HAVE_BOOST_PYTHON
    - State "DONE"       from "TODO"       [2009-11-11 Wed 16:38]
    Otherwise, it results in empty function calls for optimized builds.
@@ -3823,6 +3839,15 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
+** DONE Come up with a consistent syntax for scoped directives
+   - State "DONE"       from "TODO"       [2009-11-15 Sun 06:10]
+   - master account
+   - bucket account
+   - common metadata
+   :PROPERTIES:
+   :ID:       687F2794-AECA-4E0B-BDED-E71425D1F4C6
+   :END:
+   [2009-11-09 Mon 19:19]
 ** DONE Provide single-letter value expression shortcuts
    - State "DONE"       from "TODO"       [2009-11-14 Sat 03:13]
    This is for compatibility with 2.x.

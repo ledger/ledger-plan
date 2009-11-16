@@ -10,20 +10,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#B] The parser thinks [[link][desc]] is an invalid transaction date
-   :PROPERTIES:
-   :ID:       8B15C4DD-31A1-403A-9BBF-DE41E08C2DD8
-   :END:
-   [2009-11-14 Sat 17:08]
-** TODO Ledger is not parsing value expressions in report query correctly
-   In this command, the '=' gets interpreted as a token.
-   :SCRIPT:
-   ledger reg @another expr '(amount=$1000)'
-   :END:
-   :PROPERTIES:
-   :ID:       3E0E985B-4AE0-462E-9E61-5C0B1BF1A864
-   :END:
-   [2009-11-14 Sat 02:42]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
@@ -41,14 +27,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 28A80FB5-2475-45CD-B4AD-7BBA0038F9E6
    :END:
    [2009-11-06 Fri 01:42]
-** TODO Come up with a consistent syntax for scoped directives
-   - master account
-   - bucket account
-   - common metadata
-   :PROPERTIES:
-   :ID:       687F2794-AECA-4E0B-BDED-E71425D1F4C6
-   :END:
-   [2009-11-09 Mon 19:19]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
