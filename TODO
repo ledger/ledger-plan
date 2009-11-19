@@ -10,27 +10,37 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO [#B] Valuation balance reports should balance to zero
+   This is done by adding valuation differences to Equity:Unrealized Gains
+   :PROPERTIES:
+   :ID:       6ED158B5-361C-4B5D-AED5-8EBE8F374C45
+   :END:
+   [2009-11-18 Wed 16:11]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO The date parser needs to be rewritten
-   It needs to be a real parser, to handle these strings:
-   :SOURCE:
-   from july
-   from 2009
-   from 2009 july
-   from july 2009
-   from last july
-   :END:
+** DONE Allow for period expressions like "4 months ago"
+   SCHEDULED: <2009-11-18 Wed>
+   - State "DONE"       from "TODO"       [2009-11-18 Wed 05:59]
    :PROPERTIES:
-   :ID: 28A80FB5-2475-45CD-B4AD-7BBA0038F9E6
+   :ID:       579AE28D-21B5-44FD-989E-8EB5D784D78E
    :END:
-   [2009-11-06 Fri 01:42]
+   [2009-11-18 Wed 05:51]
+** TODO Allow for period expressions like "last 5 weeks"
+   :PROPERTIES:
+   :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
+   :END:
+   [2009-11-18 Wed 05:51]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
+** TODO C-c TAB no longer works in ledger-mode
+   :PROPERTIES:
+   :ID:       AA885449-23F0-450C-BBA8-ECC8C073F14C
+   :END:
+   [2009-11-17 Tue 16:29]
 * Python
   :PROPERTIES:
   :CATEGORY: Python
@@ -48,23 +58,23 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** Create a series of "manual" tests
+** TODO Create a series of "manual" tests
    These would confirm the validity of all the examples given in the manual.
    :PROPERTIES:
    :ID: 837B71B7-F46F-48E5-89E9-BD5E670B65A0
    :END:
    [2009-11-01 Sun 19:58]
-** Create regression tests for all closed 2.6.1 and 3.0 bugs
+** TODO Create regression tests for all closed 2.6.1 and 3.0 bugs
    :PROPERTIES:
    :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
    :END:
    [2008-08-14 Thu]
-** Use coverage analysis to determine if everything is being tested
+** TODO Use coverage analysis to determine if everything is being tested
    :PROPERTIES:
    :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
    :END:
    [2008-08-14 Thu]
-** Run Ledger through the profiler, against mondo.dat (to beat 11s)
+** TODO Run Ledger through the profiler, against mondo.dat (to beat 11s)
    :PROPERTIES:
    :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
    :END:

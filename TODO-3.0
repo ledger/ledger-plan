@@ -3839,6 +3839,20 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2008-04-16 Wed]
 * Features
+** DONE The date parser needs to be rewritten
+   - State "DONE"       from "TODO"       [2009-11-18 Wed 04:27]
+   It needs to be a real parser, to handle these strings:
+   :SOURCE:
+   from july
+   from 2009
+   from 2009 july
+   from july 2009
+   from last july
+   :END:
+   :PROPERTIES:
+   :ID: 28A80FB5-2475-45CD-B4AD-7BBA0038F9E6
+   :END:
+   [2009-11-06 Fri 01:42]
 ** DONE Come up with a consistent syntax for scoped directives
    - State "DONE"       from "TODO"       [2009-11-15 Sun 06:10]
    - master account
