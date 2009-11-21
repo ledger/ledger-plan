@@ -46,12 +46,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO For Python's sake, all Journals should share a commodity_pool
+** TODO After using python/server.py, it segfaults on exit
+   :PROPERTIES:
+   :ID:       DA30D886-863D-4173-AE3C-369A98F0CD59
+   :END:
+   [2009-11-21 Sat 02:20]
+** DONE For Python's sake, all Journals should share a commodity_pool
+   - State "DONE"       from "TODO"       [2009-11-21 Sat 05:29]
    :PROPERTIES:
    :ID:       B3D2495F-F542-4F96-9A11-065194D63AAD
    :END:
    [2009-11-19 Thu 17:36]
-** TODO Write a Python demo script
+** STARTED Write a Python demo script
    :PROPERTIES:
    :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
    :END:
@@ -74,6 +80,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
+** TODO Rewrite the sample.dat file to be more realistic
+   :PROPERTIES:
+   :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
+   :END:
+   [2009-11-20 Fri 18:31]
 ** TODO Create a series of "manual" tests
    These would confirm the validity of all the examples given in the manual.
    :PROPERTIES:
