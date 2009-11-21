@@ -10,7 +10,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#B] Valuation balance reports should balance to zero
+** DONE Valuation balance reports should balance to zero
+   - State "DONE"       from "TODO"       [2009-11-19 Thu 17:43]
    This is done by adding valuation differences to Equity:Unrealized Gains
    :PROPERTIES:
    :ID:       6ED158B5-361C-4B5D-AED5-8EBE8F374C45
@@ -27,7 +28,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       579AE28D-21B5-44FD-989E-8EB5D784D78E
    :END:
    [2009-11-18 Wed 05:51]
-** TODO Allow for period expressions like "last 5 weeks"
+** STARTED Allow for period expressions like "last 5 weeks"
    :PROPERTIES:
    :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
    :END:
@@ -45,6 +46,21 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Python
   :END:
+** TODO For Python's sake, all Journals should share a commodity_pool
+   :PROPERTIES:
+   :ID:       B3D2495F-F542-4F96-9A11-065194D63AAD
+   :END:
+   [2009-11-19 Thu 17:36]
+** TODO Write a Python demo script
+   :PROPERTIES:
+   :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
+   :END:
+   [2009-11-19 Thu 17:37]
+** TODO Allow to_xml methods on all Python-exposed objects
+   :PROPERTIES:
+   :ID:       0EDDE812-2913-4D16-BF2E-9C343F32A958
+   :END:
+   [2009-11-19 Thu 17:38]
 * Build
   :PROPERTIES:
   :CATEGORY: Build
