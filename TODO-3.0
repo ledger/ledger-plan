@@ -150,6 +150,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       3CAB257E-B4B5-47C4-BD19-74056E8B5A1C
    :END:
    [2009-11-11 Wed 15:09]
+** DONE Is --file=foo valid?
+   - State "DONE"       from "TODO"       [2009-11-25 Wed 02:35] \\
+     Yes, it is.
+   :PROPERTIES:
+   :ID:       4E9D5FFB-24E3-43FC-AD14-1FA74B80E266
+   :END:
+   [2009-11-20 Fri 07:30]
 ** DONE After applying automated transactions, verify the xact's balance
    - State "DONE"       from "TODO"       [2009-11-11 Wed 20:43]
    :PROPERTIES:
@@ -244,6 +251,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       1DEA172D-72F1-4AA1-B013-9B04E95E47F0
    :END:
    [2009-11-22 Sun 04:25]
+** DONE Have config options for setting fixed account names
+   - State "DONE"       from "TODO"       [2009-11-25 Wed 02:34]
+   Like: Equity:Unrealized Gains.
+   :PROPERTIES:
+   :ID:       1669EBA4-C733-4D90-897D-68EF735286DE
+   :END:
+   [2009-11-24 Tue 03:35]
 ** DONE Valuation balance reports should balance to zero
    - State "DONE"       from "TODO"       [2009-11-19 Thu 17:43]
    This is done by adding valuation differences to Equity:Unrealized Gains
@@ -3836,6 +3850,12 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: AC756278-72D5-4CAC-82A7-334A9BB6F7EE
    :END:
    [2009-10-03 Sat 03:23]
+** DONE Make *, # and | into comment characters, for Org compatibility
+   - State "DONE"       from "TODO"       [2009-11-25 Wed 02:36]
+   :PROPERTIES:
+   :ID:       B38AC5A0-31BB-4F89-8112-5999D8A99C02
+   :END:
+   [2009-11-24 Tue 22:17]
 ** DONE C-c C-c on a cleared entry doesn't unclear it
    - State "DONE"       from "TODO"       [2009-06-16 Tue 18:11]
    :PROPERTIES:
@@ -3857,6 +3877,27 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2009-11-17 Tue 16:29]
 * Features
+** DONE Add a trim() value expression function
+   - State "DONE"       from "TODO"       [2009-11-25 Wed 02:42]
+   It trims all leading and trailing spaces
+   :PROPERTIES:
+   :ID:       AAA8F6E9-32A3-4CA7-9055-D4184B03AE2D
+   :END:
+   [2009-11-24 Tue 01:30]
+** DONE Add a "fixedrate COMMODITY AMOUNT" directive					 :ATTACH:
+   - State "DONE"       from "TODO"       [2009-11-25 Wed 04:41]
+   - Note taken on [2009-11-24 Tue 22:32] \\
+     Russell also needs this for billing miles to the IRC based on rates-per-mile
+     determined for particular time periods.
+   - Note taken on [2009-11-24 Tue 22:07] \\
+     Javier is facing some of these issues: [[message://5d55d2dd-2222-484f-9fa4-295fda763ac6@d21g2000yqn.googlegroups.com][Re: Multicurrency and reg problem]].
+   Every use of COMMODITY within the range of transactions has a fixed cost, as
+   if the user had typed COMMODITY {= AMOUNT}.
+   :PROPERTIES:
+   :ID:       33DA4CB9-3C76-47F5-AA06-682192A37E48
+   :Attachments: IRC-fixed-rates-2009-11-24.txt
+   :END:
+   [2009-11-24 Tue 01:16]
 ** DONE The date parser needs to be rewritten
    - State "DONE"       from "TODO"       [2009-11-18 Wed 04:27]
    It needs to be a real parser, to handle these strings:
@@ -4945,6 +4986,18 @@ getquote GSK_L
    :END:
    [2009-02-24 Tue 22:15]
 * Tests
+** DONE Merge in the --unrealized* baseline tests MisterN wrote
+   - State "DONE"       from "TODO"       [2009-11-25 Wed 04:51]
+   :PROPERTIES:
+   :ID:       AB515F51-E71D-4331-94DE-DC53141A5C2E
+   :END:
+   [2009-11-24 Tue 22:11]
+** DONE Run Ledger through the profiler, against mondo.dat (to beat 11s)
+   - State "DONE"       from "TODO"       [2009-11-25 Wed 04:51]
+   :PROPERTIES:
+   :ID: B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
+   :END:
+   [2009-02-25 Wed 04:15]
 ** DONE Clear out all #if 0 and jww commented sections
    - State "DONE"       from ""           [2009-10-31 Sat 04:33]
    :PROPERTIES:

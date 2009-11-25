@@ -7,6 +7,23 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+CATEGORY: Ledger
 
 * Features
+** DEFERRED Support debit/credit register and balance reports
+   - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:33]
+   - Note taken on [2009-11-25 Wed 02:11] \\
+     See: http://en.wikipedia.org/wiki/Debits_and_credits#.27T.27_Accounts.
+   This would show debit amounts in one column, and credit amounts in a second
+   column, rather than conflating positive and negative values in a single
+   column.
+   :PROPERTIES:
+   :ID:       A3A7E04A-036F-498D-8C7D-FCE38DC858BF
+   :END:
+   [2009-11-25 Wed 02:09]
+** DEFERRED Have an option for showing all amounts in the print report
+   - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:34]
+   :PROPERTIES:
+   :ID:       7B8B33B7-925A-497E-A08A-D0B67E433FF6
+   :END:
+   [2009-11-25 Wed 00:27]
 ** DEFERRED Add the ability to have "typed" metadata
    - State "DEFERRED"   from "TODO"       [2009-11-11 Wed 04:37]
    For example, a metadata property that contains a date, which could then be
@@ -617,6 +634,26 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :END:
    [2009-06-19 Fri 00:49]
 * Python
+** DEFERRED Having problems exporting std::pair<T, U *> from Boost.Python
+   - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:36]
+   This is the e-mail I was drafting for the mailing list, in response to
+   [[message://770306.78630.qm@web111402.mail.gq1.yahoo.com][Re: {boost} Boost.Python question about converters and make_getter]]:
+
+   Just one quick question:
+
+   I have a Boost.Python method that looks like this:
+
+     .def("__iter__", range<return_value_policy<return_by_value> >
+	  (py_pool_commodities_begin, py_pool_commodities_end))
+
+   Where the members of the map are std::pair<string, MyObject *>.  I want the
+   pair passed by value, but I need the "second" member to be accessed using
+   reference_existing_object.
+   :PROPERTIES:
+   :ID:       50EA95EE-E17A-444C-84BE-123F080811FA
+   :Message:  [[message://0B5E0EBA-E74E-4303-A6FC-3CBA42B7055B@gmail.com][Re: {boost} Boost.Python question about converters and make_getter]]
+   :END:
+   [2009-11-24 Tue 22:18]
 ** DEFERRED After using python/server.py, it segfaults on exit
    - State "DEFERRED"   from "TODO"       [2009-11-22 Sun 22:36]
    :PROPERTIES:
