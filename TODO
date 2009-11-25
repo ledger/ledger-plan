@@ -59,6 +59,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Have an option for showing all amounts in the print report
+   :PROPERTIES:
+   :ID:       7B8B33B7-925A-497E-A08A-D0B67E433FF6
+   :END:
+   [2009-11-25 Wed 00:27]
 ** TODO Have config options for setting fixed account names
    Like: Equity:Unrealized Gains.
    :PROPERTIES:
