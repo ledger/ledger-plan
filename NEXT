@@ -617,6 +617,24 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :END:
    [2009-06-19 Fri 00:49]
 * Python
+** DEFERRED After using python/server.py, it segfaults on exit
+   - State "DEFERRED"   from "TODO"       [2009-11-22 Sun 22:36]
+   :PROPERTIES:
+   :ID:       DA30D886-863D-4173-AE3C-369A98F0CD59
+   :END:
+   [2009-11-21 Sat 02:20]
+** DEFERRED Write a Python demo script
+   - State "DEFERRED"   from "STARTED"    [2009-11-22 Sun 22:36]
+   :PROPERTIES:
+   :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
+   :END:
+   [2009-11-19 Thu 17:37]
+** DEFERRED Allow to_xml methods on all Python-exposed objects
+   - State "DEFERRED"   from "TODO"       [2009-11-22 Sun 22:36]
+   :PROPERTIES:
+   :ID:       0EDDE812-2913-4D16-BF2E-9C343F32A958
+   :END:
+   [2009-11-19 Thu 17:38]
 ** DEFERRED Do a complete review of all the Python bindings
    - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
    Looking for correctness, consistency, and rationality of interfaces.

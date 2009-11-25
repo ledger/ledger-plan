@@ -238,6 +238,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 1E297D28-3012-4DF8-A456-4CC09086EB88
    :END:
    [2009-11-02 Mon 17:11]
+** DONE In symbol scope make the map optional
+   - State "DONE"       from "TODO"       [2009-11-24 Tue 04:21]
+   :PROPERTIES:
+   :ID:       1DEA172D-72F1-4AA1-B013-9B04E95E47F0
+   :END:
+   [2009-11-22 Sun 04:25]
+** DONE Valuation balance reports should balance to zero
+   - State "DONE"       from "TODO"       [2009-11-19 Thu 17:43]
+   This is done by adding valuation differences to Equity:Unrealized Gains
+   :PROPERTIES:
+   :ID:       6ED158B5-361C-4B5D-AED5-8EBE8F374C45
+   :END:
+   [2009-11-18 Wed 16:11]
 ** DONE If a quote comes back in the wrong commodity, ignore it
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:19]
    :PROPERTIES:
@@ -3838,6 +3851,11 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: B34222A3-DD25-4717-B60B-865DB7F1DFD6
    :END:
    [2008-04-16 Wed]
+** WORKSFORME C-c TAB no longer works in ledger-mode
+   :PROPERTIES:
+   :ID:       AA885449-23F0-450C-BBA8-ECC8C073F14C
+   :END:
+   [2009-11-17 Tue 16:29]
 * Features
 ** DONE The date parser needs to be rewritten
    - State "DONE"       from "TODO"       [2009-11-18 Wed 04:27]
@@ -4759,6 +4777,12 @@ getquote GSK_L
    :END:
    [2008-04-11 Fri]
 * Python
+** DONE For Python's sake, all Journals should share a commodity_pool
+   - State "DONE"       from "TODO"       [2009-11-21 Sat 05:29]
+   :PROPERTIES:
+   :ID:       B3D2495F-F542-4F96-9A11-065194D63AAD
+   :END:
+   [2009-11-19 Thu 17:36]
 ** DONE Add implicit conversion of value_t::sequence_t to tuple
    - State "DONE"       from "TODO"       [2009-11-11 Wed 04:48]
    [[file:py_value.cc::jww%202009%2011%2002%20Need%20to%20support%20conversion%20eof%20value_t%20sequence_t][py_value.cc]]

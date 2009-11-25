@@ -10,25 +10,81 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** DONE Valuation balance reports should balance to zero
-   - State "DONE"       from "TODO"       [2009-11-19 Thu 17:43]
-   This is done by adding valuation differences to Equity:Unrealized Gains
+** TODO Johann is experiencing an uninialized object exception
    :PROPERTIES:
-   :ID:       6ED158B5-361C-4B5D-AED5-8EBE8F374C45
+   :ID:       4CF2D1A7-16AD-47E6-925D-406AD8C9FE7F
+   :Message:  [[message://4B0C1B20.6060903@gmail.com]["Assertion `this->is_initialized()' failed"]]
    :END:
-   [2009-11-18 Wed 16:11]
+   [2009-11-24 Tue 22:13]
+** TODO sm is seeing a segfault with the register command
+   :PROPERTIES:
+   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
+   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
+   :END:
+   [2009-11-24 Tue 22:13]
+** TODO lot_price should be able to return whether a commodity is "fixed rate"
+   :PROPERTIES:
+   :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
+   :END:
+   [2009-11-24 Tue 22:02]
+** TODO Read through Peter's accounting article, and make sure it all applies		 :ATTACH:
+   :PROPERTIES:
+   :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
+   :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
+   :END:
+   [2009-11-24 Tue 22:04]
+** TODO Another balance reporting bug, where the ordering is wrong			 :ATTACH:
+   :PROPERTIES:
+   :ID:       8026905D-42B6-40EE-AEBF-24ED0CC5DC53
+   :Attachments: bug2.dat
+   :END:
+   [2009-11-24 Tue 03:08]
+** TODO Bug when not using commodities in a posting's cost
+   For example:
+#+begin_src ledger
+   2009/11/01 Sample
+       Assets                1 apple {=0.10}
+       Equity
+#+end_src
+   :PROPERTIES:
+   :ID:       F29DE89C-73CD-4344-B6F7-BB7584AA6FFD
+   :END:
+   [2009-11-24 Tue 01:11]
+** TODO Is --file=foo valid?
+   :PROPERTIES:
+   :ID:       4E9D5FFB-24E3-43FC-AD14-1FA74B80E266
+   :END:
+   [2009-11-20 Fri 07:30]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** DONE Allow for period expressions like "4 months ago"
-   SCHEDULED: <2009-11-18 Wed>
-   - State "DONE"       from "TODO"       [2009-11-18 Wed 05:59]
+** TODO Have config options for setting fixed account names
+   Like: Equity:Unrealized Gains.
    :PROPERTIES:
-   :ID:       579AE28D-21B5-44FD-989E-8EB5D784D78E
+   :ID:       1669EBA4-C733-4D90-897D-68EF735286DE
    :END:
-   [2009-11-18 Wed 05:51]
-** STARTED Allow for period expressions like "last 5 weeks"
+   [2009-11-24 Tue 03:35]
+** TODO Add a trim() value expression function
+   It trims all leading and trailing spaces
+   :PROPERTIES:
+   :ID:       AAA8F6E9-32A3-4CA7-9055-D4184B03AE2D
+   :END:
+   [2009-11-24 Tue 01:30]
+** TODO Add a "fixedrate COMMODITY AMOUNT" directive					 :ATTACH:
+   - Note taken on [2009-11-24 Tue 22:32] \\
+     Russell also needs this for billing miles to the IRC based on rates-per-mile
+     determined for particular time periods.
+   - Note taken on [2009-11-24 Tue 22:07] \\
+     Javier is facing some of these issues: [[message://5d55d2dd-2222-484f-9fa4-295fda763ac6@d21g2000yqn.googlegroups.com][Re: Multicurrency and reg problem]].
+   Every use of COMMODITY within the range of transactions has a fixed cost, as
+   if the user had typed COMMODITY {= AMOUNT}.
+   :PROPERTIES:
+   :ID:       33DA4CB9-3C76-47F5-AA06-682192A37E48
+   :Attachments: IRC-fixed-rates-2009-11-24.txt
+   :END:
+   [2009-11-24 Tue 01:16]
+** STARTED Allow for period expressions "4 months ago" and "last 5 weeks"
    :PROPERTIES:
    :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
    :END:
@@ -37,36 +93,34 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
-** TODO C-c TAB no longer works in ledger-mode
+** TODO Make *, # and | into comment characters, for Org compatibility
    :PROPERTIES:
-   :ID:       AA885449-23F0-450C-BBA8-ECC8C073F14C
+   :ID:       B38AC5A0-31BB-4F89-8112-5999D8A99C02
    :END:
-   [2009-11-17 Tue 16:29]
+   [2009-11-24 Tue 22:17]
 * Python
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO After using python/server.py, it segfaults on exit
+** TODO Having problems exporting std::pair<T, U *> from Boost.Python
+   This is the e-mail I was drafting for the mailing list, in response to
+   [[message://770306.78630.qm@web111402.mail.gq1.yahoo.com][Re: {boost} Boost.Python question about converters and make_getter]]:
+
+   Just one quick question:
+
+   I have a Boost.Python method that looks like this:
+
+     .def("__iter__", range<return_value_policy<return_by_value> >
+	  (py_pool_commodities_begin, py_pool_commodities_end))
+
+   Where the members of the map are std::pair<string, MyObject *>.  I want the
+   pair passed by value, but I need the "second" member to be accessed using
+   reference_existing_object.
    :PROPERTIES:
-   :ID:       DA30D886-863D-4173-AE3C-369A98F0CD59
+   :ID:       50EA95EE-E17A-444C-84BE-123F080811FA
+   :Message:  [[message://0B5E0EBA-E74E-4303-A6FC-3CBA42B7055B@gmail.com][Re: {boost} Boost.Python question about converters and make_getter]]
    :END:
-   [2009-11-21 Sat 02:20]
-** DONE For Python's sake, all Journals should share a commodity_pool
-   - State "DONE"       from "TODO"       [2009-11-21 Sat 05:29]
-   :PROPERTIES:
-   :ID:       B3D2495F-F542-4F96-9A11-065194D63AAD
-   :END:
-   [2009-11-19 Thu 17:36]
-** STARTED Write a Python demo script
-   :PROPERTIES:
-   :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
-   :END:
-   [2009-11-19 Thu 17:37]
-** TODO Allow to_xml methods on all Python-exposed objects
-   :PROPERTIES:
-   :ID:       0EDDE812-2913-4D16-BF2E-9C343F32A958
-   :END:
-   [2009-11-19 Thu 17:38]
+   [2009-11-24 Tue 22:18]
 * Build
   :PROPERTIES:
   :CATEGORY: Build
@@ -80,6 +134,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
+** TODO Merge in the --unrealized* baseline tests MisterN wrote
+   :PROPERTIES:
+   :ID:       AB515F51-E71D-4331-94DE-DC53141A5C2E
+   :END:
+   [2009-11-24 Tue 22:11]
 ** TODO Rewrite the sample.dat file to be more realistic
    :PROPERTIES:
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
