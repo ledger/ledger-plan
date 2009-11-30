@@ -94,6 +94,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** DONE Make the optimized build for tools/push use -j16
+   SCHEDULED: <2009-11-27 Fri>
+   - State "DONE"       from "TODO"       [2009-11-27 Fri 13:51]
+   :PROPERTIES:
+   :ID:       05DADC75-EA29-44CE-94F4-4F8D1419AFF1
+   :END:
+   [2009-11-25 Wed 15:25]
 ** TODO Create a PO file for Alexis to translate into German
    :PROPERTIES:
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
