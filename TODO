@@ -10,6 +10,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO Ledger dies if a periodic transaction is unbalanced				   :LINK:
+#+begin_src ledger
+~ Monthly
+   Aufwand:Bargeld    0,30€
+   Aktiva:Bank:Girokonto  -0,40€
+#+end_src
+  It crashes tries to use the transaction's position, which is uninitialized.
+  :PROPERTIES:
+  :ID:       DDB54BB8-8C1C-4129-A137-07A38068F3BE
+  :Message:  [[message://4B0D8A2D.9020300@gmail.com][Re: "Assertion `this->is_initialized()' failed"]]
+  :END:
+  [2009-12-01 Tue 02:55]
+** TODO There is a bug with the new fixed rate feature				    :LINK:ATTACH:
+   :PROPERTIES:
+   :ID:       DC6AA45B-F714-4209-B0CC-E6CAFB75E50E
+   :Message:  [[message://53ed3320-3d2d-46d8-8dd3-98b953e926fb@e7g2000vbi.googlegroups.com][Re: Multicurrency and reg problem]]
+   :Attachments: multicurrency-fixed.ledger.zip
+   :END:
+   [2009-12-01 Tue 02:39]
 ** TODO Attached file should print out Unrealized Gains in the report			 :ATTACH:
    - Note taken on [2009-11-25 Wed 04:48] \\
      It should print out:
@@ -37,13 +56,9 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
   :END:
   [2009-11-25 Wed 04:27]
-** TODO Johann is experiencing an uninialized object exception				   :LINK:
-   :PROPERTIES:
-   :ID:       4CF2D1A7-16AD-47E6-925D-406AD8C9FE7F
-   :Message:  [[message://4B0C1B20.6060903@gmail.com]["Assertion `this->is_initialized()' failed"]]
-   :END:
-   [2009-11-24 Tue 22:13]
 ** TODO sm is seeing a segfault with the register command				   :LINK:
+   - Note taken on [2009-12-06 Sun 06:05] \\
+     It happens on Leopard for me in a virtual machine.
    - Note taken on [2009-11-25 Wed 04:40] \\
      This is happening because boost::regex is constructing a bad object.
    :PROPERTIES:
@@ -72,12 +87,26 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Make the prices report use standard report query terms				   :LINK:
+  The idea here is that report query filtering is done before the building up
+  of commodities prices, so that you can see which commodities are involved
+  with which reports:
+#+begin_src sh
+  ledger prices 'Lebensmittel:Milch'
+  ledger prices '%kauf=leche'
+#+end_src
+  :PROPERTIES:
+  :ID:       5229AE44-F390-4E4E-BAC6-674373CC775D
+  :Message:  [[message://4B0E7757.1030607@gmail.com][How to type out a sales slip?]]
+  :END:
+  [2009-12-01 Tue 03:04]
 ** TODO lot_price should be able to return whether a commodity is "fixed rate"
    :PROPERTIES:
    :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
    :END:
    [2009-11-24 Tue 22:02]
-** STARTED Allow for period expressions "4 months ago" and "last 5 weeks"
+** TODO Allow for period expressions "4 months ago" and "last 5 weeks"
+   - State "TODO"       from "STARTED"    [2009-12-07 Mon 04:24]
    :PROPERTIES:
    :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
    :END:
@@ -94,13 +123,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** DONE Make the optimized build for tools/push use -j16
-   SCHEDULED: <2009-11-27 Fri>
-   - State "DONE"       from "TODO"       [2009-11-27 Fri 13:51]
+** TODO acprep gives no warning about an unknown phase
    :PROPERTIES:
-   :ID:       05DADC75-EA29-44CE-94F4-4F8D1419AFF1
+   :ID:       3FAC3387-9DCC-40AB-BE60-BA692E922F3F
    :END:
-   [2009-11-25 Wed 15:25]
+   [2009-12-06 Sun 06:03]
 ** TODO Create a PO file for Alexis to translate into German
    :PROPERTIES:
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
@@ -121,17 +148,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :END:
    [2009-11-20 Fri 18:31]
-** TODO Create a series of "manual" tests
-   These would confirm the validity of all the examples given in the manual.
-   :PROPERTIES:
-   :ID: 837B71B7-F46F-48E5-89E9-BD5E670B65A0
-   :END:
-   [2009-11-01 Sun 19:58]
-** TODO Create regression tests for all closed 2.6.1 and 3.0 bugs
-   :PROPERTIES:
-   :ID: 946925F9-9F43-4CD9-810C-B3C8AC978F8D
-   :END:
-   [2008-08-14 Thu]
 ** TODO Use coverage analysis to determine if everything is being tested
    :PROPERTIES:
    :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C

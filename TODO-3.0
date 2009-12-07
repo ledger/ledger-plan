@@ -3310,6 +3310,13 @@ $ ledger -f <DATA> register
    :ID: FF734E1D-5A6F-4E1E-927B-6D6D60075FAC
    :END:
    [2009-03-06 Fri 17:55]
+** DONE Make the optimized build for tools/push use -j16
+   SCHEDULED: <2009-11-27 Fri>
+   - State "DONE"       from "TODO"       [2009-11-27 Fri 13:51]
+   :PROPERTIES:
+   :ID:       05DADC75-EA29-44CE-94F4-4F8D1419AFF1
+   :END:
+   [2009-11-25 Wed 15:25]
 ** DONE acprep should call submodule
    - State "DONE"       from "TODO"       [2009-10-25 Sun 19:16]
    :PROPERTIES:
