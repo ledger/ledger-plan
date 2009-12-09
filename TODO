@@ -10,6 +10,28 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO Scoping error with the account directive and included files		    :LINK:ATTACH:
+   - Note taken on [2009-12-08 Tue 19:45] \\
+     Mentioned in this e-mail: [[message://E53FE149-FD4B-43F1-9A01-4DC9BF138DF3@surryhill.net][Ledger Bugfixes]].
+   :PROPERTIES:
+   :ID:       F4A477E6-C4F6-43B1-ABCC-4DC325C2869A
+   :Attachments: timelog.dat a.dat
+   :END:
+   [2009-12-08 Tue 19:45]
+** DONE Cost amounts have the wrong sign with register -B				 :ATTACH:
+   - State "DONE"       from "STARTED"    [2009-12-07 Mon 21:23]
+   :PROPERTIES:
+   :ID:       9603900E-D553-4ECD-A355-50B1CAABE3A8
+   :Attachments: currency.dat
+   :END:
+   [2009-12-07 Mon 18:59]
+** DONE [#A] Ledger's include directive is failing in a very simple case		 :ATTACH:
+   - State "DONE"       from "TODO"       [2009-12-07 Mon 20:42]
+   :PROPERTIES:
+   :ID:       4D63641F-3C9E-4C62-A45F-C9B1649BD712
+   :Attachments: include.dat data.dat
+   :END:
+   [2009-12-07 Mon 18:52]
 ** TODO Ledger dies if a periodic transaction is unbalanced				   :LINK:
 #+begin_src ledger
 ~ Monthly
