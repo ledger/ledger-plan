@@ -10,6 +10,73 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO [#A] The --account option is not working for metadata				 :ATTACH:
+#+begin_src sh
+   ./ledger -f AISER0033.dat bal
+#+end_src
+   :OUTPUT:
+              $10.44  Internal:Travel
+              $44.24  Projects:Meals
+             $-54.68  Source:Visa
+--------------------
+                   0
+   :END:
+
+#+begin_src sh
+   ./ledger -f AISER0033.dat reg
+#+end_src
+   :OUTPUT:
+09-Sep-27 HUDSON NEWS HOUSTN .. Source:Visa                  $-6.55       $-6.55
+                                Projects:Meals                $6.55            0
+09-Sep-27 PEET'S COFFEE & TEA.. Source:Visa                  $-2.44       $-2.44
+                                Projects:Meals                $2.44            0
+09-Sep-28 FUSIA NEW YORK, NY    Source:Visa                 $-15.25      $-15.25
+                                Projects:Meals               $15.25            0
+09-Sep-29 BALUCHI'S NEW YORK,.. Source:Visa                 $-20.00      $-20.00
+                                Projects:Meals               $20.00            0
+                                Source:Visa                 $-10.44      $-10.44
+                                Internal:Travel              $10.44            0
+   :END:
+
+#+begin_src sh
+   ./ledger -f AISER0033.dat bal '%ER=AISER0033'
+#+end_src
+   :OUTPUT:
+              $44.24  Projects:Meals
+             $-44.24  Source:Visa
+--------------------
+                   0
+   :END:
+
+#+begin_src sh
+   ./ledger -f AISER0033.dat bal '%ER=AISER0036'
+#+end_src
+   :OUTPUT:
+              $10.44  Internal:Travel
+             $-10.44  Source:Visa
+--------------------
+                   0
+   :END:
+
+#+begin_src sh
+   ./ledger -f AISER0033.dat bal '--account=tag("ER")'
+#+end_src
+   No output?!
+   :PROPERTIES:
+   :ID:       CB3FFE90-6C53-438C-8A87-4D7616782FAE
+   :Attachments: bug.dat
+   :END:
+   [2010-01-04 Mon 16:57]
+** TODO The option -p this no longer works
+   :PROPERTIES:
+   :ID:       14F7B5C7-1FAC-4750-B389-E9FAA7BB0B9B
+   :END:
+   [2009-12-29 Tue 16:07]
+** TODO Ledger no longer builds
+   :PROPERTIES:
+   :ID:       507609E4-343F-487D-8A01-FDDE54D86E0F
+   :END:
+   [2009-12-13 Sun 01:12]
 ** TODO Scoping error with the account directive and included files		    :LINK:ATTACH:
    - Note taken on [2009-12-08 Tue 19:45] \\
      Mentioned in this e-mail: [[message://E53FE149-FD4B-43F1-9A01-4DC9BF138DF3@surryhill.net][Ledger Bugfixes]].
@@ -18,20 +85,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: timelog.dat a.dat
    :END:
    [2009-12-08 Tue 19:45]
-** DONE Cost amounts have the wrong sign with register -B				 :ATTACH:
-   - State "DONE"       from "STARTED"    [2009-12-07 Mon 21:23]
-   :PROPERTIES:
-   :ID:       9603900E-D553-4ECD-A355-50B1CAABE3A8
-   :Attachments: currency.dat
-   :END:
-   [2009-12-07 Mon 18:59]
-** DONE [#A] Ledger's include directive is failing in a very simple case		 :ATTACH:
-   - State "DONE"       from "TODO"       [2009-12-07 Mon 20:42]
-   :PROPERTIES:
-   :ID:       4D63641F-3C9E-4C62-A45F-C9B1649BD712
-   :Attachments: include.dat data.dat
-   :END:
-   [2009-12-07 Mon 18:52]
 ** TODO Ledger dies if a periodic transaction is unbalanced				   :LINK:
 #+begin_src ledger
 ~ Monthly
@@ -45,10 +98,33 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :END:
   [2009-12-01 Tue 02:55]
 ** TODO There is a bug with the new fixed rate feature				    :LINK:ATTACH:
+   - Note taken on [2009-12-11 Fri 02:12] \\
+     Javier [[message://92a1cace0912100848v3b6e81bfp332590a8057d73fe@mail.gmail.com][writes]]:
+
+     I found that the problem is not related to the new "fixed" directive at all.
+
+     After looking through the fixed-directive code I couldn't find any problems
+     with it. I also noticed that the annotation details change between parsing
+     time (when they are fine) and the amount::value() call.
+
+     Then I changed all my fixed directives in the ledger file to {=$####} entries
+     for all the foreign currencies (no "fixed" directive in the whole file) and
+     the problem persisted!: some {=} entries used the wrong price from another {=}
+     entry.
+
+     I think the problem is somewhere between parsing and applying the algorithms
+     (at least for -V reg) where the original post details seem to have changed. At
+     least for ANNOTATION_PRICE_FIXATED entries. (I used printf's in parsing and in
+     amount_t::value() to see the price change).
+
+     This is the command i'm using: ./ledger -f multicurrency-no-fixed.ledger -V
+     reg payable:jlopez
+
+     I ran this with the master branch on ubuntu 64 bits.
    :PROPERTIES:
    :ID:       DC6AA45B-F714-4209-B0CC-E6CAFB75E50E
    :Message:  [[message://53ed3320-3d2d-46d8-8dd3-98b953e926fb@e7g2000vbi.googlegroups.com][Re: Multicurrency and reg problem]]
-   :Attachments: multicurrency-fixed.ledger.zip
+   :Attachments: multicurrency-no-fixed.ledger.zip multicurrency-fixed.ledger.zip
    :END:
    [2009-12-01 Tue 02:39]
 ** TODO Attached file should print out Unrealized Gains in the report			 :ATTACH:
@@ -109,6 +185,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** DONE Consider Martin's @openbal directive
+   - State "DONE"       [2008-07-28 Mon]
+   [[message://20080421153138.26F681144C3@banane.furius.ca]["AutoOpenBalance" from Martin Blais <blais@furius.ca>]]
+   :PROPERTIES:
+   :ID: 70E793CC-81E7-4E87-A3D7-4E18CD649C58
+   :END:
+   [2008-06-30 Mon]
 ** TODO Make the prices report use standard report query terms				   :LINK:
   The idea here is that report query filtering is done before the building up
   of commodities prices, so that you can see which commodities are involved
@@ -175,3 +258,24 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
    :END:
    [2008-08-14 Thu]
+* Docs
+  :PROPERTIES:
+  :CATEGORY: Docs
+  :END:
+** TODO Remove --commodity-as-account from the man page and manual
+   :PROPERTIES:
+   :ID:       849EB210-BEEB-4FDE-A90C-688400D55ECE
+   :END:
+   [2009-12-29 Tue 16:07]
+** TODO Fill out membership form for the Software Conservancy
+   :PROPERTIES:
+   :ID:       78635C7A-98F2-494F-93A4-7CDA6094E681
+   :Message:  [[message://4B240026.5040408@softwarefreedom.org][Re: Offer of membership to the Ledger project into the Software Freedom Conservancy, Inc.]]
+   :END:
+   [2009-12-17 Thu 02:44]
+** TODO How to declare a statement reconciliation					 :ATTACH:
+   :PROPERTIES:
+   :ID:       32A4A048-886F-43FC-892E-EC125F372750
+   :Attachments: foo.dat
+   :END:
+   [2009-12-10 Thu 18:05]

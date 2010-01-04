@@ -127,12 +127,26 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       FDFBA165-7328-4C4F-BC1C-EDF9C629E2B3
    :END:
    [2009-11-10 Tue 15:13]
+** DONE [#A] Ledger's include directive is failing in a very simple case		 :ATTACH:
+   - State "DONE"       from "TODO"       [2009-12-07 Mon 20:42]
+   :PROPERTIES:
+   :ID:       4D63641F-3C9E-4C62-A45F-C9B1649BD712
+   :Attachments: include.dat data.dat
+   :END:
+   [2009-12-07 Mon 18:52]
 ** DONE The parser thinks [[link][desc]] is an invalid transaction date
    - State "DONE"       from "TODO"       [2009-11-15 Sun 05:05]
    :PROPERTIES:
    :ID:       8B15C4DD-31A1-403A-9BBF-DE41E08C2DD8
    :END:
    [2009-11-14 Sat 17:08]
+** DONE Cost amounts have the wrong sign with register -B				 :ATTACH:
+   - State "DONE"       from "STARTED"    [2009-12-07 Mon 21:23]
+   :PROPERTIES:
+   :ID:       9603900E-D553-4ECD-A355-50B1CAABE3A8
+   :Attachments: currency.dat
+   :END:
+   [2009-12-07 Mon 18:59]
 ** DONE Ledger is not parsing value expressions in report query correctly
    - State "DONE"       from "TODO"       [2009-11-15 Sun 05:16]
    In this command, the '=' gets interpreted as a token.
