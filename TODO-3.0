@@ -134,6 +134,27 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: include.dat data.dat
    :END:
    [2009-12-07 Mon 18:52]
+** DONE [#A] Ledger no longer builds
+   - State "DONE"       from "TODO"       [2010-01-18 Mon 02:19]
+   - Note taken on [2010-01-16 Sat 21:46] \\
+     This happens apparently only on my system, and only for debug builds.
+   :PROPERTIES:
+   :ID:       507609E4-343F-487D-8A01-FDDE54D86E0F
+   :END:
+   [2009-12-13 Sun 01:12]
+** DONE Ledger dies if a periodic transaction is unbalanced				   :LINK:
+   - State "DONE"       from "TODO"       [2010-01-18 Mon 03:41]
+#+begin_src ledger
+   ~ Monthly
+      Aufwand:Bargeld    0,30€
+      Aktiva:Bank:Girokonto  -0,40€
+#+end_src
+   It crashes tries to use the transaction's position, which is uninitialized.
+   :PROPERTIES:
+   :ID:       DDB54BB8-8C1C-4129-A137-07A38068F3BE
+   :Message:  [[message://4B0D8A2D.9020300@gmail.com][Re: "Assertion `this->is_initialized()' failed"]]
+   :END:
+   [2009-12-01 Tue 02:55]
 ** DONE The parser thinks [[link][desc]] is an invalid transaction date
    - State "DONE"       from "TODO"       [2009-11-15 Sun 05:05]
    :PROPERTIES:
@@ -2200,6 +2221,19 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: D00D1F5A-8BD5-43B5-B8E0-1FEBB98F610A
    :END:
    [2008-04-11 Fri]
+** WONTFIX Errors when compiling ledger 2.6.2 on Fedora 11				   :LINK:
+   - State "WONTFIX"    from "TODO"       [2010-01-18 Mon 03:04] \\
+     2.6.2 bugs are no longer being fixed.
+   - Note taken on [2010-01-09 Sat 21:06] \\
+     All required '-dev' or '-devel' libraries installed/updated to the best of my
+     knowlege. gcc is 4.4.1, kernel is 2.6.30, and while my major job function is
+     'accountant', my education (20+ years ago) is technical, so I'm the designated
+     IT guy -- but still not a programmer.
+   :PROPERTIES:
+   :ID:       1C6B78C7-E0B4-4515-A172-5DE17470F9F0
+   :Message:  [[message://20100104044948.GA14665@atom][problems compiling with python support on debian squeeze]]
+   :END:
+   [2010-01-09 Sat 21:06]
 ** WORKSFORME [#A] Corrupted double-linked list in the register report			   :LINK:
    - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
    - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:26] \\
@@ -2347,6 +2381,15 @@ ledger -Y --forecast 'T>0' reg food
    :ID: 146B0BE4-C5EB-4A5B-A332-FE512B40D375
    :END:
    [2008-04-11 Fri]
+** DUPLICATE 'ledger print' does not output implicit lines				   :LINK:
+   - State "DUPLICATE"  from "TODO"       [2010-01-18 Mon 03:03] \\
+     Duplicates 34BD95B8-F5ED-431E-A4BD-02DA3DF66EAA
+   :PROPERTIES:
+   :ID:       B96C3D99-70F4-4BF4-944D-DFB10D776FC1
+   :Message:  [[message://20100115103424.GA5932@kerneis.info][ledger print does not output implicit lines]]
+   :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+   :END:
+   [2010-01-16 Sat 18:58]
 ** CLOSED [#A] Changes to make to the way things are calculated [8/10]
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
    - State "DONE"       [2009-03-05 Thu 05:03]
@@ -3898,6 +3941,13 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2009-11-17 Tue 16:29]
 * Features
+** DONE Consider Martin's @openbal directive
+   - State "DONE"       [2008-07-28 Mon]
+   [[message://20080421153138.26F681144C3@banane.furius.ca]["AutoOpenBalance" from Martin Blais <blais@furius.ca>]]
+   :PROPERTIES:
+   :ID: 70E793CC-81E7-4E87-A3D7-4E18CD649C58
+   :END:
+   [2008-06-30 Mon]
 ** DONE Add a trim() value expression function
    - State "DONE"       from "TODO"       [2009-11-25 Wed 02:42]
    It trims all leading and trailing spaces

@@ -10,7 +10,179 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] The --account option is not working for metadata				 :ATTACH:
+** TODO --exchange seems to be ignored when combined with -M				 :ATTACH:
+#+begin_src sh
+  ledger  --exchange € reg ^dépenses|grep "\\$" |wc -l
+#+end_src
+  :OUTPUT:
+  0
+  :END:
+
+#+begin_src sh
+  ledger  --exchange € -M reg ^dépenses|grep "\\$" |wc -l
+#+end_src
+  :OUTPUT:
+  14
+  :END:
+  :PROPERTIES:
+  :ID:       03377560-850B-4258-B9A3-CE9BE7DAA70C
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :Attachments: ledger.txt.gpg
+  :END:
+  [2010-01-18 Mon 03:42]
+** TODO Bug with -J and multiple commodities						 :ATTACH:
+#+begin_src sh
+  ledger  --exchange € -M -J reg ^dépenses
+#+end_src
+  :OUTPUT:
+  While evaluating value expression:
+   quantity(scrub(display_total))
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  Error: Cannot convert a balance with multiple commodities to an amount
+  2009-11-01 168.71
+  2009-11-01 256.81
+  2009-11-01 275.56
+  2009-11-01 326.46
+  :END:
+  I know this is intended behaviour, -J is not supposed to work with multiple
+  commodities.  But --exchange should be able to make it work IMHO -- and it
+  does it quite well without the -M flag.
+
+  I think this might be related to some bugs reported recently in the
+  mailing-list (it mentionned -J and multiple commodities too).
+  :PROPERTIES:
+  :ID:       68EAF363-D0FE-4127-866E-A5AEBACB65D6
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :Attachments: ledger.txt.gpg
+  :END:
+  [2010-01-18 Mon 03:44]
+** TODO [#C] Complain about mutually exclusive options (such as -M and -s)
+#+begin_src sh
+  ledger -M -s reg ^actifs
+#+end_src
+  Adding the -s option seems to break the -M one (instead of three months,
+  there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
+  can't be combined in ledger reg.
+  :PROPERTIES:
+  :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :END:
+  [2010-01-18 Mon 02:55]
+** TODO The print command can generate unbalanced transactions				 :ATTACH:
+#+begin_src sh
+  ledger --exchange € print
+#+end_src
+  If some lines have a date different from the transaction one, they are
+  splitted in two transaction, which does not balance.
+  :OUTPUT:
+  $ grep 6933954 ledger.txt
+  2009/11/05 * (6933954) Hamou Jean-Pierre   
+
+  $ ledger print|grep 6933954
+  2009/11/05 * (6933954) Hamou Jean-Pierre
+  2009/11/05 * (6933954) Hamou Jean-Pierre
+  :END:
+  :PROPERTIES:
+  :ID:       34BD95B8-F5ED-431E-A4BD-02DA3DF66EAA
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :Attachments: ledger.txt.gpg
+  :END:
+  [2010-01-18 Mon 02:56]
+** TODO Divide by zero error using -A reg						 :ATTACH:
+#+begin_src sh
+  ledger --exchange € -A reg
+#+end_src
+  :OUTPUT:
+  While evaluating value expression:
+    (total_expr / count)
+    ^^^^^^^^^^^^^^^^^^^^
+  While evaluating value expression:
+    justify(scrub(display_total), total_width, (((((4 + date_width) + payee_width) + account_width) + amount_width) + total_width), true, color)
+  Error: Divide by zero
+  :END:
+  "ledger -A bal" works fine though.
+  :PROPERTIES:
+  :ID:       75A28597-4B64-4A2E-AF98-CB12AE92A8FE
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :Attachments: ledger.txt.gpg
+  :END:
+  [2010-01-18 Mon 02:58]
+** TODO Assertion failed using print --raw						 :ATTACH:
+#+begin_src sh
+  ledger --exchange € print --raw
+#+end_src
+  :OUTPUT:
+  /usr/include/boost/optional/optional.hpp:587: typename boost::optional_detail::optional_base<T>::pointer_const_type boost::optional<T>::operator->() const [with T = ledger::position_t]:
+  Assertion `this->is_initialized()' failed.
+  core dumped
+  :END:
+  :PROPERTIES:
+  :ID:       F1D4CC8F-8C3A-4075-9D38-75BDF1E0E9C5
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :Attachments: ledger.txt.gpg
+  :END:
+  [2010-01-18 Mon 02:59]
+** TODO Segfault using -M -A bal							 :ATTACH:
+#+begin_src sh
+  ledger --exchange € -M -A bal
+#+end_src
+  "ledger -M bal" and "ledger -A bal" both work fine.
+  :PROPERTIES:
+  :ID:       9A4FEA3B-6490-46D0-9839-C283C87FE8B4
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :Attachments: ledger.txt.gpg
+  :END:
+  [2010-01-18 Mon 03:00]
+** TODO Problem with price conversions and -V						   :LINK:
+   :PROPERTIES:
+   :ID:       6FC5D114-958D-493B-8879-6B9ED28224AB
+   :Message:  [[message://a6e822eb-17e3-4ff3-8e41-25c1999fb871@h9g2000yqa.googlegroups.com][-V option]]
+   :END:
+   [2010-01-09 Sat 21:05]
+** TODO Errors with using the -J option							   :LINK:
+   :PROPERTIES:
+   :ID:       7C44010B-BB26-4E5C-8800-EB2C11891C9D
+   :Message:  [[message://916c6e83-4da6-4b7a-a035-d146908beabc@a15g2000yqm.googlegroups.com][-J option]]
+   :END:
+   [2010-01-09 Sat 21:05]
+** TODO Problems compiling with python support on debian squeeze			   :LINK:
+   :PROPERTIES:
+   :ID:       0167EEB2-6D64-4387-8F1D-F464C699A047
+   :Message:  [[message://20100104044948.GA14665@atom][problems compiling with python support on debian squeeze]]
+   :END:
+   [2010-01-09 Sat 21:07]
+** TODO Strange libboost suffix on Debian Squeeze with acprep				   :LINK:
+   :PROPERTIES:
+   :ID:       758C04DB-FECD-41DD-9A7B-B12E394B7E22
+   :Message:  [[message://4b41432bd68c7_6cc63f9b2badc2fc154@fe4.rs.github.com.tmail][{GitHub} docunext sent you a message]]
+   :END:
+   [2010-01-09 Sat 21:07]
+** TODO Auto-remainder of setting an account's balance broken				   :LINK:
+   :PROPERTIES:
+   :ID:       5A8CB6B5-E888-4B6D-9916-6521ABA0A746
+   :Message:  [[message://20100103125340.GA4886@kerneis.info][Auto-remainder of setting an account's balance broken]]
+   :END:
+   [2010-01-09 Sat 21:07]
+** TODO Issue with reporting asset history and -j/-J					   :LINK:
+   - Note taken on [2010-01-09 Sat 21:09] \\
+     Further data on this problem: [[message://dff1fb891001021247r77677d2dr66a31e8a8bbd498c@mail.gmail.com][Re: reporting assets history]]
+   :PROPERTIES:
+   :ID:       9EB10714-36E9-4AA0-A8FB-E9CECA92F5A3
+   :Message:  [[message://dff1fb891001011724i8f750a7wf3df7f2aa69d7cd6@mail.gmail.com][Re: reporting assets history]]
+   :END:
+   [2010-01-09 Sat 21:08]
+** TODO Another rounding issue								   :LINK:
+   :PROPERTIES:
+   :ID:       1D275740-D1A6-42B7-BDE4-F2F85E30CE8E
+   :Message:  [[message://541a7592-f815-4625-bd42-e1efa3b49b30@j5g2000yqm.googlegroups.com][Re: Another rounding issue]]
+   :END:
+   [2010-01-09 Sat 21:09]
+** WAITING [#A] The --account option is not working for metadata			 :ATTACH:
+   - State "WAITING"    from "STARTED"    [2010-01-18 Mon 02:40] \\
+     This is working for me, but I want to confirm with Russell.
+   :LOGBOOK:
+   CLOCK: [2010-01-18 Mon 02:38]--[2010-01-18 Mon 02:40] =>  0:02
+   :END:
 #+begin_src sh
    ./ledger -f AISER0033.dat bal
 #+end_src
@@ -64,19 +236,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    No output?!
    :PROPERTIES:
    :ID:       CB3FFE90-6C53-438C-8A87-4D7616782FAE
-   :Attachments: bug.dat
+   :Attachments: russell-bug.zip.gpg bug.dat
    :END:
    [2010-01-04 Mon 16:57]
-** TODO The option -p this no longer works
+** TODO The option "-p this" no longer works
    :PROPERTIES:
    :ID:       14F7B5C7-1FAC-4750-B389-E9FAA7BB0B9B
    :END:
    [2009-12-29 Tue 16:07]
-** TODO Ledger no longer builds
-   :PROPERTIES:
-   :ID:       507609E4-343F-487D-8A01-FDDE54D86E0F
-   :END:
-   [2009-12-13 Sun 01:12]
 ** TODO Scoping error with the account directive and included files		    :LINK:ATTACH:
    - Note taken on [2009-12-08 Tue 19:45] \\
      Mentioned in this e-mail: [[message://E53FE149-FD4B-43F1-9A01-4DC9BF138DF3@surryhill.net][Ledger Bugfixes]].
@@ -85,18 +252,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: timelog.dat a.dat
    :END:
    [2009-12-08 Tue 19:45]
-** TODO Ledger dies if a periodic transaction is unbalanced				   :LINK:
-#+begin_src ledger
-~ Monthly
-   Aufwand:Bargeld    0,30€
-   Aktiva:Bank:Girokonto  -0,40€
-#+end_src
-  It crashes tries to use the transaction's position, which is uninitialized.
-  :PROPERTIES:
-  :ID:       DDB54BB8-8C1C-4129-A137-07A38068F3BE
-  :Message:  [[message://4B0D8A2D.9020300@gmail.com][Re: "Assertion `this->is_initialized()' failed"]]
-  :END:
-  [2009-12-01 Tue 02:55]
 ** TODO There is a bug with the new fixed rate feature				    :LINK:ATTACH:
    - Note taken on [2009-12-11 Fri 02:12] \\
      Javier [[message://92a1cace0912100848v3b6e81bfp332590a8057d73fe@mail.gmail.com][writes]]:
@@ -185,13 +340,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** DONE Consider Martin's @openbal directive
-   - State "DONE"       [2008-07-28 Mon]
-   [[message://20080421153138.26F681144C3@banane.furius.ca]["AutoOpenBalance" from Martin Blais <blais@furius.ca>]]
+** TODO Have a way to set the date range to "this week" easily				   :LINK:
    :PROPERTIES:
-   :ID: 70E793CC-81E7-4E87-A3D7-4E18CD649C58
+   :ID:       3ED8AC82-37A1-4513-AB20-8FFC66A2BD00
+   :Message:  [[message://8017aec0-63c1-4d55-bced-5e87e50e7a8d@o28g2000yqh.googlegroups.com][Is there a way to set the date range to "this week" easily?]]
    :END:
-   [2008-06-30 Mon]
+   [2010-01-09 Sat 21:08]
 ** TODO Make the prices report use standard report query terms				   :LINK:
   The idea here is that report query filtering is done before the building up
   of commodities prices, so that you can see which commodities are involved
@@ -255,7 +409,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    [2009-11-20 Fri 18:31]
 ** TODO Use coverage analysis to determine if everything is being tested
    :PROPERTIES:
-   :ID: 13E43A50-FC0C-4C3D-A175-7C6CB147A37C
+   :ID:       13E43A50-FC0C-4C3D-A175-7C6CB147A37C
    :END:
    [2008-08-14 Thu]
 * Docs
@@ -267,7 +421,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       849EB210-BEEB-4FDE-A90C-688400D55ECE
    :END:
    [2009-12-29 Tue 16:07]
-** TODO Fill out membership form for the Software Conservancy
+** TODO Fill out membership form for the Software Conservancy				   :LINK:
    :PROPERTIES:
    :ID:       78635C7A-98F2-494F-93A4-7CDA6094E681
    :Message:  [[message://4B240026.5040408@softwarefreedom.org][Re: Offer of membership to the Ledger project into the Software Freedom Conservancy, Inc.]]
