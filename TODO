@@ -56,18 +56,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :Attachments: ledger.txt.gpg
   :END:
   [2010-01-18 Mon 03:44]
-** TODO [#C] Complain about mutually exclusive options (such as -M and -s)
-#+begin_src sh
-  ledger -M -s reg ^actifs
-#+end_src
-  Adding the -s option seems to break the -M one (instead of three months,
-  there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
-  can't be combined in ledger reg.
-  :PROPERTIES:
-  :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
-  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
-  :END:
-  [2010-01-18 Mon 02:55]
 ** TODO The print command can generate unbalanced transactions				 :ATTACH:
 #+begin_src sh
   ledger --exchange € print
@@ -88,26 +76,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :Attachments: ledger.txt.gpg
   :END:
   [2010-01-18 Mon 02:56]
-** TODO Divide by zero error using -A reg						 :ATTACH:
-#+begin_src sh
-  ledger --exchange € -A reg
-#+end_src
-  :OUTPUT:
-  While evaluating value expression:
-    (total_expr / count)
-    ^^^^^^^^^^^^^^^^^^^^
-  While evaluating value expression:
-    justify(scrub(display_total), total_width, (((((4 + date_width) + payee_width) + account_width) + amount_width) + total_width), true, color)
-  Error: Divide by zero
-  :END:
-  "ledger -A bal" works fine though.
-  :PROPERTIES:
-  :ID:       75A28597-4B64-4A2E-AF98-CB12AE92A8FE
-  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
-  :Attachments: ledger.txt.gpg
-  :END:
-  [2010-01-18 Mon 02:58]
-** TODO Assertion failed using print --raw						 :ATTACH:
+** TODO Assertion failure using print --raw 						 :ATTACH:
 #+begin_src sh
   ledger --exchange € print --raw
 #+end_src
@@ -122,17 +91,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :Attachments: ledger.txt.gpg
   :END:
   [2010-01-18 Mon 02:59]
-** TODO Segfault using -M -A bal							 :ATTACH:
-#+begin_src sh
-  ledger --exchange € -M -A bal
-#+end_src
-  "ledger -M bal" and "ledger -A bal" both work fine.
-  :PROPERTIES:
-  :ID:       9A4FEA3B-6490-46D0-9839-C283C87FE8B4
-  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
-  :Attachments: ledger.txt.gpg
-  :END:
-  [2010-01-18 Mon 03:00]
 ** TODO Problem with price conversions and -V						   :LINK:
    :PROPERTIES:
    :ID:       6FC5D114-958D-493B-8879-6B9ED28224AB
@@ -145,24 +103,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://916c6e83-4da6-4b7a-a035-d146908beabc@a15g2000yqm.googlegroups.com][-J option]]
    :END:
    [2010-01-09 Sat 21:05]
-** TODO Problems compiling with python support on debian squeeze			   :LINK:
-   :PROPERTIES:
-   :ID:       0167EEB2-6D64-4387-8F1D-F464C699A047
-   :Message:  [[message://20100104044948.GA14665@atom][problems compiling with python support on debian squeeze]]
-   :END:
-   [2010-01-09 Sat 21:07]
-** TODO Strange libboost suffix on Debian Squeeze with acprep				   :LINK:
-   :PROPERTIES:
-   :ID:       758C04DB-FECD-41DD-9A7B-B12E394B7E22
-   :Message:  [[message://4b41432bd68c7_6cc63f9b2badc2fc154@fe4.rs.github.com.tmail][{GitHub} docunext sent you a message]]
-   :END:
-   [2010-01-09 Sat 21:07]
-** TODO Auto-remainder of setting an account's balance broken				   :LINK:
-   :PROPERTIES:
-   :ID:       5A8CB6B5-E888-4B6D-9916-6521ABA0A746
-   :Message:  [[message://20100103125340.GA4886@kerneis.info][Auto-remainder of setting an account's balance broken]]
-   :END:
-   [2010-01-09 Sat 21:07]
 ** TODO Issue with reporting asset history and -j/-J					   :LINK:
    - Note taken on [2010-01-09 Sat 21:09] \\
      Further data on this problem: [[message://dff1fb891001021247r77677d2dr66a31e8a8bbd498c@mail.gmail.com][Re: reporting assets history]]
@@ -177,73 +117,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://541a7592-f815-4625-bd42-e1efa3b49b30@j5g2000yqm.googlegroups.com][Re: Another rounding issue]]
    :END:
    [2010-01-09 Sat 21:09]
-** WAITING [#A] The --account option is not working for metadata			 :ATTACH:
-   - State "WAITING"    from "STARTED"    [2010-01-18 Mon 02:40] \\
-     This is working for me, but I want to confirm with Russell.
-   :LOGBOOK:
-   CLOCK: [2010-01-18 Mon 02:38]--[2010-01-18 Mon 02:40] =>  0:02
-   :END:
-#+begin_src sh
-   ./ledger -f AISER0033.dat bal
-#+end_src
-   :OUTPUT:
-              $10.44  Internal:Travel
-              $44.24  Projects:Meals
-             $-54.68  Source:Visa
---------------------
-                   0
-   :END:
-
-#+begin_src sh
-   ./ledger -f AISER0033.dat reg
-#+end_src
-   :OUTPUT:
-09-Sep-27 HUDSON NEWS HOUSTN .. Source:Visa                  $-6.55       $-6.55
-                                Projects:Meals                $6.55            0
-09-Sep-27 PEET'S COFFEE & TEA.. Source:Visa                  $-2.44       $-2.44
-                                Projects:Meals                $2.44            0
-09-Sep-28 FUSIA NEW YORK, NY    Source:Visa                 $-15.25      $-15.25
-                                Projects:Meals               $15.25            0
-09-Sep-29 BALUCHI'S NEW YORK,.. Source:Visa                 $-20.00      $-20.00
-                                Projects:Meals               $20.00            0
-                                Source:Visa                 $-10.44      $-10.44
-                                Internal:Travel              $10.44            0
-   :END:
-
-#+begin_src sh
-   ./ledger -f AISER0033.dat bal '%ER=AISER0033'
-#+end_src
-   :OUTPUT:
-              $44.24  Projects:Meals
-             $-44.24  Source:Visa
---------------------
-                   0
-   :END:
-
-#+begin_src sh
-   ./ledger -f AISER0033.dat bal '%ER=AISER0036'
-#+end_src
-   :OUTPUT:
-              $10.44  Internal:Travel
-             $-10.44  Source:Visa
---------------------
-                   0
-   :END:
-
-#+begin_src sh
-   ./ledger -f AISER0033.dat bal '--account=tag("ER")'
-#+end_src
-   No output?!
-   :PROPERTIES:
-   :ID:       CB3FFE90-6C53-438C-8A87-4D7616782FAE
-   :Attachments: russell-bug.zip.gpg bug.dat
-   :END:
-   [2010-01-04 Mon 16:57]
-** TODO The option "-p this" no longer works
-   :PROPERTIES:
-   :ID:       14F7B5C7-1FAC-4750-B389-E9FAA7BB0B9B
-   :END:
-   [2009-12-29 Tue 16:07]
 ** TODO Scoping error with the account directive and included files		    :LINK:ATTACH:
    - Note taken on [2009-12-08 Tue 19:45] \\
      Mentioned in this e-mail: [[message://E53FE149-FD4B-43F1-9A01-4DC9BF138DF3@surryhill.net][Ledger Bugfixes]].
@@ -319,12 +192,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
    :END:
    [2009-11-24 Tue 22:13]
-** TODO Another balance reporting bug, where the ordering is wrong			 :ATTACH:
-   :PROPERTIES:
-   :ID:       8026905D-42B6-40EE-AEBF-24ED0CC5DC53
-   :Attachments: bug2.dat
-   :END:
-   [2009-11-24 Tue 03:08]
 ** TODO Bug when not using commodities in a posting's cost
    For example:
 #+begin_src ledger
@@ -336,6 +203,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       F29DE89C-73CD-4344-B6F7-BB7584AA6FFD
    :END:
    [2009-11-24 Tue 01:11]
+** TODO [#C] Complain about mutually exclusive options (such as -M and -s)
+#+begin_src sh
+  ledger -M -s reg ^actifs
+#+end_src
+  Adding the -s option seems to break the -M one (instead of three months,
+  there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
+  can't be combined in ledger reg.
+  :PROPERTIES:
+  :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :END:
+  [2010-01-18 Mon 02:55]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
@@ -382,11 +261,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO acprep gives no warning about an unknown phase
-   :PROPERTIES:
-   :ID:       3FAC3387-9DCC-40AB-BE60-BA692E922F3F
-   :END:
-   [2009-12-06 Sun 06:03]
 ** TODO Create a PO file for Alexis to translate into German
    :PROPERTIES:
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
