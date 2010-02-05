@@ -2227,13 +2227,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 567B5118-7A77-42B9-A1CD-C5DA688AC406
    :END:
    [2007-10-29 Mon]
-** WONTFIX Problems compiling with python support on debian squeeze			   :LINK:
-   - State "WONTFIX"    from "TODO"       [2010-01-21 Thu 04:28]
-   :PROPERTIES:
-   :ID:       0167EEB2-6D64-4387-8F1D-F464C699A047
-   :Message:  [[message://20100104044948.GA14665@atom][problems compiling with python support on debian squeeze]]
-   :END:
-   [2010-01-09 Sat 21:07]
 ** WONTFIX Auto-remainder of setting an account's balance broken			   :LINK:
    - State "WONTFIX"    from "TODO"       [2010-01-21 Thu 04:29] \\
      This is expected behavior now.
@@ -5201,6 +5194,19 @@ getquote GSK_L
    :ID: 3040E933-2068-4C78-954F-F78A7BAFB2D6
    :END:
    [2009-02-24 Tue 22:15]
+** WONTFIX Problems compiling with python support on debian squeeze			   :LINK:
+   - State "WONTFIX"    from "DONE"       [2010-01-22 Fri 20:06] \\
+     This is apparently a packaging issue on Debian.
+   - State "DONE"       from "TODO"       [2010-01-22 Fri 18:51]
+   - Note taken on [2010-01-22 Fri 18:49] \\
+     [[message://20100122004144.GA17106@atom][Re: problems compiling with python support on debian squeeze - solved]]
+   - State "TODO"       from "WONTFIX"    [2010-01-22 Fri 18:49]
+   - State "WONTFIX"    from "TODO"       [2010-01-21 Thu 04:28]
+   :PROPERTIES:
+   :ID:       0167EEB2-6D64-4387-8F1D-F464C699A047
+   :Message:  [[message://20100104044948.GA14665@atom][problems compiling with python support on debian squeeze]]
+   :END:
+   [2010-01-09 Sat 21:07]
 * Tests
 ** DONE Merge in the --unrealized* baseline tests MisterN wrote
    - State "DONE"       from "TODO"       [2009-11-25 Wed 04:51]

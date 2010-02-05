@@ -10,6 +10,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** CANCELLED Make balance assertions be partly date dependent
+   - State "CANCELLED"  from "TODO"       [2010-02-05 Fri 00:02]
+   They should be date dependent for differing days, but for transaction on
+   the same day, they should be order dependent.
+   :PROPERTIES:
+   :ID:       E1B3CE9A-6305-4FFD-B916-6DF6D418A4B7
+   :END:
+   [2010-02-04 Thu 17:04]
+** DONE Ledger fails to proof build
+   - State "DONE"       from "TODO"       [2010-02-05 Fri 00:02]
+   :PROPERTIES:
+   :ID:       CED8B3F7-37A0-462B-A2DF-152CA0656BE5
+   :END:
+   [2010-02-02 Tue 15:40]
 ** TODO --exchange seems to be ignored when combined with -M				 :ATTACH:
 #+begin_src sh
   ledger  --exchange € reg ^dépenses|grep "\\$" |wc -l
@@ -182,7 +196,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
   :END:
   [2009-11-25 Wed 04:27]
-** TODO sm is seeing a segfault with the register command				   :LINK:
+** TODO [#A] sm is seeing a segfault with the register command				   :LINK:
    - Note taken on [2009-12-06 Sun 06:05] \\
      It happens on Leopard for me in a virtual machine.
    - Note taken on [2009-11-25 Wed 04:40] \\
@@ -203,22 +217,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       F29DE89C-73CD-4344-B6F7-BB7584AA6FFD
    :END:
    [2009-11-24 Tue 01:11]
-** TODO [#C] Complain about mutually exclusive options (such as -M and -s)
-#+begin_src sh
-  ledger -M -s reg ^actifs
-#+end_src
-  Adding the -s option seems to break the -M one (instead of three months,
-  there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
-  can't be combined in ledger reg.
-  :PROPERTIES:
-  :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
-  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
-  :END:
-  [2010-01-18 Mon 02:55]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Allow the include directive to accept wildcards
+   :PROPERTIES:
+   :ID:       F5B86CC8-599C-4851-AD6A-8CD5324AD49C
+   :END:
+   [2010-02-04 Thu 17:22]
+** TODO Add a within(DATE, PERIOD) valexpr function
+   :PROPERTIES:
+   :ID:       112D9AD9-B6A7-4AB1-ACA9-0D25E974AC68
+   :END:
+   [2010-01-29 Fri 02:56]
 ** TODO Have a way to set the date range to "this week" easily				   :LINK:
    :PROPERTIES:
    :ID:       3ED8AC82-37A1-4513-AB20-8FFC66A2BD00
@@ -290,12 +302,15 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO Remove --commodity-as-account from the man page and manual
+** DONE Remove --commodity-as-account from the man page and manual
+   - State "DONE"       from "TODO"       [2010-02-05 Fri 00:03]
    :PROPERTIES:
    :ID:       849EB210-BEEB-4FDE-A90C-688400D55ECE
    :END:
    [2009-12-29 Tue 16:07]
-** TODO Fill out membership form for the Software Conservancy				   :LINK:
+** WAITING Fill out membership form for the Software Conservancy			   :LINK:
+   - State "WAITING"    from "TODO"       [2010-01-22 Fri 20:06] \\
+     I'm waiting on the new agreement to be sent.
    :PROPERTIES:
    :ID:       78635C7A-98F2-494F-93A4-7CDA6094E681
    :Message:  [[message://4B240026.5040408@softwarefreedom.org][Re: Offer of membership to the Ledger project into the Software Freedom Conservancy, Inc.]]

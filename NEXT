@@ -633,6 +633,19 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 721AC8F7-9189-4151-8611-2BBC0D1E8267
    :END:
    [2009-06-19 Fri 00:49]
+** DEFERRED [#C] Complain about mutually exclusive options (such as -M and -s)
+   - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
+#+begin_src sh
+  ledger -M -s reg ^actifs
+#+end_src
+  Adding the -s option seems to break the -M one (instead of three months,
+  there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
+  can't be combined in ledger reg.
+  :PROPERTIES:
+  :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :END:
+  [2010-01-18 Mon 02:55]
 * Python
 ** DEFERRED Having problems exporting std::pair<T, U *> from Boost.Python
    - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:36]
