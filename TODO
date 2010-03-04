@@ -10,6 +10,52 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO Bug with --real and virtual transactions
+   - Note taken on [2010-03-04 Thu 13:58] \\
+     [[message://633d7019-cf97-4855-88b4-6a3b8e592c26@t41g2000yqt.googlegroups.com][Re: virtual transactions]]: I found a way to be able to display virtual
+     transactions.  By removing the '^' before "Revenu".
+   :PROPERTIES:
+   :ID:       F2832452-4521-49A3-B854-F4E12CC4D82E
+   :Message:  [[message://ffcf3974-a9d7-4ebf-a0da-7fc61fc00d3f@q16g2000yqq.googlegroups.com][virtual transactions]]
+   :END:
+   [2010-03-04 Thu 13:57]
+** TODO ledger v3 slower than ledger v2							 :ATTACH:
+   - Note taken on [2010-03-04 Thu 13:57] \\
+     The following command should reproduce the problem of performance with
+     multiple currencies:
+     #+begin_src sh
+     ledger --european -f thierry.ledger.anon -V reg 2eb75f84 1eede0cb >/dev/null
+     #+end_src
+   :PROPERTIES:
+   :ID:       C609E728-0962-4745-955E-988B1E3F9918
+   :Message:  [[message://9097b239-86e0-4a5c-8acb-15f3e886f7a2@e1g2000yqh.googlegroups.com][ledger v3 slower than ledger v2]]
+   :Attachments: thierry.ledger.anon.gpg
+   :END:
+   [2010-03-04 Thu 13:55]
+** TODO Space is not allowed in quoted query regexps
+   :PROPERTIES:
+   :ID:       CB883B26-C0A9-41A6-9E1D-3C97A93043FB
+   :Message:  [[message://bf53d15e-c8ea-4771-a3df-bed7883f56b5@k17g2000yqb.googlegroups.com][regular expression argument that contains spaces]]
+   :END:
+   [2010-03-01 Mon 16:13]
+** TODO Ledger crashes when attempting to use !account
+   :PROPERTIES:
+   :ID:       89233B6D-CB21-4162-98E3-BE38B9336070
+   :Message:  [[message://20100219085239.GA51178@kei.local][Re: FR: Include w/ prefixes]]
+   :END:
+   [2010-02-22 Mon 02:53]
+** TODO Problem with fixed commodities and rounding
+   :PROPERTIES:
+   :ID:       61AE3B0B-751B-4EBD-98BB-5DB3BB7782AA
+   :Message:  [[message://1582b9d81002162123g2cb7ddf5vef3739a46e277699@mail.gmail.com][Problem using the fixed rate commodity syntax]]
+   :END:
+   [2010-02-17 Wed 01:39]
+** TODO The --prefix-format option messes up columnar alignment
+   ledger -f doc/sample.dat --prepend-format='%3(seq) ' --columns=80 reg
+   :PROPERTIES:
+   :ID:       64F9D913-75E1-4830-A3D9-29B72442E68B
+   :END:
+   [2010-02-04 Thu 18:16]
 ** CANCELLED Make balance assertions be partly date dependent
    - State "CANCELLED"  from "TODO"       [2010-02-05 Fri 00:02]
    They should be date dependent for differing days, but for transaction on
@@ -71,6 +117,32 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :END:
   [2010-01-18 Mon 03:44]
 ** TODO The print command can generate unbalanced transactions				 :ATTACH:
+   - Note taken on [2010-02-05 Fri 16:49] \\
+     From [[message://20100204082006.GA4250@kerneis.info][Re: ledger print does not output implicit lines]]:
+     
+     I narrowed the problem with "ledger print".  It also happens with "ledger
+     entry" by the way (I guess the code is shared).  The problem is when you have
+     custom dates for some postings:
+     
+     :OUTPUT:
+     $ cat test
+     2010/01/01 Test entry
+           Foo:Bar              $ 10.00 ; [2010/01/02]
+           Bip:Bop
+     $ ledger -f test print
+     2010/01/01 Test entry
+        Bip:Bop
+     2010/01/01 Test entry
+        Foo:Bar                                  $ 10.00  ; [2010/01/02]
+     $ ledger -f test entry 2010/02/01 "Test entry"
+     2010/02/01 Test entry
+        Foo:Bar                                  $ 10.00  ; [2010/01/02]
+     2010/02/01 Test entry
+        Bip:Bop
+     :END:
+     
+     Of course, the extra header line splits the transaction in two, which
+     breaks balance.
 #+begin_src sh
   ledger --exchange € print
 #+end_src
@@ -118,6 +190,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-01-09 Sat 21:05]
 ** TODO Issue with reporting asset history and -j/-J					   :LINK:
+   - Note taken on [2010-03-04 Thu 13:55] \\
+     Another note: [[message://a47ff04c-5777-4f09-a074-be0cff8c8937@b7g2000yqd.googlegroups.com][Re: reporting assets history]]
    - Note taken on [2010-01-09 Sat 21:09] \\
      Further data on this problem: [[message://dff1fb891001021247r77677d2dr66a31e8a8bbd498c@mail.gmail.com][Re: reporting assets history]]
    :PROPERTIES:
@@ -196,7 +270,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
   :END:
   [2009-11-25 Wed 04:27]
-** TODO [#A] sm is seeing a segfault with the register command				   :LINK:
+** TODO sm is seeing a segfault with the register command				   :LINK:
    - Note taken on [2009-12-06 Sun 06:05] \\
      It happens on Leopard for me in a virtual machine.
    - Note taken on [2009-11-25 Wed 04:40] \\
@@ -221,6 +295,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Make "until today", "from yesterday" etc. work for the -p option
+   :PROPERTIES:
+   :ID:       438B58C4-59F6-462D-A9FA-CF4839BF064C
+   :Message:  [[message://20100216095003.GA2870@rhodium.pps.jussieu.fr][from and until today, etc.]]
+   :END:
+   [2010-02-16 Tue 23:31]
+** TODO Create a --meta=FOO switch as a shorthand for --prepend-format
+   --prepend-format='%-<LONGEST>(tag("ER")) '
+   :PROPERTIES:
+   :ID:       237C562D-0F3D-44E9-A55F-4C91DE7F1E57
+   :END:
+   [2010-02-04 Thu 17:51]
+** TODO Devise correct semantics for --pivot reports
+   If --pivot=. is used, then how can postings with multiple metadata fields
+   appear in multiple accounts?
+   :PROPERTIES:
+   :ID:       CD39E6B1-DDD6-497E-A08B-0284F2CB935C
+   :END:
+   [2010-02-08 Mon 17:10]
 ** TODO Allow the include directive to accept wildcards
    :PROPERTIES:
    :ID:       F5B86CC8-599C-4851-AD6A-8CD5324AD49C
