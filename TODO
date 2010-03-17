@@ -10,6 +10,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO Balance of virtual transactions depends on amount syntax
+   - Note taken on [2010-03-14 Sun 04:37] \\
+     He amended: [[message://5aa7e7a0-fe3b-4bf3-9405-ba0fb3c08c97@y17g2000yqd.googlegroups.com][Re: balance of virtual transactions depends on amount syntax]]
+   :PROPERTIES:
+   :ID:       6DB20CAE-C7B0-44F8-BA47-A47656013596
+   :Message:  [[message://709de76d-34dd-430b-8af8-103416083833@c16g2000yqd.googlegroups.com][balance of virtual transactions depends on amount syntax]]
+   :END:
+   [2010-03-14 Sun 04:37]
+** TODO "ledger template exxons 10 from checking" applies 10 to "from" account
+   It should apply to the "to" account.
+   :PROPERTIES:
+   :ID:       A9DFC672-9FAD-431F-8EDA-CFB54D1285AF
+   :END:
+   [2010-03-10 Wed 01:32]
 ** TODO Bug with --real and virtual transactions
    - Note taken on [2010-03-04 Thu 13:58] \\
      [[message://633d7019-cf97-4855-88b4-6a3b8e592c26@t41g2000yqt.googlegroups.com][Re: virtual transactions]]: I found a way to be able to display virtual
@@ -19,7 +33,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://ffcf3974-a9d7-4ebf-a0da-7fc61fc00d3f@q16g2000yqq.googlegroups.com][virtual transactions]]
    :END:
    [2010-03-04 Thu 13:57]
-** TODO ledger v3 slower than ledger v2							 :ATTACH:
+** TODO Exponential slowdown when using --exchange					 :ATTACH:
    - Note taken on [2010-03-04 Thu 13:57] \\
      The following command should reproduce the problem of performance with
      multiple currencies:
@@ -29,7 +43,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       C609E728-0962-4745-955E-988B1E3F9918
    :Message:  [[message://9097b239-86e0-4a5c-8acb-15f3e886f7a2@e1g2000yqh.googlegroups.com][ledger v3 slower than ledger v2]]
-   :Attachments: thierry.ledger.anon.gpg
+   :Attachments: gmon.gprof thierry.ledger.anon.gpg
    :END:
    [2010-03-04 Thu 13:55]
 ** TODO Space is not allowed in quoted query regexps
@@ -162,7 +176,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :Attachments: ledger.txt.gpg
   :END:
   [2010-01-18 Mon 02:56]
-** TODO Assertion failure using print --raw 						 :ATTACH:
+** DONE Assertion failure using print --raw						 :ATTACH:
+   - State "DONE"       from "TODO"       [2010-03-17 Wed 00:51]
 #+begin_src sh
   ledger --exchange € print --raw
 #+end_src
@@ -295,31 +310,48 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Make an assert directive for Ledger
+#+begin_src ledger :results outputb
+  assert DATE AMOUNT ACCOUNT
+#+end_src
+  is equivalent to
+#+begin_src ledger :results outputb
+DATE Reconciled statement
+    [ACCOUNT]    = AMOUNT
+#+end_src
+  :PROPERTIES:
+  :ID:       52C041BD-5EF0-46E9-B046-A23CBF01632A
+  :END:
+  [2010-03-05 Fri 21:59]
 ** TODO Make "until today", "from yesterday" etc. work for the -p option
    :PROPERTIES:
    :ID:       438B58C4-59F6-462D-A9FA-CF4839BF064C
    :Message:  [[message://20100216095003.GA2870@rhodium.pps.jussieu.fr][from and until today, etc.]]
    :END:
    [2010-02-16 Tue 23:31]
-** TODO Create a --meta=FOO switch as a shorthand for --prepend-format
+** DONE Create a --meta=FOO switch as a shorthand for --prepend-format
+   - State "DONE"       from "TODO"       [2010-03-17 Wed 02:20]
    --prepend-format='%-<LONGEST>(tag("ER")) '
    :PROPERTIES:
    :ID:       237C562D-0F3D-44E9-A55F-4C91DE7F1E57
    :END:
    [2010-02-04 Thu 17:51]
-** TODO Devise correct semantics for --pivot reports
+** DONE Devise correct semantics for --pivot reports
+   - State "DONE"       from "TODO"       [2010-03-17 Wed 00:56]
    If --pivot=. is used, then how can postings with multiple metadata fields
    appear in multiple accounts?
    :PROPERTIES:
    :ID:       CD39E6B1-DDD6-497E-A08B-0284F2CB935C
    :END:
    [2010-02-08 Mon 17:10]
-** TODO Allow the include directive to accept wildcards
+** DONE Allow the include directive to accept wildcards
+   - State "DONE"       from "TODO"       [2010-03-17 Wed 02:40]
    :PROPERTIES:
    :ID:       F5B86CC8-599C-4851-AD6A-8CD5324AD49C
    :END:
    [2010-02-04 Thu 17:22]
-** TODO Add a within(DATE, PERIOD) valexpr function
+** CANCELLED Add a within(DATE, PERIOD) valexpr function
+   - State "CANCELLED"  from "TODO"       [2010-03-17 Wed 00:56]
    :PROPERTIES:
    :ID:       112D9AD9-B6A7-4AB1-ACA9-0D25E974AC68
    :END:
@@ -375,18 +407,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** TODO Read through Peter's accounting article, and make sure it all applies		 :ATTACH:
+** Read through Peter's accounting article, and make sure it all applies		 :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
    :END:
    [2009-11-24 Tue 22:04]
-** TODO Rewrite the sample.dat file to be more realistic
+** Rewrite the sample.dat file to be more realistic
    :PROPERTIES:
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :END:
    [2009-11-20 Fri 18:31]
-** TODO Use coverage analysis to determine if everything is being tested
+** Use coverage analysis to determine if everything is being tested
    :PROPERTIES:
    :ID:       13E43A50-FC0C-4C3D-A175-7C6CB147A37C
    :END:
@@ -395,13 +427,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** NOTE Plotting time-series histograms with R and ggplot2
+#+begin_src R :results output
+   install.packages("ggplot2")
+   library(ggplot2)
+   mydata <- read.table("/tmp/data.txt", header=TRUE)
+   qplot(date, amount, data = mydata, geom="histogram")
+#+end_src
+   :PROPERTIES:
+   :ID:       CA4ED683-21CD-4BED-9820-C9F1077B78AE
+   :VISIBILITY: folded
+   :END:
+   [2010-03-11 Thu 03:19]
 ** DONE Remove --commodity-as-account from the man page and manual
    - State "DONE"       from "TODO"       [2010-02-05 Fri 00:03]
    :PROPERTIES:
    :ID:       849EB210-BEEB-4FDE-A90C-688400D55ECE
    :END:
    [2009-12-29 Tue 16:07]
-** WAITING Fill out membership form for the Software Conservancy			   :LINK:
+** Fill out membership form for the Software Conservancy 				   :LINK:
    - State "WAITING"    from "TODO"       [2010-01-22 Fri 20:06] \\
      I'm waiting on the new agreement to be sent.
    :PROPERTIES:
@@ -409,7 +453,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://4B240026.5040408@softwarefreedom.org][Re: Offer of membership to the Ledger project into the Software Freedom Conservancy, Inc.]]
    :END:
    [2009-12-17 Thu 02:44]
-** TODO How to declare a statement reconciliation					 :ATTACH:
+** How to declare a statement reconciliation 						 :ATTACH:
    :PROPERTIES:
    :ID:       32A4A048-886F-43FC-892E-EC125F372750
    :Attachments: foo.dat
