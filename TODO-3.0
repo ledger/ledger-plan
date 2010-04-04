@@ -206,6 +206,28 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       8B15C4DD-31A1-403A-9BBF-DE41E08C2DD8
    :END:
    [2009-11-14 Sat 17:08]
+** DONE Ledger fails to proof build
+   - State "DONE"       from "TODO"       [2010-02-05 Fri 00:02]
+   :PROPERTIES:
+   :ID:       CED8B3F7-37A0-462B-A2DF-152CA0656BE5
+   :END:
+   [2010-02-02 Tue 15:40]
+** DONE Assertion failure using print --raw						 :ATTACH:
+   - State "DONE"       from "TODO"       [2010-03-17 Wed 00:51]
+#+begin_src sh
+  ledger --exchange € print --raw
+#+end_src
+  :OUTPUT:
+  /usr/include/boost/optional/optional.hpp:587: typename boost::optional_detail::optional_base<T>::pointer_const_type boost::optional<T>::operator->() const [with T = ledger::position_t]:
+  Assertion `this->is_initialized()' failed.
+  core dumped
+  :END:
+  :PROPERTIES:
+  :ID:       F1D4CC8F-8C3A-4075-9D38-75BDF1E0E9C5
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :Attachments: ledger.txt.gpg
+  :END:
+  [2010-01-18 Mon 02:59]
 ** DONE Cost amounts have the wrong sign with register -B				 :ATTACH:
    - State "DONE"       from "STARTED"    [2009-12-07 Mon 21:23]
    :PROPERTIES:
@@ -1783,6 +1805,14 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: A98BFCBA-012D-4E18-9CBB-4D880CDBFE7E
    :END:
    [2008-10-05 Sun 20:59]
+** CANCELLED Make balance assertions be partly date dependent
+   - State "CANCELLED"  from "TODO"       [2010-02-05 Fri 00:02]
+   They should be date dependent for differing days, but for transaction on
+   the same day, they should be order dependent.
+   :PROPERTIES:
+   :ID:       E1B3CE9A-6305-4FFD-B916-6DF6D418A4B7
+   :END:
+   [2010-02-04 Thu 17:04]
 ** CANCELLED Pass the default report object into the textual parser
    - State "CANCELLED"  from "TODO"       [2009-11-05 Thu 04:17]
    :PROPERTIES:
@@ -4079,6 +4109,33 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2009-11-17 Tue 16:29]
 * Features
+** DONE Create a --meta=FOO switch as a shorthand for --prepend-format
+   - State "DONE"       from "TODO"       [2010-03-17 Wed 02:20]
+   --prepend-format='%-<LONGEST>(tag("ER")) '
+   :PROPERTIES:
+   :ID:       237C562D-0F3D-44E9-A55F-4C91DE7F1E57
+   :END:
+   [2010-02-04 Thu 17:51]
+** DONE Devise correct semantics for --pivot reports
+   - State "DONE"       from "TODO"       [2010-03-17 Wed 00:56]
+   If --pivot=. is used, then how can postings with multiple metadata fields
+   appear in multiple accounts?
+   :PROPERTIES:
+   :ID:       CD39E6B1-DDD6-497E-A08B-0284F2CB935C
+   :END:
+   [2010-02-08 Mon 17:10]
+** DONE Allow the include directive to accept wildcards
+   - State "DONE"       from "TODO"       [2010-03-17 Wed 02:40]
+   :PROPERTIES:
+   :ID:       F5B86CC8-599C-4851-AD6A-8CD5324AD49C
+   :END:
+   [2010-02-04 Thu 17:22]
+** CANCELLED Add a within(DATE, PERIOD) valexpr function
+   - State "CANCELLED"  from "TODO"       [2010-03-17 Wed 00:56]
+   :PROPERTIES:
+   :ID:       112D9AD9-B6A7-4AB1-ACA9-0D25E974AC68
+   :END:
+   [2010-01-29 Fri 02:56]
 ** DONE Consider Martin's @openbal directive
    - State "DONE"       [2008-07-28 Mon]
    [[message://20080421153138.26F681144C3@banane.furius.ca]["AutoOpenBalance" from Martin Blais <blais@furius.ca>]]
@@ -5572,3 +5629,22 @@ make: *** [release-distcheck] Error 2
    :VISIBILITY: folded
    :END:
    [2009-10-25 Sun 19:02]
+* Docs
+** NOTE Plotting time-series histograms with R and ggplot2
+#+begin_src R :results output
+   install.packages("ggplot2")
+   library(ggplot2)
+   mydata <- read.table("/tmp/data.txt", header=TRUE)
+   qplot(date, amount, data = mydata, geom="histogram")
+#+end_src
+   :PROPERTIES:
+   :ID:       CA4ED683-21CD-4BED-9820-C9F1077B78AE
+   :VISIBILITY: folded
+   :END:
+   [2010-03-11 Thu 03:19]
+** DONE Remove --commodity-as-account from the man page and manual
+   - State "DONE"       from "TODO"       [2010-02-05 Fri 00:03]
+   :PROPERTIES:
+   :ID:       849EB210-BEEB-4FDE-A90C-688400D55ECE
+   :END:
+   [2009-12-29 Tue 16:07]
