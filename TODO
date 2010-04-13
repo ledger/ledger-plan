@@ -10,6 +10,48 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO 'ledger emacs -s -b 2009/07 food' tries to use an uninitialized variable
+   :PROPERTIES:
+   :ID:       7B54CF80-45A4-4D50-A8D3-63272D60FA1B
+   :END:
+   [2010-04-12 Mon 22:03]
+** TODO Ledger doesn't know how to find include files for stdin				   :LINK:
+   If I have a file with relative includes and I pipe it to Ledger through
+   stdin, it never knows how to find those includes.
+   :PROPERTIES:
+   :ID:       6F274577-80C7-42B1-923C-109F3BD5B8E2
+   :END:
+   [2010-04-11 Sun 14:18]
+** TODO Re: Specifying commodity price and total					   :LINK:
+   :PROPERTIES:
+   :ID:       CFE233D5-3D11-423F-97D4-68A0A6B10B59
+   :Message:  [[message://20100410132007.GA21623@jirafa.cyrius.com][Re: Specifying commodity price and total]]
+   :END:
+   [2010-04-11 Sun 03:55]
+** TODO Balance wrong because of exchange rates						   :LINK:
+   :PROPERTIES:
+   :ID:       DCB05AE0-3972-4F56-960D-D0BE2646E19E
+   :Message:  [[message://20100410133046.GA21886@jirafa.cyrius.com][Balance wrong because of exchange rates]]
+   :END:
+   [2010-04-11 Sun 03:55]
+** TODO Memo Field									   :LINK:
+   :PROPERTIES:
+   :ID:       878AB79B-B656-4221-941F-6C956F6A1E92
+   :Message:  [[message://87eiir4wov.fsf@online.de][Memo Field]]
+   :END:
+   [2010-04-08 Thu 18:47]
+** TODO Re: Memo Field									   :LINK:
+   :PROPERTIES:
+   :ID:       CB2D1049-E964-49C3-9197-188DFBE5A01C
+   :Message:  [[message://87vdc2tlju.fsf@online.de][Re: Memo Field]]
+   :END:
+   [2010-04-08 Thu 18:49]
+** TODO ledger and bogus dates like 2008/31/12						   :LINK:
+   :PROPERTIES:
+   :ID:       EF57C685-2C18-49A1-9A8C-FB3BE6F99C41
+   :Message:  [[message://20100405061115.GA7671@jirafa.cyrius.com][ledger and bogus dates like 2008/31/12]]
+   :END:
+   [2010-04-06 Tue 03:51]
 ** TODO --percent incompatible with --exchange						   :LINK:
    :PROPERTIES:
    :ID:       4509F714-BA35-4659-8F57-6BD6A725FA73
@@ -368,6 +410,32 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Make the path to the getquote script configurable using an option
+   :PROPERTIES:
+   :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
+   :END:
+   [2010-04-13 Tue 01:37]
+** TODO Integrate Org-mode with Ledger
+   If you're on a trip you could accumulate your expense into an Org-table, and
+   then either easily export that to your Ledger file later, or maybe even have
+   Ledger read such data directly.
+   :PROPERTIES:
+   :ID:       01B4C4E5-63AE-4915-A39A-AA6E07D9F19F
+   :END:
+   [2010-04-11 Sun 17:48]
+** TODO Support transactional queries in reports
+   For example: List all expense postings in transaction which do not include a
+   sales tax.
+   :PROPERTIES:
+   :ID:       18BDD076-83C0-46C5-8FC3-BC801C65C331
+   :END:
+   [2010-04-09 Fri 01:01]
+** TODO Parallelize resource cleanup (such as memory deallocation)			   :LINK:
+   :PROPERTIES:
+   :ID:       8D370CF3-347A-4BD7-B906-5256B90D7B48
+   :URL:      [[http://arstechnica.com/software/news/2010/04/new-memory-management-method-give-multicore-boost-to-apps.ars?utm_source%3Drss&utm_medium%3Drss&utm_campaign%3Drss][New memory management method give multicore boost to apps]]
+   :END:
+   [2010-04-06 Tue 23:38]
 ** TODO Excluding some transactions if a file is included				   :LINK:
    :PROPERTIES:
    :ID:       AA1D4807-4477-4035-8156-74BFAA929E02
@@ -454,6 +522,12 @@ DATE Reconciled statement
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** TODO early failure in attempting to build ledger from git clone			   :LINK:
+   :PROPERTIES:
+   :ID:       DD372FC2-5E25-4A9B-90E8-3B30E68A97E6
+   :Message:  [[message://c8414279-331c-43b1-a012-603223d51c91@r1g2000yqj.googlegroups.com][early failure in attempting to build ledger from git clone]]
+   :END:
+   [2010-04-08 Thu 18:49]
 ** TODO Create a PO file for Alexis to translate into German
    :PROPERTIES:
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
@@ -483,6 +557,36 @@ DATE Reconciled statement
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO [PATCH] ledger: fix a cosmetic problem in the manual				   :LINK:
+   :PROPERTIES:
+   :ID:       E1283FBD-F5FE-4EB9-A8A7-038AE6DBE9CB
+   :Message:  [[message://20100410170310.GA24308@jirafa.cyrius.com][{PATCH} ledger: fix a cosmetic problem in the manual]]
+   :END:
+   [2010-04-11 Sun 03:55]
+** TODO Useful links from the mailing list						   :LINK:
+   :PROPERTIES:
+   :ID:       5EBF9B2F-CE06-4C15-8B54-BB4E524ADC26
+   :Message:  [[message://20100410170831.GA24387@jirafa.cyrius.com][Useful links from the mailing list]]
+   :END:
+   [2010-04-11 Sun 03:55]
+** TODO Initial example in ledger manual bogus						   :LINK:
+   :PROPERTIES:
+   :ID:       B91DED0E-B52A-4C99-A100-6564961DE5C4
+   :Message:  [[message://20100410171011.GB24387@jirafa.cyrius.com][Initial example in ledger manual bogus]]
+   :END:
+   [2010-04-11 Sun 03:55]
+** TODO documentation patch for ledger							   :LINK:
+   :PROPERTIES:
+   :ID:       79E94C3D-F48C-4972-826E-7C0E36C5CDD7
+   :Message:  [[message://4BBD4587.9050508@nicta.com.au][documentation patch for ledger]]
+   :END:
+   [2010-04-08 Thu 18:49]
+** TODO [PATCH] ledger: add a missing word to the manual				   :LINK:
+   :PROPERTIES:
+   :ID:       9FE43582-2AF8-4350-8031-923758C7204A
+   :Message:  [[message://20100408202815.GA5996@jirafa.cyrius.com][{PATCH} ledger: add a missing word to the manual]]
+   :END:
+   [2010-04-08 Thu 18:50]
 ** TODO doc/NEWS and xml								   :LINK:
    :PROPERTIES:
    :ID:       130C2697-1601-488A-B0D7-2422CF50CB86
