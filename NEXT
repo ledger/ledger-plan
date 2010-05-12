@@ -167,7 +167,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: 28CE49A7-919B-4C93-9754-966DCC435DBA
    :END:
    [2009-10-23 Fri 06:14]
-** DEFERRED @@ -- allow negative costs							   :LINK:
+** DEFERRED @@ -- allow negative costs
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    I am quite keen on the @@ syntax, as I like to deal with commodities on a
    net basis. However, there is a bit of an inconsistency between @@ and @.
@@ -272,7 +272,7 @@ Error: A posting's cost may not be negative
    :ID: ADD3FB96-D19A-47F0-9F0B-1896328D6380
    :END:
    [2009-02-04 Wed 19:57]
-** DEFERRED --price option in lot_sales branch						   :LINK:
+** DEFERRED --price option in lot_sales branch
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    message://m24q2rwrym.fsf_-_@newartisans.com
    message://m2k6bl3vr3.fsf@newartisans.com
@@ -386,7 +386,7 @@ Error: A posting's cost may not be negative
    :ID: 9ECF98A8-8C8C-42D1-B8A0-EB42F49AAED9
    :END:
   
-** DEFERRED [#C] Combine a random seed when hashing when using --anon			   :LINK:
+** DEFERRED [#C] Combine a random seed when hashing when using --anon
    - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
    Please keep in mind that the dictionary one pulls account names from is MUCH
    smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
@@ -403,7 +403,7 @@ Error: A posting's cost may not be negative
    :END:
    [2009-07-03 Fri 08:38]
 * Emacs
-** DEFERRED Add colorized highlighting to the reconciler				   :LINK:
+** DEFERRED Add colorized highlighting to the reconciler
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
    http://thread.gmane.org/gmane.comp.finance.ledger.general/483
    :PROPERTIES:
@@ -468,7 +468,7 @@ Error: A posting's cost may not be negative
    :ID: 178EC4C8-F87A-40C2-91CE-C5BD9CA50BD3
    :END:
    [2009-10-23 Fri 06:14]
-** DEFERRED Inserting comments in ledger-mode is inserting leading whitespace		   :LINK:
+** DEFERRED Inserting comments in ledger-mode is inserting leading whitespace
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    Comments in ledger-mode are inserted with whitespace at the beginning of the
    line, which makes ledger.dat unusable.  One has to delete the extra
@@ -708,7 +708,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       4E160265-93EA-42EE-825D-078A2A459BCA
    :END:
    [2009-11-02 Mon 15:50]
-** DEFERRED Make sure I'm handling object lifetime correctly for Boost.Python		   :LINK:
+** DEFERRED Make sure I'm handling object lifetime correctly for Boost.Python
    - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
    http://wiki.python.org/moin/boost.python/CallPolicy
    :PROPERTIES:
@@ -890,7 +890,7 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
-** DEFERRED [#C] Ledger example: building a better "du"				    :LINK:ATTACH:
+** DEFERRED [#C] Ledger example: building a better "du"					 :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
