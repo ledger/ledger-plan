@@ -570,6 +570,14 @@ DATE Reconciled statement
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
+** DONE [#A] ledger.el byte-compile error: Unknown rx form `date'
+   SCHEDULED: <2010-05-12 Wed>
+   - State "DONE"       from "TODO"       [2010-05-13 Thu 00:14]
+   :PROPERTIES:
+   :ID:       9D0245D2-22B7-457A-993F-0C5006E153BA
+   :Message:  [[message://1273691277.24226.30.camel@black][ledger.el error]]
+   :END:
+   [2010-05-12 Wed 15:34]
 * Python
   :PROPERTIES:
   :CATEGORY: Python
