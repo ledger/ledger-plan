@@ -17,12 +17,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       A9DFC672-9FAD-431F-8EDA-CFB54D1285AF
    :END:
    [2010-03-10 Wed 01:32]
-** TODO --sort d not working with -p
-   :PROPERTIES:
-   :ID:       3AAB00ED-9904-4380-8988-16506B0AFE08
-   :Message:  [[message://20100322090611.GV1914@jirafa.cyrius.com][--sort d not working with -p]]
-   :END:
-   [2010-03-26 Fri 22:23]
 ** TODO --unrealized also reports realized gains
    :PROPERTIES:
    :ID:       DA659A7A-C43F-4005-90F7-02DA97D864D4
@@ -47,60 +41,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: bug.dat
    :END:
    [2009-11-25 Wed 04:47]
-** TODO Compilation error on master (7ca8149e)
-   :PROPERTIES:
-   :ID:       0F17CB7F-A000-4F99-8471-739948AD575F
-   :Message:  [[message://500992d31003251651q7a127ba5p434c64b7454152de@mail.gmail.com][Compilation error on master (7ca8149e)]]
-   :END:
-   [2010-03-26 Fri 22:17]
-** TODO Do not use names with double underscores in C++ code
-   For example, HANDLER(foo_) -> foo__handler
-   :PROPERTIES:
-   :ID:       6A4AFDC2-DE87-48A5-A17D-B04120EE1F62
-   :END:
-   [2010-04-25 Sun 15:45]
 ** TODO ledger budget fails with "Something odd has happened"
    :PROPERTIES:
    :ID:       F145D482-2F15-48D0-A0CC-6593AC1896DD
    :END:
    [2010-05-22 Sat 19:15]
-** TODO ledger v3 print puts comments with two semi-colons into next line
-   - Note taken on [2010-03-26 Fri 22:17] \\
-     [[message://20100325225210.GB21954@jirafa.cyrius.com][Re: ledger v3 print puts comments with two semi-colons into next line]]
-   :PROPERTIES:
-   :ID:       1DC0BAFA-4BFA-4BC5-B023-EF7921A91B6C
-   :Message:  [[message://20100325224706.GA24440@jirafa.cyrius.com][ledger v3 print puts comments with two semi-colons into next line]]
-   :END:
-   [2010-03-26 Fri 22:17]
-** TODO next_element should honor quoting
-  To make this possible:
-#+begin_src ledger
-  P 2009/08/20 "FOO BAR" $2
-#+end_src
-  :PROPERTIES:
-  :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
-  :END:
-  [2009-11-25 Wed 04:27]
-** TODO Path handling issues in master
-   :PROPERTIES:
-   :ID:       837625AC-10DF-439E-8B30-6DEE8C41F49F
-   :Message:  [[message://32ad6ed11003211731odd7d19aq2bb2e2be1fceaffa@mail.gmail.com][Path handling issues in master]]
-   :END:
-   [2010-03-26 Fri 22:24]
-** TODO print doesn't honour --date-format
-   :PROPERTIES:
-   :ID:       30C259F9-BC20-453A-A55E-530D11770F3F
-   :Message:  [[message://20100322091126.GW1914@jirafa.cyrius.com][print doesn't honour --date-format]]
-   :END:
-   [2010-03-26 Fri 22:22]
-** TODO Scoping error with the account directive and included files			 :ATTACH:
-   - Note taken on [2009-12-08 Tue 19:45] \\
-     Mentioned in this e-mail: [[message://E53FE149-FD4B-43F1-9A01-4DC9BF138DF3@surryhill.net][Ledger Bugfixes]].
-   :PROPERTIES:
-   :ID:       F4A477E6-C4F6-43B1-ABCC-4DC325C2869A
-   :Attachments: timelog.dat a.dat
-   :END:
-   [2009-12-08 Tue 19:45]
 ** TODO sm is seeing a segfault with the register command
    - Note taken on [2009-12-06 Sun 06:05] \\
      It happens on Leopard for me in a virtual machine.
@@ -111,13 +56,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
    :END:
    [2009-11-24 Tue 22:13]
-** TODO Space is not allowed in quoted query regexps
-   :PROPERTIES:
-   :ID:       CB883B26-C0A9-41A6-9E1D-3C97A93043FB
-   :Message:  [[message://bf53d15e-c8ea-4771-a3df-bed7883f56b5@k17g2000yqb.googlegroups.com][regular expression argument that contains spaces]]
-   :END:
-   [2010-03-01 Mon 16:13]
 ** Commodities
+*** TODO Exponential slowdown when using --exchange					 :ATTACH:
+    - Note taken on [2010-03-04 Thu 13:57] \\
+      The following command should reproduce the problem of performance with
+      multiple currencies:
+      #+begin_src sh
+      ledger --european -f thierry.ledger.anon -V reg 2eb75f84 1eede0cb >/dev/null
+      #+end_src
+    :PROPERTIES:
+    :ID:       C609E728-0962-4745-955E-988B1E3F9918
+    :Message:  [[message://9097b239-86e0-4a5c-8acb-15f3e886f7a2@e1g2000yqh.googlegroups.com][ledger v3 slower than ledger v2]]
+    :Attachments: gmon.gprof thierry.ledger.anon.gpg
+    :END:
+    [2010-03-04 Thu 13:55]
 *** TODO --balance-format overrides --exchange
     :PROPERTIES:
     :ID:       EED0AF18-0C38-42CC-9057-EB461815DDE6
@@ -221,19 +173,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Message:  [[message://20100402164513.GA10540@jirafa.cyrius.com][Commodities containing digits and ledger bal]]
     :END:
     [2010-04-04 Sun 15:18]
-*** TODO Exponential slowdown when using --exchange					 :ATTACH:
-    - Note taken on [2010-03-04 Thu 13:57] \\
-      The following command should reproduce the problem of performance with
-      multiple currencies:
-      #+begin_src sh
-      ledger --european -f thierry.ledger.anon -V reg 2eb75f84 1eede0cb >/dev/null
-      #+end_src
-    :PROPERTIES:
-    :ID:       C609E728-0962-4745-955E-988B1E3F9918
-    :Message:  [[message://9097b239-86e0-4a5c-8acb-15f3e886f7a2@e1g2000yqh.googlegroups.com][ledger v3 slower than ledger v2]]
-    :Attachments: gmon.gprof thierry.ledger.anon.gpg
-    :END:
-    [2010-03-04 Thu 13:55]
 *** TODO Handling currencies that were replaced by the Euro
     - Note taken on [2010-04-04 Sun 15:18] \\
       [[message://20100402175159.GF5306@jirafa.cyrius.com][Re: Handling currencies that were replaced by the Euro]]
@@ -301,6 +240,34 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Attachments: multicurrency-no-fixed.ledger.zip multicurrency-fixed.ledger.zip
     :END:
     [2009-12-01 Tue 02:39]
+*** TODO Optimize conversion of commodities (maybe memoization?)
+    :PROPERTIES:
+    :ID:       567780B6-EABE-405E-8AB4-46F201AC42B3
+    :END:
+    [2010-05-23 Sun 17:04]
+*** TODO Optimize finding and creation of annotated commodities
+    Don't use textual names, but lookup based on annotation details
+    directly.
+    :PROPERTIES:
+    :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
+    :END:
+    [2010-05-23 Sun 17:04]
+*** TODO Optimize value truncation
+    Currently it prints the amount, then reparses it.  For large balances
+    with lots of commodities, this can get extremely expensive, as
+    annotated commodities are likely involved as well!
+    :PROPERTIES:
+    :ID:       B6C8EACD-9392-4380-BB57-93EDF0EE5C34
+    :END:
+    [2010-05-23 Sun 17:05]
+** WAITING Path handling issues in master
+   - State "WAITING"    from "TODO"       [2010-05-22 Sat 22:08] \\
+     I need more details.
+   :PROPERTIES:
+   :ID:       837625AC-10DF-439E-8B30-6DEE8C41F49F
+   :Message:  [[message://32ad6ed11003211731odd7d19aq2bb2e2be1fceaffa@mail.gmail.com][Path handling issues in master]]
+   :END:
+   [2010-03-26 Fri 22:24]
 ** DEFERRED Transfer Ledger bugs to Bugzilla
    - State "DEFERRED"   from "TODO"       [2010-05-22 Sat 13:33]
    :PROPERTIES:
@@ -311,6 +278,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Add a --group-by=EXPR option for clustered reports
+   :PROPERTIES:
+   :ID:       F56F414C-56B4-439D-B5B1-AD28D0E5330A
+   :END:
+   [2010-05-23 Sun 15:59]
 ** TODO Add command "options" to show all options and what values they take
    :PROPERTIES:
    :ID:       73A6AFEC-8748-4561-925E-EBFB6A3BDF06

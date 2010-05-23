@@ -171,6 +171,51 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       D9C8EB08-C201-4FB0-9941-F4417BCF26BC
    :END:
    [2009-11-09 Mon 19:15]
+** DONE --sort d not working with -p
+   - State "DONE"       from "TODO"       [2010-05-23 Sun 01:11]
+   :PROPERTIES:
+   :ID:       3AAB00ED-9904-4380-8988-16506B0AFE08
+   :Message:  [[message://20100322090611.GV1914@jirafa.cyrius.com][--sort d not working with -p]]
+   :END:
+   [2010-03-26 Fri 22:23]
+** DONE Scoping error with the account directive and included files			 :ATTACH:
+   - State "DONE"       from "STARTED"    [2010-05-22 Sat 21:35]
+   :LOGBOOK:
+   CLOCK: [2010-05-22 Sat 21:14]--[2010-05-22 Sat 21:35] =>  0:21
+   :END:
+   - Note taken on [2009-12-08 Tue 19:45] \\
+     Mentioned in this e-mail: [[message://E53FE149-FD4B-43F1-9A01-4DC9BF138DF3@surryhill.net][Ledger Bugfixes]].
+   :PROPERTIES:
+   :ID:       F4A477E6-C4F6-43B1-ABCC-4DC325C2869A
+   :Attachments: timelog.dat a.dat
+   :END:
+   [2009-12-08 Tue 19:45]
+** DONE print doesn't honour --date-format
+   - State "DONE"       from "STARTED"    [2010-05-22 Sat 22:03]
+   :LOGBOOK:
+   CLOCK: [2010-05-22 Sat 21:36]--[2010-05-22 Sat 22:03] =>  0:27
+   :END:
+   :PROPERTIES:
+   :ID:       30C259F9-BC20-453A-A55E-530D11770F3F
+   :Message:  [[message://20100322091126.GW1914@jirafa.cyrius.com][print doesn't honour --date-format]]
+   :END:
+   [2010-03-26 Fri 22:22]
+** DONE ledger v3 print puts comments with two semi-colons into next line
+   - State "DONE"       from "TODO"       [2010-05-22 Sat 23:50]
+   - Note taken on [2010-03-26 Fri 22:17] \\
+     [[message://20100325225210.GB21954@jirafa.cyrius.com][Re: ledger v3 print puts comments with two semi-colons into next line]]
+   :PROPERTIES:
+   :ID:       1DC0BAFA-4BFA-4BC5-B023-EF7921A91B6C
+   :Message:  [[message://20100325224706.GA24440@jirafa.cyrius.com][ledger v3 print puts comments with two semi-colons into next line]]
+   :END:
+   [2010-03-26 Fri 22:17]
+** DONE Compilation error on master (7ca8149e)
+   - State "DONE"       from "TODO"       [2010-05-23 Sun 00:32]
+   :PROPERTIES:
+   :ID:       0F17CB7F-A000-4F99-8471-739948AD575F
+   :Message:  [[message://500992d31003251651q7a127ba5p434c64b7454152de@mail.gmail.com][Compilation error on master (7ca8149e)]]
+   :END:
+   [2010-03-26 Fri 22:17]
 ** DONE "ledger parse 'foo(1, 2, 3)'" now crashes
    - State "DONE"       [2009-02-28 Sat 06:10]
    :PROPERTIES:
@@ -849,6 +894,13 @@ The last non-future posting was: 1 day ago
    :ID: E6B6E93B-655B-4895-B72F-7B82E1E5D741
    :END:
    [2008-08-24 Sun]
+** DONE Do not use names with double underscores in C++ code
+   - State "DONE"       from "TODO"       [2010-05-23 Sun 00:37]
+   For example, HANDLER(foo_) -> foo__handler
+   :PROPERTIES:
+   :ID:       6A4AFDC2-DE87-48A5-A17D-B04120EE1F62
+   :END:
+   [2010-04-25 Sun 15:45]
 ** DONE gfuchedzhy is seeing a segfault with a simple input file
    - State "DONE"       from "TODO"       [2009-11-05 Thu 04:17]
    :PROPERTIES:
@@ -2402,6 +2454,19 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 77D3A0A9-35DF-4A4D-8469-8928E3954441
    :END:
    [2009-10-03 Sat 03:23]
+** WONTFIX Space is not allowed in quoted query regexps
+   - State "WONTFIX"    from "STARTED"    [2010-05-22 Sat 21:12] \\
+     This can be worked around quoting regular expression syntax:
+     
+       ledger reg "/one two three/"
+   :LOGBOOK:
+   CLOCK: [2010-05-22 Sat 21:09]--[2010-05-22 Sat 21:11] =>  0:02
+   :END:
+   :PROPERTIES:
+   :ID:       CB883B26-C0A9-41A6-9E1D-3C97A93043FB
+   :Message:  [[message://bf53d15e-c8ea-4771-a3df-bed7883f56b5@k17g2000yqb.googlegroups.com][regular expression argument that contains spaces]]
+   :END:
+   [2010-03-01 Mon 16:13]
 ** WORKSFORME [#A] Corrupted double-linked list in the register report
    - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
    - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:26] \\
@@ -2534,6 +2599,20 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: D0D130E3-EDC0-4D9F-A77A-0B62E115D25A
    :END:
    [2008-08-16 Sat]
+** WORKSFORME next_element should honor quoting
+   - State "WORKSFORME" from "STARTED"    [2010-05-23 Sun 00:49] \\
+     This already works for the pricing directive.
+   :LOGBOOK:
+   CLOCK: [2010-05-23 Sun 00:36]--[2010-05-23 Sun 00:48] =>  0:12
+   :END:
+  To make this possible:
+#+begin_src ledger
+  P 2009/08/20 "FOO BAR" $2
+#+end_src
+  :PROPERTIES:
+  :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
+  :END:
+  [2009-11-25 Wed 04:27]
 ** WORKSFORME 'xact' sometimes produces transactions without commodities
    - State "WORKSFORME" from "TODO"       [2009-06-28 Sun 15:25]
    :PROPERTIES:
@@ -2543,9 +2622,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
 ** WORKSFORME --flat gives no output
    SCHEDULED: <2010-05-22 Sat>
    This is expected behavior.
-   :LOGBOOK:
-   CLOCK: [2010-05-22 Sat 17:56]
-   :END:
    :PROPERTIES:
    :ID:       A2023850-75D9-4DCA-AF97-4894037FCA13
    :Message:  [[message://7528969d-341e-42f5-999b-1ba819582053@v20g2000yqv.googlegroups.com][--flat gives no output]]
