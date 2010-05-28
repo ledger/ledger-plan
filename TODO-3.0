@@ -171,51 +171,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       D9C8EB08-C201-4FB0-9941-F4417BCF26BC
    :END:
    [2009-11-09 Mon 19:15]
-** DONE --sort d not working with -p
-   - State "DONE"       from "TODO"       [2010-05-23 Sun 01:11]
-   :PROPERTIES:
-   :ID:       3AAB00ED-9904-4380-8988-16506B0AFE08
-   :Message:  [[message://20100322090611.GV1914@jirafa.cyrius.com][--sort d not working with -p]]
-   :END:
-   [2010-03-26 Fri 22:23]
-** DONE Scoping error with the account directive and included files			 :ATTACH:
-   - State "DONE"       from "STARTED"    [2010-05-22 Sat 21:35]
-   :LOGBOOK:
-   CLOCK: [2010-05-22 Sat 21:14]--[2010-05-22 Sat 21:35] =>  0:21
-   :END:
-   - Note taken on [2009-12-08 Tue 19:45] \\
-     Mentioned in this e-mail: [[message://E53FE149-FD4B-43F1-9A01-4DC9BF138DF3@surryhill.net][Ledger Bugfixes]].
-   :PROPERTIES:
-   :ID:       F4A477E6-C4F6-43B1-ABCC-4DC325C2869A
-   :Attachments: timelog.dat a.dat
-   :END:
-   [2009-12-08 Tue 19:45]
-** DONE print doesn't honour --date-format
-   - State "DONE"       from "STARTED"    [2010-05-22 Sat 22:03]
-   :LOGBOOK:
-   CLOCK: [2010-05-22 Sat 21:36]--[2010-05-22 Sat 22:03] =>  0:27
-   :END:
-   :PROPERTIES:
-   :ID:       30C259F9-BC20-453A-A55E-530D11770F3F
-   :Message:  [[message://20100322091126.GW1914@jirafa.cyrius.com][print doesn't honour --date-format]]
-   :END:
-   [2010-03-26 Fri 22:22]
-** DONE ledger v3 print puts comments with two semi-colons into next line
-   - State "DONE"       from "TODO"       [2010-05-22 Sat 23:50]
-   - Note taken on [2010-03-26 Fri 22:17] \\
-     [[message://20100325225210.GB21954@jirafa.cyrius.com][Re: ledger v3 print puts comments with two semi-colons into next line]]
-   :PROPERTIES:
-   :ID:       1DC0BAFA-4BFA-4BC5-B023-EF7921A91B6C
-   :Message:  [[message://20100325224706.GA24440@jirafa.cyrius.com][ledger v3 print puts comments with two semi-colons into next line]]
-   :END:
-   [2010-03-26 Fri 22:17]
-** DONE Compilation error on master (7ca8149e)
-   - State "DONE"       from "TODO"       [2010-05-23 Sun 00:32]
-   :PROPERTIES:
-   :ID:       0F17CB7F-A000-4F99-8471-739948AD575F
-   :Message:  [[message://500992d31003251651q7a127ba5p434c64b7454152de@mail.gmail.com][Compilation error on master (7ca8149e)]]
-   :END:
-   [2010-03-26 Fri 22:17]
 ** DONE "ledger parse 'foo(1, 2, 3)'" now crashes
    - State "DONE"       [2009-02-28 Sat 06:10]
    :PROPERTIES:
@@ -318,6 +273,13 @@ ledger -QV bal .
    :ID: F35973AD-80AB-4B7A-9111-4A9480C73DFB
    :END:
    [2009-11-04 Wed 16:06]
+** DONE --sort d not working with -p
+   - State "DONE"       from "TODO"       [2010-05-23 Sun 01:11]
+   :PROPERTIES:
+   :ID:       3AAB00ED-9904-4380-8988-16506B0AFE08
+   :Message:  [[message://20100322090611.GV1914@jirafa.cyrius.com][--sort d not working with -p]]
+   :END:
+   [2010-03-26 Fri 22:23]
 ** DONE --verify --verbose is showing object memory still in use
    - State "DONE"       [2009-02-08 Sun 16:04]
    :PROPERTIES:
@@ -615,6 +577,13 @@ ledger -p "this year" -MAs bal ^Expenses
    :ID: 03D5A6A1-94FF-4D36-883D-E04024F19DA5
    :END:
    [2009-02-08 Sun 05:17]
+** DONE Compilation error on master (7ca8149e)
+   - State "DONE"       from "TODO"       [2010-05-23 Sun 00:32]
+   :PROPERTIES:
+   :ID:       0F17CB7F-A000-4F99-8471-739948AD575F
+   :Message:  [[message://500992d31003251651q7a127ba5p434c64b7454152de@mail.gmail.com][Compilation error on master (7ca8149e)]]
+   :END:
+   [2010-03-26 Fri 22:17]
 ** DONE Compile errors with gcc 4.3							 :ATTACH:
    - State "DONE"       [2008-05-23 Fri 03:59] \\
      Thanks for that update; the earlier one failed to build on openbsd-x86-normal.
@@ -738,6 +707,13 @@ The last non-future posting was: 1 day ago
   :Attachments: ledger.txt.gpg
   :END:
   [2010-01-18 Mon 02:58]
+** DONE Do not use names with double underscores in C++ code
+   - State "DONE"       from "TODO"       [2010-05-23 Sun 00:37]
+   For example, HANDLER(foo_) -> foo__handler
+   :PROPERTIES:
+   :ID:       6A4AFDC2-DE87-48A5-A17D-B04120EE1F62
+   :END:
+   [2010-04-25 Sun 15:45]
 ** DONE Document the new command-line query syntax for Ledger
    - State "DONE"       [2009-02-02 Mon 00:32]
    :PROPERTIES:
@@ -894,13 +870,6 @@ The last non-future posting was: 1 day ago
    :ID: E6B6E93B-655B-4895-B72F-7B82E1E5D741
    :END:
    [2008-08-24 Sun]
-** DONE Do not use names with double underscores in C++ code
-   - State "DONE"       from "TODO"       [2010-05-23 Sun 00:37]
-   For example, HANDLER(foo_) -> foo__handler
-   :PROPERTIES:
-   :ID:       6A4AFDC2-DE87-48A5-A17D-B04120EE1F62
-   :END:
-   [2010-04-25 Sun 15:45]
 ** DONE gfuchedzhy is seeing a segfault with a simple input file
    - State "DONE"       from "TODO"       [2009-11-05 Thu 04:17]
    :PROPERTIES:
@@ -1140,6 +1109,15 @@ $ ledger -E -j -p 2006.12 reg Travel
    :ID: 86C0F968-F05B-4881-96B8-1C8CA8BB1315
    :END:
    [2008-04-05 Sat]
+** DONE ledger v3 print puts comments with two semi-colons into next line
+   - State "DONE"       from "TODO"       [2010-05-22 Sat 23:50]
+   - Note taken on [2010-03-26 Fri 22:17] \\
+     [[message://20100325225210.GB21954@jirafa.cyrius.com][Re: ledger v3 print puts comments with two semi-colons into next line]]
+   :PROPERTIES:
+   :ID:       1DC0BAFA-4BFA-4BC5-B023-EF7921A91B6C
+   :Message:  [[message://20100325224706.GA24440@jirafa.cyrius.com][ledger v3 print puts comments with two semi-colons into next line]]
+   :END:
+   [2010-03-26 Fri 22:17]
 ** DONE Ledger's long options should support --foo=value
    - State "DONE"       [2009-02-19 Thu 13:06]
    :PROPERTIES:
@@ -1376,6 +1354,16 @@ Display P: a
    :ID: 560E59C8-8748-4679-9A17-C76893BDDDEF
    :END:
    [2009-02-01 Sun 03:03]
+** DONE print doesn't honour --date-format
+   - State "DONE"       from "STARTED"    [2010-05-22 Sat 22:03]
+   :LOGBOOK:
+   CLOCK: [2010-05-22 Sat 21:36]--[2010-05-22 Sat 22:03] =>  0:27
+   :END:
+   :PROPERTIES:
+   :ID:       30C259F9-BC20-453A-A55E-530D11770F3F
+   :Message:  [[message://20100322091126.GW1914@jirafa.cyrius.com][print doesn't honour --date-format]]
+   :END:
+   [2010-03-26 Fri 22:22]
 ** DONE Problem reading Russian prices file						 :ATTACH:
    - State "DONE"       [2009-02-15 Sun 23:21]
    :PROPERTIES:
@@ -1586,6 +1574,18 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :ID: 53ACFFFA-E9DE-4526-ABBD-B38DAE0FBA6F
    :END:
    [2009-11-05 Thu 05:25]
+** DONE Scoping error with the account directive and included files			 :ATTACH:
+   - State "DONE"       from "STARTED"    [2010-05-22 Sat 21:35]
+   :LOGBOOK:
+   CLOCK: [2010-05-22 Sat 21:14]--[2010-05-22 Sat 21:35] =>  0:21
+   :END:
+   - Note taken on [2009-12-08 Tue 19:45] \\
+     Mentioned in this e-mail: [[message://E53FE149-FD4B-43F1-9A01-4DC9BF138DF3@surryhill.net][Ledger Bugfixes]].
+   :PROPERTIES:
+   :ID:       F4A477E6-C4F6-43B1-ABCC-4DC325C2869A
+   :Attachments: timelog.dat a.dat
+   :END:
+   [2009-12-08 Tue 19:45]
 ** DONE Segfault using -M -A bal							 :ATTACH:
    - State "DONE"       from "TODO"       [2010-01-21 Thu 04:59]
 #+begin_src sh
@@ -1819,6 +1819,13 @@ D $1,000.00
    :ID: 2987030C-0911-46BC-95D6-4494319492D6
    :END:
    [2009-02-09 Mon 01:01]
+** DONE Transfer Ledger bugs to Bugzilla
+   - State "DONE"       from "DEFERRED"   [2010-05-28 Fri 01:13]
+   - State "DEFERRED"   from "TODO"       [2010-05-22 Sat 13:33]
+   :PROPERTIES:
+   :ID:       2944B698-4588-431B-87FE-DC7EBBB158B8
+   :END:
+   [2010-05-03 Mon 23:01]
 ** DONE Try converting Unicode only in the Ledger elision function
    - State "DONE"       [2009-01-24 Sat 00:14]
    - State "STARTED"    [2009-01-23 Fri 15:42]
@@ -2599,20 +2606,6 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: D0D130E3-EDC0-4D9F-A77A-0B62E115D25A
    :END:
    [2008-08-16 Sat]
-** WORKSFORME next_element should honor quoting
-   - State "WORKSFORME" from "STARTED"    [2010-05-23 Sun 00:49] \\
-     This already works for the pricing directive.
-   :LOGBOOK:
-   CLOCK: [2010-05-23 Sun 00:36]--[2010-05-23 Sun 00:48] =>  0:12
-   :END:
-  To make this possible:
-#+begin_src ledger
-  P 2009/08/20 "FOO BAR" $2
-#+end_src
-  :PROPERTIES:
-  :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
-  :END:
-  [2009-11-25 Wed 04:27]
 ** WORKSFORME 'xact' sometimes produces transactions without commodities
    - State "WORKSFORME" from "TODO"       [2009-06-28 Sun 15:25]
    :PROPERTIES:
@@ -2660,6 +2653,20 @@ ledger -Y --forecast 'T>0' reg food
    :URL:      http://github.com/jwiegley/ledger/issues#issue/2
    :END:
    [2009-10-26 Mon 21:32]
+** WORKSFORME next_element should honor quoting
+   - State "WORKSFORME" from "STARTED"    [2010-05-23 Sun 00:49] \\
+     This already works for the pricing directive.
+   :LOGBOOK:
+   CLOCK: [2010-05-23 Sun 00:36]--[2010-05-23 Sun 00:48] =>  0:12
+   :END:
+  To make this possible:
+#+begin_src ledger
+  P 2009/08/20 "FOO BAR" $2
+#+end_src
+  :PROPERTIES:
+  :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
+  :END:
+  [2009-11-25 Wed 04:27]
 ** WORKSFORME The print command can generate unbalanced transactions			 :ATTACH:
    - State "WORKSFORME" from "TODO"       [2010-05-22 Sat 18:51] \\
      This was fixed when the print command was rewritten.
@@ -4234,6 +4241,41 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2007-12-10 Mon]
 * Docs
+** DONE [PATCH] Documentation patch for ledger
+   - State "DONE"       from "TODO"       [2010-05-28 Fri 01:07]
+   :PROPERTIES:
+   :ID:       79E94C3D-F48C-4972-826E-7C0E36C5CDD7
+   :Message:  [[message://4BBD4587.9050508@nicta.com.au][documentation patch for ledger]]
+   :END:
+   [2010-04-08 Thu 18:49]
+** DONE [PATCH] ledger: add a missing word to the manual
+   - State "DONE"       from "TODO"       [2010-05-28 Fri 01:10]
+   :PROPERTIES:
+   :ID:       9FE43582-2AF8-4350-8031-923758C7204A
+   :Message:  [[message://20100408202815.GA5996@jirafa.cyrius.com][{PATCH} ledger: add a missing word to the manual]]
+   :END:
+   [2010-04-08 Thu 18:50]
+** DONE [PATCH] ledger: fix a cosmetic problem in the manual
+   - State "DONE"       from "TODO"       [2010-05-28 Fri 01:11]
+   :PROPERTIES:
+   :ID:       E1283FBD-F5FE-4EB9-A8A7-038AE6DBE9CB
+   :Message:  [[message://20100410170310.GA24308@jirafa.cyrius.com][{PATCH} ledger: fix a cosmetic problem in the manual]]
+   :END:
+   [2010-04-11 Sun 03:55]
+** DONE [PATCH] Remove transaction code from initial example
+   - State "DONE"       from "TODO"       [2010-05-28 Fri 01:12]
+   :PROPERTIES:
+   :ID:       3F0F0710-AE95-438C-B93F-ADA17A882C03
+   :Message:  [[message://20100322161315.GA6884@jirafa.cyrius.com][{PATCH} Remove transaction code from initial example]]
+   :END:
+   [2010-03-26 Fri 22:22]
+** DONE [PATCH] Typo fix in ledger docs
+   - State "DONE"       from "TODO"       [2010-05-28 Fri 01:13]
+   :PROPERTIES:
+   :ID:       8BF17914-8EE8-4E75-B29F-7D3BC73C9DBA
+   :Message:  [[message://20100322090706.GA2523@jirafa.cyrius.com][{PATCH} Typo fix in ledger docs]]
+   :END:
+   [2010-03-26 Fri 22:23]
 ** DONE Add license headers to every file
    - State "DONE"       [2009-01-29 Thu 15:29]
    :PROPERTIES:
