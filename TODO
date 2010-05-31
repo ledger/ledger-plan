@@ -11,11 +11,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
+** TODO [#A] [[bug:162][#162]] sm is seeing a segfault with the register command
+   - Note taken on [2009-12-06 Sun 06:05] \\
+     It happens on Leopard for me in a virtual machine.
+   - Note taken on [2009-11-25 Wed 04:40] \\
+     This is happening because boost::regex is constructing a bad object.
    :PROPERTIES:
-   :ID:       CE4F80CF-B298-43C5-B786-AA8ABEDA05C8
+   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
+   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
    :END:
-   [2010-05-27 Thu 01:12]
+   [2009-11-24 Tue 22:13]
 ** TODO [[bug:157][#157]] Make sure this is legal: = expr 'account =~ /foo/'
    :PROPERTIES:
    :ID:       9DF85DF2-4BF5-4931-A30C-2592A10BB5C0
@@ -79,16 +84,46 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       F145D482-2F15-48D0-A0CC-6593AC1896DD
    :END:
    [2010-05-22 Sat 19:15]
-** TODO [[bug:162][#162]] sm is seeing a segfault with the register command
-   - Note taken on [2009-12-06 Sun 06:05] \\
-     It happens on Leopard for me in a virtual machine.
-   - Note taken on [2009-11-25 Wed 04:40] \\
-     This is happening because boost::regex is constructing a bad object.
+** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
    :PROPERTIES:
-   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
-   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :Submitter: receipts@redboxdvd.net
+   :Message:  [[message://201005300137.o4U1YtSg020634@solo2.endor.local][Redbox Receipt for 644963930]]
    :END:
-   [2009-11-24 Tue 22:13]
+   [2010-05-30 Sun 03:33]
+** TODO [[bug:210][#210]] Problems with tags that contain spaces
+   :PROPERTIES:
+   :ID:       D4C2DD6F-8967-4FFC-BBBC-A941F9C53475
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100529155642.GA9067@jirafa.cyrius.com][Problems with tags that contain spaces]]
+   :END:
+   [2010-05-30 Sun 03:33]
+** TODO [[bug:211][#211]] The --european option not really European
+   :PROPERTIES:
+   :ID:       1736ACA5-5DE6-4826-AEB4-DB5B2A2217AC
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100531102647.GA23953@jirafa.cyrius.com][--european option not really European]]
+   :END:
+   [2010-05-31 Mon 14:32]
+** TODO [[bug:212][#212]] Question about using the same tag twice
+   :PROPERTIES:
+   :ID:       5DCC31B1-52C8-443D-98B9-0C2D72AF561A
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100529163125.GJ2679@jirafa.cyrius.com][Using the same tag twice]]
+   :END:
+   [2010-05-30 Sun 03:33]
+** TODO [[bug:214][#214]] Question about credit card transactions
+   :PROPERTIES:
+   :ID:       F5956145-BD8C-46EF-94FF-01953799EC47
+   :Submitter: leandroohf <leandroohf@gmail.com>
+   :Message:  [[message://8ecce8dd-97bc-49d3-871b-cc55fc40b193@v12g2000prb.googlegroups.com][credit card]]
+   :END:
+   [2010-05-31 Mon 14:38]
+** TODO [#C] [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
+   :PROPERTIES:
+   :ID:       CE4F80CF-B298-43C5-B786-AA8ABEDA05C8
+   :END:
+   [2010-05-27 Thu 01:12]
 ** WAITING [[bug:171][#171]] Path handling issues in master
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 22:08] \\
      I need more details.
@@ -142,8 +177,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Zack Williams <zdwzdw@gmail.com>
    :END:
    [2010-03-26 Fri 22:24]
+** DONE [#A] Make sure posts_report always clears xdata
+   - State "DONE"       from "TODO"       [2010-05-31 Mon 15:12]
+   :PROPERTIES:
+   :ID:       F0CFF3FF-7BAF-40A9-BA37-2ACDC8369B5C
+   :END:
+   [2010-05-31 Mon 01:16]
 ** Commodities
-*** TODO [[bug:163][#163]] Exponential slowdown when using --exchange				 :ATTACH:
+*** TODO [#A] [[bug:220][#220]] In output intermediate, do not reduce prices to one per day
+   :PROPERTIES:
+   :ID:       412B13B5-9155-433F-B7AA-26F226D93D20
+   :END:
+   [2010-05-31 Mon 01:13]
+Just output them all in the proper order.
+*** TODO [#A] [[bug:163][#163]] Exponential slowdown when using --exchange				 :ATTACH:
     - Note taken on [2010-03-04 Thu 13:57] \\
       The following command should reproduce the problem of performance with
       multiple currencies:
@@ -156,6 +203,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Attachments: gmon.gprof thierry.ledger.anon.gpg
     :END:
     [2010-03-04 Thu 13:55]
+*** TODO [[bug:213][#213]] Balancing problems with fixated commodity prices
+    :PROPERTIES:
+    :ID:       6E0F6FE7-4C5C-4BA1-8915-F6D85666A98F
+    :Submitter: Martin Michlmayr <tbm@cyrius.com>
+    :Message:  [[message://20100531100036.GA23484@jirafa.cyrius.com][Balancing problems with fixated commodity prices]]
+    :END:
+    [2010-05-31 Mon 14:37]
 *** TODO [[bug:164][#164]] --balance-format overrides --exchange
     I pasted command at the end of the message. Here is a simplified scenario:
 
@@ -356,7 +410,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       F29DE89C-73CD-4344-B6F7-BB7584AA6FFD
    :END:
    [2009-11-24 Tue 01:11]
-*** TODO [[bug:197][#197]] Bug with -J and multiple commodities						 :ATTACH:
+*** TODO [[bug:197][#197]] Bug with -J and multiple commodities					 :ATTACH:
 #+begin_src sh
   ledger  --exchange € -M -J reg ^dépenses
 #+end_src
@@ -454,90 +508,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Submitter: thierry <thierry.daucourt@free.fr>
     :END:
     [2010-01-09 Sat 21:05]
-*** TODO [#A] [[bug:199][#199]] Issue with reporting asset history and -j/-J				:blocker:
-    - Note taken on [2010-05-28 Fri 00:56] \\
-      Thierry: I extracted the relevant transactions and commodity history in one
-      ledger file (already provided in first post, here it is again) What I expect
-      is that gnuplot do a plot of all historic value of the commodity.
-      
-      #+begin_src sh
-      1994/01/01 Achat Rialto
-             Actif:Fixe:Rialto       2 Rialto
-             Actif:BNP              -120000 €
-             Actif:BNP               120000 €
-             Revenu:Salaire         -120000 €
-      
-      P 1995/01/01 Rialto 70000 €
-      P 1996/01/01 Rialto 90000 €
-      P 1997/01/01 Rialto 90000 €
-      P 1998/01/01 Rialto 105000 €
-      P 1999/01/01 Rialto 110000 €
-      P 2000/01/01 Rialto 120000 €
-      P 2001/01/01 Rialto 130000 €
-      P 2002/01/01 Rialto 140000 €
-      P 2003/01/01 Rialto 150000 €
-      P 2004/01/01 Rialto 160000 €
-      P 2005/01/01 Rialto 170000 €
-      P 2006/01/01 Rialto 180000 €
-      P 2007/01/01 Rialto 190000 €
-      P 2008/01/01 Rialto 200000 €
-      P 2009/01/01 Rialto 210000 €
-      P 2010/01/01 Rialto 211000 €
-      #+end_src
-    - Note taken on [2010-05-28 Fri 00:56] \\
-      Thierry: I did try with ldeger v2 and ledger v3, but I am unable to get one
-      value by month.  Any help appreciated.
-      
-      :OUTPUT:
-      $ ledger -f test2.ledger -j -M -V reg ^Actif
-      1994/01/01 120000
-      2010/01/02 302000
-      $ ledger3 -f test2.ledger -j -M -V reg ^Actif
-      1994-01-01 120000
-      2010-01-02 302000
-      :END:
-    - Note taken on [2010-05-28 Fri 00:56] \\
-      I believe you may need -j, not -J (which is for balance reports).
-    I am trying to use the command report (for plotting with gnuplot) with
-    the below ledger file.  What I expect is one value for each month.
-    I do not understand why the "-M" option do not output one value per
-    month.  How can I reach my goal?
-
-    :OUTPUT:
-    $ ledger -f test2.ledger -J -M -V reg ^Actif
-    1994/01/01 120000
-    2010/01/01 422000
-    :END:
-#+begin_src sh
-    1994/01/01 Achat Rialto
-    	Actif:Fixe:Rialto       2 Rialto
-           Actif:BNP              -120000 €
-    	Actif:BNP		120000 €
-    	Revenu:Salaire	       -120000 €
-    
-    P 1995/01/01 Rialto 70000 €
-    P 1996/01/01 Rialto 90000 €
-    P 1997/01/01 Rialto 90000 €
-    P 1998/01/01 Rialto 105000 €
-    P 1999/01/01 Rialto 110000 €
-    P 2000/01/01 Rialto 120000 €
-    P 2001/01/01 Rialto 130000 €
-    P 2002/01/01 Rialto 140000 €
-    P 2003/01/01 Rialto 150000 €
-    P 2004/01/01 Rialto 160000 €
-    P 2005/01/01 Rialto 170000 €
-    P 2006/01/01 Rialto 180000 €
-    P 2007/01/01 Rialto 190000 €
-    P 2008/01/01 Rialto 200000 €
-    P 2009/01/01 Rialto 210000 €
-    P 2010/01/01 Rialto 211000 €
-#+end_src
-    :PROPERTIES:
-    :ID:       9EB10714-36E9-4AA0-A8FB-E9CECA92F5A3
-    :Message:  [[message://dff1fb891001011724i8f750a7wf3df7f2aa69d7cd6@mail.gmail.com][Re: reporting assets history]]
-    :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
-    :END:
-    [2010-01-09 Sat 21:08]
 *** TODO [[bug:200][#200]] Commodities containing digits and ledger bal
     When you have a commodity that contains digits, you have to put it on
     quotation marks, as in;
@@ -796,7 +766,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Message:  [[message://20100410132007.GA21623@jirafa.cyrius.com][Re: Specifying commodity price and total]]
     :END:
     [2010-04-11 Sun 03:55]
-*** TODO [[bug:192][#192]] Problem with the new fixed rate feature 					 :ATTACH:
+*** TODO [[bug:192][#192]] Problem with the new fixed rate feature					 :ATTACH:
     - Note taken on [2009-12-11 Fri 02:12] \\
       Javier [[message://92a1cace0912100848v3b6e81bfp332590a8057d73fe@mail.gmail.com][writes]]: I found that the problem is not related to the new "fixed"
       directive at all.
@@ -913,57 +883,112 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Message:  [[message://AANLkTimJeCGP3gPJTtnqNjsKMuThUJ_NPBAGkdyuxeH6@mail.gmail.com][Re: Doing US payroll taxes with ledger]]
     :END:
     [2010-05-23 Sun 19:00]
+*** DONE [#A] [[bug:199][#199]] Issue with reporting asset history and -j/-J				:blocker:
+    SCHEDULED: <2010-05-30 Sun>
+    - State "DONE"       from "TODO"       [2010-05-30 Sun 22:00] \\
+      Fixed by commits 5a2644c1b7220dc96e4de9cfb82f6d829cf34321 and
+      654c842348c570a086f31cb79b7b3b4810463707.
+    - Note taken on [2010-05-30 Sun 17:02] \\
+      Fixing this will actually require a change in the way that -V/-X work.  I
+      think it's a reasonable change, however, so I will start working on it.
+    - Note taken on [2010-05-28 Fri 00:56] \\
+      Thierry: I extracted the relevant transactions and commodity history in one
+      ledger file (already provided in first post, here it is again) What I expect
+      is that gnuplot do a plot of all historic value of the commodity.
+      
+      #+begin_src sh
+      1994/01/01 Achat Rialto
+             Actif:Fixe:Rialto       2 Rialto
+             Actif:BNP              -120000 €
+             Actif:BNP               120000 €
+             Revenu:Salaire         -120000 €
+      
+      P 1995/01/01 Rialto 70000 €
+      P 1996/01/01 Rialto 90000 €
+      P 1997/01/01 Rialto 90000 €
+      P 1998/01/01 Rialto 105000 €
+      P 1999/01/01 Rialto 110000 €
+      P 2000/01/01 Rialto 120000 €
+      P 2001/01/01 Rialto 130000 €
+      P 2002/01/01 Rialto 140000 €
+      P 2003/01/01 Rialto 150000 €
+      P 2004/01/01 Rialto 160000 €
+      P 2005/01/01 Rialto 170000 €
+      P 2006/01/01 Rialto 180000 €
+      P 2007/01/01 Rialto 190000 €
+      P 2008/01/01 Rialto 200000 €
+      P 2009/01/01 Rialto 210000 €
+      P 2010/01/01 Rialto 211000 €
+      #+end_src
+    - Note taken on [2010-05-28 Fri 00:56] \\
+      Thierry: I did try with ldeger v2 and ledger v3, but I am unable to get one
+      value by month.  Any help appreciated.
+      
+      :OUTPUT:
+      $ ledger -f test2.ledger -j -M -V reg ^Actif
+      1994/01/01 120000
+      2010/01/02 302000
+      $ ledger3 -f test2.ledger -j -M -V reg ^Actif
+      1994-01-01 120000
+      2010-01-02 302000
+      :END:
+    - Note taken on [2010-05-28 Fri 00:56] \\
+      I believe you may need -j, not -J (which is for balance reports).
+    I am trying to use the command report (for plotting with gnuplot) with
+    the below ledger file.  What I expect is one value for each month.
+    I do not understand why the "-M" option do not output one value per
+    month.  How can I reach my goal?
+
+    :OUTPUT:
+    $ ledger -f test2.ledger -J -M -V reg ^Actif
+    1994/01/01 120000
+    2010/01/01 422000
+    :END:
+#+begin_src sh
+    1994/01/01 Achat Rialto
+    	Actif:Fixe:Rialto       2 Rialto
+           Actif:BNP              -120000 €
+    	Actif:BNP		120000 €
+    	Revenu:Salaire	       -120000 €
+    
+    P 1995/01/01 Rialto 70000 €
+    P 1996/01/01 Rialto 90000 €
+    P 1997/01/01 Rialto 90000 €
+    P 1998/01/01 Rialto 105000 €
+    P 1999/01/01 Rialto 110000 €
+    P 2000/01/01 Rialto 120000 €
+    P 2001/01/01 Rialto 130000 €
+    P 2002/01/01 Rialto 140000 €
+    P 2003/01/01 Rialto 150000 €
+    P 2004/01/01 Rialto 160000 €
+    P 2005/01/01 Rialto 170000 €
+    P 2006/01/01 Rialto 180000 €
+    P 2007/01/01 Rialto 190000 €
+    P 2008/01/01 Rialto 200000 €
+    P 2009/01/01 Rialto 210000 €
+    P 2010/01/01 Rialto 211000 €
+#+end_src
+    :PROPERTIES:
+    :ID:       9EB10714-36E9-4AA0-A8FB-E9CECA92F5A3
+    :Message:  [[message://dff1fb891001011724i8f750a7wf3df7f2aa69d7cd6@mail.gmail.com][Re: reporting assets history]]
+    :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+    :END:
+    [2010-01-09 Sat 21:08]
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [[bug:172][#172]] Merge functionality of the C and P directives
-   :PROPERTIES:
-   :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
-   :END:
-   [2010-04-02 Fri 14:11]
-** TODO [[bug:173][#173]] Make the prices report use standard report query terms
-  The idea here is that report query filtering is done before the building up
-  of commodities prices, so that you can see which commodities are involved
-  with which reports:
-#+begin_src sh
-  ledger prices 'Lebensmittel:Milch'
-  ledger prices '%kauf=leche'
-#+end_src
-  :PROPERTIES:
-  :ID:       5229AE44-F390-4E4E-BAC6-674373CC775D
-  :Message:  [[message://4B0E7757.1030607@gmail.com][How to type out a sales slip?]]
-  :END:
-  [2009-12-01 Tue 03:04]
 ** TODO [[bug:174][#174]] Make the path to the getquote script configurable using an option
    :PROPERTIES:
    :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
    :END:
    [2010-04-13 Tue 01:37]
-** TODO [[bug:175][#175]] Make an assert directive for Ledger
-#+begin_src ledger :results outputb
-  assert DATE AMOUNT ACCOUNT
-#+end_src
-  is equivalent to
-#+begin_src ledger :results outputb
-DATE Reconciled statement
-    [ACCOUNT]    = AMOUNT
-#+end_src
-  :PROPERTIES:
-  :ID:       52C041BD-5EF0-46E9-B046-A23CBF01632A
-  :END:
-  [2010-03-05 Fri 21:59]
 ** TODO [[bug:176][#176]] Make "until today", "from yesterday" etc. work for the -p option
    :PROPERTIES:
    :ID:       438B58C4-59F6-462D-A9FA-CF4839BF064C
    :Message:  [[message://20100216095003.GA2870@rhodium.pps.jussieu.fr][from and until today, etc.]]
    :END:
    [2010-02-16 Tue 23:31]
-** TODO [[bug:177][#177]] lot_price should be able to return whether a commodity is "fixed rate"
-   :PROPERTIES:
-   :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
-   :END:
-   [2009-11-24 Tue 22:02]
 ** TODO [[bug:178][#178]] Have a way to set the date range to "this week" easily
    :PROPERTIES:
    :ID:       3ED8AC82-37A1-4513-AB20-8FFC66A2BD00
@@ -986,11 +1011,6 @@ DATE Reconciled statement
    :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
    :END:
    [2009-11-18 Wed 05:51]
-** TODO [[bug:181][#181]] Add a --group-by=EXPR option for clustered reports
-   :PROPERTIES:
-   :ID:       F56F414C-56B4-439D-B5B1-AD28D0E5330A
-   :END:
-   [2010-05-23 Sun 15:59]
 ** TODO [[bug:182][#182]] Port Gnucash support to 3.0
    :PROPERTIES:
    :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
@@ -998,6 +1018,52 @@ DATE Reconciled statement
    :Message:  [[message://F9C1390D-054A-4E39-B490-CBFEEAB3264D@newartisans.com][{Spam?} Re: How to use gnucash with v3]]
    :END:
    [2010-05-25 Tue 16:42]
+** TODO [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary commodity for an account
+   :PROPERTIES:
+   :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
+   :END:
+   [2010-05-31 Mon 10:35]
+** TODO [[bug:218][#218]] Make {{AMOUNT}} universal give the total cost/amount
+   :PROPERTIES:
+   :ID:       F76CD79B-1362-4ABF-917F-937502CBCB72
+   :END:
+   [2010-05-31 Mon 10:35]
+** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
+   :PROPERTIES:
+   :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
+   :END:
+   [2010-04-02 Fri 14:11]
+** TODO [#C] [[bug:173][#173]] Make the prices report use standard report query terms
+  The idea here is that report query filtering is done before the building up
+  of commodities prices, so that you can see which commodities are involved
+  with which reports:
+#+begin_src sh
+  ledger prices 'Lebensmittel:Milch'
+  ledger prices '%kauf=leche'
+#+end_src
+  :PROPERTIES:
+  :ID:       5229AE44-F390-4E4E-BAC6-674373CC775D
+  :Message:  [[message://4B0E7757.1030607@gmail.com][How to type out a sales slip?]]
+  :END:
+  [2009-12-01 Tue 03:04]
+** TODO [#C] [[bug:175][#175]] Make an assert directive for Ledger
+#+begin_src ledger :results outputb
+  assert DATE AMOUNT ACCOUNT
+#+end_src
+  is equivalent to
+#+begin_src ledger :results outputb
+DATE Reconciled statement
+    [ACCOUNT]    = AMOUNT
+#+end_src
+  :PROPERTIES:
+  :ID:       52C041BD-5EF0-46E9-B046-A23CBF01632A
+  :END:
+  [2010-03-05 Fri 21:59]
+** TODO [#C] [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
+   :PROPERTIES:
+   :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
+   :END:
+   [2009-11-24 Tue 22:02]
 ** DEFERRED --price option in lot_sales branch
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    message://m24q2rwrym.fsf_-_@newartisans.com
@@ -1408,11 +1474,17 @@ Error: A posting's cost may not be negative
    :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
    :END:
    [2009-11-02 Mon 15:50]
+** DONE [[bug:181][#181]] Add a --group-by=EXPR option for clustered reports
+   - State "DONE"       from "TODO"       [2010-05-30 Sun 03:27]
+   :PROPERTIES:
+   :ID:       F56F414C-56B4-439D-B5B1-AD28D0E5330A
+   :END:
+   [2010-05-23 Sun 15:59]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
-** TODO [[bug:183][#183]] Adding memo field breaks ledger-add-entry
+** TODO [#A] [[bug:183][#183]] Adding memo field breaks ledger-add-entry
    I do `C-c C-a', complete the date and enter a payee. According to an older
    entry with the same payee I am expecting something like this to appear:
 #+begin_src ledger
@@ -1857,7 +1929,30 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [[bug:169][#169]] Create a PO file for Alexis to translate into German
+** TODO [[bug:215][#215]] Compile fails for version 3.0
+   :PROPERTIES:
+   :ID:       5AB0A35C-1875-46CF-98D2-C0BC5DDD2962
+   :Submitter: Thomas Bikeev <thomas.bikeev@me.com>
+   :Message:  [[message://2262D050-DAEA-4CC2-8295-3A5471FF8E36@me.com][Re: Compile fails on 3.0]]
+   :END:
+   [2010-05-30 Sun 03:33]
+** TODO [[bug:216][#216]] Ledger packages for Debian
+   - Note taken on [2010-05-31 Mon 15:06] \\
+     [[message://AANLkTilCFWypqs-A8-X7OMRP-ivli9vwZWlIM3TQwHaW@mail.gmail.com][Re: Ledger for Ubuntu hardy?]]
+   - Note taken on [2010-05-31 Mon 15:05] \\
+     [[message://1275233562.30458.480.camel@sirius][Re: Ledger for Ubuntu hardy?]]
+   :PROPERTIES:
+   :ID:       4E07F327-5B75-4804-ACFE-AAB4CE2FA20E
+   :URL:      [[https://launchpad.net/~mbudde/%2Barchive/ledger/%2Bpackages][Packages in “Ledger” : Ledger : Michael Budde]]
+   :END:
+   [2010-05-29 Sat 20:00]
+** TODO Ledger's proof build is failing
+   SCHEDULED: <2010-06-01 Tue>
+   :PROPERTIES:
+   :ID:       11318EF9-6D74-4F7C-B833-E2FD0E53465B
+   :END:
+   [2010-05-28 Fri 16:06]
+** TODO [#C] [[bug:169][#169]] Create a PO file for Alexis to translate into German
    :PROPERTIES:
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
    :END:
@@ -1930,6 +2025,11 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID:       13E43A50-FC0C-4C3D-A175-7C6CB147A37C
    :END:
    [2008-08-14 Thu]
+** TODO [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
+   :PROPERTIES:
+   :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
+   :END:
+   [2010-05-31 Mon 01:14]
 ** DEFERRED Use --cache=/dev/null when running the unit tests
    - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 02:08] \\
      I cannot read/write the cache to /dev/null, so I'll have to use a temp file
@@ -2031,6 +2131,20 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-03-26 Fri 22:22]
+** TODO [[bug:208][#208]] Special characters in manual don't show up in PDF
+   :PROPERTIES:
+   :ID:       971BE95D-7538-4076-901E-E5C35BD87438
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-208-1@http.newartisans.com/bugzilla/][{Bug 208} New: Special characters in manual don't show up in PDF]]
+   :END:
+   [2010-05-31 Mon 14:39]
+** TODO [[bug:209][#209]] Escape @ characters in the manual
+   :PROPERTIES:
+   :ID:       2C789E95-C5D1-41B4-9F14-3165A8A8FAD9
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-209-1@http.newartisans.com/bugzilla/][{Bug 209} New: escape @ characters in manual]]
+   :END:
+   [2010-05-31 Mon 14:40]
 ** WAITING [[bug:170][#170]] Fill out membership form for the Software Conservancy
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
      I'm waiting for the official form to come from the Conservancy.
