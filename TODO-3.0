@@ -1,10 +1,11 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
-#+STARTUP: content
-#+SEQ_TODO: TODO(@) STARTED(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) TESTED(@) NOTE
+#+STARTUP: content fninline hidestars
+#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
+#+TAGS: Call(c) Errand(e) Home(h) Net(n) Fun(f) LINK(l) NOTE(N) blocker(B) critical(C)
+#+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
+#+LINK: bug http://newartisans.com/bugzilla/show_bug.cgi?id=
 #+CATEGORY: Ledger
-#+TAGS: LINK(l)
-#+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE
 
 * Bugs
 ** DONE [#A] !include statememt no longer accepts simple filenames
@@ -305,6 +306,178 @@ ledger -QV bal .
    :ID: AEB2D4B6-6968-44A6-A3F5-63A42CEDF254
    :END:
    [2008-07-27 Sun]
+** DONE [[bug:157][#157]] Make sure this is legal: = expr 'account =~ /foo/'
+   SCHEDULED: <2010-06-01 Tue>
+   - State "DONE"       from "STARTED"    [2010-06-01 Tue 17:31]
+   :LOGBOOK:
+   CLOCK: [2010-06-01 Tue 17:16]--[2010-06-01 Tue 17:31] =>  0:15
+   :END:
+   :PROPERTIES:
+   :ID:       9DF85DF2-4BF5-4931-A30C-2592A10BB5C0
+   :END:
+   [2010-05-24 Mon 23:00]
+** DONE [[bug:167][#167]] Another rounding issue							 :ATTACH:
+   - State "DONE"       from "STARTED"    [2010-06-02 Wed 06:25] \\
+     Fixed by cbc0a125.
+   :LOGBOOK:
+   CLOCK: [2010-06-02 Wed 01:52]--[2010-06-02 Wed 06:24] =>  4:32
+   :END:
+   When playing with ledger v3, I met those rounding issues.  Here is an
+   extract with all transactions having rounding issues I provide them for
+   unit test (if useful).
+   :PROPERTIES:
+   :ID:       1D275740-D1A6-42B7-BDE4-F2F85E30CE8E
+   :Message:  [[message://541a7592-f815-4625-bd42-e1efa3b49b30@j5g2000yqm.googlegroups.com][Re: Another rounding issue]]
+   :Attachments: data.dat
+   :Submitter: thierry <thierry.daucourt@free.fr>
+   :END:
+   [2010-01-09 Sat 21:09]
+** DONE [[bug:199][#199]] Issue with reporting asset history and -j/-J
+    SCHEDULED: <2010-05-30 Sun>
+    - State "DONE"       from "TODO"       [2010-05-30 Sun 22:00] \\
+      Fixed by commits 5a2644c1b7220dc96e4de9cfb82f6d829cf34321 and
+      654c842348c570a086f31cb79b7b3b4810463707.
+    - Note taken on [2010-05-30 Sun 17:02] \\
+      Fixing this will actually require a change in the way that -V/-X work.  I
+      think it's a reasonable change, however, so I will start working on it.
+    - Note taken on [2010-05-28 Fri 00:56] \\
+      Thierry: I extracted the relevant transactions and commodity history in one
+      ledger file (already provided in first post, here it is again) What I expect
+      is that gnuplot do a plot of all historic value of the commodity.
+      
+      #+begin_src sh
+      1994/01/01 Achat Rialto
+             Actif:Fixe:Rialto       2 Rialto
+             Actif:BNP              -120000 €
+             Actif:BNP               120000 €
+             Revenu:Salaire         -120000 €
+      
+      P 1995/01/01 Rialto 70000 €
+      P 1996/01/01 Rialto 90000 €
+      P 1997/01/01 Rialto 90000 €
+      P 1998/01/01 Rialto 105000 €
+      P 1999/01/01 Rialto 110000 €
+      P 2000/01/01 Rialto 120000 €
+      P 2001/01/01 Rialto 130000 €
+      P 2002/01/01 Rialto 140000 €
+      P 2003/01/01 Rialto 150000 €
+      P 2004/01/01 Rialto 160000 €
+      P 2005/01/01 Rialto 170000 €
+      P 2006/01/01 Rialto 180000 €
+      P 2007/01/01 Rialto 190000 €
+      P 2008/01/01 Rialto 200000 €
+      P 2009/01/01 Rialto 210000 €
+      P 2010/01/01 Rialto 211000 €
+      #+end_src
+    - Note taken on [2010-05-28 Fri 00:56] \\
+      Thierry: I did try with ldeger v2 and ledger v3, but I am unable to get one
+      value by month.  Any help appreciated.
+      
+      :OUTPUT:
+      $ ledger -f test2.ledger -j -M -V reg ^Actif
+      1994/01/01 120000
+      2010/01/02 302000
+      $ ledger3 -f test2.ledger -j -M -V reg ^Actif
+      1994-01-01 120000
+      2010-01-02 302000
+      :END:
+    - Note taken on [2010-05-28 Fri 00:56] \\
+      I believe you may need -j, not -J (which is for balance reports).
+    I am trying to use the command report (for plotting with gnuplot) with
+    the below ledger file.  What I expect is one value for each month.
+    I do not understand why the "-M" option do not output one value per
+    month.  How can I reach my goal?
+
+    :OUTPUT:
+    $ ledger -f test2.ledger -J -M -V reg ^Actif
+    1994/01/01 120000
+    2010/01/01 422000
+    :END:
+#+begin_src sh
+    1994/01/01 Achat Rialto
+    	Actif:Fixe:Rialto       2 Rialto
+           Actif:BNP              -120000 €
+    	Actif:BNP		120000 €
+    	Revenu:Salaire	       -120000 €
+    
+    P 1995/01/01 Rialto 70000 €
+    P 1996/01/01 Rialto 90000 €
+    P 1997/01/01 Rialto 90000 €
+    P 1998/01/01 Rialto 105000 €
+    P 1999/01/01 Rialto 110000 €
+    P 2000/01/01 Rialto 120000 €
+    P 2001/01/01 Rialto 130000 €
+    P 2002/01/01 Rialto 140000 €
+    P 2003/01/01 Rialto 150000 €
+    P 2004/01/01 Rialto 160000 €
+    P 2005/01/01 Rialto 170000 €
+    P 2006/01/01 Rialto 180000 €
+    P 2007/01/01 Rialto 190000 €
+    P 2008/01/01 Rialto 200000 €
+    P 2009/01/01 Rialto 210000 €
+    P 2010/01/01 Rialto 211000 €
+#+end_src
+    :PROPERTIES:
+    :ID:       9EB10714-36E9-4AA0-A8FB-E9CECA92F5A3
+    :Message:  [[message://dff1fb891001011724i8f750a7wf3df7f2aa69d7cd6@mail.gmail.com][Re: reporting assets history]]
+    :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+    :END:
+    [2010-01-09 Sat 21:08]
+** DONE [[bug:210][#210]] Problems with tags that contain spaces
+   SCHEDULED: <2010-06-01 Tue>
+   - State "DONE"       from "STARTED"    [2010-06-01 Tue 18:33] \\
+     Fixed by 5cdd36f3.
+   :LOGBOOK:
+   CLOCK: [2010-06-01 Tue 18:14]--[2010-06-01 Tue 18:33] =>  0:19
+   :END:
+   I have a problem with tags that contain spaces, i.e. something like
+#+begin_src ledger
+   ; foo: this description
+#+end_src
+   I try to search for transacation with this tag:
+#+begin_src sh
+   ledger -f a.dat reg tag "foo=this t"
+#+end_src
+   which works fine with file a.dat.  But with b.dat, *all* transacations
+   match, even though the only difference between a.dat and b.dat is an
+   account name (there's no difference in terms of tags).
+   
+#+begin_src ledger
+   2010-04-02 Test1
+      A        10.00 USD
+      B
+   
+   2010-04-03 Test2
+      ; foo: this description
+      A        20.00 USD
+      B
+#+end_src
+   
+#+begin_src ledger
+   2010-04-02 Test1
+      A        10.00 USD
+      Assets:Test
+   
+   2010-04-03 Test2
+      ; foo: this description
+      A        20.00 USD
+      B
+#+end_src
+   :PROPERTIES:
+   :ID:       D4C2DD6F-8967-4FFC-BBBC-A941F9C53475
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100529155642.GA9067@jirafa.cyrius.com][Problems with tags that contain spaces]]
+   :END:
+   [2010-05-30 Sun 03:33]
+** DONE [[bug:211][#211]] The --european option not really European
+   - State "DONE"       from "TODO"       [2010-06-01 Tue 18:06] \\
+     Fixed by 038c2435.
+   :PROPERTIES:
+   :ID:       1736ACA5-5DE6-4826-AEB4-DB5B2A2217AC
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100531102647.GA23953@jirafa.cyrius.com][--european option not really European]]
+   :END:
+   [2010-05-31 Mon 14:32]
 ** DONE Abstract a function to verify a transaction double-entry status
    - State "DONE"       from "TODO"       [2009-11-11 Wed 20:43]
    :PROPERTIES:
@@ -1175,6 +1348,12 @@ $ ledger -E -j -p 2006.12 reg Travel
    :ID: 1F47D0AF-0015-4CD6-8AE1-92D0791D61DE
    :END:
    [2009-02-13 Fri 20:51]
+** DONE Make sure posts_report always clears xdata
+   - State "DONE"       from "TODO"       [2010-05-31 Mon 15:12]
+   :PROPERTIES:
+   :ID:       F0CFF3FF-7BAF-40A9-BA37-2ACDC8369B5C
+   :END:
+   [2010-05-31 Mon 01:16]
 ** DONE Make sure that every delete is a checked_delete
    - State "DONE"       [2008-07-27 Sun]
    :PROPERTIES:
@@ -2422,6 +2601,58 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 567B5118-7A77-42B9-A1CD-C5DA688AC406
    :END:
    [2007-10-29 Mon]
+** WONTFIX [[bug:214][#214]] Question about credit card transactions
+   - State "WONTFIX"    from "TODO"       [2010-06-01 Tue 18:02]
+   I am using ledger v2.6.2 on Ubuntu9.10 Karmic Koala. I am trying to do a
+   script (bash) to show a pie chart that show where I spent my money payed in
+   my credit card in this current month. I was trying to start with:
+#+begin_src sh
+   ledger --totals --effective -r --sort d -d "d>[2010/5/04]"  -e 2010/6/05  reg Liabilities:CREDITCARD:VISA
+#+end_src
+   :OUTPUT:
+   2010/05/06 Happy Hour Prime     Expenses:Bar_Rest           $-80.11 $-2930.41
+   2010/05/06 Matambre             Ex:Al:Trabalho              $-17.28 $-2947.69
+   ...... (hidden)
+   2010/06/03 Fonte Sta Efigenia.. Expenses:Eletro             $-11.00 $-1860.65
+   2010/06/04 Teste credit card    Expenses:Eletro            $-100.00 $-1960.65
+   2010/07/04 Viagem Niver Mae     Li:CREDITCARD:VISA          $142.00 $-1818.65
+   2010/07/04 Presente Niver Dani  Li:CREDITCARD:VISA           $49.96 $-1768.69
+   2010/07/04 Caixa de som Renau.. Li:CREDITCARD:VISA           $93.34 $-1675.35
+   :END:
+   
+   After that. I am think to add "-j" option and use gnuplot to do the job.
+   
+   The first problem is that option "-r" does not output related accounts when
+   I use "--effective" options together. Bellow, It follows a example of my
+   ledger file
+#+begin_src ledger
+   2010/05/06 *  Happy Hour Prime
+    Expenses:Bar_Rest                           $80.11
+    Liabilities:CREDITCARD:VISA
+   
+   2010/05/06 *  Matambre
+    Expenses:Alimentacao:Trabalho               $17.28
+    Liabilities:CREDITCARD:VISA
+   
+   2010/04/14 *  Caixa de som Renault
+    Expenses:Carro:Celta                       $280.00
+    Liabilities:CREDITCARD:VISA                $-93.33 ; [=2010/05/04]
+    Liabilities:CREDITCARD:VISA                $-93.33 ; [=2010/06/04]
+    Liabilities:CREDITCARD:VISA                $-93.34 ; [=2010/07/04]
+#+end_src
+   :PROPERTIES:
+   :ID:       F5956145-BD8C-46EF-94FF-01953799EC47
+   :Submitter: leandroohf <leandroohf@gmail.com>
+   :Message:  [[message://8ecce8dd-97bc-49d3-871b-cc55fc40b193@v12g2000prb.googlegroups.com][credit card]]
+   :END:
+   [2010-05-31 Mon 14:38]
+** WONTFIX [[bug:220][#220]] In output intermediate, do not reduce prices to one per day
+    - State "WONTFIX"    from "TODO"       [2010-06-01 Tue 17:05]
+   :PROPERTIES:
+   :ID:       412B13B5-9155-433F-B7AA-26F226D93D20
+   :END:
+   [2010-05-31 Mon 01:13]
+Just output them all in the proper order.
 ** WONTFIX Auto-remainder of setting an account's balance broken
    - State "WONTFIX"    from "TODO"       [2010-01-21 Thu 04:29] \\
      This is expected behavior now.
@@ -2620,6 +2851,192 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :Message:  [[message://7528969d-341e-42f5-999b-1ba819582053@v20g2000yqv.googlegroups.com][--flat gives no output]]
    :END:
    [2010-04-04 Sun 15:12]
+** WORKSFORME [[bug:164][#164]] --balance-format overrides --exchange
+    - State "WORKSFORME" from "TODO"       [2010-06-02 Wed 01:23] \\
+      You need to use %(scrub(display_total)), or just %{display_total}, with curly
+      braces.  The value "total" is too raw.
+    I pasted command at the end of the message. Here is a simplified scenario:
+
+    1. First bal command report is:
+       :OUTPUT:
+            $180.00
+            €240.38  Expenses
+       :END:
+
+    2. By adding "--exchange=€", I got:
+       :OUTPUT:
+            €420.38  Expenses
+       :END:
+
+    3. By adding "--balance-format='%(account);%(total)\n'", I got:
+       :OUTPUT:
+       Expenses;$180.00
+       €240.38
+       :END:
+
+    4. by modifying "%(total)" to "%(quantity(total))", I got the error:
+       :OUTPUT:
+       Cannot convert a balance with multiple commodities to an amount
+       :END:
+
+    I do not understand why at point 3. the --balance-format overrides the
+    output of --exchange option in point 2.  As point 3. is incorrect, this
+    cause the error of point 4. I believe.
+
+#+begin_src ledger
+    P 2008/01/01 $ €1
+    
+    2008/01/11 LIAT
+       Expenses:Travel:Airfare                   $40.00
+       Liabilities:MasterCard
+    
+    2008/02/05 CTX
+       Expenses:Travel:Auto                     €240.38
+       Liabilities:MasterCard
+    
+    2008/01/11 XYZ
+       Expenses:House:Phone                     $140.00
+       Liabilities:MasterCard
+#+end_src
+
+    :OUTPUT:
+    $ ledger -f test_14.ledger bal ^Expenses --collapse --no-total
+                $180.00
+                €240.38  Expenses
+    $ ledger -f test_14.ledger bal ^Expenses --collapse --no-total --
+    exchange=€
+                €420.38  Expenses
+    $ ledger -f test_14.ledger bal ^Expenses --collapse --no-total --
+    exchange=€ --balance-format='%(account);%(total)\n'
+    Expenses;$180.00
+    €240.38
+    $ ledger -f test_14.ledger bal ^Expenses --collapse --no-total --
+    exchange=€ --balance-format='%(account);%(quantity(total))\n'
+    While evaluating value expression:
+     quantity(total)
+     ^^^^^^^^^^^^^^^
+    Error: Cannot convert a balance with multiple commodities to an amount
+    :END:
+    :PROPERTIES:
+    :ID:       EED0AF18-0C38-42CC-9057-EB461815DDE6
+    :Message:  [[message://06e4ad2e-0c00-4d08-89b9-4a1025dd569c@e6g2000yqh.googlegroups.com][--balance-format overrides --exchange]]
+    :Submitter: thierry <thierry.daucourt@free.fr>
+    :END:
+    [2010-04-04 Sun 15:12]
+** WORKSFORME [[bug:168][#168]] Balance wrong because of exchange rates
+    - State "WORKSFORME" from "STARTED"    [2010-06-02 Wed 01:36] \\
+      This is expected behavior.  You're seeing rounding artifacts due to the
+      fluctuations in price.  Use the register command to see the revaluation
+      taking place.  Even better, edit your data file to specify:
+      #+begin_src ledger
+      D 1,000.0000 EUR
+      #+end_src
+      
+      And then run the same register command again.  Even if you extend the
+      precision to six decimal places, there is still rounding taking place.
+      What ends up happening is that you have a specific amount of -45.67 in
+      Bar getting balanced against a priced value of 45.655160, which has a
+      rounding discrepancy of -0.01.
+    :LOGBOOK:
+    CLOCK: [2010-06-02 Wed 01:24]--[2010-06-02 Wed 01:35] =>  0:11
+    :END:
+    This looks like a bug in ledger v3 to me.  Why does it not balance due to
+    0.01 EUR?
+    :OUTPUT:
+    % ledger -f - -X EUR  bal
+             -45.67 EUR  Bar
+              45.66 EUR  Foo
+    --------------------
+              -0.01 EUR
+    :END:
+    
+    Input file:
+#+begin_src ledger
+    D 1,000.00 EUR
+    
+    2010-03-18 Postage
+     Foo        11.04 GBP @@ 12.46 EUR  ; @ 1.129 EUR
+     Bar
+    
+    2010-03-20 Postage
+     Foo         2.61 GBP @@  2.94 EUR  ; @ 1.127 EUR
+     Bar
+    
+    2010-03-21 foo
+     Foo        20.00 GBP @@ 22.52 EUR  ; @ 1.126 EUR
+     Bar
+    
+    2010-03-21 bar
+     Foo         6.88 GBP @@  7.75 EUR  ; @ 1.127 EUR
+     Bar
+#+end_src    
+    
+    Actually, it seems the problem is because the amounts in Bar are in EUR
+    whereas the amounts in Foo are in GBP and because the exchange rates
+    between GBP and EUR in my transacations vary, they don't balance
+    (presumably ledger uses the exchange rate from the last transacation to
+    compute the balance).
+    :PROPERTIES:
+    :ID:       DCB05AE0-3972-4F56-960D-D0BE2646E19E
+    :Message:  [[message://20100410133046.GA21886@jirafa.cyrius.com][Balance wrong because of exchange rates]]
+    :Submitter: Martin Michlmayr <tbm@cyrius.com>
+    :END:
+    [2010-04-11 Sun 03:55]
+** WORKSFORME [[bug:171][#171]] Path handling issues in master
+   - State "WORKSFORME" from "WAITING"    [2010-06-01 Tue 17:59] \\
+     I can't get this to happen.
+   - State "WAITING"    from "TODO"       [2010-05-22 Sat 22:08] \\
+     I need more details.
+    I'm getting a few different errors with the git master version - most
+    specifically, it seems that if I use a different path to the file, or put
+    the file path in quotes, I either get a different error, or it actually
+    works:
+    :OUTPUT:
+    $ ./ledger -V
+    Ledger master-0-g7ca8149, the command-line accounting tool
+    :END:
+    :OUTPUT:
+    $ ./ledger -f ~/totals.ledger bal
+    Assertion failed: (false), function visitation_impl, file
+    /opt/local/include/boost/variant/detail/visitation_impl.hpp, line 203.
+    Abort trap
+    :END:
+    :OUTPUT:
+    $ cd ~
+    $ ledger -f totals.ledger bal
+    Bus error
+    :END:
+    :OUTPUT:
+    $ cd ~/customer-data
+    $ ledger -f ledgers/total.ledger bal
+    Assertion failed: (this->is_initialized()), function get, file
+    /opt/local/include/boost/optional/optional.hpp, line 578.
+    Abort trap
+    :END:
+    :OUTPUT:
+    $ ledger -f "ledgers/total.ledger" bal --anon
+                      0  da39a3ee
+             $-4,173.68    035eae60:aebe8b37
+               $-550.25      0786ff3b
+                $550.25      44357ae5:4b5e84be
+             $-4,173.68      f9f38818
+             $-1,640.78        2402ea36
+               $-132.90        9be70f66
+             $-2,400.00        b40e1543
+              $4,173.68    d673d941:20e33862
+                $550.25      97876b83
+              $3,623.43      cad804ae:aebe8b37
+    --------------------
+                      0
+    :END:
+    (system is OS X 10.6.2, with ledger compiled from git, and the other
+    dependencies compiled using MacPorts)
+   :PROPERTIES:
+   :ID:       837625AC-10DF-439E-8B30-6DEE8C41F49F
+   :Message:  [[message://32ad6ed11003211731odd7d19aq2bb2e2be1fceaffa@mail.gmail.com][Path handling issues in master]]
+   :Submitter: Zack Williams <zdwzdw@gmail.com>
+   :END:
+   [2010-03-26 Fri 22:24]
 ** WORKSFORME Balance of virtual transactions depends on amount syntax
    - State "WORKSFORME" from "TODO"       [2010-05-22 Sat 20:49] \\
      This is expected behavior.
@@ -2714,6 +3131,19 @@ ledger -Y --forecast 'T>0' reg food
   :Attachments: ledger.txt.gpg
   :END:
   [2010-01-18 Mon 02:56]
+** INVALID [[bug:212][#212]] Question about using the same tag twice
+   - State "INVALID"    from "TODO"       [2010-06-01 Tue 18:05] \\
+     I answered this on the mailing list.
+   I'd like to tag transacations with either foo:bar or foo:baz but some
+   actually have both bar and baz.  Instead of using foo:bar:baz I'd like to
+   use 2 tags for one transacation: foo:bar and foo:baz to make it easier to
+   grep for things in my ledger file.
+   :PROPERTIES:
+   :ID:       5DCC31B1-52C8-443D-98B9-0C2D72AF561A
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100529163125.GJ2679@jirafa.cyrius.com][Using the same tag twice]]
+   :END:
+   [2010-05-30 Sun 03:33]
 ** INVALID There is bad column alignment with certain UTF-8 characters
    - State "INVALID"    from "TODO"       [2009-11-14 Sat 02:49] \\
      This only happens in Eshell, it works fine in a Terminal window with UTF-8
@@ -2773,6 +3203,15 @@ ledger -Y --forecast 'T>0' reg food
    :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
    :END:
    [2010-01-16 Sat 18:58]
+** DUPLICATE [[bug:191][#191]] Optimize conversion of commodities
+   - State "DUPLICATE"  from "TODO"       [2010-06-02 Wed 06:52] \\
+     Duplicate of #163.
+   Thierry has proven that using --exchange can increase reporting times from
+   1 second to over 25 minutes.
+   :PROPERTIES:
+   :ID:       567780B6-EABE-405E-8AB4-46F201AC42B3
+   :END:
+   [2010-05-23 Sun 17:04]
 ** DUPLICATE Ledger formats UTF-8 strings incorrectly
    The report `ledger --tail 20 reg nrl:checking` has errors in the tabulation
    because of the width of UTF-8 characters that are larger than 8-bit.
@@ -4410,6 +4849,28 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID:       B38AC5A0-31BB-4F89-8112-5999D8A99C02
    :END:
    [2009-11-24 Tue 22:17]
+** WORKSFORME [[bug:183][#183]] Adding memo field breaks ledger-add-entry
+   - State "WORKSFORME" from "TODO"       [2010-06-01 Tue 17:08]
+   I do `C-c C-a', complete the date and enter a payee. According to an older
+   entry with the same payee I am expecting something like this to appear:
+#+begin_src ledger
+   2010/04/08 payee
+          account1                1.00
+          account2
+#+end_src
+   
+   But I get only:
+   :OUTPUT:
+   2010/04/08 payee
+   :END:
+   
+   With a ledger backup file without memo fields everything still works fine.
+   :PROPERTIES:
+   :ID:       878AB79B-B656-4221-941F-6C956F6A1E92
+   :Message:  [[message://87eiir4wov.fsf@online.de][Memo Field]]
+   :Submitter: henry atting <nsmp_02@online.de>
+   :END:
+   [2010-04-08 Thu 18:47]
 ** WORKSFORME C-c TAB no longer works in ledger-mode
    :PROPERTIES:
    :ID:       AA885449-23F0-450C-BBA8-ECC8C073F14C
@@ -4425,6 +4886,12 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :Message:  [[message://20100325183756.GA19406@jirafa.cyrius.com][-g/-performance removed in 3.0?]]
    :END:
    [2010-03-26 Fri 22:18]
+** DONE [[bug:181][#181]] Add a --group-by=EXPR option for clustered reports
+   - State "DONE"       from "TODO"       [2010-05-30 Sun 03:27]
+   :PROPERTIES:
+   :ID:       F56F414C-56B4-439D-B5B1-AD28D0E5330A
+   :END:
+   [2010-05-23 Sun 15:59]
 ** DONE A few changes for the textual parser [4/4]
    - State "DONE"       [2009-02-15 Sun 23:22]
    - [X] Ignore any line like /^\s*;/ as a comment -even in the middle of a
@@ -5411,6 +5878,21 @@ getquote GSK_L
    :ID:       C444D9F0-55AF-4D70-8C65-609761672953
    :END:
    [2009-11-06 Fri 02:44]
+** WONTFIX [[bug:218][#218]] Make {{AMOUNT}} universal give the total cost/amount
+   - State "WONTFIX"    from "STARTED"    [2010-06-02 Wed 01:13] \\
+     I have discovered that I cannot implement this.  The reason is that 7.0 EUR in
+     the example above here is a property of the commodity, not of the posting.
+     Thus, you have 5 unit of GBP bought at 1.4 EUR, not a 5-unit-group bought at
+     7.0 EUR.  What happens if you sell just 2 of them?  The math gets very
+     complicated, and I would have to track how many of the "lot" still existed.
+     With commodity properties, such tracking is unnecessary.
+   :LOGBOOK:
+   CLOCK: [2010-06-02 Wed 00:44]--[2010-06-02 Wed 01:13] =>  0:29
+   :END:
+   :PROPERTIES:
+   :ID:       F76CD79B-1362-4ABF-917F-937502CBCB72
+   :END:
+   [2010-05-31 Mon 10:35]
 ** WORKSFORME Excluding some transactions if a file is included
    :PROPERTIES:
    :ID:       AA1D4807-4477-4035-8156-74BFAA929E02
@@ -5629,6 +6111,17 @@ getquote GSK_L
    :Message:  [[message://20100104044948.GA14665@atom][problems compiling with python support on debian squeeze]]
    :END:
    [2010-01-09 Sat 21:07]
+* Build
+** DONE [#C] Ledger's proof build is failing						   :Home:
+   SCHEDULED: <2010-06-01 Tue>
+   - State "DONE"       from "STARTED"    [2010-06-02 Wed 00:31]
+   :LOGBOOK:
+   CLOCK: [2010-06-01 Tue 20:43]--[2010-06-02 Wed 00:31] =>  3:48
+   :END:
+   :PROPERTIES:
+   :ID:       11318EF9-6D74-4F7C-B833-E2FD0E53465B
+   :END:
+   [2010-05-28 Fri 16:06]
 * Tests
 ** DONE Abstract RegressTests.py (was: opt-lots should use input/wow.dat)
    - State "DONE"       [2009-03-03 Tue 03:18]
@@ -5667,7 +6160,7 @@ make: *** [release-distcheck] Error 2
    :END:
    [2009-03-08 Sun 18:43]
 ** DONE Clear out all #if 0 and jww commented sections
-   - State "DONE"       from ""           [2009-10-31 Sat 04:33]
+   - State "DONE"       from "TODO"       [2009-10-31 Sat 04:33]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 97
@@ -5995,12 +6488,67 @@ make: *** [release-distcheck] Error 2
    :END:
    [2009-10-25 Sun 19:02]
 * Docs
+** DONE [[bug:209][#209]] Escape @ characters in the manual
+   - State "DONE"       from "TODO"       [2010-06-02 Wed 01:15]
+   :PROPERTIES:
+   :ID:       2C789E95-C5D1-41B4-9F14-3165A8A8FAD9
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-209-1@http.newartisans.com/bugzilla/][{Bug 209} New: escape @ characters in manual]]
+   :END:
+   [2010-05-31 Mon 14:40]
 ** DONE Remove --commodity-as-account from the man page and manual
    - State "DONE"       from "TODO"       [2010-02-05 Fri 00:03]
    :PROPERTIES:
    :ID:       849EB210-BEEB-4FDE-A90C-688400D55ECE
    :END:
    [2009-12-29 Tue 16:07]
+** WORKSFORME [[bug:221][#221]] Value expressions don't work as documented
+   - State "WORKSFORME" from "TODO"       [2010-06-01 Tue 17:12]
+   - Note taken on [2010-06-01 Tue 17:11] \\
+     In 3.0 you would use this:
+#+begin_src sh
+     ledger reg -l 'commodity = "USD"'
+#+end_src
+   - Note taken on [2010-06-01 Tue 17:11] \\
+     BTW, here's what I'm actually trying to do: ledger bal shows me a total
+     of expenses I made in EUR, GBP and USD.  I'd then like to use ledger reg
+     to search for all postings of only _one_ of these currencies (e.g. what
+     did I spend in USD).  Is this possible already, possibly with {..}?
+   It seems the value expressions don't (or no longer) work as documented.
+   For example, section "Complex expressions" suggests that you can use
+   p/REGEXP/.  So I tried this:
+   :OUTPUT:
+   $ ledger -f 2 reg expenses p/foo/
+   While parsing value expression:
+     (account =~ /expenses/ | account =~ /p/foo//)
+                                            ^^^
+   Error: Missing ')'
+   :END:
+   
+   I then realized that I probably need an -d option, but this
+   also doesn't work:
+   :OUTPUT:
+   $ ledger -f 2 reg expenses -d p/foo/
+   While parsing value expression:
+     (p/foo/)&(amount|(!post&total))
+            ^
+   Error: ) operator not followed by argument
+   :END:
+   
+   In fact, not even the example from the manual works:
+   :OUTPUT:
+   $ ledger -f 2 -d "/^Liabilities/?T<0:UT>100" balance
+   While evaluating value expression:
+     (/^Liabilities/ ? (T < 0) : (UT > 100) & (amount | (!(post) & total)))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   Error: Cannot determine truth of a regexp (did you mean 'account =~
+   /^Liabilities/'?)
+   :END:
+   :PROPERTIES:
+   :ID:       D8729755-A094-4CE9-B03C-8B3016AC6590
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+   [2010-06-01 Tue 15:15]
 ** NOTE Plotting time-series histograms with R and ggplot2
 #+begin_src R :results output
    install.packages("ggplot2")
