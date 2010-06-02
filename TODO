@@ -1,7 +1,7 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content fninline hidestars
-#+SEQ_TODO: TODO(@) STARTED WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
+#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
 #+TAGS: Call(c) Errand(e) Home(h) Net(n) Fun(f) LINK(l) NOTE(N) blocker(B) critical(C)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
 #+LINK: bug http://newartisans.com/bugzilla/show_bug.cgi?id=
@@ -11,21 +11,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] [[bug:162][#162]] sm is seeing a segfault with the register command
-   - Note taken on [2009-12-06 Sun 06:05] \\
-     It happens on Leopard for me in a virtual machine.
-   - Note taken on [2009-11-25 Wed 04:40] \\
-     This is happening because boost::regex is constructing a bad object.
-   :PROPERTIES:
-   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
-   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
-   :END:
-   [2009-11-24 Tue 22:13]
-** TODO [[bug:157][#157]] Make sure this is legal: = expr 'account =~ /foo/'
-   :PROPERTIES:
-   :ID:       9DF85DF2-4BF5-4931-A30C-2592A10BB5C0
-   :END:
-   [2010-05-24 Mon 23:00]
 ** TODO [[bug:158][#158]] "ledger template exxons 10 from checking" applies 10 to "from"
    It should apply to the "to" account.
    :PROPERTIES:
@@ -84,6 +69,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       F145D482-2F15-48D0-A0CC-6593AC1896DD
    :END:
    [2010-05-22 Sat 19:15]
+** TODO [[bug:162][#162]] sm is seeing a segfault with the register command
+   - Note taken on [2009-12-06 Sun 06:05] \\
+     It happens on Leopard for me in a virtual machine.
+   - Note taken on [2009-11-25 Wed 04:40] \\
+     This is happening because boost::regex is constructing a bad object.
+   :PROPERTIES:
+   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
+   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
+   :END:
+   [2009-11-24 Tue 22:13]
 ** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
    :PROPERTIES:
    :ID:       D6B17614-288D-44E5-99C2-569E020809C4
@@ -91,40 +86,138 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://201005300137.o4U1YtSg020634@solo2.endor.local][Redbox Receipt for 644963930]]
    :END:
    [2010-05-30 Sun 03:33]
-** TODO [[bug:210][#210]] Problems with tags that contain spaces
+** DONE [[bug:210][#210]] Problems with tags that contain spaces
+   SCHEDULED: <2010-06-01 Tue>
+   - State "DONE"       from "STARTED"    [2010-06-01 Tue 18:33] \\
+     Fixed by 5cdd36f3.
+   :LOGBOOK:
+   CLOCK: [2010-06-01 Tue 18:14]--[2010-06-01 Tue 18:33] =>  0:19
+   :END:
+   I have a problem with tags that contain spaces, i.e. something like
+#+begin_src ledger
+   ; foo: this description
+#+end_src
+   I try to search for transacation with this tag:
+#+begin_src sh
+   ledger -f a.dat reg tag "foo=this t"
+#+end_src
+   which works fine with file a.dat.  But with b.dat, *all* transacations
+   match, even though the only difference between a.dat and b.dat is an
+   account name (there's no difference in terms of tags).
+   
+#+begin_src ledger
+   2010-04-02 Test1
+      A        10.00 USD
+      B
+   
+   2010-04-03 Test2
+      ; foo: this description
+      A        20.00 USD
+      B
+#+end_src
+   
+#+begin_src ledger
+   2010-04-02 Test1
+      A        10.00 USD
+      Assets:Test
+   
+   2010-04-03 Test2
+      ; foo: this description
+      A        20.00 USD
+      B
+#+end_src
    :PROPERTIES:
    :ID:       D4C2DD6F-8967-4FFC-BBBC-A941F9C53475
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :Message:  [[message://20100529155642.GA9067@jirafa.cyrius.com][Problems with tags that contain spaces]]
    :END:
    [2010-05-30 Sun 03:33]
-** TODO [[bug:211][#211]] The --european option not really European
+** TODO [[bug:222][#222]] tag/pop to apply metadata does not work
+   :PROPERTIES:
+   :ID:       6343F4D3-FDEB-4812-AC9D-8D9D31B873CF
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-222-1@http.newartisans.com/bugzilla/][{Bug 222} New: tag/pop to apply metadata does not work]]
+   :END:
+   [2010-06-01 Tue 15:15]
+** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
+   - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
+   :PROPERTIES:
+   :ID:       CE4F80CF-B298-43C5-B786-AA8ABEDA05C8
+   :END:
+   [2010-05-27 Thu 01:12]
+** DONE [[bug:211][#211]] The --european option not really European
+   - State "DONE"       from "TODO"       [2010-06-01 Tue 18:06] \\
+     Fixed by 038c2435.
    :PROPERTIES:
    :ID:       1736ACA5-5DE6-4826-AEB4-DB5B2A2217AC
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :Message:  [[message://20100531102647.GA23953@jirafa.cyrius.com][--european option not really European]]
    :END:
    [2010-05-31 Mon 14:32]
-** TODO [[bug:212][#212]] Question about using the same tag twice
-   :PROPERTIES:
-   :ID:       5DCC31B1-52C8-443D-98B9-0C2D72AF561A
-   :Submitter: Martin Michlmayr <tbm@cyrius.com>
-   :Message:  [[message://20100529163125.GJ2679@jirafa.cyrius.com][Using the same tag twice]]
+** DONE [[bug:157][#157]] Make sure this is legal: = expr 'account =~ /foo/'
+   SCHEDULED: <2010-06-01 Tue>
+   - State "DONE"       from "STARTED"    [2010-06-01 Tue 17:31]
+   :LOGBOOK:
+   CLOCK: [2010-06-01 Tue 17:16]--[2010-06-01 Tue 17:31] =>  0:15
    :END:
-   [2010-05-30 Sun 03:33]
-** TODO [[bug:214][#214]] Question about credit card transactions
+   :PROPERTIES:
+   :ID:       9DF85DF2-4BF5-4931-A30C-2592A10BB5C0
+   :END:
+   [2010-05-24 Mon 23:00]
+** DONE Make sure posts_report always clears xdata
+   - State "DONE"       from "TODO"       [2010-05-31 Mon 15:12]
+   :PROPERTIES:
+   :ID:       F0CFF3FF-7BAF-40A9-BA37-2ACDC8369B5C
+   :END:
+   [2010-05-31 Mon 01:16]
+** WONTFIX [[bug:214][#214]] Question about credit card transactions
+   - State "WONTFIX"    from "TODO"       [2010-06-01 Tue 18:02]
+   I am using ledger v2.6.2 on Ubuntu9.10 Karmic Koala. I am trying to do a
+   script (bash) to show a pie chart that show where I spent my money payed in
+   my credit card in this current month. I was trying to start with:
+#+begin_src sh
+   ledger --totals --effective -r --sort d -d "d>[2010/5/04]"  -e 2010/6/05  reg Liabilities:CREDITCARD:VISA
+#+end_src
+   :OUTPUT:
+   2010/05/06 Happy Hour Prime     Expenses:Bar_Rest           $-80.11 $-2930.41
+   2010/05/06 Matambre             Ex:Al:Trabalho              $-17.28 $-2947.69
+   ...... (hidden)
+   2010/06/03 Fonte Sta Efigenia.. Expenses:Eletro             $-11.00 $-1860.65
+   2010/06/04 Teste credit card    Expenses:Eletro            $-100.00 $-1960.65
+   2010/07/04 Viagem Niver Mae     Li:CREDITCARD:VISA          $142.00 $-1818.65
+   2010/07/04 Presente Niver Dani  Li:CREDITCARD:VISA           $49.96 $-1768.69
+   2010/07/04 Caixa de som Renau.. Li:CREDITCARD:VISA           $93.34 $-1675.35
+   :END:
+   
+   After that. I am think to add "-j" option and use gnuplot to do the job.
+   
+   The first problem is that option "-r" does not output related accounts when
+   I use "--effective" options together. Bellow, It follows a example of my
+   ledger file
+#+begin_src ledger
+   2010/05/06 *  Happy Hour Prime
+    Expenses:Bar_Rest                           $80.11
+    Liabilities:CREDITCARD:VISA
+   
+   2010/05/06 *  Matambre
+    Expenses:Alimentacao:Trabalho               $17.28
+    Liabilities:CREDITCARD:VISA
+   
+   2010/04/14 *  Caixa de som Renault
+    Expenses:Carro:Celta                       $280.00
+    Liabilities:CREDITCARD:VISA                $-93.33 ; [=2010/05/04]
+    Liabilities:CREDITCARD:VISA                $-93.33 ; [=2010/06/04]
+    Liabilities:CREDITCARD:VISA                $-93.34 ; [=2010/07/04]
+#+end_src
    :PROPERTIES:
    :ID:       F5956145-BD8C-46EF-94FF-01953799EC47
    :Submitter: leandroohf <leandroohf@gmail.com>
    :Message:  [[message://8ecce8dd-97bc-49d3-871b-cc55fc40b193@v12g2000prb.googlegroups.com][credit card]]
    :END:
    [2010-05-31 Mon 14:38]
-** TODO [#C] [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
-   :PROPERTIES:
-   :ID:       CE4F80CF-B298-43C5-B786-AA8ABEDA05C8
-   :END:
-   [2010-05-27 Thu 01:12]
-** WAITING [[bug:171][#171]] Path handling issues in master
+** WORKSFORME [[bug:171][#171]] Path handling issues in master
+   - State "WORKSFORME" from "WAITING"    [2010-06-01 Tue 17:59] \\
+     I can't get this to happen.
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 22:08] \\
      I need more details.
     I'm getting a few different errors with the git master version - most
@@ -177,20 +270,21 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Zack Williams <zdwzdw@gmail.com>
    :END:
    [2010-03-26 Fri 22:24]
-** DONE [#A] Make sure posts_report always clears xdata
-   - State "DONE"       from "TODO"       [2010-05-31 Mon 15:12]
+** INVALID [[bug:212][#212]] Question about using the same tag twice
+   - State "INVALID"    from "TODO"       [2010-06-01 Tue 18:05] \\
+     I answered this on the mailing list.
+   I'd like to tag transacations with either foo:bar or foo:baz but some
+   actually have both bar and baz.  Instead of using foo:bar:baz I'd like to
+   use 2 tags for one transacation: foo:bar and foo:baz to make it easier to
+   grep for things in my ledger file.
    :PROPERTIES:
-   :ID:       F0CFF3FF-7BAF-40A9-BA37-2ACDC8369B5C
+   :ID:       5DCC31B1-52C8-443D-98B9-0C2D72AF561A
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100529163125.GJ2679@jirafa.cyrius.com][Using the same tag twice]]
    :END:
-   [2010-05-31 Mon 01:16]
+   [2010-05-30 Sun 03:33]
 ** Commodities
-*** TODO [#A] [[bug:220][#220]] In output intermediate, do not reduce prices to one per day
-   :PROPERTIES:
-   :ID:       412B13B5-9155-433F-B7AA-26F226D93D20
-   :END:
-   [2010-05-31 Mon 01:13]
-Just output them all in the proper order.
-*** TODO [#A] [[bug:163][#163]] Exponential slowdown when using --exchange				 :ATTACH:
+*** TODO [[bug:163][#163]] Exponential slowdown when using --exchange				 :ATTACH:
     - Note taken on [2010-03-04 Thu 13:57] \\
       The following command should reproduce the problem of performance with
       multiple currencies:
@@ -210,7 +304,10 @@ Just output them all in the proper order.
     :Message:  [[message://20100531100036.GA23484@jirafa.cyrius.com][Balancing problems with fixated commodity prices]]
     :END:
     [2010-05-31 Mon 14:37]
-*** TODO [[bug:164][#164]] --balance-format overrides --exchange
+*** WORKSFORME [[bug:164][#164]] --balance-format overrides --exchange
+    - State "WORKSFORME" from "TODO"       [2010-06-02 Wed 01:23] \\
+      You need to use %(scrub(display_total)), or just %{display_total}, with curly
+      braces.  The value "total" is too raw.
     I pasted command at the end of the message. Here is a simplified scenario:
 
     1. First bal command report is:
@@ -299,7 +396,12 @@ Just output them all in the proper order.
   :Attachments: ledger.txt.gpg
   :END:
   [2010-01-18 Mon 03:42]
-*** TODO [[bug:166][#166]] --percent incompatible with --exchange
+*** DEFERRED [[bug:166][#166]] --percent incompatible with --exchange
+    - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 01:41] \\
+      You are right, --percent cannot handle multiple commodities.  And since
+      --exchange always takes place after --percent, it's not as
+      straightforward as it seems.  I'm going to defer this bug until after
+      3.0, since it may not be worth fixing.  But I'll keep thinking on it.
     I've found that --percent option is incompatible with --exchange.  Well,
     actually I suspect that --percent is not able to handle multi currencies.
 
@@ -346,7 +448,10 @@ Just output them all in the proper order.
     :Submitter: thierry <thierry.daucourt@free.fr>
     :END:
     [2010-04-04 Sun 15:11]
-*** TODO [[bug:167][#167]] Another rounding issue							 :ATTACH:
+*** STARTED [[bug:167][#167]] Another rounding issue							 :ATTACH:
+    :LOGBOOK:
+    CLOCK: [2010-06-02 Wed 01:52]
+    :END:
     When playing with ledger v3, I met those rounding issues.  Here is an
     extract with all transactions having rounding issues I provide them for
     unit test (if useful).
@@ -354,9 +459,26 @@ Just output them all in the proper order.
     :ID:       1D275740-D1A6-42B7-BDE4-F2F85E30CE8E
     :Message:  [[message://541a7592-f815-4625-bd42-e1efa3b49b30@j5g2000yqm.googlegroups.com][Re: Another rounding issue]]
     :Attachments: data.dat
+    :Submitter: thierry <thierry.daucourt@free.fr>
     :END:
     [2010-01-09 Sat 21:09]
-*** TODO [[bug:168][#168]] Balance wrong because of exchange rates
+*** WORKSFORME [[bug:168][#168]] Balance wrong because of exchange rates
+    - State "WORKSFORME" from "STARTED"    [2010-06-02 Wed 01:36] \\
+      This is expected behavior.  You're seeing rounding artifacts due to the
+      fluctuations in price.  Use the register command to see the revaluation
+      taking place.  Even better, edit your data file to specify:
+      #+begin_src ledger
+      D 1,000.0000 EUR
+      #+end_src
+      
+      And then run the same register command again.  Even if you extend the
+      precision to six decimal places, there is still rounding taking place.
+      What ends up happening is that you have a specific amount of -45.67 in
+      Bar getting balanced against a priced value of 45.655160, which has a
+      rounding discrepancy of -0.01.
+    :LOGBOOK:
+    CLOCK: [2010-06-02 Wed 01:24]--[2010-06-02 Wed 01:35] =>  0:11
+    :END:
     This looks like a bug in ledger v3 to me.  Why does it not balance due to
     0.01 EUR?
     :OUTPUT:
@@ -883,7 +1005,7 @@ Just output them all in the proper order.
     :Message:  [[message://AANLkTimJeCGP3gPJTtnqNjsKMuThUJ_NPBAGkdyuxeH6@mail.gmail.com][Re: Doing US payroll taxes with ledger]]
     :END:
     [2010-05-23 Sun 19:00]
-*** DONE [#A] [[bug:199][#199]] Issue with reporting asset history and -j/-J				:blocker:
+*** DONE [[bug:199][#199]] Issue with reporting asset history and -j/-J				:blocker:
     SCHEDULED: <2010-05-30 Sun>
     - State "DONE"       from "TODO"       [2010-05-30 Sun 22:00] \\
       Fixed by commits 5a2644c1b7220dc96e4de9cfb82f6d829cf34321 and
@@ -974,66 +1096,23 @@ Just output them all in the proper order.
     :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
     :END:
     [2010-01-09 Sat 21:08]
+*** WONTFIX [[bug:220][#220]] In output intermediate, do not reduce prices to one per day
+    - State "WONTFIX"    from "TODO"       [2010-06-01 Tue 17:05]
+   :PROPERTIES:
+   :ID:       412B13B5-9155-433F-B7AA-26F226D93D20
+   :END:
+   [2010-05-31 Mon 01:13]
+Just output them all in the proper order.
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [[bug:174][#174]] Make the path to the getquote script configurable using an option
-   :PROPERTIES:
-   :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
-   :END:
-   [2010-04-13 Tue 01:37]
-** TODO [[bug:176][#176]] Make "until today", "from yesterday" etc. work for the -p option
-   :PROPERTIES:
-   :ID:       438B58C4-59F6-462D-A9FA-CF4839BF064C
-   :Message:  [[message://20100216095003.GA2870@rhodium.pps.jussieu.fr][from and until today, etc.]]
-   :END:
-   [2010-02-16 Tue 23:31]
-** TODO [[bug:178][#178]] Have a way to set the date range to "this week" easily
-   :PROPERTIES:
-   :ID:       3ED8AC82-37A1-4513-AB20-8FFC66A2BD00
-   :Message:  [[message://8017aec0-63c1-4d55-bced-5e87e50e7a8d@o28g2000yqh.googlegroups.com][Is there a way to set the date range to "this week" easily?]]
-   :END:
-   [2010-01-09 Sat 21:08]
-** TODO [[bug:179][#179]] Allow specification of times on transactions and postings
-   The value expressions to expose this would be:
-   | hour   | The hour                              |
-   | min    | The minute                            |
-   | daymin | Minutes past midnight of that day     |
-   | absmin | Minutes since the epoch (for sorting) |
-   :PROPERTIES:
-   :ID:       C0A606E0-AC51-4D0A-99F7-75C3E5E98F2B
-   :END:
-   [2010-05-22 Sat 16:46]
-** TODO [[bug:180][#180]] Allow for period expressions "4 months ago" and "last 5 weeks"
-   - State "TODO"       from "STARTED"    [2009-12-07 Mon 04:24]
-   :PROPERTIES:
-   :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
-   :END:
-   [2009-11-18 Wed 05:51]
-** TODO [[bug:182][#182]] Port Gnucash support to 3.0
-   :PROPERTIES:
-   :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
-   :Submitter: John Wiegley <johnw@newartisans.com>
-   :Message:  [[message://F9C1390D-054A-4E39-B490-CBFEEAB3264D@newartisans.com][{Spam?} Re: How to use gnucash with v3]]
-   :END:
-   [2010-05-25 Tue 16:42]
-** TODO [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary commodity for an account
-   :PROPERTIES:
-   :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
-   :END:
-   [2010-05-31 Mon 10:35]
-** TODO [[bug:218][#218]] Make {{AMOUNT}} universal give the total cost/amount
-   :PROPERTIES:
-   :ID:       F76CD79B-1362-4ABF-917F-937502CBCB72
-   :END:
-   [2010-05-31 Mon 10:35]
-** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
+** TODO [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
    :END:
    [2010-04-02 Fri 14:11]
-** TODO [#C] [[bug:173][#173]] Make the prices report use standard report query terms
+** TODO [[bug:173][#173]] Make the prices report use standard report query terms
   The idea here is that report query filtering is done before the building up
   of commodities prices, so that you can see which commodities are involved
   with which reports:
@@ -1046,7 +1125,12 @@ Just output them all in the proper order.
   :Message:  [[message://4B0E7757.1030607@gmail.com][How to type out a sales slip?]]
   :END:
   [2009-12-01 Tue 03:04]
-** TODO [#C] [[bug:175][#175]] Make an assert directive for Ledger
+** TODO [[bug:174][#174]] Make the path to the getquote script configurable using an option
+   :PROPERTIES:
+   :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
+   :END:
+   [2010-04-13 Tue 01:37]
+** TODO [[bug:175][#175]] Make an assert directive for Ledger
 #+begin_src ledger :results outputb
   assert DATE AMOUNT ACCOUNT
 #+end_src
@@ -1059,11 +1143,38 @@ DATE Reconciled statement
   :ID:       52C041BD-5EF0-46E9-B046-A23CBF01632A
   :END:
   [2010-03-05 Fri 21:59]
-** TODO [#C] [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
+** TODO [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
    :PROPERTIES:
    :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
    :END:
    [2009-11-24 Tue 22:02]
+** TODO [[bug:182][#182]] Port Gnucash support to 3.0
+   :PROPERTIES:
+   :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
+   :Submitter: John Wiegley <johnw@newartisans.com>
+   :Message:  [[message://F9C1390D-054A-4E39-B490-CBFEEAB3264D@newartisans.com][{Spam?} Re: How to use gnucash with v3]]
+   :END:
+   [2010-05-25 Tue 16:42]
+** TODO [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary commodity for an account
+   :PROPERTIES:
+   :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
+   :END:
+   [2010-05-31 Mon 10:35]
+** WONTFIX [[bug:218][#218]] Make {{AMOUNT}} universal give the total cost/amount
+   - State "WONTFIX"    from "STARTED"    [2010-06-02 Wed 01:13] \\
+     I have discovered that I cannot implement this.  The reason is that 7.0 EUR in
+     the example above here is a property of the commodity, not of the posting.
+     Thus, you have 5 unit of GBP bought at 1.4 EUR, not a 5-unit-group bought at
+     7.0 EUR.  What happens if you sell just 2 of them?  The math gets very
+     complicated, and I would have to track how many of the "lot" still existed.
+     With commodity properties, such tracking is unnecessary.
+   :LOGBOOK:
+   CLOCK: [2010-06-02 Wed 00:44]--[2010-06-02 Wed 01:13] =>  0:29
+   :END:
+   :PROPERTIES:
+   :ID:       F76CD79B-1362-4ABF-917F-937502CBCB72
+   :END:
+   [2010-05-31 Mon 10:35]
 ** DEFERRED --price option in lot_sales branch
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    message://m24q2rwrym.fsf_-_@newartisans.com
@@ -1305,6 +1416,22 @@ Error: A posting's cost may not be negative
    :ID: 4F58ACC1-498A-41A5-9164-93CD30B3CAC5
    :END:
    [2009-10-23 Fri 06:12]
+** DEFERRED Combine a random seed when hashing when using --anon
+   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
+   Please keep in mind that the dictionary one pulls account names from is MUCH
+   smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
+   a string $foo, it is easy to tell if this is the hash of "Bar, Inc." or
+   "Baz, Inc.".  So, while in theory it is hard to reverse, it becomes very
+   easy in practice if I know anything about your company or even the language
+   that the accounts will be in.  Finally, because of rainbow tables, these
+   might even be easy to reverse without knowing anything about the target
+   company.
+   :PROPERTIES:
+   :Submitter: Anthony Chivetta <anthony@chivetta.org>
+   :ID: 03DA2F5B-9E0C-4E3B-B19D-531A4F77C050
+   :Message: [[message://20090703063943.GB16282@chivetta.org][Re: sample ledgers and anonymising]]
+   :END:
+   [2009-07-03 Fri 08:38]
 ** DEFERRED Create an operator for value + post
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    :PROPERTIES:
@@ -1329,6 +1456,13 @@ Error: A posting's cost may not be negative
    :ID:       7B8B33B7-925A-497E-A08A-D0B67E433FF6
    :END:
    [2009-11-25 Wed 00:27]
+** DEFERRED Implement readline completion for the REPL
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:31]
+   [[file:main.cc::jww%202009%2002%2005%20NYI][NYI]]
+   :PROPERTIES:
+   :ID: EF3D6703-AD14-48B3-A9EE-481E5FC295AB
+   :END:
+   [2009-11-03 Tue 13:59]
 ** DEFERRED In the equity report, if the "collapse" option is used ...
    - State "DEFERRED"   [2009-02-24 Tue 04:04]
    ... output only one entry.  Otherwise, output an entry for every top-level
@@ -1354,6 +1488,15 @@ Error: A posting's cost may not be negative
    :ID:       7CB80AA0-5D86-421A-B3DD-232FCA7696AB
    :END:
    [2010-04-30 Fri 07:33]
+** DEFERRED journal_t objects should be copyable
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:23]
+   This also has to do with making them serializable.  There should be a way to
+   "activate" a journal for the current session, which sets up the
+   commodity_pool reference for amount_t.
+   :PROPERTIES:
+   :ID: 9ECF98A8-8C8C-42D1-B8A0-EB42F49AAED9
+   :END:
+  
 ** DEFERRED Make a curses or http GUI for Ledger
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:00] \\
      This is waiting for either the new Emacs rewrite, or the Python support code.
@@ -1426,6 +1569,12 @@ Error: A posting's cost may not be negative
    :ID: 65B7E207-1BCC-4448-881C-1574623346D7
    :END:
    [2009-03-03 Tue 21:49]
+** DEFERRED Warn if a file link points to a missing file
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:24]
+   :PROPERTIES:
+   :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
+   :END:
+   [2009-11-02 Mon 15:50]
 ** DEFERRED When abbreviating account names, expand to fill
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    For example, Assets:NRL:Checking in 15 chars should be:
@@ -1436,75 +1585,45 @@ Error: A posting's cost may not be negative
    :ID: 9135540C-C5F5-460B-AAEC-10D07FB67C21
    :END:
    [2009-10-24 Sat 19:19]
-** DEFERRED [#C] Combine a random seed when hashing when using --anon
-   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
-   Please keep in mind that the dictionary one pulls account names from is MUCH
-   smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
-   a string $foo, it is easy to tell if this is the hash of "Bar, Inc." or
-   "Baz, Inc.".  So, while in theory it is hard to reverse, it becomes very
-   easy in practice if I know anything about your company or even the language
-   that the accounts will be in.  Finally, because of rainbow tables, these
-   might even be easy to reverse without knowing anything about the target
-   company.
-   :PROPERTIES:
-   :Submitter: Anthony Chivetta <anthony@chivetta.org>
-   :ID: 03DA2F5B-9E0C-4E3B-B19D-531A4F77C050
-   :Message: [[message://20090703063943.GB16282@chivetta.org][Re: sample ledgers and anonymising]]
-   :END:
-   [2009-07-03 Fri 08:38]
-** DEFERRED [#C] Implement readline completion for the REPL
-   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:31]
-   [[file:main.cc::jww%202009%2002%2005%20NYI][NYI]]
-   :PROPERTIES:
-   :ID: EF3D6703-AD14-48B3-A9EE-481E5FC295AB
-   :END:
-   [2009-11-03 Tue 13:59]
-** DEFERRED [#C] journal_t objects should be copyable
-   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:23]
-   This also has to do with making them serializable.  There should be a way to
-   "activate" a journal for the current session, which sets up the
-   commodity_pool reference for amount_t.
-   :PROPERTIES:
-   :ID: 9ECF98A8-8C8C-42D1-B8A0-EB42F49AAED9
-   :END:
-  
-** DEFERRED [#C] Warn if a file link points to a missing file
-   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:24]
-   :PROPERTIES:
-   :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
-   :END:
-   [2009-11-02 Mon 15:50]
 ** DONE [[bug:181][#181]] Add a --group-by=EXPR option for clustered reports
    - State "DONE"       from "TODO"       [2010-05-30 Sun 03:27]
    :PROPERTIES:
    :ID:       F56F414C-56B4-439D-B5B1-AD28D0E5330A
    :END:
    [2010-05-23 Sun 15:59]
+** Dates and times
+*** TODO [[bug:176][#176]] Make "until today", "from yesterday" etc. work for the -p option
+    :PROPERTIES:
+    :ID:       438B58C4-59F6-462D-A9FA-CF4839BF064C
+    :Message:  [[message://20100216095003.GA2870@rhodium.pps.jussieu.fr][from and until today, etc.]]
+    :END:
+    [2010-02-16 Tue 23:31]
+*** TODO [[bug:178][#178]] Have a way to set the date range to "this week" easily
+    :PROPERTIES:
+    :ID:       3ED8AC82-37A1-4513-AB20-8FFC66A2BD00
+    :Message:  [[message://8017aec0-63c1-4d55-bced-5e87e50e7a8d@o28g2000yqh.googlegroups.com][Is there a way to set the date range to "this week" easily?]]
+    :END:
+    [2010-01-09 Sat 21:08]
+*** TODO [[bug:179][#179]] Allow specification of times on transactions and postings
+    The value expressions to expose this would be:
+    | hour   | The hour                              |
+    | min    | The minute                            |
+    | daymin | Minutes past midnight of that day     |
+    | absmin | Minutes since the epoch (for sorting) |
+    :PROPERTIES:
+    :ID:       C0A606E0-AC51-4D0A-99F7-75C3E5E98F2B
+    :END:
+    [2010-05-22 Sat 16:46]
+*** TODO [[bug:180][#180]] Allow for period expressions "4 months ago" and "last 5 weeks"
+    - State "TODO"       from "STARTED"    [2009-12-07 Mon 04:24]
+    :PROPERTIES:
+    :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
+    :END:
+    [2009-11-18 Wed 05:51]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
-** TODO [#A] [[bug:183][#183]] Adding memo field breaks ledger-add-entry
-   I do `C-c C-a', complete the date and enter a payee. According to an older
-   entry with the same payee I am expecting something like this to appear:
-#+begin_src ledger
-   2010/04/08 payee
-          account1                1.00
-          account2
-#+end_src
-   
-   But I get only:
-   :OUTPUT:
-   2010/04/08 payee
-   :END:
-   
-   With a ledger backup file without memo fields everything still works fine.
-   :PROPERTIES:
-   :ID:       878AB79B-B656-4221-941F-6C956F6A1E92
-   :Message:  [[message://87eiir4wov.fsf@online.de][Memo Field]]
-   :Submitter: henry atting <nsmp_02@online.de>
-   :END:
-   [2010-04-08 Thu 18:47]
 ** DEFERRED Add colorized highlighting to the reconciler
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
    http://thread.gmane.org/gmane.comp.finance.ledger.general/483
@@ -1562,6 +1681,19 @@ Error: A posting's cost may not be negative
    :ID: 5C52F851-18CF-41A3-953B-49DA4EF67C00
    :END:
    [2009-10-23 Fri 06:12]
+** DEFERRED Complain about mutually exclusive options (such as -M and -s)
+   - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
+#+begin_src sh
+  ledger -M -s reg ^actifs
+#+end_src
+  Adding the -s option seems to break the -M one (instead of three months,
+  there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
+  can't be combined in ledger reg.
+  :PROPERTIES:
+  :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :END:
+  [2010-01-18 Mon 02:55]
 ** DEFERRED Create a hotkey for creating Ledger transactions
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    :PROPERTIES:
@@ -1735,19 +1867,28 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 178EC4C8-F87A-40C2-91CE-C5BD9CA50BD3
    :END:
    [2009-10-23 Fri 06:14]
-** DEFERRED [#C] Complain about mutually exclusive options (such as -M and -s)
-   - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
-#+begin_src sh
-  ledger -M -s reg ^actifs
+** WORKSFORME [[bug:183][#183]] Adding memo field breaks ledger-add-entry
+   - State "WORKSFORME" from "TODO"       [2010-06-01 Tue 17:08]
+   I do `C-c C-a', complete the date and enter a payee. According to an older
+   entry with the same payee I am expecting something like this to appear:
+#+begin_src ledger
+   2010/04/08 payee
+          account1                1.00
+          account2
 #+end_src
-  Adding the -s option seems to break the -M one (instead of three months,
-  there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
-  can't be combined in ledger reg.
-  :PROPERTIES:
-  :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
-  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
-  :END:
-  [2010-01-18 Mon 02:55]
+   
+   But I get only:
+   :OUTPUT:
+   2010/04/08 payee
+   :END:
+   
+   With a ledger backup file without memo fields everything still works fine.
+   :PROPERTIES:
+   :ID:       878AB79B-B656-4221-941F-6C956F6A1E92
+   :Message:  [[message://87eiir4wov.fsf@online.de][Memo Field]]
+   :Submitter: henry atting <nsmp_02@online.de>
+   :END:
+   [2010-04-08 Thu 18:47]
 * Python
   :PROPERTIES:
   :CATEGORY: Python
@@ -1817,6 +1958,13 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 7274224C-3470-4A9F-B56E-A499F39E13C9
    :END:
    [2009-03-09 Mon 20:33]
+** DEFERRED Have methods for serializing to and from a string
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:23]
+   [2009-11-03 Tue 07:41]
+   :PROPERTIES:
+   :ID: 9383A1B7-34C8-4B3E-8FA0-B22A92F6B10F
+   :END:
+   [2009-11-02 Mon 15:50]
 ** DEFERRED Having problems exporting std::pair<T, U *> from Boost.Python
    - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:36]
    This is the e-mail I was drafting for the mailing list, in response to
@@ -1918,17 +2066,15 @@ Tr.#	date		Text			debit		credit		saldo
    :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
    :END:
    [2009-11-19 Thu 17:37]
-** DEFERRED [#C] Have methods for serializing to and from a string
-   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:23]
-   [2009-11-03 Tue 07:41]
-   :PROPERTIES:
-   :ID: 9383A1B7-34C8-4B3E-8FA0-B22A92F6B10F
-   :END:
-   [2009-11-02 Mon 15:50]
 * Build
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** TODO [[bug:169][#169]] Create a PO file for Alexis to translate into German
+   :PROPERTIES:
+   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
+   :END:
+   [2009-11-09 Mon 03:40]
 ** TODO [[bug:215][#215]] Compile fails for version 3.0
    :PROPERTIES:
    :ID:       5AB0A35C-1875-46CF-98D2-C0BC5DDD2962
@@ -1946,17 +2092,16 @@ Tr.#	date		Text			debit		credit		saldo
    :URL:      [[https://launchpad.net/~mbudde/%2Barchive/ledger/%2Bpackages][Packages in “Ledger” : Ledger : Michael Budde]]
    :END:
    [2010-05-29 Sat 20:00]
-** TODO Ledger's proof build is failing
+** DONE [#C] Ledger's proof build is failing						   :Home:
    SCHEDULED: <2010-06-01 Tue>
+   - State "DONE"       from "STARTED"    [2010-06-02 Wed 00:31]
+   :LOGBOOK:
+   CLOCK: [2010-06-01 Tue 20:43]--[2010-06-02 Wed 00:31] =>  3:48
+   :END:
    :PROPERTIES:
    :ID:       11318EF9-6D74-4F7C-B833-E2FD0E53465B
    :END:
    [2010-05-28 Fri 16:06]
-** TODO [#C] [[bug:169][#169]] Create a PO file for Alexis to translate into German
-   :PROPERTIES:
-   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
-   :END:
-   [2009-11-09 Mon 03:40]
 ** DEFERRED Add some more configure arguments
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
    ./configure .... with-gmp=...  with-mpfr= ... with-python=...
@@ -2019,7 +2164,8 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
    :END:
    [2009-11-24 Tue 22:04]
-** TODO [[bug:187][#187]] Use coverage analysis to determine if everything is being tested
+** DEFERRED [[bug:187][#187]] Use coverage analysis to determine if everything is being tested
+   - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 00:44]
    - State "TODO"       from ""           [2010-05-22 Sat 15:05]
    :PROPERTIES:
    :ID:       13E43A50-FC0C-4C3D-A175-7C6CB147A37C
@@ -2030,21 +2176,13 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
    :END:
    [2010-05-31 Mon 01:14]
-** DEFERRED Use --cache=/dev/null when running the unit tests
-   - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 02:08] \\
-     I cannot read/write the cache to /dev/null, so I'll have to use a temp file
-     that gets cleaned up.
-   :PROPERTIES:
-   :ID: 957CABA8-FEE1-4609-ABCD-0B285B49F2CE
-   :END:
-   [2009-11-03 Tue 18:55]
-** DEFERRED [#C] Ledger is still failing the higher-numbered generation seed tests
+** DEFERRED Ledger is still failing the higher-numbered generation seed tests
    - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
    :PROPERTIES:
    :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
    :END:
    [2009-03-03 Tue 15:47]
-** DEFERRED [#C] New tests to create for Ledger [0/3]
+** DEFERRED New tests to create for Ledger [0/3]
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 21:54]
    - [ ] GarbageTests
 	 Feed every one of the distribution's source files back to Ledger, to
@@ -2057,6 +2195,14 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: F866DFA5-7350-45D3-BF76-286D68755A2A
    :END:
    [2009-02-27 Fri 16:19]
+** DEFERRED Use --cache=/dev/null when running the unit tests
+   - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 02:08] \\
+     I cannot read/write the cache to /dev/null, so I'll have to use a temp file
+     that gets cleaned up.
+   :PROPERTIES:
+   :ID: 957CABA8-FEE1-4609-ABCD-0B285B49F2CE
+   :END:
+   [2009-11-03 Tue 18:55]
 * Docs
   :PROPERTIES:
   :CATEGORY: Docs
@@ -2138,7 +2284,8 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Message:  [[message://bug-208-1@http.newartisans.com/bugzilla/][{Bug 208} New: Special characters in manual don't show up in PDF]]
    :END:
    [2010-05-31 Mon 14:39]
-** TODO [[bug:209][#209]] Escape @ characters in the manual
+** DONE [[bug:209][#209]] Escape @ characters in the manual
+   - State "DONE"       from "TODO"       [2010-06-02 Wed 01:15]
    :PROPERTIES:
    :ID:       2C789E95-C5D1-41B4-9F14-3165A8A8FAD9
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
@@ -2162,7 +2309,7 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
-** DEFERRED [#C] Ledger example: building a better "du"					 :ATTACH:
+** DEFERRED Ledger example: building a better "du"					 :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
@@ -2206,17 +2353,64 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Attachments: ledger-du
    :END:
    [2006-03-24 Fri]
-** DEFERRED [#C] Using Ledger as a scientific analysis tool
+** DEFERRED Using Ledger as a scientific analysis tool
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 173
    :ID: C653003E-52A8-4D06-9DEB-634B1156B04C
    :END:
-** DEFERRED [#C] Using Ledger to track inventory
+** DEFERRED Using Ledger to track inventory
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 174
    :ID: F7A6A833-5AC6-4ED0-A5EA-93CD6B97EEBF
    :END:
+** WORKSFORME [[bug:221][#221]] Value expressions don't work as documented
+   - State "WORKSFORME" from "TODO"       [2010-06-01 Tue 17:12]
+   - Note taken on [2010-06-01 Tue 17:11] \\
+     In 3.0 you would use this:
+#+begin_src sh
+     ledger reg -l 'commodity = "USD"'
+#+end_src
+   - Note taken on [2010-06-01 Tue 17:11] \\
+     BTW, here's what I'm actually trying to do: ledger bal shows me a total
+     of expenses I made in EUR, GBP and USD.  I'd then like to use ledger reg
+     to search for all postings of only _one_ of these currencies (e.g. what
+     did I spend in USD).  Is this possible already, possibly with {..}?
+   It seems the value expressions don't (or no longer) work as documented.
+   For example, section "Complex expressions" suggests that you can use
+   p/REGEXP/.  So I tried this:
+   :OUTPUT:
+   $ ledger -f 2 reg expenses p/foo/
+   While parsing value expression:
+     (account =~ /expenses/ | account =~ /p/foo//)
+                                            ^^^
+   Error: Missing ')'
+   :END:
+   
+   I then realized that I probably need an -d option, but this
+   also doesn't work:
+   :OUTPUT:
+   $ ledger -f 2 reg expenses -d p/foo/
+   While parsing value expression:
+     (p/foo/)&(amount|(!post&total))
+            ^
+   Error: ) operator not followed by argument
+   :END:
+   
+   In fact, not even the example from the manual works:
+   :OUTPUT:
+   $ ledger -f 2 -d "/^Liabilities/?T<0:UT>100" balance
+   While evaluating value expression:
+     (/^Liabilities/ ? (T < 0) : (UT > 100) & (amount | (!(post) & total)))
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   Error: Cannot determine truth of a regexp (did you mean 'account =~
+   /^Liabilities/'?)
+   :END:
+   :PROPERTIES:
+   :ID:       D8729755-A094-4CE9-B03C-8B3016AC6590
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+   [2010-06-01 Tue 15:15]
