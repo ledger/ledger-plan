@@ -11,15 +11,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] [[bug:189][#189]] Optimize value truncation
-   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
-   Currently it prints the amount, then reparses it.  For large balances
-   with lots of commodities, this can get extremely expensive, as
-   annotated commodities are likely involved as well!
-   :PROPERTIES:
-   :ID:       B6C8EACD-9392-4380-BB57-93EDF0EE5C34
-   :END:
-   [2010-05-23 Sun 17:05]
 ** TODO [#A] [[bug:162][#162]] sm is seeing a segfault with the register command			:blocker:
    - Note taken on [2009-12-06 Sun 06:05] \\
      It happens on Leopard for me in a virtual machine.
@@ -110,6 +101,15 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Message:  [[message://AANLkTimJeCGP3gPJTtnqNjsKMuThUJ_NPBAGkdyuxeH6@mail.gmail.com][Re: Doing US payroll taxes with ledger]]
     :END:
     [2010-05-23 Sun 19:00]
+** TODO [#A] [[bug:189][#189]] Optimize value truncation
+   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
+   Currently it prints the amount, then reparses it.  For large balances
+   with lots of commodities, this can get extremely expensive, as
+   annotated commodities are likely involved as well!
+   :PROPERTIES:
+   :ID:       B6C8EACD-9392-4380-BB57-93EDF0EE5C34
+   :END:
+   [2010-05-23 Sun 17:05]
 ** TODO [#A] [[bug:192][#192]] Problem with the new fixed rate feature				 :ATTACH:
    - Note taken on [2009-12-11 Fri 02:12] \\
      Javier [[message://92a1cace0912100848v3b6e81bfp332590a8057d73fe@mail.gmail.com][writes]]: I found that the problem is not related to the new "fixed"
@@ -252,6 +252,17 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :END:
     [2010-01-09 Sat 21:05]
 ** TODO [#A] [[bug:200][#200]] Commodities containing digits and ledger bal
+   - Note taken on [2010-06-02 Wed 18:12] \\
+     What if you have a Commodity named "FOO 100", which is perfectly legal.
+     And then the register or balance report prints out "200 FOO 100".  What
+     then?
+   - Note taken on [2010-06-02 Wed 18:12] \\
+     Martin: Why do we need an extra option for this?  Is there a reason this
+     cannot be done by default?
+     
+     In any case, I'm not sure it makes sense to add an option just for this
+     minor thing.  If it cannot be done by default without an option, I guess
+     you could just close this bug as WONTFIX.
     - Note taken on [2010-06-02 Wed 16:54] \\
       I will add an option called --no-quotes.
     When you have a commodity that contains digits, you have to put it on
@@ -659,7 +670,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :END:
   [2010-01-18 Mon 03:42]
 ** TODO [[bug:190][#190]] Optimize finding and creation of annotated commodities
-   SCHEDULED: <2010-06-02 Wed>
    - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
    Don't use textual names, but lookup based on annotation details
    directly.
@@ -705,6 +715,56 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-11 Sun 03:55]
+** TODO [[bug:224][#224]] A large number of GenerateTests are failing				 :ATTACH:
+   When running GenerateTests from 1 to 10001, 954 of the tests fail --
+   although many of them for the same apparent reason.  These different types
+   stand out:
+   :OUTPUT:
+   Print for seed 119 failed:
+   While parsing file "/dev/stdin", line 478: 
+   Error: A posting's cost must be of a different commodity than its amount
+   :END:
+   :OUTPUT:
+   Print for seed 403 failed:
+   While parsing file "/dev/stdin", line 214: 
+   While balancing transaction from standard input:
+   Unbalanced remainder is:
+                  tGlk1
+   Amount to balance against:
+   tGlk6263354594.500000185668
+   Error: Transaction does not balance
+   :END:
+   :OUTPUT:
+   Generation for seed 1781 failed:
+   While parsing file "/dev/stdin", line 2: 
+   While parsing posting:
+     (h25302bHHk12f58TgrH:a2 o 69xNMo0)  612331KF @ Fjg1e+06
+                                                    ^^^^^^^^
+   Error: Unexpected char 'e' (Note: inline math requires parentheses)
+   :END:
+   :OUTPUT:
+   Generation for seed 1809 failed:
+   While parsing file "/dev/stdin", line 5: 
+   While balancing transaction from standard input:
+   Unbalanced remainder is:
+        -429003805324 I
+   Amount to balance against:
+                      0
+   Error: Transaction does not balance
+   :END:
+   :OUTPUT:
+   Generation for seed 1942 failed:
+   While parsing file "/dev/stdin", line 10: 
+   While parsing posting:
+     (mc48XU1x:96dQzRe)  -1e+06 SLKn
+                         ^^^^^^^^^^^
+   Error: Unexpected char '+' (Note: inline math requires parentheses)
+   :END:
+   :PROPERTIES:
+   :ID:       D5762158-1B83-408F-954B-81A81A3F412E
+   :Attachments: generate.out.7z
+   :END:
+   [2010-06-02 Wed 17:23]
 ** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
    - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
    :PROPERTIES:
@@ -1328,7 +1388,8 @@ Error: A posting's cost may not be negative
    :ID: 5C52F851-18CF-41A3-953B-49DA4EF67C00
    :END:
    [2009-10-23 Fri 06:12]
-** DEFERRED Complain about mutually exclusive options (such as -M and -s)
+** TODO [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
+   - State "TODO"       from "DEFERRED"   [2010-06-02 Wed 18:11]
    - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
 #+begin_src sh
   ledger -M -s reg ^actifs
@@ -1695,7 +1756,10 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [[bug:215][#215]] Compile fails for version 3.0
+** DONE [[bug:215][#215]] Compile fails for version 3.0
+   - State "DONE"       from "TODO"       [2010-06-02 Wed 18:45] \\
+     This was a problem with universal binaries, so I've turned them off by default
+     in acprep and add a --universal option.
    :PROPERTIES:
    :ID:       5AB0A35C-1875-46CF-98D2-C0BC5DDD2962
    :Submitter: Thomas Bikeev <thomas.bikeev@me.com>
@@ -1773,7 +1837,6 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
   :CATEGORY: Tests
   :END:
 ** TODO [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
-   SCHEDULED: <2010-06-02 Wed>
    - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:12]
    :PROPERTIES:
    :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
