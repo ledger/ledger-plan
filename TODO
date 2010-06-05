@@ -11,6 +11,28 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** DONE [#A] [[bug:226][#226]] print --anon fails completely
+   - State "DONE"       from "TODO"       [2010-06-05 Sat 02:46] \\
+     Fixed by 63c7ba03.
+   It doesn't print out any postings.
+   :PROPERTIES:
+   :ID:       C1C1E731-D991-40ED-BE43-8ED55585386C
+   :END:
+   [2010-06-04 Fri 02:09]
+** TODO [[bug:227][#227]] Make --anon anonymize commodities as well
+   :PROPERTIES:
+   :ID:       1C90D8AF-830E-43C2-A5B7-D382F68EBDE3
+   :END:
+   [2010-06-04 Fri 02:10]
+** DONE [#A] [[bug:228][#228]] Make sequences comparable
+   - State "DONE"       from "TODO"       [2010-06-05 Sat 03:27] \\
+     Fixed by 16f79976.
+   This will eliminate all of the special casing I've done to make --sort
+   date,amount work.
+   :PROPERTIES:
+   :ID:       ED9388D7-E523-40EB-841B-9AE9BAA70329
+   :END:
+   [2010-06-04 Fri 02:18]
 ** TODO [#A] [[bug:162][#162]] sm is seeing a segfault with the register command			:blocker:
    - Note taken on [2009-12-06 Sun 06:05] \\
      It happens on Leopard for me in a virtual machine.
@@ -22,7 +44,57 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Simon Michael <simon@joyful.com>
    :END:
    [2009-11-24 Tue 22:13]
-** TODO [#A] [[bug:163][#163]] Exponential slowdown when using --exchange				 :ATTACH:
+** DONE [#A] [[bug:163][#163]] Exponential slowdown when using --exchange				 :ATTACH:
+   - State "DONE"       from "TODO"       [2010-06-04 Fri 06:09] \\
+     After several days of intensive examination, I think now there is little
+     help for what you're seeing.  The slowness comes from (a) the size of
+     your data file and how many commodities you're using, and (b) the
+     correctness and new behavior of --exchange (and, to a lesser extent, -V).
+     
+     To illustrate what I mean, I've added a new command "pricemap".  It
+     outputs a DOT file showing the pricing relationships between all
+     commodities in your data file at a given date.  To give an example of how
+     complex the situation can be, consider this data file:
+     
+      http://ftp.newartisans.com/pub/exchange.dat
+     
+     At 2009/01/03, the price relationships are as shown here:
+     
+      http://ftp.newartisans.com/pub/090103.png
+     
+     But by 2009/01/10, they have changed significantly:
+     
+      http://ftp.newartisans.com/pub/090110.png
+     
+     When you use --exchange $, Ledger tries to find the most recent
+     conversion to $ that it can.  To do this, it considers not only whether a
+     commodity A could be priced in dollars, but whether it could also be
+     priced in terms of B, which could then be priced in dollars.  And so on.
+     It must walk the graph of all possible connections to $, truncating the
+     search only if the most recent valuation down that leg is older than the
+     most recent found so far.  Sometimes, it can take several hops before the
+     most recent conversion price is found.
+     
+     Note to mention that all of this can happen several times for a single
+     posting: while computing the amount, the running total, to see if a
+     revaluation has occurred, to see if a rounding error has occurred, etc.
+     
+     I have managed to speed things up a fair bit, however, so please try your
+     tests again with the latest 'next' branch.  Here are the improvements,
+     using an "acprep opt" build on a 2.26GHz Core i7 (all output going to
+     /dev/null):
+     
+      Before optimization work (current 'master' branch):
+     
+        reg, no flags       6.86s
+        reg, -V            39.23s
+        reg, -X            85.92s
+     
+      After optimization work (current 'next' branch):
+     
+        reg, no flags       5.00s
+        reg, -V            13.39s
+        reg, -X            12.91s
    - Note taken on [2010-03-04 Thu 13:57] \\
      The following command should reproduce the problem of performance with
      multiple currencies:
@@ -35,7 +107,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: gmon.gprof thierry.ledger.anon.gpg
    :END:
    [2010-03-04 Thu 13:55]
-** TODO [#A] [[bug:188][#188]] Not calculating certain commodity conversions due to rounding	       :critical:
+** TODO [#A] [[bug:188][#188]] Not calculating commodity conversions due to rounding 	       :critical:
     I also found something else regarding calculations on commodity prices,
     given this input file:
 #+begin_src sh
@@ -101,7 +173,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Message:  [[message://AANLkTimJeCGP3gPJTtnqNjsKMuThUJ_NPBAGkdyuxeH6@mail.gmail.com][Re: Doing US payroll taxes with ledger]]
     :END:
     [2010-05-23 Sun 19:00]
-** TODO [#A] [[bug:189][#189]] Optimize value truncation
+** DONE [#A] [[bug:189][#189]] Optimize value truncation
+   - State "DONE"       from "TODO"       [2010-06-04 Fri 06:13]
    - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
    Currently it prints the amount, then reparses it.  For large balances
    with lots of commodities, this can get extremely expensive, as
@@ -252,6 +325,9 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :END:
     [2010-01-09 Sat 21:05]
 ** TODO [#A] [[bug:200][#200]] Commodities containing digits and ledger bal
+   - Note taken on [2010-06-03 Thu 06:02] \\
+     You could simply drop the quotes if the commodity doesn't contain any
+     spaces.
    - Note taken on [2010-06-02 Wed 18:12] \\
      What if you have a Commodity named "FOO 100", which is perfectly legal.
      And then the register or balance report prints out "200 FOO 100".  What
@@ -597,7 +673,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       A9DFC672-9FAD-431F-8EDA-CFB54D1285AF
    :END:
    [2010-03-10 Wed 01:32]
-** TODO [[bug:159][#159]] --unrealized also reports realized gains
+** WORKSFORME [[bug:159][#159]] --unrealized also reports realized gains
+   - State "WORKSFORME" from "TODO"       [2010-06-05 Sat 03:42] \\
+     The meaning of "--unrealized" is simply that it *adds* unrealized gains
+     to the balance report, not that it only report unrealized gains.  If you
+     want that, then use --unrealized and filter on the Unrealized account.
    I've found that the "--unrealized" option reports also the "realized
    gains".  I would have expected that realized gains are not listed.
 #+begin_src ledger
@@ -700,7 +780,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Submitter: Martin Michlmayr <tbm@cyrius.com>
     :END:
     [2010-03-26 Fri 22:17]
-** TODO [[bug:206][#206]] Specifying exchange rate with @ doesn't led to expected result
+** WAITING [#A] [[bug:206][#206]] Specifying exchange rate with @ doesn't led to expected result
+   - State "WAITING"    from "TODO"       [2010-06-04 Fri 06:16]
    - Note taken on [2010-06-02 Wed 17:02] \\
      I believe this is fixed now.  If not, could you please provide an example?
    While entering some expense reports, I found another case where specifying
@@ -715,7 +796,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-11 Sun 03:55]
-** TODO [[bug:224][#224]] A large number of GenerateTests are failing				 :ATTACH:
+** TODO [#A] [[bug:224][#224]] A large number of GenerateTests are failing				 :ATTACH:
    When running GenerateTests from 1 to 10001, 954 of the tests fail --
    although many of them for the same apparent reason.  These different types
    stand out:
@@ -827,6 +908,33 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** DONE Make "expr" a synonym for the "parse" command
+   - State "DONE"       from "TODO"       [2010-06-05 Sat 03:36]
+   :PROPERTIES:
+   :ID:       3CAB2690-9AD6-4C14-AC97-A7E8A2250416
+   :END:
+   [2010-06-04 Fri 06:36]
+** DUPLICATE [[bug:229][#229]] Have a primary directive
+   - State "DUPLICATE"  from "TODO"       [2010-06-04 Fri 06:16] \\
+     Duplicate of #217.
+   primary CAD for account Expenses [and children]
+   primary CAD for commodity $
+   :PROPERTIES:
+   :ID:       76751CDA-EE47-4D3F-BABE-24260E59A44E
+   :END:
+   [2010-06-04 Fri 02:24]
+** TODO [[bug:230][#230]] Make format strings backward compatible with 2.x
+   That way, %D would be the same as %(date).
+   :PROPERTIES:
+   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
+   :END:
+   [2010-06-03 Thu 23:22]
+** DONE Create a command to output a commodity map at DATE as a DOT file
+   - State "DONE"       from "TODO"       [2010-06-04 Fri 06:15]
+   :PROPERTIES:
+   :ID:       9EB7DD1D-D87D-4A37-8ED6-A836C4B231BD
+   :END:
+   [2010-06-03 Thu 18:09]
 ** TODO [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
@@ -846,7 +954,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :Submitter: Johann Klähn <kljohann@gmail.com>
   :END:
   [2009-12-01 Tue 03:04]
-** TODO [#C] [[bug:174][#174]] Make the path to the getquote script configurable using an option
+** TODO [#C] [[bug:174][#174]] Make path to getquote script configurable using an option
    :PROPERTIES:
    :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
    :END:
@@ -864,7 +972,7 @@ DATE Reconciled statement
   :ID:       52C041BD-5EF0-46E9-B046-A23CBF01632A
   :END:
   [2010-03-05 Fri 21:59]
-** TODO [#C] [[bug:176][#176]] Make "until today", "from yesterday" etc. work for the -p option
+** TODO [#C] [[bug:176][#176]] Make "until today", "from yesterday" work for -p
    :PROPERTIES:
    :ID:       438B58C4-59F6-462D-A9FA-CF4839BF064C
    :Message:  [[message://20100216095003.GA2870@rhodium.pps.jussieu.fr][from and until today, etc.]]
@@ -896,7 +1004,7 @@ DATE Reconciled statement
    :Submitter: Xavier Shay <xavier-list@rhnh.net>
    :END:
    [2010-05-25 Tue 16:42]
-** TODO [#C] [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary commodity for an account
+** TODO [#C] [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
    :PROPERTIES:
    :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
    :END:
@@ -1756,6 +1864,12 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** DONE Keep logging on for NDEBUG builds
+   - State "DONE"       from "TODO"       [2010-06-05 Sat 03:38]
+   :PROPERTIES:
+   :ID:       7D51AB9B-71FB-476F-AFE4-7F4C1C543A41
+   :END:
+   [2010-06-04 Fri 06:36]
 ** DONE [[bug:215][#215]] Compile fails for version 3.0
    - State "DONE"       from "TODO"       [2010-06-02 Wed 18:45] \\
      This was a problem with universal binaries, so I've turned them off by default
@@ -1885,6 +1999,16 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO Language translations
+   | Name                    | E-mail                     | Language             |
+   |-------------------------+----------------------------+----------------------|
+   | Thierry Daucourt        |                            | French               |
+   | Alexis                  |                            | German               |
+   | Felipe Magno de Almeida | felipe.m.almeida@gmail.com | Brazilian Portuguese |
+   :PROPERTIES:
+   :ID:       1965B92E-8FDD-4CC1-911E-3DE704E995F3
+   :END:
+   [2010-06-05 Sat 03:56]
 ** TODO [#A] [[bug:194][#194]] Initial example in ledger manual bogus
    While reading the ledger manual, I got really confused by the initial
    example which seemed wrong to me.  While looking at the mailing list
