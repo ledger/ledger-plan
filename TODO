@@ -33,7 +33,9 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       ED9388D7-E523-40EB-841B-9AE9BAA70329
    :END:
    [2010-06-04 Fri 02:18]
-** TODO [#A] [[bug:162][#162]] sm is seeing a segfault with the register command			:blocker:
+** WORKSFORME [#A] [[bug:162][#162]] sm is seeing a segfault with the register command		:blocker:
+   - State "WORKSFORME" from "TODO"       [2010-06-06 Sun 03:22] \\
+     This now works fine for me.
    - Note taken on [2009-12-06 Sun 06:05] \\
      It happens on Leopard for me in a virtual machine.
    - Note taken on [2009-11-25 Wed 04:40] \\
@@ -107,7 +109,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: gmon.gprof thierry.ledger.anon.gpg
    :END:
    [2010-03-04 Thu 13:55]
-** TODO [#A] [[bug:188][#188]] Not calculating commodity conversions due to rounding 	       :critical:
+** DONE [#A] [[bug:188][#188]] Not calculating commodity conversions due to rounding   :critical:
+   - State "DONE"       from "TODO"       [2010-06-06 Sun 06:21] \\
+     Fixed by 39f9854e.
+   - Note taken on [2010-06-06 Sun 04:49] \\
+     The "reg -B" report is wrong for this data file as well.
     I also found something else regarding calculations on commodity prices,
     given this input file:
 #+begin_src sh
@@ -780,7 +786,9 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Submitter: Martin Michlmayr <tbm@cyrius.com>
     :END:
     [2010-03-26 Fri 22:17]
-** WAITING [#A] [[bug:206][#206]] Specifying exchange rate with @ doesn't led to expected result
+** DUPLICATE [#A] [[bug:206][#206]] Specifying exchange rate with @ doesn't led to expected result
+   - State "DUPLICATE"  from "WAITING"    [2010-06-06 Sun 03:22] \\
+     Duplicate of #205.
    - State "WAITING"    from "TODO"       [2010-06-04 Fri 06:16]
    - Note taken on [2010-06-02 Wed 17:02] \\
      I believe this is fixed now.  If not, could you please provide an example?
@@ -796,7 +804,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-11 Sun 03:55]
-** TODO [#A] [[bug:224][#224]] A large number of GenerateTests are failing				 :ATTACH:
+** TODO [[bug:224][#224]] A large number of GenerateTests are failing				 :ATTACH:
    When running GenerateTests from 1 to 10001, 954 of the tests fail --
    although many of them for the same apparent reason.  These different types
    stand out:
