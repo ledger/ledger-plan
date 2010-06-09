@@ -35,6 +35,197 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       1A546C4D-42BF-44B4-A477-BF71FB42AE52
    :END:
    [2009-11-08 Sun 18:23]
+** DONE [#A] [[bug:163][#163]] Exponential slowdown when using --exchange				 :ATTACH:
+   - State "DONE"       from "TODO"       [2010-06-04 Fri 06:09] \\
+     After several days of intensive examination, I think now there is little
+     help for what you're seeing.  The slowness comes from (a) the size of
+     your data file and how many commodities you're using, and (b) the
+     correctness and new behavior of --exchange (and, to a lesser extent, -V).
+     
+     To illustrate what I mean, I've added a new command "pricemap".  It
+     outputs a DOT file showing the pricing relationships between all
+     commodities in your data file at a given date.  To give an example of how
+     complex the situation can be, consider this data file:
+     
+      http://ftp.newartisans.com/pub/exchange.dat
+     
+     At 2009/01/03, the price relationships are as shown here:
+     
+      http://ftp.newartisans.com/pub/090103.png
+     
+     But by 2009/01/10, they have changed significantly:
+     
+      http://ftp.newartisans.com/pub/090110.png
+     
+     When you use --exchange $, Ledger tries to find the most recent
+     conversion to $ that it can.  To do this, it considers not only whether a
+     commodity A could be priced in dollars, but whether it could also be
+     priced in terms of B, which could then be priced in dollars.  And so on.
+     It must walk the graph of all possible connections to $, truncating the
+     search only if the most recent valuation down that leg is older than the
+     most recent found so far.  Sometimes, it can take several hops before the
+     most recent conversion price is found.
+     
+     Note to mention that all of this can happen several times for a single
+     posting: while computing the amount, the running total, to see if a
+     revaluation has occurred, to see if a rounding error has occurred, etc.
+     
+     I have managed to speed things up a fair bit, however, so please try your
+     tests again with the latest 'next' branch.  Here are the improvements,
+     using an "acprep opt" build on a 2.26GHz Core i7 (all output going to
+     /dev/null):
+     
+      Before optimization work (current 'master' branch):
+     
+        reg, no flags       6.86s
+        reg, -V            39.23s
+        reg, -X            85.92s
+     
+      After optimization work (current 'next' branch):
+     
+        reg, no flags       5.00s
+        reg, -V            13.39s
+        reg, -X            12.91s
+   - Note taken on [2010-03-04 Thu 13:57] \\
+     The following command should reproduce the problem of performance with
+     multiple currencies:
+     #+begin_src sh
+     ledger --european -f thierry.ledger.anon -V reg 2eb75f84 1eede0cb >/dev/null
+     #+end_src
+   :PROPERTIES:
+   :ID:       C609E728-0962-4745-955E-988B1E3F9918
+   :Message:  [[message://9097b239-86e0-4a5c-8acb-15f3e886f7a2@e1g2000yqh.googlegroups.com][ledger v3 slower than ledger v2]]
+   :Attachments: gmon.gprof thierry.ledger.anon.gpg
+   :END:
+   [2010-03-04 Thu 13:55]
+** DONE [#A] [[bug:188][#188]] Not calculating commodity conversions due to rounding   :critical:
+   - State "DONE"       from "TODO"       [2010-06-06 Sun 06:21] \\
+     Fixed by 39f9854e.
+   - Note taken on [2010-06-06 Sun 04:49] \\
+     The "reg -B" report is wrong for this data file as well.
+    I also found something else regarding calculations on commodity prices,
+    given this input file:
+#+begin_src sh
+    D $1,000.00
+    
+    ; payroll taxes
+    = /^Payroll/
+    Liabilities:Taxes:CFICA  0.062
+    Liabilities:Taxes:CMED  0.0145
+    $account:EFICA  -0.062
+    $account:EMED  -0.0145
+    
+    ; Hourly rates for each employee, as commodity prices.
+    P 2010/01/01 EONE $15.00
+    
+    ; Payroll transactions
+    2010/05/18  Payroll from May 2nd to May 15th for Employee1
+     Assets:Checking  20 EONE
+     Payroll:Employee1
+#+end_src
+    
+    Ledger doesn't calculate the EMED value if you use a small whole number
+    for the commodity that does the conversion from hours to rate/hour:
+    :OUTPUT:
+    $ ledger3 -V -f payroll.led2 bal
+                $300.00  Assets:Checking
+                $-18.60  Liabilities:Taxes:CFICA
+               $-277.05  Payroll:Employee1
+                 $18.60    EFICA
+    --------------------
+                      0
+    :END:
+    
+    But if you change the line that says:
+#+begin_src sh
+      Assets:Checking  20 EONE
+#+end_src    
+    to
+#+begin_src sh
+      Assets:Checking  20.0 EONE
+#+end_src    
+    
+    You get:
+    :OUTPUT:
+    $ ledger3 -V -f payroll.led2 bal
+                $300.00  Assets:Checking
+                $-22.95  Liabilities:Taxes
+                $-18.60    CFICA
+                 $-4.35    CMED
+               $-277.05  Payroll:Employee1
+                 $18.60    EFICA
+                  $4.35    EMED
+    --------------------
+                      0
+    :END:
+    
+    From what I can tell, internally Ledger is calculating the numbers of
+    commodities, then converting to values with -V only when the value is
+    greater than half of the commodity value.
+    :PROPERTIES:
+    :ID:       53BCED29-F3B9-4E02-9A35-6C739ABB9662
+    :Submitter: Zack Williams <zdwzdw@gmail.com>
+    :Message:  [[message://AANLkTimJeCGP3gPJTtnqNjsKMuThUJ_NPBAGkdyuxeH6@mail.gmail.com][Re: Doing US payroll taxes with ledger]]
+    :END:
+    [2010-05-23 Sun 19:00]
+** DONE [#A] [[bug:189][#189]] Optimize value truncation
+   - State "DONE"       from "TODO"       [2010-06-04 Fri 06:13]
+   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
+   Currently it prints the amount, then reparses it.  For large balances
+   with lots of commodities, this can get extremely expensive, as
+   annotated commodities are likely involved as well!
+   :PROPERTIES:
+   :ID:       B6C8EACD-9392-4380-BB57-93EDF0EE5C34
+   :END:
+   [2010-05-23 Sun 17:05]
+** DONE [#A] [[bug:192][#192]] Problem with the new fixed rate feature				 :ATTACH:
+   - State "DONE"       from "TODO"       [2010-06-07 Mon 08:24]
+   - Note taken on [2009-12-11 Fri 02:12] \\
+     Javier [[message://92a1cace0912100848v3b6e81bfp332590a8057d73fe@mail.gmail.com][writes]]: I found that the problem is not related to the new "fixed"
+     directive at all.
+
+     After looking through the fixed-directive code I couldn't find any
+     problems with it. I also noticed that the annotation details change
+     between parsing time (when they are fine) and the amount::value() call.
+
+     Then I changed all my fixed directives in the ledger file to {=$####}
+     entries for all the foreign currencies (no "fixed" directive in the whole
+     file) and the problem persisted!: some {=} entries used the wrong price
+     from another {=} entry.
+
+     I think the problem is somewhere between parsing and applying the
+     algorithms (at least for -V reg) where the original post details seem to
+     have changed. At least for ANNOTATION_PRICE_FIXATED entries. (I used
+     printf's in parsing and in amount_t::value() to see the price change).
+
+     This is the command i'm using: ./ledger -f multicurrency-no-fixed.ledger
+     -V reg payable:jlopez
+
+     I ran this with the master branch on ubuntu 64 bits.
+   :PROPERTIES:
+   :ID:       DC6AA45B-F714-4209-B0CC-E6CAFB75E50E
+   :Message:  [[message://53ed3320-3d2d-46d8-8dd3-98b953e926fb@e7g2000vbi.googlegroups.com][Re: Multicurrency and reg problem]]
+   :Attachments: multicurrency-no-fixed.ledger.zip multicurrency-fixed.ledger.zip
+   :Submitter: jleija <jleija@gmail.com>
+   :END:
+   [2009-12-01 Tue 02:39]
+** DONE [#A] [[bug:226][#226]] print --anon fails completely
+   - State "DONE"       from "TODO"       [2010-06-05 Sat 02:46] \\
+     Fixed by 63c7ba03.
+   It doesn't print out any postings.
+   :PROPERTIES:
+   :ID:       C1C1E731-D991-40ED-BE43-8ED55585386C
+   :END:
+   [2010-06-04 Fri 02:09]
+** DONE [#A] [[bug:228][#228]] Make sequences comparable
+   - State "DONE"       from "TODO"       [2010-06-05 Sat 03:27] \\
+     Fixed by 16f79976.
+   This will eliminate all of the special casing I've done to make --sort
+   date,amount work.
+   :PROPERTIES:
+   :ID:       ED9388D7-E523-40EB-841B-9AE9BAA70329
+   :END:
+   [2010-06-04 Fri 02:18]
 ** DONE [#A] Automated xact multipliers have no effect on null postings
    - State "DONE"       from "TODO"       [2009-11-09 Mon 22:02]
    :PROPERTIES:
@@ -1501,6 +1692,25 @@ Display P: a
    :ID:       3CAB257E-B4B5-47C4-BD19-74056E8B5A1C
    :END:
    [2009-11-11 Wed 15:09]
+** DONE Optimize the default display predicate
+   SCHEDULED: <2010-06-06 Sun>
+   - State "DONE"       from "TODO"       [2010-06-07 Mon 05:48]
+   - Note taken on [2010-06-06 Sun 06:42] \\
+     calc_posts should store the display_amount and display_total in the xdata of
+     each posting, plus the xdata should be cleared after each post is formatted
+     (but only the second to last, since the last may still be used).
+   Rather than having post&display_amount, do nothing via a display
+   predicate for the posting case.  For that, use logic within
+   rounding_error_posts, since it already needs to compute the display
+   amount and there is no reason to calculate the same value twice.  This
+   means that either rounding_error_posts is always used (with a boolean
+   used to control <Rounding> postings), or a display_amount_filter is
+   needed which rounding refers to for access to the value.  This would
+   not be used for account reports.
+   :PROPERTIES:
+   :ID:       0C1B0593-435F-4C8E-A310-D3ED31B652E8
+   :END:
+   [2010-06-06 Sun 06:28]
 ** DONE Parse xact metadata that occurs at the end of the line
    - State "DONE"       [2009-02-04 Wed 04:00]
    :PROPERTIES:
@@ -1676,6 +1886,13 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :ID: 9CEB14C0-63A1-489A-90E0-453D1125DFFF
    :END:
    [2009-02-14 Sat 05:39]
+** DONE Revert recent change which sets cost from price
+   SCHEDULED: <2010-06-07 Mon>
+   - State "DONE"       from "TODO"       [2010-06-08 Tue 06:17]
+   :PROPERTIES:
+   :ID:       0F59F13B-5946-4A9F-91AE-98EFB466F9E3
+   :END:
+   [2010-06-08 Tue 04:05]
 ** DONE Review the changes I've made to ledger::master since 2.6.0.90
    - State "DONE"       [2008-05-07 Wed]
      The only questionable change is the abortive fix to -e.  This should be
@@ -2601,6 +2818,161 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 567B5118-7A77-42B9-A1CD-C5DA688AC406
    :END:
    [2007-10-29 Mon]
+** WONTFIX [[bug:205][#205]] Specifying commodity price and total
+   - State "WONTFIX"    from "TODO"       [2010-06-08 Tue 17:54]
+   - Note taken on [2010-06-08 Tue 17:39] \\
+     Martin: [ Our responses just collided; anyway, yes, I agree with you.
+     Thanks for your patience ]
+     
+     I believe my last message actually showed a possible solution.  If I really
+     cared about it, I could put it into ledger like this:
+#+begin_src ledger
+       Assets:Broker:Depot          533 AAPL @ 21.589 EUR
+       Expenses:Adjustment                      0.003 EUR ; rounding
+       Assets:Broker:Current
+#+end_src
+     but I don't find that very elegant, so I guess I'll just go with 533 AAPL
+     @@ 11506.94 EUR.
+   - Note taken on [2010-06-08 Tue 17:39] \\
+     My understanding is that "what you paid" is whatever balances the
+     transaction to zero.  That's it.  Anything other than that is a notional
+     idea on your side of the table.
+     
+     Now, I see what you're saying in that you want to reflect the fact that
+     your broker charged you for the rounding.  You can, if you wish,
+     incorporate this by changing the cost of the exchange and then adding a
+     posting to indicate the rounding.  But having a special syntax to
+     incorporate both "versions" of the transaction is not something I think I
+     can support.
+   - Note taken on [2010-06-08 Tue 17:39] \\
+     Martin: I paid 11506.94 EUR for 533 AAPL.  That's a fact.  So I could
+     simply stick 553 AAPL @@ 11506.94 EUR into ledger and be done with it.
+     
+     However, I feel this is not the whole story.
+     
+     Because what I really did was to buy 533 AAPL at a price of 21.589 EUR
+     each.  And this is 533 * 21.589 = 11506.937.
+     
+     But there's no way to pay 11506.937, so my broker rounded it to 11506.94,
+     which I then paid.
+     
+     So I can put 553 AAPL @@ 11506.94 EUR into ledger but I feel this
+     slightly misrepresents what happened.  553 AAPL @@ 11506.94 EUR says that
+     I bought 553 at a price of 21.589005628517825.  Wheras in reality I paid
+     21.598 a share plus 0.003 of rounding.
+     
+     Do you see the difference?
+     
+     It's really just about this semantic difference of what I'm paying for
+     (i.e.  X for Y shares vs X for Y shares plus 0.003 rounding).
+     
+     But I agree that this semantic difference doesn't really matter IRL and
+     so I'm fine with you closing this bug.  However, it seems that I have not
+     been able yet to express what I mean... hopefully this explanation was
+     clearer.
+   - Note taken on [2010-06-08 Tue 17:39] \\
+     But did you really lose 0.003?  Becasue you said you were paid 11506.94.
+     It does happen that your personal exchange rate was different from the
+     market rate.  But this should be revealed to you in the -V report.
+   - Note taken on [2010-06-08 Tue 17:39] \\
+     Martin: No, I don't have a preference of @ over @@.  It's just that I
+     feel that I'm losing some information.  When I put
+#+begin_src ledger
+         533 AAPL @@ 11506.94 EUR
+#+end_src
+     into ledger, this means: I bought 533 AAPL for 11506.94 EUR or
+     21.589005628517825 a piece.  But this doesn't reflect reality 100%.  What
+     really happened is that I bought 533 AAPL for 21.589 EUR a piece and then
+     they added 0.003 of rounding, leading to a total of 11506.94 EUR.
+     
+     When I use @@, I lose the information that these 0.003 EUR were caused by
+     rounding.  Is this important?  No, at the end of the day it doesn't
+     matter at all and as I said above I'm happy to just use @@.  But do I
+     feel that I 100% represent reality with @@?  No...
+   - Note taken on [2010-06-08 Tue 17:39] \\
+     Hmm..  When you use @@, Ledger sets the "cost" of the posting to the
+     right-hand amount.  It then calculates the per-unit amount for you, based
+     on this cost.  What I'm not understanding is why this calculation is
+     insufficient, or why you want to specify a different amount than would be
+     calculated -- since Ledger now knows exactly how much you paid in both
+     currencies, owing to the use of @@.  Is it just that you prefer to use @
+     rather than @@?
+     
+     In general, @ is for when you know the unit price, and @@ is for when you
+     know the total price.  Use of either one causes the other to be
+     calculated.  Internally, Ledger only stores the total price, so if you
+     use @ it will compute the per-unit price, but if you use @@ it stores the
+     amount you specify directly.
+     
+     As for tracking the fraction rounding adjustment, can you give an example
+     of when this would be needed?  I mean, since you used @@, all sums are
+     known to their exact figure, are they not?
+   - Note taken on [2010-06-08 Tue 17:38] \\
+     Martin: Ok, here's another example.  Let's say I do my expenses.  I put
+     in expenses of 11.04 GBP and get paid in EUR at a rate of 1.129.  11.04 *
+     1.129 = 12.46416 EUR but my employer will obviously round this to 11.46
+     EUR.
+     
+     When I now put 11.04 GBP @ 1.129 EUR into ledger, it will not round but
+     track 12.46416.  So when I put this twice, ledger will end up with a
+     balance of 24.93 EUR but I only got paid 24.92 EUR due to the rounding.
+     
+     So my only solution right now is to specify the total with @@, but imho
+     I'm losing some info here because I cannot specify the exchange rate
+     here.  So that's my I had the idea for XX @ YY @@ ZZZ.
+     
+     I guess essentially what I'd like to do is use @ 1.129 EUR but tell
+     ledger "don't keep all the digits but round it to 2 digits".
+   - Note taken on [2010-06-08 Tue 17:38] \\
+     Martin: My thinking with
+#+begin_src ledger
+        533 AAPL @ 21.589 EUR @@ 11506.94 EUR
+#+end_src
+     was that I'd like to tell ledger:
+      - I bought 533 AAPL shares at 21.589 EUR
+      - and I paid 11506.94 EUR for it.
+     and for ledger to say:
+      - but hold on, 11506.94 / 533 = 21.589005628517825
+        so I'll automatically adjust this for you and create
+        an adjustment from 21.589 to 21.589005628517825,
+     And then ledger reg or pricemap or so would show that adjustment.
+     
+     Anyway, I can live with
+#+begin_src ledger
+       533 AAPL @@ 11506.94 EUR ; @ 21.589 EUR
+#+end_src
+     if you think this scenario is not worth supporting in ledger.
+   - Note taken on [2010-06-08 Tue 17:38] \\
+     I don't quite understand what you're trying to achieve.  Is it just that
+     you want the per-share price documented in your Ledger file?  If so, then
+     the latter solution you gave is the best I can think of.
+     
+     Ledger doesn't do any rounding except at the time of display.  If you use
+     @@ to specify the actual cost that you paid, it calculates the per-unit
+     price based on that, and rounds it at reporting time based on the display
+     characteristics of the commodity it's priced in.
+    Let's say I buy 533 AAPL at a price of 21.589 each.  This comes out at
+    11506.937.  However, my broker rounds this up to 11506.94.  Is there a way
+    I can specify both the individual price as well as the total I actually
+    paid?
+    
+    In other words, I'd like to say something like:
+#+begin_src sh
+       Assets:Fund       533 AAPL @ 21.589 EUR @@ 11506.94 EUR
+#+end_src
+    but this is invalid syntax.
+    
+    Is it possible to express this somehow or is the best solution
+    something like
+#+begin_src sh
+       Assets:Fund       533 AAPL @@ 11506.94 EUR ; @ 21.589
+#+end_src
+    :PROPERTIES:
+    :ID:       4A7C9359-EBAC-402D-81DC-BE4985DA0440
+    :Message:  [[message://20100325220253.GA23265@jirafa.cyrius.com][Specifying commodity price and total]]
+    :Submitter: Martin Michlmayr <tbm@cyrius.com>
+    :END:
+    [2010-03-26 Fri 22:17]
 ** WONTFIX [[bug:214][#214]] Question about credit card transactions
    - State "WONTFIX"    from "TODO"       [2010-06-01 Tue 18:02]
    I am using ledger v2.6.2 on Ubuntu9.10 Karmic Koala. I am trying to do a
@@ -2705,6 +3077,98 @@ Just output them all in the proper order.
    :Message:  [[message://bf53d15e-c8ea-4771-a3df-bed7883f56b5@k17g2000yqb.googlegroups.com][regular expression argument that contains spaces]]
    :END:
    [2010-03-01 Mon 16:13]
+** WORKSFORME [#A] [[bug:162][#162]] sm is seeing a segfault with the register command		:blocker:
+   - State "WORKSFORME" from "TODO"       [2010-06-06 Sun 03:22] \\
+     This now works fine for me.
+   - Note taken on [2009-12-06 Sun 06:05] \\
+     It happens on Leopard for me in a virtual machine.
+   - Note taken on [2009-11-25 Wed 04:40] \\
+     This is happening because boost::regex is constructing a bad object.
+   :PROPERTIES:
+   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
+   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
+   :Submitter: Simon Michael <simon@joyful.com>
+   :END:
+   [2009-11-24 Tue 22:13]
+** WORKSFORME [#A] [[bug:203][#203]] Problem with fixed commodities and rounding
+   - State "WORKSFORME" from "TODO"       [2010-06-08 Tue 05:13]
+    I run the following command and get an error
+    :OUTPUT:
+    $ ~/personal/workspaces/ledger/ledger -f ledger.dat bal
+    While parsing file "ledger.dat", line 37:
+    While balancing transaction from "ledger.dat", lines 35-37:
+    2010/01/22	Marketing B
+    	Expenses:Marketing		55EUR {=$1.81818181818}
+    	Liabilities:Accounts Payable	-$100
+    Unbalanced remainder is:
+                    $10
+    Amount to balance against:
+                   $110
+    Error: Transaction does not balance
+    :END:
+    
+    From what I understand I should be using the rate 1.81818181818 to convert
+    the 55 euros into 100 dollars.  However this doesn't seem to be happening.
+    Here is the full ledger file:
+#+begin_src sh
+    2009/01/01      Invoice A
+           Assets:Accounts Payable         $1000
+           Income:Sales
+    
+    2009/01/21      Payment Invoice A
+           Assets:NAB                      $1000
+           Assets:Accounts Receivable
+    
+    2009/01/22      Pay expenses
+           Expenses:Payroll                $800
+           Assets:NAB
+    
+    2009/01/22      Marketing A
+           Expenses:Marketing              50EUR {=$2}
+           Liabilities:Accounts Payable    -$100
+    
+    2009/01/23      Pay MC Marketing
+           Assets:NAB                      -$100
+           Liabilities:Accounts Payable
+    
+    ;-------------------------------------------------------
+    
+    2010/01/01      Invoice B
+           Assets:Accounts Payable         $1000
+           Income:Sales
+    
+    2010/01/21      Payment Invoice B
+           Assets:NAB                      $1000
+           Assets:Accounts Receivable
+    
+    2010/01/22      Pay expenses
+           Expenses:Payroll                $800
+           Assets:NAB
+    
+    2010/01/22      Marketing B
+           Expenses:Marketing              55EUR {=$1.81818181818}
+           Liabilities:Accounts Payable    -$101
+    
+    2010/02/23      Pay MC Marketing
+           Assets:NAB                      -$100
+           Liabilities:Accounts Payable
+#+end_src    
+    
+    Hope someone can explain to me what I'm doing wrong.
+    
+    I also tried to use the fixed syntax:
+#+begin_src sh
+    fixed EUR $1.81818181818
+    ....
+    end fixed
+#+end_src    
+    but that always reported a parse error.
+    :PROPERTIES:
+    :ID:       61AE3B0B-751B-4EBD-98BB-5DB3BB7782AA
+    :Message:  [[message://1582b9d81002162123g2cb7ddf5vef3739a46e277699@mail.gmail.com][Problem using the fixed rate commodity syntax]]
+    :Submitter: Peter Ross <peter@emailross.com>
+    :END:
+    [2010-02-17 Wed 01:39]
 ** WORKSFORME [#A] Corrupted double-linked list in the register report
    - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
    - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:26] \\
@@ -2851,6 +3315,40 @@ Just output them all in the proper order.
    :Message:  [[message://7528969d-341e-42f5-999b-1ba819582053@v20g2000yqv.googlegroups.com][--flat gives no output]]
    :END:
    [2010-04-04 Sun 15:12]
+** WORKSFORME [[bug:159][#159]] --unrealized also reports realized gains
+   - State "WORKSFORME" from "TODO"       [2010-06-05 Sat 03:42] \\
+     The meaning of "--unrealized" is simply that it *adds* unrealized gains
+     to the balance report, not that it only report unrealized gains.  If you
+     want that, then use --unrealized and filter on the Unrealized account.
+   I've found that the "--unrealized" option reports also the "realized
+   gains".  I would have expected that realized gains are not listed.
+#+begin_src ledger
+   1997/10/24 * Achat
+      Actif:Courant:BNP             10 FT @ 180 F
+      Actif:Courant:BNP                   -1800 F
+   
+   1997/11/03 * Vente
+      Actif:Courant:BNP            -10 FT @ 200 F
+      Dépense:Invest:Commissions            100 F
+      Actif:Courant:BNP                    1900 F
+      [Revenu:Invest:Capital]      -10 FT @ 180 F
+      [Revenu:Invest:Capital]       10 FT @ 200 F
+      [Revenu:Invest:Capital]
+#+end_src
+
+   :OUTPUT:
+   $ ledger --european -f test_10.ledger bal -V --unrealized BNP
+                 100 F  Actif:Courant:BNP
+                -200 F  Equity:Unrealized Gains
+   --------------------
+                -100 F
+   :END:
+   :PROPERTIES:
+   :ID:       DA659A7A-C43F-4005-90F7-02DA97D864D4
+   :Message:  [[message://e49c9335-d206-4ad8-9851-fed2e7e75f5b@q23g2000yqd.googlegroups.com][--unrealized reports also realized gains]]
+   :Submitter: thierry <thierry.daucourt@free.fr>
+   :END:
+   [2010-03-26 Fri 22:24]
 ** WORKSFORME [[bug:164][#164]] --balance-format overrides --exchange
     - State "WORKSFORME" from "TODO"       [2010-06-02 Wed 01:23] \\
       You need to use %(scrub(display_total)), or just %{display_total}, with curly
@@ -3165,6 +3663,24 @@ ledger -Y --forecast 'T>0' reg food
    :ID:       72B0ACB4-37EB-492A-8EFE-8CC65CB66EC8
    :END:
    [2009-11-12 Thu 18:33]
+** DUPLICATE [#A] [[bug:206][#206]] Specifying exchange rate with @ doesn't led to expected result
+   - State "DUPLICATE"  from "WAITING"    [2010-06-06 Sun 03:22] \\
+     Duplicate of #205.
+   - State "WAITING"    from "TODO"       [2010-06-04 Fri 06:16]
+   - Note taken on [2010-06-02 Wed 17:02] \\
+     I believe this is fixed now.  If not, could you please provide an example?
+   While entering some expense reports, I found another case where specifying
+   the exchange rate with @ doesn't led to the expected result because of
+   rounding (I can give an example if you want).  I suppose I could simply
+   enter the amounts using @@ but would like to add the conversation rate too.
+   Is something like "11.04 GBP @@ 12.46 EUR ; @ 1.129 EUR" the best option
+   for now or is there another trick I could use?
+   :PROPERTIES:
+   :ID:       CFE233D5-3D11-423F-97D4-68A0A6B10B59
+   :Message:  [[message://20100410132007.GA21623@jirafa.cyrius.com][Re: Specifying commodity price and total]]
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :END:
+   [2010-04-11 Sun 03:55]
 ** DUPLICATE [#A] The following example fails to apply automated transactions
    - State "DUPLICATE"  from "DONE"       [2009-11-09 Mon 23:30]
    - State "DONE"       from "TODO"       [2009-11-09 Mon 22:02]
@@ -5153,6 +5669,12 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID:       237C562D-0F3D-44E9-A55F-4C91DE7F1E57
    :END:
    [2010-02-04 Thu 17:51]
+** DONE Create a command to output a commodity map at DATE as a DOT file
+   - State "DONE"       from "TODO"       [2010-06-04 Fri 06:15]
+   :PROPERTIES:
+   :ID:       9EB7DD1D-D87D-4A37-8ED6-A836C4B231BD
+   :END:
+   [2010-06-03 Thu 18:09]
 ** DONE Create Expr, Query, Period, Draft, Format objects
    - State "DONE"       from "TODO"       [2009-11-10 Tue 02:48]
    - State "TODO"       from "DONE"       [2009-11-09 Mon 14:08] \\
@@ -5268,6 +5790,12 @@ getquote GSK_L
    :ARCHIVE_CATEGORY: Ledger
    :END:
    [2009-05-14 Thu 02:06]
+** DONE Make "expr" a synonym for the "parse" command
+   - State "DONE"       from "TODO"       [2010-06-05 Sat 03:36]
+   :PROPERTIES:
+   :ID:       3CAB2690-9AD6-4C14-AC97-A7E8A2250416
+   :END:
+   [2010-06-04 Fri 06:36]
 ** DONE Make -D a synonym for --daily, instead of --deviation
    SCHEDULED: <2009-10-27 Tue>
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:20]
@@ -5899,6 +6427,23 @@ getquote GSK_L
    :Message:  [[message://20100402180202.GA10823@jirafa.cyrius.com][Excluding some transactions if a file is included]]
    :END:
    [2010-04-04 Sun 15:18]
+** DUPLICATE [[bug:229][#229]] Have a primary directive
+   - State "DUPLICATE"  from "TODO"       [2010-06-04 Fri 06:16] \\
+     Duplicate of #217.
+   primary CAD for account Expenses [and children]
+   primary CAD for commodity $
+   :PROPERTIES:
+   :ID:       76751CDA-EE47-4D3F-BABE-24260E59A44E
+   :END:
+   [2010-06-04 Fri 02:24]
+** DUPLICATE [[bug:289][#289]] Integrate with libgcrypt so ledger files can be encrypted
+   - State "DUPLICATE"  from "DEFERRED"   [2010-06-08 Tue 21:57] \\
+     Duplicate of #278.
+   - State "DEFERRED"   from "TODO"       [2010-05-08 Sat 02:07]
+   :PROPERTIES:
+   :ID:       7CB80AA0-5D86-421A-B3DD-232FCA7696AB
+   :END:
+   [2010-04-30 Fri 07:33]
 ** DUPLICATE Preserve XML comments
    - State "DUPLICATE"  [2009-01-29 Thu 15:38] \\
      Duplicated by D27098A4-647A-4EEA-B0B8-3088E069214D.
@@ -6111,7 +6656,46 @@ getquote GSK_L
    :Message:  [[message://20100104044948.GA14665@atom][problems compiling with python support on debian squeeze]]
    :END:
    [2010-01-09 Sat 21:07]
+** WORKSFORME [#A] [[bug:184][#184]] For those interested in the Python support		:blocker:
+   - State "WORKSFORME" from "TODO"       [2010-06-08 Tue 17:26] \\
+     This can happen if the Python that Ledger is linked to is not the same as the
+     Python that your libboost_python is linked to.
+     
+     This is not a problem in Ledger, but your build environment.  Send me e-mail
+     directly and perhaps I can help you get it straightened out.
+   Do you have any clue on the following error message?
+   :OUTPUT:
+   $ ./ledger python ./python/demo.py
+   Welcome to the Ledger.Python demo!
+   Traceback (most recent call last):
+    File "./python/demo.py", line 99, in <module>
+      comms.exchange(eur, ledger.Amount('$0.77')) # Trade 1 EUR for
+   $0.77
+   AttributeError: 'module' object has no attribute 'Amount'
+   :END:
+   :PROPERTIES:
+   :ID:       3CA93725-E9BF-4FCF-8F21-50EA394C9FDA
+   :Message:  [[message://390f36c2-1bde-485b-9d95-bb15b04b4408@u9g2000yqb.googlegroups.com][Re: For those interesting in the Python support]]
+   :Submitter: thierry <thierry.daucourt@free.fr>
+   :END:
+   [2010-03-26 Fri 22:24]
 * Build
+** DONE [[bug:215][#215]] Compile fails for version 3.0
+   - State "DONE"       from "TODO"       [2010-06-02 Wed 18:45] \\
+     This was a problem with universal binaries, so I've turned them off by default
+     in acprep and add a --universal option.
+   :PROPERTIES:
+   :ID:       5AB0A35C-1875-46CF-98D2-C0BC5DDD2962
+   :Submitter: Thomas Bikeev <thomas.bikeev@me.com>
+   :Message:  [[message://2262D050-DAEA-4CC2-8295-3A5471FF8E36@me.com][Re: Compile fails on 3.0]]
+   :END:
+   [2010-05-30 Sun 03:33]
+** DONE Keep logging on for NDEBUG builds
+   - State "DONE"       from "TODO"       [2010-06-05 Sat 03:38]
+   :PROPERTIES:
+   :ID:       7D51AB9B-71FB-476F-AFE4-7F4C1C543A41
+   :END:
+   [2010-06-04 Fri 06:36]
 ** DONE [#C] Ledger's proof build is failing						   :Home:
    SCHEDULED: <2010-06-01 Tue>
    - State "DONE"       from "STARTED"    [2010-06-02 Wed 00:31]

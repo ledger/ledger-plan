@@ -11,225 +11,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** DONE [#A] [[bug:226][#226]] print --anon fails completely
-   - State "DONE"       from "TODO"       [2010-06-05 Sat 02:46] \\
-     Fixed by 63c7ba03.
-   It doesn't print out any postings.
-   :PROPERTIES:
-   :ID:       C1C1E731-D991-40ED-BE43-8ED55585386C
-   :END:
-   [2010-06-04 Fri 02:09]
-** TODO [[bug:227][#227]] Make --anon anonymize commodities as well
-   :PROPERTIES:
-   :ID:       1C90D8AF-830E-43C2-A5B7-D382F68EBDE3
-   :END:
-   [2010-06-04 Fri 02:10]
-** DONE [#A] [[bug:228][#228]] Make sequences comparable
-   - State "DONE"       from "TODO"       [2010-06-05 Sat 03:27] \\
-     Fixed by 16f79976.
-   This will eliminate all of the special casing I've done to make --sort
-   date,amount work.
-   :PROPERTIES:
-   :ID:       ED9388D7-E523-40EB-841B-9AE9BAA70329
-   :END:
-   [2010-06-04 Fri 02:18]
-** WORKSFORME [#A] [[bug:162][#162]] sm is seeing a segfault with the register command		:blocker:
-   - State "WORKSFORME" from "TODO"       [2010-06-06 Sun 03:22] \\
-     This now works fine for me.
-   - Note taken on [2009-12-06 Sun 06:05] \\
-     It happens on Leopard for me in a virtual machine.
-   - Note taken on [2009-11-25 Wed 04:40] \\
-     This is happening because boost::regex is constructing a bad object.
-   :PROPERTIES:
-   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
-   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
-   :Submitter: Simon Michael <simon@joyful.com>
-   :END:
-   [2009-11-24 Tue 22:13]
-** DONE [#A] [[bug:163][#163]] Exponential slowdown when using --exchange				 :ATTACH:
-   - State "DONE"       from "TODO"       [2010-06-04 Fri 06:09] \\
-     After several days of intensive examination, I think now there is little
-     help for what you're seeing.  The slowness comes from (a) the size of
-     your data file and how many commodities you're using, and (b) the
-     correctness and new behavior of --exchange (and, to a lesser extent, -V).
-     
-     To illustrate what I mean, I've added a new command "pricemap".  It
-     outputs a DOT file showing the pricing relationships between all
-     commodities in your data file at a given date.  To give an example of how
-     complex the situation can be, consider this data file:
-     
-      http://ftp.newartisans.com/pub/exchange.dat
-     
-     At 2009/01/03, the price relationships are as shown here:
-     
-      http://ftp.newartisans.com/pub/090103.png
-     
-     But by 2009/01/10, they have changed significantly:
-     
-      http://ftp.newartisans.com/pub/090110.png
-     
-     When you use --exchange $, Ledger tries to find the most recent
-     conversion to $ that it can.  To do this, it considers not only whether a
-     commodity A could be priced in dollars, but whether it could also be
-     priced in terms of B, which could then be priced in dollars.  And so on.
-     It must walk the graph of all possible connections to $, truncating the
-     search only if the most recent valuation down that leg is older than the
-     most recent found so far.  Sometimes, it can take several hops before the
-     most recent conversion price is found.
-     
-     Note to mention that all of this can happen several times for a single
-     posting: while computing the amount, the running total, to see if a
-     revaluation has occurred, to see if a rounding error has occurred, etc.
-     
-     I have managed to speed things up a fair bit, however, so please try your
-     tests again with the latest 'next' branch.  Here are the improvements,
-     using an "acprep opt" build on a 2.26GHz Core i7 (all output going to
-     /dev/null):
-     
-      Before optimization work (current 'master' branch):
-     
-        reg, no flags       6.86s
-        reg, -V            39.23s
-        reg, -X            85.92s
-     
-      After optimization work (current 'next' branch):
-     
-        reg, no flags       5.00s
-        reg, -V            13.39s
-        reg, -X            12.91s
-   - Note taken on [2010-03-04 Thu 13:57] \\
-     The following command should reproduce the problem of performance with
-     multiple currencies:
-     #+begin_src sh
-     ledger --european -f thierry.ledger.anon -V reg 2eb75f84 1eede0cb >/dev/null
-     #+end_src
-   :PROPERTIES:
-   :ID:       C609E728-0962-4745-955E-988B1E3F9918
-   :Message:  [[message://9097b239-86e0-4a5c-8acb-15f3e886f7a2@e1g2000yqh.googlegroups.com][ledger v3 slower than ledger v2]]
-   :Attachments: gmon.gprof thierry.ledger.anon.gpg
-   :END:
-   [2010-03-04 Thu 13:55]
-** DONE [#A] [[bug:188][#188]] Not calculating commodity conversions due to rounding   :critical:
-   - State "DONE"       from "TODO"       [2010-06-06 Sun 06:21] \\
-     Fixed by 39f9854e.
-   - Note taken on [2010-06-06 Sun 04:49] \\
-     The "reg -B" report is wrong for this data file as well.
-    I also found something else regarding calculations on commodity prices,
-    given this input file:
-#+begin_src sh
-    D $1,000.00
-    
-    ; payroll taxes
-    = /^Payroll/
-    Liabilities:Taxes:CFICA  0.062
-    Liabilities:Taxes:CMED  0.0145
-    $account:EFICA  -0.062
-    $account:EMED  -0.0145
-    
-    ; Hourly rates for each employee, as commodity prices.
-    P 2010/01/01 EONE $15.00
-    
-    ; Payroll transactions
-    2010/05/18  Payroll from May 2nd to May 15th for Employee1
-     Assets:Checking  20 EONE
-     Payroll:Employee1
-#+end_src
-    
-    Ledger doesn't calculate the EMED value if you use a small whole number
-    for the commodity that does the conversion from hours to rate/hour:
-    :OUTPUT:
-    $ ledger3 -V -f payroll.led2 bal
-                $300.00  Assets:Checking
-                $-18.60  Liabilities:Taxes:CFICA
-               $-277.05  Payroll:Employee1
-                 $18.60    EFICA
-    --------------------
-                      0
-    :END:
-    
-    But if you change the line that says:
-#+begin_src sh
-      Assets:Checking  20 EONE
-#+end_src    
-    to
-#+begin_src sh
-      Assets:Checking  20.0 EONE
-#+end_src    
-    
-    You get:
-    :OUTPUT:
-    $ ledger3 -V -f payroll.led2 bal
-                $300.00  Assets:Checking
-                $-22.95  Liabilities:Taxes
-                $-18.60    CFICA
-                 $-4.35    CMED
-               $-277.05  Payroll:Employee1
-                 $18.60    EFICA
-                  $4.35    EMED
-    --------------------
-                      0
-    :END:
-    
-    From what I can tell, internally Ledger is calculating the numbers of
-    commodities, then converting to values with -V only when the value is
-    greater than half of the commodity value.
-    :PROPERTIES:
-    :ID:       53BCED29-F3B9-4E02-9A35-6C739ABB9662
-    :Submitter: Zack Williams <zdwzdw@gmail.com>
-    :Message:  [[message://AANLkTimJeCGP3gPJTtnqNjsKMuThUJ_NPBAGkdyuxeH6@mail.gmail.com][Re: Doing US payroll taxes with ledger]]
-    :END:
-    [2010-05-23 Sun 19:00]
-** DONE [#A] [[bug:189][#189]] Optimize value truncation
-   - State "DONE"       from "TODO"       [2010-06-04 Fri 06:13]
-   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
-   Currently it prints the amount, then reparses it.  For large balances
-   with lots of commodities, this can get extremely expensive, as
-   annotated commodities are likely involved as well!
-   :PROPERTIES:
-   :ID:       B6C8EACD-9392-4380-BB57-93EDF0EE5C34
-   :END:
-   [2010-05-23 Sun 17:05]
-** TODO [#A] [[bug:192][#192]] Problem with the new fixed rate feature				 :ATTACH:
-   - Note taken on [2009-12-11 Fri 02:12] \\
-     Javier [[message://92a1cace0912100848v3b6e81bfp332590a8057d73fe@mail.gmail.com][writes]]: I found that the problem is not related to the new "fixed"
-     directive at all.
-
-     After looking through the fixed-directive code I couldn't find any
-     problems with it. I also noticed that the annotation details change
-     between parsing time (when they are fine) and the amount::value() call.
-
-     Then I changed all my fixed directives in the ledger file to {=$####}
-     entries for all the foreign currencies (no "fixed" directive in the whole
-     file) and the problem persisted!: some {=} entries used the wrong price
-     from another {=} entry.
-
-     I think the problem is somewhere between parsing and applying the
-     algorithms (at least for -V reg) where the original post details seem to
-     have changed. At least for ANNOTATION_PRICE_FIXATED entries. (I used
-     printf's in parsing and in amount_t::value() to see the price change).
-
-     This is the command i'm using: ./ledger -f multicurrency-no-fixed.ledger
-     -V reg payable:jlopez
-
-     I ran this with the master branch on ubuntu 64 bits.
-   :PROPERTIES:
-   :ID:       DC6AA45B-F714-4209-B0CC-E6CAFB75E50E
-   :Message:  [[message://53ed3320-3d2d-46d8-8dd3-98b953e926fb@e7g2000vbi.googlegroups.com][Re: Multicurrency and reg problem]]
-   :Attachments: multicurrency-no-fixed.ledger.zip multicurrency-fixed.ledger.zip
-   :Submitter: jleija <jleija@gmail.com>
-   :END:
-   [2009-12-01 Tue 02:39]
-** TODO [#A] [[bug:196][#196]] Bug when not using commodities in a posting's cost
-   For example:
-#+begin_src ledger
-   2009/11/01 Sample
-       Assets                1 apple {=0.10}
-       Equity
-#+end_src
-   :PROPERTIES:
-   :ID:       F29DE89C-73CD-4344-B6F7-BB7584AA6FFD
-   :END:
-   [2009-11-24 Tue 01:11]
 ** TODO [#A] [[bug:197][#197]] Bug with -J and multiple commodities					 :ATTACH:
     - Note taken on [2010-06-02 Wed 16:53] \\
       Fixing this should also fix 198.
@@ -330,189 +111,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Submitter: thierry <thierry.daucourt@free.fr>
     :END:
     [2010-01-09 Sat 21:05]
-** TODO [#A] [[bug:200][#200]] Commodities containing digits and ledger bal
-   - Note taken on [2010-06-03 Thu 06:02] \\
-     You could simply drop the quotes if the commodity doesn't contain any
-     spaces.
-   - Note taken on [2010-06-02 Wed 18:12] \\
-     What if you have a Commodity named "FOO 100", which is perfectly legal.
-     And then the register or balance report prints out "200 FOO 100".  What
-     then?
-   - Note taken on [2010-06-02 Wed 18:12] \\
-     Martin: Why do we need an extra option for this?  Is there a reason this
-     cannot be done by default?
-     
-     In any case, I'm not sure it makes sense to add an option just for this
-     minor thing.  If it cannot be done by default without an option, I guess
-     you could just close this bug as WONTFIX.
-    - Note taken on [2010-06-02 Wed 16:54] \\
-      I will add an option called --no-quotes.
-    When you have a commodity that contains digits, you have to put it on
-    quotation marks, as in;
-#+begin_src sh
-    2010-04-02 Test
-      Assets:Broker                 10 "DE0002635307" @ 10
-      Assets:Bank
-#+end_src    
-    
-    ledger bal will also put this commodity in quotation marks.  Is this
-    necessary?  IMHO it would be nicer if "ledger bal" would strip the
-    quotation mark.
-    :PROPERTIES:
-    :ID:       F82CF11F-BFD9-4512-A562-202B04B68051
-    :Message:  [[message://20100402164513.GA10540@jirafa.cyrius.com][Commodities containing digits and ledger bal]]
-    :Submitter: Martin Michlmayr <tbm@cyrius.com>
-    :END:
-    [2010-04-04 Sun 15:18]
-** TODO [#A] [[bug:201][#201]] Handling currencies that were replaced by the Euro
-    - Note taken on [2010-05-28 Fri 00:59] \\
-      Okay, using
-      #+begin_src sh
-       C 1.00 EUR = 13.7603 ATS
-      #+end_src
-      rather than
-      #+begin_src sh
-       P 2001-12-31 EUR 13.7603 ATS
-      #+end_src
-      solves most of these issues.
-      
-      However, would it be possible to add a date for C?  I'd like to see ATS before
-      2002-01-01 and EUR from then on.
-    There are a couple of problems with ledger when using currencies that were
-    replaced by the Euro as well as the Euro.
-    
-    First, I know that ledger is mostly designed as a "calculator" without any
-    knowledge about the actual input.  However, given that some currencies
-    were replaced by the Euro and have fixed exchange rates that will not
-    change, it would be nice if ledger would know about those.  How about
-    adding a text file to ledger that is read by default with such fixed
-    conversion rates?  (If you agree, I'm happy to write one for the
-    currencies replaced by the Euro.)
-    
-    Related to this is a problem with showing currencies.  Let's say that I
-    have accounts with ATS, EUR and GBP.  How can I tell ledger to convert ATS
-    to EUR but do no other conversation.  -X EUR won't work because it would
-    also convert GBP, but I want to see both EUR and GBP (I just want the
-    obsolete ATS to be converted to EUR).  Is this possible somehow?
-    
-    Finally, there appear to be some artefacts because ledger doesn't know
-    that ATS is a currency replaced by EUR.  Normally, "ledger bal" does not
-    display accounts that are empty (see the first example below).  But if I
-    put something into an account as ATS and then take out exactly the same
-    amount (but as EUR), "ledger bal" will show the account name and "0"
-    (probably because it switches to commodity mode).
-    
-    Example:
-    
-    a)
-#+begin_src sh
-    2010-04-02 Test
-       A:Foo  10.00
-       A:Bar
-    
-    2010-04-02 Test
-       A:Foo  -10.00
-       A:Baz
-#+end_src
-    
-    b)
-#+begin_src sh
-    P 2001-12-31 EUR 13.7603 ATS
-    
-    2001-01-01 Test
-       B:Foo  13.7603 ATS
-       B:Bar
-    
-    2010-04-02 Test
-       B:Foo  -1.00 EUR
-       B:Baz
-#+end_src
-    
-    a) will show no Foo with "ledger bal" but b) will show "0 Foo".
-    :PROPERTIES:
-    :ID:       9EAC63D2-8DD7-438D-9767-3AAE79BF0BD3
-    :Message:  [[message://20100402164233.GA10410@jirafa.cyrius.com][Handling currencies that were replaced by the Euro]]
-    :Submitter: Martin Michlmayr <tbm@cyrius.com>
-    :END:
-    [2010-04-04 Sun 15:18]
-** TODO [#A] [[bug:203][#203]] Problem with fixed commodities and rounding
-    I run the following command and get an error
-    :OUTPUT:
-    $ ~/personal/workspaces/ledger/ledger -f ledger.dat bal
-    While parsing file "ledger.dat", line 37:
-    While balancing transaction from "ledger.dat", lines 35-37:
-    2010/01/22	Marketing B
-    	Expenses:Marketing		55EUR {=$1.81818181818}
-    	Liabilities:Accounts Payable	-$100
-    Unbalanced remainder is:
-                    $10
-    Amount to balance against:
-                   $110
-    Error: Transaction does not balance
-    :END:
-    
-    From what I understand I should be using the rate 1.81818181818 to convert
-    the 55 euros into 100 dollars.  However this doesn't seem to be happening.
-    Here is the full ledger file:
-#+begin_src sh
-    2009/01/01      Invoice A
-           Assets:Accounts Payable         $1000
-           Income:Sales
-    
-    2009/01/21      Payment Invoice A
-           Assets:NAB                      $1000
-           Assets:Accounts Receivable
-    
-    2009/01/22      Pay expenses
-           Expenses:Payroll                $800
-           Assets:NAB
-    
-    2009/01/22      Marketing A
-           Expenses:Marketing              50EUR {=$2}
-           Liabilities:Accounts Payable    -$100
-    
-    2009/01/23      Pay MC Marketing
-           Assets:NAB                      -$100
-           Liabilities:Accounts Payable
-    
-    ;-------------------------------------------------------
-    
-    2010/01/01      Invoice B
-           Assets:Accounts Payable         $1000
-           Income:Sales
-    
-    2010/01/21      Payment Invoice B
-           Assets:NAB                      $1000
-           Assets:Accounts Receivable
-    
-    2010/01/22      Pay expenses
-           Expenses:Payroll                $800
-           Assets:NAB
-    
-    2010/01/22      Marketing B
-           Expenses:Marketing              55EUR {=$1.81818181818}
-           Liabilities:Accounts Payable    -$101
-    
-    2010/02/23      Pay MC Marketing
-           Assets:NAB                      -$100
-           Liabilities:Accounts Payable
-#+end_src    
-    
-    Hope someone can explain to me what I'm doing wrong.
-    
-    I also tried to use the fixed syntax:
-#+begin_src sh
-    fixed EUR $1.81818181818
-    ....
-    end fixed
-#+end_src    
-    but that always reported a parse error.
-    :PROPERTIES:
-    :ID:       61AE3B0B-751B-4EBD-98BB-5DB3BB7782AA
-    :Message:  [[message://1582b9d81002162123g2cb7ddf5vef3739a46e277699@mail.gmail.com][Problem using the fixed rate commodity syntax]]
-    :Submitter: Peter Ross <peter@emailross.com>
-    :END:
-    [2010-02-17 Wed 01:39]
 ** TODO [#A] [[bug:204][#204]] Problem with price conversions and -V
     Below is the test file.  What is noticeable is that if I put € as my
     default currency $ is converted to F, and then F is converted to €.
@@ -679,40 +277,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       A9DFC672-9FAD-431F-8EDA-CFB54D1285AF
    :END:
    [2010-03-10 Wed 01:32]
-** WORKSFORME [[bug:159][#159]] --unrealized also reports realized gains
-   - State "WORKSFORME" from "TODO"       [2010-06-05 Sat 03:42] \\
-     The meaning of "--unrealized" is simply that it *adds* unrealized gains
-     to the balance report, not that it only report unrealized gains.  If you
-     want that, then use --unrealized and filter on the Unrealized account.
-   I've found that the "--unrealized" option reports also the "realized
-   gains".  I would have expected that realized gains are not listed.
-#+begin_src ledger
-   1997/10/24 * Achat
-      Actif:Courant:BNP             10 FT @ 180 F
-      Actif:Courant:BNP                   -1800 F
-   
-   1997/11/03 * Vente
-      Actif:Courant:BNP            -10 FT @ 200 F
-      Dépense:Invest:Commissions            100 F
-      Actif:Courant:BNP                    1900 F
-      [Revenu:Invest:Capital]      -10 FT @ 180 F
-      [Revenu:Invest:Capital]       10 FT @ 200 F
-      [Revenu:Invest:Capital]
-#+end_src
-
-   :OUTPUT:
-   $ ledger --european -f test_10.ledger bal -V --unrealized BNP
-                 100 F  Actif:Courant:BNP
-                -200 F  Equity:Unrealized Gains
-   --------------------
-                -100 F
-   :END:
-   :PROPERTIES:
-   :ID:       DA659A7A-C43F-4005-90F7-02DA97D864D4
-   :Message:  [[message://e49c9335-d206-4ad8-9851-fed2e7e75f5b@q23g2000yqd.googlegroups.com][--unrealized reports also realized gains]]
-   :Submitter: thierry <thierry.daucourt@free.fr>
-   :END:
-   [2010-03-26 Fri 22:24]
 ** TODO [[bug:160][#160]] Attached file should print out Unrealized Gains in the report		 :ATTACH:
    It should print out:
    :OUTPUT:
@@ -763,47 +327,122 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
    :END:
    [2010-05-23 Sun 17:04]
-** TODO [[bug:205][#205]] Specifying commodity price and total
-    Let's say I buy 533 AAPL at a price of 21.589 each.  This comes out at
-    11506.937.  However, my broker rounds this up to 11506.94.  Is there a way
-    I can specify both the individual price as well as the total I actually
-    paid?
-    
-    In other words, I'd like to say something like:
-#+begin_src sh
-       Assets:Fund       533 AAPL @ 21.589 EUR @@ 11506.94 EUR
+** TODO [[bug:196][#196]] Bug when not using commodities in a posting's cost
+   For example:
+#+begin_src ledger
+   2009/11/01 Sample
+       Assets                1 apple {=0.10}
+       Equity
 #+end_src
-    but this is invalid syntax.
-    
-    Is it possible to express this somehow or is the best solution
-    something like
+   :PROPERTIES:
+   :ID:       F29DE89C-73CD-4344-B6F7-BB7584AA6FFD
+   :END:
+   [2009-11-24 Tue 01:11]
+** TODO [[bug:200][#200]] Commodities containing digits and ledger bal
+   - Note taken on [2010-06-03 Thu 06:02] \\
+     You could simply drop the quotes if the commodity doesn't contain any
+     spaces.
+   - Note taken on [2010-06-02 Wed 18:12] \\
+     What if you have a Commodity named "FOO 100", which is perfectly legal.
+     And then the register or balance report prints out "200 FOO 100".  What
+     then?
+   - Note taken on [2010-06-02 Wed 18:12] \\
+     Martin: Why do we need an extra option for this?  Is there a reason this
+     cannot be done by default?
+     
+     In any case, I'm not sure it makes sense to add an option just for this
+     minor thing.  If it cannot be done by default without an option, I guess
+     you could just close this bug as WONTFIX.
+    - Note taken on [2010-06-02 Wed 16:54] \\
+      I will add an option called --no-quotes.
+    When you have a commodity that contains digits, you have to put it on
+    quotation marks, as in;
 #+begin_src sh
-       Assets:Fund       533 AAPL @@ 11506.94 EUR ; @ 21.589
-#+end_src
+    2010-04-02 Test
+      Assets:Broker                 10 "DE0002635307" @ 10
+      Assets:Bank
+#+end_src    
+    
+    ledger bal will also put this commodity in quotation marks.  Is this
+    necessary?  IMHO it would be nicer if "ledger bal" would strip the
+    quotation mark.
     :PROPERTIES:
-    :ID:       4A7C9359-EBAC-402D-81DC-BE4985DA0440
-    :Message:  [[message://20100325220253.GA23265@jirafa.cyrius.com][Specifying commodity price and total]]
+    :ID:       F82CF11F-BFD9-4512-A562-202B04B68051
+    :Message:  [[message://20100402164513.GA10540@jirafa.cyrius.com][Commodities containing digits and ledger bal]]
     :Submitter: Martin Michlmayr <tbm@cyrius.com>
     :END:
-    [2010-03-26 Fri 22:17]
-** DUPLICATE [#A] [[bug:206][#206]] Specifying exchange rate with @ doesn't led to expected result
-   - State "DUPLICATE"  from "WAITING"    [2010-06-06 Sun 03:22] \\
-     Duplicate of #205.
-   - State "WAITING"    from "TODO"       [2010-06-04 Fri 06:16]
-   - Note taken on [2010-06-02 Wed 17:02] \\
-     I believe this is fixed now.  If not, could you please provide an example?
-   While entering some expense reports, I found another case where specifying
-   the exchange rate with @ doesn't led to the expected result because of
-   rounding (I can give an example if you want).  I suppose I could simply
-   enter the amounts using @@ but would like to add the conversation rate too.
-   Is something like "11.04 GBP @@ 12.46 EUR ; @ 1.129 EUR" the best option
-   for now or is there another trick I could use?
-   :PROPERTIES:
-   :ID:       CFE233D5-3D11-423F-97D4-68A0A6B10B59
-   :Message:  [[message://20100410132007.GA21623@jirafa.cyrius.com][Re: Specifying commodity price and total]]
-   :Submitter: Martin Michlmayr <tbm@cyrius.com>
-   :END:
-   [2010-04-11 Sun 03:55]
+    [2010-04-04 Sun 15:18]
+** TODO [[bug:201][#201]] Handling currencies that were replaced by the Euro
+    - Note taken on [2010-05-28 Fri 00:59] \\
+      Okay, using
+      #+begin_src sh
+       C 1.00 EUR = 13.7603 ATS
+      #+end_src
+      rather than
+      #+begin_src sh
+       P 2001-12-31 EUR 13.7603 ATS
+      #+end_src
+      solves most of these issues.
+      
+      However, would it be possible to add a date for C?  I'd like to see ATS
+      before 2002-01-01 and EUR from then on.
+    There are a couple of problems with ledger when using currencies that were
+    replaced by the Euro as well as the Euro.
+    
+    First, I know that ledger is mostly designed as a "calculator" without any
+    knowledge about the actual input.  However, given that some currencies
+    were replaced by the Euro and have fixed exchange rates that will not
+    change, it would be nice if ledger would know about those.  How about
+    adding a text file to ledger that is read by default with such fixed
+    conversion rates?  (If you agree, I'm happy to write one for the
+    currencies replaced by the Euro.)
+    
+    Related to this is a problem with showing currencies.  Let's say that I
+    have accounts with ATS, EUR and GBP.  How can I tell ledger to convert ATS
+    to EUR but do no other conversation.  -X EUR won't work because it would
+    also convert GBP, but I want to see both EUR and GBP (I just want the
+    obsolete ATS to be converted to EUR).  Is this possible somehow?
+    
+    Finally, there appear to be some artefacts because ledger doesn't know
+    that ATS is a currency replaced by EUR.  Normally, "ledger bal" does not
+    display accounts that are empty (see the first example below).  But if I
+    put something into an account as ATS and then take out exactly the same
+    amount (but as EUR), "ledger bal" will show the account name and "0"
+    (probably because it switches to commodity mode).
+    
+    Example:
+    
+    a)
+#+begin_src sh
+    2010-04-02 Test
+       A:Foo  10.00
+       A:Bar
+    
+    2010-04-02 Test
+       A:Foo  -10.00
+       A:Baz
+#+end_src
+    
+    b)
+#+begin_src sh
+    P 2001-12-31 EUR 13.7603 ATS
+    
+    2001-01-01 Test
+       B:Foo  13.7603 ATS
+       B:Bar
+    
+    2010-04-02 Test
+       B:Foo  -1.00 EUR
+       B:Baz
+#+end_src
+    
+    a) will show no Foo with "ledger bal" but b) will show "0 Foo".
+    :PROPERTIES:
+    :ID:       9EAC63D2-8DD7-438D-9767-3AAE79BF0BD3
+    :Message:  [[message://20100402164233.GA10410@jirafa.cyrius.com][Handling currencies that were replaced by the Euro]]
+    :Submitter: Martin Michlmayr <tbm@cyrius.com>
+    :END:
+    [2010-04-04 Sun 15:18]
 ** TODO [[bug:224][#224]] A large number of GenerateTests are failing				 :ATTACH:
    When running GenerateTests from 1 to 10001, 954 of the tests fail --
    although many of them for the same apparent reason.  These different types
@@ -854,6 +493,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: generate.out.7z
    :END:
    [2010-06-02 Wed 17:23]
+** TODO [[bug:227][#227]] Make --anon anonymize commodities as well
+   :PROPERTIES:
+   :ID:       1C90D8AF-830E-43C2-A5B7-D382F68EBDE3
+   :END:
+   [2010-06-04 Fri 02:10]
 ** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
    - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
    :PROPERTIES:
@@ -916,33 +560,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** DONE Make "expr" a synonym for the "parse" command
-   - State "DONE"       from "TODO"       [2010-06-05 Sat 03:36]
-   :PROPERTIES:
-   :ID:       3CAB2690-9AD6-4C14-AC97-A7E8A2250416
-   :END:
-   [2010-06-04 Fri 06:36]
-** DUPLICATE [[bug:229][#229]] Have a primary directive
-   - State "DUPLICATE"  from "TODO"       [2010-06-04 Fri 06:16] \\
-     Duplicate of #217.
-   primary CAD for account Expenses [and children]
-   primary CAD for commodity $
-   :PROPERTIES:
-   :ID:       76751CDA-EE47-4D3F-BABE-24260E59A44E
-   :END:
-   [2010-06-04 Fri 02:24]
-** TODO [[bug:230][#230]] Make format strings backward compatible with 2.x
-   That way, %D would be the same as %(date).
-   :PROPERTIES:
-   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
-   :END:
-   [2010-06-03 Thu 23:22]
-** DONE Create a command to output a commodity map at DATE as a DOT file
-   - State "DONE"       from "TODO"       [2010-06-04 Fri 06:15]
-   :PROPERTIES:
-   :ID:       9EB7DD1D-D87D-4A37-8ED6-A836C4B231BD
-   :END:
-   [2010-06-03 Thu 18:09]
 ** TODO [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
@@ -962,6 +579,68 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :Submitter: Johann Klähn <kljohann@gmail.com>
   :END:
   [2009-12-01 Tue 03:04]
+** TODO [[bug:230][#230]] Make format strings backward compatible with 2.x
+   That way, %D would be the same as %(date).
+   :PROPERTIES:
+   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
+   :END:
+   [2010-06-03 Thu 23:22]
+** TODO [[bug:231][#231]] Allow conversion of some but not all commodities
+   :PROPERTIES:
+   :ID:       83B4A0E5-3CC6-4F5E-9C58-A87F690836C8
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+   [2010-06-08 Tue 16:45]
+** TODO [[bug:232][#232]] Support variant behaviors for -V
+   The problem is: for a given amount of a commodity, which commodity should
+   its value be reported in terms of?
+
+   1. For a transaction, an amount of the commodity might be permanently
+      associated with another commodity.  This is a "price value".
+   2. For a certain commodity, another commodity may always be the pricing
+      commodity.  This is a "commodity value".
+   3. For a certain account, a specific commodity may always be used for
+      pricing.  This is an "account value".
+   4. For a certain report, the user may request valuation using a list of
+      candidate commodities.  This is a "report value".
+   5. Otherwise, the user may desire simply the most recent valuation
+      possible.  This is a "market value".
+
+   So the target commodity might be bound to: a particular amount, a
+   commodity, or an account.  If it's not bound during parsing, it may be
+   bound during reporting using -X to specify a commodity.  If it's not bound
+   at all, then it is valued using the most recent prices available, no matter
+   their commodity.
+
+   Then here is the logic:
+
+   1.  If --exchange-only is specified, use those commodities.
+   2.  Else if a commodity has been FIXED to the amount, use that.
+   3.  Else if a commodity has been FIXED to the account, use that.
+   4.  Else if a commodity has been FIXED to the commodity, use that.
+   5.  Else if the amount's commodity is itself primary, use that.
+   6.  Else if -X is specified, use those commodities.
+   7.  Else if the amount has a price/cost, use the price's commodity.
+   8.  Else if the account balance contains primary commodities, use
+       whichever has the highest absolute value.
+   9.  Else if the commodity has a history of association with other
+       commodities, use whichever is most frequent.
+   10. Else use whichever commodity yields the most recent market value.
+   :PROPERTIES:
+   :ID:       AA092062-FBA5-4142-B3E4-E67FA9E12C19
+   :END:
+   [2010-06-07 Mon 08:39]
+** TODO [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
+   :PROPERTIES:
+   :ID:       7517CE3B-C3B0-460D-806B-31341272DE79
+   :END:
+   [2010-06-06 Sun 06:42]
+** TODO [[bug:320][#320]] Implement move constructors for amount_t, balance_t and value_t
+   This implies getting rid of the current reference counting structures too.
+   :PROPERTIES:
+   :ID:       558FDCF1-2C7A-4D20-94A3-48A62FF84104
+   :END:
+   [2010-06-08 Tue 19:22]
 ** TODO [#C] [[bug:174][#174]] Make path to getquote script configurable using an option
    :PROPERTIES:
    :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
@@ -1022,7 +701,18 @@ DATE Reconciled statement
    :ID:       D8623268-D229-49A3-83A7-6C77010FC4A1
    :END:
    [2010-06-02 Wed 03:47]
-** DEFERRED --price option in lot_sales branch
+** DEFERRED [[bug:179][#179]] Allow specification of times on transactions and postings
+   - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 17:08]
+   The value expressions to expose this would be:
+   | hour   | The hour                              |
+   | min    | The minute                            |
+   | daymin | Minutes past midnight of that day     |
+   | absmin | Minutes since the epoch (for sorting) |
+   :PROPERTIES:
+   :ID:       C0A606E0-AC51-4D0A-99F7-75C3E5E98F2B
+   :END:
+   [2010-05-22 Sat 16:46]
+** DEFERRED [[bug:267][#267]] --price option in lot_sales branch
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    message://m24q2rwrym.fsf_-_@newartisans.com
    message://m2k6bl3vr3.fsf@newartisans.com
@@ -1032,7 +722,7 @@ DATE Reconciled statement
    :ID: F6120E58-8985-4D76-908B-93A319E6D1D1
    :END:
    [2008-04-11 Fri]
-** DEFERRED @@ -- allow negative costs
+** DEFERRED [[bug:268][#268]] @@ -- allow negative costs
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    I am quite keen on the @@ syntax, as I like to deal with commodities on a
    net basis. However, there is a bit of an inconsistency between @@ and @.
@@ -1093,18 +783,7 @@ Error: A posting's cost may not be negative
    :ID: 4F81E261-E6C6-401B-B6CA-0B356072D770
    :END:
    [2009-04-01 Wed 18:52]
-** DEFERRED [[bug:179][#179]] Allow specification of times on transactions and postings
-   - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 17:08]
-   The value expressions to expose this would be:
-   | hour   | The hour                              |
-   | min    | The minute                            |
-   | daymin | Minutes past midnight of that day     |
-   | absmin | Minutes since the epoch (for sorting) |
-   :PROPERTIES:
-   :ID:       C0A606E0-AC51-4D0A-99F7-75C3E5E98F2B
-   :END:
-   [2010-05-22 Sat 16:46]
-** DEFERRED Add a "date" term to report queries
+** DEFERRED [[bug:269][#269]] Add a "date" term to report queries
    - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 01:55] \\
      This has been coded, but is not being enabled yet until I see that it has some
      value.
@@ -1118,7 +797,7 @@ Error: A posting's cost may not be negative
    :ID: BBBD2434-3763-45DB-A8EC-59DD47B3E387
    :END:
    [2009-11-04 Wed 16:27]
-** DEFERRED Add a feature for "object descriptions"
+** DEFERRED [[bug:270][#270]] Add a feature for "object descriptions"
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    For example:
 
@@ -1144,7 +823,7 @@ Error: A posting's cost may not be negative
    :ID: B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
    :END:
    [2009-03-02 Mon 20:39]
-** DEFERRED Add a {{total}} syntax for lot price specification
+** DEFERRED [[bug:271][#271]] Add a {{total}} syntax for lot price specification
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    I had another idea: do you remember I mentioned a problem I had, which that
    some of my trade confirmation slips provide the "adjusted cost base" and not
@@ -1170,7 +849,7 @@ Error: A posting's cost may not be negative
    :ID: C9E09993-CC01-41C6-BADC-0A9AA1221419
    :END:
    [2008-04-20 Sun]
-** DEFERRED Add an entry type for specifying value constraints
+** DEFERRED [[bug:272][#272]] Add an entry type for specifying value constraints
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    I'd like to see a more general syntax for this based on value expressions,
    which would offer a full constraints mechanism.  For example, to constrain
@@ -1206,20 +885,20 @@ Error: A posting's cost may not be negative
    :ID: 31E75D27-157E-452B-B817-7AD570AFE357
    :END:
    [2008-04-05 Sat]
-** DEFERRED Add complete calculation history in Ledger
+** DEFERRED [[bug:273][#273]] Add complete calculation history in Ledger
    - State "DEFERRED"   [2009-02-24 Tue 04:00]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 146
    :ID: B1F0071C-BD7D-4311-8DF2-7868F9CA7A29
    :END:
-** DEFERRED Add support for command aliases, to allow "canned reports"
+** DEFERRED [[bug:274][#274]] Add support for command aliases, to allow "canned reports"
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    :PROPERTIES:
    :ID: ADD3FB96-D19A-47F0-9F0B-1896328D6380
    :END:
    [2009-02-04 Wed 19:57]
-** DEFERRED Add the ability to have "typed" metadata
+** DEFERRED [[bug:275][#275]] Add the ability to have "typed" metadata
    - State "DEFERRED"   from "TODO"       [2009-11-11 Wed 04:37]
    For example, a metadata property that contains a date, which could then be
    used to generate reports from.
@@ -1227,14 +906,14 @@ Error: A posting's cost may not be negative
    :ID:       D919FE3B-3FA9-4E9D-B3F5-42A9BD33A2C4
    :END:
    [2009-11-11 Wed 04:28]
-** DEFERRED Allow for payee name mappings
+** DEFERRED [[bug:276][#276]] Allow for payee name mappings
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    After, create an "unaccounted" report for payees unknown to the matcher
    :PROPERTIES:
    :ID: 144F519E-9441-4FBA-9F6A-6757CA3F704A
    :END:
    [2009-10-23 Fri 06:14]
-** DEFERRED Allow forecasting from a specific date
+** DEFERRED [[bug:277][#277]] Allow forecasting from a specific date
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    This would make it possible to see expected vs. actual cash flows, for
    example, if the date chosen is before the end of actual transactions.  Kind
@@ -1245,14 +924,14 @@ Error: A posting's cost may not be negative
    :ID: BBD4F6F0-1250-4216-BB0E-3E86785D5E44
    :END:
    [2008-04-11 Fri]
-** DEFERRED Allow reading an encrypted ledger file directly
+** DEFERRED [[bug:278][#278]] Allow reading an encrypted ledger file directly
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:00]
    This would be done using libgpg.
    :PROPERTIES:
    :ID: 58512060-B3DD-438D-9BFE-D64D5DB9439B
    :END:
    [2009-10-23 Fri 06:13]
-** DEFERRED Annotations should allow for HH:MM:SS
+** DEFERRED [[bug:279][#279]] Annotations should allow for HH:MM:SS
    - State "DEFERRED"   [2009-02-24 Tue 04:02]
    And also datetime should display this if it's there (but not if it's
    midnight).
@@ -1267,14 +946,14 @@ Error: A posting's cost may not be negative
    :ID: F7DDD7D6-D219-4645-BB02-33AF74BED44B
    :END:
    [2008-04-11 Fri]
-** DEFERRED Check for duplicated transactions
+** DEFERRED [[bug:280][#280]] Check for duplicated transactions
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    Either by date/payee/magnitude, or even payee/magnitude if --strict is on.
    :PROPERTIES:
    :ID: 4F58ACC1-498A-41A5-9164-93CD30B3CAC5
    :END:
    [2009-10-23 Fri 06:12]
-** DEFERRED Combine a random seed when hashing when using --anon
+** DEFERRED [[bug:281][#281]] Combine a random seed when hashing when using --anon
    - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
    Please keep in mind that the dictionary one pulls account names from is MUCH
    smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
@@ -1290,38 +969,38 @@ Error: A posting's cost may not be negative
    :Message: [[message://20090703063943.GB16282@chivetta.org][Re: sample ledgers and anonymising]]
    :END:
    [2009-07-03 Fri 08:38]
-** DEFERRED Create an operator for value + post
+** DEFERRED [[bug:282][#282]] Create an operator for value + post
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    :PROPERTIES:
    :ID: 28CE49A7-919B-4C93-9754-966DCC435DBA
    :END:
    [2009-10-23 Fri 06:14]
-** DEFERRED Create new files for commodity_pool and annotated commodities
+** DEFERRED [[bug:283][#283]] Create new files for commodity_pool and annotated commodities
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:12]
    :PROPERTIES:
    :ID: BAE2292F-6B8B-4703-A6B6-8217390673DC
    :END:
    [2009-02-07 Sat 18:20]
-** DEFERRED Greatly improve Ledger's help system
+** DEFERRED [[bug:284][#284]] Greatly improve Ledger's help system
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    :PROPERTIES:
    :ID: 2E0D3A34-41DF-470C-8A2D-0A66B1DAA6E9
    :END:
    [2009-02-04 Wed 19:57]
-** DEFERRED Have an option for showing all amounts in the print report
+** DEFERRED [[bug:285][#285]] Have an option for showing all amounts in the print report
    - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:34]
    :PROPERTIES:
    :ID:       7B8B33B7-925A-497E-A08A-D0B67E433FF6
    :END:
    [2009-11-25 Wed 00:27]
-** DEFERRED Implement readline completion for the REPL
+** DEFERRED [[bug:286][#286]] Implement readline completion for the REPL
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:31]
    [[file:main.cc::jww%202009%2002%2005%20NYI][NYI]]
    :PROPERTIES:
    :ID: EF3D6703-AD14-48B3-A9EE-481E5FC295AB
    :END:
    [2009-11-03 Tue 13:59]
-** DEFERRED In the equity report, if the "collapse" option is used ...
+** DEFERRED [[bug:287][#287]] In the equity report, if the "collapse" option is used ...
    - State "DEFERRED"   [2009-02-24 Tue 04:04]
    ... output only one entry.  Otherwise, output an entry for every top-level
    account.
@@ -1331,7 +1010,7 @@ Error: A posting's cost may not be negative
    :ID: 29D7E913-1A5C-4ED2-8AB8-53D895021615
    :END:
    [2008-04-11 Fri]
-** DEFERRED Integrate Org-mode with Ledger
+** DEFERRED [[bug:288][#288]] Integrate Org-mode with Ledger
    - State "DEFERRED"   from "TODO"       [2010-05-08 Sat 03:15]
    If you're on a trip you could accumulate your expense into an Org-table, and
    then either easily export that to your Ledger file later, or maybe even have
@@ -1340,13 +1019,7 @@ Error: A posting's cost may not be negative
    :ID:       01B4C4E5-63AE-4915-A39A-AA6E07D9F19F
    :END:
    [2010-04-11 Sun 17:48]
-** DEFERRED Integrate with libgcrypt so ledger files can be encrypted
-   - State "DEFERRED"   from "TODO"       [2010-05-08 Sat 02:07]
-   :PROPERTIES:
-   :ID:       7CB80AA0-5D86-421A-B3DD-232FCA7696AB
-   :END:
-   [2010-04-30 Fri 07:33]
-** DEFERRED journal_t objects should be copyable
+** DEFERRED [[bug:290][#290]] journal_t objects should be copyable
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:23]
    This also has to do with making them serializable.  There should be a way to
    "activate" a journal for the current session, which sets up the
@@ -1355,20 +1028,20 @@ Error: A posting's cost may not be negative
    :ID: 9ECF98A8-8C8C-42D1-B8A0-EB42F49AAED9
    :END:
   
-** DEFERRED Make a curses or http GUI for Ledger
+** DEFERRED [[bug:291][#291]] Make a curses or http GUI for Ledger
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:00] \\
      This is waiting for either the new Emacs rewrite, or the Python support code.
    :PROPERTIES:
    :ID: 8716A41C-3570-4193-A95D-9829F4FF8798
    :END:
    [2009-10-23 Fri 06:13]
-** DEFERRED Make alias names for directives, like convert for C
+** DEFERRED [[bug:292][#292]] Make alias names for directives, like convert for C
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    :PROPERTIES:
    :ID: BD78C023-BB16-446C-9347-2F1AA16C7C5C
    :END:
    [2009-02-27 Fri 15:35]
-** DEFERRED Option --bold-if
+** DEFERRED [[bug:293][#293]] Option --bold-if
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    Which will bold the whole transaction line if it matches the given predicate
    :PROPERTIES:
@@ -1377,7 +1050,7 @@ Error: A posting's cost may not be negative
    :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
    :END:
    [2008-04-11 Fri]
-** DEFERRED Performance in forecasting would be weak with a lot of period xacts
+** DEFERRED [[bug:294][#294]] Performance in forecasting would be weak with a lot of period xacts
    - State "DEFERRED"   [2009-02-24 Tue 04:05]
    What happens to performance with lots of accounts, of commodities?
    :PROPERTIES:
@@ -1386,13 +1059,13 @@ Error: A posting's cost may not be negative
    :ID: 68E4C919-14BA-4AB1-A60B-FC176E966B45
    :END:
    [2008-04-11 Fri]
-** DEFERRED Restore the XML parser (code is in xml local branch)
+** DEFERRED [[bug:295][#295]] Restore the XML parser (code is in xml local branch)
    - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:15]
    :PROPERTIES:
    :ID: 5332850A-B67B-4CF2-B553-BFA23EA9DB6F
    :END:
    [2009-10-25 Sun 22:47]
-** DEFERRED Support alert warnings in Ledger
+** DEFERRED [[bug:296][#296]] Support alert warnings in Ledger
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    Like if expenses during a given month are too high.  This could be
    implemented using automated transactions with a "warn" function as the
@@ -1401,7 +1074,7 @@ Error: A posting's cost may not be negative
    :ID: 28BD75AE-219C-4DF5-9D19-E7774BFC8DED
    :END:
    [2009-10-23 Fri 06:12]
-** DEFERRED Support debit/credit register and balance reports
+** DEFERRED [[bug:297][#297]] Support debit/credit register and balance reports
    - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:33]
    - Note taken on [2009-11-25 Wed 02:11] \\
      See: http://en.wikipedia.org/wiki/Debits_and_credits#.27T.27_Accounts.
@@ -1412,7 +1085,7 @@ Error: A posting's cost may not be negative
    :ID:       A3A7E04A-036F-498D-8C7D-FCE38DC858BF
    :END:
    [2009-11-25 Wed 02:09]
-** DEFERRED Support for exceptions to interval_t
+** DEFERRED [[bug:298][#298]] Support for exceptions to interval_t
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:13]
    For example, "monthly except June".
    :PROPERTIES:
@@ -1421,19 +1094,19 @@ Error: A posting's cost may not be negative
    :ID: A8AC5063-AB2F-4031-8821-2084B7B6497C
    :END:
    [2008-04-11 Fri]
-** DEFERRED The CSV report should optionally generate a "title line"
+** DEFERRED [[bug:299][#299]] The CSV report should optionally generate a "title line"
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    :PROPERTIES:
    :ID: 65B7E207-1BCC-4448-881C-1574623346D7
    :END:
    [2009-03-03 Tue 21:49]
-** DEFERRED Warn if a file link points to a missing file
+** DEFERRED [[bug:300][#300]] Warn if a file link points to a missing file
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:24]
    :PROPERTIES:
    :ID: 232CCAA9-77C3-4541-B894-7F0CA9A7747B
    :END:
    [2009-11-02 Mon 15:50]
-** DEFERRED When abbreviating account names, expand to fill
+** DEFERRED [[bug:301][#301]] When abbreviating account names, expand to fill
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    For example, Assets:NRL:Checking in 15 chars should be:
      As:NRL:Checking
@@ -1447,63 +1120,6 @@ Error: A posting's cost may not be negative
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
-** DEFERRED Add colorized highlighting to the reconciler
-   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
-   http://thread.gmane.org/gmane.comp.finance.ledger.general/483
-   :PROPERTIES:
-   :ID: C7E28F7F-93F9-4C3F-956A-4F4B84868CBF
-   :END:
-   [2009-10-31 Sat 00:06]
-** DEFERRED Add folding support to ledger.el
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
-   - State "TODO"       from "DELEGATED"  [2009-10-22 Thu 06:46]
-   - State "DELEGATED"  from "TODO"       [2009-10-11 Sun 05:31] \\
-     Demosthenes said that the author of loccur was going to look into this.
-   For example, show only transactions matching a given report query.
-   :PROPERTIES:
-   :ID: E98B3CBD-B76F-4917-92A5-4B9E69833131
-   :END:
-   [2009-10-06 Tue 17:29]
-** DEFERRED Allow for quicker reporting commands in ledger.el
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 117
-   :ID: 932324E2-4A3F-4319-9586-1F33DFE29527
-   :END:
-** DEFERRED Allow reconciling postings in multiple included files
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
-   :PROPERTIES:
-   :ID: 29AC8129-C451-4782-8371-B74588609E9F
-   :END:
-   [2009-03-03 Tue 00:10]
-** DEFERRED Allow reports, such as completed tasks last week, etc.
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
-   :PROPERTIES:
-   :ID: D9B4D001-21E4-4247-ADF6-56C00B2C8F3A
-   :END:
-   [2008-05-12 Mon]
-** DEFERRED Break ledger.el up into sections
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
-   - Font-locking
-   - REPL interaction
-   - Parsing
-   - Utility functions
-   - Manipulation (sorting, etc)
-   - Reconciling
-   - Reports
-   :PROPERTIES:
-   :ID: 770D07CF-9F28-4A9B-B4E8-48ACC4926E06
-   :END:
-   [2009-10-23 Fri 06:12]
-** DEFERRED C-c C-c should be magical in ledger-mode
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
-   It should auto-generate reports, for example, if the user does it in an
-   account or payee name.
-   :PROPERTIES:
-   :ID: 5C52F851-18CF-41A3-953B-49DA4EF67C00
-   :END:
-   [2009-10-23 Fri 06:12]
 ** TODO [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
    - State "TODO"       from "DEFERRED"   [2010-06-02 Wed 18:11]
    - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
@@ -1518,13 +1134,70 @@ Error: A posting's cost may not be negative
   :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
   :END:
   [2010-01-18 Mon 02:55]
-** DEFERRED Create a hotkey for creating Ledger transactions
+** DEFERRED [[bug:245][#245]] Add colorized highlighting to the reconciler
+   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
+   http://thread.gmane.org/gmane.comp.finance.ledger.general/483
+   :PROPERTIES:
+   :ID: C7E28F7F-93F9-4C3F-956A-4F4B84868CBF
+   :END:
+   [2009-10-31 Sat 00:06]
+** DEFERRED [[bug:246][#246]] Add folding support to ledger.el
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   - State "TODO"       from "DELEGATED"  [2009-10-22 Thu 06:46]
+   - State "DELEGATED"  from "TODO"       [2009-10-11 Sun 05:31] \\
+     Demosthenes said that the author of loccur was going to look into this.
+   For example, show only transactions matching a given report query.
+   :PROPERTIES:
+   :ID: E98B3CBD-B76F-4917-92A5-4B9E69833131
+   :END:
+   [2009-10-06 Tue 17:29]
+** DEFERRED [[bug:247][#247]] Allow for quicker reporting commands in ledger.el
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 117
+   :ID: 932324E2-4A3F-4319-9586-1F33DFE29527
+   :END:
+** DEFERRED [[bug:248][#248]] Allow reconciling postings in multiple included files
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   :PROPERTIES:
+   :ID: 29AC8129-C451-4782-8371-B74588609E9F
+   :END:
+   [2009-03-03 Tue 00:10]
+** DEFERRED [[bug:249][#249]] Allow reports, such as completed tasks last week, etc.
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
+   :PROPERTIES:
+   :ID: D9B4D001-21E4-4247-ADF6-56C00B2C8F3A
+   :END:
+   [2008-05-12 Mon]
+** DEFERRED [[bug:250][#250]] Break ledger.el up into sections
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   - Font-locking
+   - REPL interaction
+   - Parsing
+   - Utility functions
+   - Manipulation (sorting, etc)
+   - Reconciling
+   - Reports
+   :PROPERTIES:
+   :ID: 770D07CF-9F28-4A9B-B4E8-48ACC4926E06
+   :END:
+   [2009-10-23 Fri 06:12]
+** DEFERRED [[bug:251][#251]] C-c C-c should be magical in ledger-mode
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
+   It should auto-generate reports, for example, if the user does it in an
+   account or payee name.
+   :PROPERTIES:
+   :ID: 5C52F851-18CF-41A3-953B-49DA4EF67C00
+   :END:
+   [2009-10-23 Fri 06:12]
+** DEFERRED [[bug:252][#252]] Create a hotkey for creating Ledger transactions
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    :PROPERTIES:
    :ID: CAAE8C68-A26F-4BED-A626-751A98B57E7E
    :END:
    [2009-10-23 Fri 06:13]
-** DEFERRED Fix toggle-current-transaction
+** DEFERRED [[bug:253][#253]] Fix toggle-current-transaction
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    When all transactions have been cleared, the marks should be wiped and then
    ledger-toggle-current-entry called, rather than doing the entry clearing
@@ -1535,7 +1208,7 @@ Error: A posting's cost may not be negative
    :ID: 465231DF-6EF2-4C4F-BF0D-9FED19AB99A3
    :END:
    [2008-04-11 Fri]
-** DEFERRED Have ledger.el warn if the ledger version is too old
+** DEFERRED [[bug:254][#254]] Have ledger.el warn if the ledger version is too old
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
    :Version: 2.6
@@ -1543,7 +1216,7 @@ Error: A posting's cost may not be negative
    :ID: 5F20A546-046B-4CC6-B1EF-89C5962B55BE
    :END:
    [2008-04-11 Fri]
-** DEFERRED Highlight transaction lines based on their status
+** DEFERRED [[bug:255][#255]] Highlight transaction lines based on their status
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    Here is a tweak to ledger-mode that I find useful. It makes uncleared lines
    pink and cleared lines green. C-c C-e to toggle the status.
@@ -1558,7 +1231,7 @@ Error: A posting's cost may not be negative
    :ID: 1C870658-6460-423C-9199-E46C48074688
    :END:
    [2008-07-13 Sun]
-** DEFERRED Inserting comments in ledger-mode is inserting leading whitespace
+** DEFERRED [[bug:256][#256]] Inserting comments in ledger-mode is inserting leading whitespace
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    Comments in ledger-mode are inserted with whitespace at the beginning of the
    line, which makes ledger.dat unusable.  One has to delete the extra
@@ -1575,7 +1248,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: BEBC59BB-C7FF-4295-9EE5-171354CCEBBC
    :END:
    [2009-04-01 Wed 18:57]
-** DEFERRED Ledger-context-at-point fails to parse acct-transaction
+** DEFERRED [[bug:257][#257]] Ledger-context-at-point fails to parse acct-transaction
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    - State "TODO"       [2007-11-07 Wed 04:06] \\
      Levin <zslevin@gmail.com> writes:
@@ -1626,7 +1299,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 2558642F-EE17-4DCB-B6DB-50490FB0CF83
    :END:
    [2007-11-07 Wed]
-** DEFERRED ledger.el should define its own faces
+** DEFERRED [[bug:258][#258]] ledger.el should define its own faces
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    This would allow people to describe how they want cleared and uncleared
    payee names to appear.
@@ -1638,19 +1311,19 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 78B2F4A4-DCE5-1B40-9C21-86195584ACF1
    :END:
    [2009-03-01 Sun 01:08]
-** DEFERRED Look at making ledger's new entry completion behavior cyclic
+** DEFERRED [[bug:259][#259]] Look at making ledger's new entry completion behavior cyclic
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
    :ID: B443E186-4E6F-4FB5-8421-4F703DC9353C
    :END:
    [2009-02-13 Fri 05:17]
-** DEFERRED Make M-x ledger-sort work on the current region
+** DEFERRED [[bug:260][#260]] Make M-x ledger-sort work on the current region
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
    :ID: C390F6D0-FA81-4A1B-877A-C6946EA51105
    :END:
    [2009-01-29 Thu 19:36]
-** DEFERRED Make TAB more magical in ledger-mode
+** DEFERRED [[bug:261][#261]] Make TAB more magical in ledger-mode
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    It should do what C-c TAB does, but still cycle.  Or, it should move around.
    Or, if in payee and preceding char is a digit, call ledger xact.
@@ -1658,26 +1331,26 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 2A9F5DDB-4DB6-4E87-A755-392F51CF0C2D
    :END:
    [2009-10-23 Fri 06:13]
-** DEFERRED Pressing C-c C-c on an entry line should clear it
+** DEFERRED [[bug:262][#262]] Pressing C-c C-c on an entry line should clear it
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
    :ID: FEE28C4E-B113-4280-85F5-42E2B8EE603B
    :END:
    [2009-01-31 Sat 06:13]
-** DEFERRED Redesign ledger.el
+** DEFERRED [[bug:263][#263]] Redesign ledger.el
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    It should always be talking with Ledger via the REPL.
    :PROPERTIES:
    :ID: BADF02BF-CAA1-4990-B9FF-DA20BA025FE0
    :END:
    [2009-10-23 Fri 06:11]
-** DEFERRED The Great Renaming still needs to take place in ledger.el
+** DEFERRED [[bug:264][#264]] The Great Renaming still needs to take place in ledger.el
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
    :ID: 721AC8F7-9189-4151-8611-2BBC0D1E8267
    :END:
    [2009-06-19 Fri 00:49]
-** DEFERRED Use of ledger.el with various invalid "ledger" binaries (and none)
+** DEFERRED [[bug:265][#265]] Use of ledger.el with various invalid "ledger" binaries (and none)
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
    :Version: 2.6
@@ -1685,7 +1358,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 8735E6AB-DB0A-4F66-BD81-BBFFEE66A68E
    :END:
    [2008-04-11 Fri]
-** DEFERRED Use yasnippet with ledger-mode
+** DEFERRED [[bug:266][#266]] Use yasnippet with ledger-mode
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:03]
    :PROPERTIES:
    :ID: 178EC4C8-F87A-40C2-91CE-C5BD9CA50BD3
@@ -1695,37 +1368,20 @@ Error: "ledger.dat", line 343: Line begins with whitespace
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO [#A] [[bug:184][#184]] For those interested in the Python support				:blocker:
-   Do you have any clue on the following error message?
-   :OUTPUT:
-   $ ./ledger python ./python/demo.py
-   Welcome to the Ledger.Python demo!
-   Traceback (most recent call last):
-    File "./python/demo.py", line 99, in <module>
-      comms.exchange(eur, ledger.Amount('$0.77')) # Trade 1 EUR for
-   $0.77
-   AttributeError: 'module' object has no attribute 'Amount'
-   :END:
-   :PROPERTIES:
-   :ID:       3CA93725-E9BF-4FCF-8F21-50EA394C9FDA
-   :Message:  [[message://390f36c2-1bde-485b-9d95-bb15b04b4408@u9g2000yqb.googlegroups.com][Re: For those interesting in the Python support]]
-   :Submitter: thierry <thierry.daucourt@free.fr>
-   :END:
-   [2010-03-26 Fri 22:24]
-** DEFERRED Add implicit conversion of mask_t to re
+** DEFERRED [[bug:302][#302]] Add implicit conversion of mask_t to re
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:36]
    [[file:py_value.cc::jww%202009%2011%2002%20Add%20implicit%20conversion%20of%20mask%20objects][py_value.cc]]
    :PROPERTIES:
    :ID: DF00F985-18A8-438D-819C-EC5962EEE925
    :END:
    [2009-11-03 Tue 14:01]
-** DEFERRED After using python/server.py, it segfaults on exit
+** DEFERRED [[bug:303][#303]] After using python/server.py, it segfaults on exit
    - State "DEFERRED"   from "TODO"       [2009-11-22 Sun 22:36]
    :PROPERTIES:
    :ID:       DA30D886-863D-4173-AE3C-369A98F0CD59
    :END:
    [2009-11-21 Sat 02:20]
-** DEFERRED Allow a Python function to be used to download quotes
+** DEFERRED [[bug:304][#304]] Allow a Python function to be used to download quotes
    - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:27]
    - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
@@ -1733,20 +1389,20 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 277ACB9A-9B43-4D3D-8BF9-D64CBCF3674A
    :END:
    [2009-06-24 Wed 17:27]
-** DEFERRED Allow to_xml methods on all Python-exposed objects
+** DEFERRED [[bug:305][#305]] Allow to_xml methods on all Python-exposed objects
    - State "DEFERRED"   from "TODO"       [2009-11-22 Sun 22:36]
    :PROPERTIES:
    :ID:       0EDDE812-2913-4D16-BF2E-9C343F32A958
    :END:
    [2009-11-19 Thu 17:38]
-** DEFERRED Do a complete review of all the Python bindings
+** DEFERRED [[bug:306][#306]] Do a complete review of all the Python bindings
    - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
    Looking for correctness, consistency, and rationality of interfaces.
    :PROPERTIES:
    :ID:       DFC8101B-CB9D-4522-8B93-F7546183BB66
    :END:
    [2009-11-11 Wed 21:38]
-** DEFERRED Every ledger object should honor the iteration protocol
+** DEFERRED [[bug:307][#307]] Every ledger object should honor the iteration protocol
    - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
    - Note taken on [2009-11-07 Sat 06:20] \\
      The only ones left are balance_t and value_t.
@@ -1754,20 +1410,20 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       4E160265-93EA-42EE-825D-078A2A459BCA
    :END:
    [2009-11-02 Mon 15:50]
-** DEFERRED Get ledger python to run within the build tree
+** DEFERRED [[bug:308][#308]] Get ledger python to run within the build tree
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :PROPERTIES:
    :ID: 7274224C-3470-4A9F-B56E-A499F39E13C9
    :END:
    [2009-03-09 Mon 20:33]
-** DEFERRED Have methods for serializing to and from a string
+** DEFERRED [[bug:309][#309]] Have methods for serializing to and from a string
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:23]
    [2009-11-03 Tue 07:41]
    :PROPERTIES:
    :ID: 9383A1B7-34C8-4B3E-8FA0-B22A92F6B10F
    :END:
    [2009-11-02 Mon 15:50]
-** DEFERRED Having problems exporting std::pair<T, U *> from Boost.Python
+** DEFERRED [[bug:310][#310]] Having problems exporting std::pair<T, U *> from Boost.Python
    - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:36]
    This is the e-mail I was drafting for the mailing list, in response to
    [[message://770306.78630.qm@web111402.mail.gq1.yahoo.com][Re: {boost} Boost.Python question about converters and make_getter]]:
@@ -1787,7 +1443,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :Message:  [[message://0B5E0EBA-E74E-4303-A6FC-3CBA42B7055B@gmail.com][Re: {boost} Boost.Python question about converters and make_getter]]
    :END:
    [2009-11-24 Tue 22:18]
-** DEFERRED In py_report.cc, export all "global" functions
+** DEFERRED [[bug:311][#311]] In py_report.cc, export all "global" functions
    - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
    Move as many of these functions as possible into their related class.  For
    example, scrub should go into value_t::scrub.
@@ -1795,14 +1451,14 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 0912FE8A-79BE-4A6A-9B0F-6A73547A9B2C
    :END:
    [2009-11-05 Thu 08:28]
-** DEFERRED Make sure I'm handling object lifetime correctly for Boost.Python
+** DEFERRED [[bug:312][#312]] Make sure I'm handling object lifetime correctly for Boost.Python
    - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
    http://wiki.python.org/moin/boost.python/CallPolicy
    :PROPERTIES:
    :ID: D3727E42-6180-44F5-AD0B-651BAA822C8D
    :END:
    [2009-11-03 Tue 08:55]
-** DEFERRED Standardize the find_account and find_commodity methods
+** DEFERRED [[bug:313][#313]] Standardize the find_account and find_commodity methods
    - State "DEFERRED"   from "TODO"       [2009-11-12 Thu 05:26]
    It should be find_account(STR), find_account(MASK), and
    find_or_create_account(STR).  Some with find_commodity, etc.
@@ -1810,7 +1466,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: BC6E6475-14C8-4E20-BF4E-0A0FAD36F01D
    :END:
    [2009-11-05 Thu 16:11]
-** DEFERRED The error output when calling Python is out of order
+** DEFERRED [[bug:314][#314]] The error output when calling Python is out of order
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    :OUTPUT:
 TypeError: No to_python (by-value) converter found for C++ type: ledger::value_t
@@ -1831,7 +1487,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID: 7CF0160B-A3FF-4BE7-B6D3-788F9556A20F
    :END:
    [2009-01-23 Fri 15:57]
-** DEFERRED Use Python to create a per-account debit/credit report
+** DEFERRED [[bug:315][#315]] Use Python to create a per-account debit/credit report
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    Is there a way to let ledger output its reports showing the accounts in the
    more conventional way as debit and credit accounts, instead of having a
@@ -1862,7 +1518,7 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 444EFEE1-D873-4FD3-BB07-4E605BCB2BF4
    :END:
    [2008-10-08 Wed 00:58]
-** DEFERRED Write a Python demo script
+** DEFERRED [[bug:316][#316]] Write a Python demo script
    - State "DEFERRED"   from "STARTED"    [2009-11-22 Sun 22:36]
    :PROPERTIES:
    :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
@@ -1872,27 +1528,6 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** DONE Keep logging on for NDEBUG builds
-   - State "DONE"       from "TODO"       [2010-06-05 Sat 03:38]
-   :PROPERTIES:
-   :ID:       7D51AB9B-71FB-476F-AFE4-7F4C1C543A41
-   :END:
-   [2010-06-04 Fri 06:36]
-** DONE [[bug:215][#215]] Compile fails for version 3.0
-   - State "DONE"       from "TODO"       [2010-06-02 Wed 18:45] \\
-     This was a problem with universal binaries, so I've turned them off by default
-     in acprep and add a --universal option.
-   :PROPERTIES:
-   :ID:       5AB0A35C-1875-46CF-98D2-C0BC5DDD2962
-   :Submitter: Thomas Bikeev <thomas.bikeev@me.com>
-   :Message:  [[message://2262D050-DAEA-4CC2-8295-3A5471FF8E36@me.com][Re: Compile fails on 3.0]]
-   :END:
-   [2010-05-30 Sun 03:33]
-** TODO [#C] [[bug:169][#169]] Create a PO file for Alexis to translate into German
-   :PROPERTIES:
-   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
-   :END:
-   [2009-11-09 Mon 03:40]
 ** TODO [#C] [[bug:216][#216]] Ledger packages for Debian
    - Note taken on [2010-05-31 Mon 15:06] \\
      [[message://AANLkTilCFWypqs-A8-X7OMRP-ivli9vwZWlIM3TQwHaW@mail.gmail.com][Re: Ledger for Ubuntu hardy?]]
@@ -1903,14 +1538,14 @@ Tr.#	date		Text			debit		credit		saldo
    :URL:      [[https://launchpad.net/~mbudde/%2Barchive/ledger/%2Bpackages][Packages in “Ledger” : Ledger : Michael Budde]]
    :END:
    [2010-05-29 Sat 20:00]
-** DEFERRED Add some more configure arguments
+** DEFERRED [[bug:234][#234]] Add some more configure arguments
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
    ./configure .... with-gmp=...  with-mpfr= ... with-python=...
    :PROPERTIES:
    :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
    :END:
    [2009-03-26 Thu 02:09]
-** DEFERRED Avoid having to rm -fr ledger-proof
+** DEFERRED [[bug:237][#237]] Avoid having to rm -fr ledger-proof
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
    :OUTPUT:
 acprep: INFO: === Wiping build directory /home/nafai/Products/ledger-proof/default ===
@@ -1936,19 +1571,19 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 12D4AB31-964F-4206-8AA0-2CA9C509DA30
    :END:
    [2009-03-11 Wed 20:54]
-** DEFERRED Build .deb, .rpm, .exe (in .zip), and .pkg installs
+** DEFERRED [[bug:238][#238]] Build .deb, .rpm, .exe (in .zip), and .pkg installs
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
    :PROPERTIES:
    :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
    :END:
    [2009-01-29 Thu 19:40]
-** DEFERRED Ledger 2.6 is not building on Debian 5 latest
+** DEFERRED [[bug:239][#239]] Ledger 2.6 is not building on Debian 5 latest
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
    :PROPERTIES:
    :ID: 427F8D8D-39CB-47ED-8438-BF07BBBE6672
    :END:
    [2009-04-24 Fri 17:13]
-** DEFERRED Setup virtual machines for every OS Ledger should run on
+** DEFERRED [[bug:240][#240]] Setup virtual machines for every OS Ledger should run on
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
    :PROPERTIES:
    :ID: C91FEFD0-CF11-41C2-B2D0-B6BED7E142A2
@@ -1976,13 +1611,13 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID:       13E43A50-FC0C-4C3D-A175-7C6CB147A37C
    :END:
    [2008-08-14 Thu]
-** DEFERRED Ledger is still failing the higher-numbered generation seed tests
+** DEFERRED [[bug:317][#317]] Ledger is still failing the higher-numbered generation seed tests
    - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
    :PROPERTIES:
    :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
    :END:
    [2009-03-03 Tue 15:47]
-** DEFERRED New tests to create for Ledger [0/3]
+** DEFERRED [[bug:318][#318]] New tests to create for Ledger [0/3]
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 21:54]
    - [ ] GarbageTests
 	 Feed every one of the distribution's source files back to Ledger, to
@@ -1995,7 +1630,7 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: F866DFA5-7350-45D3-BF76-286D68755A2A
    :END:
    [2009-02-27 Fri 16:19]
-** DEFERRED Use --cache=/dev/null when running the unit tests
+** DEFERRED [[bug:319][#319]] Use --cache=/dev/null when running the unit tests
    - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 02:08] \\
      I cannot read/write the cache to /dev/null, so I'll have to use a temp file
      that gets cleaned up.
@@ -2007,17 +1642,7 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO Language translations
-   | Name                    | E-mail                     | Language             |
-   |-------------------------+----------------------------+----------------------|
-   | Thierry Daucourt        |                            | French               |
-   | Alexis                  |                            | German               |
-   | Felipe Magno de Almeida | felipe.m.almeida@gmail.com | Brazilian Portuguese |
-   :PROPERTIES:
-   :ID:       1965B92E-8FDD-4CC1-911E-3DE704E995F3
-   :END:
-   [2010-06-05 Sat 03:56]
-** TODO [#A] [[bug:194][#194]] Initial example in ledger manual bogus
+** TODO [[bug:194][#194]] Initial example in ledger manual bogus
    While reading the ledger manual, I got really confused by the initial
    example which seemed wrong to me.  While looking at the mailing list
    archives, I noticed that this has been pointed out more than a year ago:
@@ -2032,6 +1657,11 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-11 Sun 03:55]
+** TODO [#C] [[bug:169][#169]] Create a PO file for Alexis to translate into German
+   :PROPERTIES:
+   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
+   :END:
+   [2009-11-09 Mon 03:40]
 ** TODO [#C] [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
    :PROPERTIES:
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
@@ -2102,13 +1732,13 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Submitter: Karen Sandler <karen@softwarefreedom.org>
    :END:
    [2009-12-17 Thu 02:44]
-** DEFERRED Complete the internal documentation, exported using Doxygen
+** DEFERRED [[bug:241][#241]] Complete the internal documentation, exported using Doxygen
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:10]
    :PROPERTIES:
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
-** DEFERRED Ledger example: building a better "du"					 :ATTACH:
+** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"					 :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
@@ -2152,14 +1782,14 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Attachments: ledger-du
    :END:
    [2006-03-24 Fri]
-** DEFERRED Using Ledger as a scientific analysis tool
+** DEFERRED [[bug:243][#243]] Using Ledger as a scientific analysis tool
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 173
    :ID: C653003E-52A8-4D06-9DEB-634B1156B04C
    :END:
-** DEFERRED Using Ledger to track inventory
+** DEFERRED [[bug:244][#244]] Using Ledger to track inventory
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    :PROPERTIES:
    :Version: 2.6
