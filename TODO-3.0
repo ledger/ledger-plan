@@ -507,6 +507,27 @@ ledger -QV bal .
    :ID:       9DF85DF2-4BF5-4931-A30C-2592A10BB5C0
    :END:
    [2010-05-24 Mon 23:00]
+** DONE [[bug:165][#165]] --exchange seems to be ignored when combined with -M			 :ATTACH:
+   - State "DONE"       from "TODO"       [2010-06-09 Wed 05:09]
+#+begin_src sh
+  ledger  --exchange € reg ^dépenses|grep "\\$" |wc -l
+#+end_src
+  :OUTPUT:
+  0
+  :END:
+
+#+begin_src sh
+  ledger  --exchange € -M reg ^dépenses|grep "\\$" |wc -l
+#+end_src
+  :OUTPUT:
+  14
+  :END:
+  :PROPERTIES:
+  :ID:       03377560-850B-4258-B9A3-CE9BE7DAA70C
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :Attachments: ledger.txt.gpg
+  :END:
+  [2010-01-18 Mon 03:42]
 ** DONE [[bug:167][#167]] Another rounding issue							 :ATTACH:
    - State "DONE"       from "STARTED"    [2010-06-02 Wed 06:25] \\
      Fixed by cbc0a125.
@@ -726,6 +747,42 @@ ledger -QV bal .
     :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
     :END:
     [2010-01-09 Sat 21:08]
+** DONE [[bug:200][#200]] Commodities containing digits and ledger bal
+   - State "DONE"       from "TODO"       [2010-06-09 Wed 06:45] \\
+     Fixed by 8637dd6c.
+   - Note taken on [2010-06-03 Thu 06:02] \\
+     You could simply drop the quotes if the commodity doesn't contain any
+     spaces.
+   - Note taken on [2010-06-02 Wed 18:12] \\
+     What if you have a Commodity named "FOO 100", which is perfectly legal.
+     And then the register or balance report prints out "200 FOO 100".  What
+     then?
+   - Note taken on [2010-06-02 Wed 18:12] \\
+     Martin: Why do we need an extra option for this?  Is there a reason this
+     cannot be done by default?
+     
+     In any case, I'm not sure it makes sense to add an option just for this
+     minor thing.  If it cannot be done by default without an option, I guess
+     you could just close this bug as WONTFIX.
+    - Note taken on [2010-06-02 Wed 16:54] \\
+      I will add an option called --no-quotes.
+    When you have a commodity that contains digits, you have to put it on
+    quotation marks, as in;
+#+begin_src sh
+    2010-04-02 Test
+      Assets:Broker                 10 "DE0002635307" @ 10
+      Assets:Bank
+#+end_src    
+    
+    ledger bal will also put this commodity in quotation marks.  Is this
+    necessary?  IMHO it would be nicer if "ledger bal" would strip the
+    quotation mark.
+    :PROPERTIES:
+    :ID:       F82CF11F-BFD9-4512-A562-202B04B68051
+    :Message:  [[message://20100402164513.GA10540@jirafa.cyrius.com][Commodities containing digits and ledger bal]]
+    :Submitter: Martin Michlmayr <tbm@cyrius.com>
+    :END:
+    [2010-04-04 Sun 15:18]
 ** DONE [[bug:210][#210]] Problems with tags that contain spaces
    SCHEDULED: <2010-06-01 Tue>
    - State "DONE"       from "STARTED"    [2010-06-01 Tue 18:33] \\
@@ -781,6 +838,13 @@ ledger -QV bal .
    :Message:  [[message://20100531102647.GA23953@jirafa.cyrius.com][--european option not really European]]
    :END:
    [2010-05-31 Mon 14:32]
+** DONE [[bug:227][#227]] Make --anon anonymize commodities as well
+   - State "DONE"       from "TODO"       [2010-06-09 Wed 07:48] \\
+     Fixed by c28fad38.
+   :PROPERTIES:
+   :ID:       1C90D8AF-830E-43C2-A5B7-D382F68EBDE3
+   :END:
+   [2010-06-04 Fri 02:10]
 ** DONE Abstract a function to verify a transaction double-entry status
    - State "DONE"       from "TODO"       [2009-11-11 Wed 20:43]
    :PROPERTIES:
@@ -2930,6 +2994,26 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 567B5118-7A77-42B9-A1CD-C5DA688AC406
    :END:
    [2007-10-29 Mon]
+** WONTFIX [[bug:160][#160]] Attached file should print out Unrealized Gains in the report		 :ATTACH:
+   - State "WONTFIX"    from "TODO"       [2010-06-09 Wed 08:15] \\
+     The aim of --unrealized is to show how much your unrealized gains or losses
+     were, not to balance all possible values.
+   It should print out:
+   :OUTPUT:
+                      0  Assets
+               $-800.00    Brokerage
+                $800.00    Checking
+               $-100.00  Equity:Unrealized Gains
+                $100.00  Equity:Unrealized Losses
+   --------------------
+                      0
+   :END:
+   Once this is fixed, correct test/baseline/opt-unrealized.test.
+   :PROPERTIES:
+   :ID:       22AA1522-30A0-403F-B16A-B8F674AC9125
+   :Attachments: bug.dat
+   :END:
+   [2009-11-25 Wed 04:47]
 ** WONTFIX [[bug:205][#205]] Specifying commodity price and total
    - State "WONTFIX"    from "TODO"       [2010-06-08 Tue 17:54]
    - Note taken on [2010-06-08 Tue 17:39] \\
@@ -5470,6 +5554,22 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2007-12-10 Mon]
 * Docs
+** DONE [[bug:194][#194]] Initial example in ledger manual bogus
+   - State "DONE"       from "TODO"       [2010-06-09 Wed 04:51]
+   While reading the ledger manual, I got really confused by the initial
+   example which seemed wrong to me.  While looking at the mailing list
+   archives, I noticed that this has been pointed out more than a year ago:
+
+   http://groups.google.com/group/ledger-cli/browse_thread/thread/ecd57e8f16eb90e3#
+   
+   Any chance to get the example fixed or removed?  It's really confusing for
+   newbies.
+   :PROPERTIES:
+   :ID:       B91DED0E-B52A-4C99-A100-6564961DE5C4
+   :Message:  [[message://20100410171011.GB24387@jirafa.cyrius.com][Initial example in ledger manual bogus]]
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :END:
+   [2010-04-11 Sun 03:55]
 ** DONE [PATCH] Documentation patch for ledger
    - State "DONE"       from "TODO"       [2010-05-28 Fri 01:07]
    :PROPERTIES:

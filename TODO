@@ -17,57 +17,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       A9DFC672-9FAD-431F-8EDA-CFB54D1285AF
    :END:
    [2010-03-10 Wed 01:32]
-** TODO [[bug:160][#160]] Attached file should print out Unrealized Gains in the report		 :ATTACH:
-   It should print out:
-   :OUTPUT:
-                      0  Assets
-               $-800.00    Brokerage
-                $800.00    Checking
-               $-100.00  Equity:Unrealized Gains
-                $100.00  Equity:Unrealized Losses
-   --------------------
-                      0
-   :END:
-   Once this is fixed, correct test/baseline/opt-unrealized.test.
-   :PROPERTIES:
-   :ID:       22AA1522-30A0-403F-B16A-B8F674AC9125
-   :Attachments: bug.dat
-   :END:
-   [2009-11-25 Wed 04:47]
 ** TODO [[bug:161][#161]] ledger budget fails with "Something odd has happened"
    :PROPERTIES:
    :ID:       F145D482-2F15-48D0-A0CC-6593AC1896DD
    :END:
    [2010-05-22 Sat 19:15]
-** DONE [[bug:165][#165]] --exchange seems to be ignored when combined with -M			 :ATTACH:
-   - State "DONE"       from "TODO"       [2010-06-09 Wed 05:09]
-#+begin_src sh
-  ledger  --exchange € reg ^dépenses|grep "\\$" |wc -l
-#+end_src
-  :OUTPUT:
-  0
-  :END:
-
-#+begin_src sh
-  ledger  --exchange € -M reg ^dépenses|grep "\\$" |wc -l
-#+end_src
-  :OUTPUT:
-  14
-  :END:
-  :PROPERTIES:
-  :ID:       03377560-850B-4258-B9A3-CE9BE7DAA70C
-  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
-  :Attachments: ledger.txt.gpg
-  :END:
-  [2010-01-18 Mon 03:42]
-** TODO [[bug:190][#190]] Optimize finding and creation of annotated commodities
-   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
-   Don't use textual names, but lookup based on annotation details
-   directly.
-   :PROPERTIES:
-   :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
-   :END:
-   [2010-05-23 Sun 17:04]
 ** TODO [[bug:196][#196]] Bug when not using commodities in a posting's cost
    - Note taken on [2010-06-09 Wed 05:15] \\
      A priced commodity does NOT imply a cost, but the following syntax should
@@ -85,40 +39,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       F29DE89C-73CD-4344-B6F7-BB7584AA6FFD
    :END:
    [2009-11-24 Tue 01:11]
-** TODO [[bug:200][#200]] Commodities containing digits and ledger bal
-   - Note taken on [2010-06-03 Thu 06:02] \\
-     You could simply drop the quotes if the commodity doesn't contain any
-     spaces.
-   - Note taken on [2010-06-02 Wed 18:12] \\
-     What if you have a Commodity named "FOO 100", which is perfectly legal.
-     And then the register or balance report prints out "200 FOO 100".  What
-     then?
-   - Note taken on [2010-06-02 Wed 18:12] \\
-     Martin: Why do we need an extra option for this?  Is there a reason this
-     cannot be done by default?
-     
-     In any case, I'm not sure it makes sense to add an option just for this
-     minor thing.  If it cannot be done by default without an option, I guess
-     you could just close this bug as WONTFIX.
-    - Note taken on [2010-06-02 Wed 16:54] \\
-      I will add an option called --no-quotes.
-    When you have a commodity that contains digits, you have to put it on
-    quotation marks, as in;
-#+begin_src sh
-    2010-04-02 Test
-      Assets:Broker                 10 "DE0002635307" @ 10
-      Assets:Bank
-#+end_src    
-    
-    ledger bal will also put this commodity in quotation marks.  Is this
-    necessary?  IMHO it would be nicer if "ledger bal" would strip the
-    quotation mark.
-    :PROPERTIES:
-    :ID:       F82CF11F-BFD9-4512-A562-202B04B68051
-    :Message:  [[message://20100402164513.GA10540@jirafa.cyrius.com][Commodities containing digits and ledger bal]]
-    :Submitter: Martin Michlmayr <tbm@cyrius.com>
-    :END:
-    [2010-04-04 Sun 15:18]
 ** TODO [[bug:201][#201]] Handling currencies that were replaced by the Euro
     - Note taken on [2010-05-28 Fri 00:59] \\
       Okay, using
@@ -252,11 +172,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: generate.out.7z
    :END:
    [2010-06-02 Wed 17:23]
-** TODO [[bug:227][#227]] Make --anon anonymize commodities as well
-   :PROPERTIES:
-   :ID:       1C90D8AF-830E-43C2-A5B7-D382F68EBDE3
-   :END:
-   [2010-06-04 Fri 02:10]
 ** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
    - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
    :PROPERTIES:
@@ -388,6 +303,14 @@ DATE Reconciled statement
    :Submitter: Xavier Shay <xavier-list@rhnh.net>
    :END:
    [2010-05-25 Tue 16:42]
+** TODO [[bug:190][#190]] Optimize finding and creation of annotated commodities
+   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
+   Don't use textual names, but lookup based on annotation details
+   directly.
+   :PROPERTIES:
+   :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
+   :END:
+   [2010-05-23 Sun 17:04]
 ** TODO [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
    :PROPERTIES:
    :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
@@ -1440,22 +1363,6 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :PROPERTIES:
    :ID:       5EBF9B2F-CE06-4C15-8B54-BB4E524ADC26
    :Message:  [[message://20100410170831.GA24387@jirafa.cyrius.com][Useful links from the mailing list]]
-   :Submitter: Martin Michlmayr <tbm@cyrius.com>
-   :END:
-   [2010-04-11 Sun 03:55]
-** DONE [[bug:194][#194]] Initial example in ledger manual bogus
-   - State "DONE"       from "TODO"       [2010-06-09 Wed 04:51]
-   While reading the ledger manual, I got really confused by the initial
-   example which seemed wrong to me.  While looking at the mailing list
-   archives, I noticed that this has been pointed out more than a year ago:
-
-   http://groups.google.com/group/ledger-cli/browse_thread/thread/ecd57e8f16eb90e3#
-   
-   Any chance to get the example fixed or removed?  It's really confusing for
-   newbies.
-   :PROPERTIES:
-   :ID:       B91DED0E-B52A-4C99-A100-6564961DE5C4
-   :Message:  [[message://20100410171011.GB24387@jirafa.cyrius.com][Initial example in ledger manual bogus]]
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-11 Sun 03:55]
