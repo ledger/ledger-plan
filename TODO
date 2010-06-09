@@ -11,266 +11,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] [[bug:197][#197]] Bug with -J and multiple commodities					 :ATTACH:
-    - Note taken on [2010-06-02 Wed 16:53] \\
-      Fixing this should also fix 198.
-#+begin_src sh
-  ledger  --exchange € -M -J reg ^dépenses
-#+end_src
-  :OUTPUT:
-  While evaluating value expression:
-   quantity(scrub(display_total))
-   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  Error: Cannot convert a balance with multiple commodities to an amount
-  2009-11-01 168.71
-  2009-11-01 256.81
-  2009-11-01 275.56
-  2009-11-01 326.46
-  :END:
-  I know this is intended behaviour, -J is not supposed to work with multiple
-  commodities.  But --exchange should be able to make it work IMHO -- and it
-  does it quite well without the -M flag.
-
-  I think this might be related to some bugs reported recently in the
-  mailing-list (it mentionned -J and multiple commodities too).
-  :PROPERTIES:
-  :ID:       68EAF363-D0FE-4127-866E-A5AEBACB65D6
-  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
-  :Attachments: ledger.txt.gpg
-  :END:
-  [2010-01-18 Mon 03:44]
-** TODO [#A] [[bug:198][#198]] Errors with using the -J option
-    With ledger v3, I have the following error when using -J option (while ok
-    with ledger v2).  I inlined comment below starting with '#' character.
-    
-#+begin_src sh
-    D 1000,00 €
-    
-    1994/1/1 Company
-     Assets:Checking  10000 F
-     Income:Salary
-    
-    1998/1/1 Transfer
-     Assets:US account  200 $
-     Assets:Checking  -1000 F
-    
-    P 1998/12/31 $ 6 F
-    
-    1999/1/1 Books
-     Expenses:Books  200 $
-     Assets:US account
-    
-    P 2002/1/1 F 0,15244901723741037903399155737342539221320909754755 €
-    
-    2002/1/1 Company
-     Assets:Checking  2000 €
-     Income:Salary
-#+end_src
-    
-    :OUTPUT:
-    $ ledger3 -f test3.ledger -J reg Assets
-    While evaluating value expression:
-     quantity(scrub(display_total))
-     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    Error: Cannot convert a balance with multiple commodities to an amount
-    1994-01-01 10000
-    $ ledger3 -f test3.ledger -V -J reg Assets
-    While evaluating value expression:
-     quantity(scrub(display_total))
-     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    Error: Cannot convert a balance with multiple commodities to an amount
-    1994-01-01 10000
-    1998-01-01 11000
-    1998-01-01 10000
-    1999-01-01 10200
-    1999-01-01 9000
-    :END:
-    
-    Above, I get error with ledger v3.  Below, output from ledger 2.6.2:
-    :OUTPUT:
-    $ ledger -f test3.ledger -J reg Assets
-    1994/01/01 10000
-    1998/01/01 10200
-    1998/01/01 9200
-    1999/01/01 9000
-    2002/01/01 11000
-    $ ledger -f test3.ledger -V -J reg Assets
-    1994/01/01 10000
-    1998/01/01 11000
-    1998/01/01 10000
-    1999/01/01 9000
-    2002/01/01 3372.04
-    :END:    
-    
-    I do not know it this is the expected result for "ledger -J reg
-    Assets", but acutally amount are added whatever the currency : 9000 F
-    + 2000 € becomes 11000.
-    :PROPERTIES:
-    :ID:       7C44010B-BB26-4E5C-8800-EB2C11891C9D
-    :Message:  [[message://916c6e83-4da6-4b7a-a035-d146908beabc@a15g2000yqm.googlegroups.com][-J option]]
-    :Submitter: thierry <thierry.daucourt@free.fr>
-    :END:
-    [2010-01-09 Sat 21:05]
-** TODO [#A] [[bug:204][#204]] Problem with price conversions and -V
-    Below is the test file.  What is noticeable is that if I put € as my
-    default currency $ is converted to F, and then F is converted to €.
-#+begin_src ledger
-    D 1000,00 €
-    P 1993/1/1 F 0,15244901723741037903399155737342539221320909754755 €
-    P 1993/1/1 $ 6 F
-    
-    1994/1/1 Company
-     Assets:Checking  10000 F
-     Income:Salary
-    
-    1998/1/1 Transfer
-     Assets:US account  200 $
-     Assets:Checking  -1000 F
-    
-    1999/1/1 Books
-     Expenses:Books  200 $
-     Assets:US account
-    
-    2002/1/1 Company
-     Assets:Checking  2000 €
-     Income:Salary
-#+end_src
-    
-    Below is the output of ledger v2.6.2.  What surprise me is that $ in
-    converted to F only, I would have expected $ to F then F to €.:
-    :OUTPUT:
-    thierry@rialto:~/VirtualBoxShare$ ledger -f test4.ledger -V reg Assets
-    1994/01/01 Company              Assets:Checking         1524,49 €  1524,49 €
-    1998/01/01 Transfer             Assets:US account          1000 F     1000 F
-                                                                       1524,49 €
-                                    Assets:Checking         -152,45 €     1000 F
-                                                                       1372,04 €
-    1999/01/01 Books                Assets:US account         -1000 F  1372,04 €
-    2002/01/01 Company              Assets:Checking         2000,00 €  3372,04 €
-    :END:
-    
-    Below is the output of ledger v3.  What surprise me is that I put € as my
-    default currency, but this is not valued to € (actually the valuation from
-    $ to F is done, but not the F to €).  Also, on the last line, the result
-    is not collapsed, as it is in output of v2.6.2:
-    :OUTPUT:
-    thierry@rialto:~/VirtualBoxShare$ ledger3 -f test4.ledger -V reg Assets
-    94-Jan-01 Company               Assets:Checking           10000 F   10000 F
-    98-Jan-01 Transfer              Assets:US account          1000 F   11000 F
-                                    Assets:Checking           -1000 F   10000 F
-    99-Jan-01 Books                 Assets:US account         -1000 F    9000 F
-    02-Jan-01 Company               Assets:Checking         2000,00 €    9000 F
-                                                                      2000,00 €
-    :END:
-    :PROPERTIES:
-    :ID:       6FC5D114-958D-493B-8879-6B9ED28224AB
-    :Message:  [[message://a6e822eb-17e3-4ff3-8e41-25c1999fb871@h9g2000yqa.googlegroups.com][-V option]]
-    :Submitter: thierry <thierry.daucourt@free.fr>
-    :END:
-    [2010-01-09 Sat 21:05]
-** TODO [#A] [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
-   :PROPERTIES:
-   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
-   :END:
-   [2010-05-30 Sun 03:33]
-** TODO [#A] [[bug:213][#213]] Balancing problems with fixated commodity prices
-    I've been playing with [[http://groups.google.com/group/ledger-cli/browse_thread/thread/e98bee73e279b3af][John's example]]:
-#+begin_src ledger
-    2009/01/01 Shell
-        Expenses:Gasoline             11 GAL {=$2.29} @ $2.30
-        Assets:Checking
-#+end_src
-    > This transaction says that you bought 11 gallons priced at $2.29 per
-    > gallon at a *cost to you* of $2.30 per gallon.  Ledger auto-generates a
-    > balance posting in this case to Equity:Capital Losses to reflect the 11
-    > cent difference, which is then balanced by Assets:Checking because its
-    > amount is null.
-
-    This example suggests that ledger will automatically balance this but when
-    I put this example into ledger I get:
-    :OUTPUT:
-    Unbalanced remainder is:
-                  $-0.11
-    Amount to balance against:
-                  $25.30
-    :END:
-
-    What seems to happen is that ledger makes an automatic posting to
-    Equity:Capital Losses for $-0.11 but this is not taken into account when
-    doing the balance.
-    
-    While trying to figure out what's going on, I worked on an example that
-    (to me) is easier to understand: I start out with 10.00 EUR and then buy
-    5.00 GBP at a rate of 1.4 (i.e. for 7.00 EUR).  I now have 3.00 EUR and
-    5.00 GBP.  I then sell the 5.00 GBP at a rate of 1.5, i.e. for 7.50 EUR.
-    So now I have 10.50 EUR and have made a 0.50 EUR gain.
-    
-    However, when I sell the money and say that my Assets:Cash goes up by 7.50
-    EUR, ledger will complain that it doesn't balance.  In order for ledger to
-    accept it, I have to say that it goes up by 7.00 EUR.  So what I did was
-    to post 7.50 EUR to Assets:Cash and 0.50 EUR to Income:Gain.  Then ledger
-    no longer complains, but when you look at "ledger bal" its off by 0.50 EUR
-    because of the automatic "Equity:Capital Gains" posting ledger made.
-    
-    So it seems that the automatic Equity:Capital Loss|Gains posting is not
-    taking into account for the balance.
-    
-    In addition to this bug, I wonder whether this automatic posting by ledger
-    makes sense in the first place.  First of all, the name is hardcoded into
-    ledger and some people may want to use a different account name.
-    Secondly, you might want to use different account names depending on the
-    circumstances (e.g. Expenses:Currency Loss for currency conversation, but
-    Income:Capital Gains for gains when selling shares).  If you'd get rid of
-    the automatic posting, people could simply write:
-#+begin_src ledger
-     Assets:Cash                       -5.00 GBP {=1.4 EUR} @ 1.5 EUR
-     Assets:Cash                        7.50 EUR
-     Income:Gain
-#+end_src
-    and it would balance.
-    
-    Anyway, my example is below.  When you run "ledger bal", you get:
-    :OUTPUT:
-              10.50 EUR  Assets:Cash
-              -9.50 EUR  Equity
-               0.50 EUR    Capital Gains
-             -10.00 EUR    Opening balance
-              -0.50 EUR  Income:Gain
-    --------------------
-               0.50 EUR   <--
-    :END:
-#+begin_src ledger
-    2010-01-01 Opening balance
-     Assets:Cash         10.00 EUR
-     Equity:Opening balance
-    
-    2010-01-20 Buy GBP
-     Assets:Cash         5.00 GBP @ 1.4 EUR
-     Assets:Cash
-    
-    2010-01-20 Sell GBP
-     Assets:Cash                       -5.00 GBP {=1.4 EUR} @ 1.5 EUR
-     Assets:Cash                        7.50 EUR
-     Income:Gain                       -0.50 EUR
-#+end_src    
-    
-    Note: when you remove the -0.50 EUR from Income:Gain and just leave it
-    empty, ledger will not be able to balance.
-    
-    P.S. Is a loss/gain really "Equity"?  Shouldn't that be an Income or
-    Expense?  I wonder why the automatic posting puts it on the Equity side.
-    I didn't know you put things there except for the opening balance.
-    :PROPERTIES:
-    :ID:       6E0F6FE7-4C5C-4BA1-8915-F6D85666A98F
-    :Submitter: Martin Michlmayr <tbm@cyrius.com>
-    :Message:  [[message://20100531100036.GA23484@jirafa.cyrius.com][Balancing problems with fixated commodity prices]]
-    :END:
-    [2010-05-31 Mon 14:37]
-** TODO [#A] [[bug:222][#222]] tag/pop to apply metadata does not work
-   :PROPERTIES:
-   :ID:       6343F4D3-FDEB-4812-AC9D-8D9D31B873CF
-   :END:
-   [2010-06-01 Tue 15:15]
 ** TODO [[bug:158][#158]] "ledger template exxons 10 from checking" applies 10 to "from"
    It should apply to the "to" account.
    :PROPERTIES:
@@ -443,6 +183,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     :Submitter: Martin Michlmayr <tbm@cyrius.com>
     :END:
     [2010-04-04 Sun 15:18]
+** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+   SCHEDULED: <2010-06-09 Wed>
+   :PROPERTIES:
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :END:
+   [2010-05-30 Sun 03:33]
+** TODO [[bug:222][#222]] tag/pop to apply metadata does not work
+   SCHEDULED: <2010-06-09 Wed>
+   :PROPERTIES:
+   :ID:       6343F4D3-FDEB-4812-AC9D-8D9D31B873CF
+   :END:
+   [2010-06-01 Tue 15:15]
 ** TODO [[bug:224][#224]] A large number of GenerateTests are failing				 :ATTACH:
    When running GenerateTests from 1 to 10001, 954 of the tests fail --
    although many of them for the same apparent reason.  These different types
@@ -579,6 +331,66 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :Submitter: Johann Klähn <kljohann@gmail.com>
   :END:
   [2009-12-01 Tue 03:04]
+** TODO [[bug:174][#174]] Make path to getquote script configurable using an option
+   :PROPERTIES:
+   :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
+   :END:
+   [2010-04-13 Tue 01:37]
+** TODO [[bug:175][#175]] Make an assert directive for Ledger
+#+begin_src ledger :results outputb
+  assert DATE AMOUNT ACCOUNT
+#+end_src
+  is equivalent to
+#+begin_src ledger :results outputb
+DATE Reconciled statement
+    [ACCOUNT]    = AMOUNT
+#+end_src
+  :PROPERTIES:
+  :ID:       52C041BD-5EF0-46E9-B046-A23CBF01632A
+  :END:
+  [2010-03-05 Fri 21:59]
+** TODO [[bug:176][#176]] Make "until today", "from yesterday" work for -p
+   :PROPERTIES:
+   :ID:       438B58C4-59F6-462D-A9FA-CF4839BF064C
+   :Message:  [[message://20100216095003.GA2870@rhodium.pps.jussieu.fr][from and until today, etc.]]
+   :Submitter: Gabriel Kerneis <kerneis@pps.jussieu.fr>
+   :END:
+   [2010-02-16 Tue 23:31]
+** TODO [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
+   :PROPERTIES:
+   :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
+   :END:
+   [2009-11-24 Tue 22:02]
+** TODO [[bug:178][#178]] Have a way to set the date range to "this week" easily
+   :PROPERTIES:
+   :ID:       3ED8AC82-37A1-4513-AB20-8FFC66A2BD00
+   :Message:  [[message://8017aec0-63c1-4d55-bced-5e87e50e7a8d@o28g2000yqh.googlegroups.com][Is there a way to set the date range to "this week" easily?]]
+   :Submitter: markscottwright <markscottwright@gmail.com>
+   :END:
+   [2010-01-09 Sat 21:08]
+** TODO [[bug:180][#180]] Allow for period expressions "4 months ago" and "last 5 weeks"
+   - State "TODO"       from "STARTED"    [2009-12-07 Mon 04:24]
+   :PROPERTIES:
+   :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
+   :END:
+   [2009-11-18 Wed 05:51]
+** TODO [[bug:182][#182]] Port Gnucash support to 3.0
+   :PROPERTIES:
+   :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
+   :Message:  [[message://96abdebf-d2ae-40fa-b555-c2329f91602b@q36g2000prg.googlegroups.com][How to use gnucash with v3]]
+   :Submitter: Xavier Shay <xavier-list@rhnh.net>
+   :END:
+   [2010-05-25 Tue 16:42]
+** TODO [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
+   :PROPERTIES:
+   :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
+   :END:
+   [2010-05-31 Mon 10:35]
+** TODO [[bug:223][#223]] Consider deprecating the --cache option
+   :PROPERTIES:
+   :ID:       D8623268-D229-49A3-83A7-6C77010FC4A1
+   :END:
+   [2010-06-02 Wed 03:47]
 ** TODO [[bug:230][#230]] Make format strings backward compatible with 2.x
    That way, %D would be the same as %(date).
    :PROPERTIES:
@@ -641,66 +453,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       558FDCF1-2C7A-4D20-94A3-48A62FF84104
    :END:
    [2010-06-08 Tue 19:22]
-** TODO [#C] [[bug:174][#174]] Make path to getquote script configurable using an option
-   :PROPERTIES:
-   :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
-   :END:
-   [2010-04-13 Tue 01:37]
-** TODO [#C] [[bug:175][#175]] Make an assert directive for Ledger
-#+begin_src ledger :results outputb
-  assert DATE AMOUNT ACCOUNT
-#+end_src
-  is equivalent to
-#+begin_src ledger :results outputb
-DATE Reconciled statement
-    [ACCOUNT]    = AMOUNT
-#+end_src
-  :PROPERTIES:
-  :ID:       52C041BD-5EF0-46E9-B046-A23CBF01632A
-  :END:
-  [2010-03-05 Fri 21:59]
-** TODO [#C] [[bug:176][#176]] Make "until today", "from yesterday" work for -p
-   :PROPERTIES:
-   :ID:       438B58C4-59F6-462D-A9FA-CF4839BF064C
-   :Message:  [[message://20100216095003.GA2870@rhodium.pps.jussieu.fr][from and until today, etc.]]
-   :Submitter: Gabriel Kerneis <kerneis@pps.jussieu.fr>
-   :END:
-   [2010-02-16 Tue 23:31]
-** TODO [#C] [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
-   :PROPERTIES:
-   :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
-   :END:
-   [2009-11-24 Tue 22:02]
-** TODO [#C] [[bug:178][#178]] Have a way to set the date range to "this week" easily
-   :PROPERTIES:
-   :ID:       3ED8AC82-37A1-4513-AB20-8FFC66A2BD00
-   :Message:  [[message://8017aec0-63c1-4d55-bced-5e87e50e7a8d@o28g2000yqh.googlegroups.com][Is there a way to set the date range to "this week" easily?]]
-   :Submitter: markscottwright <markscottwright@gmail.com>
-   :END:
-   [2010-01-09 Sat 21:08]
-** TODO [#C] [[bug:180][#180]] Allow for period expressions "4 months ago" and "last 5 weeks"
-   - State "TODO"       from "STARTED"    [2009-12-07 Mon 04:24]
-   :PROPERTIES:
-   :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
-   :END:
-   [2009-11-18 Wed 05:51]
-** TODO [#C] [[bug:182][#182]] Port Gnucash support to 3.0
-   :PROPERTIES:
-   :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
-   :Message:  [[message://96abdebf-d2ae-40fa-b555-c2329f91602b@q36g2000prg.googlegroups.com][How to use gnucash with v3]]
-   :Submitter: Xavier Shay <xavier-list@rhnh.net>
-   :END:
-   [2010-05-25 Tue 16:42]
-** TODO [#C] [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
-   :PROPERTIES:
-   :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
-   :END:
-   [2010-05-31 Mon 10:35]
-** TODO [#C] [[bug:223][#223]] Consider deprecating the --cache option
-   :PROPERTIES:
-   :ID:       D8623268-D229-49A3-83A7-6C77010FC4A1
-   :END:
-   [2010-06-02 Wed 03:47]
 ** DEFERRED [[bug:179][#179]] Allow specification of times on transactions and postings
    - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 17:08]
    The value expressions to expose this would be:
@@ -1528,7 +1280,7 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [#C] [[bug:216][#216]] Ledger packages for Debian
+** TODO [[bug:216][#216]] Ledger packages for Debian
    - Note taken on [2010-05-31 Mon 15:06] \\
      [[message://AANLkTilCFWypqs-A8-X7OMRP-ivli9vwZWlIM3TQwHaW@mail.gmail.com][Re: Ledger for Ubuntu hardy?]]
    - Note taken on [2010-05-31 Mon 15:05] \\
@@ -1593,18 +1345,18 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
+** TODO [[bug:185][#185]] Read through Peter's article, and make sure it all applies			 :ATTACH:
+   :PROPERTIES:
+   :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
+   :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
+   :END:
+   [2009-11-24 Tue 22:04]
 ** TODO [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
    - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:12]
    :PROPERTIES:
    :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
    :END:
    [2010-05-31 Mon 01:14]
-** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies		 :ATTACH:
-   :PROPERTIES:
-   :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
-   :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
-   :END:
-   [2009-11-24 Tue 22:04]
 ** DEFERRED [[bug:187][#187]] Use coverage analysis to determine if everything is being tested
    - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 00:44]
    :PROPERTIES:
@@ -1642,32 +1394,17 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO [[bug:194][#194]] Initial example in ledger manual bogus
-   While reading the ledger manual, I got really confused by the initial
-   example which seemed wrong to me.  While looking at the mailing list
-   archives, I noticed that this has been pointed out more than a year ago:
-
-   http://groups.google.com/group/ledger-cli/browse_thread/thread/ecd57e8f16eb90e3#
-   
-   Any chance to get the example fixed or removed?  It's really confusing for
-   newbies.
-   :PROPERTIES:
-   :ID:       B91DED0E-B52A-4C99-A100-6564961DE5C4
-   :Message:  [[message://20100410171011.GB24387@jirafa.cyrius.com][Initial example in ledger manual bogus]]
-   :Submitter: Martin Michlmayr <tbm@cyrius.com>
-   :END:
-   [2010-04-11 Sun 03:55]
-** TODO [#C] [[bug:169][#169]] Create a PO file for Alexis to translate into German
+** TODO [[bug:169][#169]] Create a PO file for Alexis to translate into German
    :PROPERTIES:
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
    :END:
    [2009-11-09 Mon 03:40]
-** TODO [#C] [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
+** TODO [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
    :PROPERTIES:
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :END:
    [2009-11-20 Fri 18:31]
-** TODO [#C] [[bug:193][#193]] Useful links from the mailing list
+** TODO [[bug:193][#193]] Useful links from the mailing list
    Since I'm new to ledger and accounting, I went through the mailing list
    archives to look for useful examples and questions.  Here is a list of
    threads that I found useful.  Maybe this will save someone the time to look
@@ -1699,13 +1436,28 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-11 Sun 03:55]
-** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation				 :ATTACH:
+** TODO [[bug:194][#194]] Initial example in ledger manual bogus
+   While reading the ledger manual, I got really confused by the initial
+   example which seemed wrong to me.  While looking at the mailing list
+   archives, I noticed that this has been pointed out more than a year ago:
+
+   http://groups.google.com/group/ledger-cli/browse_thread/thread/ecd57e8f16eb90e3#
+   
+   Any chance to get the example fixed or removed?  It's really confusing for
+   newbies.
+   :PROPERTIES:
+   :ID:       B91DED0E-B52A-4C99-A100-6564961DE5C4
+   :Message:  [[message://20100410171011.GB24387@jirafa.cyrius.com][Initial example in ledger manual bogus]]
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :END:
+   [2010-04-11 Sun 03:55]
+** TODO [[bug:195][#195]] How to declare a statement reconciliation					 :ATTACH:
    :PROPERTIES:
    :ID:       32A4A048-886F-43FC-892E-EC125F372750
    :Attachments: foo.dat
    :END:
    [2009-12-10 Thu 18:05]
-** TODO [#C] [[bug:202][#202]] doc/NEWS and xml
+** TODO [[bug:202][#202]] doc/NEWS and xml
    doc/NEWS claims that the xml command was removed but it's still there (at
    least "ledger -f foo.dat xml" works; maybe you meant a different xml
    command?).
@@ -1715,12 +1467,12 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-03-26 Fri 22:22]
-** TODO [#C] [[bug:208][#208]] Special characters in manual don't show up in PDF
+** TODO [[bug:208][#208]] Special characters in manual don't show up in PDF
    :PROPERTIES:
    :ID:       971BE95D-7538-4076-901E-E5C35BD87438
    :END:
    [2010-05-31 Mon 14:39]
-** WAITING [#C] [[bug:170][#170]] Fill out membership form for the Software Conservancy
+** WAITING [[bug:170][#170]] Fill out membership form for the Software Conservancy
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
      I'm waiting for the official form to come from the Conservancy.
    - State "TODO"       from "WAITING"    [2010-05-22 Sat 15:05]

@@ -523,6 +523,118 @@ ledger -QV bal .
    :Submitter: thierry <thierry.daucourt@free.fr>
    :END:
    [2010-01-09 Sat 21:09]
+** DONE [[bug:197][#197]] Bug with -J and multiple commodities					 :ATTACH:
+   SCHEDULED: <2010-06-08 Tue>
+   - State "DONE"       from "TODO"       [2010-06-09 Wed 02:51] \\
+     Fixed by fc09b69f.
+    - Note taken on [2010-06-02 Wed 16:53] \\
+      Fixing this should also fix 198.
+#+begin_src sh
+  ledger  --exchange € -M -J reg ^dépenses
+#+end_src
+  :OUTPUT:
+  While evaluating value expression:
+   quantity(scrub(display_total))
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  Error: Cannot convert a balance with multiple commodities to an amount
+  2009-11-01 168.71
+  2009-11-01 256.81
+  2009-11-01 275.56
+  2009-11-01 326.46
+  :END:
+  I know this is intended behaviour, -J is not supposed to work with multiple
+  commodities.  But --exchange should be able to make it work IMHO -- and it
+  does it quite well without the -M flag.
+
+  I think this might be related to some bugs reported recently in the
+  mailing-list (it mentionned -J and multiple commodities too).
+  :PROPERTIES:
+  :ID:       68EAF363-D0FE-4127-866E-A5AEBACB65D6
+  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+  :Attachments: ledger.txt.gpg
+  :END:
+  [2010-01-18 Mon 03:44]
+** DONE [[bug:198][#198]] Errors with using the -J option
+   SCHEDULED: <2010-06-08 Tue>
+   - State "DONE"       from "TODO"       [2010-06-09 Wed 03:12] \\
+     This is now fixed, but you'll have to run:
+     #+begin_src sh
+     ledger -X F -J reg Assets
+     #+end_src
+     in order to ensure that everything is rendered in the same commodity.
+
+     Fixed by fc09b69f.
+    With ledger v3, I have the following error when using -J option (while ok
+    with ledger v2).  I inlined comment below starting with '#' character.
+    
+#+begin_src sh
+    D 1000,00 €
+    
+    1994/1/1 Company
+     Assets:Checking  10000 F
+     Income:Salary
+    
+    1998/1/1 Transfer
+     Assets:US account  200 $
+     Assets:Checking  -1000 F
+    
+    P 1998/12/31 $ 6 F
+    
+    1999/1/1 Books
+     Expenses:Books  200 $
+     Assets:US account
+    
+    P 2002/1/1 F 0,15244901723741037903399155737342539221320909754755 €
+    
+    2002/1/1 Company
+     Assets:Checking  2000 €
+     Income:Salary
+#+end_src
+    
+    :OUTPUT:
+    $ ledger3 -f test3.ledger -J reg Assets
+    While evaluating value expression:
+     quantity(scrub(display_total))
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Error: Cannot convert a balance with multiple commodities to an amount
+    1994-01-01 10000
+    $ ledger3 -f test3.ledger -V -J reg Assets
+    While evaluating value expression:
+     quantity(scrub(display_total))
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    Error: Cannot convert a balance with multiple commodities to an amount
+    1994-01-01 10000
+    1998-01-01 11000
+    1998-01-01 10000
+    1999-01-01 10200
+    1999-01-01 9000
+    :END:
+    
+    Above, I get error with ledger v3.  Below, output from ledger 2.6.2:
+    :OUTPUT:
+    $ ledger -f test3.ledger -J reg Assets
+    1994/01/01 10000
+    1998/01/01 10200
+    1998/01/01 9200
+    1999/01/01 9000
+    2002/01/01 11000
+    $ ledger -f test3.ledger -V -J reg Assets
+    1994/01/01 10000
+    1998/01/01 11000
+    1998/01/01 10000
+    1999/01/01 9000
+    2002/01/01 3372.04
+    :END:    
+    
+    I do not know it this is the expected result for "ledger -J reg
+    Assets", but acutally amount are added whatever the currency : 9000 F
+    + 2000 € becomes 11000.
+    :PROPERTIES:
+    :ID:       7C44010B-BB26-4E5C-8800-EB2C11891C9D
+    :Message:  [[message://916c6e83-4da6-4b7a-a035-d146908beabc@a15g2000yqm.googlegroups.com][-J option]]
+    :Submitter: thierry <thierry.daucourt@free.fr>
+    :END:
+    [2010-01-09 Sat 21:05]
 ** DONE [[bug:199][#199]] Issue with reporting asset history and -j/-J
     SCHEDULED: <2010-05-30 Sun>
     - State "DONE"       from "TODO"       [2010-05-30 Sun 22:00] \\
@@ -3535,6 +3647,168 @@ Just output them all in the proper order.
    :Submitter: Zack Williams <zdwzdw@gmail.com>
    :END:
    [2010-03-26 Fri 22:24]
+** WORKSFORME [[bug:204][#204]] Problem with price conversions and -V
+   SCHEDULED: <2010-06-08 Tue>
+   - State "WORKSFORME" from "TODO"       [2010-06-09 Wed 03:14] \\
+     The concept of a "default commodity" does not mean what you are thinking.
+     In order to render all values in a specific commodity, you can use:
+     #+begin_src sh
+     ledger -X € reg Assets
+     #+end_src
+     
+     The reason why -V alone doesn't do what you expect is because you never
+     use it to trade either F or $ in this example.
+    Below is the test file.  What is noticeable is that if I put € as my
+    default currency $ is converted to F, and then F is converted to €.
+#+begin_src ledger
+    D 1000,00 €
+    P 1993/1/1 F 0,15244901723741037903399155737342539221320909754755 €
+    P 1993/1/1 $ 6 F
+    
+    1994/1/1 Company
+     Assets:Checking  10000 F
+     Income:Salary
+    
+    1998/1/1 Transfer
+     Assets:US account  200 $
+     Assets:Checking  -1000 F
+    
+    1999/1/1 Books
+     Expenses:Books  200 $
+     Assets:US account
+    
+    2002/1/1 Company
+     Assets:Checking  2000 €
+     Income:Salary
+#+end_src
+    
+    Below is the output of ledger v2.6.2.  What surprise me is that $ in
+    converted to F only, I would have expected $ to F then F to €.:
+    :OUTPUT:
+    thierry@rialto:~/VirtualBoxShare$ ledger -f test4.ledger -V reg Assets
+    1994/01/01 Company              Assets:Checking         1524,49 €  1524,49 €
+    1998/01/01 Transfer             Assets:US account          1000 F     1000 F
+                                                                       1524,49 €
+                                    Assets:Checking         -152,45 €     1000 F
+                                                                       1372,04 €
+    1999/01/01 Books                Assets:US account         -1000 F  1372,04 €
+    2002/01/01 Company              Assets:Checking         2000,00 €  3372,04 €
+    :END:
+    
+    Below is the output of ledger v3.  What surprise me is that I put € as my
+    default currency, but this is not valued to € (actually the valuation from
+    $ to F is done, but not the F to €).  Also, on the last line, the result
+    is not collapsed, as it is in output of v2.6.2:
+    :OUTPUT:
+    thierry@rialto:~/VirtualBoxShare$ ledger3 -f test4.ledger -V reg Assets
+    94-Jan-01 Company               Assets:Checking           10000 F   10000 F
+    98-Jan-01 Transfer              Assets:US account          1000 F   11000 F
+                                    Assets:Checking           -1000 F   10000 F
+    99-Jan-01 Books                 Assets:US account         -1000 F    9000 F
+    02-Jan-01 Company               Assets:Checking         2000,00 €    9000 F
+                                                                      2000,00 €
+    :END:
+    :PROPERTIES:
+    :ID:       6FC5D114-958D-493B-8879-6B9ED28224AB
+    :Message:  [[message://a6e822eb-17e3-4ff3-8e41-25c1999fb871@h9g2000yqa.googlegroups.com][-V option]]
+    :Submitter: thierry <thierry.daucourt@free.fr>
+    :END:
+    [2010-01-09 Sat 21:05]
+** WORKSFORME [[bug:213][#213]] Balancing problems with fixated commodity prices
+   SCHEDULED: <2010-06-08 Tue>
+   - State "WORKSFORME" from "TODO"       [2010-06-09 Wed 03:37]
+    I've been playing with [[http://groups.google.com/group/ledger-cli/browse_thread/thread/e98bee73e279b3af][John's example]]:
+#+begin_src ledger
+    2009/01/01 Shell
+        Expenses:Gasoline             11 GAL {=$2.29} @ $2.30
+        Assets:Checking
+#+end_src
+    > This transaction says that you bought 11 gallons priced at $2.29 per
+    > gallon at a *cost to you* of $2.30 per gallon.  Ledger auto-generates a
+    > balance posting in this case to Equity:Capital Losses to reflect the 11
+    > cent difference, which is then balanced by Assets:Checking because its
+    > amount is null.
+
+    This example suggests that ledger will automatically balance this but when
+    I put this example into ledger I get:
+    :OUTPUT:
+    Unbalanced remainder is:
+                  $-0.11
+    Amount to balance against:
+                  $25.30
+    :END:
+
+    What seems to happen is that ledger makes an automatic posting to
+    Equity:Capital Losses for $-0.11 but this is not taken into account when
+    doing the balance.
+    
+    While trying to figure out what's going on, I worked on an example that
+    (to me) is easier to understand: I start out with 10.00 EUR and then buy
+    5.00 GBP at a rate of 1.4 (i.e. for 7.00 EUR).  I now have 3.00 EUR and
+    5.00 GBP.  I then sell the 5.00 GBP at a rate of 1.5, i.e. for 7.50 EUR.
+    So now I have 10.50 EUR and have made a 0.50 EUR gain.
+    
+    However, when I sell the money and say that my Assets:Cash goes up by 7.50
+    EUR, ledger will complain that it doesn't balance.  In order for ledger to
+    accept it, I have to say that it goes up by 7.00 EUR.  So what I did was
+    to post 7.50 EUR to Assets:Cash and 0.50 EUR to Income:Gain.  Then ledger
+    no longer complains, but when you look at "ledger bal" its off by 0.50 EUR
+    because of the automatic "Equity:Capital Gains" posting ledger made.
+    
+    So it seems that the automatic Equity:Capital Loss|Gains posting is not
+    taking into account for the balance.
+    
+    In addition to this bug, I wonder whether this automatic posting by ledger
+    makes sense in the first place.  First of all, the name is hardcoded into
+    ledger and some people may want to use a different account name.
+    Secondly, you might want to use different account names depending on the
+    circumstances (e.g. Expenses:Currency Loss for currency conversation, but
+    Income:Capital Gains for gains when selling shares).  If you'd get rid of
+    the automatic posting, people could simply write:
+#+begin_src ledger
+     Assets:Cash                       -5.00 GBP {=1.4 EUR} @ 1.5 EUR
+     Assets:Cash                        7.50 EUR
+     Income:Gain
+#+end_src
+    and it would balance.
+    
+    Anyway, my example is below.  When you run "ledger bal", you get:
+    :OUTPUT:
+              10.50 EUR  Assets:Cash
+              -9.50 EUR  Equity
+               0.50 EUR    Capital Gains
+             -10.00 EUR    Opening balance
+              -0.50 EUR  Income:Gain
+    --------------------
+               0.50 EUR   <--
+    :END:
+#+begin_src ledger
+    2010-01-01 Opening balance
+     Assets:Cash         10.00 EUR
+     Equity:Opening balance
+    
+    2010-01-20 Buy GBP
+     Assets:Cash         5.00 GBP @ 1.4 EUR
+     Assets:Cash
+    
+    2010-01-20 Sell GBP
+     Assets:Cash                       -5.00 GBP {=1.4 EUR} @ 1.5 EUR
+     Assets:Cash                        7.50 EUR
+     Income:Gain                       -0.50 EUR
+#+end_src    
+    
+    Note: when you remove the -0.50 EUR from Income:Gain and just leave it
+    empty, ledger will not be able to balance.
+    
+    P.S. Is a loss/gain really "Equity"?  Shouldn't that be an Income or
+    Expense?  I wonder why the automatic posting puts it on the Equity side.
+    I didn't know you put things there except for the opening balance.
+    :PROPERTIES:
+    :ID:       6E0F6FE7-4C5C-4BA1-8915-F6D85666A98F
+    :Submitter: Martin Michlmayr <tbm@cyrius.com>
+    :Message:  [[message://20100531100036.GA23484@jirafa.cyrius.com][Balancing problems with fixated commodity prices]]
+    :END:
+    [2010-05-31 Mon 14:37]
 ** WORKSFORME Balance of virtual transactions depends on amount syntax
    - State "WORKSFORME" from "TODO"       [2010-05-22 Sat 20:49] \\
      This is expected behavior.
