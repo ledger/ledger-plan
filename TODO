@@ -39,7 +39,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       F145D482-2F15-48D0-A0CC-6593AC1896DD
    :END:
    [2010-05-22 Sat 19:15]
-** TODO [[bug:165][#165]] --exchange seems to be ignored when combined with -M			 :ATTACH:
+** DONE [[bug:165][#165]] --exchange seems to be ignored when combined with -M			 :ATTACH:
+   - State "DONE"       from "TODO"       [2010-06-09 Wed 05:09]
 #+begin_src sh
   ledger  --exchange € reg ^dépenses|grep "\\$" |wc -l
 #+end_src
@@ -68,6 +69,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-05-23 Sun 17:04]
 ** TODO [[bug:196][#196]] Bug when not using commodities in a posting's cost
+   - Note taken on [2010-06-09 Wed 05:15] \\
+     A priced commodity does NOT imply a cost, but the following syntax should
+     be accepted:
+     #+begin_src ledger
+       Assets    1 apple @ =0.10
+     #+end_src
    For example:
 #+begin_src ledger
    2009/11/01 Sample
@@ -1436,7 +1443,8 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-11 Sun 03:55]
-** TODO [[bug:194][#194]] Initial example in ledger manual bogus
+** DONE [[bug:194][#194]] Initial example in ledger manual bogus
+   - State "DONE"       from "TODO"       [2010-06-09 Wed 04:51]
    While reading the ledger manual, I got really confused by the initial
    example which seemed wrong to me.  While looking at the mailing list
    archives, I noticed that this has been pointed out more than a year ago:

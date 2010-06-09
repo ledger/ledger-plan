@@ -3717,98 +3717,98 @@ Just output them all in the proper order.
 ** WORKSFORME [[bug:213][#213]] Balancing problems with fixated commodity prices
    SCHEDULED: <2010-06-08 Tue>
    - State "WORKSFORME" from "TODO"       [2010-06-09 Wed 03:37]
-    I've been playing with [[http://groups.google.com/group/ledger-cli/browse_thread/thread/e98bee73e279b3af][John's example]]:
+   I've been playing with [[http://groups.google.com/group/ledger-cli/browse_thread/thread/e98bee73e279b3af][John's example]]:
 #+begin_src ledger
-    2009/01/01 Shell
-        Expenses:Gasoline             11 GAL {=$2.29} @ $2.30
-        Assets:Checking
+   2009/01/01 Shell
+       Expenses:Gasoline             11 GAL {=$2.29} @ $2.30
+       Assets:Checking
 #+end_src
-    > This transaction says that you bought 11 gallons priced at $2.29 per
-    > gallon at a *cost to you* of $2.30 per gallon.  Ledger auto-generates a
-    > balance posting in this case to Equity:Capital Losses to reflect the 11
-    > cent difference, which is then balanced by Assets:Checking because its
-    > amount is null.
+   > This transaction says that you bought 11 gallons priced at $2.29 per
+   > gallon at a *cost to you* of $2.30 per gallon.  Ledger auto-generates a
+   > balance posting in this case to Equity:Capital Losses to reflect the 11
+   > cent difference, which is then balanced by Assets:Checking because its
+   > amount is null.
 
-    This example suggests that ledger will automatically balance this but when
-    I put this example into ledger I get:
-    :OUTPUT:
-    Unbalanced remainder is:
-                  $-0.11
-    Amount to balance against:
-                  $25.30
-    :END:
+   This example suggests that ledger will automatically balance this but when
+   I put this example into ledger I get:
+   :OUTPUT:
+   Unbalanced remainder is:
+                 $-0.11
+   Amount to balance against:
+                 $25.30
+   :END:
 
-    What seems to happen is that ledger makes an automatic posting to
-    Equity:Capital Losses for $-0.11 but this is not taken into account when
-    doing the balance.
-    
-    While trying to figure out what's going on, I worked on an example that
-    (to me) is easier to understand: I start out with 10.00 EUR and then buy
-    5.00 GBP at a rate of 1.4 (i.e. for 7.00 EUR).  I now have 3.00 EUR and
-    5.00 GBP.  I then sell the 5.00 GBP at a rate of 1.5, i.e. for 7.50 EUR.
-    So now I have 10.50 EUR and have made a 0.50 EUR gain.
-    
-    However, when I sell the money and say that my Assets:Cash goes up by 7.50
-    EUR, ledger will complain that it doesn't balance.  In order for ledger to
-    accept it, I have to say that it goes up by 7.00 EUR.  So what I did was
-    to post 7.50 EUR to Assets:Cash and 0.50 EUR to Income:Gain.  Then ledger
-    no longer complains, but when you look at "ledger bal" its off by 0.50 EUR
-    because of the automatic "Equity:Capital Gains" posting ledger made.
-    
-    So it seems that the automatic Equity:Capital Loss|Gains posting is not
-    taking into account for the balance.
-    
-    In addition to this bug, I wonder whether this automatic posting by ledger
-    makes sense in the first place.  First of all, the name is hardcoded into
-    ledger and some people may want to use a different account name.
-    Secondly, you might want to use different account names depending on the
-    circumstances (e.g. Expenses:Currency Loss for currency conversation, but
-    Income:Capital Gains for gains when selling shares).  If you'd get rid of
-    the automatic posting, people could simply write:
+   What seems to happen is that ledger makes an automatic posting to
+   Equity:Capital Losses for $-0.11 but this is not taken into account when
+   doing the balance.
+   
+   While trying to figure out what's going on, I worked on an example that
+   (to me) is easier to understand: I start out with 10.00 EUR and then buy
+   5.00 GBP at a rate of 1.4 (i.e. for 7.00 EUR).  I now have 3.00 EUR and
+   5.00 GBP.  I then sell the 5.00 GBP at a rate of 1.5, i.e. for 7.50 EUR.
+   So now I have 10.50 EUR and have made a 0.50 EUR gain.
+   
+   However, when I sell the money and say that my Assets:Cash goes up by 7.50
+   EUR, ledger will complain that it doesn't balance.  In order for ledger to
+   accept it, I have to say that it goes up by 7.00 EUR.  So what I did was
+   to post 7.50 EUR to Assets:Cash and 0.50 EUR to Income:Gain.  Then ledger
+   no longer complains, but when you look at "ledger bal" its off by 0.50 EUR
+   because of the automatic "Equity:Capital Gains" posting ledger made.
+   
+   So it seems that the automatic Equity:Capital Loss|Gains posting is not
+   taking into account for the balance.
+   
+   In addition to this bug, I wonder whether this automatic posting by ledger
+   makes sense in the first place.  First of all, the name is hardcoded into
+   ledger and some people may want to use a different account name.
+   Secondly, you might want to use different account names depending on the
+   circumstances (e.g. Expenses:Currency Loss for currency conversation, but
+   Income:Capital Gains for gains when selling shares).  If you'd get rid of
+   the automatic posting, people could simply write:
 #+begin_src ledger
-     Assets:Cash                       -5.00 GBP {=1.4 EUR} @ 1.5 EUR
-     Assets:Cash                        7.50 EUR
-     Income:Gain
+    Assets:Cash                       -5.00 GBP {=1.4 EUR} @ 1.5 EUR
+    Assets:Cash                        7.50 EUR
+    Income:Gain
 #+end_src
-    and it would balance.
+   and it would balance.
     
-    Anyway, my example is below.  When you run "ledger bal", you get:
-    :OUTPUT:
-              10.50 EUR  Assets:Cash
-              -9.50 EUR  Equity
-               0.50 EUR    Capital Gains
-             -10.00 EUR    Opening balance
-              -0.50 EUR  Income:Gain
-    --------------------
-               0.50 EUR   <--
-    :END:
+   Anyway, my example is below.  When you run "ledger bal", you get:
+   :OUTPUT:
+             10.50 EUR  Assets:Cash
+             -9.50 EUR  Equity
+              0.50 EUR    Capital Gains
+            -10.00 EUR    Opening balance
+             -0.50 EUR  Income:Gain
+   --------------------
+              0.50 EUR   <--
+   :END:
 #+begin_src ledger
-    2010-01-01 Opening balance
-     Assets:Cash         10.00 EUR
-     Equity:Opening balance
-    
-    2010-01-20 Buy GBP
-     Assets:Cash         5.00 GBP @ 1.4 EUR
-     Assets:Cash
-    
-    2010-01-20 Sell GBP
-     Assets:Cash                       -5.00 GBP {=1.4 EUR} @ 1.5 EUR
-     Assets:Cash                        7.50 EUR
-     Income:Gain                       -0.50 EUR
+   2010-01-01 Opening balance
+    Assets:Cash         10.00 EUR
+    Equity:Opening balance
+   
+   2010-01-20 Buy GBP
+    Assets:Cash         5.00 GBP @ 1.4 EUR
+    Assets:Cash
+   
+   2010-01-20 Sell GBP
+    Assets:Cash                       -5.00 GBP {=1.4 EUR} @ 1.5 EUR
+    Assets:Cash                        7.50 EUR
+    Income:Gain                       -0.50 EUR
 #+end_src    
     
-    Note: when you remove the -0.50 EUR from Income:Gain and just leave it
-    empty, ledger will not be able to balance.
-    
-    P.S. Is a loss/gain really "Equity"?  Shouldn't that be an Income or
-    Expense?  I wonder why the automatic posting puts it on the Equity side.
-    I didn't know you put things there except for the opening balance.
-    :PROPERTIES:
-    :ID:       6E0F6FE7-4C5C-4BA1-8915-F6D85666A98F
-    :Submitter: Martin Michlmayr <tbm@cyrius.com>
-    :Message:  [[message://20100531100036.GA23484@jirafa.cyrius.com][Balancing problems with fixated commodity prices]]
-    :END:
-    [2010-05-31 Mon 14:37]
+   Note: when you remove the -0.50 EUR from Income:Gain and just leave it
+   empty, ledger will not be able to balance.
+   
+   P.S. Is a loss/gain really "Equity"?  Shouldn't that be an Income or
+   Expense?  I wonder why the automatic posting puts it on the Equity side.
+   I didn't know you put things there except for the opening balance.
+   :PROPERTIES:
+   :ID:       6E0F6FE7-4C5C-4BA1-8915-F6D85666A98F
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100531100036.GA23484@jirafa.cyrius.com][Balancing problems with fixated commodity prices]]
+   :END:
+   [2010-05-31 Mon 14:37]
 ** WORKSFORME Balance of virtual transactions depends on amount syntax
    - State "WORKSFORME" from "TODO"       [2010-05-22 Sat 20:49] \\
      This is expected behavior.
