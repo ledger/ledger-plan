@@ -924,6 +924,25 @@ ledger -QV bal .
    :ID:       1C90D8AF-830E-43C2-A5B7-D382F68EBDE3
    :END:
    [2010-06-04 Fri 02:10]
+** DONE [[bug:327][#327]] Insert --input-date-format strings at the beginning of format list
+   SCHEDULED: <2010-06-12 Sat>
+   - State "DONE"       from "STARTED"    [2010-06-13 Sun 03:58]
+   This is instead of accepting only that format, so that users can specify
+   multiple alternates.
+   :PROPERTIES:
+   :ID:       A90F9C15-AB38-43FA-AA1B-8A1923A831C5
+   :Submitter: ed <ed.temp.01@gmail.com>
+   :Message:  [[message://1d1ff6f1-3445-4d4b-9ef0-dfd510405e47@u26g2000yqu.googlegroups.com][Re: Init file doesn't support file --input-date-format]]
+   :END:
+   [2010-06-11 Fri 17:23]
+** DONE [[bug:330][#330]] libledger_math.so: undefined reference to `vtable for ledger::expr_t'
+   SCHEDULED: <2010-06-12 Sat>
+   - State "DONE"       from "STARTED"    [2010-06-13 Sun 03:58]
+   This error occurs on the CentOS 'make distcheck' build.
+   :PROPERTIES:
+   :ID:       BDDAF0E5-F875-4347-A04F-3AAC211CE0FF
+   :END:
+   [2010-06-12 Sat 15:59]
 ** DONE Abstract a function to verify a transaction double-entry status
    - State "DONE"       from "TODO"       [2009-11-11 Wed 20:43]
    :PROPERTIES:
@@ -5858,6 +5877,96 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID:       F56F414C-56B4-439D-B5B1-AD28D0E5330A
    :END:
    [2010-05-23 Sun 15:59]
+** DONE [[bug:272][#272]] Add an entry type for specifying value constraints
+   SCHEDULED: <2010-06-12 Sat>
+   - State "DONE"       from "TODO"       [2010-06-13 Sun 00:46]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:34]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   I'd like to see a more general syntax for this based on value expressions,
+   which would offer a full constraints mechanism.  For example, to constrain
+   all transactions to being less than $10,000 in an account:
+   :DATA:
+? Constrain all transactions to less than $10,000
+  /Expenses:Food/      a < $10,000
+   :END:
+
+   The "?" indicates a "constraints entry".  Each transaction would have two
+   value expressions: one to match every applicable transaction in the file,
+   and another to provide the boolean logic of the constraint.
+ 
+   Then, while the file is being parsed, any violations of a constraint would
+   be treated as an error, the same as when an entry fails to balance to zero.
+   I suppose making these warnings could be a possibility as well.
+ 
+   Here is how you'd constrain commodities in this model:
+   :DATA:
+? Guarantee commodities within accounts
+  Assets:Checking    comm(a) == $1.00
+   :END:
+ 
+   (At the moment there is no value expr function that would allow: comm(a) ==
+   "$")
+ 
+   Then, of course, there could be a specific declaration option -- such as you
+   have above -- for just this case, which internally would be parsed as a
+   constraints entry.
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 39
+   :ID: 31E75D27-157E-452B-B817-7AD570AFE357
+   :END:
+   [2008-04-05 Sat]
+** DONE [[bug:275][#275]] Add the ability to have "typed" metadata
+   - State "DONE"       from "TODO"       [2010-06-12 Sat 15:54]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:33]
+   - State "DEFERRED"   from "TODO"       [2009-11-11 Wed 04:37]
+   For example, a metadata property that contains a date, which could then be
+   used to generate reports from.
+   :PROPERTIES:
+   :ID:       D919FE3B-3FA9-4E9D-B3F5-42A9BD33A2C4
+   :END:
+   [2009-11-11 Wed 04:28]
+** DONE [[bug:276][#276]] Allow for payee name mappings
+   - State "DONE"       from "TODO"       [2010-06-12 Sat 14:02]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:33]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   After, create an "unaccounted" report for payees unknown to the matcher
+   :PROPERTIES:
+   :ID: 144F519E-9441-4FBA-9F6A-6757CA3F704A
+   :END:
+   [2009-10-23 Fri 06:14]
+** DONE [[bug:281][#281]] Combine a random seed when hashing when using --anon
+   - State "DONE"       from "DEFERRED"   [2010-06-12 Sat 05:26]
+   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
+   Please keep in mind that the dictionary one pulls account names from is MUCH
+   smaller than the dictionary of valid ASCII strings.  Given the SHA-1 hash of
+   a string $foo, it is easy to tell if this is the hash of "Bar, Inc." or
+   "Baz, Inc.".  So, while in theory it is hard to reverse, it becomes very
+   easy in practice if I know anything about your company or even the language
+   that the accounts will be in.  Finally, because of rainbow tables, these
+   might even be easy to reverse without knowing anything about the target
+   company.
+   :PROPERTIES:
+   :Submitter: Anthony Chivetta <anthony@chivetta.org>
+   :ID: 03DA2F5B-9E0C-4E3B-B19D-531A4F77C050
+   :Message: [[message://20090703063943.GB16282@chivetta.org][Re: sample ledgers and anonymising]]
+   :END:
+   [2009-07-03 Fri 08:38]
+** DONE [[bug:283][#283]] Create new files for commodity_pool and annotated commodities
+   - State "DONE"       from "DEFERRED"   [2010-06-12 Sat 05:32]
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:12]
+   :PROPERTIES:
+   :ID: BAE2292F-6B8B-4703-A6B6-8217390673DC
+   :END:
+   [2009-02-07 Sat 18:20]
+** DONE [[bug:285][#285]] Have an option for showing all amounts in the print report
+   - State "DONE"       from "TODO"       [2010-06-12 Sat 15:55]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
+   - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:34]
+   :PROPERTIES:
+   :ID:       7B8B33B7-925A-497E-A08A-D0B67E433FF6
+   :END:
+   [2009-11-25 Wed 00:27]
 ** DONE A few changes for the textual parser [4/4]
    - State "DONE"       [2009-02-15 Sun 23:22]
    - [X] Ignore any line like /^\s*;/ as a comment -even in the middle of a
@@ -6460,6 +6569,20 @@ getquote GSK_L
    :ID: A1230B8C-EF48-40BB-A200-18E7E94620BE
    :END:
    [2008-04-11 Fri]
+** DONE [#C] [[bug:175][#175]] Make an assert directive for Ledger
+   - State "DONE"       from "TODO"       [2010-06-13 Sun 05:05]
+#+begin_src ledger :results outputb
+  assert DATE AMOUNT ACCOUNT
+#+end_src
+  is equivalent to
+#+begin_src ledger :results outputb
+DATE Reconciled statement
+    [ACCOUNT]    = AMOUNT
+#+end_src
+  :PROPERTIES:
+  :ID:       52C041BD-5EF0-46E9-B046-A23CBF01632A
+  :END:
+  [2010-03-05 Fri 21:59]
 ** DONE [#C] Add a --depth=X opton, which is equivalent to -l 'depth<=X'
    - State "DONE"       [2009-02-25 Wed 04:01]
    :PROPERTIES:
@@ -6864,6 +6987,85 @@ getquote GSK_L
    :ID:       F76CD79B-1362-4ABF-917F-937502CBCB72
    :END:
    [2010-05-31 Mon 10:35]
+** WONTFIX [[bug:282][#282]] Create an operator for value + post
+   - State "WONTFIX"    from "CANCELLED"  [2010-06-12 Sat 05:28]
+   - State "CANCELLED"  from "DEFERRED"   [2010-06-12 Sat 05:26]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   :PROPERTIES:
+   :ID: 28CE49A7-919B-4C93-9754-966DCC435DBA
+   :END:
+   [2009-10-23 Fri 06:14]
+** WONTFIX [[bug:295][#295]] Restore the XML parser (code is in xml local branch)
+   - State "WONTFIX"    from "DEFERRED"   [2010-06-12 Sat 05:31]
+   - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:15]
+   :PROPERTIES:
+   :ID: 5332850A-B67B-4CF2-B553-BFA23EA9DB6F
+   :END:
+   [2009-10-25 Sun 22:47]
+** WORKSFORME [[bug:268][#268]] @@ -- allow negative costs
+   SCHEDULED: <2010-06-12 Sat>
+   - State "WORKSFORME" from "TODO"       [2010-06-12 Sat 18:12]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   I am quite keen on the @@ syntax, as I like to deal with commodities on a
+   net basis. However, there is a bit of an inconsistency between @@ and @.
+ 
+   Suppose I have the ledger file:
+   :DATA:
+2008/01/01 * Purchase Apple shares
+       Equities        1000 AAPL @ $2
+       Cash
+
+2008/06/30 * Sell some Apple shares
+       Equities        -500 AAPL @ $2.5
+       Cash
+   :END:
+   If I type:
+   :SCRIPT:
+ledger -f example01.txt -jB reg Equities
+   :END:
+   I get the output:
+   :OUTPUT:
+2008-01-01 2000
+2008-06-30 -1250
+   :END:
+ 
+   The above is correct. $2000 goes in as equities as an asset, and £1250 is
+   marked as a negative, thereby reducing the equity balance.
+ 
+   Now. Suppose I decide I would rather use the @@ command. I would have a
+   ledger file:
+   :DATA:
+2008/01/01 * Purchase Apple shares
+   Equities    1000 AAPL @@ $2000
+   Cash
+
+2008/06/30 * Sell some Apple shares
+   Equities    -500 AAPL @@ $1250
+   Cash
+   :END:
+   If I type:
+   :SCRIPT:
+ledger -f example01.txt -jB reg Equities
+   :END:
+   I now get the output:
+   :OUTPUT:
+2008-01-01 2000
+2008-06-30 1250
+   :END:
+ 
+   The above is incorrect, because the +1250 has changed to -1250. It implies
+   the purchase of shares, rather than a sale. I can't just change the $1250 to
+   -$1250 in the ledger file, either, because it complains:
+   :OUTPUT:
+Error: A posting's cost may not be negative
+   :END:
+   :PROPERTIES:
+   :Submitter: Mark Carter <alt.mcarter@googlemail.com>
+   :Message: [[message://62f2a66e0903280703g1826cc25u19cca48606e4e40@mail.gmail.com][RFE: @@ - allow negative costs]]
+   :ID: 4F81E261-E6C6-401B-B6CA-0B356072D770
+   :END:
+   [2009-04-01 Wed 18:52]
 ** WORKSFORME Excluding some transactions if a file is included
    :PROPERTIES:
    :ID:       AA1D4807-4477-4035-8156-74BFAA929E02
@@ -6887,6 +7089,18 @@ getquote GSK_L
    :ID:       7CB80AA0-5D86-421A-B3DD-232FCA7696AB
    :END:
    [2010-04-30 Fri 07:33]
+** DUPLICATE [[bug:296][#296]] Support alert warnings in Ledger
+   - State "DUPLICATE"  from "TODO"       [2010-06-12 Sat 14:05] \\
+     Duplicate of 272.
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:30]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   Like if expenses during a given month are too high.  This could be
+   implemented using automated transactions with a "warn" function as the
+   amount of a bogus account.
+   :PROPERTIES:
+   :ID: 28BD75AE-219C-4DF5-9D19-E7774BFC8DED
+   :END:
+   [2009-10-23 Fri 06:12]
 ** DUPLICATE Preserve XML comments
    - State "DUPLICATE"  [2009-01-29 Thu 15:38] \\
      Duplicated by D27098A4-647A-4EEA-B0B8-3088E069214D.
@@ -7131,6 +7345,14 @@ getquote GSK_L
    :Message:  [[message://2262D050-DAEA-4CC2-8295-3A5471FF8E36@me.com][Re: Compile fails on 3.0]]
    :END:
    [2010-05-30 Sun 03:33]
+** DONE [[bug:321][#321]] vim syntax doesn't support tag/pop
+   - State "DONE"       from "TODO"       [2010-06-11 Fri 17:03]
+   :PROPERTIES:
+   :ID:       A77837CF-8CE2-4B70-A7ED-323E63F067E4
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-321-1@http.newartisans.com/bugzilla/][{Bug 321} New: vim syntax doesn't support tag/pop]]
+   :END:
+   [2010-06-10 Thu 22:37]
 ** DONE Keep logging on for NDEBUG builds
    - State "DONE"       from "TODO"       [2010-06-05 Sat 03:38]
    :PROPERTIES:
@@ -7146,7 +7368,48 @@ getquote GSK_L
    :ID:       11318EF9-6D74-4F7C-B833-E2FD0E53465B
    :END:
    [2010-05-28 Fri 16:06]
+** WONTFIX [[bug:237][#237]] Avoid having to rm -fr ledger-proof
+   - State "WONTFIX"    from "DEFERRED"   [2010-06-12 Sat 15:03]
+   - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
+   :OUTPUT:
+acprep: INFO: === Wiping build directory /home/nafai/Products/ledger-proof/default ===
+acprep: ERROR: Caught exception
+Traceback (most recent call last):
+  File "./acprep", line 141, in run
+    exit_code = self.main(*main_args)
+  File "./acprep", line 297, in main
+    PrepareBuild.__dict__['phase_' + cmd](self, *args)
+  File "./acprep", line 1239, in phase_proof
+    self.configure_flavor('default')
+  File "./acprep", line 1176, in configure_flavor
+    shutil.rmtree(self.build_directory())
+  File "/usr/lib/python2.5/shutil.py", line 175, in rmtree
+    rmtree(fullname, ignore_errors, onerror)
+  File "/usr/lib/python2.5/shutil.py", line 180, in rmtree
+    onerror(os.remove, fullname, sys.exc_info())
+  File "/usr/lib/python2.5/shutil.py", line 178, in rmtree
+    os.remove(fullname)
+OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/default/ledger-3.0/config.sub'
+   :END:
+   :PROPERTIES:
+   :ID: 12D4AB31-964F-4206-8AA0-2CA9C509DA30
+   :END:
+   [2009-03-11 Wed 20:54]
+** WONTFIX [[bug:239][#239]] Ledger 2.6 is not building on Debian 5 latest
+   - State "WONTFIX"    from "DEFERRED"   [2010-06-12 Sat 05:28]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: 427F8D8D-39CB-47ED-8438-BF07BBBE6672
+   :END:
+   [2009-04-24 Fri 17:13]
 * Tests
+** DONE [[bug:317][#317]] Ledger is still failing the higher-numbered generation seed tests
+   - State "DONE"       from "DEFERRED"   [2010-06-12 Sat 05:29]
+   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
+   :PROPERTIES:
+   :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
+   :END:
+   [2009-03-03 Tue 15:47]
 ** DONE Abstract RegressTests.py (was: opt-lots should use input/wow.dat)
    - State "DONE"       [2009-03-03 Tue 03:18]
    This means that RegressTests.py needs to be sensitive to whether -f was
