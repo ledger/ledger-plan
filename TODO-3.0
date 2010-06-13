@@ -272,7 +272,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2009-11-01 Sun 05:50]
 ** DONE [#A] Problem with automated transactions and the balance command
-   SCHEDULED: <2009-11-10 Tue>
    - State "DONE"       from "TODO"       [2009-11-11 Wed 00:27]
    :SCRIPT:
    % ledger --version | head -1
@@ -498,7 +497,6 @@ ledger -QV bal .
    :END:
    [2008-07-27 Sun]
 ** DONE [[bug:157][#157]] Make sure this is legal: = expr 'account =~ /foo/'
-   SCHEDULED: <2010-06-01 Tue>
    - State "DONE"       from "STARTED"    [2010-06-01 Tue 17:31]
    :LOGBOOK:
    CLOCK: [2010-06-01 Tue 17:16]--[2010-06-01 Tue 17:31] =>  0:15
@@ -507,6 +505,22 @@ ledger -QV bal .
    :ID:       9DF85DF2-4BF5-4931-A30C-2592A10BB5C0
    :END:
    [2010-05-24 Mon 23:00]
+** DONE [[bug:158][#158]] "ledger template exxons 10 from checking" applies 10 to "from"
+   - State "DONE"       from "STARTED"    [2010-06-10 Thu 11:33]
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 10:03]--[2010-06-10 Thu 11:33] =>  1:30
+   :END:
+   It should apply to the "to" account.
+   :PROPERTIES:
+   :ID:       A9DFC672-9FAD-431F-8EDA-CFB54D1285AF
+   :END:
+   [2010-03-10 Wed 01:32]
+** DONE [[bug:161][#161]] ledger budget fails with "Something odd has happened"
+   - State "DONE"       from "TODO"       [2010-06-10 Thu 08:07]
+   :PROPERTIES:
+   :ID:       F145D482-2F15-48D0-A0CC-6593AC1896DD
+   :END:
+   [2010-05-22 Sat 19:15]
 ** DONE [[bug:165][#165]] --exchange seems to be ignored when combined with -M			 :ATTACH:
    - State "DONE"       from "TODO"       [2010-06-09 Wed 05:09]
 #+begin_src sh
@@ -544,8 +558,25 @@ ledger -QV bal .
    :Submitter: thierry <thierry.daucourt@free.fr>
    :END:
    [2010-01-09 Sat 21:09]
+** DONE [[bug:196][#196]] Bug when not using commodities in a posting's cost
+   - State "DONE"       from "TODO"       [2010-06-10 Thu 12:54]
+   - Note taken on [2010-06-09 Wed 05:15] \\
+     A priced commodity does NOT imply a cost, but the following syntax should
+     be accepted:
+     #+begin_src ledger
+       Assets    1 apple @ =0.10
+     #+end_src
+   For example:
+#+begin_src ledger
+   2009/11/01 Sample
+       Assets                1 apple {=0.10}
+       Equity
+#+end_src
+   :PROPERTIES:
+   :ID:       F29DE89C-73CD-4344-B6F7-BB7584AA6FFD
+   :END:
+   [2009-11-24 Tue 01:11]
 ** DONE [[bug:197][#197]] Bug with -J and multiple commodities					 :ATTACH:
-   SCHEDULED: <2010-06-08 Tue>
    - State "DONE"       from "TODO"       [2010-06-09 Wed 02:51] \\
      Fixed by fc09b69f.
     - Note taken on [2010-06-02 Wed 16:53] \\
@@ -576,7 +607,6 @@ ledger -QV bal .
   :END:
   [2010-01-18 Mon 03:44]
 ** DONE [[bug:198][#198]] Errors with using the -J option
-   SCHEDULED: <2010-06-08 Tue>
    - State "DONE"       from "TODO"       [2010-06-09 Wed 03:12] \\
      This is now fixed, but you'll have to run:
      #+begin_src sh
@@ -657,7 +687,6 @@ ledger -QV bal .
     :END:
     [2010-01-09 Sat 21:05]
 ** DONE [[bug:199][#199]] Issue with reporting asset history and -j/-J
-    SCHEDULED: <2010-05-30 Sun>
     - State "DONE"       from "TODO"       [2010-05-30 Sun 22:00] \\
       Fixed by commits 5a2644c1b7220dc96e4de9cfb82f6d829cf34321 and
       654c842348c570a086f31cb79b7b3b4810463707.
@@ -784,7 +813,6 @@ ledger -QV bal .
     :END:
     [2010-04-04 Sun 15:18]
 ** DONE [[bug:210][#210]] Problems with tags that contain spaces
-   SCHEDULED: <2010-06-01 Tue>
    - State "DONE"       from "STARTED"    [2010-06-01 Tue 18:33] \\
      Fixed by 5cdd36f3.
    :LOGBOOK:
@@ -838,6 +866,57 @@ ledger -QV bal .
    :Message:  [[message://20100531102647.GA23953@jirafa.cyrius.com][--european option not really European]]
    :END:
    [2010-05-31 Mon 14:32]
+** DONE [[bug:224][#224]] A large number of GenerateTests are failing				 :ATTACH:
+   - State "DONE"       from "TODO"       [2010-06-10 Thu 14:26]
+   When running GenerateTests from 1 to 10001, 954 of the tests fail --
+   although many of them for the same apparent reason.  These different types
+   stand out:
+   :OUTPUT:
+   Print for seed 119 failed:
+   While parsing file "/dev/stdin", line 478: 
+   Error: A posting's cost must be of a different commodity than its amount
+   :END:
+   :OUTPUT:
+   Print for seed 403 failed:
+   While parsing file "/dev/stdin", line 214: 
+   While balancing transaction from standard input:
+   Unbalanced remainder is:
+                  tGlk1
+   Amount to balance against:
+   tGlk6263354594.500000185668
+   Error: Transaction does not balance
+   :END:
+   :OUTPUT:
+   Generation for seed 1781 failed:
+   While parsing file "/dev/stdin", line 2: 
+   While parsing posting:
+     (h25302bHHk12f58TgrH:a2 o 69xNMo0)  612331KF @ Fjg1e+06
+                                                    ^^^^^^^^
+   Error: Unexpected char 'e' (Note: inline math requires parentheses)
+   :END:
+   :OUTPUT:
+   Generation for seed 1809 failed:
+   While parsing file "/dev/stdin", line 5: 
+   While balancing transaction from standard input:
+   Unbalanced remainder is:
+        -429003805324 I
+   Amount to balance against:
+                      0
+   Error: Transaction does not balance
+   :END:
+   :OUTPUT:
+   Generation for seed 1942 failed:
+   While parsing file "/dev/stdin", line 10: 
+   While parsing posting:
+     (mc48XU1x:96dQzRe)  -1e+06 SLKn
+                         ^^^^^^^^^^^
+   Error: Unexpected char '+' (Note: inline math requires parentheses)
+   :END:
+   :PROPERTIES:
+   :ID:       D5762158-1B83-408F-954B-81A81A3F412E
+   :Attachments: generate.out.7z
+   :END:
+   [2010-06-02 Wed 17:23]
 ** DONE [[bug:227][#227]] Make --anon anonymize commodities as well
    - State "DONE"       from "TODO"       [2010-06-09 Wed 07:48] \\
      Fixed by c28fad38.
@@ -1583,7 +1662,6 @@ The last non-future posting was: 1 day ago
    :END:
    [2009-02-07 Sat 05:04]
 ** DONE ledger and bogus dates like 2008/31/12
-   SCHEDULED: <2010-05-22 Sat>
    - State "DONE"       from "TODO"       [2010-05-22 Sat 18:19]
    :PROPERTIES:
    :ID:       EF57C685-2C18-49A1-9A8C-FB3BE6F99C41
@@ -1671,7 +1749,6 @@ $ ledger -E -j -p 2006.12 reg Travel
    :END:
    [2009-02-05 Thu 03:38]
 ** DONE Make $account in automated postings a string interpolated value
-   SCHEDULED: <2010-05-22 Sat>
    - State "DONE"       from "STARTED"    [2010-05-22 Sat 14:48]
    :LOGBOOK:
    CLOCK: [2010-05-22 Sat 14:31]--[2010-05-22 Sat 14:48] =>  0:17
@@ -1869,7 +1946,6 @@ Display P: a
    :END:
    [2009-11-11 Wed 15:09]
 ** DONE Optimize the default display predicate
-   SCHEDULED: <2010-06-06 Sun>
    - State "DONE"       from "TODO"       [2010-06-07 Mon 05:48]
    - Note taken on [2010-06-06 Sun 06:42] \\
      calc_posts should store the display_amount and display_total in the xdata of
@@ -1989,7 +2065,6 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :END:
    [2009-02-05 Thu 03:36]
 ** DONE Reg reports by payee / tag
-   SCHEDULED: <2010-05-22 Sat>
    - State "DONE"       from "STARTED"    [2010-05-22 Sat 17:52]
    :LOGBOOK:
    CLOCK: [2010-05-22 Sat 15:21]--[2010-05-22 Sat 15:40] =>  0:19
@@ -2063,7 +2138,6 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :END:
    [2009-02-14 Sat 05:39]
 ** DONE Revert recent change which sets cost from price
-   SCHEDULED: <2010-06-07 Mon>
    - State "DONE"       from "TODO"       [2010-06-08 Tue 06:17]
    :PROPERTIES:
    :ID:       0F59F13B-5946-4A9F-91AE-98EFB466F9E3
@@ -2453,7 +2527,6 @@ D $1,000.00
    :END:
    [2009-02-01 Sun 15:40]
 ** DONE When reporting an imbalance, show the amount to balance against
-   SCHEDULED: <2009-11-05 Thu>
    - State "DONE"       from "TODO"       [2009-11-05 Thu 17:48]
    :PROPERTIES:
    :ID: FE1E912D-7DFA-4489-98E9-8112B2B941CB
@@ -2665,7 +2738,6 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :END:
    [2009-02-12 Thu 19:12]
 ** CANCELLED Ledger doesn't know how to find include files for stdin
-   SCHEDULED: <2010-05-22 Sat>
    - State "CANCELLED"  from "TODO"       [2010-05-22 Sat 18:20] \\
      How could this be fixed without requiring a standard set of directories?
    If I have a file with relative includes and I pipe it to Ledger through
@@ -3504,7 +3576,6 @@ Just output them all in the proper order.
    :END:
    [2009-03-03 Tue 01:04]
 ** WORKSFORME --flat gives no output
-   SCHEDULED: <2010-05-22 Sat>
    This is expected behavior.
    :PROPERTIES:
    :ID:       A2023850-75D9-4DCA-AF97-4894037FCA13
@@ -3732,7 +3803,6 @@ Just output them all in the proper order.
    :END:
    [2010-03-26 Fri 22:24]
 ** WORKSFORME [[bug:204][#204]] Problem with price conversions and -V
-   SCHEDULED: <2010-06-08 Tue>
    - State "WORKSFORME" from "TODO"       [2010-06-09 Wed 03:14] \\
      The concept of a "default commodity" does not mean what you are thinking.
      In order to render all values in a specific commodity, you can use:
@@ -3799,7 +3869,6 @@ Just output them all in the proper order.
     :END:
     [2010-01-09 Sat 21:05]
 ** WORKSFORME [[bug:213][#213]] Balancing problems with fixated commodity prices
-   SCHEDULED: <2010-06-08 Tue>
    - State "WORKSFORME" from "TODO"       [2010-06-09 Wed 03:37]
    I've been playing with [[http://groups.google.com/group/ledger-cli/browse_thread/thread/e98bee73e279b3af][John's example]]:
 #+begin_src ledger
@@ -3893,6 +3962,22 @@ Just output them all in the proper order.
    :Message:  [[message://20100531100036.GA23484@jirafa.cyrius.com][Balancing problems with fixated commodity prices]]
    :END:
    [2010-05-31 Mon 14:37]
+** WORKSFORME [[bug:222][#222]] tag/pop to apply metadata does not work
+   - State "WORKSFORME" from "STARTED"    [2010-06-10 Thu 04:58] \\
+     The metadata is there, it's just not "print"ing becasue it's not a specific
+     note on the printed transaction.  This, however, would show you that the
+     metadata is in effect:
+     
+       ledger print %Test
+     
+     Since that only prints entries with the metadata "Test", it prints your entry.
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 04:54]--[2010-06-10 Thu 04:57] =>  0:03
+   :END:
+   :PROPERTIES:
+   :ID:       6343F4D3-FDEB-4812-AC9D-8D9D31B873CF
+   :END:
+   [2010-06-01 Tue 15:15]
 ** WORKSFORME Balance of virtual transactions depends on amount syntax
    - State "WORKSFORME" from "TODO"       [2010-05-22 Sat 20:49] \\
      This is expected behavior.
@@ -4175,7 +4260,6 @@ ledger -Y --forecast 'T>0' reg food
    :END:
    [2008-10-06 Mon 19:38]
 ** CLOSED --verify fails to run now
-   SCHEDULED: <2009-10-27 Tue>
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:35]
    :PROPERTIES:
@@ -4242,7 +4326,6 @@ ledger -f test.ledger -s bal discover
    :ID: 3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
    :END:
 ** CLOSED ITEM_TEMP posts must be removed from xacts and accounts properly
-   SCHEDULED: <2009-10-27 Tue>
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
    - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
    :PROPERTIES:
@@ -4250,7 +4333,6 @@ ledger -f test.ledger -s bal discover
    :END:
    [2009-10-27 Tue 05:13]
 ** CLOSED iterations.cc, and maybe others, need to use temporaries_t
-   SCHEDULED: <2009-10-27 Tue>
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:19]
    :PROPERTIES:
@@ -4624,7 +4706,6 @@ ledger -w -f bug.txt  reg
    :END:
    [2009-06-03 Wed 19:11]
 ** TESTED Don't print trailing spaces after amount-elided postings
-   SCHEDULED: <2009-10-27 Tue>
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:51] \\
      This is being tested by several of the baseline tests.
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:40]
@@ -4633,7 +4714,6 @@ ledger -w -f bug.txt  reg
    :END:
    [2009-10-27 Tue 22:42]
 ** TESTED Expenses:Wedding appears twice in the attached balance command
-   SCHEDULED: <2009-10-26 Mon>
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:21]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 21:11]
    :SCRIPT:
@@ -5061,7 +5141,6 @@ $ ledger -f <DATA> register
    [2009-10-25 Sun 03:38]
 * Build
 ** DONE [#A] Add a --no-git option to acprep for orc_emac
-   SCHEDULED: <2009-11-10 Tue>
    - State "DONE"       from "TODO"       [2009-11-10 Tue 20:05]
    :PROPERTIES:
    :ID:       833997BF-EE60-4F81-BCBC-D9F7C607472F
@@ -5238,7 +5317,6 @@ $ ledger -f <DATA> register
    :END:
    [2009-02-21 Sat 02:09]
 ** DONE Make the optimized build for tools/push use -j16
-   SCHEDULED: <2009-11-27 Fri>
    - State "DONE"       from "TODO"       [2009-11-27 Fri 13:51]
    :PROPERTIES:
    :ID:       05DADC75-EA29-44CE-94F4-4F8D1419AFF1
@@ -5424,7 +5502,6 @@ PASS: RegressTests
    :END:
    [2008-08-16 Sat]
 ** DONE [#C] Ledger proof build is failing						   :Home:
-   SCHEDULED: <2010-05-11 Tue>
    - State "DONE"       from "TODO"       [2010-05-12 Wed 03:12]
    :PROPERTIES:
    :ID:       68319BDB-95AC-4459-BB05-9F04D59EEA7D
@@ -5704,7 +5781,6 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    [2008-09-02 Tue 06:26]
 * Emacs
 ** DONE [#A] ledger.el byte-compile error: Unknown rx form `date'
-   SCHEDULED: <2010-05-12 Wed>
    - State "DONE"       from "TODO"       [2010-05-13 Thu 00:14]
    :PROPERTIES:
    :ID:       9D0245D2-22B7-457A-993F-0C5006E153BA
@@ -5846,7 +5922,6 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2009-06-17 Wed 16:45]
 ** DONE Add a mechanism that allows VAT to be calculated
-   SCHEDULED: <2009-11-11 Wed>
    - State "DONE"       from "TODO"       [2009-11-11 Wed 04:37]
    This means adding mathematical functions like floor, round, ceiling, etc.
    But also it means have a value expression variable that refer to the
@@ -5921,7 +5996,6 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: BDBB79F0-9FC4-4B91-B922-D128E18982BA
    :END:
 ** DONE Allow // regex in the query parser
-   SCHEDULED: <2009-10-28 Wed>
    - State "DONE"       from "TODO"       [2009-10-29 Thu 00:25]
    :PROPERTIES:
    :ID: 112D575E-51DB-4792-9280-3B559747BB00
@@ -6061,7 +6135,6 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :END:
    [2009-11-05 Thu 08:27]
 ** DONE Default to reading ~/.ledger if no -f is used
-   SCHEDULED: <2009-10-27 Tue>
    - State "DONE"       from "TODO"       [2009-10-28 Wed 02:09]
    :PROPERTIES:
    :ID: A76909EF-6C29-4424-8E0C-F99A60D5A3D4
@@ -6171,7 +6244,6 @@ getquote GSK_L
    :END:
    [2010-06-04 Fri 06:36]
 ** DONE Make -D a synonym for --daily, instead of --deviation
-   SCHEDULED: <2009-10-27 Tue>
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:20]
    :PROPERTIES:
    :ID: 6DCB7E25-5D3B-47A6-9651-9B7F3EF71FB2
@@ -6301,7 +6373,6 @@ getquote GSK_L
    :END:
    [2008-04-11 Fri]
 ** DONE Sort register reports by date by default
-   SCHEDULED: <2009-10-27 Tue>
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:20]
    :PROPERTIES:
    :ID: 926078B5-07B9-4258-B769-8C3FD4BC0C81
@@ -6354,14 +6425,12 @@ getquote GSK_L
    :END:
    [2008-05-03 Sat]
 ** DONE The query parser should produce ptr_op_t trees directly
-   SCHEDULED: <2009-10-28 Wed>
    - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]
    :PROPERTIES:
    :ID: 9165C59D-8933-4115-8684-5851A1D059C6
    :END:
    [2009-10-28 Wed 17:29]
 ** DONE Use a "token context" in the query parser
-   SCHEDULED: <2009-10-28 Wed>
    - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]
    :PROPERTIES:
    :ID: A77821CD-DB8D-46A1-B873-4257F2796A5B
@@ -6981,7 +7050,6 @@ getquote GSK_L
    :END:
    [2009-11-07 Sat 09:05]
 ** DONE When passing SCOPE args, always downcast
-   SCHEDULED: <2009-11-05 Thu>
    - State "DONE"       from "TODO"       [2009-11-05 Thu 17:17]
    This way I don't need to expose scope_t at all!
    :PROPERTIES:
@@ -7011,7 +7079,6 @@ getquote GSK_L
    :END:
    [2009-02-02 Mon 03:13]
 ** CANCELLED Rewrite py_scope.cc
-   SCHEDULED: <2009-11-05 Thu>
    - State "CANCELLED"  from "TODO"       [2009-11-05 Thu 17:17]
    :PROPERTIES:
    :ID: 02F01290-311E-4A6C-9049-3EA78BA7CA1E
@@ -7071,7 +7138,6 @@ getquote GSK_L
    :END:
    [2010-06-04 Fri 06:36]
 ** DONE [#C] Ledger's proof build is failing						   :Home:
-   SCHEDULED: <2010-06-01 Tue>
    - State "DONE"       from "STARTED"    [2010-06-02 Wed 00:31]
    :LOGBOOK:
    CLOCK: [2010-06-01 Tue 20:43]--[2010-06-02 Wed 00:31] =>  3:48
@@ -7175,7 +7241,6 @@ make: *** [release-distcheck] Error 2
    :END:
    [2009-03-05 Thu 05:12]
 ** DONE The tokenizer unit test can just iterate the token stream
-   SCHEDULED: <2009-10-28 Wed>
    - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]
    :PROPERTIES:
    :ID: ABCB7791-E098-4C32-A2F6-129E61CC4B10
