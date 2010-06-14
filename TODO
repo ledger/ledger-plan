@@ -11,22 +11,18 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] [[bug:332][#332]] Assert failure when using tag in a limit expression
-   SCHEDULED: <2010-06-13 Sun>
+** TODO Rationalize formatting strings
+   SCHEDULED: <2010-06-14 Mon>
+   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
+   ${AMT} is the same as $(scrub(AMT))
+   %T is the same as ${display_total}.
+
+   Right now formatting strings are a nightmare for users to modify.
    :PROPERTIES:
-   :ID:       BD7C93C2-5C20-4A48-9BEE-5E3975D82D34
+   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
    :END:
-   [2010-06-13 Sun 05:32]
-** TODO [#A] [[bug:323][#323]] -r does not output related accounts when using --effective
-   SCHEDULED: <2010-06-13 Sun>
-   :PROPERTIES:
-   :ID:       F210BB4E-DCD5-48A6-9113-677560AC3B70
-   :Submitter: Leandro Henrique Oliveira Fernandes <leandroohf@gmail.com>
-   :Message:  [[message://AANLkTimRG8t9ZbYC-vW69egV1uM-0vc26VQsT6JYutGe@mail.gmail.com][Re: credit card]]
-   :END:
-   [2010-06-09 Wed 18:04]
+   [2010-06-14 Mon 08:35]
 ** TODO [[bug:326][#326]] Strip out quotes in the options parser
-   SCHEDULED: <2010-06-13 Sun>
    This allows people to copy and paste option settings directly into their
    .ledgerrc file.
    :PROPERTIES:
@@ -418,7 +414,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
   :CATEGORY: Features
   :END:
 ** TODO [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
-   SCHEDULED: <2010-06-13 Sun>
    - State "TODO"       from "DEFERRED"   [2010-06-02 Wed 18:11]
    - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
 #+begin_src sh
@@ -499,18 +494,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       AA092062-FBA5-4142-B3E4-E67FA9E12C19
    :END:
    [2010-06-07 Mon 08:39]
-** TODO [[bug:267][#267]] --price option in lot_sales branch
-   SCHEDULED: <2010-06-13 Sun>
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
-   message://m24q2rwrym.fsf_-_@newartisans.com
-   message://m2k6bl3vr3.fsf@newartisans.com
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 172
-   :ID: F6120E58-8985-4D76-908B-93A319E6D1D1
-   :END:
-   [2008-04-11 Fri]
 ** TODO [[bug:270][#270]] Add a feature for "object descriptions"
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
@@ -538,19 +521,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
    :END:
    [2009-03-02 Mon 20:39]
-** TODO [[bug:277][#277]] Allow forecasting from a specific date
-   SCHEDULED: <2010-06-13 Sun>
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:33]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
-   This would make it possible to see expected vs. actual cash flows, for
-   example, if the date chosen is before the end of actual transactions.  Kind
-   of like a modified version of budgeting.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 94
-   :ID: BBD4F6F0-1250-4216-BB0E-3E86785D5E44
-   :END:
-   [2008-04-11 Fri]
 ** TODO [[bug:284][#284]] Greatly improve Ledger's help system
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
@@ -566,17 +536,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: EF3D6703-AD14-48B3-A9EE-481E5FC295AB
    :END:
    [2009-11-03 Tue 13:59]
-** TODO [[bug:287][#287]] In the equity report, if the "collapse" option is used ...
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
-   - State "DEFERRED"   [2009-02-24 Tue 04:04]
-   ... output only one entry.  Otherwise, output an entry for every top-level
-   account.
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 111
-   :ID: 29D7E913-1A5C-4ED2-8AB8-53D895021615
-   :END:
-   [2008-04-11 Fri]
 ** TODO [[bug:292][#292]] Make alias names for directives, like convert for C
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
@@ -585,7 +544,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :END:
    [2009-02-27 Fri 15:35]
 ** TODO [[bug:293][#293]] Option --bold-if
-   SCHEDULED: <2010-06-13 Sun>
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    Which will bold the whole transaction line if it matches the given predicate
@@ -596,25 +554,19 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :END:
    [2008-04-11 Fri]
 ** TODO [[bug:299][#299]] The CSV report should optionally generate a "title line"
-   SCHEDULED: <2010-06-13 Sun>
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:30]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    :PROPERTIES:
    :ID: 65B7E207-1BCC-4448-881C-1574623346D7
    :END:
    [2009-03-03 Tue 21:49]
-** TODO [[bug:301][#301]] When abbreviating account names, expand to fill
-   SCHEDULED: <2010-06-13 Sun>
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:30]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
-   For example, Assets:NRL:Checking in 15 chars should be:
-     As:NRL:Checking
-   The algorithm should only shorten the initial account names as much as
-   needed, giving any surplus to the penultimate member.
+** TODO [[bug:333][#333]] Add warning when duplicate meta references are given
    :PROPERTIES:
-   :ID: 9135540C-C5F5-460B-AAEC-10D07FB67C21
+   :ID:       7B4EFB7D-B815-44DE-83CE-F8F902AC954D
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-333-1@http.newartisans.com/bugzilla/][{Bug 333} New: Add warning when duplicate meta references are given]]
    :END:
-   [2009-10-24 Sat 19:19]
+   [2010-06-13 Sun 17:43]
 ** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
@@ -639,31 +591,11 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
    :END:
    [2010-04-13 Tue 01:37]
-** TODO [#C] [[bug:176][#176]] Make "until today", "from yesterday" work for -p
-   :PROPERTIES:
-   :ID:       438B58C4-59F6-462D-A9FA-CF4839BF064C
-   :Message:  [[message://20100216095003.GA2870@rhodium.pps.jussieu.fr][from and until today, etc.]]
-   :Submitter: Gabriel Kerneis <kerneis@pps.jussieu.fr>
-   :END:
-   [2010-02-16 Tue 23:31]
 ** TODO [#C] [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
    :PROPERTIES:
    :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
    :END:
    [2009-11-24 Tue 22:02]
-** TODO [#C] [[bug:178][#178]] Have a way to set the date range to "this week" easily
-   :PROPERTIES:
-   :ID:       3ED8AC82-37A1-4513-AB20-8FFC66A2BD00
-   :Message:  [[message://8017aec0-63c1-4d55-bced-5e87e50e7a8d@o28g2000yqh.googlegroups.com][Is there a way to set the date range to "this week" easily?]]
-   :Submitter: markscottwright <markscottwright@gmail.com>
-   :END:
-   [2010-01-09 Sat 21:08]
-** TODO [#C] [[bug:180][#180]] Allow for period expressions "4 months ago" and "last 5 weeks"
-   - State "TODO"       from "STARTED"    [2009-12-07 Mon 04:24]
-   :PROPERTIES:
-   :ID:       38B2FCC3-49E3-422D-8F90-03EF4A64382E
-   :END:
-   [2009-11-18 Wed 05:51]
 ** TODO [#C] [[bug:182][#182]] Port Gnucash support to 3.0
    :PROPERTIES:
    :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
@@ -684,22 +616,12 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
    :END:
    [2010-05-31 Mon 10:35]
-** TODO [#C] [[bug:223][#223]] Consider deprecating the --cache option
-   :PROPERTIES:
-   :ID:       D8623268-D229-49A3-83A7-6C77010FC4A1
-   :END:
-   [2010-06-02 Wed 03:47]
 ** TODO [#C] [[bug:230][#230]] Make format strings backward compatible with 2.x
    That way, %D would be the same as %(date).
    :PROPERTIES:
    :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
    :END:
    [2010-06-03 Thu 23:22]
-** TODO [#C] [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
-   :PROPERTIES:
-   :ID:       7517CE3B-C3B0-460D-806B-31341272DE79
-   :END:
-   [2010-06-06 Sun 06:42]
 ** DEFERRED [[bug:179][#179]] Allow specification of times on transactions and postings
    - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 17:08]
    The value expressions to expose this would be:
@@ -864,6 +786,12 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       558FDCF1-2C7A-4D20-94A3-48A62FF84104
    :END:
    [2010-06-08 Tue 19:22]
+** DEFERRED [#C] [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
+   - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:15]
+   :PROPERTIES:
+   :ID:       7517CE3B-C3B0-460D-806B-31341272DE79
+   :END:
+   [2010-06-06 Sun 06:42]
 * Python
   :PROPERTIES:
   :CATEGORY: Python
@@ -1036,16 +964,7 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
    :END:
    [2009-03-26 Thu 02:09]
-** TODO [#A] [[bug:324][#324]] Get the CentOS build working for orc_emac                                :Home:
-   SCHEDULED: <2010-06-13 Sun>
-   - Note taken on [2010-06-12 Sat 04:55] \\
-     It's almost done building now.
-   :PROPERTIES:
-   :ID:       1A96B0D0-C427-4193-A204-F4C217BD6A44
-   :END:
-   [2010-06-10 Thu 16:01]
-** TODO [[bug:328][#328]] Build Ledger with Visual Studio                                               :Home:
-   SCHEDULED: <2010-06-13 Sun>
+** TODO [[bug:328][#328]] Build Ledger with Visual Studio
    1. Some compiler warnings. There are a number of contructs where VS is more
       fussy about than gcc. I have disabled these specific warnings, which I
       think is fine, especially for the ones where there is no direct Unix
@@ -1123,21 +1042,13 @@ Tr.#	date		Text			debit		credit		saldo
    :END:
    [2010-06-11 Fri 17:23]
 ** TODO [[bug:331][#331]] [MacPorts] #25213: ledger-devel Portfile
-   SCHEDULED: <2010-06-13 Sun>
+   SCHEDULED: <2010-06-14 Mon>
    :PROPERTIES:
    :ID:       59444116-2810-4073-BE96-52DA023CC540
    :Submitter: MacPorts <noreply@macports.org>
    :Message:  [[message://063.0b8b1c6b9c8651a8e3a62880f1596b01@macports.org][Re: {MacPorts} #25213: ledger-devel Portfile]]
    :END:
    [2010-06-11 Fri 22:26]
-** TODO bzla RH 602064] RR: ledger - Command-line double-entry  accounting system (fwd)
-   SCHEDULED: <2010-06-13 Sun>
-   :PROPERTIES:
-   :ID:       A6B6185C-95B2-4277-8808-1CC9DEE27DF8
-   :Submitter: R P Herrold <herrold@owlriver.com>
-   :Message:  [[message://alpine.LRH.2.00.1006091151320.8250@arj.bjyevire.pbz][bzla RH 602064} RR: ledger - Command-line double-entry  accounting system (fwd)]]
-   :END:
-   [2010-06-13 Sun 05:32]
 ** DEFERRED [[bug:216][#216]] Ledger packages for Debian
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
    - Note taken on [2010-05-31 Mon 15:06] \\
@@ -1166,18 +1077,11 @@ Tr.#	date		Text			debit		credit		saldo
   :CATEGORY: Tests
   :END:
 ** TODO [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
-   SCHEDULED: <2010-06-13 Sun>
    - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:12]
    :PROPERTIES:
    :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
    :END:
    [2010-05-31 Mon 01:14]
-** TODO [[bug:325][#325]] Migrate from CppUnit to the Boost Test FrameWork
-   :PROPERTIES:
-   :ID:       44B30EE4-6C72-4DDE-8BDA-1E6DE683B796
-   :URL:      [[http://www.boost.org/doc/libs/1_43_0/libs/test/doc/html/tutorials/hello-the-testing-world.html][Introduction to using the Unit Test Framework]]
-   :END:
-   [2010-06-11 Fri 17:10]
 ** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies             :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
@@ -1211,6 +1115,13 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 957CABA8-FEE1-4609-ABCD-0B285B49F2CE
    :END:
    [2009-11-03 Tue 18:55]
+** DEFERRED [[bug:325][#325]] Migrate from CppUnit to the Boost Test FrameWork
+   - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:17]
+   :PROPERTIES:
+   :ID:       44B30EE4-6C72-4DDE-8BDA-1E6DE683B796
+   :URL:      [[http://www.boost.org/doc/libs/1_43_0/libs/test/doc/html/tutorials/hello-the-testing-world.html][Introduction to using the Unit Test Framework]]
+   :END:
+   [2010-06-11 Fri 17:10]
 * Docs
   :PROPERTIES:
   :CATEGORY: Docs
@@ -1292,11 +1203,6 @@ Tr.#	date		Text			debit		credit		saldo
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-03-26 Fri 22:22]
-** TODO [#C] [[bug:208][#208]] Special characters in manual don't show up in PDF
-   :PROPERTIES:
-   :ID:       971BE95D-7538-4076-901E-E5C35BD87438
-   :END:
-   [2010-05-31 Mon 14:39]
 ** WAITING [[bug:170][#170]] Fill out membership form for the Software Conservancy
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
      I'm waiting for the official form to come from the Conservancy.
