@@ -3477,14 +3477,6 @@ Just output them all in the proper order.
     :Submitter: Peter Ross <peter@emailross.com>
     :END:
     [2010-02-17 Wed 01:39]
-** WORKSFORME [#A] [[bug:332][#332]] Assert failure when using tag in a limit expression
-   SCHEDULED: <2010-06-13 Sun>
-   - State "WORKSFORME" from "DONE"       [2010-06-13 Sun 18:59]
-   - State "DONE"       from "TODO"       [2010-06-13 Sun 18:59]
-   :PROPERTIES:
-   :ID:       BD7C93C2-5C20-4A48-9BEE-5E3975D82D34
-   :END:
-   [2010-06-13 Sun 05:32]
 ** WORKSFORME [#A] Corrupted double-linked list in the register report
    - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
    - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:26] \\

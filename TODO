@@ -11,17 +11,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO Rationalize formatting strings
-   SCHEDULED: <2010-06-14 Mon>
-   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
-   ${AMT} is the same as $(scrub(AMT))
-   %T is the same as ${display_total}.
-
-   Right now formatting strings are a nightmare for users to modify.
-   :PROPERTIES:
-   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
-   :END:
-   [2010-06-14 Mon 08:35]
 ** TODO [[bug:326][#326]] Strip out quotes in the options parser
    This allows people to copy and paste option settings directly into their
    .ledgerrc file.
@@ -31,17 +20,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://1d1ff6f1-3445-4d4b-9ef0-dfd510405e47@u26g2000yqu.googlegroups.com][Re: Init file doesn't support file --input-date-format]]
    :END:
    [2010-06-11 Fri 17:25]
-** WAITING [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
-   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
-     To Thomas: I just tried this and it worked fine.  After your "push" command,
-     does the prompt change to a ]]?
-   :LOGBOOK:
-   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
-   :END:
+** TODO [[bug:337][#337]] Rationalize formatting strings
+   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
+   ${AMT} is the same as $(scrub(AMT))
+   %T is the same as ${display_total}.
+
+   Right now formatting strings are a nightmare for users to modify.
    :PROPERTIES:
-   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
    :END:
-   [2010-05-30 Sun 03:33]
+   [2010-06-14 Mon 08:35]
 ** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
    - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
    :PROPERTIES:
@@ -175,6 +163,28 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-04 Sun 15:18]
+** WORKSFORME [#A] [[bug:332][#332]] Assert failure when using tag in a limit expression
+   SCHEDULED: <2010-06-14 Mon>
+   - State "WORKSFORME" from "TODO"       [2010-06-14 Mon 21:06]
+   - State "TODO"       from "WORKSFORME" [2010-06-14 Mon 17:32]
+   - State "WORKSFORME" from "DONE"       [2010-06-13 Sun 18:59]
+   - State "DONE"       from "TODO"       [2010-06-13 Sun 18:59]
+   :PROPERTIES:
+   :ID:       BD7C93C2-5C20-4A48-9BEE-5E3975D82D34
+   :END:
+   [2010-06-13 Sun 05:32]
+** WORKSFORME [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
+   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
+     To Thomas: I just tried this and it worked fine.  After your "push" command,
+     does the prompt change to a ]]?
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
+   :END:
+   :PROPERTIES:
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :END:
+   [2010-05-30 Sun 03:33]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
@@ -521,21 +531,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
    :END:
    [2009-03-02 Mon 20:39]
-** TODO [[bug:284][#284]] Greatly improve Ledger's help system
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
-   :PROPERTIES:
-   :ID: 2E0D3A34-41DF-470C-8A2D-0A66B1DAA6E9
-   :END:
-   [2009-02-04 Wed 19:57]
-** TODO [[bug:286][#286]] Implement readline completion for the REPL
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
-   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:31]
-   [[file:main.cc::jww%202009%2002%2005%20NYI][NYI]]
-   :PROPERTIES:
-   :ID: EF3D6703-AD14-48B3-A9EE-481E5FC295AB
-   :END:
-   [2009-11-03 Tue 13:59]
 ** TODO [[bug:292][#292]] Make alias names for directives, like convert for C
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
@@ -591,11 +586,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
    :END:
    [2010-04-13 Tue 01:37]
-** TODO [#C] [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
-   :PROPERTIES:
-   :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
-   :END:
-   [2009-11-24 Tue 22:02]
 ** TODO [#C] [[bug:182][#182]] Port Gnucash support to 3.0
    :PROPERTIES:
    :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
@@ -622,6 +612,13 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
    :END:
    [2010-06-03 Thu 23:22]
+** TODO [#C] [[bug:284][#284]] Greatly improve Ledger's help system
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   :PROPERTIES:
+   :ID: 2E0D3A34-41DF-470C-8A2D-0A66B1DAA6E9
+   :END:
+   [2009-02-04 Wed 19:57]
 ** DEFERRED [[bug:179][#179]] Allow specification of times on transactions and postings
    - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 17:08]
    The value expressions to expose this would be:
@@ -719,6 +716,15 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 4F58ACC1-498A-41A5-9164-93CD30B3CAC5
    :END:
    [2009-10-23 Fri 06:12]
+** DEFERRED [[bug:286][#286]] Implement readline completion for the REPL
+   - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:24]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:31]
+   [[file:main.cc::jww%202009%2002%2005%20NYI][NYI]]
+   :PROPERTIES:
+   :ID: EF3D6703-AD14-48B3-A9EE-481E5FC295AB
+   :END:
+   [2009-11-03 Tue 13:59]
 ** DEFERRED [[bug:288][#288]] Integrate Org-mode with Ledger
    - State "DEFERRED"   from "TODO"       [2010-05-08 Sat 03:15]
    If you're on a trip you could accumulate your expense into an Org-table, and
@@ -786,6 +792,12 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       558FDCF1-2C7A-4D20-94A3-48A62FF84104
    :END:
    [2010-06-08 Tue 19:22]
+** DEFERRED [#C] [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
+   - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:23]
+   :PROPERTIES:
+   :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
+   :END:
+   [2009-11-24 Tue 22:02]
 ** DEFERRED [#C] [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
    - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:15]
    :PROPERTIES:
@@ -956,7 +968,14 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [[bug:234][#234]] Add some more configure arguments
+** TODO [[bug:331][#331]] [MacPorts] #25213: ledger-devel Portfile
+   :PROPERTIES:
+   :ID:       59444116-2810-4073-BE96-52DA023CC540
+   :Submitter: MacPorts <noreply@macports.org>
+   :Message:  [[message://063.0b8b1c6b9c8651a8e3a62880f1596b01@macports.org][Re: {MacPorts} #25213: ledger-devel Portfile]]
+   :END:
+   [2010-06-11 Fri 22:26]
+** TODO [#C] [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
    ./configure .... with-gmp=...  with-mpfr= ... with-python=...
@@ -964,7 +983,31 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
    :END:
    [2009-03-26 Thu 02:09]
-** TODO [[bug:328][#328]] Build Ledger with Visual Studio
+** DEFERRED [[bug:216][#216]] Ledger packages for Debian
+   - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
+   - Note taken on [2010-05-31 Mon 15:06] \\
+     [[message://AANLkTilCFWypqs-A8-X7OMRP-ivli9vwZWlIM3TQwHaW@mail.gmail.com][Re: Ledger for Ubuntu hardy?]]
+   - Note taken on [2010-05-31 Mon 15:05] \\
+     [[message://1275233562.30458.480.camel@sirius][Re: Ledger for Ubuntu hardy?]]
+   :PROPERTIES:
+   :ID:       4E07F327-5B75-4804-ACFE-AAB4CE2FA20E
+   :URL:      [[https://launchpad.net/~mbudde/%2Barchive/ledger/%2Bpackages][Packages in “Ledger” : Ledger : Michael Budde]]
+   :END:
+   [2010-05-29 Sat 20:00]
+** DEFERRED [[bug:238][#238]] Build .deb, .rpm, .exe (in .zip), and .pkg installs
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
+   :END:
+   [2009-01-29 Thu 19:40]
+** DEFERRED [[bug:240][#240]] Setup virtual machines for every OS Ledger should run on
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
+   :PROPERTIES:
+   :ID: C91FEFD0-CF11-41C2-B2D0-B6BED7E142A2
+   :END:
+   [2009-10-08 Thu 17:12]
+** DONE [[bug:328][#328]] Build Ledger with Visual Studio
+   - State "DONE"       from "TODO"       [2010-06-15 Tue 05:24]
    1. Some compiler warnings. There are a number of contructs where VS is more
       fussy about than gcc. I have disabled these specific warnings, which I
       think is fine, especially for the ones where there is no direct Unix
@@ -1041,42 +1084,11 @@ Tr.#	date		Text			debit		credit		saldo
    :Message:  [[message://AANLkTilNxUsD8glzKcEWW4fQ56uGF5GlPOmMWA1oPM3_@mail.gmail.com][Building Ledger with VS (was: Re: Help: How do I start?)]]
    :END:
    [2010-06-11 Fri 17:23]
-** TODO [[bug:331][#331]] [MacPorts] #25213: ledger-devel Portfile
-   SCHEDULED: <2010-06-14 Mon>
-   :PROPERTIES:
-   :ID:       59444116-2810-4073-BE96-52DA023CC540
-   :Submitter: MacPorts <noreply@macports.org>
-   :Message:  [[message://063.0b8b1c6b9c8651a8e3a62880f1596b01@macports.org][Re: {MacPorts} #25213: ledger-devel Portfile]]
-   :END:
-   [2010-06-11 Fri 22:26]
-** DEFERRED [[bug:216][#216]] Ledger packages for Debian
-   - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
-   - Note taken on [2010-05-31 Mon 15:06] \\
-     [[message://AANLkTilCFWypqs-A8-X7OMRP-ivli9vwZWlIM3TQwHaW@mail.gmail.com][Re: Ledger for Ubuntu hardy?]]
-   - Note taken on [2010-05-31 Mon 15:05] \\
-     [[message://1275233562.30458.480.camel@sirius][Re: Ledger for Ubuntu hardy?]]
-   :PROPERTIES:
-   :ID:       4E07F327-5B75-4804-ACFE-AAB4CE2FA20E
-   :URL:      [[https://launchpad.net/~mbudde/%2Barchive/ledger/%2Bpackages][Packages in “Ledger” : Ledger : Michael Budde]]
-   :END:
-   [2010-05-29 Sat 20:00]
-** DEFERRED [[bug:238][#238]] Build .deb, .rpm, .exe (in .zip), and .pkg installs
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
-   :PROPERTIES:
-   :ID: 769BFB8F-F805-4510-ABF2-A933D0EDBE0C
-   :END:
-   [2009-01-29 Thu 19:40]
-** DEFERRED [[bug:240][#240]] Setup virtual machines for every OS Ledger should run on
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 19:16]
-   :PROPERTIES:
-   :ID: C91FEFD0-CF11-41C2-B2D0-B6BED7E142A2
-   :END:
-   [2009-10-08 Thu 17:12]
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** TODO [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
+** STARTED [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
    - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:12]
    :PROPERTIES:
    :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
@@ -1126,7 +1138,39 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO [[bug:329][#329]] Suggestions for improving the documentation
+** TODO [#C] [[bug:169][#169]] Language translations for 3.0
+   | Name                    | E-mail                           | Language             |
+   |-------------------------+----------------------------------+----------------------|
+   | Thierry Daucourt        | thierry.daucourt@free.fr         | French               |
+   | Alexis Hildebrandt      | alexis.hildebrandt@surryhill.net | German               |
+   | Felipe Magno de Almeida | felipe.m.almeida@gmail.com       | Brazilian Portuguese |
+   | Roel Vanhout            | roel.vanhout@gmail.com           | Dutch                |
+   :PROPERTIES:
+   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
+   :END:
+   [2009-11-09 Mon 03:40]
+** TODO [#C] [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
+   :PROPERTIES:
+   :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
+   :END:
+   [2009-11-20 Fri 18:31]
+** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
+   :PROPERTIES:
+   :ID:       32A4A048-886F-43FC-892E-EC125F372750
+   :Attachments: foo.dat
+   :END:
+   [2009-12-10 Thu 18:05]
+** TODO [#C] [[bug:202][#202]] doc/NEWS and xml
+   doc/NEWS claims that the xml command was removed but it's still there (at
+   least "ledger -f foo.dat xml" works; maybe you meant a different xml
+   command?).
+   :PROPERTIES:
+   :ID:       130C2697-1601-488A-B0D7-2422CF50CB86
+   :Message:  [[message://20100322161529.GA7030@jirafa.cyrius.com][doc/NEWS and xml]]
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :END:
+   [2010-03-26 Fri 22:22]
+** TODO [#C] [[bug:329][#329]] Suggestions for improving the documentation
    - I think it's great that there is such an elaborate manual, but the
      structure is a bit unintuitive to learn from. May I suggest to move the
      'keeping a ledger' section to the beginning, before 'running ledger'. Or
@@ -1171,38 +1215,6 @@ Tr.#	date		Text			debit		credit		saldo
    :Message:  [[message://AANLkTilNxUsD8glzKcEWW4fQ56uGF5GlPOmMWA1oPM3_@mail.gmail.com][Building Ledger with VS (was: Re: Help: How do I start?)]]
    :END:
    [2010-06-11 Fri 17:29]
-** TODO [#C] [[bug:169][#169]] Language translations for 3.0
-   | Name                    | E-mail                           | Language             |
-   |-------------------------+----------------------------------+----------------------|
-   | Thierry Daucourt        | thierry.daucourt@free.fr         | French               |
-   | Alexis Hildebrandt      | alexis.hildebrandt@surryhill.net | German               |
-   | Felipe Magno de Almeida | felipe.m.almeida@gmail.com       | Brazilian Portuguese |
-   | Roel Vanhout            | roel.vanhout@gmail.com           | Dutch                |
-   :PROPERTIES:
-   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
-   :END:
-   [2009-11-09 Mon 03:40]
-** TODO [#C] [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
-   :PROPERTIES:
-   :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
-   :END:
-   [2009-11-20 Fri 18:31]
-** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
-   :PROPERTIES:
-   :ID:       32A4A048-886F-43FC-892E-EC125F372750
-   :Attachments: foo.dat
-   :END:
-   [2009-12-10 Thu 18:05]
-** TODO [#C] [[bug:202][#202]] doc/NEWS and xml
-   doc/NEWS claims that the xml command was removed but it's still there (at
-   least "ledger -f foo.dat xml" works; maybe you meant a different xml
-   command?).
-   :PROPERTIES:
-   :ID:       130C2697-1601-488A-B0D7-2422CF50CB86
-   :Message:  [[message://20100322161529.GA7030@jirafa.cyrius.com][doc/NEWS and xml]]
-   :Submitter: Martin Michlmayr <tbm@cyrius.com>
-   :END:
-   [2010-03-26 Fri 22:22]
 ** WAITING [[bug:170][#170]] Fill out membership form for the Software Conservancy
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
      I'm waiting for the official form to come from the Conservancy.
