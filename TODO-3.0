@@ -3385,19 +3385,6 @@ Just output them all in the proper order.
    :Message:  [[message://bf53d15e-c8ea-4771-a3df-bed7883f56b5@k17g2000yqb.googlegroups.com][regular expression argument that contains spaces]]
    :END:
    [2010-03-01 Mon 16:13]
-** WORKSFORME [#A] [[bug:162][#162]] sm is seeing a segfault with the register command		:blocker:
-   - State "WORKSFORME" from "TODO"       [2010-06-06 Sun 03:22] \\
-     This now works fine for me.
-   - Note taken on [2009-12-06 Sun 06:05] \\
-     It happens on Leopard for me in a virtual machine.
-   - Note taken on [2009-11-25 Wed 04:40] \\
-     This is happening because boost::regex is constructing a bad object.
-   :PROPERTIES:
-   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
-   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
-   :Submitter: Simon Michael <simon@joyful.com>
-   :END:
-   [2009-11-24 Tue 22:13]
 ** WORKSFORME [#A] [[bug:203][#203]] Problem with fixed commodities and rounding
    - State "WORKSFORME" from "TODO"       [2010-06-08 Tue 05:13]
     I run the following command and get an error

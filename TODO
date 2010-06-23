@@ -11,6 +11,279 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
+   #+begin_src sh
+   reg -s --inject=Expected '^income:ceg'  
+   #+end_src
+   :OUTPUT:
+   07-Jan-12 - 10-Jun-22           Expected                $200,044.36  $200,044.36
+                                   Income:CEG:Holiday Pay   $-4,153.83  $195,890.53
+                                   Income:CEG:Retro Pay     $-4,749.99  $191,140.54
+                                   Income:CEG:Salary      $-191,140.54            0
+   :END:
+   #+begin_src sh
+   bal --inject=Expected '^income:ceg'
+   #+end_src
+   :OUTPUT:
+                      0  Income:CEG
+             $-4,153.83    Holiday Pay
+             $-4,749.99    Retro Pay
+              $8,903.82    Salary
+   --------------------
+                      0
+   :END:
+
+   For some reason, in the balance reported the Expected account is being
+   subsumed within the Income:CEG:Salary account.
+   :PROPERTIES:
+   :ID:       807D19BB-DCF3-4ADA-99CC-7480BADF687C
+   :END:
+   [2010-06-22 Tue 18:44]
+** DONE [[bug:360][#360]] 'today' isn't today
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 17:15]
+   :PROPERTIES:
+   :ID:       2FEAF015-B5C2-4CFC-96E8-46E70CA2B990
+   :END:
+   [2010-06-22 Tue 17:15]
+** DONE [[bug:359][#359]] Balance command now shows empty accounts
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 18:30]
+   :PROPERTIES:
+   :ID:       56BBE69B-604C-4379-A39D-8B412A8921CC
+   :END:
+   [2010-06-21 Mon 18:18]
+** TODO [#C] [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
+   :PROPERTIES:
+   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
+   :END:
+   [2010-06-21 Mon 18:12]
+** DONE [[bug:355][#355]] Problem with forecasting not showing biweekly transactions
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 17:16]
+   :PROPERTIES:
+   :ID:       D2829FC4-D319-4FB9-8A24-B8FFCF5F4E61
+   :END:
+   [2010-06-20 Sun 20:17]
+** DONE [[bug:354][#354]] Forecasting bug with terminating periodic entries
+   - State "DONE"       from "TODO"       [2010-06-20 Sun 17:08]
+   #+begin_src ledger
+   ~ Monthly since 2010/01/01
+       Expenses:Bills:Rent                 $873.00
+       Expenses:Household                  $200.00
+       Income:Salary                       -$2491.60
+       Assets:Bank:Checking
+   
+   ~ biweekly from 2010/02/23
+       Expenses:Bills:Housecleaning        $85.00
+       Assets:Bank:Checking
+   
+   2010/06/22 c897683b
+       ad738623:d317da42:0e30a690              A2079.00
+       208b135f:c84cc2a7:a336b63a               A199.00
+       45435ee9:2d8ee712:ee7e46b1:0f0e7e54:f5dbec59
+   #+end_src
+   #+begin_src sh
+   ledger reg bank --forecast "d<=[next year]" -d "d>=[this month] & d<=[next year]" --sort d --now=2010/06/20    
+   #+end_src
+   :OUTPUT:
+   Assertion failed: (this->is_initialized()), function get, file /opt/local/include/boost/optional/optional.hpp, line 578.
+   Abort trap
+   :END:
+   :PROPERTIES:
+   :ID:       620F0674-B74F-452C-8F36-66F8425CA4BD
+   :END:
+   [2010-06-20 Sun 17:04]
+** DONE [[bug:350][#350]] --gain shows wrong resuls
+   - Note taken on [2010-06-20 Sun 17:48] \\
+     Another possibility is that name-merging unless fixated and non-fixated
+     versions both exist, in which case name merging is only done for the
+     non-fixated, and all of the fixated will have their prices reported as if
+     --lot-prices had been specified just for them.
+   - State "DONE"       from "TODO"       [2010-06-20 Sun 17:20] \\
+   I've fixed the problem as you presented it, but there is more going on
+   here.  Most importantly, commodities with fixated prices are logically
+   distinct from those without.  Here's what happens:
+   
+   On 2008-01-01, you buy 5 shares of GBP at a unit-price of 1.4 EUR.
+   Internally, this commodity is named GBP {1.4 EUR}.  If ever the share price
+   of GBP changes, the offset from 1.4 EUR will represent a gain or loss.
+   
+   On 2009-01-01, you "sold" 5 shares of GBP {=1.4 EUR} for 7.50 EUR, making
+   0.50 EUR in the process.  Ledger does not ask whether you owned these
+   shares before selling them, as double-entry accounting does not require
+   this foreknowledge.  My bug fix today was to make sure that a sale of a
+   fixated commodity does not record a market price for other commodities of
+   the same basename.
+   
+   If, later, the value of GBP should change, there will still be a gain
+   reflected, as you have not yet sold the 5 shares of GBP {1.4 EUR}.  Again,
+   GBP {=1.4 EUR} != GBP {1.4 EUR}.  You may have converted 5 shares of GBP
+   {=1.4 EUR}, but in Ledger's eyes, internally, you still own 5 shares of GBP
+   {1.4 EUR}.  If GBP should ever get revalued, this will show up as a
+   gain/loss in the --gain report.
+   
+   What makes all of this confusing is that by default, Ledger 'collapses'
+   commodities which are related by name as if they were the same commodity.
+   This is a convenience, since until now no one has ever thought to mix
+   fixated and non-fixated versions of the same commodity.  Thus, Ledger
+   *reports* GBP {1.4 EUR} and GBP {=1.4 EUR} as if they were both GBP, but
+   for calculating the --gain report, it will reckon them as separate.
+   
+   This all becomes much clearer if you use "reg --lot-prices", to stop Ledger
+   from merging like-named commodities.
+   
+   I'm not sure there is an answer here, other than forcing fixated commodities
+   to always display with their fixated price -- though I'm not sure most people
+   would want that.  The only other answer is to not mix them, or to think very
+   hard in the case where you do and still want meaning from --gain.
+   :PROPERTIES:
+   :ID:       C0212EAC-CCE6-41F6-BCFD-543A257B4B74
+   :END:
+   [2010-06-20 Sun 14:51]
+** TODO [[bug:351][#351]] print command puts tag in same line as payee
+   :PROPERTIES:
+   :ID:       EAF396BD-3A6C-4209-82C2-08D102A725B6
+   :END:
+   [2010-06-20 Sun 14:51]
+** DONE [[bug:352][#352]] Account abbreviation puts too much emphasis on top-level account
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 18:05]
+   :PROPERTIES:
+   :ID:       87C4A85D-237E-410F-B824-FE4C42F62011
+   :END:
+   [2010-06-20 Sun 14:51]
+** DONE [#A] [[bug:353][#353]] No longer handles multiple postings to one account in one transacation
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 17:57]
+   :PROPERTIES:
+   :ID:       15230B79-E091-4A55-9F9E-A49602ECAC1A
+   :END:
+   [2010-06-20 Sun 14:51]
+** TODO [#C] [[bug:347][#347]] All contexts should be accessible by name
+   - post.foo
+   - xact.foo
+   - account.foo
+   - report.foo
+   - session.foo
+   - global.foo
+   - options.foo
+   - python.foo
+   :PROPERTIES:
+   :ID:       FA125CB3-F420-4350-9774-83186C81C8F3
+   :END:
+   [2010-06-18 Fri 17:37]
+** TODO [#C] [[bug:348][#348]] Make Date:: a synonym for just [foo] in a posting comment
+   :PROPERTIES:
+   :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
+   :END:
+   [2010-06-18 Fri 06:52]
+** DONE [#A] [[bug:345][#345]] speed-test.dat with -V is failing verification
+   - State "DONE"       from "STARTED"    [2010-06-19 Sat 07:39]
+   :LOGBOOK:
+   CLOCK: [2010-06-19 Sat 06:09]--[2010-06-19 Sat 07:39] =>  1:30
+   :END:
+   #+begin_src sh
+   ledger -f test/input/speed-test.dat -v --decimal-comma -o /dev/null reg 2eb75f84 1eede0cb -V --verify
+   #+end_src
+   :OUTPUT:
+   While evaluating value expression:
+     market(total_expr, value_date, exchange)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   The value expression tree was:
+     0x107fe6db0       O_CALL (2)
+     0x108015300        IDENT: market (1)
+     0x108017660         FUNCTION (1)
+     0x107fe93b0        O_SEQ (1)
+     0x107ff00a0         O_CONS (1)
+     0x10800a900          IDENT: total_expr (1)
+     0x10800ed00           FUNCTION (1)
+     0x107ff3bd0          O_CONS (1)
+     0x1080023a0           IDENT: value_date (1)
+     0x108006500            FUNCTION (1)
+     0x107ff7e10           IDENT: exchange (1)
+     0x107ffbf70            FUNCTION (1)
+   While handling posting from "test/input/speed-test.dat", line 7482:
+   >     (da39a3ee:2eb75f84:6183529e:cd17c28b)        -1 AFS @ 0
+   Error: Assertion failed in "/Volumes/RAID/Projects/ledger/src/commodity.cc", line 230: boost::optional<ledger::price_point_t> ledger::commodity_t::varied_history_t::find_price(const ledger::commodity_t&, const boost::optional<ledger::commodity_t&>&, const boost::optional<boost::posix_time::ptime>&, const boost::optional<boost::posix_time::ptime>&, int) const: source.referent() != commodity->referent()
+   109667ms    24b  21.3K  [INFO]  Ledger ended (Boost/libstdc++ may still hold memory)
+   :END:
+   :PROPERTIES:
+   :ID:       5B20DC9F-277F-495F-806A-4A147E833C49
+   :END:
+   [2010-06-17 Thu 08:17]
+** DONE [#C] [[bug:343][#343]] Journal with only periodic transactions gives an error
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
+   :PROPERTIES:
+   :ID:       926EC43A-2A38-42B5-A1A7-170CAC1AC98F
+   :END:
+   [2010-06-16 Wed 18:15]
+** WORKSFORME [[bug:344][#344]] Budgeting behavior changed between 2.6 and 3.0
+   - State "WORKSFORME" from "TODO"       [2010-06-21 Mon 18:51]
+   2.6: http://ericbetts.org/pastebin/d488d0d79
+   3.0: http://ericbetts.org/pastebin/d74668f87
+
+   Why are these two different?
+   :PROPERTIES:
+   :ID:       F5D66D56-36D8-4AD1-85BB-B6E792A5A1DF
+   :END:
+   [2010-06-16 Wed 18:09]
+** DONE [[bug:342][#342]] Budgeting should include transactions for interstitial months
+   - State "DONE"       from "TODO"       [2010-06-19 Sat 16:17]
+   Given this data:
+   #+begin_src ledger
+   ;Monthly Budget
+   ~ Monthly since 2010/01/01
+       Expenses:Bills:Rent                 $873.00
+       Income:Salary                       -$3491.60
+       Assets:Bank:OSU Fed:Checking
+   
+   ~ Biweekly from 2010/02/23
+       Expenses:Bills:Housecleaning        $85.00
+       Assets:Bank:OSU Fed:Checking
+   
+   2010/06/02 IP Fabrics payroll
+       Assets:Bank:OSU Fed:Checking               $3491.60
+       Income:Salary
+   
+   2010/06/04 housecleaning check
+       Expenses:Bills:Housecleaning    $255.00
+       Assets:Bank:OSU Fed:Checking
+   
+   2010/06/10 Rent
+       Expenses:Bills:Rent                      $873.00
+       Assets:Bank:OSU Fed:Checking                   
+   #+end_src
+
+   Now run the command:
+   #+begin_src sh
+   ledger -E -p "this month" --budget --columns=80 --now=2010/06/16 reg ^exp
+   #+end_src
+
+   It will show two budget transactions:
+   :OUTPUT:
+   10-Jun-01 Budget transaction    Expenses:Bills:Rent        $-873.00     $-873.00
+   10-Jun-04 housecleaning check   Exp:Bill:Housecleaning      $255.00     $-618.00
+   10-Jun-06 Budget transaction    Exp:Bill:Housecleaning      $-85.00     $-703.00
+   10-Jun-10 Rent                  Expenses:Bills:Rent         $873.00      $170.00
+   :END:
+
+   But if the rent transaction (last one in the file) is removed, it no
+   longer generates any housecleaning budget transactions for that month:
+   :OUTPUT:
+   10-Jun-01 Budget transaction    Expenses:Bills:Rent        $-873.00     $-873.00
+   10-Jun-04 housecleaning check   Exp:Bill:Housecleaning      $255.00     $-618.00
+   :END:
+
+   It should be generating the budget entries at the end, even though
+   there is no final transaction to "kick" the budget filter.
+   :PROPERTIES:
+   :ID:       8AFF04B8-DAC0-4768-AD1D-ABA1F3C3E4F8
+   :END:
+   [2010-06-16 Wed 17:40]
+** DONE [#C] [[bug:338][#338]] Issue with spaces in account names
+   - State "DONE"       from "TODO"       [2010-06-19 Sat 14:02]
+   :PROPERTIES:
+   :ID:       BA07AFA9-DEED-4CB5-936A-E3177A474BFF
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-338-1@http.newartisans.com/bugzilla/][{Bug 338} New: Issue with spaces in account names]]
+   :END:
+   [2010-06-15 Tue 21:57]
 ** TODO [[bug:326][#326]] Strip out quotes in the options parser
    This allows people to copy and paste option settings directly into their
    .ledgerrc file.
@@ -20,7 +293,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://1d1ff6f1-3445-4d4b-9ef0-dfd510405e47@u26g2000yqu.googlegroups.com][Re: Init file doesn't support file --input-date-format]]
    :END:
    [2010-06-11 Fri 17:25]
-** TODO [[bug:337][#337]] Rationalize formatting strings
+** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
    ${AMT} is the same as $(scrub(AMT))
    %T is the same as ${display_total}.
@@ -423,7 +696,32 @@ Error: "ledger.dat", line 343: Line begins with whitespace
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
+** TODO [[bug:363][#363]] Make "only" a report query modifier, to match --only
+   :PROPERTIES:
+   :ID:       36EE7D08-65F1-4619-94F6-22DEA64F92C1
+   :END:
+   [2010-06-22 Tue 20:58]
+** DONE [[bug:364][#364]] Make "for" a special report query modifier, for period strings
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 21:58]
+   #+begin_src sh
+   ledger reg cash for this month
+   #+end_src
+   :PROPERTIES:
+   :ID:       F5487801-6D9E-45F5-AA36-10B59F7A4AD6
+   :END:
+   [2010-06-22 Tue 20:58]
+** TODO [#C] [[bug:361][#361]] Change value expression syntax to closely match Haskell's
+   :PROPERTIES:
+   :ID:       5E82B329-EFB9-432E-A42C-E52C8032210B
+   :END:
+   [2010-06-22 Tue 01:31]
+** DONE [[bug:356][#356]] Budgeting and forecasting should use all periodic entries
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 17:17]
+   :PROPERTIES:
+   :ID:       77FD8EA5-DF69-4959-878E-1D9A95F3788A
+   :END:
+   [2010-06-20 Sun 18:09]
+** WAITING [#C] [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
    - State "TODO"       from "DEFERRED"   [2010-06-02 Wed 18:11]
    - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
 #+begin_src sh
@@ -437,7 +735,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
   :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
   :END:
   [2010-01-18 Mon 02:55]
-** TODO [[bug:231][#231]] Allow conversion of some but not all commodities
+** TODO [#C] [[bug:231][#231]] Allow conversion of some but not all commodities
    With -X, you currently can only say "convert everything to one commodity"
    but I'd like to be able to convert some stuff but not everything.
    
@@ -465,7 +763,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       83B4A0E5-3CC6-4F5E-9C58-A87F690836C8
    :END:
    [2010-06-08 Tue 16:45]
-** TODO [[bug:232][#232]] Support variant behaviors for -V
+** TODO [#C] [[bug:232][#232]] Support variant behaviors for -V
    The problem is: for a given amount of a commodity, which commodity should
    its value be reported in terms of?
 
@@ -504,7 +802,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       AA092062-FBA5-4142-B3E4-E67FA9E12C19
    :END:
    [2010-06-07 Mon 08:39]
-** TODO [[bug:270][#270]] Add a feature for "object descriptions"
+** TODO [#C] [[bug:270][#270]] Add a feature for "object descriptions"
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    For example:
@@ -531,14 +829,15 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
    :END:
    [2009-03-02 Mon 20:39]
-** TODO [[bug:292][#292]] Make alias names for directives, like convert for C
+** TODO [#C] [[bug:292][#292]] Make alias names for directives, like convert for C
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    :PROPERTIES:
    :ID: BD78C023-BB16-446C-9347-2F1AA16C7C5C
    :END:
    [2009-02-27 Fri 15:35]
-** TODO [[bug:293][#293]] Option --bold-if
+** DONE [#C] [[bug:293][#293]] Option --bold-if
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    Which will bold the whole transaction line if it matches the given predicate
@@ -548,14 +847,14 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
    :END:
    [2008-04-11 Fri]
-** TODO [[bug:299][#299]] The CSV report should optionally generate a "title line"
+** TODO [#C] [[bug:299][#299]] The CSV report should optionally generate a "title line"
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:30]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    :PROPERTIES:
    :ID: 65B7E207-1BCC-4448-881C-1574623346D7
    :END:
    [2009-03-03 Tue 21:49]
-** TODO [[bug:333][#333]] Add warning when duplicate meta references are given
+** TODO [#C] [[bug:333][#333]] Add warning when duplicate meta references are given
    :PROPERTIES:
    :ID:       7B4EFB7D-B815-44DE-83CE-F8F902AC954D
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
@@ -612,7 +911,8 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
    :END:
    [2010-06-03 Thu 23:22]
-** TODO [#C] [[bug:284][#284]] Greatly improve Ledger's help system
+** DEFERRED [[bug:284][#284]] Greatly improve Ledger's help system
+   - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 08:44]
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    :PROPERTIES:
@@ -792,13 +1092,13 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       558FDCF1-2C7A-4D20-94A3-48A62FF84104
    :END:
    [2010-06-08 Tue 19:22]
-** DEFERRED [#C] [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
+** DEFERRED [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
    - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:23]
    :PROPERTIES:
    :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
    :END:
    [2009-11-24 Tue 22:02]
-** DEFERRED [#C] [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
+** DEFERRED [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
    - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:15]
    :PROPERTIES:
    :ID:       7517CE3B-C3B0-460D-806B-31341272DE79
@@ -968,7 +1268,59 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [[bug:331][#331]] [MacPorts] #25213: ledger-devel Portfile
+** WORKSFORME [#A] [[bug:162][#162]] sm is seeing a segfault with the register command  :blocker:
+   - State "WORKSFORME" from "TODO"       [2010-06-17 Thu 20:49]
+   - State "TODO"       from "WORKSFORME" [2010-06-16 Wed 18:47]
+   - State "WORKSFORME" from "TODO"       [2010-06-06 Sun 03:22] \\
+     This now works fine for me.
+   - Note taken on [2009-12-06 Sun 06:05] \\
+     It happens on Leopard for me in a virtual machine.
+   - Note taken on [2009-11-25 Wed 04:40] \\
+     This is happening because boost::regex is constructing a bad object.
+   :PROPERTIES:
+   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
+   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
+   :Submitter: Simon Michael <simon@joyful.com>
+   :END:
+   [2009-11-24 Tue 22:13]
+** DONE [#A] [[bug:346][#346]] Release Ledger 2.6.3
+   - State "DONE"       from "TODO"       [2010-06-19 Sat 06:53]
+   :PROPERTIES:
+   :ID:       5C68774D-05F7-49A6-990B-EAA889F73B20
+   :Submitter: Brent Pinkney <brp@4dst.com>
+   :Message:  [[message://201006161241.33330.brp@4dst.com][Ledger 2.6.1 - patches for gcc 4.4.3]]
+   :END:
+   [2010-06-16 Wed 18:17]
+** NOTE Using Visual Studio 2008 to build Ledger for Windows
+   :PROPERTIES:
+   :ID:       88838D10-FBA4-433C-A77D-AB64AC8D47CA
+   :VISIBILITY: folded
+   :END:
+   [2010-06-15 Tue 04:21]
+*** Boost
+    The build is huge, so I'd have to pick out only the parts you actually
+    need which is quite involved. You should be able to get it to work with
+    the binary installers from http://www.boostpro.com/download . I build from
+    source at work because I need to set some compiler flags (disable checked
+    iterators) but that's not necessary for ledger's case. I'm not sure where
+    the installer puts its files, I presume program files/boost or
+    something. There will probably be a directory called 'lib' or 'libs' or
+    something. You go to Tools -> Options -> Projects and Solutions -> VC++
+    Directories and select 'Library files' in the top right corner. In that
+    list you add a new directory, the one where the boost installer's library
+    files are in. If you select 'Include files' in that drop down box, you can
+    immediately set the path to the boost headers, too. These options can also
+    be set on the project level but since they'll be different on different
+    machines I prefer to put them in global settings and document them in the
+    build procedure.
+** DEFERRED [[bug:339][#339]] Automate the building of Ledger binaries on CentOS 5
+   - State "DEFERRED"   from "TODO"       [2010-06-19 Sat 16:18]
+   :PROPERTIES:
+   :ID:       09B41575-766E-4598-A8F3-164D8AE25589
+   :END:
+   [2010-06-15 Tue 07:08]
+** DONE [[bug:331][#331]] [MacPorts] #25213: ledger-devel Portfile
+   - State "DONE"       from "TODO"       [2010-06-15 Tue 08:25]
    :PROPERTIES:
    :ID:       59444116-2810-4073-BE96-52DA023CC540
    :Submitter: MacPorts <noreply@macports.org>
@@ -1088,7 +1440,37 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** STARTED [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
+** DONE [[bug:357][#357]] The parallelized RegressTests no longer notices errors
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
+   :PROPERTIES:
+   :ID:       943839DB-32DF-4807-9589-BA4173FA193A
+   :END:
+   [2010-06-20 Sun 18:36]
+** TODO [[bug:349][#349]] Implement the empty tests in test/baseline
+   :PROPERTIES:
+   :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
+   :END:
+   [2010-06-18 Fri 19:45]
+** DONE Write a utility to measure commenting level of functions
+   - State "DONE"       from "TODO"       [2010-06-16 Wed 03:52]
+   :PROPERTIES:
+   :ID:       9A0E5877-6D16-4328-8265-427A3F7B76B2
+   :END:
+   [2010-06-15 Tue 17:11]
+** DONE BOOST_FOREACH is causing many invalid branch coverage failures
+   - State "DONE"       from "TODO"       [2010-06-16 Wed 03:52]
+   :PROPERTIES:
+   :ID:       24D76FE5-1E7B-4889-B447-2C02EFB1D019
+   :END:
+   [2010-06-15 Tue 17:12]
+** TODO [#C] [[bug:340][#340]] Create OptionsTests, which generate possible option combinations
+   :PROPERTIES:
+   :ID:       54EED1FA-C0A2-4D3A-9C5A-F44E36504179
+   :END:
+   [2010-06-15 Tue 20:25]
+** DONE [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
+   - State "DONE"       from "TODO"       [2010-06-18 Fri 19:47]
+   - State "TODO"       from "STARTED"    [2010-06-16 Wed 03:54]
    - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:12]
    :PROPERTIES:
    :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
@@ -1128,6 +1510,8 @@ Tr.#	date		Text			debit		credit		saldo
    :END:
    [2009-11-03 Tue 18:55]
 ** DEFERRED [[bug:325][#325]] Migrate from CppUnit to the Boost Test FrameWork
+   - State "DEFERRED"   from "TODO"       [2010-06-19 Sat 13:38]
+   - State "TODO"       from "DEFERRED"   [2010-06-15 Tue 17:00]
    - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:17]
    :PROPERTIES:
    :ID:       44B30EE4-6C72-4DDE-8BDA-1E6DE683B796
@@ -1138,6 +1522,80 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO [#C] [[bug:341][#341]] Document suggestions from Russell
+   - I was completely unaware of ti and to --- nice little toy; a man page
+     comes to mind
+
+   - Could you add to the front cover page a 'last added to' datemark that
+     persists and is not auto-updated, si I can print and carry stuff around;
+     also it is missing a formal 'Copyright' and license summary page
+
+     It lays out OK for lulu to print it, in terms of production of the PDF
+     being 'press ready':
+     http://www.lulu.com/content/paperback-book/ledger-wip-doco/8971830
+
+   - The document 'just ends'; an index end section, and possibly an Appendix
+     to collate definitions would provide a more graceful ending
+
+     I would 'wordsmith' to the effect that a Journal of transactions is more
+     important than a ledger, as one is the document of entry (not original
+     entry, as there are receipts, etc, before transactions get journalized)
+     and the other is a more RO collation and organization of the journalled
+     data
+
+     A sample dataset, particularly showing off the gnuplot hook, and
+     cascading into the doco PDF would be cool
+
+   - I dont see any Python example code installed in the site-local -- did I
+     mess up?  Also I think splitting the headers out to a -devel sub-package
+     looks like a good idea. Looking, I see no Versioned .so names and a link
+     to an API level?  I need to locate and add the sample scripts refereeced
+
+     /usr/share/doc/ledger-0.0.20100615.git/doc/.dirstamp looks like it should
+     go and not be installed by me
+
+   - [herrold@centos-5 ~]$ rpm -ql ledger | grep -v h$
+     /usr/bin/ledger
+     /usr/lib64/libledger_data.la
+     /usr/lib64/libledger_expr.la
+     /usr/lib64/libledger_math.la
+     /usr/lib64/libledger_report.la
+     /usr/lib64/libledger_util.la
+     /usr/lib64/python2.4
+     /usr/lib64/python2.4/site-packages
+     /usr/share/doc/ledger-0.0.20100615.git
+     /usr/share/doc/ledger-0.0.20100615.git/LICENSE
+     /usr/share/doc/ledger-0.0.20100615.git/LICENSE-utfcpp
+     /usr/share/doc/ledger-0.0.20100615.git/NEWS
+     /usr/share/doc/ledger-0.0.20100615.git/README
+     /usr/share/doc/ledger-0.0.20100615.git/doc
+     /usr/share/doc/ledger-0.0.20100615.git/doc/.dirstamp
+     /usr/share/doc/ledger-0.0.20100615.git/doc/Doxyfile
+     /usr/share/doc/ledger-0.0.20100615.git/doc/INSTALL
+     /usr/share/doc/ledger-0.0.20100615.git/doc/LICENSE
+     /usr/share/doc/ledger-0.0.20100615.git/doc/LICENSE-sha1
+     /usr/share/doc/ledger-0.0.20100615.git/doc/LICENSE-utfcpp
+     /usr/share/doc/ledger-0.0.20100615.git/doc/NEWS
+     /usr/share/doc/ledger-0.0.20100615.git/doc/README
+     /usr/share/doc/ledger-0.0.20100615.git/doc/devel
+     /usr/share/doc/ledger-0.0.20100615.git/doc/devel/README-1ST
+     /usr/share/doc/ledger-0.0.20100615.git/doc/devel/README.textile
+     /usr/share/doc/ledger-0.0.20100615.git/doc/grammar.y
+     /usr/share/doc/ledger-0.0.20100615.git/doc/ledger.1
+     /usr/share/doc/ledger-0.0.20100615.git/doc/ledger.info
+     /usr/share/doc/ledger-0.0.20100615.git/doc/ledger.pdf
+     /usr/share/doc/ledger-0.0.20100615.git/doc/ledger.texi
+     /usr/share/doc/ledger-0.0.20100615.git/doc/sample.dat
+     /usr/share/emacs/site-lisp/ledger.el
+     /usr/share/emacs/site-lisp/timeclock.el
+     /usr/share/info/ledger.info.gz
+     /usr/share/man/man1/ledger.1.gz
+   :PROPERTIES:
+   :ID:       24868F00-3342-4865-A4A5-1B46622A98F2
+   :Submitter: R P Herrold <herrold@owlriver.com>
+   :Message:  [[message://alpine.LRH.2.00.1006150907240.22955@arj.bjyevire.pbz][reading the doco end to end {random thots}]]
+   :END:
+   [2010-06-15 Tue 21:59]
 ** TODO [#C] [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
@@ -1160,7 +1618,9 @@ Tr.#	date		Text			debit		credit		saldo
    :Attachments: foo.dat
    :END:
    [2009-12-10 Thu 18:05]
-** TODO [#C] [[bug:202][#202]] doc/NEWS and xml
+** DONE [#C] [[bug:202][#202]] doc/NEWS and xml
+   - State "DONE"       from "TODO"       [2010-06-15 Tue 08:42] \\
+     This comment is no longer in the NEWS file.
    doc/NEWS claims that the xml command was removed but it's still there (at
    least "ledger -f foo.dat xml" works; maybe you meant a different xml
    command?).
@@ -1215,7 +1675,7 @@ Tr.#	date		Text			debit		credit		saldo
    :Message:  [[message://AANLkTilNxUsD8glzKcEWW4fQ56uGF5GlPOmMWA1oPM3_@mail.gmail.com][Building Ledger with VS (was: Re: Help: How do I start?)]]
    :END:
    [2010-06-11 Fri 17:29]
-** WAITING [[bug:170][#170]] Fill out membership form for the Software Conservancy
+** WAITING [#C] [[bug:170][#170]] Fill out membership form for the Software Conservancy
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
      I'm waiting for the official form to come from the Conservancy.
    - State "TODO"       from "WAITING"    [2010-05-22 Sat 15:05]
