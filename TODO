@@ -11,9 +11,178 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO [#A] [[bug:425][#425]] date>=[2010/02/10] causes a parsing error                            :critical:
+   :PROPERTIES:
+   :ID:       C927CFFE-D27D-4652-9AC8-1C4005FF2B40
+   :END:
+   [2010-11-18 Thu 14:46]
+** TODO [#A] [[bug:426][#426]] ledger --budget reg|wc -l depends on order of transactions
+   - Note taken on [2010-11-10 Wed 16:29] \\
+     [[message://0326c3da-70e6-4ab2-b53f-27a1e0bdc2c4@32g2000yqz.googlegroups.com][Re: ledger --budget reg |wc -l depends on the order of the transactions]]
+   :PROPERTIES:
+   :ID:       048246B7-CA7A-42E7-A460-8FB02EDAA016
+   :Submitter: Nicolas Girard <girard.nicolas@gmail.com>
+   :Message:  [[message://3547a240-4f80-405b-8b8a-e04717b583d9@t13g2000yqm.googlegroups.com][ledger --budget reg |wc -l depends on the order of the transactions]]
+   :END:
+   [2010-11-10 Wed 16:29]
+** TODO [#A] [[bug:437][#437]] Crash when using automatic rules                                      :blocker:
+   It doesn't look to be very informative:
+   :OUTPUT:
+   (gdb) backtrace
+   #0  0x00000001000fd462 in ledger::post_t::date ()
+   #1  0x000000010010af79 in ledger::(anonymous
+   namespace)::get_wrapper<&(ledger::(anonymous
+   namespace)::get_date(ledger::item_t&))> ()
+   :END:
+   
+   If that helps, cool. Otherwise I'm building next right now with debugging
+   symbols and I'll let you know if it's still happening.
+   
+   Interesting. I built the next branch from scratch and found a much more
+   useful error message. I have a periodic transaction that it can't parse:
+   :OUTPUT:
+   While parsing file "/Users/peter/ledger.txt", line 29:
+   While evaluating value expression:
+    date
+   While applying automated transaction from "/Users/peter/ledger.txt",
+   lines 10-12:
+   = expr date=>[2010/02/10] && account =~ /^Expenses:(Cable|Utils)/ && account !~ /Expenses:Utils:Water/
+     $account                                     -0.5
+     Assets:Receivable:Andrew                      0.5
+   While parsing periodic transaction:
+   ~ monthly
+      Expenses:Cable                            $37.00
+      Expenses:Food                            $600.00
+      Expenses:Insurance:Car                    $81.15
+      Expenses:Insurance:Fees                    $1.00
+      Expenses:Insurance:Life                   $50.00
+      Expenses:Interest:Car                     $25.00
+      Expenses:Interest:Student                $150.00
+      Expenses:Rent                            $650.00
+      Expenses:Utils:Electric                   $50.00
+      Expenses:Utils:Gas                        $50.00
+      Assets
+   Error: Assertion failed in "src/item.cc", line 535: ledger::string
+   ledger::item_context(const ledger::item_t&, const ledger::string&):
+   len > 0
+   :END:
+   
+   Not really sure what that means. If I comment out the periodic transaction
+   everything works again, except the automatic transaction is matching every
+   transaction, not just the ones that the expression should match.
+   :PROPERTIES:
+   :ID:       E51310FF-3548-45AE-AEFF-57B800E8A304
+   :Submitter: Peter Keen <peter.keen@bugsplat.info>
+   :Message:  [[message://AANLkTinY_1OpT4OeSNFn3B7oXnnqZ%3DAcgs-4rya1OZPM@mail.gmail.com][Re: Automatic rules and 3.0]]
+   :END:
+   [2010-11-21 Sun 23:03]
+** TODO [#A] [[bug:438][#438]] Case where register and balance do not agree                         :critical:
+   The file below gives the following
+   :OUTPUT:
+   $ ledger/ledger -f foo -X \$ bal sub1
+             $18020.74  Assets:Sub1
+                 $8.10    Leftovers
+   --------------------
+             $18020.74
+   :END:
+   and
+   :OUTPUT:
+   $ ledger/ledger -f foo -X \$ reg sub1
+   10-Apr-04 Opening Balance       Assets:Sub1                   $1.00        $1.00
+   10-Apr-04 Opening Balance       Assets:Sub1                $3227.00     $3228.00
+   10-Apr-04 Opening Balance       Assets:Sub1                $1130.00     $4358.00
+   10-Apr-04 Opening Balance       Assets:Sub1                $2030.00     $6388.00
+   10-Apr-04 Opening Balance       Assets:Sub1:Leftovers         $6.79     $6394.79
+   10-Apr-04 Opening Balance       Assets:Sub1                 $223.30     $6618.09
+   10-Apr-04 Opening Balance       Assets:Sub1                 $297.00     $6915.09
+   10-May-18 FOO                   Assets:Sub1                $5438.00    $12353.09
+   10-Jul-02 Commodities revalued <Revalued>                  $259.74    $12612.83
+   10-Jul-02 BAR                   Assets:Sub1                 $135.84    $12748.67
+                                  Assets:Sub1:Leftovers         $1.31    $12749.98
+   10-Sep-29 Commodities revalued <Revalued>                 $5251.46    $18001.44
+   :END:
+   
+   The price db is in the file.
+   
+   I'm using 9fcf48482626f20151d75a2ebb81371b45d4540a, which is on the next
+   branch.
+   #+begin_src ledger
+   N $
+   P 2010/09/28 20:43:24 E $3.700
+   P 2010/09/28 20:43:25 A $5.230
+   P 2010/09/28 20:43:26 D $34.020
+   P 2010/09/28 20:43:27 C $12.370
+   P 2010/09/28 20:43:28 F $39.700
+   P 2010/09/28 20:43:29 B $39.430
+   P 2010/09/29 13:50:15 E $3.720
+   P 2010/09/29 13:50:15 A $5.240
+   P 2010/09/29 13:50:17 D $33.920
+   P 2010/09/29 13:50:18 C $12.310   P 2010/09/29 13:50:18 F $39.670
+   P 2010/09/29 13:50:19 B $39.830
+   
+   2010/04/04 * Opening Balance
+    Assets:Sub1                       100 A @ $0.01
+    Equity:Opening Balances
+   
+   2010/04/04 * Opening Balance
+    Assets:Sub1                       100 B @ $32.27
+    Equity:Opening Balances
+   
+   2010/04/04 * Opening Balance
+    Assets:Sub1                       100 C @ $11.30
+    Equity:Opening Balances
+   
+   2010/04/04 * Opening Balance
+    Assets:Sub1                       100 D @ $20.30
+    Equity:Opening Balances
+   
+   2010/04/04 * Opening Balance
+    Assets:Sub1:Leftovers     $6.79
+    Equity:Opening Balances
+   
+   2010/04/04 * Opening Balance
+    Assets:Sub1                       11 D
+    Equity:Opening Balances
+   
+   2010/04/04 * Opening Balance
+    Assets:Sub1                       100 E @ $2.97
+    Equity:Opening Balances
+   
+   2010/05/18=2010/05/21 * FOO
+    Assets:Sub1           200 F @ $27.190
+    Expenses:Qux         $29.95
+    Assets:Sub2
+   
+   2010/07/02 * BAR
+    Income:D                      -$169.65
+    Assets:Sub2        $32.50
+    Assets:Sub1                       6 D @ $22.64
+    Assets:Sub1:Leftovers
+   #+end_src
+   :PROPERTIES:
+   :ID:       3FE26304-C336-48C5-85AB-909A1FC8D87B
+   :Submitter: Michael Norrish <michael.norrish@gmail.com>
+   :Message:  [[message://4CA31AA6.7080004@gmail.com][Re: reg vs bal in presence of recent commodity price info]]
+   :END:
+   [2010-10-03 Sun 22:16]
+** TODO [#A] [[bug:440][#440]] Complex command causes core dump                                      :blocker:
+   :OUTPUT:
+   ledger --args-only reg --group-by=account --related --subtotal --file speed-test.dat --exchange=€ --decimal-comma
+   :END:
+   :PROPERTIES:
+   :ID:       CEE57FBC-DF19-40DD-901D-68B1AEC29888
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :Message:  [[message://AANLkTimK1QtZdzAyVKV7h6T0OeeTXG0fgn5pr0HfVxYn@mail.gmail.com][core dump]]
+   :END:
+   [2010-08-19 Thu 23:35]
+** TODO [[bug:351][#351]] print command puts tag in same line as payee
+   :PROPERTIES:
+   :ID:       EAF396BD-3A6C-4209-82C2-08D102A725B6
+   :END:
+   [2010-06-20 Sun 14:51]
 ** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
    #+begin_src sh
-   reg -s --inject=Expected '^income:ceg'  
+   reg -s --inject=Expected '^income:ceg'
    #+end_src
    :OUTPUT:
    07-Jan-12 - 10-Jun-22           Expected                $200,044.36  $200,044.36
@@ -39,122 +208,467 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       807D19BB-DCF3-4ADA-99CC-7480BADF687C
    :END:
    [2010-06-22 Tue 18:44]
-** DONE [[bug:360][#360]] 'today' isn't today
-   - State "DONE"       from "TODO"       [2010-06-22 Tue 17:15]
-   :PROPERTIES:
-   :ID:       2FEAF015-B5C2-4CFC-96E8-46E70CA2B990
-   :END:
-   [2010-06-22 Tue 17:15]
-** DONE [[bug:359][#359]] Balance command now shows empty accounts
-   - State "DONE"       from "TODO"       [2010-06-21 Mon 18:30]
-   :PROPERTIES:
-   :ID:       56BBE69B-604C-4379-A39D-8B412A8921CC
-   :END:
-   [2010-06-21 Mon 18:18]
-** TODO [#C] [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
-   :PROPERTIES:
-   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
-   :END:
-   [2010-06-21 Mon 18:12]
-** DONE [[bug:355][#355]] Problem with forecasting not showing biweekly transactions
-   - State "DONE"       from "TODO"       [2010-06-21 Mon 17:16]
-   :PROPERTIES:
-   :ID:       D2829FC4-D319-4FB9-8A24-B8FFCF5F4E61
-   :END:
-   [2010-06-20 Sun 20:17]
-** DONE [[bug:354][#354]] Forecasting bug with terminating periodic entries
-   - State "DONE"       from "TODO"       [2010-06-20 Sun 17:08]
+** TODO [[bug:370][#370]] Let time periods use "starting" to fix the exact start date
+   This issue is related to #342.  Consider this entry:
    #+begin_src ledger
-   ~ Monthly since 2010/01/01
-       Expenses:Bills:Rent                 $873.00
-       Expenses:Household                  $200.00
-       Income:Salary                       -$2491.60
-       Assets:Bank:Checking
-   
-   ~ biweekly from 2010/02/23
-       Expenses:Bills:Housecleaning        $85.00
-       Assets:Bank:Checking
-   
-   2010/06/22 c897683b
-       ad738623:d317da42:0e30a690              A2079.00
-       208b135f:c84cc2a7:a336b63a               A199.00
-       45435ee9:2d8ee712:ee7e46b1:0f0e7e54:f5dbec59
+   ~ Biweekly from 2010/02/23
+     Expenses:Bills:Housecleaning        $85.00
+     Assets:Bank:OSU Fed:Checking
    #+end_src
-   #+begin_src sh
-   ledger reg bank --forecast "d<=[next year]" -d "d>=[this month] & d<=[next year]" --sort d --now=2010/06/20    
+
+   The biweekly period for this entry actually starts on the nearest Sunday
+   before the start date, or 2/20.  However, sometimes people want the
+   iteration to start exactly on the date specified.  This can be supported by
+   the presence of a "starting" keyword:
+   #+begin_src ledger
+   ~ Biweekly starting from 2010/02/23
+     Expenses:Bills:Housecleaning        $85.00
+     Assets:Bank:OSU Fed:Checking
+   #+end_src
+   :PROPERTIES:
+   :ID:       AAFAFBE7-E103-4CCC-82B9-6D28BC9052A3
+   :END:
+   [2010-07-01 Thu 16:41]
+** TODO [[bug:372][#372]] Rename "total" to "raw_total" and "display_total" to "total"
+   This constantly confuses people trying to write their own format expressions.
+   :PROPERTIES:
+   :ID:       D3701AF0-0FFC-400E-84BE-E302DDAAA0EA
+   :END:
+   [2010-07-01 Thu 17:55]
+** TODO [[bug:373][#373]] Change amount/total expr evaluation to use a priority queue
+   At the moment, -X and -A cannot be mixed because they both work by changing
+   the amount_expr.
+
+   Instead, there should be a priority queue so that -X is first applied, then
+   -A, as well as any other flags that want to modify the displayed amount.
+   :PROPERTIES:
+   :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
+   :END:
+   [2010-07-01 Thu 17:55]
+** TODO [[bug:375][#375]] -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works
+   :PROPERTIES:
+   :ID:       DE5CBC0F-BD49-46A3-AEB1-4F354B9F4A36
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-375-1@http.newartisans.com/bugzilla/][{Bug 375} New: -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works]]
+   :END:
+   [2010-07-05 Mon 00:06]
+** TODO [[bug:376][#376]] ledger reg ^exp is showing Assets in a budget report
+   This happens if the periodic transaction contain both Assets and Expenses.
+   :PROPERTIES:
+   :ID:       3806746F-6745-4D2F-BC8A-20B26F90C3B9
+   :END:
+   [2010-07-06 Tue 16:14]
+** TODO [[bug:377][#377]] ledger -f DIRECTORY doesn't fail with a clear error
+   :PROPERTIES:
+   :ID:       8DC11F98-5C85-4651-A63D-6847474E3CD2
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-377-1@http.newartisans.com/bugzilla/][{Bug 377} New: -f DIRECTORY doesn't fail with a clear error]]
+   :END:
+   [2010-07-15 Thu 08:02]
+** TODO [[bug:378][#378]] budget: Cannot convert balance with multiple commodities to amount
+   :PROPERTIES:
+   :ID:       30B48934-48F2-46B9-B058-99DEF9BF43C7
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-378-1@http.newartisans.com/bugzilla/][{Bug 378} New: budget: Cannot convert a balance with multiple commodities to an amount]]
+   :END:
+   [2010-07-15 Thu 08:02]
+** TODO [[bug:379][#379]] equity shows two entries for the same commodity/account
+   :PROPERTIES:
+   :ID:       B39F083E-1C30-4F08-BFB7-E0E1FC7B7356
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-379-1@http.newartisans.com/bugzilla/][{Bug 379} New: equity shows two entries for the same commodity/account]]
+   :END:
+   [2010-07-15 Thu 08:02]
+** TODO [[bug:380][#380]] "Unbalanced remainder" pops up depending on the order of postings
+   :PROPERTIES:
+   :ID:       1E192DF6-AB81-4DC0-A205-1AAF00F64052
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-380-1@http.newartisans.com/bugzilla/][{Bug 380} New: "Unbalanced remainder" pops up depending on the order of postings]]
+   :END:
+   [2010-07-17 Sat 05:01]
+** TODO [[bug:381][#381]] ledger bal and --forecast gives wrong result (60 * of monthly value)
+   :PROPERTIES:
+   :ID:       24678A34-5DD0-4119-B0CB-CC56ED5CA3D8
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-381-1@http.newartisans.com/bugzilla/][{Bug 381} New: ledger bal and --forecast gives wrong result (60 * of monthly value)]]
+   :END:
+   [2010-07-18 Sun 23:13]
+** TODO [[bug:382][#382]] treats {xx} as {=xx}
+   :PROPERTIES:
+   :ID:       15D16351-F0B2-4B79-8BCE-A47193607CDB
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-382-1@http.newartisans.com/bugzilla/][{Bug 382} New: treats {xx} as {=xx}]]
+   :END:
+   [2010-07-19 Mon 16:59]
+
+** TODO [[bug:383][#383]] --lot-prices doesn't honour date-format
+   :PROPERTIES:
+   :ID:       FDC49608-9E96-4DF5-AFD8-BA2041A89D82
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-383-1@http.newartisans.com/bugzilla/][{Bug 383} New: --lot-prices doesn't honour date-format]]
+   :END:
+   [2010-07-19 Mon 17:43]
+** TODO [[bug:384][#384]] ledger shows lot prices for fixated commodities when not requested
+   :PROPERTIES:
+   :ID:       D4668D57-05F9-46E4-A1D6-1B4CA122588C
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-384-1@http.newartisans.com/bugzilla/][{Bug 384} New: ledger shows lot prices for fixated commodities even when I didn't request it]]
+   :END:
+   [2010-07-19 Mon 17:52]
+** TODO [[bug:387][#387]] There should be a simpler syntax for referring to past lots
+   - Note taken on [2010-07-30 Fri 03:07] \\
+     I was thinking about commodity valuations last night, and I realized
+     there is fundamental detail which Ledger has no concept of right now: the
+     finality of postings.
+
+     There are postings which are "open", waiting to be "closed" on another
+     day.  For example, if I get paid at work, I now have money that is
+     waiting to be spent.  This money is "open", in the sense that it's future
+     has not been determined.  It therefore has a fluctuating value based on
+     the cost of the dollar.  It's a movement of funds *in transition* from
+     one place to another.
+
+     Other postings are final, like when I pay $20 to see a movie.  That $20
+     is now finally and absolutely *spent*.  It has no future, with regard to
+     my finances.  Whatever valuation the amount had on the day I saw the
+     movie is the valuation it must always have.
+
+     Reflecting on this, it seems that Income/Expenses are by nature final
+     categories, while Assets/Liabilities are open.  Then again, sometimes
+     there are individual postings which should be considered final, even
+     though their parent account is not by rule.
+
+     To accomodate this detail (which some have tried to express through
+     fixated commodities), I suggest the following additional syntax:
+
+       final REGEXP
+
+         Any accounting matching REGEXP is considered a final category.
+         Postings which move amounts into or from these accounts will always
+         show amounts in terms of the posting's value at that time.
+
+     In addition, if a period (.) is found at the end of a posting's amount or
+     cost, the amount of that posting is considered final:
+
+       Expenses:Food        $20.00.
+
+     Internally, this usage would be modelled using fixated commodities.  The
+     $ would get annotated with the date of the posting, and then any use of
+     -V or -X would constrain the valuation to that date.  If multiple
+     commodities occur in the transaction, then a fixed price is automatically
+     set as well.
+   - Note taken on [2010-07-29 Thu 03:05] \\
+     22:26 < johnw> something easy like KRW#A, where A is defined in an
+         unambiguous way
+     22:26 < johnw> like a metadata tag in the transaction
+
+     Couldn't this be achieved with the existing (Note) syntax that can be
+     used to define arbitrary notes for lots?
+   - Note taken on [2010-07-24 Sat 04:30] \\
+     Later: [[message://20100720082626.GA29263@jirafa.cyrius.com][Re: Our discussion on IRC today]]
+   :PROPERTIES:
+   :ID:       B0808272-25FC-4606-9E80-FB5485FE412A
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100719230158.GA26275@jirafa.cyrius.com][Our discussion on IRC today]]
+   :END:
+   [2010-07-20 Tue 00:15]
+** TODO [[bug:390][#390]] Cannot access account total in automated transaction
+   :PROPERTIES:
+   :ID:       38AB760F-06BC-401A-8FED-A8B394125D20
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-390-1@http.newartisans.com/bugzilla/][{Bug 390} New: Cannot access account total in automated transaction]]
+   :END:
+   [2010-08-01 Sun 18:55]
+** TODO [[bug:392][#392]] Reporting multiple commodities with -J
+   :PROPERTIES:
+   :ID:       5590D50E-F380-4D76-8BAD-71B2A77346FB
+   :Submitter: Gabriel Kerneis <kerneis@pps.jussieu.fr>
+   :Message:  [[message://20100730074700.GA3033@kerneis.info][Reporting multiple commodities with -J]]
+   :END:
+   [2010-07-30 Fri 06:08]
+** TODO [[bug:394][#394]] Weekly report and monthly report (possible bug)
+   - Note taken on [2010-08-10 Tue 21:26] \\
+     [[message://AANLkTi%3DfZNAJNvhq_H0k8VGDuYY%3D6o3moqGVmw_wQWNs@mail.gmail.com][Re: weekly report and monthly report (Is it a BUG?)]]
+   :PROPERTIES:
+   :ID:       F06D5554-425C-4E4E-A8B4-3CF29E07AA1E
+   :Submitter: Leandro Henrique Oliveira Fernandes <leandroohf@gmail.com>
+   :Message:  [[message://AANLkTimSSZPgYKQR6U2oZ7uaJtXBdTYF%2BmCn_3SXatko@mail.gmail.com][weekly report and monthly report (Is it a BUG?)]]
+   :END:
+   [2010-08-01 Sun 18:55]
+** TODO [[bug:395][#395]] need commodity alias
+   :PROPERTIES:
+   :ID:       13B53049-4795-4111-A679-6866AEFC4640
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-395-1@http.newartisans.com/bugzilla/][{Bug 395} New: need commodity alias]]
+   :END:
+   [2010-08-16 Mon 16:28]
+** TODO [[bug:397][#397]] --price-db don't expand ~
+   :PROPERTIES:
+   :ID:       00CA42F0-B1F5-4FDD-9190-E0584C707DC3
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-397-1@http.newartisans.com/bugzilla/][{Bug 397} New: --price-db don't expand ~]]
+   :END:
+   [2010-08-16 Mon 16:28]
+** TODO [[bug:398][#398]] default commodity depends on the order of postings
+   :PROPERTIES:
+   :ID:       9A925FF4-5BDD-489C-8585-BAABB61BF345
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-398-1@http.newartisans.com/bugzilla/][{Bug 398} New: default commodity depends on the order of postings]]
+   :END:
+   [2010-08-16 Mon 16:28]
+** TODO [[bug:399][#399]] Add function to determine budgeted amount for a time period
+   budget_amount(ACCOUNT, START_DATE, DAYS)
+   :PROPERTIES:
+   :ID:       E38F502D-9E83-485D-9D10-848B0CFD6FDD
+   :END:
+   [2010-08-16 Mon 19:47]
+** TODO [[bug:400][#400]] -l commodity and -B
+   :PROPERTIES:
+   :ID:       79B191C4-5A95-408B-A473-6D1520129941
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+   [2010-08-28 Sat 15:33]
+** TODO [[bug:401][#401]] -l "commodity = ''AA1" doesn't match when commodity contains digits
+   :PROPERTIES:
+   :ID:       F3B9F18B-9366-4607-9B28-4912123E9140
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-401-1@http.newartisans.com/bugzilla/][{Bug 401} New: -l "commodity = ''AA1" doesn't match when commodity contains digits]]
+   :END:
+   [2010-08-28 Sat 15:33]
+** TODO [[bug:402][#402]] Enhance color output for --budget
+   :PROPERTIES:
+   :ID:       016E1187-1FB7-4E77-906D-55D490588D24
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-402-1@http.newartisans.com/bugzilla/][{Bug 402} New: Enhance color output for --budget]]
+   :END:
+   [2010-08-29 Sun 19:25]
+** TODO [[bug:403][#403]] --budget ignores "Yearly in August"-type transactions
+   :PROPERTIES:
+   :ID:       B9CC8CD3-71EA-40DC-AAE6-EA59FA57B5D6
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-403-1@http.newartisans.com/bugzilla/][{Bug 403} New: --budget ignores "Yearly in August"-type transactions]]
+   :END:
+   [2010-08-30 Mon 18:27]
+** TODO [[bug:410][#410]] Forecasting is broken
+   :PROPERTIES:
+   :ID:       6F51229F-1C32-4C01-983A-52BA47421A38
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-410-1@http.newartisans.com/bugzilla/][{Bug 410} New: Forecasting broken]]
+   :END:
+   [2010-10-03 Sun 22:16]
+** TODO [[bug:411][#411]] Refrain from downloading a quote if can't get newer
+   :PROPERTIES:
+   :ID:       1AB29C8F-B661-4D47-8B80-E785E480D97B
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-411-1@http.newartisans.com/bugzilla/][{Bug 411} New: refrain from downloading a quote if can't get newer]]
+   :END:
+   [2010-10-03 Sun 22:19]
+** TODO [[bug:412][#412]] Error masked by certain options with -J -X EUR
+   :PROPERTIES:
+   :ID:       660641D5-0203-4A95-83A0-58E055803311
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-412-1@http.newartisans.com/bugzilla/][{Bug 412} New: error masked by certain options with -J -X EUR]]
+   :END:
+   [2010-11-13 Sat 12:01]
+** TODO [[bug:415][#415]] Order of budget entries is significant
+   The order of budget entries is important.  The following budget:
+   #+begin_src ledger
+   ~ Monthly
+      Assets
+      Expenses         $200.00
+      Expenses:Food    $100.00
+      Expenses:Health   $20.00
+   #+end_src
+   is *invalid*! Any Expenses:Food or Expenses:Health posting will match the
+   first Expenses. The proper budget looks like this:
+   #+begin_src ledger
+   ~ Monthly
+      Expenses:Health   $20.00
+      Expenses:Food    $100.00
+      Expenses         $200.00
+      Assets
+   #+end_src
+
+   To sort budget elements always use reversed order (sort -r), this assures
+   that child accounts always come before thier parents (e.g. Expenses:Food
+   before Expenses).
+   :PROPERTIES:
+   :ID:       A355D63D-8D76-434A-BA7E-D44C97200B26
+   :Submitter: Łukasz Stelmach <lukasz.stelmach@iem.pw.edu.pl>
+   :Message:  [[message://87bp7ulmx4.fsf@kotik.lan][{NOTE} order of budget entries is important]]
+   :END:
+   [2010-09-19 Sun 14:43]
+** TODO [[bug:416][#416]] Not all past prices are repeatable or valid for future exchanges
+   Essentially this means that some links in the graph are not as reliable as
+   others.  For example, say I was able to buy a certain commodity on a past
+   day for $10.  It may be that this was an exclusive deal that can't ever
+   repeat.  Dave suggested looking at the Boost.Graph library for modeling the
+   complexity of this problem.
+   :PROPERTIES:
+   :ID:       3915D7F9-E69D-46F4-972E-C16DDEF90164
+   :END:
+   [2010-09-17 Fri 23:00]
+** TODO [[bug:417][#417]] '&' in account names causes trouble during GNU Cash import
+   In gnucash, I have an account called "1 & 1 Internet AG". It appears that
+   ledger can deal with that name during import, probably because it's encoded
+   as "1 &amp; 1 Internet AG" in the XML file.
+   :PROPERTIES:
+   :ID:       8E2A2C39-C8F4-435B-A5FF-754F51FE4EB0
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4c8bd8a9b4d5c_6bdb3fc37c8298743cd@fe3.rs.github.com.tmail][{GitHub} '&' in account names causes trouble during GNU Cash import {jwiegley/ledger GH-16}]]
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/16
+   :END:
+   [2010-09-12 Sun 23:14]
+** TODO [[bug:433][#433]] Possible issue with Balanced automated transactions
+   Let's say I've got a ledger file like this:
+   #+begin_src ledger
+   = /^Income:Salary:BigCorp/
+      Expense:Tax                                         400,00 €
+      Expense:Pension                                     100,00 €
+
+   2010-03-03 BigCorp
+      Income:Salary:BigCorp                             -2000,00 €
+      Assets:Checking
+
+   2010-04-03 BigCorp
+      Income:Salary:BigCorp                             -2000,00 €
+      Assets:Checking
    #+end_src
    :OUTPUT:
-   Assertion failed: (this->is_initialized()), function get, file /opt/local/include/boost/optional/optional.hpp, line 578.
-   Abort trap
+   $ ledger -f ~/Money/salary.dat print
+   :END:
+   yields
+   :OUTPUT:
+   2010-03-03 BigCorp
+      Income:Salary:BigCorp               -2000,00 €
+      Assets:Checking                      1500,00 €
+      Expense:Tax                           400,00 €
+      Expense:Pension                       100,00 €
+
+   2010-04-03 BigCorp
+      Income:Salary:BigCorp               -2000,00 €
+      Assets:Checking                      1500,00 €
+      Expense:Tax                           400,00 €
+      Expense:Pension                       100,00 €
+   :END:
+
+   balance and register output look reasonable too.  What's even more
+   interesting is that with transaction of this form:
+   #+begin_src ledger
+   2010-04-03 BigCorp
+      Income:Salary:BigCorp
+      Assets:Checking                                   -2000,00 €
+   #+end_src
+   The fees are as if added and the Income is increased, exactly as I would
+   expect it (Income is -2500 and Assets is 2000). But why
+   :OUTPUT:
+   $ ledger --actual -f ~/Money/salary.dat print
+   2010-03-03 BigCorp
+      Income:Salary:BigCorp               -2000,00 €
+      Assets:Checking                      1500,00 €
+
+   2010-04-03 BigCorp
+      Income:Salary:BigCorp               -2000,00 €
+      Assets:Checking                      1500,00 €
+   :END:
+   subtracts tax and superannuation without printing them?  Is it a bug or
+   I've missed something in the documentation?
+   :PROPERTIES:
+   :ID:       CD835715-9FF8-464E-9806-A5F641D43046
+   :Submitter: Łukasz Stelmach <lukasz.stelmach@iem.pw.edu.pl>
+   :Message:  [[message://87hbhmlsab.fsf@kotik.lan][balanced automated transaction]]
+   :END:
+   [2010-09-19 Sun 14:43]
+** TODO [[bug:434][#434]] Problem with the new --anon and speed-test.dat
+   - Note taken on [2010-11-26 Fri 18:43] \\
+     This command generates the problem:
+     :OUTPUT:
+     ledger --args-only --file=ledger/test/input/speed-test.dat --decimal-comma --anon print
+     :END:
+   I tried to "ledger --anon print > new-speed-test.dat" and I found that
+   there is a bug in "--anon".
+
+   When currency CUR appears 1st time, this is anonymized to A.
+   When currency CUR appears 2nd time, this is anonymized to A.
+   When commodity COM appears 1st time, this is anonymized to B.
+   When commodity COM appears 2nd time, this is anonymized to C. <-- bug here
+   :PROPERTIES:
+   :ID:       500F3A63-69F9-4E40-8A88-9121D24F3FB5
+   :END:
+   [2010-11-26 Fri 13:15]
+** TODO [[bug:436][#436]] Allow multiple null amounts if the rest have balance assignments
+   #+begin_src ledger
+   2010/01/01 * Check or set balance
+      Assets              = $ 1,000
+      Equity:Balance
+   #+end_src
+
+   What I would expect is:
+   - ledger computes the amount x for the first line, so that
+      current_assets + x = $ 1,000
+   - and then sets equity to -x.
+   - and did not work when x = 0.
+
+   It was some time ago, so maybe this works now.  Or is there some reason for
+   it not to work that I cannot figure out (my algorithm looks straightforward
+   but it might not generalize to more complex cases)?
+   :PROPERTIES:
+   :ID:       6A3BCDE8-DD0C-4749-888F-71AC6825558A
+   :Submitter: Gabriel Kerneis <kerneis@pps.jussieu.fr>
+   :Message:  [[message://20101126151723.GA17097@rhodium.pps.jussieu.fr][Re: null amount allowed per entry error because of note]]
+   :END:
+   [2010-11-26 Fri 11:51]
+** TODO [[bug:439][#439]] Ledger does not correctly sort balance of anonymized data
+   I came across a bug where ledger does not sort the balance output.  I used
+   test files that are in ledger/test directory.  First example does work.
+   Second example does work.
+   :OUTPUT:
+   $ ledger --args-only --file ~/ledger/test/input/drewr.dat balance --flat --sort=total
+           $ -5,200.00  X
+           $ -2,000.00  X
+           $ -1,000.00  X
+              $ -30.00  X
+              $ -20.00  X
+               $ 20.00  X
+               $ 30.00  X
+              $ 200.00  X
+              $ 300.00  X
+              $ 334.00  X
+              $ 500.00  X
+            $ 1,396.00  X
+            $ 5,500.00  X
+   --------------------
+                     0
+   :END:
+   :OUTPUT:
+   $ ledger --args-only --file ~/ledger/test/input/speed-test.dat balance --decimal-comma --exchange=€ --flat --sort=total | head
+           -27330,09 €  X
+             -403,53 €  X
+               -0,11 €  X
+              687,56 €  X
+             -146,85 €  X
+           136034,33 €  X
+            33452,82 €  X
+            10083,56 €  X
+            10405,79 €  X
+            62282,60 €  X
    :END:
    :PROPERTIES:
-   :ID:       620F0674-B74F-452C-8F36-66F8425CA4BD
+   :ID:       D65D80C9-623A-4F18-96A9-936ED4399AC6
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :Message:  [[message://AANLkTikwx%2B-AQQrjQ62nm__P0BAwaNB4WRKF4bPc2Bfj@mail.gmail.com][ledger: balance sorting bug]]
    :END:
-   [2010-06-20 Sun 17:04]
-** DONE [[bug:350][#350]] --gain shows wrong resuls
-   - Note taken on [2010-06-20 Sun 17:48] \\
-     Another possibility is that name-merging unless fixated and non-fixated
-     versions both exist, in which case name merging is only done for the
-     non-fixated, and all of the fixated will have their prices reported as if
-     --lot-prices had been specified just for them.
-   - State "DONE"       from "TODO"       [2010-06-20 Sun 17:20] \\
-   I've fixed the problem as you presented it, but there is more going on
-   here.  Most importantly, commodities with fixated prices are logically
-   distinct from those without.  Here's what happens:
-   
-   On 2008-01-01, you buy 5 shares of GBP at a unit-price of 1.4 EUR.
-   Internally, this commodity is named GBP {1.4 EUR}.  If ever the share price
-   of GBP changes, the offset from 1.4 EUR will represent a gain or loss.
-   
-   On 2009-01-01, you "sold" 5 shares of GBP {=1.4 EUR} for 7.50 EUR, making
-   0.50 EUR in the process.  Ledger does not ask whether you owned these
-   shares before selling them, as double-entry accounting does not require
-   this foreknowledge.  My bug fix today was to make sure that a sale of a
-   fixated commodity does not record a market price for other commodities of
-   the same basename.
-   
-   If, later, the value of GBP should change, there will still be a gain
-   reflected, as you have not yet sold the 5 shares of GBP {1.4 EUR}.  Again,
-   GBP {=1.4 EUR} != GBP {1.4 EUR}.  You may have converted 5 shares of GBP
-   {=1.4 EUR}, but in Ledger's eyes, internally, you still own 5 shares of GBP
-   {1.4 EUR}.  If GBP should ever get revalued, this will show up as a
-   gain/loss in the --gain report.
-   
-   What makes all of this confusing is that by default, Ledger 'collapses'
-   commodities which are related by name as if they were the same commodity.
-   This is a convenience, since until now no one has ever thought to mix
-   fixated and non-fixated versions of the same commodity.  Thus, Ledger
-   *reports* GBP {1.4 EUR} and GBP {=1.4 EUR} as if they were both GBP, but
-   for calculating the --gain report, it will reckon them as separate.
-   
-   This all becomes much clearer if you use "reg --lot-prices", to stop Ledger
-   from merging like-named commodities.
-   
-   I'm not sure there is an answer here, other than forcing fixated commodities
-   to always display with their fixated price -- though I'm not sure most people
-   would want that.  The only other answer is to not mix them, or to think very
-   hard in the case where you do and still want meaning from --gain.
+   [2010-10-18 Mon 16:04]
+** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
+   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
+   ${AMT} is the same as $(scrub(AMT))
+   %T is the same as ${display_total}.
+
+   Right now formatting strings are a nightmare for users to modify.
    :PROPERTIES:
-   :ID:       C0212EAC-CCE6-41F6-BCFD-543A257B4B74
+   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
    :END:
-   [2010-06-20 Sun 14:51]
-** TODO [[bug:351][#351]] print command puts tag in same line as payee
-   :PROPERTIES:
-   :ID:       EAF396BD-3A6C-4209-82C2-08D102A725B6
-   :END:
-   [2010-06-20 Sun 14:51]
-** DONE [[bug:352][#352]] Account abbreviation puts too much emphasis on top-level account
-   - State "DONE"       from "TODO"       [2010-06-21 Mon 18:05]
-   :PROPERTIES:
-   :ID:       87C4A85D-237E-410F-B824-FE4C42F62011
-   :END:
-   [2010-06-20 Sun 14:51]
-** DONE [#A] [[bug:353][#353]] No longer handles multiple postings to one account in one transacation
-   - State "DONE"       from "TODO"       [2010-06-21 Mon 17:57]
-   :PROPERTIES:
-   :ID:       15230B79-E091-4A55-9F9E-A49602ECAC1A
-   :END:
-   [2010-06-20 Sun 14:51]
+   [2010-06-14 Mon 08:35]
 ** TODO [#C] [[bug:347][#347]] All contexts should be accessible by name
    - post.foo
    - xact.foo
@@ -173,136 +687,53 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
    :END:
    [2010-06-18 Fri 06:52]
-** DONE [#A] [[bug:345][#345]] speed-test.dat with -V is failing verification
-   - State "DONE"       from "STARTED"    [2010-06-19 Sat 07:39]
-   :LOGBOOK:
-   CLOCK: [2010-06-19 Sat 06:09]--[2010-06-19 Sat 07:39] =>  1:30
-   :END:
-   #+begin_src sh
-   ledger -f test/input/speed-test.dat -v --decimal-comma -o /dev/null reg 2eb75f84 1eede0cb -V --verify
-   #+end_src
-   :OUTPUT:
-   While evaluating value expression:
-     market(total_expr, value_date, exchange)
-     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-   The value expression tree was:
-     0x107fe6db0       O_CALL (2)
-     0x108015300        IDENT: market (1)
-     0x108017660         FUNCTION (1)
-     0x107fe93b0        O_SEQ (1)
-     0x107ff00a0         O_CONS (1)
-     0x10800a900          IDENT: total_expr (1)
-     0x10800ed00           FUNCTION (1)
-     0x107ff3bd0          O_CONS (1)
-     0x1080023a0           IDENT: value_date (1)
-     0x108006500            FUNCTION (1)
-     0x107ff7e10           IDENT: exchange (1)
-     0x107ffbf70            FUNCTION (1)
-   While handling posting from "test/input/speed-test.dat", line 7482:
-   >     (da39a3ee:2eb75f84:6183529e:cd17c28b)        -1 AFS @ 0
-   Error: Assertion failed in "/Volumes/RAID/Projects/ledger/src/commodity.cc", line 230: boost::optional<ledger::price_point_t> ledger::commodity_t::varied_history_t::find_price(const ledger::commodity_t&, const boost::optional<ledger::commodity_t&>&, const boost::optional<boost::posix_time::ptime>&, const boost::optional<boost::posix_time::ptime>&, int) const: source.referent() != commodity->referent()
-   109667ms    24b  21.3K  [INFO]  Ledger ended (Boost/libstdc++ may still hold memory)
-   :END:
+** TODO [#C] [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
    :PROPERTIES:
-   :ID:       5B20DC9F-277F-495F-806A-4A147E833C49
+   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
    :END:
-   [2010-06-17 Thu 08:17]
-** DONE [#C] [[bug:343][#343]] Journal with only periodic transactions gives an error
-   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
-   :PROPERTIES:
-   :ID:       926EC43A-2A38-42B5-A1A7-170CAC1AC98F
-   :END:
-   [2010-06-16 Wed 18:15]
-** WORKSFORME [[bug:344][#344]] Budgeting behavior changed between 2.6 and 3.0
-   - State "WORKSFORME" from "TODO"       [2010-06-21 Mon 18:51]
-   2.6: http://ericbetts.org/pastebin/d488d0d79
-   3.0: http://ericbetts.org/pastebin/d74668f87
+   [2010-06-21 Mon 18:12]
+** TODO [#C] [[bug:374][#374]] Problem with periodic transactions having a null posting
+   - Note taken on [2010-07-02 Fri 04:16] \\
+     Yes, it is expected behavior.  Nice find!  I don't like the idea of
+     making a hack to try and get around this, though, it's likely to only
+     work right in the most obvious situations.  I'll think about having a
+     better way to catch this (like having a warning if a null posting's
+     account name contains digits).
+   - Note taken on [2010-07-02 Fri 04:15] \\
+     Found the problem. In xact.cc, within the declaration for bool
+     xact_base_t::finalize(), I tried changing this...
+     #+begin_src cpp
+     else if (null_post) {
+     #+end_src
 
-   Why are these two different?
-   :PROPERTIES:
-   :ID:       F5D66D56-36D8-4AD1-85BB-B6E792A5A1DF
-   :END:
-   [2010-06-16 Wed 18:09]
-** DONE [[bug:342][#342]] Budgeting should include transactions for interstitial months
-   - State "DONE"       from "TODO"       [2010-06-19 Sat 16:17]
-   Given this data:
-   #+begin_src ledger
-   ;Monthly Budget
-   ~ Monthly since 2010/01/01
-       Expenses:Bills:Rent                 $873.00
-       Income:Salary                       -$3491.60
-       Assets:Bank:OSU Fed:Checking
-   
-   ~ Biweekly from 2010/02/23
-       Expenses:Bills:Housecleaning        $85.00
-       Assets:Bank:OSU Fed:Checking
-   
-   2010/06/02 IP Fabrics payroll
-       Assets:Bank:OSU Fed:Checking               $3491.60
-       Income:Salary
-   
-   2010/06/04 housecleaning check
-       Expenses:Bills:Housecleaning    $255.00
-       Assets:Bank:OSU Fed:Checking
-   
-   2010/06/10 Rent
-       Expenses:Bills:Rent                      $873.00
-       Assets:Bank:OSU Fed:Checking                   
-   #+end_src
+     to this...
+     #+begin_src cpp
+     else if (null_post) {
+       DEBUG("xact.finalize", "first null post = " <<
+     null_post->reported_account()->fullname());
+       DEBUG("xact.finalize", "second null post = " <<
+     post->reported_account()->fullname());
+     #+end_src
 
-   Now run the command:
-   #+begin_src sh
-   ledger -E -p "this month" --budget --columns=80 --now=2010/06/16 reg ^exp
-   #+end_src
+     and came up with this output...
+     :OUTPUT:
+     5ms  [DEBUG] post must balance = $1062.96
+     5ms  [DEBUG] first null post = Expenses:Entertainment:Blizzard $16.00
+     5ms  [DEBUG] second null post = Assets:Bank:Checking
+     :END:
 
-   It will show two budget transactions:
-   :OUTPUT:
-   10-Jun-01 Budget transaction    Expenses:Bills:Rent        $-873.00     $-873.00
-   10-Jun-04 housecleaning check   Exp:Bill:Housecleaning      $255.00     $-618.00
-   10-Jun-06 Budget transaction    Exp:Bill:Housecleaning      $-85.00     $-703.00
-   10-Jun-10 Rent                  Expenses:Bills:Rent         $873.00      $170.00
-   :END:
+     So there needed to be more than a single space between the account name
+     and the transaction amount, or the intended amount was read as part of
+     the transaction name.
 
-   But if the rent transaction (last one in the file) is removed, it no
-   longer generates any housecleaning budget transactions for that month:
-   :OUTPUT:
-   10-Jun-01 Budget transaction    Expenses:Bills:Rent        $-873.00     $-873.00
-   10-Jun-04 housecleaning check   Exp:Bill:Housecleaning      $255.00     $-618.00
-   :END:
-
-   It should be generating the budget entries at the end, even though
-   there is no final transaction to "kick" the budget filter.
+     I would imagine that this is expected behavior, though if possible it
+     would be nice if the parser would account for it such that the last
+     non-whitespace text element on a line is used as the amount regardless of
+     the amount of space separating it from the previous text element.
    :PROPERTIES:
-   :ID:       8AFF04B8-DAC0-4768-AD1D-ABA1F3C3E4F8
+   :ID:       5D92A5EB-48DD-4ED8-AFED-2A24884FAD4B
    :END:
-   [2010-06-16 Wed 17:40]
-** DONE [#C] [[bug:338][#338]] Issue with spaces in account names
-   - State "DONE"       from "TODO"       [2010-06-19 Sat 14:02]
-   :PROPERTIES:
-   :ID:       BA07AFA9-DEED-4CB5-936A-E3177A474BFF
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-338-1@http.newartisans.com/bugzilla/][{Bug 338} New: Issue with spaces in account names]]
-   :END:
-   [2010-06-15 Tue 21:57]
-** TODO [[bug:326][#326]] Strip out quotes in the options parser
-   This allows people to copy and paste option settings directly into their
-   .ledgerrc file.
-   :PROPERTIES:
-   :ID:       8EB6E995-6815-4EC4-9019-9B162DE27FE1
-   :Submitter: ed <ed.temp.01@gmail.com>
-   :Message:  [[message://1d1ff6f1-3445-4d4b-9ef0-dfd510405e47@u26g2000yqu.googlegroups.com][Re: Init file doesn't support file --input-date-format]]
-   :END:
-   [2010-06-11 Fri 17:25]
-** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
-   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
-   ${AMT} is the same as $(scrub(AMT))
-   %T is the same as ${display_total}.
-
-   Right now formatting strings are a nightmare for users to modify.
-   :PROPERTIES:
-   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
-   :END:
-   [2010-06-14 Mon 08:35]
+   [2010-07-01 Thu 22:03]
 ** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
    - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
    :PROPERTIES:
@@ -320,19 +751,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 
     In the following simple exemple, I would have expected that --percent
     option works correctly.
-    
-#+begin_src ledger
-    P 2008/01/01 $ €1
-    
-    2008/01/11 LIAT
-       Expenses:Travel:Airfare                   $40.00
-       Liabilities:MasterCard
-    
-    2008/02/05 CTX
-       Expenses:Travel:Auto                     €240.38
-       Liabilities:MasterCard
-#+end_src    
-    
+
+   #+begin_src ledger
+   P 2008/01/01 $ €1
+
+   2008/01/11 LIAT
+      Expenses:Travel:Airfare                   $40.00
+      Liabilities:MasterCard
+
+   2008/02/05 CTX
+      Expenses:Travel:Auto                     €240.38
+      Liabilities:MasterCard
+   #+end_src
+
     :OUTPUT:
     $ ledger --file=test_12.ledger bal --exchange=€
                 €280.38  Expenses:Travel
@@ -347,7 +778,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
     While evaluating value expression:
      (((is_account & parent) & parent.total) & percent(total,
     parent.total))
-    
+
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     While evaluating value expression:
      market(total_expr, date, exchange)
@@ -376,12 +807,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
       P 2001-12-31 EUR 13.7603 ATS
      #+end_src
      solves most of these issues.
-     
+
      However, would it be possible to add a date for C?  I'd like to see ATS
      before 2002-01-01 and EUR from then on.
    There are a couple of problems with ledger when using currencies that were
    replaced by the Euro as well as the Euro.
-   
+
    First, I know that ledger is mostly designed as a "calculator" without any
    knowledge about the actual input.  However, given that some currencies
    were replaced by the Euro and have fixed exchange rates that will not
@@ -389,46 +820,46 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    adding a text file to ledger that is read by default with such fixed
    conversion rates?  (If you agree, I'm happy to write one for the
    currencies replaced by the Euro.)
-   
+
    Related to this is a problem with showing currencies.  Let's say that I
    have accounts with ATS, EUR and GBP.  How can I tell ledger to convert ATS
    to EUR but do no other conversation.  -X EUR won't work because it would
    also convert GBP, but I want to see both EUR and GBP (I just want the
    obsolete ATS to be converted to EUR).  Is this possible somehow?
-   
+
    Finally, there appear to be some artefacts because ledger doesn't know
    that ATS is a currency replaced by EUR.  Normally, "ledger bal" does not
    display accounts that are empty (see the first example below).  But if I
    put something into an account as ATS and then take out exactly the same
    amount (but as EUR), "ledger bal" will show the account name and "0"
    (probably because it switches to commodity mode).
-   
+
    Example:
-   
+
    a)
-#+begin_src sh
+   #+begin_src sh
    2010-04-02 Test
       A:Foo  10.00
       A:Bar
-   
+
    2010-04-02 Test
       A:Foo  -10.00
       A:Baz
-#+end_src
-   
+   #+end_src
+
    b)
-#+begin_src sh
+   #+begin_src sh
    P 2001-12-31 EUR 13.7603 ATS
-   
+
    2001-01-01 Test
       B:Foo  13.7603 ATS
       B:Bar
-   
+
    2010-04-02 Test
       B:Foo  -1.00 EUR
       B:Baz
-#+end_src
-   
+   #+end_src
+
    a) will show no Foo with "ledger bal" but b) will show "0 Foo".
    :PROPERTIES:
    :ID:       9EAC63D2-8DD7-438D-9767-3AAE79BF0BD3
@@ -436,32 +867,75 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-04 Sun 15:18]
-** WORKSFORME [#A] [[bug:332][#332]] Assert failure when using tag in a limit expression
-   SCHEDULED: <2010-06-14 Mon>
-   - State "WORKSFORME" from "TODO"       [2010-06-14 Mon 21:06]
-   - State "TODO"       from "WORKSFORME" [2010-06-14 Mon 17:32]
-   - State "WORKSFORME" from "DONE"       [2010-06-13 Sun 18:59]
-   - State "DONE"       from "TODO"       [2010-06-13 Sun 18:59]
-   :PROPERTIES:
-   :ID:       BD7C93C2-5C20-4A48-9BEE-5E3975D82D34
-   :END:
-   [2010-06-13 Sun 05:32]
-** WORKSFORME [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
-   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
-   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
-     To Thomas: I just tried this and it worked fine.  After your "push" command,
-     does the prompt change to a ]]?
-   :LOGBOOK:
-   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
-   :END:
-   :PROPERTIES:
-   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
-   :END:
-   [2010-05-30 Sun 03:33]
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
+** TODO [[bug:389][#389]] Emacs mode autocompletion issue
+   :PROPERTIES:
+   :ID:       87255055-84B2-4B95-B643-0F8848C06D70
+   :Submitter: Todd B <avtsbtmn@gmail.com>
+   :Message:  [[message://97c84a1d-67f6-48be-b718-6abdf592e3bd@y11g2000yqm.googlegroups.com][Emacs mode autocompletion issue]]
+   :END:
+   [2010-07-17 Sat 05:01]
+** TODO [[bug:391][#391]] Emacs reconciliation mode does not work on Linux
+   :PROPERTIES:
+   :ID:       63328ED4-3C26-4DF6-8C1A-526E86A56ED2
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-391-1@http.newartisans.com/bugzilla/][{Bug 391} New: Emacs reconciliation mode does not work on Linux]]
+   :END:
+   [2010-08-05 Thu 19:08]
+** TODO [[bug:396][#396]] ledger emacs doesn't escape double quotes
+   :PROPERTIES:
+   :ID:       8CE53771-0142-4F89-8C09-F24418AE3B93
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-396-1@http.newartisans.com/bugzilla/][{Bug 396} New: ledger emacs doesn't escape double quotes]]
+   :END:
+   [2010-08-16 Mon 16:28]
+** TODO [[bug:431][#431]] Reconciling with ledger.el doesn't seem to work
+   I use ledger.el with GNU Emacs 23.2.1. Is that supported at all? I wonder,
+   because the reconcile mode doesn't seem to work. Hitting SPACE or RETURN
+   doesn't do anything. I can use other keys such as 'r', 's', etc., but those
+   are useless without the ability to clear a transaction with SPACE. Am I
+   doing something wrong, or is that a known problem with Emacs 23?
+   :PROPERTIES:
+   :ID:       70FDB8A4-6552-44AF-AD81-D0C412A905DE
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4c8e1d53a5fb0_5b163fae2e59506c1fb@fe1.rs.github.com.tmail][{GitHub} Reconciling with ledger.el doesn't seem to work {jwiegley/ledger GH-17}]]
+   :END:
+   [2010-09-13 Mon 17:19]
+** TODO [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p                     :ATTACH:
+   :PROPERTIES:
+   :ID:       669AE4A1-E30D-4A3D-A330-06E183FBF66E
+   :Submitter: Russell Adams <RLAdams@AdamsInfoServ.Com>
+   :Message:  [[message://20101110003259.GN30297@x201][Patch for ledger.el]]
+   :Attachments: ledger.el.movement.patch
+   :END:
+   [2010-11-10 Wed 09:14]
+** TODO [[bug:442][#442]] Trouble with the emacs reconciling features
+   - Note taken on [2010-11-26 Fri 13:45] \\
+     Scott Walck: Thanks, Tom.  That worked great.
+   - Note taken on [2010-11-26 Fri 13:45] \\
+     Tom Rindborg: I had the same problem, and I have filed a bug report for
+     it. The reason is that (car where) evaluates to "/dev/stdin" on Linux.
+     
+     While waiting for an official bug fix you can fix the problem with the
+     following sed command:
+     :OUTPUT:
+     sed -e 's|(equal (car where) "<stdin>")|(string-match-p "stdin" (car where))|' -i ledger.el
+     :END:
+   I just installed ledger on a new computer (ubuntu 10.04) and I am having
+   trouble with the emacs reconciling features that have worked well in the
+   past on other computers.  When I open a reconciling buffer, the space bar
+   does not toggle a transaction like it should.  When I change ledger.el as
+   follows, skipping the equality test between (car where) and "<stdin>",
+   things seem to work again.
+   :PROPERTIES:
+   :ID:       EA4933EE-A324-4925-9827-7D594E9A6441
+   :Submitter: Scott Walck <scott.n.walck@gmail.com>
+   :Message:  [[message://cc55b8f2-8b24-4a8f-ad3e-8c2842722593@l6g2000yqb.googlegroups.com][ledger.el troubles]]
+   :END:
+   [2010-10-03 Sun 22:16]
 ** DEFERRED [[bug:245][#245]] Add colorized highlighting to the reconciler
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
    http://thread.gmane.org/gmane.comp.finance.ledger.general/483
@@ -549,9 +1023,9 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    Here is a tweak to ledger-mode that I find useful. It makes uncleared lines
    pink and cleared lines green. C-c C-e to toggle the status.
    :SCRIPT:
-(add-hook 'ledger-mode-hook (lambda ()
-                             (highlight-lines-matching-regexp "^..\\(..\\)?/..?/..?[ 	]+[^\\*]" (quote hi-pink))
-                             (highlight-lines-matching-regexp "^..\\(..\\)?/..?/..?[ 	]+\\*" (quote hi-green))))
+   (add-hook 'ledger-mode-hook (lambda ()
+                                (highlight-lines-matching-regexp "^..\\(..\\)?/..?/..?[         ]+[^\\*]" (quote hi-pink))
+                                (highlight-lines-matching-regexp "^..\\(..\\)?/..?/..?[         ]+\\*" (quote hi-green))))
    :END:
    :PROPERTIES:
    :Version: 2.6
@@ -565,10 +1039,10 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    line, which makes ledger.dat unusable.  One has to delete the extra
    whitespace manually afterwards.
    :OUTPUT:
-do! ledger bal bank
-Error: "ledger.dat", line 341: Line begins with whitespace
-Error: "ledger.dat", line 342: Line begins with whitespace
-Error: "ledger.dat", line 343: Line begins with whitespace
+   do! ledger bal bank
+   Error: "ledger.dat", line 341: Line begins with whitespace
+   Error: "ledger.dat", line 342: Line begins with whitespace
+   Error: "ledger.dat", line 343: Line begins with whitespace
    :END:
    :PROPERTIES:
    :Submitter: Henry Atting <nsmp_01@online.de>
@@ -582,43 +1056,43 @@ Error: "ledger.dat", line 343: Line begins with whitespace
      Levin <zslevin@gmail.com> writes:
      > The following patch fixes problem of the amount with no ',':
      :PATCH:
-@@ -648,10 +648,12 @@
-        (indent account amount nil commodity comment))
-       ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]+\\(.*?\\)[ \t]*$"
-        (indent account amount nil commodity))
--      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?\\(\\.[0-9]*\\)\\)[ \t]+\\(.*?\\)[ \t]*;[ \t]*\\(.*?\\)[ \t]*$"
-+      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]+\\(.*?\\)[ \t]*;[ \t]*\\(.*?\\)[ \t]*$"
-        (indent account amount nil commodity comment))
--      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?\\(\\.[0-9]*\\)\\)[ \t]+\\(.*?\\)[ \t]*$"
-+      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]+\\(.*?\\)[ \t]*$"
-        (indent account amount nil commodity))
-+      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]*$"
-+       (indent account amount nil))
-       ("\\(^[ \t]+\\)\\(.*?\\)[ \t]*;[ \t]*\\(.*?\\)[ \t]*$"
-        (indent account comment))
-       ("\\(^[ \t]+\\)\\(.*?\\)[ \t]*$"
+     @@ -648,10 +648,12 @@
+             (indent account amount nil commodity comment))
+            ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]+\\(.*?\\)[ \t]*$"
+             (indent account amount nil commodity))
+     -      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?\\(\\.[0-9]*\\)\\)[ \t]+\\(.*?\\)[ \t]*;[ \t]*\\(.*?\\)[ \t]*$"
+     +      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]+\\(.*?\\)[ \t]*;[ \t]*\\(.*?\\)[ \t]*$"
+             (indent account amount nil commodity comment))
+     -      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?\\(\\.[0-9]*\\)\\)[ \t]+\\(.*?\\)[ \t]*$"
+     +      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]+\\(.*?\\)[ \t]*$"
+             (indent account amount nil commodity))
+     +      ("\\(^[ \t]+\\)\\(.*?\\)[ \t]+\\(-?[0-9]+\\(\\.[0-9]*\\)?\\)[ \t]*$"
+     +       (indent account amount nil))
+            ("\\(^[ \t]+\\)\\(.*?\\)[ \t]*;[ \t]*\\(.*?\\)[ \t]*$"
+             (indent account comment))
+            ("\\(^[ \t]+\\)\\(.*?\\)[ \t]*$"
      :END:
      > BTW, the amount regexp is a bit complex here. Do we need the fraction
      > part of the amount? And it should recognize the ',' in amount.
    Use the following ledger data
    :DATA:
-2004/05/01 * Checking balance
-  Assets:Bank:Checking        1000.00
-  Equity:Opening Balances
+   2004/05/01 * Checking balance
+     Assets:Bank:Checking        1000.00
+     Equity:Opening Balances
    :END:
 
    With cursor on the beginning of the second line, eval
    `(ledger-context-at-point)`, which returns:
    :OUTPUT:
-(acct-transaction account ((indent "  " 31) (account "Assets:Bank:Checking        1000.00" 33)))
+   (acct-transaction account ((indent "  " 31) (account "Assets:Bank:Checking        1000.00" 33)))
    :END:
    It is not correct, since 1000.00 ought to be amount.
- 
+
    ledger-context-at-point also fails to parse amount with ',' in it, such as:
    :DATA:
-2004/05/01 * Checking balance
-  Assets:Bank:Checking        $1,000.00
-  Equity:Opening Balances
+   2004/05/01 * Checking balance
+     Assets:Bank:Checking        $1,000.00
+     Equity:Opening Balances
    :END:
    :PROPERTIES:
    :Submitter: Levin <zslevin@gmail.com>
@@ -696,68 +1170,163 @@ Error: "ledger.dat", line 343: Line begins with whitespace
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [[bug:363][#363]] Make "only" a report query modifier, to match --only
+** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
-   :ID:       36EE7D08-65F1-4619-94F6-22DEA64F92C1
+   :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
    :END:
-   [2010-06-22 Tue 20:58]
-** DONE [[bug:364][#364]] Make "for" a special report query modifier, for period strings
-   - State "DONE"       from "TODO"       [2010-06-22 Tue 21:58]
+   [2010-07-30 Fri 06:11]
+** TODO [[bug:408][#408]] Enabling OFX support in Ledger 3
+   If it helps, I use http://code.google.com/p/ofx-parser/ to convert my OFX
+   files into ledger format (it doesn't know about ledger format, but it is
+   fairly trivial to take an OFX object tree and output it as ledger).
+   :PROPERTIES:
+   :ID:       EC6DDB71-E008-4D58-9B3D-D059C7D113F3
+   :Submitter: Xavier Shay <xavier-list@rhnh.net>
+   :Message:  [[message://9d4f0817-f8ce-4d76-9c21-1f40d4f5ee6f@t3g2000vbb.googlegroups.com][Re: Enabling OFX support in Ledger 3]]
+   :END:
+   [2010-08-19 Thu 23:35]
+** TODO [[bug:409][#409]] Almost strictly defined accounts
+   I've seen it beeing discussed here to introduce strict verification of
+   account names. I think it may by very handy, however, I think another
+   approach may be usefull too: a predefined branches. One can define several
+   branches of arbitrary depth and every posting must be on one of them. Eg.
+   Defined branches:
+   :OUTPUT:
+   Income:Salary
+   Income:Iterest
+   Expenses:Rent
+   Expenses:Food:Groceries
+   Expenses:Food:Dining
+   etc.
+   :END:
+
+   Now account names in postings must begin with one of the defined
+   branches:
+   :OUTPUT:
+   Income:Salary:Small Co.
+   Income:Salary:World Corp.
+   :END:
+   are both correct
+
+   But
+   :OUTPUT:
+   Expenses:Rant:Flower St.
+           ^^^
+   :END:
+   is not. One can introduce new accounts only below strictly defined
+   structure.
+   :PROPERTIES:
+   :ID:       9F29112A-CFA7-4C3C-91FD-871D8187AE39
+   :Submitter: Łukasz Stelmach <lukasz.stelmach@iem.pw.edu.pl>
+   :Message:  [[message://87zkwhth69.fsf@dasa3.iem.pw.edu.pl][almost strictly defined accounts]]
+   :END:
+   [2010-08-20 Fri 12:17]
+** TODO [[bug:413][#413]] Have a look at Boost.TimeSeries
+   This might be a better replacement for times.cc.
+   :PROPERTIES:
+   :ID:       8A015298-2838-4DF8-B225-262AF77D7DB7
+   :END:
+   [2010-09-18 Sat 14:45]
+** TODO [[bug:414][#414]] Use Boost.Accumulator for ledger stats
+   Perhaps using Accumulator would simplify the code?
+   :PROPERTIES:
+   :ID:       59AA0D1F-C788-4307-844C-716E74828F34
+   :END:
+   [2010-09-18 Sat 14:42]
+** TODO [[bug:432][#432]] Create a command to list all options, commands, and functions
+   :PROPERTIES:
+   :ID:       4BF09022-7059-4CFE-90C2-3507A7B54EDD
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :Message:  [[message://AANLkTik8FPboAMJFg1z4ZW6msRrC8_e6R1H-0Mp0VY0C@mail.gmail.com][list of possible ledger options and commands]]
+   :END:
+   [2010-08-16 Mon 16:48]
+** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
+   :PROPERTIES:
+   :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
+   :END:
+   [2010-04-02 Fri 14:11]
+** TODO [#C] [[bug:173][#173]] Make the prices report use standard report query terms
+   The idea here is that report query filtering is done before the building up
+   of commodities prices, so that you can see which commodities are involved
+   with which reports:
    #+begin_src sh
-   ledger reg cash for this month
+   ledger prices 'Lebensmittel:Milch'
+   ledger prices '%kauf=leche'
    #+end_src
    :PROPERTIES:
-   :ID:       F5487801-6D9E-45F5-AA36-10B59F7A4AD6
+   :ID:       5229AE44-F390-4E4E-BAC6-674373CC775D
+   :Message:  [[message://4B0E7757.1030607@gmail.com][How to type out a sales slip?]]
+   :Submitter: Johann Klähn <kljohann@gmail.com>
    :END:
-   [2010-06-22 Tue 20:58]
-** TODO [#C] [[bug:361][#361]] Change value expression syntax to closely match Haskell's
+   [2009-12-01 Tue 03:04]
+** TODO [#C] [[bug:174][#174]] Make path to getquote script configurable using an option
    :PROPERTIES:
-   :ID:       5E82B329-EFB9-432E-A42C-E52C8032210B
+   :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
    :END:
-   [2010-06-22 Tue 01:31]
-** DONE [[bug:356][#356]] Budgeting and forecasting should use all periodic entries
-   - State "DONE"       from "TODO"       [2010-06-21 Mon 17:17]
+   [2010-04-13 Tue 01:37]
+** TODO [#C] [[bug:182][#182]] Port Gnucash support to 3.0
    :PROPERTIES:
-   :ID:       77FD8EA5-DF69-4959-878E-1D9A95F3788A
+   :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
+   :Message:  [[message://96abdebf-d2ae-40fa-b555-c2329f91602b@q36g2000prg.googlegroups.com][How to use gnucash with v3]]
+   :Submitter: Xavier Shay <xavier-list@rhnh.net>
    :END:
-   [2010-06-20 Sun 18:09]
-** WAITING [#C] [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
+   [2010-05-25 Tue 16:42]
+** TODO [#C] [[bug:190][#190]] Optimize finding and creation of annotated commodities
+   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
+   Don't use textual names, but lookup based on annotation details
+   directly.
+   :PROPERTIES:
+   :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
+   :END:
+   [2010-05-23 Sun 17:04]
+** TODO [#C] [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
+   :PROPERTIES:
+   :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
+   :END:
+   [2010-05-31 Mon 10:35]
+** TODO [#C] [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
    - State "TODO"       from "DEFERRED"   [2010-06-02 Wed 18:11]
    - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
-#+begin_src sh
-  ledger -M -s reg ^actifs
-#+end_src
-  Adding the -s option seems to break the -M one (instead of three months,
-  there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
-  can't be combined in ledger reg.
-  :PROPERTIES:
-  :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
-  :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
-  :END:
-  [2010-01-18 Mon 02:55]
+   #+begin_src sh
+   ledger -M -s reg ^actifs
+   #+end_src
+   Adding the -s option seems to break the -M one (instead of three months,
+   there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
+   can't be combined in ledger reg.
+   :PROPERTIES:
+   :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
+   :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+   :END:
+   [2010-01-18 Mon 02:55]
+** TODO [#C] [[bug:230][#230]] Make format strings backward compatible with 2.x
+   That way, %D would be the same as %(date).
+   :PROPERTIES:
+   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
+   :END:
+   [2010-06-03 Thu 23:22]
 ** TODO [#C] [[bug:231][#231]] Allow conversion of some but not all commodities
    With -X, you currently can only say "convert everything to one commodity"
    but I'd like to be able to convert some stuff but not everything.
-   
+
    My scenario: I have lived both in Autria (a EUR country) and the UK (which
    has GPB).  So right now I have accounts in EUR and GBP and then I also have
    some random money from travel (USD, TWD, etc) floating around as well as
    some shares.
-   
+
    I'd like to be able to say: convert everything _but_ GBP to EUR (or GBP).
    This is what I'd like to see most of the time... just those two currencies.
    But sometimes I want to convert _everything_ (including GBP) to EUR.
-   
+
    I like the "primary COMM ACCOUNT" syntax you propose in #217 but to achieve
    what I want I think we need an option --convert-primary or so.  Then I
    could say:
-#+begin_src sh
-    -X EUR,GBP
-#+end_src
+   #+begin_src sh
+   -X EUR,GBP
+   #+end_src
    to get EUR and GBP, or
-#+begin_src sh
-    -X EUR --convert-primary
-#+end_src
+   #+begin_src sh
+   -X EUR --convert-primary
+   #+end_src
    to get just EUR.
    :PROPERTIES:
    :ID:       83B4A0E5-3CC6-4F5E-9C58-A87F690836C8
@@ -836,17 +1405,6 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: BD78C023-BB16-446C-9347-2F1AA16C7C5C
    :END:
    [2009-02-27 Fri 15:35]
-** DONE [#C] [[bug:293][#293]] Option --bold-if
-   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
-   Which will bold the whole transaction line if it matches the given predicate
-   :PROPERTIES:
-   :Version: 2.6
-   :Ticket: 154
-   :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
-   :END:
-   [2008-04-11 Fri]
 ** TODO [#C] [[bug:299][#299]] The CSV report should optionally generate a "title line"
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:30]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
@@ -861,64 +1419,32 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :Message:  [[message://bug-333-1@http.newartisans.com/bugzilla/][{Bug 333} New: Add warning when duplicate meta references are given]]
    :END:
    [2010-06-13 Sun 17:43]
-** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
+** TODO [#C] [[bug:361][#361]] Change value expression syntax to closely match Haskell's
    :PROPERTIES:
-   :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
+   :ID:       5E82B329-EFB9-432E-A42C-E52C8032210B
    :END:
-   [2010-04-02 Fri 14:11]
-** TODO [#C] [[bug:173][#173]] Make the prices report use standard report query terms
-  The idea here is that report query filtering is done before the building up
-  of commodities prices, so that you can see which commodities are involved
-  with which reports:
-#+begin_src sh
-  ledger prices 'Lebensmittel:Milch'
-  ledger prices '%kauf=leche'
-#+end_src
-  :PROPERTIES:
-  :ID:       5229AE44-F390-4E4E-BAC6-674373CC775D
-  :Message:  [[message://4B0E7757.1030607@gmail.com][How to type out a sales slip?]]
-  :Submitter: Johann Klähn <kljohann@gmail.com>
-  :END:
-  [2009-12-01 Tue 03:04]
-** TODO [#C] [[bug:174][#174]] Make path to getquote script configurable using an option
+   [2010-06-22 Tue 01:31]
+** TODO [#C] [[bug:365][#365]] Generalize value sequences into iterators and generators
    :PROPERTIES:
-   :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
+   :ID:       EA919747-398C-44DA-9A8C-BE07643E42B4
    :END:
-   [2010-04-13 Tue 01:37]
-** TODO [#C] [[bug:182][#182]] Port Gnucash support to 3.0
+   [2010-06-24 Thu 20:16]
+** TODO [#C] [[bug:366][#366]] Add "each" syntax, and closures like Ruby has
    :PROPERTIES:
-   :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
-   :Message:  [[message://96abdebf-d2ae-40fa-b555-c2329f91602b@q36g2000prg.googlegroups.com][How to use gnucash with v3]]
-   :Submitter: Xavier Shay <xavier-list@rhnh.net>
+   :ID:       8F4B51C1-3887-4997-908E-F3CD167C00F0
    :END:
-   [2010-05-25 Tue 16:42]
-** TODO [#C] [[bug:190][#190]] Optimize finding and creation of annotated commodities
-   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
-   Don't use textual names, but lookup based on annotation details
-   directly.
+   [2010-06-24 Thu 20:30]
+** TODO [#C] [[bug:368][#368]] A commodity annotation that asserts no negative quantities
    :PROPERTIES:
-   :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
+   :ID:       09FA1386-E890-4600-98D0-86C248A24C31
    :END:
-   [2010-05-23 Sun 17:04]
-** TODO [#C] [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
+   [2010-06-27 Sun 21:27]
+** DEFERRED [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
+   - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:23]
    :PROPERTIES:
-   :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
+   :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
    :END:
-   [2010-05-31 Mon 10:35]
-** TODO [#C] [[bug:230][#230]] Make format strings backward compatible with 2.x
-   That way, %D would be the same as %(date).
-   :PROPERTIES:
-   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
-   :END:
-   [2010-06-03 Thu 23:22]
-** DEFERRED [[bug:284][#284]] Greatly improve Ledger's help system
-   - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 08:44]
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
-   :PROPERTIES:
-   :ID: 2E0D3A34-41DF-470C-8A2D-0A66B1DAA6E9
-   :END:
-   [2009-02-04 Wed 19:57]
+   [2009-11-24 Tue 22:02]
 ** DEFERRED [[bug:179][#179]] Allow specification of times on transactions and postings
    - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 17:08]
    The value expressions to expose this would be:
@@ -930,6 +1456,12 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       C0A606E0-AC51-4D0A-99F7-75C3E5E98F2B
    :END:
    [2010-05-22 Sat 16:46]
+** DEFERRED [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
+   - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:15]
+   :PROPERTIES:
+   :ID:       7517CE3B-C3B0-460D-806B-31341272DE79
+   :END:
+   [2010-06-06 Sun 06:42]
 ** DEFERRED [[bug:269][#269]] Add a "date" term to report queries
    - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 01:55] \\
      This has been coded, but is not being enabled yet until I see that it has some
@@ -1016,6 +1548,14 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 4F58ACC1-498A-41A5-9164-93CD30B3CAC5
    :END:
    [2009-10-23 Fri 06:12]
+** DEFERRED [[bug:284][#284]] Greatly improve Ledger's help system
+   - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 08:44]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   :PROPERTIES:
+   :ID: 2E0D3A34-41DF-470C-8A2D-0A66B1DAA6E9
+   :END:
+   [2009-02-04 Wed 19:57]
 ** DEFERRED [[bug:286][#286]] Implement readline completion for the REPL
    - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:24]
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
@@ -1042,7 +1582,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :PROPERTIES:
    :ID: 9ECF98A8-8C8C-42D1-B8A0-EB42F49AAED9
    :END:
-  
+
 ** DEFERRED [[bug:291][#291]] Make a curses or http GUI for Ledger
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:00] \\
      This is waiting for either the new Emacs rewrite, or the Python support code.
@@ -1050,7 +1590,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID: 8716A41C-3570-4193-A95D-9829F4FF8798
    :END:
    [2009-10-23 Fri 06:13]
-** DEFERRED [[bug:294][#294]] Performance in forecasting would be weak with a lot of period xacts
+** DEFERRED [[bug:294][#294]] Forecasting performance would be weak with a lot of period xacts
    - State "DEFERRED"   [2009-02-24 Tue 04:05]
    What happens to performance with lots of accounts, of commodities?
    :PROPERTIES:
@@ -1092,22 +1632,27 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    :ID:       558FDCF1-2C7A-4D20-94A3-48A62FF84104
    :END:
    [2010-06-08 Tue 19:22]
-** DEFERRED [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
-   - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:23]
-   :PROPERTIES:
-   :ID:       EF5442E5-4A83-45A5-98F8-DFEEF6F8AC6D
-   :END:
-   [2009-11-24 Tue 22:02]
-** DEFERRED [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
-   - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:15]
-   :PROPERTIES:
-   :ID:       7517CE3B-C3B0-460D-806B-31341272DE79
-   :END:
-   [2010-06-06 Sun 06:42]
 * Python
   :PROPERTIES:
   :CATEGORY: Python
   :END:
+** TODO [[bug:407][#407]] Problem with decimal commas and Python integration support
+   :PROPERTIES:
+   :ID:       91F750B3-C7D0-4945-8E9D-268AAA40529C
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
+   :END:
+   [2010-08-16 Mon 16:47]
+** TODO [[bug:424][#424]] Make acprep compatible with Python 3                                             :ATTACH:
+   - Note taken on [2010-11-26 Fri 12:55] \\
+     [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
+   :PROPERTIES:
+   :ID:       AA0C71E0-00BB-4EEF-A5F6-F7B44CA4C3E0
+   :Submitter: John Piasetzki <john.piasetzki@gmail.com>
+   :Message:  [[message://AANLkTimJcMdtJ-xwZkoRyJw7WjoNvzUwU6mmKhr9wjK_@mail.gmail.com][acprep Python 3 {patch}]]
+   :Attachments: 0001-Update-acprep-to-work-with-Python3.patch
+   :END:
+   [2010-11-24 Wed 13:43]
 ** DEFERRED [[bug:302][#302]] Add implicit conversion of mask_t to re
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:36]
    [[file:py_value.cc::jww%202009%2011%2002%20Add%20implicit%20conversion%20of%20mask%20objects][py_value.cc]]
@@ -1173,7 +1718,7 @@ Error: "ledger.dat", line 343: Line begins with whitespace
    I have a Boost.Python method that looks like this:
 
      .def("__iter__", range<return_value_policy<return_by_value> >
-	  (py_pool_commodities_begin, py_pool_commodities_end))
+          (py_pool_commodities_begin, py_pool_commodities_end))
 
    Where the members of the map are std::pair<string, MyObject *>.  I want the
    pair passed by value, but I need the "second" member to be accessed using
@@ -1232,21 +1777,21 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    Is there a way to let ledger output its reports showing the accounts in the
    more conventional way as debit and credit accounts, instead of having a
    positive or negative saldo?
- 
+
    Here is one example:
    :OUTPUT:
-Assets:Bank
-Tr.#	date		Text			debit		credit		saldo
-1	2008-01-01	Mr. Sponsor		500				500
-2	2008-01-02	Bill					100		400
+   Assets:Bank
+   Tr.# date            Text                    debit           credit          saldo
+   1    2008-01-01      Mr. Sponsor             500                             500
+   2    2008-01-02      Bill                                    100             400
 
-Income:Donations
-Tr.#	date		Text			debit		credit		saldo
-1	2008-01-01	Mr. Sponsor				500		-500
+   Income:Donations
+   Tr.# date            Text                    debit           credit          saldo
+   1    2008-01-01      Mr. Sponsor                             500             -500
 
-Expenses:Electricity
-Tr.#	date		Text			debit		credit		saldo
-2	2008-01-02	Bill			100				100
+   Expenses:Electricity
+   Tr.# date            Text                    debit           credit          saldo
+   2    2008-01-02      Bill                    100                             100
    :END:
    There should be a way of distinguishing between debit accounts, as assets
    and expenses, and credit accounts, as Income and liabilities. It is of
@@ -1268,65 +1813,399 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** WORKSFORME [#A] [[bug:162][#162]] sm is seeing a segfault with the register command  :blocker:
-   - State "WORKSFORME" from "TODO"       [2010-06-17 Thu 20:49]
-   - State "TODO"       from "WORKSFORME" [2010-06-16 Wed 18:47]
-   - State "WORKSFORME" from "TODO"       [2010-06-06 Sun 03:22] \\
-     This now works fine for me.
-   - Note taken on [2009-12-06 Sun 06:05] \\
-     It happens on Leopard for me in a virtual machine.
-   - Note taken on [2009-11-25 Wed 04:40] \\
-     This is happening because boost::regex is constructing a bad object.
+** TODO [#A] [[bug:420][#420]] Ledger will not build on OS X 10.5                                    :blocker:
    :PROPERTIES:
-   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
-   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
-   :Submitter: Simon Michael <simon@joyful.com>
+   :ID:       EFC2EBD2-FE11-4E8B-BC24-9DAFF23DAD73
+   :Submitter: David Glasser <glasser@davidglasser.net>
+   :Message:  [[message://AANLkTinYVdu8wN5iO3spVfAUrWnL6k00t23vV%3DUKaRYN@mail.gmail.com][Re: auto-indenting in emacs mode?]]
    :END:
-   [2009-11-24 Tue 22:13]
-** DONE [#A] [[bug:346][#346]] Release Ledger 2.6.3
-   - State "DONE"       from "TODO"       [2010-06-19 Sat 06:53]
+   [2010-10-25 Mon 17:33]
+** TODO [#A] [[bug:430][#430]] Build is failing on Ubuntu 10.10                               :blocker:ATTACH:
+   The steps I took were
+
+   1. clone from github
+   2. ./acprep --debug update
+
+   contents of 'acprep --debug update' stdout on ubuntu:
+   :OUTPUT:
+   Already up-to-date.
+   Preparing the ledger build system...please wait
+
+   Found GNU Autoconf version 2.67
+   Found GNU Automake version 1.11.1
+   Found GNU Libtool version 2.2.6b
+
+   Automatically preparing build ... Warning: autoreconf failed
+   Attempting to run the preparation steps individually
+
+   Preparing build ... configure.ac:25: required file `./config.rpath' not found
+   configure.ac:440: required file `intl/Makefile.in' not found
+   Makefile.am:4: required directory ./po does not exist
+   Makefile.am:4: required directory ./intl does not exist
+   ERROR: automake failed
+   :END:
+
+   contents of 'acprep --debug update' stderr on Ubuntu:
+   :OUTPUT:
+   acprep: INFO: Invoking primary phase: update
+   acprep: INFO: Executing phase: update
+   acprep: INFO: Executing phase: pull
+   acprep: DEBUG: Executing command: git pull
+   acprep: INFO: Executing phase: submodule
+   acprep: DEBUG: Executing command: git submodule init
+   acprep: DEBUG: Executing command: git submodule update
+   acprep: INFO: Executing phase: make
+   acprep: DEBUG: Configure arguments => []
+   acprep: DEBUG: Makefile arguments  => []
+   acprep: INFO: Executing phase: config
+   acprep: INFO: Executing phase: submodule
+   acprep: DEBUG: Executing command: git submodule init
+   acprep: DEBUG: Executing command: git submodule update
+   acprep: INFO: Executing phase: autoconf
+   acprep: INFO: autogen.sh must be run because acprep is newer than Makefile.in
+   acprep: INFO: Executing phase: autogen
+   acprep: DEBUG: Executing command: sh tools/autogen.sh
+   acprep: ERROR: Execution failed: sh tools/autogen.sh
+   :END:
+
+   I'm attaching config.log for ubuntu.
    :PROPERTIES:
-   :ID:       5C68774D-05F7-49A6-990B-EAA889F73B20
-   :Submitter: Brent Pinkney <brp@4dst.com>
-   :Message:  [[message://201006161241.33330.brp@4dst.com][Ledger 2.6.1 - patches for gcc 4.4.3]]
+   :ID:       F286DFA6-3408-4C63-A7BC-9F30CB15037F
+   :Submitter: Dan Davison <dandavison7@gmail.com>
+   :Message:  [[message://87k4k1o3cc.fsf@gmail.com][ledger build trouble]]
+   :Attachments: config.log.xz
    :END:
-   [2010-06-16 Wed 18:17]
-** NOTE Using Visual Studio 2008 to build Ledger for Windows
+   [2010-11-25 Thu 15:28]
+** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
-   :ID:       88838D10-FBA4-433C-A77D-AB64AC8D47CA
-   :VISIBILITY: folded
+   :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
+   :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
+   :Message:  [[message://AANLkTilwxjENAIajnVXvoes8H1ccWUgeDsMNirDNgbu-@mail.gmail.com][VS project files & Windows installer]]
    :END:
-   [2010-06-15 Tue 04:21]
-*** Boost
-    The build is huge, so I'd have to pick out only the parts you actually
-    need which is quite involved. You should be able to get it to work with
-    the binary installers from http://www.boostpro.com/download . I build from
-    source at work because I need to set some compiler flags (disable checked
-    iterators) but that's not necessary for ledger's case. I'm not sure where
-    the installer puts its files, I presume program files/boost or
-    something. There will probably be a directory called 'lib' or 'libs' or
-    something. You go to Tools -> Options -> Projects and Solutions -> VC++
-    Directories and select 'Library files' in the top right corner. In that
-    list you add a new directory, the one where the boost installer's library
-    files are in. If you select 'Include files' in that drop down box, you can
-    immediately set the path to the boost headers, too. These options can also
-    be set on the project level but since they'll be different on different
-    machines I prefer to put them in global settings and document them in the
-    build procedure.
-** DEFERRED [[bug:339][#339]] Automate the building of Ledger binaries on CentOS 5
-   - State "DEFERRED"   from "TODO"       [2010-06-19 Sat 16:18]
+   [2010-06-28 Mon 23:54]
+** TODO [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)                                :blocker:
    :PROPERTIES:
-   :ID:       09B41575-766E-4598-A8F3-164D8AE25589
+   :ID:       D776B418-E517-4C81-B575-45232D50B210
+   :Submitter: ed <ed.temp.01@gmail.com>
+   :Message:  [[message://db450f5b-c406-4e01-85ff-6f1c76328334@d37g2000yqm.googlegroups.com][Can't build next branch OS X 10.6.4 (Intel)]]
    :END:
-   [2010-06-15 Tue 07:08]
-** DONE [[bug:331][#331]] [MacPorts] #25213: ledger-devel Portfile
-   - State "DONE"       from "TODO"       [2010-06-15 Tue 08:25]
+   [2010-07-05 Mon 00:01]
+** TODO [[bug:405][#405]] Strange libboost suffix on Debian Squeeze with acprep
+   :OUTPUT:
+   ./acprep update
+   acprep: INFO: Invoking primary phase: update
+   acprep: INFO: Executing phase: update
+   acprep: INFO: Executing phase: pull
+   Already up-to-date.
+   acprep: INFO: Executing phase: submodule
+   acprep: INFO: Executing phase: make
+   acprep: INFO: Executing phase: config
+   acprep: INFO: Executing phase: submodule
+   acprep: INFO: Executing phase: autoconf
+   acprep: INFO: Executing phase: configure
+   acprep: INFO: ./configure must be run because Makefile does not exist
+   acprep: INFO: Looking for Boost in /usr/local/lib...
+   acprep: INFO: Looking for Boost in /opt/local/lib...
+   acprep: INFO: Looking for Boost in /sw/lib...
+   acprep: INFO: Looking for Boost in /usr/lib...
+   acprep: INFO: Found a Boost library: libboost_regex-gcc41-1_34_1.so.1.34.1
+   acprep: INFO: Found Boost suffix => -gcc41-1_34_1
+   acprep: INFO: Boost was found here:
+   acprep: INFO: BOOST_HOME    => /usr
+   acprep: INFO: BOOST_SUFFIX  => -gcc41-1_34_1
+   acprep: INFO: Noticing include directory => /usr/local/include
+   acprep: INFO: Noticing include directory => /usr/include/boost
+   acprep: INFO: Noticing library directory => /usr/local/lib
+   acprep: INFO: Noticing library directory => /usr/lib
+   acprep: INFO: System type is => Linux
+   acprep: INFO: Setting up build flavor => debug
+   ...
+   configure: error: in `/var/www/dev/ledger':
+   configure: error: "Could not find boost_regex library (set CPPFLAGS and LDFLAGS?)"
+   See `config.log' for more details.
+   acprep: ERROR: Execution failed: sh configure CPPFLAGS=-isystem /usr/local/include -isystem /usr/include/boost CXXFLAGS=-fpch-deps -Wconversion -pthread -g -pipe LDFLAGS=-g -L/usr/local/lib -L/usr/lib --with-boost-suffix=-gcc41-1_34_1 --with-included-gettext --enable-python --enable-pch --enable-debug
+   :END:
+   I'm now trying just "./configure" and it seems to be going OK
    :PROPERTIES:
-   :ID:       59444116-2810-4073-BE96-52DA023CC540
-   :Submitter: MacPorts <noreply@macports.org>
-   :Message:  [[message://063.0b8b1c6b9c8651a8e3a62880f1596b01@macports.org][Re: {MacPorts} #25213: ledger-devel Portfile]]
+   :ID:       4EBBD321-AE9E-45A6-A37E-18EBEFFB865F
    :END:
-   [2010-06-11 Fri 22:26]
+   [2010-09-10 Fri 17:21]
+** TODO [[bug:406][#406]] Unable to install ledger on Ubuntu Hardy
+   Transcript follows:
+   :OUTPUT:
+   meingbg@meingbg:~$ git clone git://github.com/jwiegley/ledger.git
+   Initialized empty Git repository in /home/meingbg/ledger/.git/
+   remote: Counting objects: 20062, done.
+   remote: Compressing objects: 100% (5624/5624), done.
+   remote: Total 20062 (delta 15245), reused 18658 (delta 14165)
+   Receiving objects: 100% (20062/20062), 25.64 MiB | 1873 KiB/s, done.
+   Resolving deltas: 100% (15245/15245), done.
+   meingbg@meingbg:~$ cd ledger/
+   meingbg@meingbg:~/ledger$ git checkout master
+   Already on branch "master"
+   meingbg@meingbg:~/ledger$ ./acprep dependencies
+   acprep: INFO: Invoking primary phase: dependencies
+   acprep: INFO: Executing phase: dependencies
+   acprep: INFO: Installing Ledger's build dependencies ...
+   acprep: INFO: Looks like you are using APT on Ubuntu Hardy
+   acprep: INFO: Executing: sudo apt-get install build-essential libtool autoconf automake zlib1g-dev libbz2-dev python-dev bjam cvs gettext libgmp3-dev libmpfr-dev libboost1.35-dev libboost-python1.35-dev libboost-regex1.35-dev libboost-date-time1.35-dev libboost-filesystem1.35-dev libedit-dev libcppunit-dev texinfo lcov sloccount
+   Reading package lists... Done
+   Building dependency tree
+   Reading state information... Done
+   E: Couldn't find package libboost1.35-dev
+   acprep: ERROR: Execution failed: sudo apt-get install build-essential libtool autoconf automake zlib1g-dev libbz2-dev python-dev bjam cvs gettext libgmp3-dev libmpfr-dev libboost1.35-dev libboost-python1.35-dev libboost-regex1.35-dev libboost-date-time1.35-dev libboost-filesystem1.35-dev libedit-dev libcppunit-dev texinfo lcov sloccount
+   meingbg@meingbg:~/ledger$ sudo apt-get update
+   Hit http://deb.torproject.org hardy Release.gpg
+   Hit http://security.ubuntu.com hardy-security Release.gpg
+   Ign http://security.ubuntu.com hardy-security/main Translation-en_US
+   Hit http://se.archive.ubuntu.com hardy Release.gpg
+   Ign http://se.archive.ubuntu.com hardy/main Translation-en_US
+   Ign http://se.archive.ubuntu.com hardy/restricted Translation-en_US
+   Ign http://security.ubuntu.com hardy-security/restricted Translation-en_US
+   Ign http://security.ubuntu.com hardy-security/universe Translation-en_US
+   Ign http://security.ubuntu.com hardy-security/multiverse Translation-en_US
+   Hit http://security.ubuntu.com hardy-security Release
+   Ign http://se.archive.ubuntu.com hardy/universe Translation-en_US
+   Ign http://se.archive.ubuntu.com hardy/multiverse Translation-en_US
+   Hit http://se.archive.ubuntu.com hardy-updates Release.gpg
+   Ign http://se.archive.ubuntu.com hardy-updates/main Translation-en_US
+   Ign http://se.archive.ubuntu.com hardy-updates/restricted Translation-en_US
+   Ign http://deb.torproject.org hardy/main Translation-en_US
+   Ign http://se.archive.ubuntu.com hardy-updates/universe Translation-en_US
+   Ign http://se.archive.ubuntu.com hardy-updates/multiverse Translation-en_US
+   Hit http://se.archive.ubuntu.com hardy Release
+   Hit http://se.archive.ubuntu.com hardy-updates Release
+   Hit http://security.ubuntu.com hardy-security/main Packages
+   Hit http://se.archive.ubuntu.com hardy/main Packages
+   Hit http://deb.torproject.org hardy Release
+   Hit http://se.archive.ubuntu.com hardy/restricted Packages
+   Hit http://se.archive.ubuntu.com hardy/main Sources
+   Hit http://security.ubuntu.com hardy-security/restricted Packages
+   Hit http://security.ubuntu.com hardy-security/main Sources
+   Hit http://security.ubuntu.com hardy-security/restricted Sources
+   Hit http://security.ubuntu.com hardy-security/universe Packages
+   Hit http://se.archive.ubuntu.com hardy/restricted Sources
+   Hit http://se.archive.ubuntu.com hardy/universe Packages
+   Hit http://se.archive.ubuntu.com hardy/universe Sources
+   Hit http://se.archive.ubuntu.com hardy/multiverse Packages
+   Hit http://se.archive.ubuntu.com hardy/multiverse Sources
+   Hit http://se.archive.ubuntu.com hardy-updates/main Packages
+   Hit http://se.archive.ubuntu.com hardy-updates/restricted Packages
+   Hit http://security.ubuntu.com hardy-security/universe Sources
+   Hit http://security.ubuntu.com hardy-security/multiverse Packages
+   Hit http://security.ubuntu.com hardy-security/multiverse Sources
+   Hit http://se.archive.ubuntu.com hardy-updates/main Sources
+   Hit http://se.archive.ubuntu.com hardy-updates/restricted Sources
+   Hit http://se.archive.ubuntu.com hardy-updates/universe Packages
+   Hit http://se.archive.ubuntu.com hardy-updates/universe Sources
+   Hit http://se.archive.ubuntu.com hardy-updates/multiverse Packages
+   Hit http://se.archive.ubuntu.com hardy-updates/multiverse Sources
+   Ign http://deb.torproject.org hardy/main Packages
+   Hit http://deb.torproject.org hardy/main Packages
+   Reading package lists... Done
+   meingbg@meingbg:~/ledger$ sudo apt-get upgrade
+   Reading package lists... Done
+   Building dependency tree
+   Reading state information... Done
+   The following packages have been kept back:
+     bind9-host dnsutils libbind9-30 libdns35 libisc35 libisccfg30 liblwres30
+     linux-generic linux-headers-generic linux-image-generic
+     linux-restricted-modules-generic
+   0 upgraded, 0 newly installed, 0 to remove and 11 not upgraded.
+   meingbg@meingbg:~/ledger$ ./acprep dependencies
+   acprep: INFO: Invoking primary phase: dependencies
+   acprep: INFO: Executing phase: dependencies
+   acprep: INFO: Installing Ledger's build dependencies ...
+   acprep: INFO: Looks like you are using APT on Ubuntu Hardy
+   acprep: INFO: Executing: sudo apt-get install build-essential libtool autoconf automake zlib1g-dev libbz2-dev python-dev bjam cvs gettext libgmp3-dev libmpfr-dev libboost1.35-dev libboost-python1.35-dev libboost-regex1.35-dev libboost-date-time1.35-dev libboost-filesystem1.35-dev libedit-dev libcppunit-dev texinfo lcov sloccount
+   Reading package lists... Done
+   Building dependency tree
+   Reading state information... Done
+   E: Couldn't find package libboost1.35-dev
+   acprep: ERROR: Execution failed: sudo apt-get install build-essential libtool autoconf automake zlib1g-dev libbz2-dev python-dev bjam cvs gettext libgmp3-dev libmpfr-dev libboost1.35-dev libboost-python1.35-dev libboost-regex1.35-dev libboost-date-time1.35-dev libboost-filesystem1.35-dev libedit-dev libcppunit-dev texinfo lcov sloccount
+   meingbg@meingbg:~/ledger$ ./acprep update
+   acprep: INFO: Invoking primary phase: update
+   acprep: INFO: Executing phase: update
+   acprep: INFO: Executing phase: pull
+   Already up-to-date.
+   acprep: INFO: Executing phase: submodule
+   Submodule 'lib/utfcpp' (git://github.com/jwiegley/utfcpp.git) registered for path 'lib/utfcpp'
+   Initialized empty Git repository in /home/meingbg/ledger/lib/utfcpp/.git/
+   remote: Counting objects: 21, done.
+   remote: Compressing objects: 100% (21/21), done.
+   remote: Total 21 (delta 5), reused 0 (delta 0)
+   Receiving objects: 100% (21/21), 18.00 KiB, done.
+   Resolving deltas: 100% (5/5), done.
+   Submodule path 'lib/utfcpp': checked out '200cf64535a8a2545414e993349f6c87c8dd64ba'
+   acprep: INFO: Executing phase: make
+   acprep: INFO: Executing phase: config
+   acprep: INFO: Executing phase: submodule
+   acprep: INFO: Executing phase: autoconf
+   acprep: INFO: autogen.sh must be run because acprep is newer than configure
+   acprep: INFO: Executing phase: version
+   error: unknown option `long'
+   usage: git-describe [options] <committish>*
+
+       --contains            find the tag that comes after the commit
+       --debug               debug search strategy on stderr
+       --all                 use any ref in .git/refs
+       --tags                use any tag in .git/refs/tags
+       --abbrev [<n>]        use <n> digits to display SHA-1s
+       --candidates <n>      consider <n> most recent tags (default: 10)
+
+   acprep: ERROR: Execution failed: git describe --all --long
+   meingbg@meingbg:~/ledger$ git checkout -b maint origin/maint
+   Branch maint set up to track remote branch refs/remotes/origin/maint.
+   Switched to a new branch "maint"
+   meingbg@meingbg:~/ledger$ ./acprep dependencies
+   Preparing the ledger build system...please wait
+
+   ERROR:  Unable to locate GNU Autoconf.
+
+   ERROR:  To prepare the ledger build system from scratch,
+           at least version 2.61 of GNU Autoconf must be installed.
+
+   autogen.sh does not need to be run on the same machine that will
+   run configure or make.  Either the GNU Autotools will need to be installed
+   or upgraded on this system, or autogen.sh must be run on the source
+   code on another system and then transferred to here. -- Cheers!
+
+   ./acprep: 60: /home/meingbg/ledger/configure: not found
+   meingbg@meingbg:~/ledger$ ./acprep update
+   Preparing the ledger build system...please wait
+
+   ERROR:  Unable to locate GNU Autoconf.
+
+   ERROR:  To prepare the ledger build system from scratch,
+           at least version 2.61 of GNU Autoconf must be installed.
+
+   autogen.sh does not need to be run on the same machine that will
+   run configure or make.  Either the GNU Autotools will need to be installed
+   or upgraded on this system, or autogen.sh must be run on the source
+   code on another system and then transferred to here. -- Cheers!
+
+   ./acprep: 60: /home/meingbg/ledger/configure: not found
+   meingbg@meingbg:~/ledger$ git checkout v2.6.1
+   Note: moving to "v2.6.1" which isn't a local branch
+   If you want to create a new branch from this checkout, you may do so
+   (now or later) by using -b with the checkout command again. Example:
+     git checkout -b <new_branch_name>
+   HEAD is now at 7fafe18... Added autogen.sh.
+   meingbg@meingbg:~/ledger$ ./acprep dependencies
+   Preparing the ledger build system...please wait
+
+   ERROR:  Unable to locate GNU Autoconf.
+
+   ERROR:  To prepare the ledger build system from scratch,
+           at least version 2.61 of GNU Autoconf must be installed.
+
+   autogen.sh does not need to be run on the same machine that will
+   run configure or make.  Either the GNU Autotools will need to be installed
+   or upgraded on this system, or autogen.sh must be run on the source
+   code on another system and then transferred to here. -- Cheers!
+
+   ./acprep: 60: /home/meingbg/ledger/configure: not found
+   meingbg@meingbg:~/ledger$ ./acprep update
+   Preparing the ledger build system...please wait
+
+   ERROR:  Unable to locate GNU Autoconf.
+
+   ERROR:  To prepare the ledger build system from scratch,
+           at least version 2.61 of GNU Autoconf must be installed.
+
+   autogen.sh does not need to be run on the same machine that will
+   run configure or make.  Either the GNU Autotools will need to be installed
+   or upgraded on this system, or autogen.sh must be run on the source
+   code on another system and then transferred to here. -- Cheers!
+
+   ./acprep: 60: /home/meingbg/ledger/configure: not found
+   meingbg@meingbg:~/ledger$
+   :END:
+   :PROPERTIES:
+   :ID:       5C93032F-9D5B-42D0-BB60-07FC91AA41F4
+   :END:
+   [2010-09-10 Fri 17:25]
+** TODO [[bug:418][#418]] Ledger 3.0 will not build under cygwin on Windows
+   :PROPERTIES:
+   :ID:       4B6A3508-4A38-4399-9308-F85E3BAB0244
+   :Submitter: tsb <avtsbtmn@gmail.com>
+   :Message:  [[message://c96a0896-cd08-4776-a3fb-d1a4d848d6a4@l14g2000yql.googlegroups.com][Re: All bugs intended for 3.0 now FIXED]]
+   :END:
+   [2010-08-16 Mon 16:48]
+** TODO [[bug:419][#419]] Resolve Clang warnings in the Ledger build
+   :PROPERTIES:
+   :ID:       44F046A0-CA2B-4856-BA00-4B4A5CB8979F
+   :END:
+   [2010-11-10 Wed 11:19]
+** TODO [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                       :blocker:
+   :PROPERTIES:
+   :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
+   :Submitter: David Glasser <glasser@davidglasser.net>
+   :Message:  [[message://AANLkTimq1xuJbPnka5%2BoNLjV_zjPoMeGMR6yeWTBg2mz@mail.gmail.com][Ledger 3 on OS X 10.5?]]
+   :END:
+   [2010-10-18 Mon 16:12]
+** TODO [[bug:427][#427]] Build problems with boost_iostreams                                        :blocker:
+   - Note taken on [2010-10-12 Tue 18:17] \\
+     [[message://62afe589-3752-4949-8c45-44b9ecd400f3@u13g2000vbo.googlegroups.com][Re: Build problems with boost_iostreams]]
+   I am having some trouble building Ledger at the moment.
+
+   This is on Mac OS X 10.6.4 and following the README-1ST.
+   :OUTPUT:
+   $ ./acprep dependencies
+   :END:
+   ran without error.  But then:
+   :OUTPUT:
+   $ ./acprep --debug update
+   :END:
+   fails with the last few lines of output being:
+   :OUTPUT:
+   checking if boost_regex is available... true
+   checking if boost_regex w/ICU is available... true
+   checking if boost_date_time is available... true
+   checking if boost_filesystem is available... true
+   checking if boost_iostreams is available... false
+   configure: error: in `/Users/phil/contrib/ledger':
+   configure: error: "Could not find boost_iostreams library (set CPPFLAGS and LDFLAGS?)"
+   See `config.log' for more details
+   acprep: ERROR: Execution failed: sh configure CC=/usr/bin/gcc-4.2 CPPFLAGS=-isystem /usr/local/include -isystem /opt/local/include -isystem /opt/local/include CFLAGS=-march=core2 CXX=/usr/bin/g++-4.2 CXXFLAGS=-fpch-deps -Wconversion -g -pipe LD=/usr/bin/g++-4.2 LDFLAGS=-g -L/usr/local/lib -L/opt/local/lib --with-included-gettext --enable-python --enable-pch --enable-debug
+   :END:
+
+   I do not understand why the other Boost libraries are found.  LDFLAGS and
+   CPPFLAGS look ok to me.
+
+   The libraries seem to be there:
+   :OUTPUT:
+   $ locate libboost_iostreams
+   /opt/local/lib/libboost_iostreams-mt.a
+   /opt/local/lib/libboost_iostreams-mt.dylib
+   /opt/local/lib/libboost_iostreams.a
+   /opt/local/lib/libboost_iostreams.dylib
+   /opt/local/var/macports/software/boost/1.44.0_0+icu+python26/opt/local/lib/libboost_iostreams-mt.a
+   /opt/local/var/macports/software/boost/1.44.0_0+icu+python26/opt/local/lib/libboost_iostreams-mt.dylib
+   /opt/local/var/macports/software/boost/1.44.0_0+icu+python26/opt/local/lib/libboost_iostreams.a
+   /opt/local/var/macports/software/boost/1.44.0_0+icu+python26/opt/local/lib/libboost_iostreams.dylib
+   :END:
+
+   Part of the config.log shows:
+   :OUTPUT:
+   configure:21015: checking if boost_iostreams is available
+   configure:21042: /usr/bin/g++-4.2 -o conftest -fpch-deps -Wconversion -g -pipe -isystem /usr/local/include -isystem /opt/local/include -isystem /opt/local/include -I/opt/local/include -g -L/usr/local/lib -L/opt/local/lib conftest.cpp -lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+   /opt/local/include/boost/iostreams/device/file_descriptor.hpp: In constructor 'boost::iostreams::file_descriptor_sink::file_descriptor_sink(const Path&, std::_Ios_Openmode) [with Path = int]':
+   /opt/local/include/boost/iostreams/stream.hpp:128:   instantiated from 'boost::iostreams::stream<Device, Tr, Alloc>::stream(const U0&, typename boost::disable_if<boost::is_same<U0, T>, void>::type*) [with U0 = int, Device = boost::iostreams::file_descriptor_sink, Tr = std::char_traits<char>, Alloc = std::allocator<char>]'
+   conftest.cpp:104:   instantiated from here
+   /opt/local/include/boost/iostreams/device/file_descriptor.hpp:276: error: call of overloaded 'path(const int&)' is ambiguous
+   /opt/local/include/boost/iostreams/detail/path.hpp:111: note: candidates are: boost::iostreams::detail::path::path(const std::wstring&) <near match>
+   /opt/local/include/boost/iostreams/detail/path.hpp:58: note:                 boost::iostreams::detail::path::path(const boost::iostreams::detail::path&) <near match>
+   /opt/local/include/boost/iostreams/detail/path.hpp:47: note:                 boost::iostreams::detail::path::path(const char*) <near match>
+   /opt/local/include/boost/iostreams/detail/path.hpp:44: note:                 boost::iostreams::detail::path::path(const std::string&) <near match>
+   configure:21042: $? = 1
+   :END:
+   :PROPERTIES:
+   :ID:       D2DAF7E3-CC79-4971-9E58-31EF48DBC5D7
+   :Submitter: Philip Rooke <phil@yax.org.uk>
+   :Message:  [[message://m2bp7eb1hl.fsf@bo.sak.lan][Build problems with boost_iostreams]]
+   :END:
+   [2010-10-03 Sun 22:17]
 ** TODO [#C] [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
@@ -1358,130 +2237,32 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: C91FEFD0-CF11-41C2-B2D0-B6BED7E142A2
    :END:
    [2009-10-08 Thu 17:12]
-** DONE [[bug:328][#328]] Build Ledger with Visual Studio
-   - State "DONE"       from "TODO"       [2010-06-15 Tue 05:24]
-   1. Some compiler warnings. There are a number of contructs where VS is more
-      fussy about than gcc. I have disabled these specific warnings, which I
-      think is fine, especially for the ones where there is no direct Unix
-      equivalent.
-      - Warning: force int to bool, performance penalty. In many places in the
-        code, ints and bools are directly compared or used in single
-        expressions which apparently can (or could in the past) cause a
-        performance degradation as it would require a few more instructions to
-        do the comparison with an int. I think it's safe to ignore this
-        warning; I've disabled it in the project files.
-      - Unused variables. Mostly in catch() blocks, the 'err' variable is
-        hardly ever used. Can ignore this too, I think.
-      - Mixing of struct and class. In many places, forward declarations
-        happen as class while the actual declaration is as struct. Only
-        difference is the default visibility; if I change everything to be
-        'class' I get errors on accessing private members. I'm not sure if the
-        standard prescribes what should happen in this case, I've just changed
-        everything to 'struct' and now it compiles fine. This is mostly a
-        stylistic issue, I'll leave that to you to decide.
-      - str_xxx functions. Those are deprecated in VS because they're
-        potentially unsafe; replacements with a _s suffix are provided. Since
-        those are not portable I suggest we ignore these warnings; I've
-        disabled them in the project properties.
-      - Cast from uint_least32_t for SHA1::Result. In 2 or 3 places (in
-        utils.cc, filters.cc, utils.h) I had to add a cast to uint* like this:
-        #+begin_src c++
-        sha.Result((unsigned int*)message_digest);
-        #+end_src
-        Is this ok? I'm not quite sure why uint_least32_t[] was used here in
-        the first place?
-   2. Missing preprocessor defines. The code uses PACKAGE_VERSION and VERSION
-      precompiler constants. Can you explain where they come from?  (I mean I
-      guess they come from the build chain, but where are their values taken
-      from?) For now I've manually set them to 'next' in the project
-      configuration but I guess they should automatically use the correct one.
-   3. Another minor stylistic issue is the mixing of tabs and spaces. The code
-      is quite hard to read in some places because the spaces seem to assume
-      an indent of 2, but the tab width is set to 4 (by default) on VS. I
-      don't know anyone who ever changes it either. So this is really minor
-      but it would be nice if all tabs could be replaced with 2 spaces, or
-      tabs would be used consistently.
-   4. Now we get to the real problems. There are a few places where real
-      Unix constructs are used that have no equivalent in Wnidows.
-      - In visit_man_page, fork() is used. It looks like this is only for
-        showing the man page though. I suggest an #ifdef where the Windows
-        version opens a browser with the documentation, considering there is
-        no such thing as man on Windows.
-      - stream.cc uses pipes and forks for the 'pager' functionality.  Could
-        you explain what this does? Is this required on Windows? I've
-        commented it out for now.
-      - main.cc sets a handler for the SIGPIPE signal which doesn't exist on
-        Windows. I've put that in a #ifdef _WIN32 section, seems the
-        reasonable thing to do.
-   5. Python integration. The py_ files don't seem to have a way to be
-      disabled through the preprocessor; I guess the Unix build chain compiles
-      them or not based on the ./configure options. I have left them out of
-      the project for now. It's been a long time since I embedded Python
-      somewhere, I'd have to look into this a bit deeper.
-   6. amount.cc uses mpfr_asprintf . I got an error from the linker that the
-      implementation of this was not found. I can't find it in my mpfr sources
-      either. I've replaced it with gmp_asprintf and now it compiles and links
-      fine. I'm not familiar with all of these libraries, is this the same
-      function with a different name? Did I screw something up in configuring
-      mpfr?
-   7. Lastly, I haven't run the tests yet. The program itself compiles and
-      runs fine (ledger --help, that is - haven't tried any real
-      functionality) but the next step would be for me to test if all
-      functionality works as expected. I see a bunch of python and c++ code in
-      the test directory; do I need python to run any tests at all or can I
-      skip those and focus on the cpp tests first?
+** DEFERRED [[bug:339][#339]] Automate the building of Ledger binaries on CentOS 5
+   - State "DEFERRED"   from "TODO"       [2010-06-19 Sat 16:18]
    :PROPERTIES:
-   :ID:       69F46250-CB1D-40C2-AC4A-39AB4E366310
-   :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
-   :Message:  [[message://AANLkTilNxUsD8glzKcEWW4fQ56uGF5GlPOmMWA1oPM3_@mail.gmail.com][Building Ledger with VS (was: Re: Help: How do I start?)]]
+   :ID:       09B41575-766E-4598-A8F3-164D8AE25589
    :END:
-   [2010-06-11 Fri 17:23]
+   [2010-06-15 Tue 07:08]
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** DONE [[bug:357][#357]] The parallelized RegressTests no longer notices errors
-   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
-   :PROPERTIES:
-   :ID:       943839DB-32DF-4807-9589-BA4173FA193A
-   :END:
-   [2010-06-20 Sun 18:36]
 ** TODO [[bug:349][#349]] Implement the empty tests in test/baseline
    :PROPERTIES:
    :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
    :END:
    [2010-06-18 Fri 19:45]
-** DONE Write a utility to measure commenting level of functions
-   - State "DONE"       from "TODO"       [2010-06-16 Wed 03:52]
-   :PROPERTIES:
-   :ID:       9A0E5877-6D16-4328-8265-427A3F7B76B2
-   :END:
-   [2010-06-15 Tue 17:11]
-** DONE BOOST_FOREACH is causing many invalid branch coverage failures
-   - State "DONE"       from "TODO"       [2010-06-16 Wed 03:52]
-   :PROPERTIES:
-   :ID:       24D76FE5-1E7B-4889-B447-2C02EFB1D019
-   :END:
-   [2010-06-15 Tue 17:12]
-** TODO [#C] [[bug:340][#340]] Create OptionsTests, which generate possible option combinations
-   :PROPERTIES:
-   :ID:       54EED1FA-C0A2-4D3A-9C5A-F44E36504179
-   :END:
-   [2010-06-15 Tue 20:25]
-** DONE [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
-   - State "DONE"       from "TODO"       [2010-06-18 Fri 19:47]
-   - State "TODO"       from "STARTED"    [2010-06-16 Wed 03:54]
-   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:12]
-   :PROPERTIES:
-   :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
-   :END:
-   [2010-05-31 Mon 01:14]
 ** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies             :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
    :END:
    [2009-11-24 Tue 22:04]
+** TODO [#C] [[bug:340][#340]] Create OptionsTests, which generate possible option combinations
+   :PROPERTIES:
+   :ID:       54EED1FA-C0A2-4D3A-9C5A-F44E36504179
+   :END:
+   [2010-06-15 Tue 20:25]
 ** DEFERRED [[bug:187][#187]] Use coverage analysis to determine if everything is being tested
    - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 00:44]
    :PROPERTIES:
@@ -1491,12 +2272,12 @@ Tr.#	date		Text			debit		credit		saldo
 ** DEFERRED [[bug:318][#318]] New tests to create for Ledger [0/3]
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 21:54]
    - [ ] GarbageTests
-	 Feed every one of the distribution's source files back to Ledger, to
+         Feed every one of the distribution's source files back to Ledger, to
          make sure it dies gracefully.
    - [ ] RandomTests
-	 Feed random data (probably base64) both as options and input.
+         Feed random data (probably base64) both as options and input.
    - [ ] ScrambleTests
-	 Pass random combinations of options.
+         Pass random combinations of options.
    :PROPERTIES:
    :ID: F866DFA5-7350-45D3-BF76-286D68755A2A
    :END:
@@ -1522,6 +2303,95 @@ Tr.#	date		Text			debit		credit		saldo
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO [#A] [[bug:422][#422]] Correct definitions of release and beta in the README
+   :PROPERTIES:
+   :ID:       931B6920-95D3-4F8E-A517-036E4B7DB0EF
+   :Submitter: Michael Ploujnikov <ploujj@gmail.com>
+   :Message:  [[message://29d9299c-f958-42a2-928c-2bacbf6b63e3@29g2000prb.googlegroups.com][current beta release vs master maint 2.6.1]]
+   :END:
+   [2010-11-25 Thu 15:27]
+** TODO [[bug:423][#423]] Rubygem for converting arbitrary csv files into ledger format
+   - Note taken on [2010-11-14 Sun 20:51] \\
+     [[message://AANLkTimZ%2B%3DeisPa4rYgcLkb%2BnOZoqn6yj%3DuXEceNdtuh@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   - Note taken on [2010-11-11 Thu 12:31] \\
+     [[message://AANLkTikZ4Fa45ez784k9SP47%3DkQczLA2GCyTo%3DhiLU5W@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   - Note taken on [2010-11-11 Thu 12:31] \\
+     [[message://AANLkTim0_TFnT5WL3nBhqK%3DvE2ZNqwRvBwYQbZvvUOks@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   - Note taken on [2010-11-07 Sun 14:08] \\
+     [[message://AANLkTinoU88tNVkO9gbOphYDsbv9oeY6uO5DmWcODv%2BQ@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   :PROPERTIES:
+   :ID:       68744705-640F-4F62-9A7B-EE8C815FD596
+   :Submitter: Andrew Cantino <cantino@gmail.com>
+   :Message:  [[message://AANLkTin8%3DcrNWggCMtHP%2B6MhvR41RHQeqBSveN05oiEd@mail.gmail.com][Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   :END:
+   [2010-11-07 Sun 13:10]
+** TODO [#C] [[bug:169][#169]] Language translations for 3.0
+   | Name                    | E-mail                           | Language             |
+   |-------------------------+----------------------------------+----------------------|
+   | Thierry Daucourt        | thierry.daucourt@free.fr         | French               |
+   | Alexis Hildebrandt      | alexis.hildebrandt@surryhill.net | German               |
+   | Felipe Magno de Almeida | felipe.m.almeida@gmail.com       | Brazilian Portuguese |
+   | Roel Vanhout            | roel.vanhout@gmail.com           | Dutch                |
+   :PROPERTIES:
+   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
+   :END:
+   [2009-11-09 Mon 03:40]
+** TODO [#C] [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
+   :PROPERTIES:
+   :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
+   :END:
+   [2009-11-20 Fri 18:31]
+** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
+   :PROPERTIES:
+   :ID:       32A4A048-886F-43FC-892E-EC125F372750
+   :Attachments: foo.dat
+   :END:
+   [2009-12-10 Thu 18:05]
+** TODO [#C] [[bug:329][#329]] Suggestions for improving the documentation
+   - I think it's great that there is such an elaborate manual, but the
+     structure is a bit unintuitive to learn from. May I suggest to move the
+     'keeping a ledger' section to the beginning, before 'running ledger'. Or
+     maybe shrink 'running ledger' to one page with the general explanation,
+     and move the details to the back in a 'command line options reference'
+     section. I understand that it's hard to combine a tutorial style manual
+     and a reference manual in one document; I have the same problem when
+     documenting my software. Having tutorial style in the front and reference
+     in the back seems to work OK for me, without requiring two document with
+     the problems that brings.
+   - Some real-world examples of complete commands, as collected from the
+     collective of ledger users, would be nice. Maybe this could be put in a
+     'tick and tricks' section.
+   - In this section, it would be nice if there was a section on Windows that
+     explains that the Windows cmd.exe can't show € symbols. That one cost me
+     20 minutes to figure out, after which I had to switch to EUR.
+   - It would also be nice if this section had a table with the names of
+     assests, equity, debts etc. in various languages/locales. At least a part
+     of ledger users don't have background in accounting I think, and as for
+     myself, despite having taken several accountancy/finance classes I still
+     need to look up the terms each time because I don't use them every day. I
+     would like to use the English terms but this is not feasible because I
+     may need to communicate my numbers with the local tax office, tax
+     advisors etc. later on, and they all only know and use the local
+     terms.
+   - Next step will be for me to document everything that is necessary to
+     build ledger: getting and building libraries, getting and building boost,
+     setting config options etc. It's rather challenging I image for anyone
+     who doesn't do this every day.
+   - The biggest issue I've run into is that syntax section isn't quite
+     complete.  In the copy I have, this file syntax in section 2.7 lacks the
+     $account keyword which is only mentioned deep in the text of section
+     3.10.
+   - As an addition to the tutorial documentation, it might be helpful to
+     solicit user contributed ledger files.  I'd be willing to contribute what
+     I'm using internally - I have a fairly complex customer payment
+     processing methodology that keeps track of account receivable, and
+     collected but undeposited payments.
+   :PROPERTIES:
+   :ID:       A68C8837-EB85-454B-A731-3B319D898697
+   :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
+   :Message:  [[message://AANLkTilNxUsD8glzKcEWW4fQ56uGF5GlPOmMWA1oPM3_@mail.gmail.com][Building Ledger with VS (was: Re: Help: How do I start?)]]
+   :END:
+   [2010-06-11 Fri 17:29]
 ** TODO [#C] [[bug:341][#341]] Document suggestions from Russell
    - I was completely unaware of ti and to --- nice little toy; a man page
      comes to mind
@@ -1596,85 +2466,13 @@ Tr.#	date		Text			debit		credit		saldo
    :Message:  [[message://alpine.LRH.2.00.1006150907240.22955@arj.bjyevire.pbz][reading the doco end to end {random thots}]]
    :END:
    [2010-06-15 Tue 21:59]
-** TODO [#C] [[bug:169][#169]] Language translations for 3.0
-   | Name                    | E-mail                           | Language             |
-   |-------------------------+----------------------------------+----------------------|
-   | Thierry Daucourt        | thierry.daucourt@free.fr         | French               |
-   | Alexis Hildebrandt      | alexis.hildebrandt@surryhill.net | German               |
-   | Felipe Magno de Almeida | felipe.m.almeida@gmail.com       | Brazilian Portuguese |
-   | Roel Vanhout            | roel.vanhout@gmail.com           | Dutch                |
+** TODO [#C] [[bug:369][#369]] Internalize the --help option in v3
    :PROPERTIES:
-   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
-   :END:
-   [2009-11-09 Mon 03:40]
-** TODO [#C] [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
-   :PROPERTIES:
-   :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
-   :END:
-   [2009-11-20 Fri 18:31]
-** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
-   :PROPERTIES:
-   :ID:       32A4A048-886F-43FC-892E-EC125F372750
-   :Attachments: foo.dat
-   :END:
-   [2009-12-10 Thu 18:05]
-** DONE [#C] [[bug:202][#202]] doc/NEWS and xml
-   - State "DONE"       from "TODO"       [2010-06-15 Tue 08:42] \\
-     This comment is no longer in the NEWS file.
-   doc/NEWS claims that the xml command was removed but it's still there (at
-   least "ledger -f foo.dat xml" works; maybe you meant a different xml
-   command?).
-   :PROPERTIES:
-   :ID:       130C2697-1601-488A-B0D7-2422CF50CB86
-   :Message:  [[message://20100322161529.GA7030@jirafa.cyrius.com][doc/NEWS and xml]]
-   :Submitter: Martin Michlmayr <tbm@cyrius.com>
-   :END:
-   [2010-03-26 Fri 22:22]
-** TODO [#C] [[bug:329][#329]] Suggestions for improving the documentation
-   - I think it's great that there is such an elaborate manual, but the
-     structure is a bit unintuitive to learn from. May I suggest to move the
-     'keeping a ledger' section to the beginning, before 'running ledger'. Or
-     maybe shrink 'running ledger' to one page with the general explanation,
-     and move the details to the back in a 'command line options reference'
-     section. I understand that it's hard to combine a tutorial style manual
-     and a reference manual in one document; I have the same problem when
-     documenting my software. Having tutorial style in the front and reference
-     in the back seems to work OK for me, without requiring two document with
-     the problems that brings.
-   - Some real-world examples of complete commands, as collected from the
-     collective of ledger users, would be nice. Maybe this could be put in a
-     'tick and tricks' section.
-   - In this section, it would be nice if there was a section on Windows that
-     explains that the Windows cmd.exe can't show € symbols. That one cost me
-     20 minutes to figure out, after which I had to switch to EUR.
-   - It would also be nice if this section had a table with the names of
-     assests, equity, debts etc. in various languages/locales. At least a part
-     of ledger users don't have background in accounting I think, and as for
-     myself, despite having taken several accountancy/finance classes I still
-     need to look up the terms each time because I don't use them every day. I
-     would like to use the English terms but this is not feasible because I
-     may need to communicate my numbers with the local tax office, tax
-     advisors etc. later on, and they all only know and use the local
-     terms.
-   - Next step will be for me to document everything that is necessary to
-     build ledger: getting and building libraries, getting and building boost,
-     setting config options etc. It's rather challenging I image for anyone
-     who doesn't do this every day.
-   - The biggest issue I've run into is that syntax section isn't quite
-     complete.  In the copy I have, this file syntax in section 2.7 lacks the
-     $account keyword which is only mentioned deep in the text of section
-     3.10.
-   - As an addition to the tutorial documentation, it might be helpful to
-     solicit user contributed ledger files.  I'd be willing to contribute what
-     I'm using internally - I have a fairly complex customer payment
-     processing methodology that keeps track of account receivable, and
-     collected but undeposited payments.
-   :PROPERTIES:
-   :ID:       A68C8837-EB85-454B-A731-3B319D898697
+   :ID:       F1FEC526-6B6D-48C2-9BA8-CDDD15595BD5
    :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
-   :Message:  [[message://AANLkTilNxUsD8glzKcEWW4fQ56uGF5GlPOmMWA1oPM3_@mail.gmail.com][Building Ledger with VS (was: Re: Help: How do I start?)]]
+   :Message:  [[message://AANLkTinl0OW5pklgt-LV-t0QbmoCor1W6wBQgFB4mdbg@mail.gmail.com][Re: --help option in v3]]
    :END:
-   [2010-06-11 Fri 17:29]
+   [2010-06-28 Mon 23:54]
 ** WAITING [#C] [[bug:170][#170]] Fill out membership form for the Software Conservancy
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
      I'm waiting for the official form to come from the Conservancy.
@@ -1726,29 +2524,29 @@ Tr.#	date		Text			debit		credit		saldo
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
-** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"					 :ATTACH:
+** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                                  :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
    places, or moved from place to place, including:
-   
+
    - tracking time
    - recording data transfers between computers
    - recording scientific data (converting any input to any output)
    - reporting on the layout of your hard drive
-   
+
    To show an example of this, I'm written a Python script called "ledger-du"
    which simply outputs whatever directories you specify as arguments in the
    form of Ledger entries.  There is one entry per file, where the "payee" is
    the file name, the "account" is a colon-separated directory hierarchy, and
    the "date" is the last modified time of the file.
-   
+
    By running this script and sending the output to "/tmp/out.dat", you can
    now perform some very sophisticated queries on your data -- including
    showing you the same kind of information that the venerable "du" itself
    would show.  Except that now you can see the tree hierarchy with the
    "balance" command, and other enhancements to the basic form of "du".
-   
+
    For example, here's a command that shows me where all my C++ source files
    are, subtotaled by the sub-directory that contains them, and sorted by
    total size.  The "equity" account (where all the bytes are balanced) even
@@ -1758,7 +2556,7 @@ Tr.#	date		Text			debit		credit		saldo
      "%D %-.20P\n  %-.52A %12.67t %12.80T\n%/  %-.52A %12.67t %12.80T\n" \
      -f /tmp/out.dat -s -S "-U(t)" register -- \\.cc\$
    :END:
-   
+
    I specified a new format string here (a variation on the default balance
    format) so that I could see account totals each on their own line, since
    some of the account names get very long.

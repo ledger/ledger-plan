@@ -35,7 +35,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       1A546C4D-42BF-44B4-A477-BF71FB42AE52
    :END:
    [2009-11-08 Sun 18:23]
-** DONE [#A] [[bug:163][#163]] Exponential slowdown when using --exchange				 :ATTACH:
+** DONE [#A] [[bug:163][#163]] Exponential slowdown when using --exchange                             :ATTACH:
    - State "DONE"       from "TODO"       [2010-06-04 Fri 06:09] \\
      After several days of intensive examination, I think now there is little
      help for what you're seeing.  The slowness comes from (a) the size of
@@ -98,7 +98,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: gmon.gprof thierry.ledger.anon.gpg
    :END:
    [2010-03-04 Thu 13:55]
-** DONE [#A] [[bug:188][#188]] Not calculating commodity conversions due to rounding   :critical:
+** DONE [#A] [[bug:188][#188]] Not calculating commodity conversions due to rounding                :critical:
    - State "DONE"       from "TODO"       [2010-06-06 Sun 06:21] \\
      Fixed by 39f9854e.
    - Note taken on [2010-06-06 Sun 04:49] \\
@@ -178,7 +178,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       B6C8EACD-9392-4380-BB57-93EDF0EE5C34
    :END:
    [2010-05-23 Sun 17:05]
-** DONE [#A] [[bug:192][#192]] Problem with the new fixed rate feature				 :ATTACH:
+** DONE [#A] [[bug:192][#192]] Problem with the new fixed rate feature                                :ATTACH:
    - State "DONE"       from "TODO"       [2010-06-07 Mon 08:24]
    - Note taken on [2009-12-11 Fri 02:12] \\
      Javier [[message://92a1cace0912100848v3b6e81bfp332590a8057d73fe@mail.gmail.com][writes]]: I found that the problem is not related to the new "fixed"
@@ -226,6 +226,46 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       ED9388D7-E523-40EB-841B-9AE9BAA70329
    :END:
    [2010-06-04 Fri 02:18]
+** DONE [#A] [[bug:345][#345]] speed-test.dat with -V is failing verification
+   - State "DONE"       from "STARTED"    [2010-06-19 Sat 07:39]
+   :LOGBOOK:
+   CLOCK: [2010-06-19 Sat 06:09]--[2010-06-19 Sat 07:39] =>  1:30
+   :END:
+   #+begin_src sh
+   ledger -f test/input/speed-test.dat -v --decimal-comma -o /dev/null reg 2eb75f84 1eede0cb -V --verify
+   #+end_src
+   :OUTPUT:
+   While evaluating value expression:
+     market(total_expr, value_date, exchange)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   The value expression tree was:
+     0x107fe6db0       O_CALL (2)
+     0x108015300        IDENT: market (1)
+     0x108017660         FUNCTION (1)
+     0x107fe93b0        O_SEQ (1)
+     0x107ff00a0         O_CONS (1)
+     0x10800a900          IDENT: total_expr (1)
+     0x10800ed00           FUNCTION (1)
+     0x107ff3bd0          O_CONS (1)
+     0x1080023a0           IDENT: value_date (1)
+     0x108006500            FUNCTION (1)
+     0x107ff7e10           IDENT: exchange (1)
+     0x107ffbf70            FUNCTION (1)
+   While handling posting from "test/input/speed-test.dat", line 7482:
+   >     (da39a3ee:2eb75f84:6183529e:cd17c28b)        -1 AFS @ 0
+   Error: Assertion failed in "/Volumes/RAID/Projects/ledger/src/commodity.cc", line 230: boost::optional<ledger::price_point_t> ledger::commodity_t::varied_history_t::find_price(const ledger::commodity_t&, const boost::optional<ledger::commodity_t&>&, const boost::optional<boost::posix_time::ptime>&, const boost::optional<boost::posix_time::ptime>&, int) const: source.referent() != commodity->referent()
+   109667ms    24b  21.3K  [INFO]  Ledger ended (Boost/libstdc++ may still hold memory)
+   :END:
+   :PROPERTIES:
+   :ID:       5B20DC9F-277F-495F-806A-4A147E833C49
+   :END:
+   [2010-06-17 Thu 08:17]
+** DONE [#A] [[bug:353][#353]] No longer handles multiple postings to one account in one transacation
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 17:57]
+   :PROPERTIES:
+   :ID:       15230B79-E091-4A55-9F9E-A49602ECAC1A
+   :END:
+   [2010-06-20 Sun 14:51]
 ** DONE [#A] Automated xact multipliers have no effect on null postings
    - State "DONE"       from "TODO"       [2009-11-09 Mon 22:02]
    :PROPERTIES:
@@ -257,7 +297,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       D53C98E5-506D-4CE5-91A3-7666FD33B65B
    :END:
    [2010-05-03 Mon 07:20]
-** DONE [#A] Ledger's include directive is failing in a very simple case		 :ATTACH:
+** DONE [#A] Ledger's include directive is failing in a very simple case                 :ATTACH:
    - State "DONE"       from "TODO"       [2009-12-07 Mon 20:42]
    :PROPERTIES:
    :ID:       4D63641F-3C9E-4C62-A45F-C9B1649BD712
@@ -521,7 +561,7 @@ ledger -QV bal .
    :ID:       F145D482-2F15-48D0-A0CC-6593AC1896DD
    :END:
    [2010-05-22 Sat 19:15]
-** DONE [[bug:165][#165]] --exchange seems to be ignored when combined with -M			 :ATTACH:
+** DONE [[bug:165][#165]] --exchange seems to be ignored when combined with -M                        :ATTACH:
    - State "DONE"       from "TODO"       [2010-06-09 Wed 05:09]
 #+begin_src sh
   ledger  --exchange € reg ^dépenses|grep "\\$" |wc -l
@@ -542,7 +582,7 @@ ledger -QV bal .
   :Attachments: ledger.txt.gpg
   :END:
   [2010-01-18 Mon 03:42]
-** DONE [[bug:167][#167]] Another rounding issue							 :ATTACH:
+** DONE [[bug:167][#167]] Another rounding issue                                                      :ATTACH:
    - State "DONE"       from "STARTED"    [2010-06-02 Wed 06:25] \\
      Fixed by cbc0a125.
    :LOGBOOK:
@@ -576,7 +616,7 @@ ledger -QV bal .
    :ID:       F29DE89C-73CD-4344-B6F7-BB7584AA6FFD
    :END:
    [2009-11-24 Tue 01:11]
-** DONE [[bug:197][#197]] Bug with -J and multiple commodities					 :ATTACH:
+** DONE [[bug:197][#197]] Bug with -J and multiple commodities                                        :ATTACH:
    - State "DONE"       from "TODO"       [2010-06-09 Wed 02:51] \\
      Fixed by fc09b69f.
     - Note taken on [2010-06-02 Wed 16:53] \\
@@ -866,7 +906,7 @@ ledger -QV bal .
    :Message:  [[message://20100531102647.GA23953@jirafa.cyrius.com][--european option not really European]]
    :END:
    [2010-05-31 Mon 14:32]
-** DONE [[bug:224][#224]] A large number of GenerateTests are failing				 :ATTACH:
+** DONE [[bug:224][#224]] A large number of GenerateTests are failing                                 :ATTACH:
    - State "DONE"       from "TODO"       [2010-06-10 Thu 14:26]
    When running GenerateTests from 1 to 10001, 954 of the tests fail --
    although many of them for the same apparent reason.  These different types
@@ -957,6 +997,170 @@ ledger -QV bal .
    :ID:       AA29DD59-C29E-4A56-A725-65A83AC8D1C5
    :END:
    [2010-06-13 Sun 22:51]
+** DONE [[bug:342][#342]] Budgeting should include transactions for interstitial months
+   - State "DONE"       from "TODO"       [2010-06-19 Sat 16:17]
+   Given this data:
+   #+begin_src ledger
+   ;Monthly Budget
+   ~ Monthly since 2010/01/01
+       Expenses:Bills:Rent                 $873.00
+       Income:Salary                       -$3491.60
+       Assets:Bank:OSU Fed:Checking
+   
+   ~ Biweekly from 2010/02/23
+       Expenses:Bills:Housecleaning        $85.00
+       Assets:Bank:OSU Fed:Checking
+   
+   2010/06/02 IP Fabrics payroll
+       Assets:Bank:OSU Fed:Checking               $3491.60
+       Income:Salary
+   
+   2010/06/04 housecleaning check
+       Expenses:Bills:Housecleaning    $255.00
+       Assets:Bank:OSU Fed:Checking
+   
+   2010/06/10 Rent
+       Expenses:Bills:Rent                      $873.00
+       Assets:Bank:OSU Fed:Checking                   
+   #+end_src
+
+   Now run the command:
+   #+begin_src sh
+   ledger -E -p "this month" --budget --columns=80 --now=2010/06/16 reg ^exp
+   #+end_src
+
+   It will show two budget transactions:
+   :OUTPUT:
+   10-Jun-01 Budget transaction    Expenses:Bills:Rent        $-873.00     $-873.00
+   10-Jun-04 housecleaning check   Exp:Bill:Housecleaning      $255.00     $-618.00
+   10-Jun-06 Budget transaction    Exp:Bill:Housecleaning      $-85.00     $-703.00
+   10-Jun-10 Rent                  Expenses:Bills:Rent         $873.00      $170.00
+   :END:
+
+   But if the rent transaction (last one in the file) is removed, it no
+   longer generates any housecleaning budget transactions for that month:
+   :OUTPUT:
+   10-Jun-01 Budget transaction    Expenses:Bills:Rent        $-873.00     $-873.00
+   10-Jun-04 housecleaning check   Exp:Bill:Housecleaning      $255.00     $-618.00
+   :END:
+
+   It should be generating the budget entries at the end, even though
+   there is no final transaction to "kick" the budget filter.
+   :PROPERTIES:
+   :ID:       8AFF04B8-DAC0-4768-AD1D-ABA1F3C3E4F8
+   :END:
+   [2010-06-16 Wed 17:40]
+** DONE [[bug:350][#350]] --gain shows wrong resuls
+   - Note taken on [2010-06-20 Sun 17:48] \\
+     Another possibility is that name-merging unless fixated and non-fixated
+     versions both exist, in which case name merging is only done for the
+     non-fixated, and all of the fixated will have their prices reported as if
+     --lot-prices had been specified just for them.
+   - State "DONE"       from "TODO"       [2010-06-20 Sun 17:20] \\
+   I've fixed the problem as you presented it, but there is more going on
+   here.  Most importantly, commodities with fixated prices are logically
+   distinct from those without.  Here's what happens:
+   
+   On 2008-01-01, you buy 5 shares of GBP at a unit-price of 1.4 EUR.
+   Internally, this commodity is named GBP {1.4 EUR}.  If ever the share price
+   of GBP changes, the offset from 1.4 EUR will represent a gain or loss.
+   
+   On 2009-01-01, you "sold" 5 shares of GBP {=1.4 EUR} for 7.50 EUR, making
+   0.50 EUR in the process.  Ledger does not ask whether you owned these
+   shares before selling them, as double-entry accounting does not require
+   this foreknowledge.  My bug fix today was to make sure that a sale of a
+   fixated commodity does not record a market price for other commodities of
+   the same basename.
+   
+   If, later, the value of GBP should change, there will still be a gain
+   reflected, as you have not yet sold the 5 shares of GBP {1.4 EUR}.  Again,
+   GBP {=1.4 EUR} != GBP {1.4 EUR}.  You may have converted 5 shares of GBP
+   {=1.4 EUR}, but in Ledger's eyes, internally, you still own 5 shares of GBP
+   {1.4 EUR}.  If GBP should ever get revalued, this will show up as a
+   gain/loss in the --gain report.
+   
+   What makes all of this confusing is that by default, Ledger 'collapses'
+   commodities which are related by name as if they were the same commodity.
+   This is a convenience, since until now no one has ever thought to mix
+   fixated and non-fixated versions of the same commodity.  Thus, Ledger
+   *reports* GBP {1.4 EUR} and GBP {=1.4 EUR} as if they were both GBP, but
+   for calculating the --gain report, it will reckon them as separate.
+   
+   This all becomes much clearer if you use "reg --lot-prices", to stop Ledger
+   from merging like-named commodities.
+   
+   I'm not sure there is an answer here, other than forcing fixated commodities
+   to always display with their fixated price -- though I'm not sure most people
+   would want that.  The only other answer is to not mix them, or to think very
+   hard in the case where you do and still want meaning from --gain.
+   :PROPERTIES:
+   :ID:       C0212EAC-CCE6-41F6-BCFD-543A257B4B74
+   :END:
+   [2010-06-20 Sun 14:51]
+** DONE [[bug:352][#352]] Account abbreviation puts too much emphasis on top-level account
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 18:05]
+   :PROPERTIES:
+   :ID:       87C4A85D-237E-410F-B824-FE4C42F62011
+   :END:
+   [2010-06-20 Sun 14:51]
+** DONE [[bug:354][#354]] Forecasting bug with terminating periodic entries
+   - State "DONE"       from "TODO"       [2010-06-20 Sun 17:08]
+   #+begin_src ledger
+   ~ Monthly since 2010/01/01
+       Expenses:Bills:Rent                 $873.00
+       Expenses:Household                  $200.00
+       Income:Salary                       -$2491.60
+       Assets:Bank:Checking
+   
+   ~ biweekly from 2010/02/23
+       Expenses:Bills:Housecleaning        $85.00
+       Assets:Bank:Checking
+   
+   2010/06/22 c897683b
+       ad738623:d317da42:0e30a690              A2079.00
+       208b135f:c84cc2a7:a336b63a               A199.00
+       45435ee9:2d8ee712:ee7e46b1:0f0e7e54:f5dbec59
+   #+end_src
+   #+begin_src sh
+   ledger reg bank --forecast "d<=[next year]" -d "d>=[this month] & d<=[next year]" --sort d --now=2010/06/20    
+   #+end_src
+   :OUTPUT:
+   Assertion failed: (this->is_initialized()), function get, file /opt/local/include/boost/optional/optional.hpp, line 578.
+   Abort trap
+   :END:
+   :PROPERTIES:
+   :ID:       620F0674-B74F-452C-8F36-66F8425CA4BD
+   :END:
+   [2010-06-20 Sun 17:04]
+** DONE [[bug:355][#355]] Problem with forecasting not showing biweekly transactions
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 17:16]
+   :PROPERTIES:
+   :ID:       D2829FC4-D319-4FB9-8A24-B8FFCF5F4E61
+   :END:
+   [2010-06-20 Sun 20:17]
+** DONE [[bug:359][#359]] Balance command now shows empty accounts
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 18:30]
+   :PROPERTIES:
+   :ID:       56BBE69B-604C-4379-A39D-8B412A8921CC
+   :END:
+   [2010-06-21 Mon 18:18]
+** DONE [[bug:360][#360]] 'today' isn't today
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 17:15]
+   :PROPERTIES:
+   :ID:       2FEAF015-B5C2-4CFC-96E8-46E70CA2B990
+   :END:
+   [2010-06-22 Tue 17:15]
+** DONE [[bug:386][#386]] print command should never strip quotation marks from commodity
+   - State "DONE"       from "STARTED"    [2010-07-29 Thu 04:12]
+   :LOGBOOK:
+   CLOCK: [2010-07-29 Thu 03:19]--[2010-07-29 Thu 04:12] =>  0:53
+   :END:
+   :PROPERTIES:
+   :ID:       A28CF697-0E5B-49E9-AA38-606BDA234D46
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-386-1@http.newartisans.com/bugzilla/][{Bug 386} New: strips quotation marks from commodity when it's required]]
+   :END:
+   [2010-07-25 Sun 16:25]
 ** DONE Abstract a function to verify a transaction double-entry status
    - State "DONE"       from "TODO"       [2009-11-11 Wed 20:43]
    :PROPERTIES:
@@ -1040,14 +1244,14 @@ While calculating posting from "doc/sample.dat", line 11:
    :ID: F769BA6B-EE23-4E1F-A318-C3E51848104D
    :END:
    [2009-02-19 Thu 01:12]
-** DONE Another balance reporting bug, where the ordering is wrong			 :ATTACH:
+** DONE Another balance reporting bug, where the ordering is wrong                       :ATTACH:
    - State "DONE"       from "TODO"       [2010-01-21 Thu 04:55]
    :PROPERTIES:
    :ID:       8026905D-42B6-40EE-AEBF-24ED0CC5DC53
    :Attachments: bug2.dat
    :END:
    [2009-11-24 Tue 03:08]
-** DONE Assertion failure using print --raw						 :ATTACH:
+** DONE Assertion failure using print --raw                                              :ATTACH:
    - State "DONE"       from "TODO"       [2010-03-17 Wed 00:51]
 #+begin_src sh
   ledger --exchange € print --raw
@@ -1243,7 +1447,7 @@ ledger -p "this year" -MAs bal ^Expenses
    :Message:  [[message://500992d31003251651q7a127ba5p434c64b7454152de@mail.gmail.com][Compilation error on master (7ca8149e)]]
    :END:
    [2010-03-26 Fri 22:17]
-** DONE Compile errors with gcc 4.3							 :ATTACH:
+** DONE Compile errors with gcc 4.3                                                      :ATTACH:
    - State "DONE"       [2008-05-23 Fri 03:59] \\
      Thanks for that update; the earlier one failed to build on openbsd-x86-normal.
    - State "TODO"       [2008-05-22 Thu 20:50] \\
@@ -1308,7 +1512,7 @@ The last non-future posting was: 1 day ago
    :Message:  [[message://20100325214507.GA22847@jirafa.cyrius.com][Confusing error message with ledger v3 with invalid input]]
    :END:
    [2010-03-26 Fri 22:18]
-** DONE Cost amounts have the wrong sign with register -B				 :ATTACH:
+** DONE Cost amounts have the wrong sign with register -B                                :ATTACH:
    - State "DONE"       from "STARTED"    [2009-12-07 Mon 21:23]
    :PROPERTIES:
    :ID:       9603900E-D553-4ECD-A355-50B1CAABE3A8
@@ -1346,7 +1550,7 @@ The last non-future posting was: 1 day ago
    :ID: D579B743-D87C-4168-8E83-7A49A77917F6
    :END:
    [2009-02-23 Mon 21:35]
-** DONE Divide by zero error using -A reg						 :ATTACH:
+** DONE Divide by zero error using -A reg                                                :ATTACH:
    - State "DONE"       from "TODO"       [2010-01-21 Thu 04:57]
 #+begin_src sh
   ledger --exchange € -A reg
@@ -1851,7 +2055,7 @@ $ ledger -E -j -p 2006.12 reg Travel
    :ID:       162C0700-B636-4E6C-B2AB-E778E2D20E33
    :END:
    [2009-11-12 Thu 05:04]
-** DONE More issues with price file parsing						 :ATTACH:
+** DONE More issues with price file parsing                                              :ATTACH:
    - State "DONE"       [2009-02-19 Thu 15:02]
    - Note taken on [2008-07-18 Fri 22:44] \\
      Solving this is going to be part of a larger revising of the way commodities
@@ -1907,7 +2111,7 @@ $ ledger -E -j -p 2006.12 reg Travel
    :ID: 079B7BEC-73F9-4598-A6F6-6D9717B37F34
    :END:
    [2009-02-04 Wed 20:56]
-** DONE Multi-byte characters (like UTF-8) throws off the "emacs" report		 :ATTACH:
+** DONE Multi-byte characters (like UTF-8) throws off the "emacs" report                 :ATTACH:
    - State "DONE"       [2008-08-25 Mon 23:54] \\
      This has been implemented.
    The emacs report uses byte-positioning to indicate the beginning of posts
@@ -1957,6 +2161,12 @@ Display P: a
    :ID: B1E49EA5-18B9-413A-ACD6-9F9795F25722
    :END:
    [2008-04-07 Mon]
+** DONE My use of Boost.Iostreams is broken in Boost 1.44
+   - State "DONE"       from "TODO"       [2010-09-05 Sun 17:35]
+   :PROPERTIES:
+   :ID:       4287EE80-665C-4C73-B439-52D6893D6857
+   :END:
+   [2010-08-19 Thu 17:24]
 ** DONE Need to internationalize error messages
    - State "DONE"       [2009-02-25 Wed 04:15]
    :PROPERTIES:
@@ -2045,7 +2255,7 @@ Display P: a
    :Message:  [[message://20100322091126.GW1914@jirafa.cyrius.com][print doesn't honour --date-format]]
    :END:
    [2010-03-26 Fri 22:22]
-** DONE Problem reading Russian prices file						 :ATTACH:
+** DONE Problem reading Russian prices file                                              :ATTACH:
    - State "DONE"       [2009-02-15 Sun 23:21]
    :PROPERTIES:
    :Version: 2.6
@@ -2260,7 +2470,7 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :ID: 53ACFFFA-E9DE-4526-ABBD-B38DAE0FBA6F
    :END:
    [2009-11-05 Thu 05:25]
-** DONE Scoping error with the account directive and included files			 :ATTACH:
+** DONE Scoping error with the account directive and included files                      :ATTACH:
    - State "DONE"       from "STARTED"    [2010-05-22 Sat 21:35]
    :LOGBOOK:
    CLOCK: [2010-05-22 Sat 21:14]--[2010-05-22 Sat 21:35] =>  0:21
@@ -2272,7 +2482,7 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :Attachments: timelog.dat a.dat
    :END:
    [2009-12-08 Tue 19:45]
-** DONE Segfault using -M -A bal							 :ATTACH:
+** DONE Segfault using -M -A bal                                                         :ATTACH:
    - State "DONE"       from "TODO"       [2010-01-21 Thu 04:59]
 #+begin_src sh
   ledger --exchange € -M -A bal
@@ -2341,7 +2551,7 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :ID:       64F9D913-75E1-4830-A3D9-29B72442E68B
    :END:
    [2010-02-04 Thu 18:16]
-** DONE The -n option isn't working on this given sample data				 :ATTACH:
+** DONE The -n option isn't working on this given sample data                            :ATTACH:
    - State "DONE"       [2009-02-16 Mon 05:21]
    The following two commands do not generate the correct output:
    :SCRIPT:
@@ -2578,6 +2788,20 @@ D $1,000.00
    :ID: 25E8D531-9B09-4993-A8BB-CD8C5B88CCA5
    :END:
    [2009-02-09 Mon 15:12]
+** DONE [#C] [[bug:338][#338]] Issue with spaces in account names
+   - State "DONE"       from "TODO"       [2010-06-19 Sat 14:02]
+   :PROPERTIES:
+   :ID:       BA07AFA9-DEED-4CB5-936A-E3177A474BFF
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-338-1@http.newartisans.com/bugzilla/][{Bug 338} New: Issue with spaces in account names]]
+   :END:
+   [2010-06-15 Tue 21:57]
+** DONE [#C] [[bug:343][#343]] Journal with only periodic transactions gives an error
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
+   :PROPERTIES:
+   :ID:       926EC43A-2A38-42B5-A1A7-170CAC1AC98F
+   :END:
+   [2010-06-16 Wed 18:15]
 ** DONE [#C] Bug in showing budget balance
    - State "DONE"       [2009-02-24 Tue 15:10]
    I've been playing with budget feature in 2.4.  So far I've learned to make
@@ -2631,7 +2855,7 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: 857E3E86-674C-40CA-BDBD-70DFD477AAE7
    :END:
    [2008-08-14 Thu]
-** CANCELLED [#A] The -V flag is producing a discrepancy when includes are used		 :ATTACH:
+** CANCELLED [#A] The -V flag is producing a discrepancy when includes are used          :ATTACH:
    - State "CANCELLED"  [2009-01-29 Thu 15:26] \\
      This was not a problem in Ledger itself.
    If you comment out AISChecking from main, the bug goes away.
@@ -2658,6 +2882,15 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: 5936E070-F86A-4E52-B165-B70CE24C8109
    :END:
    [2008-07-24 Thu]
+** CANCELLED [[bug:435][#435]] Re-anonymize speed-test.dat
+   - State "CANCELLED"  from "TODO"       [2010-11-26 Fri 13:50] \\
+     I cannot re-anonymize this without the original file.
+   :PROPERTIES:
+   :ID:       98DE6EEC-E711-4C17-B07F-FD527CBC27A6
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :Message:  [[message://AANLkTi%3DNJtdJDwXnqTycnGdMmZq_DnZ8wyPqx56BZ2By@mail.gmail.com][Re: my privacy]]
+   :END:
+   [2010-08-16 Mon 16:31]
 ** CANCELLED Add comprehensive sanity checking to the XML parsers
    - State "CANCELLED"  [2009-02-08 Sun 16:01]
    :PROPERTIES:
@@ -3064,7 +3297,7 @@ Error: Journal does not refer to file ''
    :ID: D27098A4-647A-4EEA-B0B8-3088E069214D
    :END:
    [2008-04-05 Sat]
-** CANCELLED [#C] Trouble reading an ofx file						 :ATTACH:
+** CANCELLED [#C] Trouble reading an ofx file                                            :ATTACH:
    - State "CANCELLED"  [2009-02-15 Sun 23:20]
    I'm using ledger from CVS and am having some trouble reading an OFX file
    that I downloaded from my bank.  The command I'm using is
@@ -3106,7 +3339,7 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :ID: 567B5118-7A77-42B9-A1CD-C5DA688AC406
    :END:
    [2007-10-29 Mon]
-** WONTFIX [[bug:160][#160]] Attached file should print out Unrealized Gains in the report		 :ATTACH:
+** WONTFIX [[bug:160][#160]] Attached file should print out Unrealized Gains in the report            :ATTACH:
    - State "WONTFIX"    from "TODO"       [2010-06-09 Wed 08:15] \\
      The aim of --unrealized is to show how much your unrealized gains or losses
      were, not to balance all possible values.
@@ -3333,6 +3566,16 @@ gcc version 3.4.6 20060404 (MagicLinux 3.4.6-2mgc)
    :END:
    [2010-05-31 Mon 01:13]
 Just output them all in the proper order.
+** WONTFIX [[bug:326][#326]] Strip out quotes in the options parser
+   - State "WONTFIX"    from "TODO"       [2010-06-24 Thu 01:54]
+   This allows people to copy and paste option settings directly into their
+   .ledgerrc file.
+   :PROPERTIES:
+   :ID:       8EB6E995-6815-4EC4-9019-9B162DE27FE1
+   :Submitter: ed <ed.temp.01@gmail.com>
+   :Message:  [[message://1d1ff6f1-3445-4d4b-9ef0-dfd510405e47@u26g2000yqu.googlegroups.com][Re: Init file doesn't support file --input-date-format]]
+   :END:
+   [2010-06-11 Fri 17:25]
 ** WONTFIX Auto-remainder of setting an account's balance broken
    - State "WONTFIX"    from "TODO"       [2010-01-21 Thu 04:29] \\
      This is expected behavior now.
@@ -3464,6 +3707,16 @@ Just output them all in the proper order.
     :Submitter: Peter Ross <peter@emailross.com>
     :END:
     [2010-02-17 Wed 01:39]
+** WORKSFORME [#A] [[bug:332][#332]] Assert failure when using tag in a limit expression
+   SCHEDULED: <2010-06-14 Mon>
+   - State "WORKSFORME" from "TODO"       [2010-06-14 Mon 21:06]
+   - State "TODO"       from "WORKSFORME" [2010-06-14 Mon 17:32]
+   - State "WORKSFORME" from "DONE"       [2010-06-13 Sun 18:59]
+   - State "DONE"       from "TODO"       [2010-06-13 Sun 18:59]
+   :PROPERTIES:
+   :ID:       BD7C93C2-5C20-4A48-9BEE-5E3975D82D34
+   :END:
+   [2010-06-13 Sun 05:32]
 ** WORKSFORME [#A] Corrupted double-linked list in the register report
    - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
    - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:26] \\
@@ -3525,7 +3778,7 @@ Just output them all in the proper order.
    :ID: 9211CFCF-8861-4E60-A501-75B2CB5DE8B1
    :END:
    [2009-09-28 Mon 20:32]
-** WORKSFORME [#A] The --account option is not working for metadata			 :ATTACH:
+** WORKSFORME [#A] The --account option is not working for metadata                      :ATTACH:
    - State "WAITING"    from "STARTED"    [2010-01-18 Mon 02:40] \\
      This is working for me, but I want to confirm with Russell.
    :LOGBOOK:
@@ -3895,6 +4148,18 @@ Just output them all in the proper order.
     :Submitter: thierry <thierry.daucourt@free.fr>
     :END:
     [2010-01-09 Sat 21:05]
+** WORKSFORME [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
+   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
+     To Thomas: I just tried this and it worked fine.  After your "push" command,
+     does the prompt change to a ]]?
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
+   :END:
+   :PROPERTIES:
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :END:
+   [2010-05-30 Sun 03:33]
 ** WORKSFORME [[bug:213][#213]] Balancing problems with fixated commodity prices
    - State "WORKSFORME" from "TODO"       [2010-06-09 Wed 03:37]
    I've been playing with [[http://groups.google.com/group/ledger-cli/browse_thread/thread/e98bee73e279b3af][John's example]]:
@@ -4037,6 +4302,16 @@ Just output them all in the proper order.
    :Message:  [[message://AANLkTimRG8t9ZbYC-vW69egV1uM-0vc26VQsT6JYutGe@mail.gmail.com][Re: credit card]]
    :END:
    [2010-06-09 Wed 18:04]
+** WORKSFORME [[bug:344][#344]] Budgeting behavior changed between 2.6 and 3.0
+   - State "WORKSFORME" from "TODO"       [2010-06-21 Mon 18:51]
+   2.6: http://ericbetts.org/pastebin/d488d0d79
+   3.0: http://ericbetts.org/pastebin/d74668f87
+
+   Why are these two different?
+   :PROPERTIES:
+   :ID:       F5D66D56-36D8-4AD1-85BB-B6E792A5A1DF
+   :END:
+   [2010-06-16 Wed 18:09]
 ** WORKSFORME Balance of virtual transactions depends on amount syntax
    - State "WORKSFORME" from "TODO"       [2010-05-22 Sat 20:49] \\
      This is expected behavior.
@@ -4084,7 +4359,7 @@ ledger -Y --forecast 'T>0' reg food
   :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
   :END:
   [2009-11-25 Wed 04:27]
-** WORKSFORME The print command can generate unbalanced transactions			 :ATTACH:
+** WORKSFORME The print command can generate unbalanced transactions                     :ATTACH:
    - State "WORKSFORME" from "TODO"       [2010-05-22 Sat 18:51] \\
      This was fixed when the print command was rewritten.
    - Note taken on [2010-02-05 Fri 16:49] \\
@@ -4438,7 +4713,7 @@ ledger -f test.ledger -s bal discover
    :ID: 25A099C9-EE9C-42E2-A18A-202DE9B9E157
    :END:
    [2009-02-27 Fri 15:38]
-** TESTED [#A] --budget not including "~ Monthly" entry					 :ATTACH:
+** TESTED [#A] --budget not including "~ Monthly" entry                                  :ATTACH:
    - State "TESTED"     from "WORKSFORME" [2009-11-02 Mon 01:10] \\
      Found this bug and fixed it.
    - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
@@ -4805,7 +5080,7 @@ tim@yggdrasil [/Users/tim]# ledger --forecast 'd<=[2006/08/27]' reg
    :ID: E627C594-A019-4D87-A6B4-C8E75F6D8FC0
    :END:
    [2007-12-10 Mon]
-** TESTED Ledger is still getting confused by trailing whitespace			 :ATTACH:
+** TESTED Ledger is still getting confused by trailing whitespace                        :ATTACH:
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 17:04]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 17:03]
    I just noticed that ledger ist confused by whitespace at the end of
@@ -5227,6 +5502,16 @@ $ ledger -f <DATA> register
    :ID: 5663B55E-43BA-4694-B6C7-3A75E58024FA
    :END:
    [2009-03-06 Fri 17:55]
+** DONE [[bug:367][#367]] Missing install-sh in ledger-2.6.3.tar.gz
+   - State "DONE"       from "TODO"       [2010-07-12 Mon 23:38]
+   - Note taken on [2010-06-28 Mon 23:53] \\
+     He later wrote: [[message://B38200D9-590A-4999-82C7-3182E9B966C4@gmail.com][Re: Improved version of git-changelog]].
+   :PROPERTIES:
+   :ID:       3F1FACAE-CFBF-422B-97F9-274E38B3D448
+   :Submitter: Lionel Young <lionelyoung@gmail.com>
+   :Message:  [[message://op.vewpodevoxqjz7@localhost.localdomain][Missing install-sh in ledger-2.6.3.tar.gz]]
+   :END:
+   [2010-06-28 Mon 23:53]
 ** DONE acprep gives no warning about an unknown phase
    - State "DONE"       from "STARTED"    [2010-01-21 Thu 01:27]
    :LOGBOOK:
@@ -5266,6 +5551,12 @@ $ ledger -f <DATA> register
    :ID: FFA63988-237E-4B2A-AC12-6CA362AEC7B1
    :END:
    [2008-07-24 Thu]
+** DONE Build Ledger with Clang
+   - State "DONE"       from "TODO"       [2010-10-06 Wed 22:01]
+   :PROPERTIES:
+   :ID:       EEA6F9AB-C03D-4FA4-88AF-7FDAC9750598
+   :END:
+   [2010-10-06 Wed 02:25]
 ** DONE Create a MacPorts Portfile for Ledger
    - State "DONE"       [2008-09-28 Sun 17:09]
    :PROPERTIES:
@@ -5560,7 +5851,7 @@ PASS: RegressTests
    :ID: 6B92EE7F-9F6A-452A-B242-347FB9206832
    :END:
    [2008-08-16 Sat]
-** DONE [#C] Ledger proof build is failing						   :Home:
+** DONE [#C] Ledger proof build is failing
    - State "DONE"       from "TODO"       [2010-05-12 Wed 03:12]
    :PROPERTIES:
    :ID:       68319BDB-95AC-4459-BB05-9F04D59EEA7D
@@ -5689,6 +5980,56 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 0DD9D927-7C79-41A4-8D9A-67C00550B67D
    :END:
    [2007-12-10 Mon]
+** NOTE Building Ledger with gcc and Clang on different media
+   Test Machine:
+     Early 2009 Mac Pro
+     8-core 2.26 GHz Core i7
+     24G RAM
+     7200RPMx4 HD
+
+   This is a debug build (the one I do most) of a smallish (30k lines) C++
+   program, which uses a 130M pre-compiled header.  Build times are from a
+   configured tree, but cleaned.
+
+   This does show a slight speed advantage with Clang (this is Clang from
+   about a month ago), and it shows that disk I/O is a minor factor.
+
+   | Filesystem | Opts | Cc    | User    | System |   CPU |   Total |
+   |------------+------+-------+---------+--------+-------+---------|
+   | ZFS RAID10 | -j16 | Clang | 764.22s | 85.30s | 1101% | 1:17.13 |
+   | HFS+ SSD   | -j16 | Clang | 761.80s | 83.02s | 1042% | 1:21.06 |
+   | HFS+ RAM   | -j16 | Clang | 763.11s | 83.91s | 1149% | 1:13.68 |
+   |------------+------+-------+---------+--------+-------+---------|
+   | ZFS RAID10 | -j16 | gcc45 | 865.78s | 67.88s | 1016% | 1:31.85 |
+   | HFS+ SSD   | -j16 | gcc45 | 875.54s | 62.46s |  971% | 1:36.60 |
+   | HFS+ RAM   | -j16 | gcc45 | 868.30s | 61.95s | 1068% | 1:27.06 |
+   :PROPERTIES:
+   :ID:       C1FBC631-4D30-438A-A5D8-10BCC2EEF0D0
+   :VISIBILITY: folded
+   :END:
+   [2010-11-08 Mon 15:30]
+** NOTE Using Visual Studio 2008 to build Ledger for Windows
+   :PROPERTIES:
+   :ID:       88838D10-FBA4-433C-A77D-AB64AC8D47CA
+   :VISIBILITY: folded
+   :END:
+   [2010-06-15 Tue 04:21]
+*** Boost
+    The build is huge, so I'd have to pick out only the parts you actually
+    need which is quite involved. You should be able to get it to work with
+    the binary installers from http://www.boostpro.com/download . I build from
+    source at work because I need to set some compiler flags (disable checked
+    iterators) but that's not necessary for ledger's case. I'm not sure where
+    the installer puts its files, I presume program files/boost or
+    something. There will probably be a directory called 'lib' or 'libs' or
+    something. You go to Tools -> Options -> Projects and Solutions -> VC++
+    Directories and select 'Library files' in the top right corner. In that
+    list you add a new directory, the one where the boost installer's library
+    files are in. If you select 'Include files' in that drop down box, you can
+    immediately set the path to the boost headers, too. These options can also
+    be set on the project level but since they'll be different on different
+    machines I prefer to put them in global settings and document them in the
+    build procedure.
 * Docs
 ** DONE [[bug:194][#194]] Initial example in ledger manual bogus
    - State "DONE"       from "TODO"       [2010-06-09 Wed 04:51]
@@ -5706,6 +6047,14 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :END:
    [2010-04-11 Sun 03:55]
+** DONE [[bug:385][#385]] Syntax error in new ledger3 doc
+   - State "DONE"       from "TODO"       [2010-07-30 Fri 05:02]
+   :PROPERTIES:
+   :ID:       DF8EDC70-262C-4C26-8E1A-C25024378EA8
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-385-1@http.newartisans.com/bugzilla/][{Bug 385} New: Syntax error in new ledger3 doc]]
+   :END:
+   [2010-07-20 Tue 23:21]
 ** DONE [PATCH] Documentation patch for ledger
    - State "DONE"       from "TODO"       [2010-05-28 Fri 01:07]
    :PROPERTIES:
@@ -6041,6 +6390,27 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID:       E0CBC152-938E-4C58-BB7C-F8761A7B6D6B
    :END:
    [2010-06-13 Sun 18:02]
+** DONE [[bug:356][#356]] Budgeting and forecasting should use all periodic entries
+   - State "DONE"       from "TODO"       [2010-06-21 Mon 17:17]
+   :PROPERTIES:
+   :ID:       77FD8EA5-DF69-4959-878E-1D9A95F3788A
+   :END:
+   [2010-06-20 Sun 18:09]
+** DONE [[bug:363][#363]] Make "only" a report query modifier, to match --only
+   - State "DONE"       from "TODO"       [2010-06-24 Thu 00:48]
+   :PROPERTIES:
+   :ID:       36EE7D08-65F1-4619-94F6-22DEA64F92C1
+   :END:
+   [2010-06-22 Tue 20:58]
+** DONE [[bug:364][#364]] Make "for" a special report query modifier, for period strings
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 21:58]
+   #+begin_src sh
+   ledger reg cash for this month
+   #+end_src
+   :PROPERTIES:
+   :ID:       F5487801-6D9E-45F5-AA36-10B59F7A4AD6
+   :END:
+   [2010-06-22 Tue 20:58]
 ** DONE A few changes for the textual parser [4/4]
    - State "DONE"       [2009-02-15 Sun 23:22]
    - [X] Ignore any line like /^\s*;/ as a comment -even in the middle of a
@@ -6067,7 +6437,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: F21E8B63-C6C9-4B09-90B2-2441FBD1F517
    :END:
    [2008-08-26 Tue]
-** DONE Add a "fixedrate COMMODITY AMOUNT" directive					 :ATTACH:
+** DONE Add a "fixedrate COMMODITY AMOUNT" directive                                     :ATTACH:
    - State "DONE"       from "TODO"       [2009-11-25 Wed 04:41]
    - Note taken on [2009-11-24 Tue 22:32] \\
      Russell also needs this for billing miles to the IRC based on rates-per-mile
@@ -6340,7 +6710,7 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 7D8F14BE-4E84-4B40-8C3E-D563B291D4CA
    :END:
    [2008-07-31 Thu]
-** DONE getquote script for UK users							 :ATTACH:
+** DONE getquote script for UK users                                                     :ATTACH:
    This is a little python file for downloading quotes for UK shares and unit
    trusts. An unusual wrinkle is that UK shares must have ".L" in them - but
    Ledger doesn't support this kind of format.
@@ -6687,6 +7057,17 @@ DATE Reconciled statement
    :ID:       D8623268-D229-49A3-83A7-6C77010FC4A1
    :END:
    [2010-06-02 Wed 03:47]
+** DONE [#C] [[bug:293][#293]] Option --bold-if
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   Which will bold the whole transaction line if it matches the given predicate
+   :PROPERTIES:
+   :Version: 2.6
+   :Ticket: 154
+   :ID: 3D04C70F-422D-4CEC-BC4A-B177C76D834A
+   :END:
+   [2008-04-11 Fri]
 ** DONE [#C] Add a --depth=X opton, which is equivalent to -l 'depth<=X'
    - State "DONE"       [2009-02-25 Wed 04:01]
    :PROPERTIES:
@@ -7525,7 +7906,7 @@ Error: A posting's cost may not be negative
    :Message:  [[message://20100104044948.GA14665@atom][problems compiling with python support on debian squeeze]]
    :END:
    [2010-01-09 Sat 21:07]
-** WORKSFORME [#A] [[bug:184][#184]] For those interested in the Python support		:blocker:
+** WORKSFORME [#A] [[bug:184][#184]] For those interested in the Python support                      :blocker:
    - State "WORKSFORME" from "TODO"       [2010-06-08 Tue 17:26] \\
      This can happen if the Python that Ledger is linked to is not the same as the
      Python that your libboost_python is linked to.
@@ -7549,6 +7930,14 @@ Error: A posting's cost may not be negative
    :END:
    [2010-03-26 Fri 22:24]
 * Build
+** DONE [#A] [[bug:346][#346]] Release Ledger 2.6.3
+   - State "DONE"       from "TODO"       [2010-06-19 Sat 06:53]
+   :PROPERTIES:
+   :ID:       5C68774D-05F7-49A6-990B-EAA889F73B20
+   :Submitter: Brent Pinkney <brp@4dst.com>
+   :Message:  [[message://201006161241.33330.brp@4dst.com][Ledger 2.6.1 - patches for gcc 4.4.3]]
+   :END:
+   [2010-06-16 Wed 18:17]
 ** DONE [[bug:215][#215]] Compile fails for version 3.0
    - State "DONE"       from "TODO"       [2010-06-02 Wed 18:45] \\
      This was a problem with universal binaries, so I've turned them off by default
@@ -7567,7 +7956,7 @@ Error: A posting's cost may not be negative
    :Message:  [[message://bug-321-1@http.newartisans.com/bugzilla/][{Bug 321} New: vim syntax doesn't support tag/pop]]
    :END:
    [2010-06-10 Thu 22:37]
-** DONE [[bug:324][#324]] Get the CentOS build working for orc_emac                                     :Home:
+** DONE [[bug:324][#324]] Get the CentOS build working for orc_emac
    SCHEDULED: <2010-06-13 Sun>
    - State "DONE"       from "TODO"       [2010-06-14 Mon 03:25]
    - Note taken on [2010-06-12 Sat 04:55] \\
@@ -7576,13 +7965,99 @@ Error: A posting's cost may not be negative
    :ID:       1A96B0D0-C427-4193-A204-F4C217BD6A44
    :END:
    [2010-06-10 Thu 16:01]
+** DONE [[bug:328][#328]] Build Ledger with Visual Studio
+   - State "DONE"       from "TODO"       [2010-06-15 Tue 05:24]
+   1. Some compiler warnings. There are a number of contructs where VS is more
+      fussy about than gcc. I have disabled these specific warnings, which I
+      think is fine, especially for the ones where there is no direct Unix
+      equivalent.
+      - Warning: force int to bool, performance penalty. In many places in the
+        code, ints and bools are directly compared or used in single
+        expressions which apparently can (or could in the past) cause a
+        performance degradation as it would require a few more instructions to
+        do the comparison with an int. I think it's safe to ignore this
+        warning; I've disabled it in the project files.
+      - Unused variables. Mostly in catch() blocks, the 'err' variable is
+        hardly ever used. Can ignore this too, I think.
+      - Mixing of struct and class. In many places, forward declarations
+        happen as class while the actual declaration is as struct. Only
+        difference is the default visibility; if I change everything to be
+        'class' I get errors on accessing private members. I'm not sure if the
+        standard prescribes what should happen in this case, I've just changed
+        everything to 'struct' and now it compiles fine. This is mostly a
+        stylistic issue, I'll leave that to you to decide.
+      - str_xxx functions. Those are deprecated in VS because they're
+        potentially unsafe; replacements with a _s suffix are provided. Since
+        those are not portable I suggest we ignore these warnings; I've
+        disabled them in the project properties.
+      - Cast from uint_least32_t for SHA1::Result. In 2 or 3 places (in
+        utils.cc, filters.cc, utils.h) I had to add a cast to uint* like this:
+        #+begin_src c++
+        sha.Result((unsigned int*)message_digest);
+        #+end_src
+        Is this ok? I'm not quite sure why uint_least32_t[] was used here in
+        the first place?
+   2. Missing preprocessor defines. The code uses PACKAGE_VERSION and VERSION
+      precompiler constants. Can you explain where they come from?  (I mean I
+      guess they come from the build chain, but where are their values taken
+      from?) For now I've manually set them to 'next' in the project
+      configuration but I guess they should automatically use the correct one.
+   3. Another minor stylistic issue is the mixing of tabs and spaces. The code
+      is quite hard to read in some places because the spaces seem to assume
+      an indent of 2, but the tab width is set to 4 (by default) on VS. I
+      don't know anyone who ever changes it either. So this is really minor
+      but it would be nice if all tabs could be replaced with 2 spaces, or
+      tabs would be used consistently.
+   4. Now we get to the real problems. There are a few places where real
+      Unix constructs are used that have no equivalent in Wnidows.
+      - In visit_man_page, fork() is used. It looks like this is only for
+        showing the man page though. I suggest an #ifdef where the Windows
+        version opens a browser with the documentation, considering there is
+        no such thing as man on Windows.
+      - stream.cc uses pipes and forks for the 'pager' functionality.  Could
+        you explain what this does? Is this required on Windows? I've
+        commented it out for now.
+      - main.cc sets a handler for the SIGPIPE signal which doesn't exist on
+        Windows. I've put that in a #ifdef _WIN32 section, seems the
+        reasonable thing to do.
+   5. Python integration. The py_ files don't seem to have a way to be
+      disabled through the preprocessor; I guess the Unix build chain compiles
+      them or not based on the ./configure options. I have left them out of
+      the project for now. It's been a long time since I embedded Python
+      somewhere, I'd have to look into this a bit deeper.
+   6. amount.cc uses mpfr_asprintf . I got an error from the linker that the
+      implementation of this was not found. I can't find it in my mpfr sources
+      either. I've replaced it with gmp_asprintf and now it compiles and links
+      fine. I'm not familiar with all of these libraries, is this the same
+      function with a different name? Did I screw something up in configuring
+      mpfr?
+   7. Lastly, I haven't run the tests yet. The program itself compiles and
+      runs fine (ledger --help, that is - haven't tried any real
+      functionality) but the next step would be for me to test if all
+      functionality works as expected. I see a bunch of python and c++ code in
+      the test directory; do I need python to run any tests at all or can I
+      skip those and focus on the cpp tests first?
+   :PROPERTIES:
+   :ID:       69F46250-CB1D-40C2-AC4A-39AB4E366310
+   :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
+   :Message:  [[message://AANLkTilNxUsD8glzKcEWW4fQ56uGF5GlPOmMWA1oPM3_@mail.gmail.com][Building Ledger with VS (was: Re: Help: How do I start?)]]
+   :END:
+   [2010-06-11 Fri 17:23]
+** DONE [[bug:331][#331]] [MacPorts] #25213: ledger-devel Portfile
+   - State "DONE"       from "TODO"       [2010-06-15 Tue 08:25]
+   :PROPERTIES:
+   :ID:       59444116-2810-4073-BE96-52DA023CC540
+   :Submitter: MacPorts <noreply@macports.org>
+   :Message:  [[message://063.0b8b1c6b9c8651a8e3a62880f1596b01@macports.org][Re: {MacPorts} #25213: ledger-devel Portfile]]
+   :END:
+   [2010-06-11 Fri 22:26]
 ** DONE Keep logging on for NDEBUG builds
    - State "DONE"       from "TODO"       [2010-06-05 Sat 03:38]
    :PROPERTIES:
    :ID:       7D51AB9B-71FB-476F-AFE4-7F4C1C543A41
    :END:
    [2010-06-04 Fri 06:36]
-** DONE [#C] Ledger's proof build is failing						   :Home:
+** DONE [#C] Ledger's proof build is failing
    - State "DONE"       from "STARTED"    [2010-06-02 Wed 00:31]
    :LOGBOOK:
    CLOCK: [2010-06-01 Tue 20:43]--[2010-06-02 Wed 00:31] =>  3:48
@@ -7625,7 +8100,30 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: 427F8D8D-39CB-47ED-8438-BF07BBBE6672
    :END:
    [2009-04-24 Fri 17:13]
+** WORKSFORME [#A] [[bug:162][#162]] sm is seeing a segfault with the register command               :blocker:
+   - State "WORKSFORME" from "TODO"       [2010-06-17 Thu 20:49]
+   - State "TODO"       from "WORKSFORME" [2010-06-16 Wed 18:47]
+   - State "WORKSFORME" from "TODO"       [2010-06-06 Sun 03:22] \\
+     This now works fine for me.
+   - Note taken on [2009-12-06 Sun 06:05] \\
+     It happens on Leopard for me in a virtual machine.
+   - Note taken on [2009-11-25 Wed 04:40] \\
+     This is happening because boost::regex is constructing a bad object.
+   :PROPERTIES:
+   :ID:       46196FD4-B82B-4633-A728-94D0FFB65F69
+   :Message:  [[message://hef2ir$tuh$1@ger.gmane.org][register segfault with recent build]]
+   :Submitter: Simon Michael <simon@joyful.com>
+   :END:
+   [2009-11-24 Tue 22:13]
 * Tests
+** DONE [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
+   - State "DONE"       from "TODO"       [2010-06-18 Fri 19:47]
+   - State "TODO"       from "STARTED"    [2010-06-16 Wed 03:54]
+   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:12]
+   :PROPERTIES:
+   :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
+   :END:
+   [2010-05-31 Mon 01:14]
 ** DONE [[bug:317][#317]] Ledger is still failing the higher-numbered generation seed tests
    - State "DONE"       from "DEFERRED"   [2010-06-12 Sat 05:29]
    - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
@@ -7633,6 +8131,12 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: B9C429C8-A894-48FE-9C8D-8068E2467D75
    :END:
    [2009-03-03 Tue 15:47]
+** DONE [[bug:357][#357]] The parallelized RegressTests no longer notices errors
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
+   :PROPERTIES:
+   :ID:       943839DB-32DF-4807-9589-BA4173FA193A
+   :END:
+   [2010-06-20 Sun 18:36]
 ** DONE Abstract RegressTests.py (was: opt-lots should use input/wow.dat)
    - State "DONE"       [2009-03-03 Tue 03:18]
    This means that RegressTests.py needs to be sensitive to whether -f was
@@ -7644,6 +8148,12 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :ID: AEEB769E-9D44-428A-A028-D88E79D76B8D
    :END:
    [2009-02-28 Sat 06:17]
+** DONE BOOST_FOREACH is causing many invalid branch coverage failures
+   - State "DONE"       from "TODO"       [2010-06-16 Wed 03:52]
+   :PROPERTIES:
+   :ID:       24D76FE5-1E7B-4889-B447-2C02EFB1D019
+   :END:
+   [2010-06-15 Tue 17:12]
 ** DONE Can't build tests with -j3
    - State "DONE"       [2009-03-08 Sun 18:46]
    :OUTPUT:
@@ -7750,6 +8260,12 @@ make: *** [release-distcheck] Error 2
    :ID: C89561FB-C59F-43EE-AD70-AFC01EF93F2A
    :END:
    [2009-03-09 Mon 05:26]
+** DONE Write a utility to measure commenting level of functions
+   - State "DONE"       from "TODO"       [2010-06-16 Wed 03:52]
+   :PROPERTIES:
+   :ID:       9A0E5877-6D16-4328-8265-427A3F7B76B2
+   :END:
+   [2010-06-15 Tue 17:11]
 ** DONE Write an "xact generator", to create random xacts for testing
    - State "DONE"       [2009-02-27 Fri 04:11]
    :PROPERTIES:
@@ -8011,6 +8527,18 @@ make: *** [release-distcheck] Error 2
    :ID:       849EB210-BEEB-4FDE-A90C-688400D55ECE
    :END:
    [2009-12-29 Tue 16:07]
+** DONE [#C] [[bug:202][#202]] doc/NEWS and xml
+   - State "DONE"       from "TODO"       [2010-06-15 Tue 08:42] \\
+     This comment is no longer in the NEWS file.
+   doc/NEWS claims that the xml command was removed but it's still there (at
+   least "ledger -f foo.dat xml" works; maybe you meant a different xml
+   command?).
+   :PROPERTIES:
+   :ID:       130C2697-1601-488A-B0D7-2422CF50CB86
+   :Message:  [[message://20100322161529.GA7030@jirafa.cyrius.com][doc/NEWS and xml]]
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :END:
+   [2010-03-26 Fri 22:22]
 ** DONE [#C] [[bug:208][#208]] Special characters in manual don't show up in PDF
    - State "DONE"       from "TODO"       [2010-06-14 Mon 08:16] \\
      With modern versions of Texinfo, this should now work.  I was able to see
