@@ -1,7 +1,7 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content fninline hidestars
-#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
+#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
 #+TAGS: Call(c) Errand(e) Home(h) Net(n) Fun(f) LINK(l) NOTE(N) blocker(B) critical(C)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
 #+LINK: bug http://newartisans.com/bugzilla/show_bug.cgi?id=
@@ -2855,8 +2855,8 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: 857E3E86-674C-40CA-BDBD-70DFD477AAE7
    :END:
    [2008-08-14 Thu]
-** CANCELLED [#A] The -V flag is producing a discrepancy when includes are used          :ATTACH:
-   - State "CANCELLED"  [2009-01-29 Thu 15:26] \\
+** CANCELED [#A] The -V flag is producing a discrepancy when includes are used           :ATTACH:
+   - State "CANCELED"  [2009-01-29 Thu 15:26] \\
      This was not a problem in Ledger itself.
    If you comment out AISChecking from main, the bug goes away.
    :SCRIPT:
@@ -2869,21 +2869,21 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: A98BFCBA-012D-4E18-9CBB-4D880CDBFE7E
    :END:
    [2008-10-05 Sun 20:59]
-** CANCELLED 'derive_new_xact' shouldn't add accounts to the journal
-   - State "CANCELLED"  [2009-02-16 Mon 05:18]
+** CANCELED 'derive_new_xact' shouldn't add accounts to the journal
+   - State "CANCELED"  [2009-02-16 Mon 05:18]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 119
    :ID: F229CDEA-1AED-4DBB-8DB6-24BEF30FC1E6
    :END:
-** CANCELLED --debug isn't taking a regular expression
-   - State "CANCELLED"  [2009-02-15 Sun 23:18]
+** CANCELED --debug isn't taking a regular expression
+   - State "CANCELED"  [2009-02-15 Sun 23:18]
    :PROPERTIES:
    :ID: 5936E070-F86A-4E52-B165-B70CE24C8109
    :END:
    [2008-07-24 Thu]
-** CANCELLED [[bug:435][#435]] Re-anonymize speed-test.dat
-   - State "CANCELLED"  from "TODO"       [2010-11-26 Fri 13:50] \\
+** CANCELED [[bug:435][#435]] Re-anonymize speed-test.dat
+   - State "CANCELED"  from "TODO"       [2010-11-26 Fri 13:50] \\
      I cannot re-anonymize this without the original file.
    :PROPERTIES:
    :ID:       98DE6EEC-E711-4C17-B07F-FD527CBC27A6
@@ -2891,14 +2891,14 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :Message:  [[message://AANLkTi%3DNJtdJDwXnqTycnGdMmZq_DnZ8wyPqx56BZ2By@mail.gmail.com][Re: my privacy]]
    :END:
    [2010-08-16 Mon 16:31]
-** CANCELLED Add comprehensive sanity checking to the XML parsers
-   - State "CANCELLED"  [2009-02-08 Sun 16:01]
+** CANCELED Add comprehensive sanity checking to the XML parsers
+   - State "CANCELED"  [2009-02-08 Sun 16:01]
    :PROPERTIES:
    :ID: E2AC23FB-CCCF-4B2A-A925-43BD74EE30B0
    :END:
    [2009-01-24 Sat 04:47]
-** CANCELLED Add to the commodity flags in the XML data
-   - State "CANCELLED"  [2009-02-08 Sun 16:04]
+** CANCELED Add to the commodity flags in the XML data
+   - State "CANCELED"  [2009-02-08 Sun 16:04]
    ... whether it should never be downloaded or not (N).
    :PROPERTIES:
    :Version: 2.6
@@ -2906,8 +2906,8 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: FEAD4FEA-64FC-4DCA-8653-1C29DC6BC66E
    :END:
    [2008-04-11 Fri]
-** CANCELLED Another problem with XML output
-   - State "CANCELLED"  [2009-02-08 Sun 16:04]
+** CANCELED Another problem with XML output
+   - State "CANCELED"  [2009-02-08 Sun 16:04]
    [[message://20060918231625.11184.qmail@web30708.mail.mud.yahoo.com][Re: Ledger 3 XML processing]]
    :PROPERTIES:
    :Version: 2.6
@@ -2915,15 +2915,15 @@ $ ledger -Bs --budget -p "next month" bal ^inc ^exp
    :ID: 0AC36F03-A438-4547-8764-E2B90F6E2A1C
    :END:
    [2008-04-11 Fri]
-** CANCELLED bal -l 'depth<=2' has no effect in the REPL
-   - State "CANCELLED"  [2009-03-03 Tue 03:02] \\
+** CANCELED bal -l 'depth<=2' has no effect in the REPL
+   - State "CANCELED"  [2009-03-03 Tue 03:02] \\
      It's because the REPL isn't honoring shell quoting syntax
    :PROPERTIES:
    :ID: 6DD90AF2-0088-4E4E-ACE4-FDD373B921A6
    :END:
    [2009-02-24 Tue 12:11]
-** CANCELLED Binary cache is invalidated if LEDGER_FILE is changed
-   - State "CANCELLED"  [2009-02-08 Sun 15:59]
+** CANCELED Binary cache is invalidated if LEDGER_FILE is changed
+   - State "CANCELED"  [2009-02-08 Sun 15:59]
    - State "DEFERRED"   [2008-09-17 Wed 05:06] \\
      This bug is deferred until 3.0, since it is so rare there is no need to change
      it just yet.
@@ -2941,14 +2941,14 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: C65875E1-CF5D-4923-8546-9784EB08AC9D
    :END:
    [2008-08-05 Tue]
-** CANCELLED Change Ledger to use shave
-   - State "CANCELLED"  [2009-02-24 Tue 01:01]
+** CANCELED Change Ledger to use shave
+   - State "CANCELED"  [2009-02-24 Tue 01:01]
    :PROPERTIES:
    :ID: 54DAEF67-80D7-402A-BAF2-36EF86064DCD
    :END:
    [2009-02-24 Tue 00:22]
-** CANCELLED Command output-xml
-   - State "CANCELLED"  [2009-02-08 Sun 16:04]
+** CANCELED Command output-xml
+   - State "CANCELED"  [2009-02-08 Sun 16:04]
    As a corollary to the output command, have an output-xml command, which
    writes a complete Ledger file (including all automated xacts, etc) to an
    XML file.
@@ -2958,60 +2958,60 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: 5D17A372-FB03-4E1D-9917-113E10211880
    :END:
    [2008-04-11 Fri]
-** CANCELLED Create an options_t object for inside of report_t
-   - State "CANCELLED"  [2009-02-19 Thu 14:47]
+** CANCELED Create an options_t object for inside of report_t
+   - State "CANCELED"  [2009-02-19 Thu 14:47]
    :PROPERTIES:
    :ID: 8984D061-9749-4543-A5DB-C4B239F16F55
    :END:
    [2009-02-15 Sun 05:08]
-** CANCELLED CSV output needs a column for every commodity
-   - State "CANCELLED"  [2009-02-08 Sun 02:30]
+** CANCELED CSV output needs a column for every commodity
+   - State "CANCELED"  [2009-02-08 Sun 02:30]
    :PROPERTIES:
    :ID: 1DB41F13-E745-4081-8DEA-57F986EF8113
    :END:
    [2009-02-07 Sat 16:12]
-** CANCELLED Don't make uncommoditized amounts display differently
-   - State "CANCELLED"  from "TODO"       [2009-10-27 Tue 22:03]
+** CANCELED Don't make uncommoditized amounts display differently
+   - State "CANCELED"  from "TODO"       [2009-10-27 Tue 22:03]
    :PROPERTIES:
    :ID: 677CB18D-C7EE-446A-8123-57D80E3EFDD4
    :END:
    [2009-10-23 Fri 06:13]
-** CANCELLED Finish implementing QIF parser, and document its use
-   - State "CANCELLED"  [2009-02-08 Sun 16:05]
+** CANCELED Finish implementing QIF parser, and document its use
+   - State "CANCELED"  [2009-02-08 Sun 16:05]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 113
    :ID: F7FFB324-9AC2-42A6-A6DD-38C02F30BEF7
    :END:
    [2008-04-11 Fri]
-** CANCELLED Finish my tickets script, so that I post from Org to Unfuddle
-   - State "CANCELLED"  [2009-03-06 Fri 04:12]
+** CANCELED Finish my tickets script, so that I post from Org to Unfuddle
+   - State "CANCELED"  [2009-03-06 Fri 04:12]
    :PROPERTIES:
    :ID: 988239F0-3A75-4C6E-B12B-0701DFE173F1
    :END:
    [2009-03-01 Sun 05:23]
-** CANCELLED Get gdtoa's tests working under "make check"
-   - State "CANCELLED"  [2009-02-08 Sun 16:01]
+** CANCELED Get gdtoa's tests working under "make check"
+   - State "CANCELED"  [2009-02-08 Sun 16:01]
    :PROPERTIES:
    :ID: 51B006B4-E3B4-41B6-865F-5E81926F8F73
    :END:
    [2009-01-23 Fri 18:36]
-** CANCELLED Give an error if --input-date-format contains a space (or should it?)
-   - State "CANCELLED"  [2009-02-20 Fri 13:08]
+** CANCELED Give an error if --input-date-format contains a space (or should it?)
+   - State "CANCELED"  [2009-02-20 Fri 13:08]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 144
    :ID: 60B631E4-9819-4460-ABC0-6B789865646D
    :END:
-** CANCELLED Have ledger.el only use fancy TAB if there are no accounts
-   - State "CANCELLED"  [2009-02-15 Sun 23:17] \\
+** CANCELED Have ledger.el only use fancy TAB if there are no accounts
+   - State "CANCELED"  [2009-02-15 Sun 23:17] \\
      I don't use fancy TAB, now it's fancy C-u TAB.
    :PROPERTIES:
    :ID: 545A16E5-49BE-44DB-AFAF-F0ABA87BF29E
    :END:
    [2009-02-12 Thu 19:12]
-** CANCELLED Ledger doesn't know how to find include files for stdin
-   - State "CANCELLED"  from "TODO"       [2010-05-22 Sat 18:20] \\
+** CANCELED Ledger doesn't know how to find include files for stdin
+   - State "CANCELED"  from "TODO"       [2010-05-22 Sat 18:20] \\
      How could this be fixed without requiring a standard set of directories?
    If I have a file with relative includes and I pipe it to Ledger through
    stdin, it never knows how to find those includes.
@@ -3019,8 +3019,8 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID:       6F274577-80C7-42B1-923C-109F3BD5B8E2
    :END:
    [2010-04-11 Sun 14:18]
-** CANCELLED Ledger is crashing on Thomas' computer when -O2 is used
-   - State "CANCELLED"  [2009-02-19 Thu 14:46]
+** CANCELED Ledger is crashing on Thomas' computer when -O2 is used
+   - State "CANCELED"  [2009-02-19 Thu 14:46]
    - Note taken on [2008-10-26 Sun 00:44] \\
      When putting printf statements, the statements in my main() routine are
      executed up till the one right before the parse_and_report call. In the
@@ -3032,8 +3032,8 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: 00DA5F10-6B76-4CB0-89E3-152A80BFBCED
    :END:
    [2008-10-06 Mon 19:15]
-** CANCELLED Make !rex reverse a regexp
-   - State "CANCELLED"  [2009-01-29 Thu 15:33] \\
+** CANCELED Make !rex reverse a regexp
+   - State "CANCELED"  [2009-01-29 Thu 15:33] \\
      I now use "not rex".
    This is instead of -rex, allowing options to appear anywhere on the line.
    It also means that something has to be done about the meaning of "--".
@@ -3041,16 +3041,16 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: 72B2202C-EC63-4A2E-A5C9-0C9A4991FB06
    :END:
    [2008-08-14 Thu]
-** CANCELLED Make balance assertions be partly date dependent
-   - State "CANCELLED"  from "TODO"       [2010-02-05 Fri 00:02]
+** CANCELED Make balance assertions be partly date dependent
+   - State "CANCELED"  from "TODO"       [2010-02-05 Fri 00:02]
    They should be date dependent for differing days, but for transaction on
    the same day, they should be order dependent.
    :PROPERTIES:
    :ID:       E1B3CE9A-6305-4FFD-B916-6DF6D418A4B7
    :END:
    [2010-02-04 Thu 17:04]
-** CANCELLED Make balance assignment failures into a warning
-   - State "CANCELLED"  from "DONE"       [2009-11-02 Mon 01:41] \\
+** CANCELED Make balance assignment failures into a warning
+   - State "CANCELED"  from "DONE"       [2009-11-02 Mon 01:41] \\
      Instead, I've split this into assignments vs. assertions, where assertions are
      errors.
    - State "DONE"       from "TODO"       [2009-10-26 Mon 19:54]
@@ -3058,14 +3058,14 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: B3F65D45-C77F-4E01-A8FC-3EDC92A9CB45
    :END:
    [2009-10-23 Fri 06:13]
-** CANCELLED Make every Ledger object able to render itself as XML
-   - State "CANCELLED"  [2009-02-08 Sun 16:01]
+** CANCELED Make every Ledger object able to render itself as XML
+   - State "CANCELED"  [2009-02-08 Sun 16:01]
    :PROPERTIES:
    :ID: B25DC71B-87DB-453F-87E9-D2015CCBAB26
    :END:
    [2009-01-24 Sat 04:01]
-** CANCELLED Nuke the doc/INSTALL file, since it's not accurate
-   - State "CANCELLED"  [2009-03-19 Thu 03:41]
+** CANCELED Nuke the doc/INSTALL file, since it's not accurate
+   - State "CANCELED"  [2009-03-19 Thu 03:41]
    :PROPERTIES:
    :ID: A441A43B-25F6-42C4-B950-CF54A7C55F6F
    :ARCHIVE_TIME: 2009-04-12 Sun 20:34
@@ -3073,8 +3073,8 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :END:
    [2009-03-11 Wed 18:58]
 
-** CANCELLED Odditing in name of XML namespaces in Ledger
-   - State "CANCELLED"  [2009-02-08 Sun 16:05]
+** CANCELED Odditing in name of XML namespaces in Ledger
+   - State "CANCELED"  [2009-02-08 Sun 16:05]
    [[message://20060304.181355.96677625.arb46@cornell.edu][e-mail]] one
    [[message://20060802015747.27838.qmail@web30706.mail.mud.yahoo.com][e-mail]] two
    :PROPERTIES:
@@ -3083,14 +3083,14 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: 9F69B516-9F57-4204-9EF2-BA0AB42B1401
    :END:
    [2008-04-11 Fri]
-** CANCELLED Pass the default report object into the textual parser
-   - State "CANCELLED"  from "TODO"       [2009-11-05 Thu 04:17]
+** CANCELED Pass the default report object into the textual parser
+   - State "CANCELED"  from "TODO"       [2009-11-05 Thu 04:17]
    :PROPERTIES:
    :ID: 048E2C5A-8AFA-4CF2-A1E6-F8693F96A9EE
    :END:
    [2009-11-02 Mon 15:50]
-** CANCELLED Periodic budgeting problem when Yxxxx is used
-   - State "CANCELLED"  [2009-02-24 Tue 04:07]
+** CANCELED Periodic budgeting problem when Yxxxx is used
+   - State "CANCELED"  [2009-02-24 Tue 04:07]
    Yeah, it works as expected for me as well.  I have since changed my ledger
    files to use YYYY/MM/DD strings.  In the past I was using the Yxxxx
    directive with MM/DD strings for each entry.  That might have had something
@@ -3102,8 +3102,8 @@ export LEDGER_FILE=/home/albino/temp/ledger/sample.dat
    :ID: F2FC7C2B-0CB1-47E7-AE2E-C9E744A47927
    :END:
    [2007-12-10 Mon]
-** CANCELLED Problem with piping input to ledger
-   - State "CANCELLED"  [2009-02-19 Thu 14:49]
+** CANCELED Problem with piping input to ledger
+   - State "CANCELED"  [2009-02-19 Thu 14:49]
    I decided to just go ahead and push my whole ledger file through "print".
    At first I had been a little nervous about the possibility that I might goof
    up somehow and lose some data.  But it seems to have worked okay: I did a
@@ -3180,8 +3180,8 @@ Error: Journal does not refer to file ''
    :ID: D3820740-8BFB-4234-8125-DE813A713032
    :END:
    [2007-12-10 Mon]
-** CANCELLED Rationalize register and balance total calculation
-   - State "CANCELLED"  [2009-03-03 Tue 03:02]
+** CANCELED Rationalize register and balance total calculation
+   - State "CANCELED"  [2009-03-03 Tue 03:02]
    Rather than keeping the running total for the register report in each
    posting's xdata, perhaps it should be kept in the grand total for the master
    account?
@@ -3189,8 +3189,8 @@ Error: Journal does not refer to file ''
    :ID: E242CF42-062A-4B4C-A1A8-390465448F73
    :END:
    [2009-03-02 Mon 16:11]
-** CANCELLED There are a few thorny issues remaining with the binary cache
-   - State "CANCELLED"  [2009-02-08 Sun 16:06]
+** CANCELED There are a few thorny issues remaining with the binary cache
+   - State "CANCELED"  [2009-02-08 Sun 16:06]
    1. What happens to value expressions that have been compiled?  The FUNCTION
       operand must remember the name of the function it was compiled to; but
       even then, how can I recompile and maintain the same environment as the
@@ -3203,15 +3203,15 @@ Error: Journal does not refer to file ''
    :ID: 69B51A07-5E5F-42F9-AB97-CEECAF4BB085
    :END:
    [2008-08-15 Fri]
-** CANCELLED Use &lt; when writing out XML, instead of <
-   - State "CANCELLED"  [2009-02-08 Sun 16:06]
+** CANCELED Use &lt; when writing out XML, instead of <
+   - State "CANCELED"  [2009-02-08 Sun 16:06]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 143
    :ID: BD664021-204A-4F16-B4F7-3ECEBA808530
    :END:
-** CANCELLED Using -f - gives drewr a bus error
-   - State "CANCELLED"  [2009-02-15 Sun 23:18]
+** CANCELED Using -f - gives drewr a bus error
+   - State "CANCELED"  [2009-02-15 Sun 23:18]
    - State "TODO"       [2009-02-11 Wed 03:53]
    - State "STARTED"    [2009-02-10 Tue 05:50] \\
      I was unable to reproduce this.
@@ -3219,8 +3219,8 @@ Error: Journal does not refer to file ''
    :ID: D4C96EA8-57B3-43D8-A136-8FDB2309B011
    :END:
    [2009-02-10 Tue 00:55]
-** CANCELLED [#C] Budgeting oddness
-   - State "CANCELLED"  [2009-03-03 Tue 05:20]
+** CANCELED [#C] Budgeting oddness
+   - State "CANCELED"  [2009-03-03 Tue 05:20]
    - State "WAITING"    [2009-02-24 Tue 15:08] \\
      I'm waiting on Tim to get back to me.
    I am trying to understand the budgeting information in the ledger
@@ -3276,8 +3276,8 @@ Error: Journal does not refer to file ''
    :ID: D112A53E-1D18-44F4-8B9E-6224A4EC8F72
    :END:
    [2007-12-10 Mon]
-** CANCELLED [#C] Preserve file comments in the XML output
-   - State "CANCELLED"  [2009-02-08 Sun 16:07]
+** CANCELED [#C] Preserve file comments in the XML output
+   - State "CANCELED"  [2009-02-08 Sun 16:07]
    I would like to use the XML format for doing some transformations to my
    data. Not just reformatting for reporting, but actual changes to my data.
 
@@ -3297,8 +3297,8 @@ Error: Journal does not refer to file ''
    :ID: D27098A4-647A-4EEA-B0B8-3088E069214D
    :END:
    [2008-04-05 Sat]
-** CANCELLED [#C] Trouble reading an ofx file                                            :ATTACH:
-   - State "CANCELLED"  [2009-02-15 Sun 23:20]
+** CANCELED [#C] Trouble reading an ofx file                                             :ATTACH:
+   - State "CANCELED"  [2009-02-15 Sun 23:20]
    I'm using ledger from CVS and am having some trouble reading an OFX file
    that I downloaded from my bank.  The command I'm using is
    :OUTPUT:
@@ -3314,8 +3314,8 @@ Error: Please specify ledger file using -f or LEDGER_FILE environment variable.
    :Attachments: 20060630-xxxxxx0779.ofx
    :END:
    [2007-12-10 Mon]
-** CANCELLED [#C] Using --reconcile with -20 causes a segmentation fault
-   - State "CANCELLED"  [2009-02-15 Sun 23:19]
+** CANCELED [#C] Using --reconcile with -20 causes a segmentation fault
+   - State "CANCELED"  [2009-02-15 Sun 23:19]
    Using the trunk version:
    :OUTPUT:
 ./ledger -f sample.dat --reconcile -20.00 --reconcile-date 2007/05/27 reg master
@@ -5857,36 +5857,36 @@ PASS: RegressTests
    :ID:       68319BDB-95AC-4459-BB05-9F04D59EEA7D
    :END:
    [2010-05-10 Mon 00:02]
-** CANCELLED Accept multiple phases in acprep if they can be recognized as such
-   - State "CANCELLED"  from "DEFERRED"   [2009-10-22 Thu 07:35]
+** CANCELED Accept multiple phases in acprep if they can be recognized as such
+   - State "CANCELED"  from "DEFERRED"   [2009-10-22 Thu 07:35]
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:08]
    :PROPERTIES:
    :ID: B8B9F5ED-32F0-4BFA-8E84-6B0F6064E88A
    :END:
    [2009-03-10 Tue 16:29]
-** CANCELLED Create a fully static binary for OS X
-   - State "CANCELLED"  [2009-03-08 Sun 04:30]
+** CANCELED Create a fully static binary for OS X
+   - State "CANCELED"  [2009-03-08 Sun 04:30]
    :PROPERTIES:
    :ID: 0ECCBFEB-C2F6-4F13-95C4-95D835E7030C
    :END:
    [2009-02-21 Sat 15:20]
-** CANCELLED Create a Puppet script for setting up a Ledger build slave
-   - State "CANCELLED"  [2009-03-08 Sun 04:30]
+** CANCELED Create a Puppet script for setting up a Ledger build slave
+   - State "CANCELED"  [2009-03-08 Sun 04:30]
    This should work for any platform, so that I can fire up a virtual
    buildslave on Solaris, Ubuntu, CentOS, OS X, etc.
    :PROPERTIES:
    :ID: 2599B64E-7888-4E56-9C46-718EFEF822BA
    :END:
    [2008-09-04 Thu]
-** CANCELLED Devise a way to publish the Buildbot ledger builds
-   - State "CANCELLED"  from "TODO"       [2009-06-16 Tue 17:08]
+** CANCELED Devise a way to publish the Buildbot ledger builds
+   - State "CANCELED"  from "TODO"       [2009-06-16 Tue 17:08]
    Michal Wallace has offered hosting space: [[message://3226fffd-f75a-4a17-8df0-34ee4d5f227f@m36g2000hse.googlegroups.com][buildbot but no builds?]]
    :PROPERTIES:
    :ID: AFFBA1FA-6D2A-45B6-B56A-A57FEE8B93CA
    :END:
    [2008-10-25 Sat 00:50]
-** CANCELLED Problems with CVS version under Debian
-   - State "CANCELLED"  [2009-02-08 Sun 16:03] \\
+** CANCELED Problems with CVS version under Debian
+   - State "CANCELED"  [2009-02-08 Sun 16:03] \\
      This might not apply any longer.
   - State "TODO"       [2008-07-17 Thu 21:46] \\
     Until I get some info on this, I'll just have to postpone for 2.7.
@@ -6759,7 +6759,7 @@ getquote GSK_L
 ** DONE Implement a --raw flag for print, to show what the user entered
    - State "DONE"       [2009-02-21 Sat 19:40]
    - State "TODO"       [2009-02-21 Sat 01:38]
-   - State "CANCELLED"  [2009-02-21 Sat 01:37]
+   - State "CANCELED"  [2009-02-21 Sat 01:37]
    :PROPERTIES:
    :Version: 3.0
    :ID: 9F074119-FF1C-4568-9297-54A8C31258D2
@@ -7269,21 +7269,21 @@ DATE Reconciled statement
    :ID:       38B3A6DB-5110-40B5-9B93-31BBCAB02180
    :END:
    [2009-11-09 Mon 13:55]
-** CANCELLED Add a within(DATE, PERIOD) valexpr function
-   - State "CANCELLED"  from "TODO"       [2010-03-17 Wed 00:56]
+** CANCELED Add a within(DATE, PERIOD) valexpr function
+   - State "CANCELED"  from "TODO"       [2010-03-17 Wed 00:56]
    :PROPERTIES:
    :ID:       112D9AD9-B6A7-4AB1-ACA9-0D25E974AC68
    :END:
    [2010-01-29 Fri 02:56]
-** CANCELLED Add item sequence list to journal_t
-   - State "CANCELLED"  [2009-02-16 Mon 05:22]
+** CANCELED Add item sequence list to journal_t
+   - State "CANCELED"  [2009-02-16 Mon 05:22]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 145
    :ID: 2BA660CC-E09A-4358-944F-4527BF11F19C
    :END:
-** CANCELLED Add the ability to map OFX numbers to specific accounts
-   - State "CANCELLED"  [2009-02-16 Mon 05:22]
+** CANCELED Add the ability to map OFX numbers to specific accounts
+   - State "CANCELED"  [2009-02-16 Mon 05:22]
    By allowing a directive like this:
    :DATA:
 @mapaccount 0004637467862632    Assets:Current:RBC:Checking
@@ -7297,23 +7297,23 @@ DATE Reconciled statement
    :ID: 4FE37F8F-99F4-4548-88F3-D64CF7A76856
    :END:
    [2008-04-07 Mon]
-** CANCELLED Allow Payee | Description for an xact payee
-   - State "CANCELLED"  [2009-02-16 Mon 05:23]
+** CANCELED Allow Payee | Description for an xact payee
+   - State "CANCELED"  [2009-02-16 Mon 05:23]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 185
    :ID: 383C04EE-94AF-4D01-BDEF-E644A12E97BF
    :END:
    [2008-04-20 Sun]
-** CANCELLED Create an Org-mode table format report: "org"
-   - State "CANCELLED"  from "TODO"       [2010-05-22 Sat 17:55] \\
+** CANCELED Create an Org-mode table format report: "org"
+   - State "CANCELED"  from "TODO"       [2010-05-22 Sat 17:55] \\
      The 'csv' report can now be used for this.
    :PROPERTIES:
    :ID:       CAF4C20A-1AA3-4E75-A39C-9ABB3BFA5EBB
    :END:
    [2010-04-30 Fri 07:29]
-** CANCELLED Get rid of --print-format, and have print use hdr-format
-   - State "CANCELLED"  [2009-02-21 Sat 01:38]
+** CANCELED Get rid of --print-format, and have print use hdr-format
+   - State "CANCELED"  [2009-02-21 Sat 01:38]
    ... and post-format, which output uses.
    :PROPERTIES:
    :Version: 2.6
@@ -7321,8 +7321,8 @@ DATE Reconciled statement
    :ID: 9D95A1BB-AC3C-41C5-9AE3-C6324F13458A
    :END:
    [2008-04-11 Fri]
-** CANCELLED Make ^ be a power operator
-   - State "CANCELLED"  [2009-02-24 Tue 04:04]
+** CANCELED Make ^ be a power operator
+   - State "CANCELED"  [2009-02-24 Tue 04:04]
    So that 0.234 * 10^7 notation is possible.
    :PROPERTIES:
    :Version: 2.6
@@ -7330,15 +7330,15 @@ DATE Reconciled statement
    :ID: CE06A271-419D-4F27-87C6-74412BE546E1
    :END:
    [2008-04-11 Fri]
-** CANCELLED Make commodity_t::qualified_symbol a virtual function
-   - State "CANCELLED"  [2009-02-24 Tue 04:04]
+** CANCELED Make commodity_t::qualified_symbol a virtual function
+   - State "CANCELED"  [2009-02-24 Tue 04:04]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 158
    :ID: B20E725A-B218-4A13-B08B-D74659B35F32
    :END:
-** CANCELLED New reporting options: --descend and --descend-if
-   - State "CANCELLED"  [2009-02-16 Mon 05:24]
+** CANCELED New reporting options: --descend and --descend-if
+   - State "CANCELED"  [2009-02-16 Mon 05:24]
    message://m2slpojqjc.fsf@newartisans.com
    :PROPERTIES:
    :Version: 2.6
@@ -7346,8 +7346,8 @@ DATE Reconciled statement
    :ID: 06F4D252-4049-42D5-BBD4-F52130ED3F82
    :END:
    [2008-04-11 Fri]
-** CANCELLED Normalize automated postings
-   - State "CANCELLED"  [2009-02-16 Mon 05:24]
+** CANCELED Normalize automated postings
+   - State "CANCELED"  [2009-02-16 Mon 05:24]
    So that there is no functional difference between the binary and textual
    data formats; this is needed for the GUI so that if xacts are added or
    changed, the auto_xacts are re-applied to that xact
@@ -7357,8 +7357,8 @@ DATE Reconciled statement
    :ID: F6E6FDE5-15FA-4AFB-B451-493F0C77F37C
    :END:
    [2008-04-11 Fri]
-** CANCELLED Option --transform VALEXPR
-   - State "CANCELLED"  [2009-02-24 Tue 04:05]
+** CANCELED Option --transform VALEXPR
+   - State "CANCELED"  [2009-02-24 Tue 04:05]
    Which is a handler that applies valexpr to each transaction and outputs a
    temporary transaction with that amount -- or is this just the same as -t?
    :PROPERTIES:
@@ -7367,15 +7367,15 @@ DATE Reconciled statement
    :ID: C112D47E-7814-47D1-AE8C-B777AEFB7C56
    :END:
    [2008-04-11 Fri]
-** CANCELLED Output error messages in a way that compilation-mode can parse
-   - State "CANCELLED"  [2009-02-16 Mon 05:24]
+** CANCELED Output error messages in a way that compilation-mode can parse
+   - State "CANCELED"  [2009-02-16 Mon 05:24]
    message://20080421160053.C6CE61144C3@banane.furius.ca
    :PROPERTIES:
    :ID: EB8AAF67-40A1-479F-BF96-7CB17D9492C1
    :END:
    [2008-08-14 Thu]
-** CANCELLED Parallelize resource cleanup (such as memory deallocation)
-   - State "CANCELLED"  from "STARTED"    [2010-05-08 Sat 03:12]
+** CANCELED Parallelize resource cleanup (such as memory deallocation)
+   - State "CANCELED"  from "STARTED"    [2010-05-08 Sat 03:12]
    :LOGBOOK:
    CLOCK: [2010-05-08 Sat 02:11]--[2010-05-08 Sat 03:11] =>  1:00
    :END:
@@ -7384,36 +7384,36 @@ DATE Reconciled statement
    :URL:      [[http://arstechnica.com/software/news/2010/04/new-memory-management-method-give-multicore-boost-to-apps.ars?utm_source%3Drss&utm_medium%3Drss&utm_campaign%3Drss][New memory management method give multicore boost to apps]]
    :END:
    [2010-04-06 Tue 23:38]
-** CANCELLED read_xml and write_xml methods for values
-   - State "CANCELLED"  [2009-02-08 Sun 16:06]
+** CANCELED read_xml and write_xml methods for values
+   - State "CANCELED"  [2009-02-08 Sun 16:06]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 151
    :ID: 415F72A7-A744-41EE-A849-D9E80237E00C
    :END:
    [2008-04-11 Fri]
-** CANCELLED Support --read-format and --write-format
-   - State "CANCELLED"  [2009-02-16 Mon 05:25]
+** CANCELED Support --read-format and --write-format
+   - State "CANCELED"  [2009-02-16 Mon 05:25]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 120
    :ID: 2BDB9BCA-6C3F-4766-9AFC-F363237C9049
    :END:
-** CANCELLED Think about making streamable and xml_streamable interfaces
-   - State "CANCELLED"  [2009-02-08 Sun 16:07]
+** CANCELED Think about making streamable and xml_streamable interfaces
+   - State "CANCELED"  [2009-02-08 Sun 16:07]
    :PROPERTIES:
    :ID: E777B7FF-F109-4199-B5AA-89CC9DA92A9E
    :END:
    [2009-01-29 Thu 18:31]
-** CANCELLED Tie-in with beancounter and quantlib
-   - State "CANCELLED"  [2009-02-27 Fri 16:31]
+** CANCELED Tie-in with beancounter and quantlib
+   - State "CANCELED"  [2009-02-27 Fri 16:31]
    :PROPERTIES:
    :Version: 2.6
    :Ticket: 118
    :ID: 7A8607F3-87C8-4A85-A4EF-BA090BB81EDE
    :END:
-** CANCELLED Value expression descriptions
-   - State "CANCELLED"  [2009-02-24 Tue 04:05]
+** CANCELED Value expression descriptions
+   - State "CANCELED"  [2009-02-24 Tue 04:05]
    When parsing a value expression, allowing keeping a description tag, so that
    when an exception is fired the user can be told where the value expression
    came from.
@@ -7423,33 +7423,33 @@ DATE Reconciled statement
    :ID: 81340878-2C17-485B-BBA7-62A271925401
    :END:
    [2008-04-11 Fri]
-** CANCELLED [#C] Change the binary cache reader to use Boost.Interprocess
-   - State "CANCELLED"  [2009-02-15 Sun 23:19]
+** CANCELED [#C] Change the binary cache reader to use Boost.Interprocess
+   - State "CANCELED"  [2009-02-15 Sun 23:19]
    ...to read it in as a memory mapped file
    :PROPERTIES:
    :ID: A978C1E9-86EA-4074-B8E8-2A3DF1A12ED2
    :END:
    [2008-08-05 Tue]
-** CANCELLED [#C] Consider Martin's @openbal directive
+** CANCELED [#C] Consider Martin's @openbal directive
    "AutoOpenBalance" from Martin Blais <blais@furius.ca>
    :PROPERTIES:
    :ID: 60AC4948-4B40-46D4-A346-26C394C8F1F9
    :END:
    [2008-08-14 Thu]
-** CANCELLED [#C] Consider using mixed_amount_t instead of balance_t
-   - State "CANCELLED"  [2009-02-10 Tue 02:07]
+** CANCELED [#C] Consider using mixed_amount_t instead of balance_t
+   - State "CANCELED"  [2009-02-10 Tue 02:07]
    :PROPERTIES:
    :ID: 34214DA1-8FFF-4AF5-8A68-7DD79EDE261B
    :END:
    [2008-10-18 Sat 02:06]
-** CANCELLED [#C] Every destructor which contains TRACE_DTOR should specify throw()
-   - State "CANCELLED"  [2009-02-10 Tue 02:07]
+** CANCELED [#C] Every destructor which contains TRACE_DTOR should specify throw()
+   - State "CANCELED"  [2009-02-10 Tue 02:07]
    :PROPERTIES:
    :ID: 44497B2D-292F-4C82-8D4F-B928FE6143EC
    :END:
    [2008-07-25 Fri]
-** CANCELLED [#C] ledger date 2009/07/01 takes forever to return an error message
-   - State "CANCELLED"  from "TODO"       [2009-11-10 Tue 14:21] \\
+** CANCELED [#C] ledger date 2009/07/01 takes forever to return an error message
+   - State "CANCELED"  from "TODO"       [2009-11-10 Tue 14:21] \\
      This is somewhat necessary, as I need to parse the main data file before
      normalizing command options -- which must be done before looking up the
      command!
@@ -7473,8 +7473,8 @@ DATE Reconciled statement
    :END:
    [2010-05-31 Mon 10:35]
 ** WONTFIX [[bug:282][#282]] Create an operator for value + post
-   - State "WONTFIX"    from "CANCELLED"  [2010-06-12 Sat 05:28]
-   - State "CANCELLED"  from "DEFERRED"   [2010-06-12 Sat 05:26]
+   - State "WONTFIX"    from "CANCELED"  [2010-06-12 Sat 05:28]
+   - State "CANCELED"  from "DEFERRED"   [2010-06-12 Sat 05:26]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
    :PROPERTIES:
    :ID: 28CE49A7-919B-4C93-9754-966DCC435DBA
@@ -7865,8 +7865,8 @@ Error: A posting's cost may not be negative
    :ID: 2D867E72-2030-4451-9FEE-A77D77680847
    :END:
    [2009-11-05 Thu 08:29]
-** CANCELLED Create a Python wrapper for op_t objects
-   - State "CANCELLED"  from "DEFERRED"   [2009-11-05 Thu 04:23]
+** CANCELED Create a Python wrapper for op_t objects
+   - State "CANCELED"  from "DEFERRED"   [2009-11-05 Thu 04:23]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    If it's evaluated in a value context, like str, int or __repr__, then
    calculate and determine the value.  Otherwise, don't calculate so it remains
@@ -7875,8 +7875,8 @@ Error: A posting's cost may not be negative
    :ID: 3040E933-2068-4C78-954F-F78A7BAFB2D6
    :END:
    [2009-02-24 Tue 22:15]
-** CANCELLED Fix boost::optional translation class for Dmitriy
-   - State "CANCELLED"  from "DEFERRED"   [2009-11-10 Tue 20:34]
+** CANCELED Fix boost::optional translation class for Dmitriy
+   - State "CANCELED"  from "DEFERRED"   [2009-11-10 Tue 20:34]
    - State "DEFERRED"   from "TODO"       [2009-11-10 Tue 20:16]
    - State "TODO"       from "DEFERRED"   [2009-11-05 Thu 04:23]
    - State "DEFERRED"   from "TODO"       [2009-10-27 Tue 19:11]
@@ -7887,8 +7887,8 @@ Error: A posting's cost may not be negative
    :ID: DD3AABF8-A52D-4E1E-A931-DA6131F31F7A
    :END:
    [2009-02-02 Mon 03:13]
-** CANCELLED Rewrite py_scope.cc
-   - State "CANCELLED"  from "TODO"       [2009-11-05 Thu 17:17]
+** CANCELED Rewrite py_scope.cc
+   - State "CANCELED"  from "TODO"       [2009-11-05 Thu 17:17]
    :PROPERTIES:
    :ID: 02F01290-311E-4A6C-9049-3EA78BA7CA1E
    :END:

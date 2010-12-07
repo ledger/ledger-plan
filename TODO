@@ -1,7 +1,7 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content fninline hidestars
-#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELLED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
+#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
 #+TAGS: Call(c) Errand(e) Home(h) Net(n) Fun(f) LINK(l) NOTE(N) blocker(B) critical(C)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
 #+LINK: bug http://newartisans.com/bugzilla/show_bug.cgi?id=
@@ -11,12 +11,63 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO Output of lines w/ negative amounts and thousands separator is 81 chars
+   :PROPERTIES:
+   :ID:       071633F4-C52A-4BE7-954D-297A0F4B778B
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4cfcd2658178a_635d3fa1c18bc87c270@fe4.rs.github.com.tmail][{GitHub} Output of lines containing negative amounts with thousands separator is 81 chars long {jwiegley/ledger GH-20}]]
+   :END:
+   [2010-12-06 Mon 14:48]
+** TODO free shares & --exchange & --total-data
+   :PROPERTIES:
+   :ID:       E0DAC7C0-471E-4A45-A341-1F29F4670A98
+   :Submitter: thierry <thierry.daucourt@free.fr>
+   :Message:  [[message://845bd74e-8d33-43c5-9668-87ee9fe334d5@q18g2000vbm.googlegroups.com][free shares & --exchange & --total-data]]
+   :END:
+   [2010-12-06 Mon 12:41]
+** TODO Get segfault on wrong command directive
+   :PROPERTIES:
+   :ID:       AD8A9EB3-1220-4482-B0B0-0637C9F590E6
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4cfbded194771_50923ff7bdcc406c5b0@fe1.rs.github.com.tmail][{GitHub} Get segfault on wrong command directive {jwiegley/ledger GH-19}]]
+   :END:
+   [2010-12-06 Mon 12:42]
+** TODO Re: ledger: balance sorting bug
+   :PROPERTIES:
+   :ID:       14F6514E-5536-4054-994D-C7C8F63255FA
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :Message:  [[message://AANLkTikxjUwSPLMLpY%2BomL0A1TNJgCr1n37eM2Zqqq9G@mail.gmail.com][Re: ledger: balance sorting bug]]
+   :END:
+   [2010-11-28 Sun 20:32]
+** TODO Only one posting with null amount allowed because of note
+   :PROPERTIES:
+   :ID:       CFE5D8AA-1060-4A7D-816D-42F72C444118
+   :Submitter: Michael Ploujnikov <ploujj@gmail.com>
+   :Message:  [[message://a065e461-e06e-45e0-aa39-aec74b13c864@l32g2000yqc.googlegroups.com][Error: Only one posting with null amount allowed per transaction because of note]]
+   :END:
+   [2010-11-28 Sun 20:33]
+** TODO Comma parsing problem
+   :PROPERTIES:
+   :ID:       F2C4AB15-D0DE-4917-AC45-8DCB0D4C117D
+   :Submitter: Andrew Stribblehill <stribb@gmail.com>
+   :Message:  [[message://AANLkTinfypuh_Q%2BKkbEJaWBGh637C%3D%2BSDR95ZiwLL8cP@mail.gmail.com][Comma parsing problem]]
+   :END:
+   [2010-11-28 Sun 20:33]
+** TODO [[bug:443][#443]] Ignores entry with wrong data instead of giving an error
+   :PROPERTIES:
+   :ID:       94A4467D-FDD2-47B0-9796-6889824E84BA
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-443-1@http.newartisans.com/bugzilla/][{Bug 443} New: ignores entry with wrong data instead of giving an error]]
+   :END:
+   [2010-11-29 Mon 19:52]
 ** TODO [#A] [[bug:425][#425]] date>=[2010/02/10] causes a parsing error                            :critical:
+   SCHEDULED: <2010-12-30 Thu>
    :PROPERTIES:
    :ID:       C927CFFE-D27D-4652-9AC8-1C4005FF2B40
    :END:
    [2010-11-18 Thu 14:46]
 ** TODO [#A] [[bug:426][#426]] ledger --budget reg|wc -l depends on order of transactions
+   SCHEDULED: <2010-12-30 Thu>
    - Note taken on [2010-11-10 Wed 16:29] \\
      [[message://0326c3da-70e6-4ab2-b53f-27a1e0bdc2c4@32g2000yqz.googlegroups.com][Re: ledger --budget reg |wc -l depends on the order of the transactions]]
    :PROPERTIES:
@@ -26,6 +77,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-11-10 Wed 16:29]
 ** TODO [#A] [[bug:437][#437]] Crash when using automatic rules                                      :blocker:
+   SCHEDULED: <2010-12-25 Sat>
    It doesn't look to be very informative:
    :OUTPUT:
    (gdb) backtrace
@@ -77,6 +129,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-11-21 Sun 23:03]
 ** TODO [#A] [[bug:438][#438]] Case where register and balance do not agree                         :critical:
+   SCHEDULED: <2010-12-23 Thu>
    The file below gives the following
    :OUTPUT:
    $ ledger/ledger -f foo -X \$ bal sub1
@@ -166,6 +219,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-10-03 Sun 22:16]
 ** TODO [#A] [[bug:440][#440]] Complex command causes core dump                                      :blocker:
+   SCHEDULED: <2010-12-31 Fri>
    :OUTPUT:
    ledger --args-only reg --group-by=account --related --subtotal --file speed-test.dat --exchange=€ --decimal-comma
    :END:
@@ -659,7 +713,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTikwx%2B-AQQrjQ62nm__P0BAwaNB4WRKF4bPc2Bfj@mail.gmail.com][ledger: balance sorting bug]]
    :END:
    [2010-10-18 Mon 16:04]
-** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
+** TODO [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
    ${AMT} is the same as $(scrub(AMT))
    %T is the same as ${display_total}.
@@ -669,7 +723,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
    :END:
    [2010-06-14 Mon 08:35]
-** TODO [#C] [[bug:347][#347]] All contexts should be accessible by name
+** TODO [[bug:347][#347]] All contexts should be accessible by name
    - post.foo
    - xact.foo
    - account.foo
@@ -682,17 +736,17 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       FA125CB3-F420-4350-9774-83186C81C8F3
    :END:
    [2010-06-18 Fri 17:37]
-** TODO [#C] [[bug:348][#348]] Make Date:: a synonym for just [foo] in a posting comment
+** TODO [[bug:348][#348]] Make Date:: a synonym for just [foo] in a posting comment
    :PROPERTIES:
    :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
    :END:
    [2010-06-18 Fri 06:52]
-** TODO [#C] [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
+** TODO [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
    :PROPERTIES:
    :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
    :END:
    [2010-06-21 Mon 18:12]
-** TODO [#C] [[bug:374][#374]] Problem with periodic transactions having a null posting
+** TODO [[bug:374][#374]] Problem with periodic transactions having a null posting
    - Note taken on [2010-07-02 Fri 04:16] \\
      Yes, it is expected behavior.  Nice find!  I don't like the idea of
      making a hack to try and get around this, though, it's likely to only
@@ -1170,6 +1224,23 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** NOTE Different types of commodity transactions
+   - Never revalue this commodity
+   - Only revalue this commodity if -X is used
+   - Revalue this commodity at current market price
+   - Revalue this commodity at the transaction price
+   - Revalue this commodity at transaction price while a predicate holds true
+   :PROPERTIES:
+   :ID:       40235519-1818-4FFC-B509-590895D1DCB9
+   :VISIBILITY: folded
+   :END:
+   [2010-11-27 Sat 15:00]
+** TODO Make value sequences comparable
+   If done, no special code is needed to do multi-column sorting.
+   :PROPERTIES:
+   :ID:       44493384-34BE-4184-AFCC-8AB7E3B1443E
+   :END:
+   [2010-12-03 Fri 14:13]
 ** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
    :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
@@ -1240,12 +1311,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTik8FPboAMJFg1z4ZW6msRrC8_e6R1H-0Mp0VY0C@mail.gmail.com][list of possible ledger options and commands]]
    :END:
    [2010-08-16 Mon 16:48]
-** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
+** TODO [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
    :END:
    [2010-04-02 Fri 14:11]
-** TODO [#C] [[bug:173][#173]] Make the prices report use standard report query terms
+** TODO [[bug:173][#173]] Make the prices report use standard report query terms
    The idea here is that report query filtering is done before the building up
    of commodities prices, so that you can see which commodities are involved
    with which reports:
@@ -1259,19 +1330,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Johann Klähn <kljohann@gmail.com>
    :END:
    [2009-12-01 Tue 03:04]
-** TODO [#C] [[bug:174][#174]] Make path to getquote script configurable using an option
+** TODO [[bug:174][#174]] Make path to getquote script configurable using an option
    :PROPERTIES:
    :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
    :END:
    [2010-04-13 Tue 01:37]
-** TODO [#C] [[bug:182][#182]] Port Gnucash support to 3.0
+** TODO [[bug:182][#182]] Port Gnucash support to 3.0
    :PROPERTIES:
    :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
    :Message:  [[message://96abdebf-d2ae-40fa-b555-c2329f91602b@q36g2000prg.googlegroups.com][How to use gnucash with v3]]
    :Submitter: Xavier Shay <xavier-list@rhnh.net>
    :END:
    [2010-05-25 Tue 16:42]
-** TODO [#C] [[bug:190][#190]] Optimize finding and creation of annotated commodities
+** TODO [[bug:190][#190]] Optimize finding and creation of annotated commodities
    - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
    Don't use textual names, but lookup based on annotation details
    directly.
@@ -1279,12 +1350,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
    :END:
    [2010-05-23 Sun 17:04]
-** TODO [#C] [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
+** TODO [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
    :PROPERTIES:
    :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
    :END:
    [2010-05-31 Mon 10:35]
-** TODO [#C] [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
+** TODO [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
    - State "TODO"       from "DEFERRED"   [2010-06-02 Wed 18:11]
    - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
    #+begin_src sh
@@ -1298,13 +1369,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
    :END:
    [2010-01-18 Mon 02:55]
-** TODO [#C] [[bug:230][#230]] Make format strings backward compatible with 2.x
+** TODO [[bug:230][#230]] Make format strings backward compatible with 2.x
    That way, %D would be the same as %(date).
    :PROPERTIES:
    :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
    :END:
    [2010-06-03 Thu 23:22]
-** TODO [#C] [[bug:231][#231]] Allow conversion of some but not all commodities
+** TODO [[bug:231][#231]] Allow conversion of some but not all commodities
    With -X, you currently can only say "convert everything to one commodity"
    but I'd like to be able to convert some stuff but not everything.
 
@@ -1332,7 +1403,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       83B4A0E5-3CC6-4F5E-9C58-A87F690836C8
    :END:
    [2010-06-08 Tue 16:45]
-** TODO [#C] [[bug:232][#232]] Support variant behaviors for -V
+** TODO [[bug:232][#232]] Support variant behaviors for -V
    The problem is: for a given amount of a commodity, which commodity should
    its value be reported in terms of?
 
@@ -1371,7 +1442,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       AA092062-FBA5-4142-B3E4-E67FA9E12C19
    :END:
    [2010-06-07 Mon 08:39]
-** TODO [#C] [[bug:270][#270]] Add a feature for "object descriptions"
+** TODO [[bug:270][#270]] Add a feature for "object descriptions"
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    For example:
@@ -1398,43 +1469,43 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID: B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
    :END:
    [2009-03-02 Mon 20:39]
-** TODO [#C] [[bug:292][#292]] Make alias names for directives, like convert for C
+** TODO [[bug:292][#292]] Make alias names for directives, like convert for C
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    :PROPERTIES:
    :ID: BD78C023-BB16-446C-9347-2F1AA16C7C5C
    :END:
    [2009-02-27 Fri 15:35]
-** TODO [#C] [[bug:299][#299]] The CSV report should optionally generate a "title line"
+** TODO [[bug:299][#299]] The CSV report should optionally generate a "title line"
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:30]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
    :PROPERTIES:
    :ID: 65B7E207-1BCC-4448-881C-1574623346D7
    :END:
    [2009-03-03 Tue 21:49]
-** TODO [#C] [[bug:333][#333]] Add warning when duplicate meta references are given
+** TODO [[bug:333][#333]] Add warning when duplicate meta references are given
    :PROPERTIES:
    :ID:       7B4EFB7D-B815-44DE-83CE-F8F902AC954D
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Message:  [[message://bug-333-1@http.newartisans.com/bugzilla/][{Bug 333} New: Add warning when duplicate meta references are given]]
    :END:
    [2010-06-13 Sun 17:43]
-** TODO [#C] [[bug:361][#361]] Change value expression syntax to closely match Haskell's
+** TODO [[bug:361][#361]] Change value expression syntax to closely match Haskell's
    :PROPERTIES:
    :ID:       5E82B329-EFB9-432E-A42C-E52C8032210B
    :END:
    [2010-06-22 Tue 01:31]
-** TODO [#C] [[bug:365][#365]] Generalize value sequences into iterators and generators
+** TODO [[bug:365][#365]] Generalize value sequences into iterators and generators
    :PROPERTIES:
    :ID:       EA919747-398C-44DA-9A8C-BE07643E42B4
    :END:
    [2010-06-24 Thu 20:16]
-** TODO [#C] [[bug:366][#366]] Add "each" syntax, and closures like Ruby has
+** TODO [[bug:366][#366]] Add "each" syntax, and closures like Ruby has
    :PROPERTIES:
    :ID:       8F4B51C1-3887-4997-908E-F3CD167C00F0
    :END:
    [2010-06-24 Thu 20:30]
-** TODO [#C] [[bug:368][#368]] A commodity annotation that asserts no negative quantities
+** TODO [[bug:368][#368]] A commodity annotation that asserts no negative quantities
    :PROPERTIES:
    :ID:       09FA1386-E890-4600-98D0-86C248A24C31
    :END:
@@ -1643,7 +1714,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
    :END:
    [2010-08-16 Mon 16:47]
-** TODO [[bug:424][#424]] Make acprep compatible with Python 3                                             :ATTACH:
+** TODO [[bug:424][#424]] Make acprep compatible with Python 3                           :ATTACH:
    - Note taken on [2010-11-26 Fri 12:55] \\
      [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
    :PROPERTIES:
@@ -1813,14 +1884,44 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [#A] [[bug:420][#420]] Ledger will not build on OS X 10.5                                    :blocker:
+** TODO Re: ledger build, iostreams, and boost 1.45
+   :PROPERTIES:
+   :ID:       02AAC76F-E8F2-4C44-AA7F-90556BB4F07E
+   :Submitter: Myles English <mylesenglish@gmail.com>
+   :Message:  [[message://loom.20101205T165044-452@post.gmane.org][Re: ledger build, iostreams, and boost 1.45]]
+   :END:
+   [2010-12-06 Mon 12:42]
+** TODO ledger on Arch Linux
+   :PROPERTIES:
+   :ID:       00C5345C-E8FA-475A-BCEA-3F15E848AC84
+   :Submitter: emsenn <emsenn@emsenn.com>
+   :Message:  [[message://AANLkTikJRbwJ6mkChu0zXF1ny1UL0vpaX9mtK%2BXP_A7F@mail.gmail.com][ledger on Arch Linux]]
+   :END:
+   [2010-11-28 Sun 20:32]
+** TODO ledger build, iostreams, and boost 1.45
+   :PROPERTIES:
+   :ID:       7C98893F-9425-4439-95C6-B746E710AEE9
+   :Submitter: Matt Lundin <mdl@imapmail.org>
+   :Message:  [[message://878w0cnalw.fsf@fastmail.fm][ledger build, iostreams, and boost 1.45]]
+   :END:
+   [2010-11-29 Mon 19:52]
+** TODO ubuntu 10.10
+   :PROPERTIES:
+   :ID:       C98A1FFD-E1C2-40CB-AE98-A857CE36F7C5
+   :Submitter: Benoit Chesneau <bchesneau@gmail.com>
+   :Message:  [[message://f170cbe0-d46f-46bc-bf4f-0eaa73ba4a94@w18g2000vbe.googlegroups.com][ubuntu 10.10]]
+   :END:
+   [2010-11-29 Mon 19:52]
+** TODO [#A] [[bug:420][#420]] Ledger will not build on OS X 10.5                       :blocker:
+   SCHEDULED: <2010-12-26 Sun>
    :PROPERTIES:
    :ID:       EFC2EBD2-FE11-4E8B-BC24-9DAFF23DAD73
    :Submitter: David Glasser <glasser@davidglasser.net>
    :Message:  [[message://AANLkTinYVdu8wN5iO3spVfAUrWnL6k00t23vV%3DUKaRYN@mail.gmail.com][Re: auto-indenting in emacs mode?]]
    :END:
    [2010-10-25 Mon 17:33]
-** TODO [#A] [[bug:430][#430]] Build is failing on Ubuntu 10.10                               :blocker:ATTACH:
+** TODO [#A] [[bug:430][#430]] Build is failing on Ubuntu 10.10                  :blocker:ATTACH:
+   SCHEDULED: <2010-12-31 Fri>
    The steps I took were
 
    1. clone from github
@@ -1883,7 +1984,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://AANLkTilwxjENAIajnVXvoes8H1ccWUgeDsMNirDNgbu-@mail.gmail.com][VS project files & Windows installer]]
    :END:
    [2010-06-28 Mon 23:54]
-** TODO [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)                                :blocker:
+** TODO [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)                   :blocker:
    :PROPERTIES:
    :ID:       D776B418-E517-4C81-B575-45232D50B210
    :Submitter: ed <ed.temp.01@gmail.com>
@@ -2137,14 +2238,14 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       44F046A0-CA2B-4856-BA00-4B4A5CB8979F
    :END:
    [2010-11-10 Wed 11:19]
-** TODO [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                       :blocker:
+** TODO [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users          :blocker:
    :PROPERTIES:
    :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
    :Submitter: David Glasser <glasser@davidglasser.net>
    :Message:  [[message://AANLkTimq1xuJbPnka5%2BoNLjV_zjPoMeGMR6yeWTBg2mz@mail.gmail.com][Ledger 3 on OS X 10.5?]]
    :END:
    [2010-10-18 Mon 16:12]
-** TODO [[bug:427][#427]] Build problems with boost_iostreams                                        :blocker:
+** TODO [[bug:427][#427]] Build problems with boost_iostreams                           :blocker:
    - Note taken on [2010-10-12 Tue 18:17] \\
      [[message://62afe589-3752-4949-8c45-44b9ecd400f3@u13g2000vbo.googlegroups.com][Re: Build problems with boost_iostreams]]
    I am having some trouble building Ledger at the moment.
@@ -2206,7 +2307,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://m2bp7eb1hl.fsf@bo.sak.lan][Build problems with boost_iostreams]]
    :END:
    [2010-10-03 Sun 22:17]
-** TODO [#C] [[bug:234][#234]] Add some more configure arguments
+** TODO [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
    ./configure .... with-gmp=...  with-mpfr= ... with-python=...
@@ -2252,13 +2353,13 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
    :END:
    [2010-06-18 Fri 19:45]
-** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies             :ATTACH:
+** TODO [[bug:185][#185]] Read through Peter's article, and make sure it all applies     :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
    :END:
    [2009-11-24 Tue 22:04]
-** TODO [#C] [[bug:340][#340]] Create OptionsTests, which generate possible option combinations
+** TODO [[bug:340][#340]] Create OptionsTests, which generate possible option combinations
    :PROPERTIES:
    :ID:       54EED1FA-C0A2-4D3A-9C5A-F44E36504179
    :END:
@@ -2304,6 +2405,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :CATEGORY: Docs
   :END:
 ** TODO [#A] [[bug:422][#422]] Correct definitions of release and beta in the README
+   SCHEDULED: <2010-12-08 Wed>
    :PROPERTIES:
    :ID:       931B6920-95D3-4F8E-A517-036E4B7DB0EF
    :Submitter: Michael Ploujnikov <ploujj@gmail.com>
@@ -2325,7 +2427,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://AANLkTin8%3DcrNWggCMtHP%2B6MhvR41RHQeqBSveN05oiEd@mail.gmail.com][Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
    :END:
    [2010-11-07 Sun 13:10]
-** TODO [#C] [[bug:169][#169]] Language translations for 3.0
+** TODO [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
    | Thierry Daucourt        | thierry.daucourt@free.fr         | French               |
@@ -2336,18 +2438,18 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
    :END:
    [2009-11-09 Mon 03:40]
-** TODO [#C] [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
+** TODO [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
    :PROPERTIES:
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :END:
    [2009-11-20 Fri 18:31]
-** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
+** TODO [[bug:195][#195]] How to declare a statement reconciliation                      :ATTACH:
    :PROPERTIES:
    :ID:       32A4A048-886F-43FC-892E-EC125F372750
    :Attachments: foo.dat
    :END:
    [2009-12-10 Thu 18:05]
-** TODO [#C] [[bug:329][#329]] Suggestions for improving the documentation
+** TODO [[bug:329][#329]] Suggestions for improving the documentation
    - I think it's great that there is such an elaborate manual, but the
      structure is a bit unintuitive to learn from. May I suggest to move the
      'keeping a ledger' section to the beginning, before 'running ledger'. Or
@@ -2392,7 +2494,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://AANLkTilNxUsD8glzKcEWW4fQ56uGF5GlPOmMWA1oPM3_@mail.gmail.com][Building Ledger with VS (was: Re: Help: How do I start?)]]
    :END:
    [2010-06-11 Fri 17:29]
-** TODO [#C] [[bug:341][#341]] Document suggestions from Russell
+** TODO [[bug:341][#341]] Document suggestions from Russell
    - I was completely unaware of ti and to --- nice little toy; a man page
      comes to mind
 
@@ -2466,7 +2568,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://alpine.LRH.2.00.1006150907240.22955@arj.bjyevire.pbz][reading the doco end to end {random thots}]]
    :END:
    [2010-06-15 Tue 21:59]
-** TODO [#C] [[bug:369][#369]] Internalize the --help option in v3
+** TODO [[bug:369][#369]] Internalize the --help option in v3
    :PROPERTIES:
    :ID:       F1FEC526-6B6D-48C2-9BA8-CDDD15595BD5
    :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
@@ -2474,6 +2576,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :END:
    [2010-06-28 Mon 23:54]
 ** WAITING [#C] [[bug:170][#170]] Fill out membership form for the Software Conservancy
+   SCHEDULED: <2010-12-10 Fri>
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
      I'm waiting for the official form to come from the Conservancy.
    - State "TODO"       from "WAITING"    [2010-05-22 Sat 15:05]
@@ -2524,7 +2627,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
-** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                                  :ATTACH:
+** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                     :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
