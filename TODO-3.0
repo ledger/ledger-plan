@@ -6031,6 +6031,14 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
     machines I prefer to put them in global settings and document them in the
     build procedure.
 * Docs
+** DONE [#A] [[bug:422][#422]] Correct definitions of release and beta in the README
+   - State "DONE"       from "TODO"       [2010-12-09 Thu 17:25]
+   :PROPERTIES:
+   :ID:       931B6920-95D3-4F8E-A517-036E4B7DB0EF
+   :Submitter: Michael Ploujnikov <ploujj@gmail.com>
+   :Message:  [[message://29d9299c-f958-42a2-928c-2bacbf6b63e3@29g2000prb.googlegroups.com][current beta release vs master maint 2.6.1]]
+   :END:
+   [2010-11-25 Thu 15:27]
 ** DONE [[bug:194][#194]] Initial example in ledger manual bogus
    - State "DONE"       from "TODO"       [2010-06-09 Wed 04:51]
    While reading the ledger manual, I got really confused by the initial

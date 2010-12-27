@@ -11,63 +11,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO Output of lines w/ negative amounts and thousands separator is 81 chars
-   :PROPERTIES:
-   :ID:       071633F4-C52A-4BE7-954D-297A0F4B778B
-   :Submitter: GitHub <noreply@github.com>
-   :Message:  [[message://4cfcd2658178a_635d3fa1c18bc87c270@fe4.rs.github.com.tmail][{GitHub} Output of lines containing negative amounts with thousands separator is 81 chars long {jwiegley/ledger GH-20}]]
-   :END:
-   [2010-12-06 Mon 14:48]
-** TODO free shares & --exchange & --total-data
-   :PROPERTIES:
-   :ID:       E0DAC7C0-471E-4A45-A341-1F29F4670A98
-   :Submitter: thierry <thierry.daucourt@free.fr>
-   :Message:  [[message://845bd74e-8d33-43c5-9668-87ee9fe334d5@q18g2000vbm.googlegroups.com][free shares & --exchange & --total-data]]
-   :END:
-   [2010-12-06 Mon 12:41]
-** TODO Get segfault on wrong command directive
-   :PROPERTIES:
-   :ID:       AD8A9EB3-1220-4482-B0B0-0637C9F590E6
-   :Submitter: GitHub <noreply@github.com>
-   :Message:  [[message://4cfbded194771_50923ff7bdcc406c5b0@fe1.rs.github.com.tmail][{GitHub} Get segfault on wrong command directive {jwiegley/ledger GH-19}]]
-   :END:
-   [2010-12-06 Mon 12:42]
-** TODO Re: ledger: balance sorting bug
-   :PROPERTIES:
-   :ID:       14F6514E-5536-4054-994D-C7C8F63255FA
-   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
-   :Message:  [[message://AANLkTikxjUwSPLMLpY%2BomL0A1TNJgCr1n37eM2Zqqq9G@mail.gmail.com][Re: ledger: balance sorting bug]]
-   :END:
-   [2010-11-28 Sun 20:32]
-** TODO Only one posting with null amount allowed because of note
-   :PROPERTIES:
-   :ID:       CFE5D8AA-1060-4A7D-816D-42F72C444118
-   :Submitter: Michael Ploujnikov <ploujj@gmail.com>
-   :Message:  [[message://a065e461-e06e-45e0-aa39-aec74b13c864@l32g2000yqc.googlegroups.com][Error: Only one posting with null amount allowed per transaction because of note]]
-   :END:
-   [2010-11-28 Sun 20:33]
-** TODO Comma parsing problem
-   :PROPERTIES:
-   :ID:       F2C4AB15-D0DE-4917-AC45-8DCB0D4C117D
-   :Submitter: Andrew Stribblehill <stribb@gmail.com>
-   :Message:  [[message://AANLkTinfypuh_Q%2BKkbEJaWBGh637C%3D%2BSDR95ZiwLL8cP@mail.gmail.com][Comma parsing problem]]
-   :END:
-   [2010-11-28 Sun 20:33]
-** TODO [[bug:443][#443]] Ignores entry with wrong data instead of giving an error
-   :PROPERTIES:
-   :ID:       94A4467D-FDD2-47B0-9796-6889824E84BA
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-443-1@http.newartisans.com/bugzilla/][{Bug 443} New: ignores entry with wrong data instead of giving an error]]
-   :END:
-   [2010-11-29 Mon 19:52]
 ** TODO [#A] [[bug:425][#425]] date>=[2010/02/10] causes a parsing error                            :critical:
-   SCHEDULED: <2010-12-30 Thu>
    :PROPERTIES:
    :ID:       C927CFFE-D27D-4652-9AC8-1C4005FF2B40
    :END:
    [2010-11-18 Thu 14:46]
 ** TODO [#A] [[bug:426][#426]] ledger --budget reg|wc -l depends on order of transactions
-   SCHEDULED: <2010-12-30 Thu>
    - Note taken on [2010-11-10 Wed 16:29] \\
      [[message://0326c3da-70e6-4ab2-b53f-27a1e0bdc2c4@32g2000yqz.googlegroups.com][Re: ledger --budget reg |wc -l depends on the order of the transactions]]
    :PROPERTIES:
@@ -77,7 +26,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-11-10 Wed 16:29]
 ** TODO [#A] [[bug:437][#437]] Crash when using automatic rules                                      :blocker:
-   SCHEDULED: <2010-12-25 Sat>
    It doesn't look to be very informative:
    :OUTPUT:
    (gdb) backtrace
@@ -129,7 +77,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-11-21 Sun 23:03]
 ** TODO [#A] [[bug:438][#438]] Case where register and balance do not agree                         :critical:
-   SCHEDULED: <2010-12-23 Thu>
    The file below gives the following
    :OUTPUT:
    $ ledger/ledger -f foo -X \$ bal sub1
@@ -219,7 +166,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-10-03 Sun 22:16]
 ** TODO [#A] [[bug:440][#440]] Complex command causes core dump                                      :blocker:
-   SCHEDULED: <2010-12-31 Fri>
    :OUTPUT:
    ledger --args-only reg --group-by=account --related --subtotal --file speed-test.dat --exchange=€ --decimal-comma
    :END:
@@ -229,11 +175,44 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTimK1QtZdzAyVKV7h6T0OeeTXG0fgn5pr0HfVxYn@mail.gmail.com][core dump]]
    :END:
    [2010-08-19 Thu 23:35]
+** TODO [[bug:337][#337]] Rationalize formatting strings
+   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
+   ${AMT} is the same as $(scrub(AMT))
+   %T is the same as ${display_total}.
+
+   Right now formatting strings are a nightmare for users to modify.
+   :PROPERTIES:
+   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
+   :END:
+   [2010-06-14 Mon 08:35]
+** TODO [[bug:347][#347]] All contexts should be accessible by name
+   - post.foo
+   - xact.foo
+   - account.foo
+   - report.foo
+   - session.foo
+   - global.foo
+   - options.foo
+   - python.foo
+   :PROPERTIES:
+   :ID:       FA125CB3-F420-4350-9774-83186C81C8F3
+   :END:
+   [2010-06-18 Fri 17:37]
+** TODO [[bug:348][#348]] Make Date:: a synonym for just [foo] in a posting comment
+   :PROPERTIES:
+   :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
+   :END:
+   [2010-06-18 Fri 06:52]
 ** TODO [[bug:351][#351]] print command puts tag in same line as payee
    :PROPERTIES:
    :ID:       EAF396BD-3A6C-4209-82C2-08D102A725B6
    :END:
    [2010-06-20 Sun 14:51]
+** TODO [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
+   :PROPERTIES:
+   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
+   :END:
+   [2010-06-21 Mon 18:12]
 ** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
    #+begin_src sh
    reg -s --inject=Expected '^income:ceg'
@@ -299,6 +278,48 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
    :END:
    [2010-07-01 Thu 17:55]
+** TODO [[bug:374][#374]] Problem with periodic transactions having a null posting
+   - Note taken on [2010-07-02 Fri 04:16] \\
+     Yes, it is expected behavior.  Nice find!  I don't like the idea of
+     making a hack to try and get around this, though, it's likely to only
+     work right in the most obvious situations.  I'll think about having a
+     better way to catch this (like having a warning if a null posting's
+     account name contains digits).
+   - Note taken on [2010-07-02 Fri 04:15] \\
+     Found the problem. In xact.cc, within the declaration for bool
+     xact_base_t::finalize(), I tried changing this...
+     #+begin_src cpp
+     else if (null_post) {
+     #+end_src
+
+     to this...
+     #+begin_src cpp
+     else if (null_post) {
+       DEBUG("xact.finalize", "first null post = " <<
+     null_post->reported_account()->fullname());
+       DEBUG("xact.finalize", "second null post = " <<
+     post->reported_account()->fullname());
+     #+end_src
+
+     and came up with this output...
+     :OUTPUT:
+     5ms  [DEBUG] post must balance = $1062.96
+     5ms  [DEBUG] first null post = Expenses:Entertainment:Blizzard $16.00
+     5ms  [DEBUG] second null post = Assets:Bank:Checking
+     :END:
+
+     So there needed to be more than a single space between the account name
+     and the transaction amount, or the intended amount was read as part of
+     the transaction name.
+
+     I would imagine that this is expected behavior, though if possible it
+     would be nice if the parser would account for it such that the last
+     non-whitespace text element on a line is used as the amount regardless of
+     the amount of space separating it from the previous text element.
+   :PROPERTIES:
+   :ID:       5D92A5EB-48DD-4ED8-AFED-2A24884FAD4B
+   :END:
+   [2010-07-01 Thu 22:03]
 ** TODO [[bug:375][#375]] -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works
    :PROPERTIES:
    :ID:       DE5CBC0F-BD49-46A3-AEB1-4F354B9F4A36
@@ -673,6 +694,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-11-26 Fri 11:51]
 ** TODO [[bug:439][#439]] Ledger does not correctly sort balance of anonymized data
+   - Note taken on [2010-12-27 Mon 18:27] \\
+     [[message://AANLkTikxjUwSPLMLpY%2BomL0A1TNJgCr1n37eM2Zqqq9G@mail.gmail.com][Re: ledger: balance sorting bug]]
    I came across a bug where ledger does not sort the balance output.  I used
    test files that are in ledger/test directory.  First example does work.
    Second example does work.
@@ -713,81 +736,60 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTikwx%2B-AQQrjQ62nm__P0BAwaNB4WRKF4bPc2Bfj@mail.gmail.com][ledger: balance sorting bug]]
    :END:
    [2010-10-18 Mon 16:04]
-** TODO [[bug:337][#337]] Rationalize formatting strings
-   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
-   ${AMT} is the same as $(scrub(AMT))
-   %T is the same as ${display_total}.
-
-   Right now formatting strings are a nightmare for users to modify.
+** TODO [[bug:443][#443]] Ignores entry with wrong data instead of giving an error
    :PROPERTIES:
-   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
+   :ID:       94A4467D-FDD2-47B0-9796-6889824E84BA
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-443-1@http.newartisans.com/bugzilla/][{Bug 443} New: ignores entry with wrong data instead of giving an error]]
    :END:
-   [2010-06-14 Mon 08:35]
-** TODO [[bug:347][#347]] All contexts should be accessible by name
-   - post.foo
-   - xact.foo
-   - account.foo
-   - report.foo
-   - session.foo
-   - global.foo
-   - options.foo
-   - python.foo
+   [2010-11-29 Mon 19:52]
+** TODO [[bug:444][#444]] Output of lines w/ negative amounts and thousands separator is 81 chars
    :PROPERTIES:
-   :ID:       FA125CB3-F420-4350-9774-83186C81C8F3
+   :ID:       071633F4-C52A-4BE7-954D-297A0F4B778B
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4cfcd2658178a_635d3fa1c18bc87c270@fe4.rs.github.com.tmail][{GitHub} Output of lines containing negative amounts with thousands separator is 81 chars long {jwiegley/ledger GH-20}]]
    :END:
-   [2010-06-18 Fri 17:37]
-** TODO [[bug:348][#348]] Make Date:: a synonym for just [foo] in a posting comment
+   [2010-12-06 Mon 14:48]
+** TODO [[bug:445][#445]] Could handle mixing of decimal comma and decimal point better
    :PROPERTIES:
-   :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
+   :ID:       038408E7-7926-44AC-96D3-0E113E515903
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-445-1@http.newartisans.com/bugzilla/][{Bug 445} New: could handle mixing of decimal comma and decimal point better]]
    :END:
-   [2010-06-18 Fri 06:52]
-** TODO [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
+   [2010-12-17 Fri 05:14]
+** TODO [[bug:446][#446]] Segfault on wrong command directive
    :PROPERTIES:
-   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
+   :ID:       AD8A9EB3-1220-4482-B0B0-0637C9F590E6
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4cfbded194771_50923ff7bdcc406c5b0@fe1.rs.github.com.tmail][{GitHub} Get segfault on wrong command directive {jwiegley/ledger GH-19}]]
    :END:
-   [2010-06-21 Mon 18:12]
-** TODO [[bug:374][#374]] Problem with periodic transactions having a null posting
-   - Note taken on [2010-07-02 Fri 04:16] \\
-     Yes, it is expected behavior.  Nice find!  I don't like the idea of
-     making a hack to try and get around this, though, it's likely to only
-     work right in the most obvious situations.  I'll think about having a
-     better way to catch this (like having a warning if a null posting's
-     account name contains digits).
-   - Note taken on [2010-07-02 Fri 04:15] \\
-     Found the problem. In xact.cc, within the declaration for bool
-     xact_base_t::finalize(), I tried changing this...
-     #+begin_src cpp
-     else if (null_post) {
-     #+end_src
-
-     to this...
-     #+begin_src cpp
-     else if (null_post) {
-       DEBUG("xact.finalize", "first null post = " <<
-     null_post->reported_account()->fullname());
-       DEBUG("xact.finalize", "second null post = " <<
-     post->reported_account()->fullname());
-     #+end_src
-
-     and came up with this output...
-     :OUTPUT:
-     5ms  [DEBUG] post must balance = $1062.96
-     5ms  [DEBUG] first null post = Expenses:Entertainment:Blizzard $16.00
-     5ms  [DEBUG] second null post = Assets:Bank:Checking
-     :END:
-
-     So there needed to be more than a single space between the account name
-     and the transaction amount, or the intended amount was read as part of
-     the transaction name.
-
-     I would imagine that this is expected behavior, though if possible it
-     would be nice if the parser would account for it such that the last
-     non-whitespace text element on a line is used as the amount regardless of
-     the amount of space separating it from the previous text element.
+   [2010-12-06 Mon 12:42]
+** TODO [[bug:448][#448]] Only one posting with null amount allowed because of note
    :PROPERTIES:
-   :ID:       5D92A5EB-48DD-4ED8-AFED-2A24884FAD4B
+   :ID:       CFE5D8AA-1060-4A7D-816D-42F72C444118
+   :Submitter: Michael Ploujnikov <ploujj@gmail.com>
+   :Message:  [[message://a065e461-e06e-45e0-aa39-aec74b13c864@l32g2000yqc.googlegroups.com][Error: Only one posting with null amount allowed per transaction because of note]]
    :END:
-   [2010-07-01 Thu 22:03]
+   [2010-11-28 Sun 20:33]
+** TODO [[bug:454][#454]] Rename actual and effective dates to primary/auxiliary
+   :PROPERTIES:
+   :ID:       43ACF050-6723-41D6-BC3A-B3672AD7C2B7
+   :END:
+   [2010-12-14 Tue 17:54]
+** TODO [[bug:455][#455]] Free shares & --exchange & --total-data
+   :PROPERTIES:
+   :ID:       E0DAC7C0-471E-4A45-A341-1F29F4670A98
+   :Submitter: thierry <thierry.daucourt@free.fr>
+   :Message:  [[message://845bd74e-8d33-43c5-9668-87ee9fe334d5@q18g2000vbm.googlegroups.com][free shares & --exchange & --total-data]]
+   :END:
+   [2010-12-06 Mon 12:41]
+** TODO [[bug:457][#457]] Comma parsing problem
+   :PROPERTIES:
+   :ID:       F2C4AB15-D0DE-4917-AC45-8DCB0D4C117D
+   :Submitter: Andrew Stribblehill <stribb@gmail.com>
+   :Message:  [[message://AANLkTinfypuh_Q%2BKkbEJaWBGh637C%3D%2BSDR95ZiwLL8cP@mail.gmail.com][Comma parsing problem]]
+   :END:
+   [2010-11-28 Sun 20:33]
 ** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
    - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
    :PROPERTIES:
@@ -1224,93 +1226,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** NOTE Different types of commodity transactions
-   - Never revalue this commodity
-   - Only revalue this commodity if -X is used
-   - Revalue this commodity at current market price
-   - Revalue this commodity at the transaction price
-   - Revalue this commodity at transaction price while a predicate holds true
-   :PROPERTIES:
-   :ID:       40235519-1818-4FFC-B509-590895D1DCB9
-   :VISIBILITY: folded
-   :END:
-   [2010-11-27 Sat 15:00]
-** TODO Make value sequences comparable
-   If done, no special code is needed to do multi-column sorting.
-   :PROPERTIES:
-   :ID:       44493384-34BE-4184-AFCC-8AB7E3B1443E
-   :END:
-   [2010-12-03 Fri 14:13]
-** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
-   :PROPERTIES:
-   :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
-   :END:
-   [2010-07-30 Fri 06:11]
-** TODO [[bug:408][#408]] Enabling OFX support in Ledger 3
-   If it helps, I use http://code.google.com/p/ofx-parser/ to convert my OFX
-   files into ledger format (it doesn't know about ledger format, but it is
-   fairly trivial to take an OFX object tree and output it as ledger).
-   :PROPERTIES:
-   :ID:       EC6DDB71-E008-4D58-9B3D-D059C7D113F3
-   :Submitter: Xavier Shay <xavier-list@rhnh.net>
-   :Message:  [[message://9d4f0817-f8ce-4d76-9c21-1f40d4f5ee6f@t3g2000vbb.googlegroups.com][Re: Enabling OFX support in Ledger 3]]
-   :END:
-   [2010-08-19 Thu 23:35]
-** TODO [[bug:409][#409]] Almost strictly defined accounts
-   I've seen it beeing discussed here to introduce strict verification of
-   account names. I think it may by very handy, however, I think another
-   approach may be usefull too: a predefined branches. One can define several
-   branches of arbitrary depth and every posting must be on one of them. Eg.
-   Defined branches:
-   :OUTPUT:
-   Income:Salary
-   Income:Iterest
-   Expenses:Rent
-   Expenses:Food:Groceries
-   Expenses:Food:Dining
-   etc.
-   :END:
-
-   Now account names in postings must begin with one of the defined
-   branches:
-   :OUTPUT:
-   Income:Salary:Small Co.
-   Income:Salary:World Corp.
-   :END:
-   are both correct
-
-   But
-   :OUTPUT:
-   Expenses:Rant:Flower St.
-           ^^^
-   :END:
-   is not. One can introduce new accounts only below strictly defined
-   structure.
-   :PROPERTIES:
-   :ID:       9F29112A-CFA7-4C3C-91FD-871D8187AE39
-   :Submitter: Łukasz Stelmach <lukasz.stelmach@iem.pw.edu.pl>
-   :Message:  [[message://87zkwhth69.fsf@dasa3.iem.pw.edu.pl][almost strictly defined accounts]]
-   :END:
-   [2010-08-20 Fri 12:17]
-** TODO [[bug:413][#413]] Have a look at Boost.TimeSeries
-   This might be a better replacement for times.cc.
-   :PROPERTIES:
-   :ID:       8A015298-2838-4DF8-B225-262AF77D7DB7
-   :END:
-   [2010-09-18 Sat 14:45]
-** TODO [[bug:414][#414]] Use Boost.Accumulator for ledger stats
-   Perhaps using Accumulator would simplify the code?
-   :PROPERTIES:
-   :ID:       59AA0D1F-C788-4307-844C-716E74828F34
-   :END:
-   [2010-09-18 Sat 14:42]
-** TODO [[bug:432][#432]] Create a command to list all options, commands, and functions
-   :PROPERTIES:
-   :ID:       4BF09022-7059-4CFE-90C2-3507A7B54EDD
-   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
-   :Message:  [[message://AANLkTik8FPboAMJFg1z4ZW6msRrC8_e6R1H-0Mp0VY0C@mail.gmail.com][list of possible ledger options and commands]]
-   :END:
-   [2010-08-16 Mon 16:48]
 ** TODO [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
@@ -1510,6 +1425,90 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       09FA1386-E890-4600-98D0-86C248A24C31
    :END:
    [2010-06-27 Sun 21:27]
+** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
+   :PROPERTIES:
+   :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
+   :END:
+   [2010-07-30 Fri 06:11]
+** TODO [[bug:408][#408]] Enabling OFX support in Ledger 3
+   If it helps, I use http://code.google.com/p/ofx-parser/ to convert my OFX
+   files into ledger format (it doesn't know about ledger format, but it is
+   fairly trivial to take an OFX object tree and output it as ledger).
+   :PROPERTIES:
+   :ID:       EC6DDB71-E008-4D58-9B3D-D059C7D113F3
+   :Submitter: Xavier Shay <xavier-list@rhnh.net>
+   :Message:  [[message://9d4f0817-f8ce-4d76-9c21-1f40d4f5ee6f@t3g2000vbb.googlegroups.com][Re: Enabling OFX support in Ledger 3]]
+   :END:
+   [2010-08-19 Thu 23:35]
+** TODO [[bug:409][#409]] Almost strictly defined accounts
+   I've seen it beeing discussed here to introduce strict verification of
+   account names. I think it may by very handy, however, I think another
+   approach may be usefull too: a predefined branches. One can define several
+   branches of arbitrary depth and every posting must be on one of them. Eg.
+   Defined branches:
+   :OUTPUT:
+   Income:Salary
+   Income:Iterest
+   Expenses:Rent
+   Expenses:Food:Groceries
+   Expenses:Food:Dining
+   etc.
+   :END:
+
+   Now account names in postings must begin with one of the defined
+   branches:
+   :OUTPUT:
+   Income:Salary:Small Co.
+   Income:Salary:World Corp.
+   :END:
+   are both correct
+
+   But
+   :OUTPUT:
+   Expenses:Rant:Flower St.
+           ^^^
+   :END:
+   is not. One can introduce new accounts only below strictly defined
+   structure.
+   :PROPERTIES:
+   :ID:       9F29112A-CFA7-4C3C-91FD-871D8187AE39
+   :Submitter: Łukasz Stelmach <lukasz.stelmach@iem.pw.edu.pl>
+   :Message:  [[message://87zkwhth69.fsf@dasa3.iem.pw.edu.pl][almost strictly defined accounts]]
+   :END:
+   [2010-08-20 Fri 12:17]
+** TODO [[bug:413][#413]] Have a look at Boost.TimeSeries
+   This might be a better replacement for times.cc.
+   :PROPERTIES:
+   :ID:       8A015298-2838-4DF8-B225-262AF77D7DB7
+   :END:
+   [2010-09-18 Sat 14:45]
+** TODO [[bug:414][#414]] Use Boost.Accumulator for ledger stats
+   Perhaps using Accumulator would simplify the code?
+   :PROPERTIES:
+   :ID:       59AA0D1F-C788-4307-844C-716E74828F34
+   :END:
+   [2010-09-18 Sat 14:42]
+** TODO [[bug:432][#432]] Create a command to list all options, commands, and functions
+   :PROPERTIES:
+   :ID:       4BF09022-7059-4CFE-90C2-3507A7B54EDD
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :Message:  [[message://AANLkTik8FPboAMJFg1z4ZW6msRrC8_e6R1H-0Mp0VY0C@mail.gmail.com][list of possible ledger options and commands]]
+   :END:
+   [2010-08-16 Mon 16:48]
+** TODO [[bug:447][#447]] Make value sequences comparable
+   If done, no special code is needed to do multi-column sorting.
+   :PROPERTIES:
+   :ID:       44493384-34BE-4184-AFCC-8AB7E3B1443E
+   :END:
+   [2010-12-03 Fri 14:13]
+** TODO [[bug:451][#451]] Handling multiple Ledgers
+   - Note taken on [2010-12-27 Mon 18:25] \\
+     [[message://AANLkTik8PZ4_bOSVhfPmSYfmNE3m5_cDbw7fovqD3uNX@mail.gmail.com][Re: Multiple Ledgers]]
+   :PROPERTIES:
+   :ID:       195EA2CB-2EDC-47DA-85A5-5C8950387ECF
+   :Submitter: Zack Williams <zdwzdw@gmail.com>
+   :END:
+   [2010-12-17 Fri 05:14]
 ** DEFERRED [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
    - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:23]
    :PROPERTIES:
@@ -1703,6 +1702,17 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       558FDCF1-2C7A-4D20-94A3-48A62FF84104
    :END:
    [2010-06-08 Tue 19:22]
+** NOTE Different types of commodity transactions
+   - Never revalue this commodity
+   - Only revalue this commodity if -X is used
+   - Revalue this commodity at current market price
+   - Revalue this commodity at the transaction price
+   - Revalue this commodity at transaction price while a predicate holds true
+   :PROPERTIES:
+   :ID:       40235519-1818-4FFC-B509-590895D1DCB9
+   :VISIBILITY: folded
+   :END:
+   [2010-11-27 Sat 15:00]
 * Python
   :PROPERTIES:
   :CATEGORY: Python
@@ -1714,7 +1724,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
    :END:
    [2010-08-16 Mon 16:47]
-** TODO [[bug:424][#424]] Make acprep compatible with Python 3                           :ATTACH:
+** TODO [[bug:424][#424]] Make acprep compatible with Python 3                                        :ATTACH:
    - Note taken on [2010-11-26 Fri 12:55] \\
      [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
    :PROPERTIES:
@@ -1884,44 +1894,18 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO Re: ledger build, iostreams, and boost 1.45
-   :PROPERTIES:
-   :ID:       02AAC76F-E8F2-4C44-AA7F-90556BB4F07E
-   :Submitter: Myles English <mylesenglish@gmail.com>
-   :Message:  [[message://loom.20101205T165044-452@post.gmane.org][Re: ledger build, iostreams, and boost 1.45]]
-   :END:
-   [2010-12-06 Mon 12:42]
-** TODO ledger on Arch Linux
-   :PROPERTIES:
-   :ID:       00C5345C-E8FA-475A-BCEA-3F15E848AC84
-   :Submitter: emsenn <emsenn@emsenn.com>
-   :Message:  [[message://AANLkTikJRbwJ6mkChu0zXF1ny1UL0vpaX9mtK%2BXP_A7F@mail.gmail.com][ledger on Arch Linux]]
-   :END:
-   [2010-11-28 Sun 20:32]
-** TODO ledger build, iostreams, and boost 1.45
-   :PROPERTIES:
-   :ID:       7C98893F-9425-4439-95C6-B746E710AEE9
-   :Submitter: Matt Lundin <mdl@imapmail.org>
-   :Message:  [[message://878w0cnalw.fsf@fastmail.fm][ledger build, iostreams, and boost 1.45]]
-   :END:
-   [2010-11-29 Mon 19:52]
-** TODO ubuntu 10.10
-   :PROPERTIES:
-   :ID:       C98A1FFD-E1C2-40CB-AE98-A857CE36F7C5
-   :Submitter: Benoit Chesneau <bchesneau@gmail.com>
-   :Message:  [[message://f170cbe0-d46f-46bc-bf4f-0eaa73ba4a94@w18g2000vbe.googlegroups.com][ubuntu 10.10]]
-   :END:
-   [2010-11-29 Mon 19:52]
-** TODO [#A] [[bug:420][#420]] Ledger will not build on OS X 10.5                       :blocker:
-   SCHEDULED: <2010-12-26 Sun>
+** TODO [#A] [[bug:420][#420]] Ledger will not build on OS X 10.5                                    :blocker:
+   - Note taken on [2010-12-27 Mon 18:26] \\
+     [[message://8bb38f5c-4f56-4e5a-8301-abdc5d284435@29g2000prb.googlegroups.com][Re: Ledger 3 on OS X 10.5?]]
    :PROPERTIES:
    :ID:       EFC2EBD2-FE11-4E8B-BC24-9DAFF23DAD73
    :Submitter: David Glasser <glasser@davidglasser.net>
    :Message:  [[message://AANLkTinYVdu8wN5iO3spVfAUrWnL6k00t23vV%3DUKaRYN@mail.gmail.com][Re: auto-indenting in emacs mode?]]
    :END:
    [2010-10-25 Mon 17:33]
-** TODO [#A] [[bug:430][#430]] Build is failing on Ubuntu 10.10                  :blocker:ATTACH:
-   SCHEDULED: <2010-12-31 Fri>
+** TODO [#A] [[bug:430][#430]] Build is failing on Ubuntu 10.10                               :blocker:ATTACH:
+   - Note taken on [2010-12-27 Mon 18:26] \\
+     [[message://f170cbe0-d46f-46bc-bf4f-0eaa73ba4a94@w18g2000vbe.googlegroups.com][ubuntu 10.10]]
    The steps I took were
 
    1. clone from github
@@ -1977,6 +1961,14 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Attachments: config.log.xz
    :END:
    [2010-11-25 Thu 15:28]
+** TODO [[bug:234][#234]] Add some more configure arguments
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
+   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
+   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
+   :PROPERTIES:
+   :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
+   :END:
+   [2009-03-26 Thu 02:09]
 ** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
    :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
@@ -1984,7 +1976,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://AANLkTilwxjENAIajnVXvoes8H1ccWUgeDsMNirDNgbu-@mail.gmail.com][VS project files & Windows installer]]
    :END:
    [2010-06-28 Mon 23:54]
-** TODO [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)                   :blocker:
+** TODO [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)                                :blocker:
    :PROPERTIES:
    :ID:       D776B418-E517-4C81-B575-45232D50B210
    :Submitter: ed <ed.temp.01@gmail.com>
@@ -2238,14 +2230,14 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       44F046A0-CA2B-4856-BA00-4B4A5CB8979F
    :END:
    [2010-11-10 Wed 11:19]
-** TODO [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users          :blocker:
+** TODO [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                       :blocker:
    :PROPERTIES:
    :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
    :Submitter: David Glasser <glasser@davidglasser.net>
    :Message:  [[message://AANLkTimq1xuJbPnka5%2BoNLjV_zjPoMeGMR6yeWTBg2mz@mail.gmail.com][Ledger 3 on OS X 10.5?]]
    :END:
    [2010-10-18 Mon 16:12]
-** TODO [[bug:427][#427]] Build problems with boost_iostreams                           :blocker:
+** TODO [[bug:427][#427]] Build problems with boost_iostreams                                        :blocker:
    - Note taken on [2010-10-12 Tue 18:17] \\
      [[message://62afe589-3752-4949-8c45-44b9ecd400f3@u13g2000vbo.googlegroups.com][Re: Build problems with boost_iostreams]]
    I am having some trouble building Ledger at the moment.
@@ -2307,14 +2299,24 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://m2bp7eb1hl.fsf@bo.sak.lan][Build problems with boost_iostreams]]
    :END:
    [2010-10-03 Sun 22:17]
-** TODO [[bug:234][#234]] Add some more configure arguments
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
-   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
-   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
+** TODO [[bug:449][#449]] Ledger build, iostreams, and boost 1.45
+   - Note taken on [2010-12-27 Mon 18:26] \\
+     [[message://loom.20101205T165044-452@post.gmane.org][Re: ledger build, iostreams, and boost 1.45]]
+   - Note taken on [2010-12-27 Mon 18:25] \\
+     [[message://d3827c06-fdec-4515-a527-0078837d0818@22g2000prx.googlegroups.com][Re: ledger build, iostreams, and boost 1.45]]
    :PROPERTIES:
-   :ID: 070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
+   :ID:       7C98893F-9425-4439-95C6-B746E710AEE9
+   :Submitter: Matt Lundin <mdl@imapmail.org>
+   :Message:  [[message://878w0cnalw.fsf@fastmail.fm][ledger build, iostreams, and boost 1.45]]
    :END:
-   [2009-03-26 Thu 02:09]
+   [2010-11-29 Mon 19:52]
+** TODO [[bug:456][#456]] Building on Arch Linux
+   :PROPERTIES:
+   :ID:       00C5345C-E8FA-475A-BCEA-3F15E848AC84
+   :Submitter: emsenn <emsenn@emsenn.com>
+   :Message:  [[message://AANLkTikJRbwJ6mkChu0zXF1ny1UL0vpaX9mtK%2BXP_A7F@mail.gmail.com][ledger on Arch Linux]]
+   :END:
+   [2010-11-28 Sun 20:32]
 ** DEFERRED [[bug:216][#216]] Ledger packages for Debian
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
    - Note taken on [2010-05-31 Mon 15:06] \\
@@ -2348,12 +2350,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** TODO [[bug:349][#349]] Implement the empty tests in test/baseline
-   :PROPERTIES:
-   :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
-   :END:
-   [2010-06-18 Fri 19:45]
-** TODO [[bug:185][#185]] Read through Peter's article, and make sure it all applies     :ATTACH:
+** TODO [[bug:185][#185]] Read through Peter's article, and make sure it all applies                  :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
@@ -2364,6 +2361,11 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       54EED1FA-C0A2-4D3A-9C5A-F44E36504179
    :END:
    [2010-06-15 Tue 20:25]
+** TODO [[bug:349][#349]] Implement the empty tests in test/baseline
+   :PROPERTIES:
+   :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
+   :END:
+   [2010-06-18 Fri 19:45]
 ** DEFERRED [[bug:187][#187]] Use coverage analysis to determine if everything is being tested
    - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 00:44]
    :PROPERTIES:
@@ -2404,29 +2406,6 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO [#A] [[bug:422][#422]] Correct definitions of release and beta in the README
-   SCHEDULED: <2010-12-08 Wed>
-   :PROPERTIES:
-   :ID:       931B6920-95D3-4F8E-A517-036E4B7DB0EF
-   :Submitter: Michael Ploujnikov <ploujj@gmail.com>
-   :Message:  [[message://29d9299c-f958-42a2-928c-2bacbf6b63e3@29g2000prb.googlegroups.com][current beta release vs master maint 2.6.1]]
-   :END:
-   [2010-11-25 Thu 15:27]
-** TODO [[bug:423][#423]] Rubygem for converting arbitrary csv files into ledger format
-   - Note taken on [2010-11-14 Sun 20:51] \\
-     [[message://AANLkTimZ%2B%3DeisPa4rYgcLkb%2BnOZoqn6yj%3DuXEceNdtuh@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   - Note taken on [2010-11-11 Thu 12:31] \\
-     [[message://AANLkTikZ4Fa45ez784k9SP47%3DkQczLA2GCyTo%3DhiLU5W@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   - Note taken on [2010-11-11 Thu 12:31] \\
-     [[message://AANLkTim0_TFnT5WL3nBhqK%3DvE2ZNqwRvBwYQbZvvUOks@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   - Note taken on [2010-11-07 Sun 14:08] \\
-     [[message://AANLkTinoU88tNVkO9gbOphYDsbv9oeY6uO5DmWcODv%2BQ@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   :PROPERTIES:
-   :ID:       68744705-640F-4F62-9A7B-EE8C815FD596
-   :Submitter: Andrew Cantino <cantino@gmail.com>
-   :Message:  [[message://AANLkTin8%3DcrNWggCMtHP%2B6MhvR41RHQeqBSveN05oiEd@mail.gmail.com][Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   :END:
-   [2010-11-07 Sun 13:10]
 ** TODO [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
@@ -2443,7 +2422,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :END:
    [2009-11-20 Fri 18:31]
-** TODO [[bug:195][#195]] How to declare a statement reconciliation                      :ATTACH:
+** TODO [[bug:195][#195]] How to declare a statement reconciliation                                   :ATTACH:
    :PROPERTIES:
    :ID:       32A4A048-886F-43FC-892E-EC125F372750
    :Attachments: foo.dat
@@ -2575,8 +2554,43 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://AANLkTinl0OW5pklgt-LV-t0QbmoCor1W6wBQgFB4mdbg@mail.gmail.com][Re: --help option in v3]]
    :END:
    [2010-06-28 Mon 23:54]
+** TODO [[bug:423][#423]] Rubygem for converting arbitrary csv files into ledger format
+   - Note taken on [2010-11-14 Sun 20:51] \\
+     [[message://AANLkTimZ%2B%3DeisPa4rYgcLkb%2BnOZoqn6yj%3DuXEceNdtuh@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   - Note taken on [2010-11-11 Thu 12:31] \\
+     [[message://AANLkTikZ4Fa45ez784k9SP47%3DkQczLA2GCyTo%3DhiLU5W@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   - Note taken on [2010-11-11 Thu 12:31] \\
+     [[message://AANLkTim0_TFnT5WL3nBhqK%3DvE2ZNqwRvBwYQbZvvUOks@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   - Note taken on [2010-11-07 Sun 14:08] \\
+     [[message://AANLkTinoU88tNVkO9gbOphYDsbv9oeY6uO5DmWcODv%2BQ@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   :PROPERTIES:
+   :ID:       68744705-640F-4F62-9A7B-EE8C815FD596
+   :Submitter: Andrew Cantino <cantino@gmail.com>
+   :Message:  [[message://AANLkTin8%3DcrNWggCMtHP%2B6MhvR41RHQeqBSveN05oiEd@mail.gmail.com][Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   :END:
+   [2010-11-07 Sun 13:10]
+** TODO [[bug:450][#450]] Document how to do inventory accounting
+   :PROPERTIES:
+   :ID:       0F52624A-61F8-43D8-8ECD-A6595BBB78C5
+   :Submitter: Jeff Kowalczyk <jeff.kowalczyk@gmail.com>
+   :Message:  [[message://53ee80cf-2711-430f-8c00-e4c7959b0916@f20g2000prn.googlegroups.com][re: inventory accounting]]
+   :END:
+   [2010-12-27 Mon 03:40]
+** TODO [[bug:452][#452]] Fixes to the ledger wiki/README-1ST
+   :PROPERTIES:
+   :ID:       07EB8797-458D-4FBB-B125-062BAC1B732B
+   :Submitter: Matthew Palmer <mpalmer@hezmatt.org>
+   :Message:  [[message://20101207061035.GC4783@hezmatt.org][Fixes to the ledger wiki/README-1ST]]
+   :END:
+   [2010-12-07 Tue 16:33]
+** TODO [[bug:453][#453]] Documentation patches for 3.0
+   :PROPERTIES:
+   :ID:       49655F42-5CE7-4CC5-86E8-BAE7775EFA1E
+   :Submitter: Matthew Palmer <mpalmer@hezmatt.org>
+   :Message:  [[message://20101211001916.GG4308@hezmatt.org][Documentation patches for 3.0]]
+   :END:
+   [2010-12-12 Sun 17:12]
 ** WAITING [#C] [[bug:170][#170]] Fill out membership form for the Software Conservancy
-   SCHEDULED: <2010-12-10 Fri>
    - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
      I'm waiting for the official form to come from the Conservancy.
    - State "TODO"       from "WAITING"    [2010-05-22 Sat 15:05]
@@ -2627,7 +2641,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
-** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                     :ATTACH:
+** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                                  :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
