@@ -8521,6 +8521,14 @@ make: *** [release-distcheck] Error 2
    :END:
    [2009-10-25 Sun 19:02]
 * Docs
+** DONE [[bug:453][#453]] Documentation patches for 3.0
+   - State "DONE"       from "TODO"       [2010-12-30 Thu 02:44]
+   :PROPERTIES:
+   :ID:       49655F42-5CE7-4CC5-86E8-BAE7775EFA1E
+   :Submitter: Matthew Palmer <mpalmer@hezmatt.org>
+   :Message:  [[message://20101211001916.GG4308@hezmatt.org][Documentation patches for 3.0]]
+   :END:
+   [2010-12-12 Sun 17:12]
 ** DONE [[bug:209][#209]] Escape @ characters in the manual
    - State "DONE"       from "TODO"       [2010-06-02 Wed 01:15]
    :PROPERTIES:
