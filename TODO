@@ -11,7 +11,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] [[bug:425][#425]] date>=[2010/02/10] causes a parsing error                            :critical:
+** TODO [#A] [[bug:425][#425]] date>=[2010/02/10] causes a parsing error               :critical:
    :PROPERTIES:
    :ID:       C927CFFE-D27D-4652-9AC8-1C4005FF2B40
    :END:
@@ -25,7 +25,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://3547a240-4f80-405b-8b8a-e04717b583d9@t13g2000yqm.googlegroups.com][ledger --budget reg |wc -l depends on the order of the transactions]]
    :END:
    [2010-11-10 Wed 16:29]
-** TODO [#A] [[bug:437][#437]] Crash when using automatic rules                                      :blocker:
+** TODO [#A] [[bug:437][#437]] Crash when using automatic rules                         :blocker:
    It doesn't look to be very informative:
    :OUTPUT:
    (gdb) backtrace
@@ -76,7 +76,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTinY_1OpT4OeSNFn3B7oXnnqZ%3DAcgs-4rya1OZPM@mail.gmail.com][Re: Automatic rules and 3.0]]
    :END:
    [2010-11-21 Sun 23:03]
-** TODO [#A] [[bug:438][#438]] Case where register and balance do not agree                         :critical:
+** TODO [#A] [[bug:438][#438]] Case where register and balance do not agree            :critical:
    The file below gives the following
    :OUTPUT:
    $ ledger/ledger -f foo -X \$ bal sub1
@@ -165,7 +165,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://4CA31AA6.7080004@gmail.com][Re: reg vs bal in presence of recent commodity price info]]
    :END:
    [2010-10-03 Sun 22:16]
-** TODO [#A] [[bug:440][#440]] Complex command causes core dump                                      :blocker:
+** TODO [#A] [[bug:440][#440]] Complex command causes core dump                         :blocker:
    :OUTPUT:
    ledger --args-only reg --group-by=account --related --subtotal --file speed-test.dat --exchange=€ --decimal-comma
    :END:
@@ -790,6 +790,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTinfypuh_Q%2BKkbEJaWBGh637C%3D%2BSDR95ZiwLL8cP@mail.gmail.com][Comma parsing problem]]
    :END:
    [2010-11-28 Sun 20:33]
+** TODO [[bug:458][#458]] Spaces seem to be significant in automatic transaction predicate
+   :PROPERTIES:
+   :ID:       605A410D-FBBE-4089-84B1-452473325994
+   :Submitter: Zack Williams <zdwzdw@gmail.com>
+   :Message:  [[message://AANLkTikJrn5v4zPezXvmedNDoE-DfoTfUpgMw7QuwcPg@mail.gmail.com][Re: Automatic transactions only for certain entry amounts]]
+   :END:
+   [2010-12-29 Wed 17:42]
+** TODO [[bug:459][#459]] Expression-based automatic transaction predicate not working
+   :PROPERTIES:
+   :ID:       29BE8505-CAE7-40E6-85F8-4D91DB524DB8
+   :Submitter: Zack Williams <zdwzdw@gmail.com>
+   :Message:  [[message://AANLkTin1k5DdW_Ctc0d_WsBb%2BxnPLBUs6%3DA11VdhX8d4@mail.gmail.com][Re: Automatic transactions only for certain entry amounts]]
+   :END:
+   [2010-12-29 Wed 17:42]
 ** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
    - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
    :PROPERTIES:
@@ -960,7 +974,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://4c8e1d53a5fb0_5b163fae2e59506c1fb@fe1.rs.github.com.tmail][{GitHub} Reconciling with ledger.el doesn't seem to work {jwiegley/ledger GH-17}]]
    :END:
    [2010-09-13 Mon 17:19]
-** TODO [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p                     :ATTACH:
+** TODO [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p        :ATTACH:
    :PROPERTIES:
    :ID:       669AE4A1-E30D-4A3D-A330-06E183FBF66E
    :Submitter: Russell Adams <RLAdams@AdamsInfoServ.Com>
@@ -992,6 +1006,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://cc55b8f2-8b24-4a8f-ad3e-8c2842722593@l6g2000yqb.googlegroups.com][ledger.el troubles]]
    :END:
    [2010-10-03 Sun 22:16]
+** TODO [[bug:460][#460]] ledger.el expects blank lines around transactions
+   :PROPERTIES:
+   :ID:       190E8223-FCD1-4592-B1CF-7C682E3D3F8B
+   :Submitter: David Brown <ledger@davidb.org>
+   :Message:  [[message://87sjxgi7wd.fsf@a64.davidb.org][Some ledger.el questions]]
+   :END:
+   [2010-12-29 Wed 17:41]
 ** DEFERRED [[bug:245][#245]] Add colorized highlighting to the reconciler
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
    http://thread.gmane.org/gmane.comp.finance.ledger.general/483
@@ -1724,7 +1745,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
    :END:
    [2010-08-16 Mon 16:47]
-** TODO [[bug:424][#424]] Make acprep compatible with Python 3                                        :ATTACH:
+** TODO [[bug:424][#424]] Make acprep compatible with Python 3                           :ATTACH:
    - Note taken on [2010-11-26 Fri 12:55] \\
      [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
    :PROPERTIES:
@@ -1894,7 +1915,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [#A] [[bug:420][#420]] Ledger will not build on OS X 10.5                                    :blocker:
+** TODO [#A] [[bug:420][#420]] Ledger will not build on OS X 10.5                       :blocker:
    - Note taken on [2010-12-27 Mon 18:26] \\
      [[message://8bb38f5c-4f56-4e5a-8301-abdc5d284435@29g2000prb.googlegroups.com][Re: Ledger 3 on OS X 10.5?]]
    :PROPERTIES:
@@ -1903,7 +1924,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://AANLkTinYVdu8wN5iO3spVfAUrWnL6k00t23vV%3DUKaRYN@mail.gmail.com][Re: auto-indenting in emacs mode?]]
    :END:
    [2010-10-25 Mon 17:33]
-** TODO [#A] [[bug:430][#430]] Build is failing on Ubuntu 10.10                               :blocker:ATTACH:
+** TODO [#A] [[bug:430][#430]] Build is failing on Ubuntu 10.10                  :blocker:ATTACH:
    - Note taken on [2010-12-27 Mon 18:26] \\
      [[message://f170cbe0-d46f-46bc-bf4f-0eaa73ba4a94@w18g2000vbe.googlegroups.com][ubuntu 10.10]]
    The steps I took were
@@ -1976,7 +1997,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://AANLkTilwxjENAIajnVXvoes8H1ccWUgeDsMNirDNgbu-@mail.gmail.com][VS project files & Windows installer]]
    :END:
    [2010-06-28 Mon 23:54]
-** TODO [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)                                :blocker:
+** TODO [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)                   :blocker:
    :PROPERTIES:
    :ID:       D776B418-E517-4C81-B575-45232D50B210
    :Submitter: ed <ed.temp.01@gmail.com>
@@ -2230,14 +2251,14 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       44F046A0-CA2B-4856-BA00-4B4A5CB8979F
    :END:
    [2010-11-10 Wed 11:19]
-** TODO [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                       :blocker:
+** TODO [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users          :blocker:
    :PROPERTIES:
    :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
    :Submitter: David Glasser <glasser@davidglasser.net>
    :Message:  [[message://AANLkTimq1xuJbPnka5%2BoNLjV_zjPoMeGMR6yeWTBg2mz@mail.gmail.com][Ledger 3 on OS X 10.5?]]
    :END:
    [2010-10-18 Mon 16:12]
-** TODO [[bug:427][#427]] Build problems with boost_iostreams                                        :blocker:
+** TODO [[bug:427][#427]] Build problems with boost_iostreams                           :blocker:
    - Note taken on [2010-10-12 Tue 18:17] \\
      [[message://62afe589-3752-4949-8c45-44b9ecd400f3@u13g2000vbo.googlegroups.com][Re: Build problems with boost_iostreams]]
    I am having some trouble building Ledger at the moment.
@@ -2350,7 +2371,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** TODO [[bug:185][#185]] Read through Peter's article, and make sure it all applies                  :ATTACH:
+** TODO [[bug:185][#185]] Read through Peter's article, and make sure it all applies     :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
@@ -2422,7 +2443,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :END:
    [2009-11-20 Fri 18:31]
-** TODO [[bug:195][#195]] How to declare a statement reconciliation                                   :ATTACH:
+** TODO [[bug:195][#195]] How to declare a statement reconciliation                      :ATTACH:
    :PROPERTIES:
    :ID:       32A4A048-886F-43FC-892E-EC125F372750
    :Attachments: foo.dat
@@ -2641,7 +2662,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID: 986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :END:
    [2008-08-14 Thu]
-** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                                  :ATTACH:
+** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                     :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
