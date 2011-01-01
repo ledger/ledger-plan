@@ -1,8 +1,9 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content fninline hidestars
+#+ARCHIVE: TODO-3.0::
 #+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
-#+TAGS: Call(c) Errand(e) Home(h) Net(n) Fun(f) LINK(l) NOTE(N) blocker(B) critical(C)
+#+TAGS: blocker(B) critical(C)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
 #+LINK: bug http://newartisans.com/bugzilla/show_bug.cgi?id=
 #+CATEGORY: Ledger
