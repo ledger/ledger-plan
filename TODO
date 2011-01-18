@@ -12,33 +12,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [[bug:469][#469]] Account / commodity periodic gain question
-   :PROPERTIES:
-   :ID:       9DB996BD-2E83-49F4-AF11-8EC5CA3927DE
-   :Message:  [[message://AANLkTikcQ-9Aifi3c6a-tUHSr2tcqbxh2c_dxUb4cY8k@mail.gmail.com][Re: Account / commodity periodic gain]]
-   :END:
-   [2011-01-13 Thu 23:09]
-** TODO [[bug:470][#470]] Period support and forecast reports
-   :PROPERTIES:
-   :ID:       0A606F26-9B6F-44A1-8C25-72D9E3E68297
-   :Message:  [[message://17302579.215.1294968238136.JavaMail.geo-discussion-forums@yqep2][Period support and forecast reports]]
-   :END:
-   [2011-01-13 Thu 23:10]
-** TODO [[bug:463][#463]] Question about commodity sub-total vs. total in balance
-   :PROPERTIES:
-   :ID:       3715CC11-ADFF-4F6B-9C39-C7D1077A2F83
-   :Submitter: jimr <jim.robinson@gmail.com>
-   :Message:  [[message://d2d528e1-33ba-49d1-bddf-53f07e9b5f1b@y19g2000prb.googlegroups.com][question about commodity sub-total vs. total in balance]]
-   :END:
-   [2011-01-05 Wed 16:20]
-** TODO [[bug:462][#462]] Default currency/commodity not respected
-   In 2.6.2 on 64-bit ubuntu; calculations in disagreement.
-   :PROPERTIES:
-   :ID:       BA8A5D0A-C65F-42BC-801F-78A37BD9CDD4
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-462-1@http.newartisans.com/bugzilla/][{Bug 462} New: Default currency/commodity not respected in 2.6.2 on 64-bit ubuntu; calculations in disagreement]]
-   :END:
-   [2011-01-03 Mon 23:10]
 ** TODO [#A] [[bug:425][#425]] date>=[2010/02/10] causes a parsing error               :critical:
    :PROPERTIES:
    :ID:       C927CFFE-D27D-4652-9AC8-1C4005FF2B40
@@ -832,6 +805,33 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTin1k5DdW_Ctc0d_WsBb%2BxnPLBUs6%3DA11VdhX8d4@mail.gmail.com][Re: Automatic transactions only for certain entry amounts]]
    :END:
    [2010-12-29 Wed 17:42]
+** TODO [[bug:462][#462]] Default currency/commodity not respected
+   In 2.6.2 on 64-bit ubuntu; calculations in disagreement.
+   :PROPERTIES:
+   :ID:       BA8A5D0A-C65F-42BC-801F-78A37BD9CDD4
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-462-1@http.newartisans.com/bugzilla/][{Bug 462} New: Default currency/commodity not respected in 2.6.2 on 64-bit ubuntu; calculations in disagreement]]
+   :END:
+   [2011-01-03 Mon 23:10]
+** TODO [[bug:463][#463]] Question about commodity sub-total vs. total in balance
+   :PROPERTIES:
+   :ID:       3715CC11-ADFF-4F6B-9C39-C7D1077A2F83
+   :Submitter: jimr <jim.robinson@gmail.com>
+   :Message:  [[message://d2d528e1-33ba-49d1-bddf-53f07e9b5f1b@y19g2000prb.googlegroups.com][question about commodity sub-total vs. total in balance]]
+   :END:
+   [2011-01-05 Wed 16:20]
+** TODO [[bug:469][#469]] Account / commodity periodic gain question
+   :PROPERTIES:
+   :ID:       9DB996BD-2E83-49F4-AF11-8EC5CA3927DE
+   :Message:  [[message://AANLkTikcQ-9Aifi3c6a-tUHSr2tcqbxh2c_dxUb4cY8k@mail.gmail.com][Re: Account / commodity periodic gain]]
+   :END:
+   [2011-01-13 Thu 23:09]
+** TODO [[bug:470][#470]] Period support and forecast reports
+   :PROPERTIES:
+   :ID:       0A606F26-9B6F-44A1-8C25-72D9E3E68297
+   :Message:  [[message://17302579.215.1294968238136.JavaMail.geo-discussion-forums@yqep2][Period support and forecast reports]]
+   :END:
+   [2011-01-13 Thu 23:10]
 ** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
    - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
    :PROPERTIES:
@@ -969,35 +969,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
-** TODO [[bug:468][#468]] New ledger mode in master sometimes erases data when aligning amounts
-   :PROPERTIES:
-   :ID:       EF8918DA-97AC-4BD2-8676-7D8B49A35097
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-468-1@http.newartisans.com/bugzilla/][{Bug 468} New: new ledger mode in master sometimes erases data when aligning amounts]]
-   :END:
-   [2011-01-10 Mon 17:21]
-** TODO [[bug:467][#467]] ledger.el won't highlight account names if they have a space
-   :PROPERTIES:
-   :ID:       02CD3C95-0B6A-4B09-8C33-4D5CE6ACB93C
-   :Submitter: GitHub <noreply@github.com>
-   :Message:  [[message://4d26879ee6e14_2a73fd58175e87412f@fe2.rs.github.com.tmail][{GitHub} ledger.el won't highlight account names if they have a space {jwiegley/ledger GH-21}]]
-   :END:
-   [2011-01-07 Fri 04:48]
-** TODO [[bug:465][#465]] ledger.el tweak for handling yyyy-mm-dd
-   :PROPERTIES:
-   :ID:       8BFE15FF-71AD-4F4E-AE15-C922E6A10205
-   :Submitter: jimr <jim.robinson@gmail.com>
-   :Message:  [[message://52d270cf-30a2-45c1-9ad2-c0b95b0539b9@z26g2000prf.googlegroups.com][ledger.el tweak for handling yyyy-mm-dd]]
-   :END:
-   [2011-01-02 Sun 09:16]
-** TODO [[bug:464][#464]] auto-indenting in emacs mode?
-   - State "TODO"       from "DEFERRED"   [2011-01-02 Sun 04:48]
-   - State "DEFERRED"   from "TODO"       [2010-04-27 Tue 08:59]
-   :PROPERTIES:
-   :ID:       9CCBD7BF-DB21-4BEA-B603-16BB87BA0082
-   :Message:  [[message://m2p1ea387f61004101209lb0fb93a8z160df933074f99b1@mail.gmail.com][auto-indenting in emacs mode?]]
-   :END:
-   [2010-04-11 Sun 03:55]
 ** TODO [[bug:389][#389]] Emacs mode autocompletion issue
    :PROPERTIES:
    :ID:       87255055-84B2-4B95-B643-0F8848C06D70
@@ -1070,6 +1041,35 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://87sjxgi7wd.fsf@a64.davidb.org][Some ledger.el questions]]
    :END:
    [2010-12-29 Wed 17:41]
+** TODO [[bug:464][#464]] auto-indenting in emacs mode?
+   - State "TODO"       from "DEFERRED"   [2011-01-02 Sun 04:48]
+   - State "DEFERRED"   from "TODO"       [2010-04-27 Tue 08:59]
+   :PROPERTIES:
+   :ID:       9CCBD7BF-DB21-4BEA-B603-16BB87BA0082
+   :Message:  [[message://m2p1ea387f61004101209lb0fb93a8z160df933074f99b1@mail.gmail.com][auto-indenting in emacs mode?]]
+   :END:
+   [2010-04-11 Sun 03:55]
+** TODO [[bug:465][#465]] ledger.el tweak for handling yyyy-mm-dd
+   :PROPERTIES:
+   :ID:       8BFE15FF-71AD-4F4E-AE15-C922E6A10205
+   :Submitter: jimr <jim.robinson@gmail.com>
+   :Message:  [[message://52d270cf-30a2-45c1-9ad2-c0b95b0539b9@z26g2000prf.googlegroups.com][ledger.el tweak for handling yyyy-mm-dd]]
+   :END:
+   [2011-01-02 Sun 09:16]
+** TODO [[bug:467][#467]] ledger.el won't highlight account names if they have a space
+   :PROPERTIES:
+   :ID:       02CD3C95-0B6A-4B09-8C33-4D5CE6ACB93C
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4d26879ee6e14_2a73fd58175e87412f@fe2.rs.github.com.tmail][{GitHub} ledger.el won't highlight account names if they have a space {jwiegley/ledger GH-21}]]
+   :END:
+   [2011-01-07 Fri 04:48]
+** TODO [[bug:468][#468]] New ledger mode in master sometimes erases data when aligning amounts
+   :PROPERTIES:
+   :ID:       EF8918DA-97AC-4BD2-8676-7D8B49A35097
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-468-1@http.newartisans.com/bugzilla/][{Bug 468} New: new ledger mode in master sometimes erases data when aligning amounts]]
+   :END:
+   [2011-01-10 Mon 17:21]
 ** DEFERRED [[bug:245][#245]] Add colorized highlighting to the reconciler
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
    http://thread.gmane.org/gmane.comp.finance.ledger.general/483
@@ -1304,21 +1304,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [[bug:471][#471]] Swapping out memory allocators for performance testing
-   SCHEDULED: <2011-01-18 Tue>
-   :PROPERTIES:
-   :ID:       0BEC0050-A9B8-4B41-8483-E44AAF4C295F
-   :Message:  [[message://4D31324D.3070903@pathscale.com][Re: Collaborating on boost performance]]
-   :END:
-   [2011-01-18 Tue 04:23]
-** DEFERRED [[bug:461][#461]] Balance report that shows commodities and value or basis cost
-   - State "DEFERRED"   from "TODO"       [2011-01-01 Sat 05:18]
-   :PROPERTIES:
-   :ID:       EB865380-8B2E-4847-AC97-D07EE9EC8A9D
-   :Submitter: jimr <jim.robinson@gmail.com>
-   :Message:  [[message://760a3e61-0b99-458c-b251-4fe45378df99@22g2000prx.googlegroups.com][Re: reporting on specific commodities?]]
-   :END:
-   [2010-12-30 Thu 07:51]
 ** TODO [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
@@ -1602,6 +1587,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Zack Williams <zdwzdw@gmail.com>
    :END:
    [2010-12-17 Fri 05:14]
+** TODO [[bug:471][#471]] Swapping out memory allocators for performance testing
+   SCHEDULED: <2011-01-18 Tue>
+   :PROPERTIES:
+   :ID:       0BEC0050-A9B8-4B41-8483-E44AAF4C295F
+   :Message:  [[message://4D31324D.3070903@pathscale.com][Re: Collaborating on boost performance]]
+   :END:
+   [2011-01-18 Tue 04:23]
 ** DEFERRED [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
    - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:23]
    :PROPERTIES:
@@ -1795,6 +1787,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       558FDCF1-2C7A-4D20-94A3-48A62FF84104
    :END:
    [2010-06-08 Tue 19:22]
+** DEFERRED [[bug:461][#461]] Balance report that shows commodities and value or basis cost
+   - State "DEFERRED"   from "TODO"       [2011-01-01 Sat 05:18]
+   :PROPERTIES:
+   :ID:       EB865380-8B2E-4847-AC97-D07EE9EC8A9D
+   :Submitter: jimr <jim.robinson@gmail.com>
+   :Message:  [[message://760a3e61-0b99-458c-b251-4fe45378df99@22g2000prx.googlegroups.com][Re: reporting on specific commodities?]]
+   :END:
+   [2010-12-30 Thu 07:51]
 ** NOTE Different types of commodity transactions
    - Never revalue this commodity
    - Only revalue this commodity if -X is used
@@ -1987,13 +1987,6 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [[bug:466][#466]] Error in latest GIT version
-   :PROPERTIES:
-   :ID:       582D70CA-86C0-4B9F-9917-2F3D2DE29013
-   :Submitter: ed <ed.temp.01@gmail.com>
-   :Message:  [[message://acfe4699-2c38-4617-8cc3-1bab23f913c5@k11g2000vbf.googlegroups.com][Error in latest GIT version]]
-   :END:
-   [2011-01-01 Sat 16:15]
 ** TODO [#A] [[bug:420][#420]] Ledger will not build on OS X 10.5                       :blocker:
    - Note taken on [2010-12-27 Mon 18:26] \\
      [[message://8bb38f5c-4f56-4e5a-8301-abdc5d284435@29g2000prb.googlegroups.com][Re: Ledger 3 on OS X 10.5?]]
@@ -2417,6 +2410,13 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://AANLkTikJRbwJ6mkChu0zXF1ny1UL0vpaX9mtK%2BXP_A7F@mail.gmail.com][ledger on Arch Linux]]
    :END:
    [2010-11-28 Sun 20:32]
+** TODO [[bug:466][#466]] Error in latest GIT version
+   :PROPERTIES:
+   :ID:       582D70CA-86C0-4B9F-9917-2F3D2DE29013
+   :Submitter: ed <ed.temp.01@gmail.com>
+   :Message:  [[message://acfe4699-2c38-4617-8cc3-1bab23f913c5@k11g2000vbf.googlegroups.com][Error in latest GIT version]]
+   :END:
+   [2011-01-01 Sat 16:15]
 ** DEFERRED [[bug:216][#216]] Ledger packages for Debian
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
    - Note taken on [2010-05-31 Mon 15:06] \\
