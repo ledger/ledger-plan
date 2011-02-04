@@ -7946,6 +7946,12 @@ Error: A posting's cost may not be negative
    :Message:  [[message://201006161241.33330.brp@4dst.com][Ledger 2.6.1 - patches for gcc 4.4.3]]
    :END:
    [2010-06-16 Wed 18:17]
+** DONE [[bug:419][#419]] Resolve Clang warnings in the Ledger build
+   - State "DONE"       from "TODO"       [2011-02-04 Fri 07:26]
+   :PROPERTIES:
+   :ID:       44F046A0-CA2B-4856-BA00-4B4A5CB8979F
+   :END:
+   [2010-11-10 Wed 11:19]
 ** DONE [[bug:215][#215]] Compile fails for version 3.0
    - State "DONE"       from "TODO"       [2010-06-02 Wed 18:45] \\
      This was a problem with universal binaries, so I've turned them off by default
@@ -8123,7 +8129,24 @@ OSError: [Errno 13] Permission denied: '/home/nafai/Products/ledger-proof/defaul
    :Submitter: Simon Michael <simon@joyful.com>
    :END:
    [2009-11-24 Tue 22:13]
+** NOTE If autoreconf fails, try installing the autopoint library
+   :PROPERTIES:
+   :ID:       30455F9F-D192-493A-AA81-2BC0E238C18E
+   :Message:  [[message://20110202143502.GL8293@x201][Re: Compile failure]]
+   :END:
+   [2011-02-02 Wed 15:46]
 * Tests
+** DONE [[bug:325][#325]] Migrate from CppUnit to the Boost Test FrameWork
+   - State "DONE"       from "TODO"       [2011-02-04 Fri 03:41]
+   - State "TODO"       from "DEFERRED"   [2011-02-04 Fri 03:41]
+   - State "DEFERRED"   from "TODO"       [2010-06-19 Sat 13:38]
+   - State "TODO"       from "DEFERRED"   [2010-06-15 Tue 17:00]
+   - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:17]
+   :PROPERTIES:
+   :ID:       44B30EE4-6C72-4DDE-8BDA-1E6DE683B796
+   :URL:      [[http://www.boost.org/doc/libs/1_43_0/libs/test/doc/html/tutorials/hello-the-testing-world.html][Introduction to using the Unit Test Framework]]
+   :END:
+   [2010-06-11 Fri 17:10]
 ** DONE [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
    - State "DONE"       from "TODO"       [2010-06-18 Fri 19:47]
    - State "TODO"       from "STARTED"    [2010-06-16 Wed 03:54]
