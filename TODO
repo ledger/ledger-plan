@@ -12,11 +12,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] [[bug:425][#425]] date>=[2010/02/10] causes a parsing error                            :critical:
-   :PROPERTIES:
-   :ID:       C927CFFE-D27D-4652-9AC8-1C4005FF2B40
-   :END:
-   [2010-11-18 Thu 14:46]
 ** TODO [#A] [[bug:426][#426]] ledger --budget reg|wc -l depends on order of transactions
    - Note taken on [2010-11-10 Wed 16:29] \\
      [[message://0326c3da-70e6-4ab2-b53f-27a1e0bdc2c4@32g2000yqz.googlegroups.com][Re: ledger --budget reg |wc -l depends on the order of the transactions]]
@@ -27,6 +22,39 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :END:
    [2010-11-10 Wed 16:29]
 ** TODO [#A] [[bug:437][#437]] Crash when using automatic rules                                      :blocker:
+   - Note taken on [2011-02-12 Sat 14:15] \\
+     Interesting. I built the next branch from scratch and found a much more
+     useful error message. I have a periodic transaction that it can't parse:
+     :OUTPUT:
+     While parsing file "/Users/peter/ledger.txt", line 29:
+     While evaluating value expression:
+      date
+     While applying automated transaction from "/Users/peter/ledger.txt",
+     lines 10-12:
+     = expr date=>[2010/02/10] && account =~ /^Expenses:(Cable|Utils)/ && account !~ /Expenses:Utils:Water/
+       $account                                     -0.5
+       Assets:Receivable:Andrew                      0.5
+     While parsing periodic transaction:
+     ~ monthly
+        Expenses:Cable                            $37.00
+        Expenses:Food                            $600.00
+        Expenses:Insurance:Car                    $81.15
+        Expenses:Insurance:Fees                    $1.00
+        Expenses:Insurance:Life                   $50.00
+        Expenses:Interest:Car                     $25.00
+        Expenses:Interest:Student                $150.00
+        Expenses:Rent                            $650.00
+        Expenses:Utils:Electric                   $50.00
+        Expenses:Utils:Gas                        $50.00
+        Assets
+     Error: Assertion failed in "src/item.cc", line 535: ledger::string
+     ledger::item_context(const ledger::item_t&, const ledger::string&):
+     len > 0
+     :END:
+     
+     Not really sure what that means. If I comment out the periodic transaction
+     everything works again, except the automatic transaction is matching every
+     transaction, not just the ones that the expression should match.
    It doesn't look to be very informative:
    :OUTPUT:
    (gdb) backtrace
@@ -38,39 +66,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 
    If that helps, cool. Otherwise I'm building next right now with debugging
    symbols and I'll let you know if it's still happening.
-
-   Interesting. I built the next branch from scratch and found a much more
-   useful error message. I have a periodic transaction that it can't parse:
-   :OUTPUT:
-   While parsing file "/Users/peter/ledger.txt", line 29:
-   While evaluating value expression:
-    date
-   While applying automated transaction from "/Users/peter/ledger.txt",
-   lines 10-12:
-   = expr date=>[2010/02/10] && account =~ /^Expenses:(Cable|Utils)/ && account !~ /Expenses:Utils:Water/
-     $account                                     -0.5
-     Assets:Receivable:Andrew                      0.5
-   While parsing periodic transaction:
-   ~ monthly
-      Expenses:Cable                            $37.00
-      Expenses:Food                            $600.00
-      Expenses:Insurance:Car                    $81.15
-      Expenses:Insurance:Fees                    $1.00
-      Expenses:Insurance:Life                   $50.00
-      Expenses:Interest:Car                     $25.00
-      Expenses:Interest:Student                $150.00
-      Expenses:Rent                            $650.00
-      Expenses:Utils:Electric                   $50.00
-      Expenses:Utils:Gas                        $50.00
-      Assets
-   Error: Assertion failed in "src/item.cc", line 535: ledger::string
-   ledger::item_context(const ledger::item_t&, const ledger::string&):
-   len > 0
-   :END:
-
-   Not really sure what that means. If I comment out the periodic transaction
-   everything works again, except the automatic transaction is matching every
-   transaction, not just the ones that the expression should match.
    :PROPERTIES:
    :ID:       E51310FF-3548-45AE-AEFF-57B800E8A304
    :Submitter: Peter Keen <peter.keen@bugsplat.info>
@@ -166,24 +161,49 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://4CA31AA6.7080004@gmail.com][Re: reg vs bal in presence of recent commodity price info]]
    :END:
    [2010-10-03 Sun 22:16]
-** TODO [#A] [[bug:440][#440]] Complex command causes core dump                                      :blocker:
-   :OUTPUT:
-   ledger --args-only reg --group-by=account --related --subtotal --file speed-test.dat --exchange=€ --decimal-comma
-   :END:
-   :PROPERTIES:
-   :ID:       CEE57FBC-DF19-40DD-901D-68B1AEC29888
-   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
-   :Message:  [[message://AANLkTimK1QtZdzAyVKV7h6T0OeeTXG0fgn5pr0HfVxYn@mail.gmail.com][core dump]]
-   :END:
-   [2010-08-19 Thu 23:35]
-** TODO [#A] [[bug:446][#446]] Segfault on wrong command directive
-   :PROPERTIES:
-   :ID:       AD8A9EB3-1220-4482-B0B0-0637C9F590E6
-   :Submitter: GitHub <noreply@github.com>
-   :Message:  [[message://4cfbded194771_50923ff7bdcc406c5b0@fe1.rs.github.com.tmail][{GitHub} Get segfault on wrong command directive {jwiegley/ledger GH-19}]]
-   :END:
-   [2010-12-06 Mon 12:42]
 ** TODO [#A] [[bug:463][#463]] Question about commodity sub-total vs. total in balance
+   I had a question about balance totals. Given this test data:
+   #+begin_src ledger
+   D $1,000.00
+   P 2011-01-01 22:00:00-0800 TESTA $78.35
+   P 2011-01-01 22:00:00-0800 TESTB $15.86
+   P 2011-01-01 22:00:09-0800 TESTC $13.01
+   
+   2011/01/01 Example
+     Assets:Brokerage:TESTA         188.424 TESTA @      $76.61
+     Assets:Brokerage:TESTB       1,809.282 TESTB @      $15.60
+     Assets:Brokerage:TESTC         384.320 TESTC @@  $5,000.00
+     Assets:Brokerage:TESTC           5.306 TESTC @@     $68.18
+     Equity:Opening Balances
+   #+end_src
+   
+   I'm a little bit surprised that the sub-accounts reflect a difference from
+   the top level account w/re to rounding the last cent:
+   :OUTPUT:
+   $ ledger -V -f test.dat  bal
+             $48,527.27  Assets:Brokerage
+             $14,763.02    TESTA
+             $28,695.21    TESTB
+              $5,069.03    TESTC
+            $-47,728.14  Equity:Opening Balances
+   --------------------
+                $799.13
+   :END:
+   
+   Even if --no-rounding is passed in:
+   :OUTPUT:
+   $ ledger -V -f test.dat --no-rounding bal
+             $48,527.27  Assets:Brokerage
+             $14,763.02    TESTA
+             $28,695.21    TESTB
+              $5,069.03    TESTC
+            $-47,728.14  Equity:Opening Balances
+   --------------------
+                $799.13
+   :END:
+   
+   Is there something off with how the data aboce is set up?  Should I be
+   using be more place holders?
    :PROPERTIES:
    :ID:       3715CC11-ADFF-4F6B-9C39-C7D1077A2F83
    :Submitter: jimr <jim.robinson@gmail.com>
@@ -563,6 +583,24 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://17302579.215.1294968238136.JavaMail.geo-discussion-forums@yqep2][Period support and forecast reports]]
    :END:
    [2011-01-13 Thu 23:10]
+** TODO [[bug:476][#476]] alias does not work across !include
+   :PROPERTIES:
+   :ID:       13A2FCDF-6A62-4EC3-AC7A-A5F26B333065
+   :CREATED:  [2011-02-09 Wed 14:39]
+   :Message:  [[message://bug-476-1@http.newartisans.com/bugzilla/][{Bug 476} New: alias does not work across !include]]
+   :END:
+** TODO [[bug:477][#477]] Ledger print command does not handle GnuCash Capital Gain Split
+   :PROPERTIES:
+   :ID:       61E2AF09-F622-4DAF-B1A5-7B10478F883E
+   :CREATED:  [2011-02-10 Thu 16:22]
+   :Message:  [[message://bug-477-1@http.newartisans.com/bugzilla/][{Bug 477} New: Ledger print command does not handle GnuCash Capital Gain Split]]
+   :END:
+** TODO Sorting problem concerning amounts and -X
+   :PROPERTIES:
+   :ID:       B07F66BD-80FB-4AA9-8AF1-0BB403C8C760
+   :CREATED:  [2011-02-09 Wed 14:27]
+   :Message:  [[message://807813.1344.1296903400080.JavaMail.geo-discussion-forums@prfp36][Is this expected sorting behavior?]]
+   :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
    ${AMT} is the same as $(scrub(AMT))
@@ -1019,6 +1057,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://4d26879ee6e14_2a73fd58175e87412f@fe2.rs.github.com.tmail][{GitHub} ledger.el won't highlight account names if they have a space {jwiegley/ledger GH-21}]]
    :END:
    [2011-01-07 Fri 04:48]
+** TODO [[bug:479][#479]] Descriptions of cleared transactions are not highlighted
+   :PROPERTIES:
+   :ID:       D26858FD-A897-4D2D-98F9-156ADB25D22F
+   :CREATED:  [2011-02-12 Sat 14:34]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-479-1@http.newartisans.com/bugzilla/][{Bug 479} New: Descriptions of cleared transactions are not highlighted]]
+   :END:
+** TODO Problem reconciling with ledger.el: spacebar does nothing
+   :PROPERTIES:
+   :ID:       8C580CBF-4759-452D-9AF6-51E6ADECFDC3
+   :CREATED:  [2011-02-12 Sat 00:16]
+   :Message:  [[message://25362.2107.1297417062067.JavaMail.geo-discussion-forums@yqmi40][Problem Reconciling with ledger.el - Spacebar Does Nothing]]
+   :END:
 ** TODO [#C] [[bug:389][#389]] Emacs mode autocompletion issue
    :PROPERTIES:
    :ID:       87255055-84B2-4B95-B643-0F8848C06D70
@@ -1040,7 +1091,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-396-1@http.newartisans.com/bugzilla/][{Bug 396} New: ledger emacs doesn't escape double quotes]]
    :END:
    [2010-08-16 Mon 16:28]
-** TODO [#C] [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p   :ATTACH:
+** TODO [#C] [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p                :ATTACH:
    :PROPERTIES:
    :ID:       669AE4A1-E30D-4A3D-A330-06E183FBF66E
    :Submitter: Russell Adams <RLAdams@AdamsInfoServ.Com>
@@ -1315,6 +1366,204 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://B24180CF-D2DB-49DD-BEBD-4FF7170D3639@newartisans.com][A solution to the commodity pricing problem]]
    :END:
    [2011-02-04 Fri 07:32]
+** TODO More formal methods of doing lot-based reporting
+   - Note taken on [2011-02-09 Wed 14:31] \\
+     Martin Michlmayr: Yeah, I know... but I think it's a feature that ledger
+     should eventually get (obviously not for 3.0).
+     
+     > If you specify an adorned commodity, like AAPL {$10.00}, it will also
+     > balance against itself, and against any AAPL if --lots is not
+     > specified.  But if you do specify --lot-prices, for example, then it
+     > will balance against that specific price for AAPL.
+     > 
+     > I may, for the sake of reporting *only*, be able to implement some sort
+     > of guessing strategy, based on the order in which transactions appear
+     > in the data file...
+     
+     Why for reporting only?  It seems to me that ledger has all the
+     information to do FIFO and LIFO properly (i.e. to remove the right
+     commodities from the list).  Let's take this example:
+     #+begin_src ledger
+     2011-01-01 * Buy AAA
+         Assets:Shares                             5 AAA @ 10.00 EUR
+         Assets:Cash
+     
+     2011-01-03 * Buy AAA
+         Assets:Shares                             2 AAA @ 10.00 EUR
+         Assets:Cash
+     
+     2011-01-11 * Buy AAA
+         Assets:Shares                             5 AAA @ 12.00 EUR
+         Assets:Cash
+     
+     2011-01-21 * Buy AAA
+         Assets:Shares                             5 AAA @ 13.00 EUR
+         Assets:Cash
+     #+end_src
+     
+     So we end up with (ledger --lots):
+     :OUTPUT:
+     5 AAA {10.00 EUR} [2011/01/01]
+     2 AAA {10.00 EUR} [2011/01/03]
+     5 AAA {12.00 EUR} [2011/01/11]
+     5 AAA {13.00 EUR} [2011/01/21]  Assets:Shares
+     :END:
+     
+     So if I sell 6 shares now, according to FIFO, I would do:
+     #+begin_src ledger
+     2011-02-01 * Sell AAA
+         Assets:Shares                          -5 AAA {10.00 EUR} [2011/01/01] @ 13.50 EUR
+         Assets:Shares                          -1 AAA {10.00 EUR} [2011/01/03] @ 13.50 EUR
+         Assets:Cash
+     #+end_src
+     
+     ledger --lots:
+     :OUTPUT:
+     1 AAA {10.00 EUR} [2011/01/03]
+     5 AAA {12.00 EUR} [2011/01/11]
+     5 AAA {13.00 EUR} [2011/01/21]  Assets:Shares
+     :END:
+     
+     According to LIFO, I would do this instead:
+     #+begin_src ledger
+     2011-02-01 * Sell AAA
+         Assets:Shares                          -5 AAA {13.00 EUR} [2011/01/21] @ 13.50 EUR
+         Assets:Shares                          -1 AAA {12.00 EUR} [2011/01/11] @ 13.50 EUR
+         Assets:Cash
+     #+end_src
+     
+     In other words, you can manually do FIFO and LIFO with ledger already.
+     However, it would be great if ledger would make this easier, e.g. that
+     you could specify:
+     #+begin_src ledger
+     2011-02-01 * Sell AAA
+         Assets:Shares                          -6 AAA {FIFO} @ 13.50 EUR
+         Assets:Cash
+     #+end_src
+     and ledger would iterate through all AAA commodities and take out the
+     right ones (after all, it knows the date and price).
+     
+     The only thing I don't think is possible with ledger at the moment is
+     average cost.  I'm also not sure how --lot-dates should behave for
+     average cost.
+     
+     > There are reasons why -X can't be applied to any report.  Mainly it has
+     > to do with rounding.  For example, let's say I have 10 postings that
+     > each trade 1 DM, and the value of 1 DM is 0.001 EUR.  If I add all 10
+     > DM and then apply -X, I get 0.01 EUR.  But if I apply -X to each 1 DM
+     > and *then* total them, I get 0.00 EUR.
+     
+     Thanks for the explanation... what I was thinking of is that ledger would
+     just produce a report according to -V or -B or whatever and *then*
+     convert it with -X.  I use a shell script to do this for now:
+     #+begin_src sh
+     GBP2EUR="117/100"
+     
+     eurgbp=$(ledger -f $FILE -p "until $YEAR-$NEXT_MONTH-01" -B bal "^assets"
+     "^liabilities" | egrep " (EUR|GBP)$" | tail -n 2)
+     eur=$(echo "$eurgbp" | grep "EUR" | sed 's/ EUR//')
+     gbp=$(echo "$eurgbp" | grep "GBP" | sed 's/ GBP//')
+     eur=$(echo "$eur" | sed 's/\..*//')
+     gbp=$(echo "$gbp" | sed 's/\..*//')
+     gbpineur=$(($gbp*$GBP2EUR))
+     echo "      " $(($eur + $gbpineur)) "   EUR   Total"
+     #+end_src
+     
+     I'm kinda surprised that you no longer think it's a good idea to split -X
+     from -V.  Last time I brought this up on IRC, you thought it was a good
+     idea:
+     
+     10:44 < johnw> I think having -H, in addition to -X, may make what you want
+      to see both natural and simple
+     10:45 < johnw> you'd use -H for income/expense accounts, and -X for
+      assets/liabilities
+     10:45 < johnw> -H = historical values
+     10:45 < johnw> -X = current exchange values
+     10:45 < tbm> so what's the difference between -X and -V again?
+     10:45 < johnw> -V is an automated version of -X
+     10:45 < johnw> it tries to figure out what the reported commodity should be
+     10:45 < johnw> we may then need an automated version of -H, to complete the
+      reflection
+     10:46 < johnw> btw, this is just an inside-out version of my "final"
+      feature :)
+     10:46 < tbm> why not change the meaning of -X to _only do conversion_?  And
+      then you could combine -X with -B, -V or -H
+     10:46 < johnw> instead of having it be syntactic, we're moving the semantic
+      difference to a difference in options
+     10:46 < johnw> oh HMM
+     10:46 < johnw> -X with -B, -V and -I
+     10:46 < johnw> (and -O, incidentally)
+     10:46 < johnw> O = amount, B = cost, V = market value, I = price
+     10:47 < johnw> that's really an excellent suggestion
+     10:48 < johnw> i'd still need a flag to mean "historical" vs "current"
+     10:48 < johnw> as well as "target commodity" (-X)
+   - Note taken on [2011-02-09 Wed 14:29] \\
+     Martin Michlmayr: I think it needs this functionality because it's
+     required for any serious financial accounting.  It's not just about the
+     management of inventory per se.  You'll also need FIFO/LIFO/AVCO for
+     tracking shares/funds, which a lot of people have.
+     
+     > I'm thinking it shouldn't, as it introduces a whole range of issues -
+     > for example, if you're doing FIFO or LIFO, how do you explain to
+     > someone who purchased 4 widgets from you why some are one price, and
+     > some are another?
+     
+     I think you're confusing purchase price with sales price.
+     
+     Let's say a company buys 3 widgets at 15 USD and 1 at 20 USD and sells
+     the 4 widgets for 25 USD each, it would then make 10 USD on 3 widgets and
+     5 USD on 1.
+   As John pointed out, this is presently not possible with ledger.  I think
+   the right solution is for ledger to get LIFO, FIFO and AVCO handling (see
+   the message I just sent in the "A solution to the commodity pricing
+   problem" thread).
+   
+   I think the way it should work is that you tell ledger which basis should
+   be used for a given commodity (e.g. LIFO, FIFO, AVCO).  In the case of LIFO
+   and FIFO, --lots would behave as now (i.e. show individual lots and their
+   prices) and when you sell one it would use LIFO or FIFO to figure out which
+   one.
+   
+   On the other hand, for AVCO, --lots should just show the amount of shares
+   you own and the average cost.
+   
+   Ok, let's use the example from my other message again.  Let's buy AAA
+   shares at different prices:
+   #+begin_src ledger
+   2011-01-01 * Buy AAA
+       Assets:Shares                             5 AAA @ 10.00 EUR
+       Assets:Cash
+   
+   2011-01-03 * Buy AAA
+       Assets:Shares                             2 AAA @ 10.00 EUR
+       Assets:Cash
+   
+   2011-01-11 * Buy AAA
+       Assets:Shares                             5 AAA @ 12.00 EUR
+       Assets:Cash
+   
+   2011-01-21 * Buy AAA
+       Assets:Shares                             5 AAA @ 13.00 EUR
+       Assets:Cash
+   #+end_src
+   
+   Now in the case of LIFO and FIFO, "ledger --lots bal shares" would show (as
+   it does today):
+   :OUTPUT:
+   5 AAA {10.00 EUR} [2011/01/01]
+   2 AAA {10.00 EUR} [2011/01/03]
+   4 AAA {12.00 EUR} [2011/01/11]  Assets:Shares
+   :END:
+   
+   But in the case of AVCO, it could show this instead:
+   :OUTPUT:
+   11 AAA {10.7272 EUR}  Assets:Shares
+   :END:
+   :PROPERTIES:
+   :ID:       55A4A64B-CCF6-4EA5-9763-449EDA581B20
+   :CREATED:  [2011-02-09 Wed 14:28]
+   :Message:  [[message://20110202001414.GD16162@jirafa.cyrius.com][Re: reporting on specific commodities?]]
+   :END:
 ** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
@@ -2000,379 +2249,53 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [#A] [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)                           :blocker:
-   :PROPERTIES:
-   :ID:       D776B418-E517-4C81-B575-45232D50B210
-   :Submitter: ed <ed.temp.01@gmail.com>
-   :Message:  [[message://db450f5b-c406-4e01-85ff-6f1c76328334@d37g2000yqm.googlegroups.com][Can't build next branch OS X 10.6.4 (Intel)]]
-   :END:
-   [2010-07-05 Mon 00:01]
-** TODO [#A] [[bug:406][#406]] Unable to install ledger on Ubuntu Hardy
-   Transcript follows:
-   :OUTPUT:
-   meingbg@meingbg:~$ git clone git://github.com/jwiegley/ledger.git
-   Initialized empty Git repository in /home/meingbg/ledger/.git/
-   remote: Counting objects: 20062, done.
-   remote: Compressing objects: 100% (5624/5624), done.
-   remote: Total 20062 (delta 15245), reused 18658 (delta 14165)
-   Receiving objects: 100% (20062/20062), 25.64 MiB | 1873 KiB/s, done.
-   Resolving deltas: 100% (15245/15245), done.
-   meingbg@meingbg:~$ cd ledger/
-   meingbg@meingbg:~/ledger$ git checkout master
-   Already on branch "master"
-   meingbg@meingbg:~/ledger$ ./acprep dependencies
-   acprep: INFO: Invoking primary phase: dependencies
-   acprep: INFO: Executing phase: dependencies
-   acprep: INFO: Installing Ledger's build dependencies ...
-   acprep: INFO: Looks like you are using APT on Ubuntu Hardy
-   acprep: INFO: Executing: sudo apt-get install build-essential libtool autoconf automake zlib1g-dev libbz2-dev python-dev bjam cvs gettext libgmp3-dev libmpfr-dev libboost1.35-dev libboost-python1.35-dev libboost-regex1.35-dev libboost-date-time1.35-dev libboost-filesystem1.35-dev libedit-dev libcppunit-dev texinfo lcov sloccount
-   Reading package lists... Done
-   Building dependency tree
-   Reading state information... Done
-   E: Couldn't find package libboost1.35-dev
-   acprep: ERROR: Execution failed: sudo apt-get install build-essential libtool autoconf automake zlib1g-dev libbz2-dev python-dev bjam cvs gettext libgmp3-dev libmpfr-dev libboost1.35-dev libboost-python1.35-dev libboost-regex1.35-dev libboost-date-time1.35-dev libboost-filesystem1.35-dev libedit-dev libcppunit-dev texinfo lcov sloccount
-   meingbg@meingbg:~/ledger$ sudo apt-get update
-   Hit http://deb.torproject.org hardy Release.gpg
-   Hit http://security.ubuntu.com hardy-security Release.gpg
-   Ign http://security.ubuntu.com hardy-security/main Translation-en_US
-   Hit http://se.archive.ubuntu.com hardy Release.gpg
-   Ign http://se.archive.ubuntu.com hardy/main Translation-en_US
-   Ign http://se.archive.ubuntu.com hardy/restricted Translation-en_US
-   Ign http://security.ubuntu.com hardy-security/restricted Translation-en_US
-   Ign http://security.ubuntu.com hardy-security/universe Translation-en_US
-   Ign http://security.ubuntu.com hardy-security/multiverse Translation-en_US
-   Hit http://security.ubuntu.com hardy-security Release
-   Ign http://se.archive.ubuntu.com hardy/universe Translation-en_US
-   Ign http://se.archive.ubuntu.com hardy/multiverse Translation-en_US
-   Hit http://se.archive.ubuntu.com hardy-updates Release.gpg
-   Ign http://se.archive.ubuntu.com hardy-updates/main Translation-en_US
-   Ign http://se.archive.ubuntu.com hardy-updates/restricted Translation-en_US
-   Ign http://deb.torproject.org hardy/main Translation-en_US
-   Ign http://se.archive.ubuntu.com hardy-updates/universe Translation-en_US
-   Ign http://se.archive.ubuntu.com hardy-updates/multiverse Translation-en_US
-   Hit http://se.archive.ubuntu.com hardy Release
-   Hit http://se.archive.ubuntu.com hardy-updates Release
-   Hit http://security.ubuntu.com hardy-security/main Packages
-   Hit http://se.archive.ubuntu.com hardy/main Packages
-   Hit http://deb.torproject.org hardy Release
-   Hit http://se.archive.ubuntu.com hardy/restricted Packages
-   Hit http://se.archive.ubuntu.com hardy/main Sources
-   Hit http://security.ubuntu.com hardy-security/restricted Packages
-   Hit http://security.ubuntu.com hardy-security/main Sources
-   Hit http://security.ubuntu.com hardy-security/restricted Sources
-   Hit http://security.ubuntu.com hardy-security/universe Packages
-   Hit http://se.archive.ubuntu.com hardy/restricted Sources
-   Hit http://se.archive.ubuntu.com hardy/universe Packages
-   Hit http://se.archive.ubuntu.com hardy/universe Sources
-   Hit http://se.archive.ubuntu.com hardy/multiverse Packages
-   Hit http://se.archive.ubuntu.com hardy/multiverse Sources
-   Hit http://se.archive.ubuntu.com hardy-updates/main Packages
-   Hit http://se.archive.ubuntu.com hardy-updates/restricted Packages
-   Hit http://security.ubuntu.com hardy-security/universe Sources
-   Hit http://security.ubuntu.com hardy-security/multiverse Packages
-   Hit http://security.ubuntu.com hardy-security/multiverse Sources
-   Hit http://se.archive.ubuntu.com hardy-updates/main Sources
-   Hit http://se.archive.ubuntu.com hardy-updates/restricted Sources
-   Hit http://se.archive.ubuntu.com hardy-updates/universe Packages
-   Hit http://se.archive.ubuntu.com hardy-updates/universe Sources
-   Hit http://se.archive.ubuntu.com hardy-updates/multiverse Packages
-   Hit http://se.archive.ubuntu.com hardy-updates/multiverse Sources
-   Ign http://deb.torproject.org hardy/main Packages
-   Hit http://deb.torproject.org hardy/main Packages
-   Reading package lists... Done
-   meingbg@meingbg:~/ledger$ sudo apt-get upgrade
-   Reading package lists... Done
-   Building dependency tree
-   Reading state information... Done
-   The following packages have been kept back:
-     bind9-host dnsutils libbind9-30 libdns35 libisc35 libisccfg30 liblwres30
-     linux-generic linux-headers-generic linux-image-generic
-     linux-restricted-modules-generic
-   0 upgraded, 0 newly installed, 0 to remove and 11 not upgraded.
-   meingbg@meingbg:~/ledger$ ./acprep dependencies
-   acprep: INFO: Invoking primary phase: dependencies
-   acprep: INFO: Executing phase: dependencies
-   acprep: INFO: Installing Ledger's build dependencies ...
-   acprep: INFO: Looks like you are using APT on Ubuntu Hardy
-   acprep: INFO: Executing: sudo apt-get install build-essential libtool autoconf automake zlib1g-dev libbz2-dev python-dev bjam cvs gettext libgmp3-dev libmpfr-dev libboost1.35-dev libboost-python1.35-dev libboost-regex1.35-dev libboost-date-time1.35-dev libboost-filesystem1.35-dev libedit-dev libcppunit-dev texinfo lcov sloccount
-   Reading package lists... Done
-   Building dependency tree
-   Reading state information... Done
-   E: Couldn't find package libboost1.35-dev
-   acprep: ERROR: Execution failed: sudo apt-get install build-essential libtool autoconf automake zlib1g-dev libbz2-dev python-dev bjam cvs gettext libgmp3-dev libmpfr-dev libboost1.35-dev libboost-python1.35-dev libboost-regex1.35-dev libboost-date-time1.35-dev libboost-filesystem1.35-dev libedit-dev libcppunit-dev texinfo lcov sloccount
-   meingbg@meingbg:~/ledger$ ./acprep update
-   acprep: INFO: Invoking primary phase: update
-   acprep: INFO: Executing phase: update
-   acprep: INFO: Executing phase: pull
-   Already up-to-date.
-   acprep: INFO: Executing phase: submodule
-   Submodule 'lib/utfcpp' (git://github.com/jwiegley/utfcpp.git) registered for path 'lib/utfcpp'
-   Initialized empty Git repository in /home/meingbg/ledger/lib/utfcpp/.git/
-   remote: Counting objects: 21, done.
-   remote: Compressing objects: 100% (21/21), done.
-   remote: Total 21 (delta 5), reused 0 (delta 0)
-   Receiving objects: 100% (21/21), 18.00 KiB, done.
-   Resolving deltas: 100% (5/5), done.
-   Submodule path 'lib/utfcpp': checked out '200cf64535a8a2545414e993349f6c87c8dd64ba'
-   acprep: INFO: Executing phase: make
-   acprep: INFO: Executing phase: config
-   acprep: INFO: Executing phase: submodule
-   acprep: INFO: Executing phase: autoconf
-   acprep: INFO: autogen.sh must be run because acprep is newer than configure
-   acprep: INFO: Executing phase: version
-   error: unknown option `long'
-   usage: git-describe [options] <committish>*
-
-       --contains            find the tag that comes after the commit
-       --debug               debug search strategy on stderr
-       --all                 use any ref in .git/refs
-       --tags                use any tag in .git/refs/tags
-       --abbrev [<n>]        use <n> digits to display SHA-1s
-       --candidates <n>      consider <n> most recent tags (default: 10)
-
-   acprep: ERROR: Execution failed: git describe --all --long
-   meingbg@meingbg:~/ledger$ git checkout -b maint origin/maint
-   Branch maint set up to track remote branch refs/remotes/origin/maint.
-   Switched to a new branch "maint"
-   meingbg@meingbg:~/ledger$ ./acprep dependencies
-   Preparing the ledger build system...please wait
-
-   ERROR:  Unable to locate GNU Autoconf.
-
-   ERROR:  To prepare the ledger build system from scratch,
-           at least version 2.61 of GNU Autoconf must be installed.
-
-   autogen.sh does not need to be run on the same machine that will
-   run configure or make.  Either the GNU Autotools will need to be installed
-   or upgraded on this system, or autogen.sh must be run on the source
-   code on another system and then transferred to here. -- Cheers!
-
-   ./acprep: 60: /home/meingbg/ledger/configure: not found
-   meingbg@meingbg:~/ledger$ ./acprep update
-   Preparing the ledger build system...please wait
-
-   ERROR:  Unable to locate GNU Autoconf.
-
-   ERROR:  To prepare the ledger build system from scratch,
-           at least version 2.61 of GNU Autoconf must be installed.
-
-   autogen.sh does not need to be run on the same machine that will
-   run configure or make.  Either the GNU Autotools will need to be installed
-   or upgraded on this system, or autogen.sh must be run on the source
-   code on another system and then transferred to here. -- Cheers!
-
-   ./acprep: 60: /home/meingbg/ledger/configure: not found
-   meingbg@meingbg:~/ledger$ git checkout v2.6.1
-   Note: moving to "v2.6.1" which isn't a local branch
-   If you want to create a new branch from this checkout, you may do so
-   (now or later) by using -b with the checkout command again. Example:
-     git checkout -b <new_branch_name>
-   HEAD is now at 7fafe18... Added autogen.sh.
-   meingbg@meingbg:~/ledger$ ./acprep dependencies
-   Preparing the ledger build system...please wait
-
-   ERROR:  Unable to locate GNU Autoconf.
-
-   ERROR:  To prepare the ledger build system from scratch,
-           at least version 2.61 of GNU Autoconf must be installed.
-
-   autogen.sh does not need to be run on the same machine that will
-   run configure or make.  Either the GNU Autotools will need to be installed
-   or upgraded on this system, or autogen.sh must be run on the source
-   code on another system and then transferred to here. -- Cheers!
-
-   ./acprep: 60: /home/meingbg/ledger/configure: not found
-   meingbg@meingbg:~/ledger$ ./acprep update
-   Preparing the ledger build system...please wait
-
-   ERROR:  Unable to locate GNU Autoconf.
-
-   ERROR:  To prepare the ledger build system from scratch,
-           at least version 2.61 of GNU Autoconf must be installed.
-
-   autogen.sh does not need to be run on the same machine that will
-   run configure or make.  Either the GNU Autotools will need to be installed
-   or upgraded on this system, or autogen.sh must be run on the source
-   code on another system and then transferred to here. -- Cheers!
-
-   ./acprep: 60: /home/meingbg/ledger/configure: not found
-   meingbg@meingbg:~/ledger$
-   :END:
-   :PROPERTIES:
-   :ID:       5C93032F-9D5B-42D0-BB60-07FC91AA41F4
-   :END:
-   [2010-09-10 Fri 17:25]
-** TODO [#A] [[bug:418][#418]] Ledger 3.0 will not build under cygwin on Windows
-   :PROPERTIES:
-   :ID:       4B6A3508-4A38-4399-9308-F85E3BAB0244
-   :Submitter: tsb <avtsbtmn@gmail.com>
-   :Message:  [[message://c96a0896-cd08-4776-a3fb-d1a4d848d6a4@l14g2000yql.googlegroups.com][Re: All bugs intended for 3.0 now FIXED]]
-   :END:
-   [2010-08-16 Mon 16:48]
-** TODO [#A] [[bug:420][#420]] Ledger will not build on OS X 10.5                                    :blocker:
-   - Note taken on [2010-12-27 Mon 18:26] \\
-     [[message://8bb38f5c-4f56-4e5a-8301-abdc5d284435@29g2000prb.googlegroups.com][Re: Ledger 3 on OS X 10.5?]]
-   :PROPERTIES:
-   :ID:       EFC2EBD2-FE11-4E8B-BC24-9DAFF23DAD73
-   :Submitter: David Glasser <glasser@davidglasser.net>
-   :Message:  [[message://AANLkTinYVdu8wN5iO3spVfAUrWnL6k00t23vV%3DUKaRYN@mail.gmail.com][Re: auto-indenting in emacs mode?]]
-   :END:
-   [2010-10-25 Mon 17:33]
-** TODO [#A] [[bug:427][#427]] Build problems with boost_iostreams                                   :blocker:
-   - Note taken on [2011-01-20 Thu 19:06] \\
-     This solves it:
-     #+begin_src sh
-     CPPFLAGS=-DBOOST_IOSTREAMS_USE_DEPRECATED ./acprep opt make
-     #+end_src
-   - Note taken on [2010-10-12 Tue 18:17] \\
-     [[message://62afe589-3752-4949-8c45-44b9ecd400f3@u13g2000vbo.googlegroups.com][Re: Build problems with boost_iostreams]]
-   I am having some trouble building Ledger at the moment.
-
-   This is on Mac OS X 10.6.4 and following the README-1ST.
-   :OUTPUT:
-   $ ./acprep dependencies
-   :END:
-   ran without error.  But then:
-   :OUTPUT:
-   $ ./acprep --debug update
-   :END:
-   fails with the last few lines of output being:
-   :OUTPUT:
-   checking if boost_regex is available... true
-   checking if boost_regex w/ICU is available... true
-   checking if boost_date_time is available... true
-   checking if boost_filesystem is available... true
-   checking if boost_iostreams is available... false
-   configure: error: in `/Users/phil/contrib/ledger':
-   configure: error: "Could not find boost_iostreams library (set CPPFLAGS and LDFLAGS?)"
-   See `config.log' for more details
-   acprep: ERROR: Execution failed: sh configure CC=/usr/bin/gcc-4.2 CPPFLAGS=-isystem /usr/local/include -isystem /opt/local/include -isystem /opt/local/include CFLAGS=-march=core2 CXX=/usr/bin/g++-4.2 CXXFLAGS=-fpch-deps -Wconversion -g -pipe LD=/usr/bin/g++-4.2 LDFLAGS=-g -L/usr/local/lib -L/opt/local/lib --with-included-gettext --enable-python --enable-pch --enable-debug
-   :END:
-
-   I do not understand why the other Boost libraries are found.  LDFLAGS and
-   CPPFLAGS look ok to me.
-
-   The libraries seem to be there:
-   :OUTPUT:
-   $ locate libboost_iostreams
-   /opt/local/lib/libboost_iostreams-mt.a
-   /opt/local/lib/libboost_iostreams-mt.dylib
-   /opt/local/lib/libboost_iostreams.a
-   /opt/local/lib/libboost_iostreams.dylib
-   /opt/local/var/macports/software/boost/1.44.0_0+icu+python26/opt/local/lib/libboost_iostreams-mt.a
-   /opt/local/var/macports/software/boost/1.44.0_0+icu+python26/opt/local/lib/libboost_iostreams-mt.dylib
-   /opt/local/var/macports/software/boost/1.44.0_0+icu+python26/opt/local/lib/libboost_iostreams.a
-   /opt/local/var/macports/software/boost/1.44.0_0+icu+python26/opt/local/lib/libboost_iostreams.dylib
-   :END:
-
-   Part of the config.log shows:
-   :OUTPUT:
-   configure:21015: checking if boost_iostreams is available
-   configure:21042: /usr/bin/g++-4.2 -o conftest -fpch-deps -Wconversion -g -pipe -isystem /usr/local/include -isystem /opt/local/include -isystem /opt/local/include -I/opt/local/include -g -L/usr/local/lib -L/opt/local/lib conftest.cpp -lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
-   /opt/local/include/boost/iostreams/device/file_descriptor.hpp: In constructor 'boost::iostreams::file_descriptor_sink::file_descriptor_sink(const Path&, std::_Ios_Openmode) [with Path = int]':
-   /opt/local/include/boost/iostreams/stream.hpp:128:   instantiated from 'boost::iostreams::stream<Device, Tr, Alloc>::stream(const U0&, typename boost::disable_if<boost::is_same<U0, T>, void>::type*) [with U0 = int, Device = boost::iostreams::file_descriptor_sink, Tr = std::char_traits<char>, Alloc = std::allocator<char>]'
-   conftest.cpp:104:   instantiated from here
-   /opt/local/include/boost/iostreams/device/file_descriptor.hpp:276: error: call of overloaded 'path(const int&)' is ambiguous
-   /opt/local/include/boost/iostreams/detail/path.hpp:111: note: candidates are: boost::iostreams::detail::path::path(const std::wstring&) <near match>
-   /opt/local/include/boost/iostreams/detail/path.hpp:58: note:                 boost::iostreams::detail::path::path(const boost::iostreams::detail::path&) <near match>
-   /opt/local/include/boost/iostreams/detail/path.hpp:47: note:                 boost::iostreams::detail::path::path(const char*) <near match>
-   /opt/local/include/boost/iostreams/detail/path.hpp:44: note:                 boost::iostreams::detail::path::path(const std::string&) <near match>
-   configure:21042: $? = 1
-   :END:
-   :PROPERTIES:
-   :ID:       D2DAF7E3-CC79-4971-9E58-31EF48DBC5D7
-   :Submitter: Philip Rooke <phil@yax.org.uk>
-   :Message:  [[message://m2bp7eb1hl.fsf@bo.sak.lan][Build problems with boost_iostreams]]
-   :END:
-   [2010-10-03 Sun 22:17]
-** TODO [#A] [[bug:430][#430]] Build is failing on Ubuntu 10.10                               :blocker:ATTACH:
-   - Note taken on [2010-12-27 Mon 18:26] \\
-     [[message://f170cbe0-d46f-46bc-bf4f-0eaa73ba4a94@w18g2000vbe.googlegroups.com][ubuntu 10.10]]
-   The steps I took were
-
-   1. clone from github
-   2. ./acprep --debug update
-
-   contents of 'acprep --debug update' stdout on ubuntu:
-   :OUTPUT:
-   Already up-to-date.
-   Preparing the ledger build system...please wait
-
-   Found GNU Autoconf version 2.67
-   Found GNU Automake version 1.11.1
-   Found GNU Libtool version 2.2.6b
-
-   Automatically preparing build ... Warning: autoreconf failed
-   Attempting to run the preparation steps individually
-
-   Preparing build ... configure.ac:25: required file `./config.rpath' not found
-   configure.ac:440: required file `intl/Makefile.in' not found
-   Makefile.am:4: required directory ./po does not exist
-   Makefile.am:4: required directory ./intl does not exist
-   ERROR: automake failed
-   :END:
-
-   contents of 'acprep --debug update' stderr on Ubuntu:
-   :OUTPUT:
-   acprep: INFO: Invoking primary phase: update
-   acprep: INFO: Executing phase: update
-   acprep: INFO: Executing phase: pull
-   acprep: DEBUG: Executing command: git pull
-   acprep: INFO: Executing phase: submodule
-   acprep: DEBUG: Executing command: git submodule init
-   acprep: DEBUG: Executing command: git submodule update
-   acprep: INFO: Executing phase: make
-   acprep: DEBUG: Configure arguments => []
-   acprep: DEBUG: Makefile arguments  => []
-   acprep: INFO: Executing phase: config
-   acprep: INFO: Executing phase: submodule
-   acprep: DEBUG: Executing command: git submodule init
-   acprep: DEBUG: Executing command: git submodule update
-   acprep: INFO: Executing phase: autoconf
-   acprep: INFO: autogen.sh must be run because acprep is newer than Makefile.in
-   acprep: INFO: Executing phase: autogen
-   acprep: DEBUG: Executing command: sh tools/autogen.sh
-   acprep: ERROR: Execution failed: sh tools/autogen.sh
-   :END:
-
-   I'm attaching config.log for ubuntu.
-   :PROPERTIES:
-   :ID:       F286DFA6-3408-4C63-A7BC-9F30CB15037F
-   :Submitter: Dan Davison <dandavison7@gmail.com>
-   :Message:  [[message://87k4k1o3cc.fsf@gmail.com][ledger build trouble]]
-   :Attachments: config.log.xz
-   :END:
-   [2010-11-25 Thu 15:28]
-** TODO [#A] [[bug:449][#449]] Ledger build, iostreams, and boost 1.45                              :critical:
-   - Note taken on [2010-12-27 Mon 18:26] \\
-     [[message://loom.20101205T165044-452@post.gmane.org][Re: ledger build, iostreams, and boost 1.45]]
-   - Note taken on [2010-12-27 Mon 18:25] \\
-     [[message://d3827c06-fdec-4515-a527-0078837d0818@22g2000prx.googlegroups.com][Re: ledger build, iostreams, and boost 1.45]]
-   :PROPERTIES:
-   :ID:       7C98893F-9425-4439-95C6-B746E710AEE9
-   :Submitter: Matt Lundin <mdl@imapmail.org>
-   :Message:  [[message://878w0cnalw.fsf@fastmail.fm][ledger build, iostreams, and boost 1.45]]
-   :END:
-   [2010-11-29 Mon 19:52]
-** TODO [#A] [[bug:466][#466]] Error in latest GIT version
-   :PROPERTIES:
-   :ID:       582D70CA-86C0-4B9F-9917-2F3D2DE29013
-   :Submitter: ed <ed.temp.01@gmail.com>
-   :Message:  [[message://acfe4699-2c38-4617-8cc3-1bab23f913c5@k11g2000vbf.googlegroups.com][Error in latest GIT version]]
-   :END:
-   [2011-01-01 Sat 16:15]
 ** TODO [#A] [[bug:472][#472]] Regression failure in Ledger master
+   I've got a checked-out copy of ledger from github (master).  'git pull'
+   shows everything is up to date. 'cat /etc/*release*' shows:
+   :OUTPUT:
+   DISTRIB_ID=Ubuntu
+   DISTRIB_RELEASE=10.10
+   DISTRIB_CODENAME=maverick
+   DISTRIB_DESCRIPTION="Ubuntu 10.10"
+   :END:
+   
+   I ran 'make dist-clean; configure; make; make check' and got the following:
+   :OUTPUT:
+   Regression failure in output from opt-lot-prices.test:
+    @@ -347,8 +347,8 @@
+                                             "Plans: Mithril Shield Spike" 1 {2.105G}
+                                              "Plans: Mithril Shield Spike" 1 {2.30G}
+                                                    "Plans: Wildthorn Mail" 1 {1.25G}
+    -                                      "Recipe: Elixir of Giant Growth" 1 {1.00G}
+    -                                      "Recipe: Elixir of Giant Growth" 2 {1.50G}
+    +                                      "Recipe: Elixir of Giant Growth" 2 {1.00G}
+    +                                      "Recipe: Elixir of Giant Growth" 1 {1.50G}
+                                                                    46.42G
+                                             "Plans: Mithril Shield Spike" 1 {2.105G}
+                                              "Plans: Mithril Shield Spike" 1 {2.30G}
+   E...
+   Regression failure in output from opt-lots.test:
+    @@ -384,8 +384,8 @@
+                                 "Plans: Mithril Shield Spike" 1 {2.30G} [2006/03/15]
+                                       "Plans: Wildthorn Mail" 1 {1.25G} [2006/03/14]
+                              "Recipe: Elixir of Giant Growth" 1 {1.00G} [2006/03/15]
+    -                         "Recipe: Elixir of Giant Growth" 1 {1.50G} [2006/03/15]
+    -                                      "Recipe: Elixir of Giant Growth" 1 {1.50G}
+    +                                      "Recipe: Elixir of Giant Growth" 1 {1.00G}
+    +                         "Recipe: Elixir of Giant Growth" 1 {1.50G} [2006/03/15]
+                                        "Beaststalker's Belt" 1 {65.00G} [2006/03/15]
+                                                    "Beaststalker's Belt" -1 {65.00G}
+                                                                    46.42G
+   E........................................................................
+   OK (142)  FAILED (119)
+   FAIL: BaselineTests
+   :END:
    :PROPERTIES:
+   :Submitter: Alan Young <alansyoungiii@gmail.com>
    :ID:       B5828DDD-4022-4246-AF49-C236051F13F6
    :Message:  [[message://AANLkTi=7j=FpzODjv5PMRjod+aHb7MGHmJE4fKwYCGzJ@mail.gmail.com][Regression failure in output from ...]]
    :END:
    [2011-02-02 Wed 05:51]
-** TODO [#A] [[bug:473][#473]] RegressTests failing on Ubuntu 10.10
-   :PROPERTIES:
-   :ID:       69A61481-598F-4380-A52C-5F26911F0A6A
-   :Message:  [[message://AANLkTimp16-_yY7qvsW7DhwgFTF4q6umZ5BAiqakRTwF@mail.gmail.com][RegressTests failing on Ubuntu 10.10]]
-   :END:
-   [2011-01-31 Mon 19:53]
 ** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
    :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
@@ -2380,13 +2303,6 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :Message:  [[message://AANLkTilwxjENAIajnVXvoes8H1ccWUgeDsMNirDNgbu-@mail.gmail.com][VS project files & Windows installer]]
    :END:
    [2010-06-28 Mon 23:54]
-** TODO [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                       :blocker:
-   :PROPERTIES:
-   :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
-   :Submitter: David Glasser <glasser@davidglasser.net>
-   :Message:  [[message://AANLkTimq1xuJbPnka5%2BoNLjV_zjPoMeGMR6yeWTBg2mz@mail.gmail.com][Ledger 3 on OS X 10.5?]]
-   :END:
-   [2010-10-18 Mon 16:12]
 ** TODO [#C] [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
@@ -2471,16 +2387,24 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       09B41575-766E-4598-A8F3-164D8AE25589
    :END:
    [2010-06-15 Tue 07:08]
+** DEFERRED [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                   :blocker:
+   - State "DEFERRED"   from "TODO"       [2011-02-12 Sat 18:18]
+   :PROPERTIES:
+   :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
+   :Submitter: David Glasser <glasser@davidglasser.net>
+   :Message:  [[message://AANLkTimq1xuJbPnka5%2BoNLjV_zjPoMeGMR6yeWTBg2mz@mail.gmail.com][Ledger 3 on OS X 10.5?]]
+   :END:
+   [2010-10-18 Mon 16:12]
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** TODO [[bug:349][#349]] Implement the empty tests in test/baseline
+** TODO [[bug:349][#349]] Implement empty tests in test/baseline
    :PROPERTIES:
    :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
    :END:
    [2010-06-18 Fri 19:45]
-** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies :ATTACH:
+** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies             :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
@@ -2534,6 +2458,12 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       F8237174-35B6-493D-A0B0-FEC900C2C2D3
    :END:
    [2011-01-26 Wed 13:21]
+** TODO Download QIFtoLedger to the Ledger archive
+   :PROPERTIES:
+   :ID:       A375A7DA-435F-436C-B3C5-B347C97DAC89
+   :CREATED:  [2011-02-09 Wed 14:27]
+   :Message:  [[message://a7d80b22-b6eb-42b5-9c54-dbca1475d2d9@d23g2000prj.googlegroups.com][Re: Bank of America OFX]]
+   :END:
 ** TODO [#C] [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
@@ -2550,7 +2480,7 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :END:
    [2009-11-20 Fri 18:31]
-** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                 :ATTACH:
+** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
    :PROPERTIES:
    :ID:       32A4A048-886F-43FC-892E-EC125F372750
    :Attachments: foo.dat
