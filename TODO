@@ -161,6 +161,96 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://4CA31AA6.7080004@gmail.com][Re: reg vs bal in presence of recent commodity price info]]
    :END:
    [2010-10-03 Sun 22:16]
+** TODO [#A] [[bug:440][#440]] Complex command causes core dump                                      :blocker:
+   - Note taken on [2011-03-07 Mon 15:05] \\
+     > for run command, i used the following args:
+
+     #+begin_src sh
+     run --args-only reg --group-by=account --related --subtotal --file
+     ~/speed-test.dat --exchange=€ --decimal-comma
+     #+end_src
+     
+     > in gdb, just before "bt", I get this output:
+
+     :OUTPUT:
+     Program received signal SIGSEGV, Segmentation fault.
+     0x000000000055d44e in ledger::temporaries_t::clear (this=0x1f1f8b0)
+         at src/temps.cc:122
+     122            post.xact->remove_post(&post);
+     
+     > in gdb, the call to "bt" command give this output:
+     
+     #0  0x000000000055d44e in ledger::temporaries_t::clear (this=0x1f1f8b0)
+         at src/temps.cc:122
+     #1  0x000000000051727d in ledger::display_filter_posts::clear (
+         this=0x1f1f830) at src/filters.h:543
+     #2  0x000000000048a5b8 in ledger::item_handler<ledger::post_t>::clear (
+         this=0x1f1feb0) at src/chain.h:86
+     #3  0x0000000000517706 in ledger::changed_value_posts::clear (
+         this=0x1f1feb0) at src/filters.h:606
+     #4  0x000000000048a5b8 in ledger::item_handler<ledger::post_t>::clear (
+         this=0x1f1ffb0) at src/chain.h:86
+     #5  0x0000000000516851 in ledger::calc_posts::clear (this=0x1f1ffb0)
+         at src/filters.h:400
+     #6  0x000000000048a5b8 in ledger::item_handler<ledger::post_t>::clear (
+         this=0x1f20b10) at src/chain.h:86
+     #7  0x0000000000501a21 in ledger::subtotal_posts::clear (this=0x1f20b10)
+         at src/filters.h:676
+     #8  0x000000000048a5b8 in ledger::item_handler<ledger::post_t>::clear (
+         this=0x1f20320) at src/chain.h:86
+     #9  0x0000000000516e84 in ledger::related_posts::clear (this=0x1f20320)
+         at src/filters.h:498
+     #10 0x00000000005086f8 in ledger::post_splitter::flush (this=0x1f20c10)
+         at src/filters.cc:61
+     #11 0x000000000048b202 in ledger::item_handler<ledger::post_t>::flush (
+         this=0x7fffffffd520) at src/chain.h:75
+     #12 0x0000000000509453 in ledger::pass_down_posts::pass_down_posts (
+         this=0x7fffffffd520, handler=..., iter=...) at src/filters.cc:102
+     #13 0x000000000047032a in ledger::report_t::posts_report (this=0x1270480,
+         handler=...) at src/report.cc:321
+     #14 0x0000000000497303 in ledger::reporter<ledger::post_t,
+     boost::shared_ptr<ledger::item_handler<ledger::post_t> >,
+     &(ledger::report_t::posts_report)>::operator() (this=0x1f1e630, args=...) at
+     src/report.h:1024
+     #15 0x00000000004953e0 in
+     boost::detail::function::function_obj_invoker1<ledger::reporter<ledger::post_t,
+     boost::shared_ptr<ledger::item_handler<ledger::post_t> >,
+     &(ledger::report_t::posts_report)>, ledger::value_t,
+     ledger::call_scope_t&>::invoke (function_obj_ptr=..., a0=...)
+         at /usr/include/boost/function/function_template.hpp:132
+     #16 0x000000000044993e in boost::function1<ledger::value_t,
+     ledger::call_scope_t&>::operator() (this=0x7fffffffd7b0, a0=...)
+         at /usr/include/boost/function/function_template.hpp:1013
+     #17 0x000000000042bbb3 in ledger::global_scope_t::execute_command (
+         this=0x126db60, args=..., at_repl=false) at src/global.cc:232
+     #18 0x000000000042bd0f in ledger::global_scope_t::execute_command_wrapper (
+         this=0x126db60, args=..., at_repl=false) at src/global.cc:242
+     #19 0x000000000041b9bc in main (argc=10, argv=0x7fffffffe1f8,
+         envp=0x7fffffffe250) at src/main.cc:121
+     :END:
+   - Note taken on [2011-03-07 Mon 14:52] \\
+     From Thierry ([[message://AANLkTi%3Dr%2BgibQW-nv%3Dea7VkBRXk3die4-4XVYMfPq3Kd@mail.gmail.com][Re: core dump]]): Sorry for late testing, but unfortunately,
+     this is not solved on my machine.
+     
+     The command still produces a "Segmentation fault" without any other help.
+     Should I try with a debug version of ledger? Can you remind me how to do
+     it?
+   - State "TODO"       from "DONE"       [2011-03-07 Mon 14:51]
+   - State "DONE"       from "STARTED"    [2011-02-10 Thu 23:00]
+   - State "TODO"       from "STARTED"    [2011-02-09 Wed 14:42]
+   :LOGBOOK:
+   CLOCK: [2011-02-10 Thu 20:35]--[2011-02-10 Thu 22:24] =>  1:49
+   CLOCK: [2011-02-09 Wed 14:13]--[2011-02-09 Wed 14:42] =>  0:29
+   :END:
+   #+begin_src sh
+   ledger --args-only reg --group-by=account --related --subtotal --file ~/doc/speed-test.dat --exchange=€ --decimal-comma
+   #+end_src
+   :PROPERTIES:
+   :ID:       CEE57FBC-DF19-40DD-901D-68B1AEC29888
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :Message:  [[message://AANLkTimK1QtZdzAyVKV7h6T0OeeTXG0fgn5pr0HfVxYn@mail.gmail.com][core dump]]
+   :END:
+   [2010-08-19 Thu 23:35]
 ** TODO [#A] [[bug:463][#463]] Question about commodity sub-total vs. total in balance
    I had a question about balance totals. Given this test data:
    #+begin_src ledger
@@ -595,11 +685,256 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :CREATED:  [2011-02-10 Thu 16:22]
    :Message:  [[message://bug-477-1@http.newartisans.com/bugzilla/][{Bug 477} New: Ledger print command does not handle GnuCash Capital Gain Split]]
    :END:
-** TODO Sorting problem concerning amounts and -X
+** TODO [[bug:480][#480]] Ledger budget expressions failing?
+   :PROPERTIES:
+   :ID:       3E3A32F2-7DDB-4EAC-AEA0-9CE7ED2963B9
+   :CREATED:  [2011-02-17 Thu 21:09]
+   :Message:  [[message://bug-480-1@http.newartisans.com/bugzilla/][{Bug 480} New: ledger budget expressions failing?]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Thu, 17 Feb 2011 15:15:13 -0600 (CST)
+   :END:
+** TODO [[bug:482][#482]] Commodity cost basis does not transfer across different accounts
+   :PROPERTIES:
+   :ID:       BDAE1EE5-B352-443C-BDD6-A135C93B94F0
+   :CREATED:  [2011-02-23 Wed 23:55]
+   :Message:  [[message://87de5636-c9d2-4a0c-b155-4d27512429cc@x4g2000prf.googlegroups.com][Re: commodity cost basis does not transfer across different accounts]]
+   :Submitter: daniel <daniel.puleo@gmail.com>
+   :Date:     Tue, 22 Feb 2011 22:48:20 -0800 (PST)
+   :END:
+** TODO [[bug:483][#483]] House accounts
+   :PROPERTIES:
+   :ID:       1B608006-F9CB-4467-B23D-A3CA420EED0D
+   :CREATED:  [2011-02-23 Wed 23:56]
+   :Message:  [[message://B8AC3F3F-A851-4C47-BB4B-CFFACB2C4E3E@gmail.com][Re: House accounts]]
+   :Submitter: Felix Ingram <f.ingram.lists@gmail.com>
+   :Date:     Tue, 22 Feb 2011 19:04:48 +0000
+   :END:
+** TODO [[bug:484][#484]] Sorting problem concerning amounts and -X
    :PROPERTIES:
    :ID:       B07F66BD-80FB-4AA9-8AF1-0BB403C8C760
    :CREATED:  [2011-02-09 Wed 14:27]
    :Message:  [[message://807813.1344.1296903400080.JavaMail.geo-discussion-forums@prfp36][Is this expected sorting behavior?]]
+   :END:
+** TODO [[bug:487][#487]] Multiple file-level balance assertions for the same account conflict
+   :PROPERTIES:
+   :ID:       727D00DC-1EAA-462C-8D64-2CE3DA1B8B7B
+   :CREATED:  [2011-02-24 Thu 15:03]
+   :Message:  [[message://bug-487-1@http.newartisans.com/bugzilla/][{Bug 487} New: multiple file-level balance assertions for same account conflict ?]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Thu, 24 Feb 2011 14:02:36 -0600 (CST)
+   :END:
+** TODO [[bug:488][#488]] amount_t::floor does not really floor, it rounds to nearest
+   There should be a round() function for round-to-nearest, and a floor()
+   function that rounds toward zero.  The latter is especially needed for tax
+   accounting.
+   :PROPERTIES:
+   :ID:       BA184B3C-6BC0-4717-8C02-D00CD255D15E
+   :CREATED:  [2011-03-05 Sat 17:50]
+   :END:
+** TODO [[bug:489][#489]] Confusion about a few things
+   - Note taken on [2011-02-28 Mon 01:33] \\
+     So, there are three types of parent accounts in accounting: Assets,
+     Liabilities, Equity
+     
+     First, just to clear up a common misunderstanding, debit and credit
+     simply mean left and right.  Without context, that doesn't mean
+     positive or negative.
+     
+     Assets have a normal debit (dr) balance, while liabilities and equity
+     have a credit (cr) balances.  That means that an asset account with a
+     debit balance would be positive while a liability account with a
+     credit balance would be positive.
+     
+     A balance sheet is an implementation of the concept that what you own
+     must equal how you bought it.  Ie.
+     
+     Assets = (Liabilities + Equity)
+     
+     Or put another way:
+     
+     My Stuff = How did I buy it?
+     My Stuff = Money I've borrowed + Profit I've accumulated
+     
+     So one of the many internal checks in accounting is that this equation
+     is always holding true, if it's not then you have a problem (note:
+     this in addition to dr=cr, there are scenarios where dr=cr and the
+     balance sheet is not equaling).
+     
+     So, expenses and revenue are "temporary equity" accounts.    The idea
+     is that during a period (like say a month), you accumulate revenue
+     into the revenue accounts and expenses in the expense accounts.  When
+     you "close" the period (you set those back to zero) and place the
+     accumulated balance into an equity account.  For instance, say you
+     have 1000 of revenue in January and 500 of expenses.  Let's say you
+     are closing the account for January and staring February.  You would
+     produce an entry like this:
+     
+     2011/2/1 Closing Entry
+     	Revenue						1000
+     	Expenses								500
+     	Equity									500
+     
+     (I'm simplifying, you in the above scenario, I'm assuming there is
+     only one revenue and expense account, but the idea is you close ALL
+     revenue and expense accounts -- the balance to make that entry equal
+     will be that periods profit/loss)
+     
+     Aside:
+     ~~
+     There is no such thing as an income account.  Based on some examples,
+     I knew you meant revenue, but they're not the same thing.  Income is
+     (some) revenue minus (some) expense.  Which revenue and expense
+     accounts you include depend on what type of income you are trying to
+     report (net, gross, etc).
+     
+     Anyhow, I know you need to support backwards compatibility, but you
+     really should at least allow both "Revenue:" and "Income:" (with your
+     program knowing they are, in your case, the same thing), then fix the
+     manual.
+     ~~
+     
+     If you were taking an intro accounting course, the instructor would
+     tell you that there is a very specific order to producing financials.
+     First you produce the income statement, cash flow, *then you close*
+     (so revenue and expenses will be zero), then you produce the balance
+     sheet.  In practice, you do that for external reports, but you can't
+     close every-time you need a balance sheet, so you place the temporary
+     accounts under their respective sections.
+     
+     So, let's make up numbers:
+     
+     Assets:
+     
+     Cash			1000
+     A/R			200
+     A. for B/D		(50)
+     
+     Total Assets:	1150
+     
+     Liabilities:
+     
+     Credit Card 	   50
+     
+     Total Liabilities  50
+     
+     Equity:
+     Revenue 		200
+     Bad Debt Ex  (50)
+     Owners' Eq	950
+     
+     Total Equity:	1100
+     
+     Some people will also place the liabilities and equity in the right
+     side of the page, with the assets on the left.  I'm not sure that's
+     necessary as long as they are properly broken up.
+     
+     So, let's go through a few of these numbers. Cash is an asset account,
+     it has a positive number because it has a debit balance.  Allowance of
+     bad debt is also an asset account (it is actually a special type of
+     asset account called a contra account), but it has a credit balance so
+     it has a negative number.  Revenue has a credit balance, but because
+     it is a type of equity account that is a positive number.  Bad debt
+     expense has a debit balance which means it has a negative number.
+     
+     If you were to close for the period, the Equity section would be
+     simplified to :
+     
+     Equity:
+     Owners' Eq	1100
+     
+     Total Equity:	1100
+     
+     There's also a specific order that accounts should be listed; but I
+     think that might be expecting too much.  So, the big items are:
+     
+     * Revenue and Expenses are type of equity account
+     * Equity + Liabilities must equal Assets
+     * Equity and Liabilities have credit balances
+     * Assets have debit balances
+   Ok, so I want to apologize, I went to b-school, so small stupid things
+   might be bothering me.  I dumped about 50 transactions into a file and
+   did the balance sheet command on it:
+   
+   Assets:Checking
+   Expenses
+        Ads
+        Apps
+        Hosting
+        Phone
+        Processing
+   Income
+        Credit Cards:PayPal
+        Pre Payments
+        Google Checkout
+        PayPal
+   
+   So, from what I can tell, ledger does two things that seem strange to
+   me; (please correct me if I'm just not understanding what it's doing),
+   it seems to represent credit balances (right column) with a negative
+   number.  Second it doesn't seem to know that expenses and income are
+   equity accounts (you manual says you can use Expenses and Income --
+   which I assumed means that they are linked/aliased/whatever as
+   children of equity) and such should be grouped together.
+   
+   Also, again small thing, but on a balance sheet assets, liabilities
+   and equity really should be totalled (even if their zero).  Ideally
+   there should be forming break between them as well (Also negative and
+   credit balance isn't really the same thing -- it would look really
+   weird to show revenue as negative number).
+   :PROPERTIES:
+   :ID:       96364A1A-7E35-4EB8-A63D-BA801A684661
+   :CREATED:  [2011-02-28 Mon 01:33]
+   :Message:  [[message://54325f64-3471-4c6f-a92a-ab316342b1af@x4g2000prf.googlegroups.com][Confusion about a few things]]
+   :Submitter: tazz_ben <ben@wbpsystems.com>
+   :Date:     Sat, 26 Feb 2011 17:52:37 -0800 (PST)
+   :END:
+** TODO [[bug:490][#490]] Pull request: Next [jwiegley/ledger GH-22]
+   :PROPERTIES:
+   :ID:       AE12485D-BD34-4DC3-8938-CBDF34560EB6
+   :CREATED:  [2011-02-28 Mon 01:32]
+   :Message:  [[message://jwiegley/ledger/pull/22@github.com][{GitHub} Next {jwiegley/ledger GH-22}]]
+   :Submitter: cypok <noreply@github.com>
+   :Date:     Sun, 27 Feb 2011 01:58:04 -0800
+   :END:
+** TODO [[bug:491][#491]] Automated postings match differently
+   :PROPERTIES:
+   :ID:       0C605FC2-BBD2-41EC-9842-EA2A79473C12
+   :CREATED:  [2011-03-07 Mon 15:15]
+   :Message:  [[message://bug-491-1@http.newartisans.com/bugzilla/][{Bug 491} New: Automated postings match differently]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Mon,  7 Mar 2011 14:14:39 -0600 (CST)
+   :END:
+** TODO [[bug:492][#492]] Running totals computed using the wrong precision
+   :PROPERTIES:
+   :ID:       CAE63F5C-CA90-45D1-943D-FD772DCDDF56
+   :CREATED:  [2011-03-09 Wed 13:57]
+   :Message:  [[message://bug-492-1@http.newartisans.com/bugzilla/][{Bug 492} New: Running totals computed using the wrong precision]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Wed,  9 Mar 2011 10:12:27 -0600 (CST)
+   :END:
+** TODO [[bug:493][#493]] Precision specified with D being ignored
+   :PROPERTIES:
+   :ID:       6333E3DF-433A-4B91-B744-FBAED702B12C
+   :CREATED:  [2011-03-11 Fri 14:22]
+   :Message:  [[message://bug-493-1@http.newartisans.com/bugzilla/][{Bug 493} New: precision specified with D being ignored]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Fri, 11 Mar 2011 13:12:20 -0600 (CST)
+   :END:
+** TODO [[bug:494][#494]] Problem using German date format
+   :PROPERTIES:
+   :ID:       56392A55-B755-4222-882F-81FED69A9C5D
+   :CREATED:  [2011-03-07 Mon 14:49]
+   :Message:  [[message://06e69798-2ec2-4519-93ab-77814660bc8e@dn9g2000vbb.googlegroups.com][Problem using German date format]]
+   :Submitter: Michael Strecke <michael.strecke@googlemail.com>
+   :Date:     Mon, 7 Mar 2011 03:00:36 -0800 (PST)
+   :END:
+** TODO Getting quotes?
+   :PROPERTIES:
+   :ID:       3CA48C37-C35A-4329-AC18-1B8F786816A5
+   :CREATED:  [2011-03-26 Sat 15:24]
+   :Message:  [[message://87zkoims81.fsf@facilitatedsystems.com][Getting quotes?]]
+   :Submitter: Bill Harris <bill_harris@facilitatedsystems.com>
+   :Date:     Fri, 25 Mar 2011 21:16:30 -0700
    :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
@@ -1064,11 +1399,23 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Message:  [[message://bug-479-1@http.newartisans.com/bugzilla/][{Bug 479} New: Descriptions of cleared transactions are not highlighted]]
    :END:
-** TODO Problem reconciling with ledger.el: spacebar does nothing
+** TODO [[bug:485][#485]] Problem reconciling with ledger.el: spacebar does nothing
    :PROPERTIES:
    :ID:       8C580CBF-4759-452D-9AF6-51E6ADECFDC3
    :CREATED:  [2011-02-12 Sat 00:16]
    :Message:  [[message://25362.2107.1297417062067.JavaMail.geo-discussion-forums@yqmi40][Problem Reconciling with ledger.el - Spacebar Does Nothing]]
+   :END:
+** TODO [[bug:495][#495]] Emacs ledger mode v3 & reconcile
+   - Note taken on [2011-03-07 Mon 14:51] \\
+     [[message://AANLkTin2T3zbdXqEHiu2_OVP%2BW_xEdyQPoRBDtYXkEBa@mail.gmail.com][Re: emacs ledger mode v3 & reconcile]]
+   - Note taken on [2011-03-07 Mon 14:51] \\
+     [[message://AANLkTimeY0_PbDM8sZr41uf74Ch3tEXtOGfOTi6RHSF7@mail.gmail.com][Re: emacs ledger mode v3 & reconcile]]
+   :PROPERTIES:
+   :ID:       EEAF4E93-18DA-4658-BDFE-E10172158396
+   :CREATED:  [2011-03-07 Mon 14:50]
+   :Message:  [[message://AANLkTimzfEdDUv6uNvFcCw6k2h2Gfasdh-jR4KsB+rDC@mail.gmail.com][emacs ledger mode v3 & reconcile]]
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :Date:     Sat, 5 Mar 2011 15:33:35 +0100
    :END:
 ** TODO [#C] [[bug:389][#389]] Emacs mode autocompletion issue
    :PROPERTIES:
@@ -1366,7 +1713,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://B24180CF-D2DB-49DD-BEBD-4FF7170D3639@newartisans.com][A solution to the commodity pricing problem]]
    :END:
    [2011-02-04 Fri 07:32]
-** TODO More formal methods of doing lot-based reporting
+** TODO [[bug:481][#481]] Add a native "test" command to Ledger
+   This would allow users to have their own "test" blocks in their data files,
+   without having to run a Python script to do those tests.
+   :PROPERTIES:
+   :ID:       90A2246B-DE3E-4744-BC21-48F75FF852E8
+   :CREATED:  [2011-02-24 Thu 14:54]
+   :END:
+** TODO [[bug:486][#486]] More formal methods of doing lot-based reporting
    - Note taken on [2011-02-09 Wed 14:31] \\
      Martin Michlmayr: Yeah, I know... but I think it's a feature that ledger
      should eventually get (obviously not for 3.0).
@@ -1563,6 +1917,22 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       55A4A64B-CCF6-4EA5-9763-449EDA581B20
    :CREATED:  [2011-02-09 Wed 14:28]
    :Message:  [[message://20110202001414.GD16162@jirafa.cyrius.com][Re: reporting on specific commodities?]]
+   :END:
+** TODO [[bug:496][#496]] Add --time-colon option
+   :PROPERTIES:
+   :ID:       2E01D36E-41AB-4185-8528-686A5599438E
+   :CREATED:  [2011-03-07 Mon 14:48]
+   :Message:  [[message://jwiegley/ledger/pull/23@github.com][{GitHub} Add --time-colon option {jwiegley/ledger GH-23}]]
+   :Submitter: afh <noreply@github.com>
+   :Date:     Sat, 5 Mar 2011 15:02:09 -0800
+   :END:
+** TODO [[bug:497][#497]] Review: CSV converter for multipart transactions
+   :PROPERTIES:
+   :ID:       EC914849-D8CC-42E2-A0E2-F90294A6CFAC
+   :CREATED:  [2011-03-07 Mon 14:49]
+   :Message:  [[message://66bf854e-da6d-447b-927b-75595be016a0@j9g2000prj.googlegroups.com][For those that care, a CSV converter for multipart transactions]]
+   :Submitter: tazz_ben <ben@wbpsystems.com>
+   :Date:     Sat, 5 Mar 2011 10:27:33 -0800 (PST)
    :END:
 ** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
@@ -2249,53 +2619,13 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [#A] [[bug:472][#472]] Regression failure in Ledger master
-   I've got a checked-out copy of ledger from github (master).  'git pull'
-   shows everything is up to date. 'cat /etc/*release*' shows:
-   :OUTPUT:
-   DISTRIB_ID=Ubuntu
-   DISTRIB_RELEASE=10.10
-   DISTRIB_CODENAME=maverick
-   DISTRIB_DESCRIPTION="Ubuntu 10.10"
-   :END:
-   
-   I ran 'make dist-clean; configure; make; make check' and got the following:
-   :OUTPUT:
-   Regression failure in output from opt-lot-prices.test:
-    @@ -347,8 +347,8 @@
-                                             "Plans: Mithril Shield Spike" 1 {2.105G}
-                                              "Plans: Mithril Shield Spike" 1 {2.30G}
-                                                    "Plans: Wildthorn Mail" 1 {1.25G}
-    -                                      "Recipe: Elixir of Giant Growth" 1 {1.00G}
-    -                                      "Recipe: Elixir of Giant Growth" 2 {1.50G}
-    +                                      "Recipe: Elixir of Giant Growth" 2 {1.00G}
-    +                                      "Recipe: Elixir of Giant Growth" 1 {1.50G}
-                                                                    46.42G
-                                             "Plans: Mithril Shield Spike" 1 {2.105G}
-                                              "Plans: Mithril Shield Spike" 1 {2.30G}
-   E...
-   Regression failure in output from opt-lots.test:
-    @@ -384,8 +384,8 @@
-                                 "Plans: Mithril Shield Spike" 1 {2.30G} [2006/03/15]
-                                       "Plans: Wildthorn Mail" 1 {1.25G} [2006/03/14]
-                              "Recipe: Elixir of Giant Growth" 1 {1.00G} [2006/03/15]
-    -                         "Recipe: Elixir of Giant Growth" 1 {1.50G} [2006/03/15]
-    -                                      "Recipe: Elixir of Giant Growth" 1 {1.50G}
-    +                                      "Recipe: Elixir of Giant Growth" 1 {1.00G}
-    +                         "Recipe: Elixir of Giant Growth" 1 {1.50G} [2006/03/15]
-                                        "Beaststalker's Belt" 1 {65.00G} [2006/03/15]
-                                                    "Beaststalker's Belt" -1 {65.00G}
-                                                                    46.42G
-   E........................................................................
-   OK (142)  FAILED (119)
-   FAIL: BaselineTests
-   :END:
+** STARTED Ledger proof build is failing
+   SCHEDULED: <2011-03-27 Sun>
+   [[x-devonthink-item://55639068-9FCD-400E-AE4B-DEA32B6B14EF][Housing Available 2011.pdf.pdf]]
    :PROPERTIES:
-   :Submitter: Alan Young <alansyoungiii@gmail.com>
-   :ID:       B5828DDD-4022-4246-AF49-C236051F13F6
-   :Message:  [[message://AANLkTi=7j=FpzODjv5PMRjod+aHb7MGHmJE4fKwYCGzJ@mail.gmail.com][Regression failure in output from ...]]
+   :ID:       EFECE88B-1E8F-4D79-9C46-C93450D3C7C8
+   :CREATED:  [2011-03-26 Sat 15:36]
    :END:
-   [2011-02-02 Wed 05:51]
 ** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
    :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
@@ -2458,11 +2788,61 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
    :ID:       F8237174-35B6-493D-A0B0-FEC900C2C2D3
    :END:
    [2011-01-26 Wed 13:21]
-** TODO Download QIFtoLedger to the Ledger archive
+** TODO Confusion about a few things
    :PROPERTIES:
-   :ID:       A375A7DA-435F-436C-B3C5-B347C97DAC89
-   :CREATED:  [2011-02-09 Wed 14:27]
-   :Message:  [[message://a7d80b22-b6eb-42b5-9c54-dbca1475d2d9@d23g2000prj.googlegroups.com][Re: Bank of America OFX]]
+   :ID:       82247D07-82CD-4575-A097-08E0C4E12509
+   :CREATED:  [2011-03-16 Wed 16:38]
+   :Message:  [[message://81e9d804-5fd1-42ee-b228-fb87a4b01a80@y3g2000vbh.googlegroups.com][Re: Confusion about a few things]]
+   :Submitter: "J.L. Reid" <jlr1001@gmail.com>
+   :Date:     Sun, 13 Mar 2011 20:19:18 -0700 (PDT)
+   :END:
+** TODO Enforcing balanced books
+   - Note taken on [2011-03-16 Wed 22:14] \\
+     From: tazz_ben <ben@wbpsystems.com>
+     
+     It all involves scenarios where you (the accountant) has screwed up.
+     Don't think of this as an exhaustive list I'm just throwing you some
+     examples your way.
+     
+     1. Say you have an asset (like a building) your depreciating for some
+        number of years and you get in the habit of doing it and you
+        depreciate it below zero.  So, with a normal accounting program you
+        would catch this one of two ways; one the program won't allow the
+        account onto the balance sheet because it is a non-contra asset
+        account with a credit balance so it knows that's not right so the
+        fundamental equation doesn't balance.  Alternatively, it places it in
+        the assets sections as a negative number and the fundamental equation
+        does balance but you will see it anyway because it will be the only
+        non-contra account with a negative sign in front of it. You *might*
+        find this on ledger, but because Ledger doesn't know about contra
+        accounts, your negative asset account might end up lost in a sea of
+        contras.
+     
+     2. This one is simple. Say you have a suspense account (these are suppose
+        to contain transactions for VERY brief periods -- for instance I use
+        one to store automated transactions until they post -- under 60
+        seconds). They don't go on the balance sheet; ever.  If one is
+        containing a balance, then it will knock your balance sheet off.
+     
+     3. This one is harder to understand, but it is the most common scenario
+        so I'll mention it again.  There is a sub-topic of accounting called
+        work-in-progress accounting, or sometimes referred to as
+        construction-in-progress.  This is type of accounting you use when you
+        are hired to do a very long job (usually very expensive, otherwise you
+        wouldn't bother).  Think contractor hired to build a road for a (lump
+        sum) 100 million and having it take three years.  Anyhow, the
+        accounting is extremely complex because it has to be (the goal is to
+        accurately report income while the project is still underway, yeah,
+        that's why its hard).  And there is multiple points where you can
+        screw up (there is this whole thing where you are re-estimating that
+        can get very confusing), anyhow any one of those screw ups will be
+        found on a properly formed balance sheet.
+   :PROPERTIES:
+   :ID:       6283EA8C-3E2B-463E-9E29-9554F08F4A9D
+   :CREATED:  [2011-03-16 Wed 16:38]
+   :Message:  [[message://ilo3d5$kuq$1@dough.gmane.org][enforcing balanced books]]
+   :Submitter: Simon Michael <simon@joyful.com>
+   :Date:     Tue, 15 Mar 2011 09:16:33 -0700
    :END:
 ** TODO [#C] [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |

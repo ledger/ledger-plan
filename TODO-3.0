@@ -272,22 +272,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       C927CFFE-D27D-4652-9AC8-1C4005FF2B40
    :END:
    [2010-11-18 Thu 14:46]
-** DONE [#A] [[bug:440][#440]] Complex command causes core dump                                      :blocker:
-   - State "DONE"       from "STARTED"    [2011-02-10 Thu 23:00]
-   - State "TODO"       from "STARTED"    [2011-02-09 Wed 14:42]
-   :LOGBOOK:
-   CLOCK: [2011-02-10 Thu 20:35]--[2011-02-10 Thu 22:24] =>  1:49
-   CLOCK: [2011-02-09 Wed 14:13]--[2011-02-09 Wed 14:42] =>  0:29
-   :END:
-   #+begin_src sh
-   ledger --args-only reg --group-by=account --related --subtotal --file ~/doc/speed-test.dat --exchange=€ --decimal-comma
-   #+end_src
+** DONE [#A] [[bug:498][#498]] File inclusion is broken
+   - State "DONE"       from "TODO"       [2011-03-25 Fri 16:40]
    :PROPERTIES:
-   :ID:       CEE57FBC-DF19-40DD-901D-68B1AEC29888
-   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
-   :Message:  [[message://AANLkTimK1QtZdzAyVKV7h6T0OeeTXG0fgn5pr0HfVxYn@mail.gmail.com][core dump]]
+   :ID:       777AA2C1-04FF-4912-9FBD-9FE0C12AF98F
+   :CREATED:  [2011-03-06 Sun 05:57]
    :END:
-   [2010-08-19 Thu 23:35]
 ** DONE [#A] Any filter that uses create_account must also do so after clear
    SCHEDULED: <2011-02-10 Thu>
    - State "DONE"       from "TODO"       [2011-02-10 Thu 22:27]
@@ -2551,6 +2541,18 @@ ledger -f utils/standard.dat -e 2004/4 -G reg 401
    :ID: 12C3D67F-0E7C-46D4-AE7B-7E1E22456997
    :END:
    [2008-07-29 Tue]
+** DONE Test failure on Ubuntu Natty amd64
+   SCHEDULED: <2011-03-27 Sun>
+   - State "DONE"       from "TODO"       [2011-03-28 Mon 01:58]
+   - Note taken on [2011-03-26 Sat 15:38] \\
+     I'll need to install Natty in a VM to properly test this user's problem.
+   :PROPERTIES:
+   :ID:       58660296-50F9-4348-AD36-65F1A94CA886
+   :CREATED:  [2011-03-26 Sat 15:24]
+   :Message:  [[message://jwiegley/ledger/issues/24@github.com][{GitHub} Test failure on Ubuntu Natty amd64 {jwiegley/ledger GH-24}]]
+   :Submitter: mbudde <reply+i-706416-e56a2d7beb055dfd861a9af615594018ca5baf6a@reply.github.com>
+   :Date:     Sat, 26 Mar 2011 06:20:12 -0700
+   :END:
 ** DONE textual.cc should report about illegal options
    - State "DONE"       from "TODO"       [2009-11-07 Sat 08:34]
    :PROPERTIES:
@@ -5527,6 +5529,54 @@ $ ledger -f <DATA> register
    :END:
    [2009-10-25 Sun 03:38]
 * Build
+** DONE [#A] [[bug:472][#472]] Regression failure in Ledger master
+   - State "DONE"       from "TODO"       [2011-03-28 Mon 01:59]
+   I've got a checked-out copy of ledger from github (master).  'git pull'
+   shows everything is up to date. 'cat /etc/*release*' shows:
+   :OUTPUT:
+   DISTRIB_ID=Ubuntu
+   DISTRIB_RELEASE=10.10
+   DISTRIB_CODENAME=maverick
+   DISTRIB_DESCRIPTION="Ubuntu 10.10"
+   :END:
+   
+   I ran 'make dist-clean; configure; make; make check' and got the following:
+   :OUTPUT:
+   Regression failure in output from opt-lot-prices.test:
+    @@ -347,8 +347,8 @@
+                                             "Plans: Mithril Shield Spike" 1 {2.105G}
+                                              "Plans: Mithril Shield Spike" 1 {2.30G}
+                                                    "Plans: Wildthorn Mail" 1 {1.25G}
+    -                                      "Recipe: Elixir of Giant Growth" 1 {1.00G}
+    -                                      "Recipe: Elixir of Giant Growth" 2 {1.50G}
+    +                                      "Recipe: Elixir of Giant Growth" 2 {1.00G}
+    +                                      "Recipe: Elixir of Giant Growth" 1 {1.50G}
+                                                                    46.42G
+                                             "Plans: Mithril Shield Spike" 1 {2.105G}
+                                              "Plans: Mithril Shield Spike" 1 {2.30G}
+   E...
+   Regression failure in output from opt-lots.test:
+    @@ -384,8 +384,8 @@
+                                 "Plans: Mithril Shield Spike" 1 {2.30G} [2006/03/15]
+                                       "Plans: Wildthorn Mail" 1 {1.25G} [2006/03/14]
+                              "Recipe: Elixir of Giant Growth" 1 {1.00G} [2006/03/15]
+    -                         "Recipe: Elixir of Giant Growth" 1 {1.50G} [2006/03/15]
+    -                                      "Recipe: Elixir of Giant Growth" 1 {1.50G}
+    +                                      "Recipe: Elixir of Giant Growth" 1 {1.00G}
+    +                         "Recipe: Elixir of Giant Growth" 1 {1.50G} [2006/03/15]
+                                        "Beaststalker's Belt" 1 {65.00G} [2006/03/15]
+                                                    "Beaststalker's Belt" -1 {65.00G}
+                                                                    46.42G
+   E........................................................................
+   OK (142)  FAILED (119)
+   FAIL: BaselineTests
+   :END:
+   :PROPERTIES:
+   :Submitter: Alan Young <alansyoungiii@gmail.com>
+   :ID:       B5828DDD-4022-4246-AF49-C236051F13F6
+   :Message:  [[message://AANLkTi=7j=FpzODjv5PMRjod+aHb7MGHmJE4fKwYCGzJ@mail.gmail.com][Regression failure in output from ...]]
+   :END:
+   [2011-02-02 Wed 05:51]
 ** DONE [#A] Add a --no-git option to acprep for orc_emac
    - State "DONE"       from "TODO"       [2009-11-10 Tue 20:05]
    :PROPERTIES:
@@ -5565,6 +5615,15 @@ $ ledger -f <DATA> register
    :Message:  [[message://op.vewpodevoxqjz7@localhost.localdomain][Missing install-sh in ledger-2.6.3.tar.gz]]
    :END:
    [2010-06-28 Mon 23:53]
+** DONE [[bug:430][#430]] Build is failing on Ubuntu 10.10
+   - State "DONE"       from "TODO"       [2011-03-28 Mon 02:00]
+   :PROPERTIES:
+   :ID:       798C73BE-6AA0-4325-9545-8E9BAECF1178
+   :CREATED:  [2011-02-16 Wed 12:03]
+   :Message:  [[message://20110216143052.C7F1773@mail.johnwiegley.com][{Bug 430} Build is failing on Ubuntu 10.10]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Wed, 16 Feb 2011 08:30:52 -0600 (CST)
+   :END:
 ** DONE acprep gives no warning about an unknown phase
    - State "DONE"       from "STARTED"    [2010-01-21 Thu 01:27]
    :LOGBOOK:
@@ -6171,6 +6230,13 @@ argv=0xbfffddf0, envp=0xbfffddf0) at main.cc:452
    :ID: 68EA6398-E410-45A2-8EB3-7ACFEA5238CC
    :END:
    [2009-02-17 Tue 07:20]
+** DONE Download QIFtoLedger to the Ledger archive
+   - State "DONE"       from "TODO"       [2011-02-24 Thu 14:58]
+   :PROPERTIES:
+   :ID:       A375A7DA-435F-436C-B3C5-B347C97DAC89
+   :CREATED:  [2011-02-09 Wed 14:27]
+   :Message:  [[message://a7d80b22-b6eb-42b5-9c54-dbca1475d2d9@d23g2000prj.googlegroups.com][Re: Bank of America OFX]]
+   :END:
 ** DONE Format ledger.texi in the same manner as the SBCL manual
    - State "DONE"       [2007-12-04 Tue 18:14]
    :PROPERTIES:
