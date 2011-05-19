@@ -11,28 +11,28 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 ** DONE [#A] Command-line options don't always override init-file options
    - State "DONE"       [2009-01-21 Wed 18:53] \\
      Fixed by changing the order in which options are read:
-     
+
        1. Global defaults
        2. Environment variable settings
        3. Initialization file
        4. Command-line arguments
-     
+
      Whatever is later in the list overrides what is earlier.
    :PROPERTIES:
    :Submitter: Daniel Neilson <daniel.neilson@gmail.com>
-   :Version: 2.6.1
-   :ID: E8E19E21-608E-4B91-A85E-B0EE3E500557
+   :Version:  2.6.1
+   :ID:       E8E19E21-608E-4B91-A85E-B0EE3E500557
+   :CREATED:  [2009-01-21 Wed 18:36]
    :END:
-   [2009-01-21 Wed 18:36]
 ** DONE [#A] Reading Ledger data from stdin does not work at all
    - State "DONE"       [2009-01-21 Wed 18:26] \\
      Fixed by buffering stdin data into memory before parsing it.
    :PROPERTIES:
-   :Version: 2.6.0.90
-   :Ticket: 210
-   :ID: B6A502D1-D8A8-4986-9D96-301C2E13E020
+   :Version:  2.6.0.90
+   :Ticket:   210
+   :ID:       B6A502D1-D8A8-4986-9D96-301C2E13E020
+   :CREATED:  [2009-01-21 Wed 18:35]
    :END:
-   [2009-01-21 Wed 18:35]
 ** DONE %2.2X format string doesn't work
    - State "DONE"       [2009-01-20 Tue 21:02] \\
      Fixed in 2.6.2.
@@ -45,25 +45,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    but it would be nice to be able to see it next to the amounts.
    :PROPERTIES:
    :Submitter: David Brown <ledger@davidb.org>
-   :Version: 2.6.1
-   :URL: message:%3C20090120084407.GA13140@linode.davidb.org%3E
-   :ID: 19909091-7A05-46FB-8654-3413E955BFCD
+   :Version:  2.6.1
+   :URL:      message:%3C20090120084407.GA13140@linode.davidb.org%3E
+   :ID:       19909091-7A05-46FB-8654-3413E955BFCD
+   :CREATED:  [2009-01-18 Sun 21:39]
    :END:
-   [2009-01-18 Sun 21:39]
 ** DONE When --no-cache is used, a file named '<none>' is being written out
    - State "DONE"       [2009-01-20 Tue 21:02] \\
      Fixed in 2.6.2.
    I'm running off of the v2.6.1 tag in git.  I occasionally find that the
    ledger cache has a few problems, usually causing posts to have the
    wrong sign.  I haven't figured out exactly how to reproduce this.
-   
+
    I've put --no-cache in my ~/.ledgerrc, but this seems to just cause it to
    write the cache to a file in the current directory called "<none>".  I'm not
    sure if it reads the file or not.
    :PROPERTIES:
    :Submitter: David Brown <ledger@davidb.org>
-   :Version: 2.6.1
-   :URL: message:%3C20090119013953.GA31608@linode.davidb.org%3E
-   :ID: EB3B079A-2783-4716-89B5-E658DE5A1FAC
+   :Version:  2.6.1
+   :URL:      message:%3C20090119013953.GA31608@linode.davidb.org%3E
+   :ID:       EB3B079A-2783-4716-89B5-E658DE5A1FAC
+   :CREATED:  [2009-01-18 Sun 21:39]
    :END:
-   [2009-01-18 Sun 21:39]
