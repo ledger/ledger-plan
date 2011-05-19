@@ -12,6 +12,155 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO [ledger] Vim: support for payee completion and caching (#26)
+   :PROPERTIES:
+   :ID:       831633A9-8863-47E9-8950-FFE4CEBDA19F
+   :CREATED:  [2011-05-10 Tue 09:02]
+   :Message:  [[message://jwiegley/ledger/pull/26@github.com][{ledger} Vim: support for payee completion and caching (#26)]]
+   :Submitter: kljohann <reply+i-872387-1d5f6dec35c9a2898adf1e68bf46b277d2008891@reply.github.com>
+   :Date:     Mon, 9 May 2011 11:07:19 -0700
+   :END:
+** TODO [[bug:508][#508]] Register command doesn't filter anymore
+   :PROPERTIES:
+   :ID:       3752B680-236C-4FAA-902F-D7EAAC980EEA
+   :CREATED:  [2011-05-10 Tue 09:03]
+   :Message:  [[message://bug-508-1@http.newartisans.com/bugzilla/][{Bug 508} New: Register command doesn't filter anymore]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Sun,  8 May 2011 19:34:29 -0500 (CDT)
+   :END:
+** TODO [[bug:507][#507]] Reproducible crash
+   :PROPERTIES:
+   :ID:       AB57BA68-83A0-491A-8423-F4A821F2FBD2
+   :CREATED:  [2011-05-10 Tue 09:03]
+   :Message:  [[message://bug-507-1@http.newartisans.com/bugzilla/][{Bug 507} New: Reproducible crash]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Sun,  8 May 2011 16:47:14 -0500 (CDT)
+   :END:
+** TODO [BUG] ledger entry takes the first entry
+   :PROPERTIES:
+   :ID:       7C148789-529A-4026-AF0E-354D9F62CC3A
+   :CREATED:  [2011-05-10 Tue 09:11]
+   :Message:  [[message://87bozgwym5.fsf%lukasz.stelmach@iem.pw.edu.pl][{BUG} ledger entry takes the firs entry]]
+   :Submitter: =?utf-8?Q?=C5=81ukasz?= Stelmach <lukasz.stelmach@iem.pw.edu.pl>
+   :Date:     Fri, 06 May 2011 00:50:42 +0200
+   :END:
+** TODO [[bug:506][#506]] Loss of data in weekly report
+   :PROPERTIES:
+   :ID:       F514E031-CA81-481F-BC3A-254D61A7CFA5
+   :CREATED:  [2011-04-27 Wed 22:22]
+   :Message:  [[message://bug-506-1@http.newartisans.com/bugzilla/][{Bug 506} New: lost of data in weekly report]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Wed, 27 Apr 2011 20:25:57 -0500 (CDT)
+   :END:
+** TODO Strange balance reports
+   :PROPERTIES:
+   :ID:       B1953314-4573-4DB4-AFDD-ED745290CCE5
+   :CREATED:  [2011-04-23 Sat 05:03]
+   :Message:  [[message://2673402D-97F9-4E5D-8057-57DF2C2B01B0@joyful.com][strange balance reports]]
+   :Submitter: Simon Michael <simon@joyful.com>
+   :Date:     Thu, 21 Apr 2011 06:53:45 -0700
+   :END:
+** TODO Weekly report lost data?
+   I have been using ledger version 3.0.0-20110325.  I ran the command
+   bellow:
+   
+   -p "weekly this month" reg Foods
+   >>>>>>>>>>>>>>>>>>
+   11-Apr-01 - 11-Apr-02           Expenses:Foods:Work
+   $1.00        $1.00
+   11-Apr-08 - 11-Apr-14           Expenses:Foods:Work
+   $7.00        $8.00
+   11-Apr-15 - 11-Apr-21           Expenses:Foods:Work
+   $1.00        $9.00
+   <<<<<<<<<<<<<<<<<<
+   
+   I noted that I lost all transaction of the period: 11-Apr-03 until 11-
+   Apr-07. As you can see in the report:
+   
+   -p "this month" reg Foods
+   >>>>>>>>>>>>>>>>>>>>>>>>>
+   11-Apr-01 Portucho                  Expenses:Foods:Work
+   $1.00        $1.00
+   11-Apr-03 Portucho                  Expenses:Foods:Work
+   $1.00        $2.00
+   11-Apr-04 Mineiro                     Expenses:Foods:Work
+   $1.00        $3.00
+   11-Apr-05 Sta Madalena          Expenses:Foods:Work
+   $1.00        $4.00
+   11-Apr-06 Sta Madalena          Expenses:Foods:Work
+   $1.00        $5.00
+   11-Apr-07 Sta Madalena          Expenses:Foods:Work
+   $1.00        $6.00
+   11-Apr-08 Natural                     Expenses:Foods:Work
+   $1.00        $7.00
+   11-Apr-10 Center                      Expenses:Foods:Work
+   $1.00        $8.00
+   11-Apr-11 Natural                     Expenses:Foods:Work
+   $1.00        $9.00
+   11-Apr-11 Bela Emila               Expenses:Foods:Work
+   $1.00       $10.00
+   11-Apr-12 Xavier e Sena         Expenses:Foods:Work
+   $1.00       $11.00
+   11-Apr-13 Sta Madalena          Expenses:Foods:Work
+   $1.00       $12.00
+   11-Apr-14 Sta Madalena          Expenses:Foods:Work
+   $1.00       $13.00
+   11-Apr-15 Xavier e Sena         Expenses:Foods:Work
+   $1.00       $14.00
+   <<<<<<<<<<<<<<<<<<<<<<<<
+   
+   Is this the expected behaviour for the option -p "weekly this month"?
+   :PROPERTIES:
+   :ID:       393CAB58-46DE-4FD7-8E7C-EAEAE8DEEDD7
+   :CREATED:  [2011-04-20 Wed 18:01]
+   :Message:  [[message://29846561-b2be-4e61-af03-4d6b0c9413bb@r6g2000vbz.googlegroups.com][Weekly report lost data?]]
+   :Submitter: leandroohf <leandroohf@gmail.com>
+   :Date:     Sun, 17 Apr 2011 14:46:34 -0700 (PDT)
+   :END:
+** TODO [[bug:505][#505]] Ampersand in GnuCash transaction creates conversion problem
+   :PROPERTIES:
+   :ID:       D567247E-F077-40E2-BE9A-C010593DD796
+   :CREATED:  [2011-04-20 Wed 18:04]
+   :Message:  [[message://bug-505-1@http.newartisans.com/bugzilla/][{Bug 505} New: Ampersand in GnuCash transaction creates conversion problem]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Mon, 18 Apr 2011 15:57:32 -0500 (CDT)
+   :END:
+** TODO ledger reg expr 'code > 100' breaks
+   :OUTPUT:
+   Hermes ~/src/ledger $ ./ledger reg expr 'code > 100'
+   While parsing value expression:
+     (code > {100})
+             
+   Error: Unexpected expression token '{'   
+   :END:
+   :PROPERTIES:
+   :ID:       6B7C2D8A-6620-44C3-B8C1-3A897F84604E
+   :CREATED:  [2011-04-20 Wed 19:33]
+   :END:
+** TODO [[bug:504][#504]] Forecast doesn't include current month's budget
+   :PROPERTIES:
+   :ID:       745317A8-9D4F-433C-86B6-61C9794FDF0C
+   :CREATED:  [2011-04-05 Tue 04:32]
+   :Message:  [[message://bug-504-1@http.newartisans.com/bugzilla/][{Bug 504} New: Forecast doesn't include current month's budget]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Mon,  4 Apr 2011 09:14:10 -0500 (CDT)
+   :END:
+** TODO [[bug:410][#410]] Forecasting broken
+   :PROPERTIES:
+   :ID:       E95B0079-6A7D-42F7-B381-3D08C8E6867E
+   :CREATED:  [2011-04-05 Tue 04:32]
+   :Message:  [[message://20110404140722.954875F@mail.johnwiegley.com][{Bug 410} Forecasting broken]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Mon,  4 Apr 2011 09:07:22 -0500 (CDT)
+   :END:
+** TODO [[bug:503][#503]] Abort trap on MacOS 10.6.7                                    :blocker:
+   :PROPERTIES:
+   :ID:       CDEDA0D4-A7D1-4BEC-B8C6-F93EA8FFE305
+   :CREATED:  [2011-04-01 Fri 18:58]
+   :Message:  [[message://4D95020C.9090801@gmail.com][Re: Abort trap on MacOS 10.6.7]]
+   :Submitter: Michael Norrish <michael.norrish@gmail.com>
+   :Date:     Fri, 01 Apr 2011 09:37:00 +1100
+   :END:
 ** TODO [#A] [[bug:426][#426]] ledger --budget reg|wc -l depends on order of transactions
    - Note taken on [2010-11-10 Wed 16:29] \\
      [[message://0326c3da-70e6-4ab2-b53f-27a1e0bdc2c4@32g2000yqz.googlegroups.com][Re: ledger --budget reg |wc -l depends on the order of the transactions]]
@@ -1342,6 +1491,105 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
+** TODO ledger-mode.el
+   :PROPERTIES:
+   :ID:       AB161685-E9AD-4240-8477-E31FFAD26A38
+   :CREATED:  [2011-05-17 Tue 17:16]
+   :Message:  [[message://30767627.3925.1305383585634.JavaMail.geo-discussion-forums@vbjh33][ledger-mode.el]]
+   :Submitter: Alexandre Rademaker <arademaker@gmail.com>
+   :Date:     Sat, 14 May 2011 07:33:05 -0700 (PDT)
+   :END:
+** TODO ledger and currency format in entry command
+   :PROPERTIES:
+   :ID:       A7B25520-3540-48E9-B2CF-F1E738B06BC3
+   :CREATED:  [2011-05-17 Tue 17:16]
+   :Message:  [[message://25416512.4102.1305385663024.JavaMail.geo-discussion-forums@vbqe26][ledger and currency format in entry command]]
+   :Submitter: Alexandre Rademaker <arademaker@gmail.com>
+   :Date:     Sat, 14 May 2011 08:07:43 -0700 (PDT)
+   :END:
+** TODO [[bug:509][#509]] Reconciling using ledger.el doesn't work with latest ledger from git
+   :PROPERTIES:
+   :ID:       9D4B86FB-8B91-48CA-91B9-2F586D14C60D
+   :CREATED:  [2011-05-13 Fri 12:02]
+   :Message:  [[message://bug-509-1@http.newartisans.com/bugzilla/][{Bug 509} New: reconciling using ledger.el doesn't work with latest ledger from git]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Wed, 11 May 2011 06:21:06 -0500 (CDT)
+   :END:
+** TODO Trouble with Emacs ledger-mode
+   :PROPERTIES:
+   :ID:       D1DF1315-DE3C-4FEF-A719-2B81429C185F
+   :CREATED:  [2011-05-10 Tue 09:11]
+   :Message:  [[message://8762pslpcw.fsf@fastmail.fm][Re: Trouble with Emacs ledger-mode]]
+   :Submitter: Matt Lundin <mdl@imapmail.org>
+   :Date:     Mon, 02 May 2011 18:17:03 -0400
+   :END:
+** TODO Include check numbers in emacs reconcile buffer
+   :PROPERTIES:
+   :ID:       F5EDFAC6-850F-4558-B367-63AE454AABDC
+   :CREATED:  [2011-04-23 Sat 21:38]
+   :Message:  [[message://m362q52fiu.fsf@buster.johnrakestraw.com][Include check numbers in emacs reconcile buffer?]]
+   :Submitter: John Rakestraw <johnr@johnrakestraw.com>
+   :Date:     Sat, 23 Apr 2011 10:44:57 -0400
+   :END:
+** TODO Trouble with Emacs ledger-mode
+   :PROPERTIES:
+   :ID:       2D813401-0D9C-469B-B047-EDF21AA53520
+   :CREATED:  [2011-04-23 Sat 05:03]
+   :Message:  [[message://m2tydqtu2z.fsf@bo.sak.lan][Re: Trouble with Emacs ledger-mode]]
+   :Submitter: Philip Rooke <phil@yax.org.uk>
+   :Date:     Fri, 22 Apr 2011 12:16:04 +0100
+   :END:
+** TODO ledger.el, highlighting of account names w/spaces
+   I'm using the git ledger 3.0, and notice that account names with spaces
+   in them are not highlighted properly. I'm quite sure single spaces are
+   allowed in account names, and it troubles my little mind when they are
+   not highlighted properly. I suspect the following font-lock statement:
+   #+begin_src lisp
+   (defvar ledger-font-lock-keywords
+     '(("\\(       \\|  \\|^\\)\\(;.*\\)" 2 font-lock-comment-face)
+       ("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([^*].+?\\)\\(\\(        ;\\|  ;\\|$\\)\\)" 2 bold)
+       ;;("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([*].+?\\)\\(\\(       ;\\|  ;\\|$\\)\\)"
+       ;; 2 font-lock-type-face)
+       ("^\\s-+\\([*]\\s-*\\)?\\(\\([[(]\\)?[^*:
+           ]+?:[^]);
+           ]+?\\([])]\\)?\\)\\(    \\|  \\|$\\)"
+        2 font-lock-keyword-face)
+       ("^\\([~=].+\\)" 1 font-lock-function-name-face)
+       ("^\\([A-Za-z]+ .+\\)" 1 font-lock-function-name-face))
+     "Expressions to highlight in Ledger mode.")
+   #+end_src
+   In particular, the "font-lock-keyword-face" part. After staring at the
+   regexp, however, I can't tell where the whitespace counter should be
+   inserted. Can someone fix it?
+   
+   Sorry for the petty confusion, but it does make a difference...
+   :PROPERTIES:
+   :ID:       6212750C-AC03-41CB-968B-2EE1E64C747E
+   :CREATED:  [2011-04-20 Wed 18:01]
+   :Message:  [[message://87bp03apoz.fsf@ericabrahamsen.net][ledger.el, highlighting of account names w/spaces]]
+   :Submitter: Eric Abrahamsen <eric@ericabrahamsen.net>
+   :Date:     Mon, 18 Apr 2011 17:12:12 +0800
+   :END:
+** TODO [GitHub] Two patch for ledger.el [jwiegley/ledger GH-25]
+   :PROPERTIES:
+   :ID:       10257074-8228-4DA0-B004-503A47561D6A
+   :CREATED:  [2011-04-07 Thu 01:39]
+   :Message:  [[message://jwiegley/ledger/pull/25@github.com][{GitHub} Two patch for ledger.el {jwiegley/ledger GH-25}]]
+   :Submitter: vanicat <reply+i-738876-e6c2bd7e07d155e7598aca9c15a040a6dc86b89a@reply.github.com>
+   :Date:     Wed, 6 Apr 2011 11:20:37 -0700
+   :END:
+** TODO [[bug:502][#502]] Auto-complete with Ledger.el in Emacs
+   Right now ledger.el only reads the text in the current file.  You could put
+   a dummy transaction at the top which transfer zero dollars among a bunch of
+   accounts.  But I'll make a note that it should follow file inclusions to
+   determine the complete set of account names.
+   :PROPERTIES:
+   :ID:       6BF64136-5B4A-4FA2-AC90-5AB3D90A16C3
+   :CREATED:  [2011-03-30 Wed 14:15]
+   :Message:  [[message://1357411.342.1301506462564.JavaMail.geo-discussion-forums@yqis17][Auto-complete with Ledger.el in Emacs.]]
+   :Submitter: Ian Barton <ian@wilkesley.com>
+   :Date:     Wed, 30 Mar 2011 10:34:22 -0700 (PDT)
+   :END:
 ** TODO [[bug:431][#431]] Reconciling with ledger.el doesn't seem to work
    I use ledger.el with GNU Emacs 23.2.1. Is that supported at all? I wonder,
    because the reconcile mode doesn't seem to work. Hitting SPACE or RETURN
@@ -2369,7 +2617,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://760a3e61-0b99-458c-b251-4fe45378df99@22g2000prx.googlegroups.com][Re: reporting on specific commodities?]]
    :END:
    [2010-12-30 Thu 07:51]
-** DEFERRED [#C] [[bug:182][#182]] Port Gnucash support to 3.0
+** DEFERRED [[bug:182][#182]] Port Gnucash support to 3.0
    - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:57]
    :PROPERTIES:
    :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
@@ -2377,25 +2625,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Xavier Shay <xavier-list@rhnh.net>
    :END:
    [2010-05-25 Tue 16:42]
-** DEFERRED [#C] [[bug:361][#361]] Change value expression syntax to closely match Haskell's
+** DEFERRED [[bug:361][#361]] Change value expression syntax to closely match Haskell's
    - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:57]
    :PROPERTIES:
    :ID:       5E82B329-EFB9-432E-A42C-E52C8032210B
    :END:
    [2010-06-22 Tue 01:31]
-** DEFERRED [#C] [[bug:365][#365]] Generalize value sequences into iterators and generators
+** DEFERRED [[bug:365][#365]] Generalize value sequences into iterators and generators
    - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:56]
    :PROPERTIES:
    :ID:       EA919747-398C-44DA-9A8C-BE07643E42B4
    :END:
    [2010-06-24 Thu 20:16]
-** DEFERRED [#C] [[bug:366][#366]] Add "each" syntax, and closures like Ruby has
+** DEFERRED [[bug:366][#366]] Add "each" syntax, and closures like Ruby has
    - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:56]
    :PROPERTIES:
    :ID:       8F4B51C1-3887-4997-908E-F3CD167C00F0
    :END:
    [2010-06-24 Thu 20:30]
-** DEFERRED [#C] [[bug:408][#408]] Enabling OFX support in Ledger 3
+** DEFERRED [[bug:408][#408]] Enabling OFX support in Ledger 3
    - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:56]
    If it helps, I use http://code.google.com/p/ofx-parser/ to convert my OFX
    files into ledger format (it doesn't know about ledger format, but it is
@@ -2406,21 +2654,21 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://9d4f0817-f8ce-4d76-9c21-1f40d4f5ee6f@t3g2000vbb.googlegroups.com][Re: Enabling OFX support in Ledger 3]]
    :END:
    [2010-08-19 Thu 23:35]
-** DEFERRED [#C] [[bug:413][#413]] Have a look at Boost.TimeSeries
+** DEFERRED [[bug:413][#413]] Have a look at Boost.TimeSeries
    - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:56]
    This might be a better replacement for times.cc.
    :PROPERTIES:
    :ID:       8A015298-2838-4DF8-B225-262AF77D7DB7
    :END:
    [2010-09-18 Sat 14:45]
-** DEFERRED [#C] [[bug:414][#414]] Use Boost.Accumulator for ledger stats
+** DEFERRED [[bug:414][#414]] Use Boost.Accumulator for ledger stats
    - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:56]
    Perhaps using Accumulator would simplify the code?
    :PROPERTIES:
    :ID:       59AA0D1F-C788-4307-844C-716E74828F34
    :END:
    [2010-09-18 Sat 14:42]
-** DEFERRED [#C] [[bug:471][#471]] Swapping out memory allocators for performance testing
+** DEFERRED [[bug:471][#471]] Swapping out memory allocators for performance testing
    - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:56]
    :PROPERTIES:
    :ID:       0BEC0050-A9B8-4B41-8483-E44AAF4C295F
@@ -2769,6 +3017,38 @@ Error: TypeError: No to_python (by-value) converter found for C++ type: ledger::
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO [ledger] vim 'commentstring' (#28)
+   :PROPERTIES:
+   :ID:       5E9FEB37-907E-4494-B75E-ACA9D6AA3BFA
+   :CREATED:  [2011-05-17 Tue 17:54]
+   :Message:  [[message://jwiegley/ledger/issues/28@github.com][{ledger} vim 'commentstring' (#28)]]
+   :Submitter: felix <reply+i-902603-b6d6abde0c89d70840fd263ccbd9750abc4e5819@reply.github.com>
+   :Date:     Sun, 15 May 2011 08:04:12 -0700
+   :END:
+** TODO [ledger] vim indent file (#27)
+   :PROPERTIES:
+   :ID:       5E9B3912-B3C4-4985-BB74-FF99C7328F80
+   :CREATED:  [2011-05-17 Tue 17:55]
+   :Message:  [[message://jwiegley/ledger/issues/27@github.com][{ledger} vim indent file (#27)]]
+   :Submitter: felix <reply+i-902562-5184554569b2269b61f555ca1f9b8d0d07d8e681@reply.github.com>
+   :Date:     Sun, 15 May 2011 07:47:45 -0700
+   :END:
+** TODO Check out Ledger doc from Russell
+   :PROPERTIES:
+   :ID:       41CAE711-5796-4B1F-904E-A027B9BCB41B
+   :CREATED:  [2011-04-20 Wed 18:02]
+   :Message:  [[message://20110415222612.GR5673@x201][Doc]]
+   :Submitter: Russell Adams <RLAdams@AdamsInfoServ.Com>
+   :Date:     Fri, 15 Apr 2011 17:26:12 -0500
+   :END:
+** TODO Ledger's Doxygen file is broken
+   :PROPERTIES:
+   :ID:       74F07B78-A5E8-44EB-B662-C5E219635118
+   :CREATED:  [2011-04-20 Wed 18:03]
+   :Message:  [[message://BANLkTikfhhS55Bd_gJrcYNzU9=uyNsaK0g@mail.gmail.com][ledger]]
+   :Submitter: press0 <press0@gmail.com>
+   :Date:     Mon, 18 Apr 2011 01:20:35 -0500
+   :END:
 ** TODO [[bug:452][#452]] Fixes to the ledger wiki/README-1ST
    :PROPERTIES:
    :ID:       07EB8797-458D-4FBB-B125-062BAC1B732B
