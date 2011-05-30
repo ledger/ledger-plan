@@ -12,7 +12,86 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [ledger] Vim: support for payee completion and caching (#26)
+** TODO ledger and currency format in entry command
+   - Note taken on [2011-05-27 Fri 18:08] \\
+     I had some problem recently too. It looks like the `entry' command now
+     takes the first matching entry in the file as a template instead of the
+     last like it did before. I gave a bit more detailed description of my
+     observation here:
+     
+     http://article.gmane.org/gmane.comp.finance.ledger.general/2561
+   Since my last update, the command entry now produces the wrong entry value 
+   regardless what decimal separator (comma or dot) I use.
+   :OUTPUT:
+   $ ledger -f BR01.dat entry 05/13 Salsa 12.00 Cash
+   
+   2011/05/13 Salsalito
+       Expenses:Restaurante                       1.200
+       Assets:Cash          
+   
+   $ ledger -f BR01.dat entry 05/13 Salsa 12,00 Cash
+   
+   2011/05/13 Salsalito
+       Expenses:Restaurante                       1.200
+       Assets:Cash      
+   :END:
+   :PROPERTIES:
+   :ID:       0831AC52-90BA-44EF-B39C-FD2F20ABC5BC
+   :CREATED:  [2011-05-27 Fri 18:07]
+   :Date:     Sun, 22 May 2011 17:21:30 -0700 (PDT)
+   :Message:  [[message://16932293.4231.1306110091000.JavaMail.geo-discussion-forums@vbjl31][Re: ledger and currency format in entry command]]
+   :Submitter: Alexandre Rademaker <arademaker@gmail.com>
+   :END:
+** TODO --cache does nothing
+   > Yes, --cache does nothing.  Binary serialization using Boost is the same 
+   > speed
+   >
+   > in most cases as plain text parsing, so I saw no point.  Plus, ever faster
+   > computers -- plus SSDs -- make this an option with diminishing returns.
+
+   That's a good point. I suggest printing an error message or warning instead 
+   of silently ignoring --cache then.
+   :PROPERTIES:
+   :ID:       57A6BD14-0506-4A50-A45B-A7BDF07EAFBA
+   :CREATED:  [2011-05-27 Fri 18:08]
+   :Date:     Mon, 23 May 2011 18:17:27 -0700 (PDT)
+   :Message:  [[message://30671703.170.1306199847233.JavaMail.geo-discussion-forums@prcm34][Re: My experience with Ledger so far]]
+   :Submitter: Matthew Harris <mharris312@gmail.com>
+   :END:
+** TODO --comm-as-payee (-x) is unrecognized
+   > > - --comm-as-payee (-x) is unrecognized. Does this have a new syntax in
+   > > the current version?
+   >
+   > --payee=comm, although the old option should still work.  Bug.
+
+   Ah. --payee=commodity and --payee=code work, but --payee=comm says "Unknown 
+   identifier 'comm'".
+   :PROPERTIES:
+   :ID:       5FBA9B5B-CFAD-42C4-AB65-AB44A7282659
+   :CREATED:  [2011-05-27 Fri 18:09]
+   :Date:     Mon, 23 May 2011 18:17:27 -0700 (PDT)
+   :Message:  [[message://30671703.170.1306199847233.JavaMail.geo-discussion-forums@prcm34][Re: My experience with Ledger so far]]
+   :Submitter: Matthew Harris <mharris312@gmail.com>
+   :END:
+** TODO 'accounts' and 'commodities' should sort their output
+   I'd also like to suggest that 'accounts' and 'commodities' sort their 
+   output, like 'payees' appears to. I don't see a reason to leave it unsorted.
+   :PROPERTIES:
+   :ID:       0EA1B52E-43D8-4577-87AE-CB837C8E9B32
+   :CREATED:  [2011-05-27 Fri 18:10]
+   :Date:     Mon, 23 May 2011 18:17:27 -0700 (PDT)
+   :Message:  [[message://30671703.170.1306199847233.JavaMail.geo-discussion-forums@prcm34][Re: My experience with Ledger so far]]
+   :Submitter: Matthew Harris <mharris312@gmail.com>
+   :END:
+** TODO My experience with Ledger so far
+   :PROPERTIES:
+   :ID:       2BC245E8-960A-412B-8671-4CE3395B2EEF
+   :CREATED:  [2011-05-20 Fri 15:32]
+   :Date:     Thu, 19 May 2011 20:43:06 -0700
+   :Message:  [[message://BANLkTi=uX464kDUzCx+UcsP8Y0j23L2N6g@mail.gmail.com][My experience with Ledger so far]]
+   :Submitter: "Matthew S. Harris" <mharris312@gmail.com>
+   :END:
+** TODO Vim: Support for payee completion and caching (#26)
    :PROPERTIES:
    :ID:       831633A9-8863-47E9-8950-FFE4CEBDA19F
    :CREATED:  [2011-05-10 Tue 09:02]
@@ -36,7 +115,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Date:     Sun,  8 May 2011 16:47:14 -0500 (CDT)
    :END:
-** TODO [BUG] ledger entry takes the first entry
+** TODO Ledger entry takes the first entry
    :PROPERTIES:
    :ID:       7C148789-529A-4026-AF0E-354D9F62CC3A
    :CREATED:  [2011-05-10 Tue 09:11]
@@ -153,7 +232,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Date:     Mon,  4 Apr 2011 09:07:22 -0500 (CDT)
    :END:
-** TODO [[bug:503][#503]] Abort trap on MacOS 10.6.7                                                 :blocker:
+** TODO [[bug:503][#503]] Abort trap on MacOS 10.6.7                                    :blocker:
    :PROPERTIES:
    :ID:       CDEDA0D4-A7D1-4BEC-B8C6-F93EA8FFE305
    :CREATED:  [2011-04-01 Fri 18:58]
@@ -170,7 +249,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://3547a240-4f80-405b-8b8a-e04717b583d9@t13g2000yqm.googlegroups.com][ledger --budget reg |wc -l depends on the order of the transactions]]
    :CREATED:  [2010-11-10 Wed 16:29]
    :END:
-** TODO [#A] [[bug:437][#437]] Crash when using automatic rules                                      :blocker:
+** TODO [#A] [[bug:437][#437]] Crash when using automatic rules                         :blocker:
    - Note taken on [2011-02-12 Sat 14:15] \\
      Interesting. I built the next branch from scratch and found a much more
      useful error message. I have a periodic transaction that it can't parse:
@@ -221,7 +300,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTinY_1OpT4OeSNFn3B7oXnnqZ%3DAcgs-4rya1OZPM@mail.gmail.com][Re: Automatic rules and 3.0]]
    :CREATED:  [2010-11-21 Sun 23:03]
    :END:
-** TODO [#A] [[bug:438][#438]] Case where register and balance do not agree                         :critical:
+** TODO [#A] [[bug:438][#438]] Case where register and balance do not agree            :critical:
    The file below gives the following
    :OUTPUT:
    $ ledger/ledger -f foo -X \$ bal sub1
@@ -310,7 +389,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://4CA31AA6.7080004@gmail.com][Re: reg vs bal in presence of recent commodity price info]]
    :CREATED:  [2010-10-03 Sun 22:16]
    :END:
-** TODO [#A] [[bug:440][#440]] Complex command causes core dump                                      :blocker:
+** TODO [#A] [[bug:440][#440]] Complex command causes core dump                         :blocker:
    - Note taken on [2011-03-07 Mon 15:05] \\
      > for run command, i used the following args:
 
@@ -1685,7 +1764,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-396-1@http.newartisans.com/bugzilla/][{Bug 396} New: ledger emacs doesn't escape double quotes]]
    :CREATED:  [2010-08-16 Mon 16:28]
    :END:
-** TODO [#C] [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p                :ATTACH:
+** TODO [#C] [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p   :ATTACH:
    :PROPERTIES:
    :ID:       669AE4A1-E30D-4A3D-A330-06E183FBF66E
    :Submitter: Russell Adams <RLAdams@AdamsInfoServ.Com>
@@ -1949,6 +2028,17 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Add a 'tags' command
+   Since you have 'commodities' and 'payees' and 'accounts' commands, it seems
+   logical that there should be a 'tags' command. Such commands help me check
+   that I haven't made a typo in a transaction.
+   :PROPERTIES:
+   :ID:       D3B5526B-0B83-4EBD-965B-75EFE8B0CDC6
+   :CREATED:  [2011-05-27 Fri 18:09]
+   :Date:     Mon, 23 May 2011 18:17:27 -0700 (PDT)
+   :Message:  [[message://30671703.170.1306199847233.JavaMail.geo-discussion-forums@prcm34][Re: My experience with Ledger so far]]
+   :Submitter: Matthew Harris <mharris312@gmail.com>
+   :END:
 ** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
    :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
@@ -2695,7 +2785,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
    :CREATED:  [2010-08-16 Mon 16:47]
    :END:
-** TODO [[bug:424][#424]] Make acprep compatible with Python 3                                        :ATTACH:
+** TODO [[bug:424][#424]] Make acprep compatible with Python 3                           :ATTACH:
    - Note taken on [2010-11-26 Fri 12:55] \\
      [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
    :PROPERTIES:
@@ -2955,7 +3045,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       09B41575-766E-4598-A8F3-164D8AE25589
    :CREATED:  [2010-06-15 Tue 07:08]
    :END:
-** DEFERRED [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                   :blocker:
+** DEFERRED [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users      :blocker:
    - State "DEFERRED"   from "TODO"       [2011-02-12 Sat 18:18]
    :PROPERTIES:
    :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
@@ -2972,7 +3062,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
    :CREATED:  [2010-06-18 Fri 19:45]
    :END:
-** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies             :ATTACH:
+** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
@@ -3014,6 +3104,26 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO Patches for hledger                                                                 :Net:
+   SCHEDULED: <2011-05-30 Mon>
+   - Note taken on [2011-05-30 Mon 17:07] \\
+     PS, and also could you update the #ledger channel topic, or better, unlock it
+     so we can keep it up to date ?
+   :PROPERTIES:
+   :ID:       0324A077-1B7C-41FC-88D8-1DC5DAC8E020
+   :CREATED:  [2011-05-30 Mon 17:06]
+   :Date:     Sun, 29 May 2011 10:56:23 -0700
+   :Message:  [[message://1306691783.10087.1457317257@webmail.messagingengine.com][Re: Patches for hledger]]
+   :Submitter: "Simon Michael" <simon@joyful.com>
+   :END:
+** TODO Replace github.com/jwiegley/ledger/wiki with a forwarding link
+   :PROPERTIES:
+   :ID:       54E39CA6-D57C-4353-89E7-2D1E42F97144
+   :CREATED:  [2011-05-21 Sat 19:51]
+   :Date:     Sat, 21 May 2011 08:37:38 -0700
+   :Message:  [[message://4DD7DC42.4090209@joyful.com][Re: ANN: ledger-cli.org]]
+   :Submitter: Simon Michael <simon@joyful.com>
+   :END:
 ** TODO [ledger] vim 'commentstring' (#28)
    :PROPERTIES:
    :ID:       5E9FEB37-907E-4494-B75E-ACA9D6AA3BFA
@@ -3130,7 +3240,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :CREATED:  [2009-11-20 Fri 18:31]
    :END:
-** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
+** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                 :ATTACH:
    :PROPERTIES:
    :ID:       32A4A048-886F-43FC-892E-EC125F372750
    :Attachments: foo.dat
@@ -3335,7 +3445,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :CREATED:  [2008-08-14 Thu]
    :END:
-** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                                  :ATTACH:
+** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                     :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
