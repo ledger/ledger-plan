@@ -433,6 +433,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100719230158.GA26275@jirafa.cyrius.com][Our discussion on IRC today]]
    :CREATED:  [2010-07-20 Tue 00:15]
    :END:
+** TODO [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)
+   :PROPERTIES:
+   :ID:       0E257D11-B836-4ACF-A937-7DEC4C0F28C0
+   :CREATED:  [2011-06-14 Tue 19:21]
+   :END:
 ** TODO [[bug:392][#392]] Reporting multiple commodities with -J
    :PROPERTIES:
    :ID:       5590D50E-F380-4D76-8BAD-71B2A77346FB
@@ -456,13 +461,10 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-403-1@http.newartisans.com/bugzilla/][{Bug 403} New: --budget ignores "Yearly in August"-type transactions]]
    :CREATED:  [2010-08-30 Mon 18:27]
    :END:
-** TODO [[bug:410][#410]] Forecasting broken
+** TODO [[bug:406][#406]] Unable to install ledger on Ubuntu Hardy
    :PROPERTIES:
-   :ID:       E95B0079-6A7D-42F7-B381-3D08C8E6867E
-   :CREATED:  [2011-04-05 Tue 04:32]
-   :Message:  [[message://20110404140722.954875F@mail.johnwiegley.com][{Bug 410} Forecasting broken]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Date:     Mon,  4 Apr 2011 09:07:22 -0500 (CDT)
+   :ID:       418D7760-03CD-441B-847F-BCD7EDE82E68
+   :CREATED:  [2011-06-14 Tue 19:21]
    :END:
 ** TODO [[bug:411][#411]] Refrain from downloading a quote if can't get newer
    :PROPERTIES:
@@ -508,6 +510,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       3915D7F9-E69D-46F4-972E-C16DDEF90164
    :CREATED:  [2010-09-17 Fri 23:00]
+   :END:
+** TODO [[bug:418][#418]] Ledger 3.0 will not build under cygwin on Windows
+   :PROPERTIES:
+   :ID:       C3AEDBF3-B2BD-4112-9EDE-865023E06532
+   :CREATED:  [2011-06-14 Tue 19:21]
    :END:
 ** TODO [[bug:433][#433]] Possible issue with Balanced automated transactions
    Let's say I've got a ledger file like this:
@@ -1257,6 +1264,116 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       D5F21DC3-1F16-4FAE-A196-6C19883B9229
    :CREATED:  [2011-06-09 Thu 01:23]
+   :END:
+** TODO [[bug:532][#532]] Every N days problem in budgeting
+   I tried to set up a periodic entry for biweekly pay periods to compare
+   budgeted income to actual income, with the pay periods starting on a
+   certain day in a certain month, like this:
+   #+begin_src ledger
+   ~ every 14 days from 2011/03/25
+   #+end_src
+   
+   This is working except that when running a command like 
+   #+begin_src sh
+   ledger register --sort d -b "January 01 2011" -e "June 31 2011" Income.*Me --add-budget -f my_ledger.dat
+   #+end_src
+   there is a budget entry for 2011/03/25 then another for 2011/03/31 then the
+   14 days continues fine but offset by that second hiccup entry, even
+   crossing later month boundaries.
+   :PROPERTIES:
+   :ID:       9C1486DD-13E7-4341-8B83-60F958F714AA
+   :CREATED:  [2011-06-14 Tue 13:52]
+   :Date:     Fri, 10 Jun 2011 09:51:22 -0700 (PDT)
+   :Message:  [[message://7337691.1034.1307724682642.JavaMail.geo-discussion-forums@prmu4][every N days problem in budgeting]]
+   :Submitter: Anatortoise House <anatortoise@gmail.com>
+   :END:
+** TODO [[bug:533][#533]] Trailing entry going past the forecast period
+   Two questions about forecasts (please see the sample script and output
+   below):
+   
+   - Why is a trailing forecast entry (that doesn't balance) going over the
+     forecast period generated? The manual seems to indicate this is to show
+     the total somehow (section 2.9.2: "A final transaction is always output,
+     to show you what the total afterwards would be."). But I can already see
+     the running total of register entries using the last register entry
+     _within_ the forecast period, right? This additional entry causes issues
+     with calculations of running totals for the forecast period (by including
+     the out of the forecast period trailing entry).
+   
+   - It seems the balance command when run with forecasts but without
+     specifying an account regex doesn't include forecast entries in the
+     calculation.  Shouldn't it? Notice that you can get around this by doing
+     a "bal ^" which will match all transactions, but then you get the last
+     trailing non-balanced transaction mentioned above included, making the
+     calculation include entries that shouldn't be there.
+   
+   Using ledger 2.6.2.
+
+   Script:
+   #+begin_src sh
+   #!/bin/sh
+   
+   cat > ledger.dat <<EOF
+   ~ Monthly
+    Income:Salary           -100.00
+    Assets:Checking
+   
+   06-01 Start
+    Equity                    -1.00
+    Assets:Checking
+   EOF
+   
+   ledger -f ledger.dat --forecast 'd < [september]' reg; echo
+   ledger -f ledger.dat --forecast 'd < [september]' -s bal; echo
+   ledger -f ledger.dat --forecast 'd < [september]' -s bal ^
+   #+end_src
+
+   Output:
+   :OUTPUT:
+   + cat
+   + ledger -f ledger.dat --forecast 'd < [september]' reg
+   2011/06/01 Start                Equity
+   -1.00        -1.00
+                                   Assets:Checking
+   1.00            0
+   2011/07/01 Forecast entry       Income:Salary
+   -100.00      -100.00
+   2011/07/01 Forecast entry       Assets:Checking
+   100.00            0
+   2011/08/01 Forecast entry       Income:Salary
+   -100.00      -100.00
+   2011/08/01 Forecast entry       Assets:Checking
+   100.00            0
+   2011/09/01 Forecast entry       Income:Salary
+   -100.00      -100.00
+   + echo
+   
+   # Notice that the balance below does not contain forecast entries,
+   despite forecasting being specified:
+   
+   + ledger -f ledger.dat --forecast 'd < [september]' -s bal
+                 101.00  Assets:Checking
+                  -1.00  Equity
+                -100.00  Income:Salary
+   + echo
+   
+   # Notice that the balance below includes the 2011/09/01 non-balanced
+   trailing entry, making the running total not sum up and include
+   entries from outside the forecast period:
+   
+   + ledger -f ledger.dat --forecast 'd < [september]' -s bal '^'
+                 201.00  Assets:Checking
+                  -1.00  Equity
+                -300.00  Income:Salary
+   --------------------
+                -100.00
+   :END:
+   :PROPERTIES:
+   :ID:       9D99B5FB-1A24-464B-8044-6008354816E8
+   :CREATED:  [2011-06-14 Tue 13:53]
+   :Date:     Fri, 10 Jun 2011 06:10:23 -0700 (PDT)
+   :Message:  [[message://02a1b2dd-2a45-4b76-8a87-4fc014193cb0@16g2000yqy.googlegroups.com][Trailing entry going past the forecast period]]
+   :Submitter: Seppo Sade <sepposade1@gmail.com>
    :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
