@@ -5,306 +5,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
 #+TAGS: blocker(B) critical(C)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
-#+LINK: bug http://newartisans.com/bugzilla/show_bug.cgi?id=
+#+LINK: bug http://bugs.ledger-cli.org/show_bug.cgi?id=
 #+CATEGORY: Ledger
 
 * Bugs
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#A] [[bug:426][#426]] ledger --budget reg|wc -l depends on order of transactions
-   - Note taken on [2010-11-10 Wed 16:29] \\
-     [[message://0326c3da-70e6-4ab2-b53f-27a1e0bdc2c4@32g2000yqz.googlegroups.com][Re: ledger --budget reg |wc -l depends on the order of the transactions]]
-   :PROPERTIES:
-   :ID:       048246B7-CA7A-42E7-A460-8FB02EDAA016
-   :Submitter: Nicolas Girard <girard.nicolas@gmail.com>
-   :Message:  [[message://3547a240-4f80-405b-8b8a-e04717b583d9@t13g2000yqm.googlegroups.com][ledger --budget reg |wc -l depends on the order of the transactions]]
-   :CREATED:  [2010-11-10 Wed 16:29]
-   :END:
-** TODO [#A] [[bug:437][#437]] Crash when using automatic rules                                      :blocker:
-   - Note taken on [2011-02-12 Sat 14:15] \\
-     Interesting. I built the next branch from scratch and found a much more
-     useful error message. I have a periodic transaction that it can't parse:
-     :OUTPUT:
-     While parsing file "/Users/peter/ledger.txt", line 29:
-     While evaluating value expression:
-      date
-     While applying automated transaction from "/Users/peter/ledger.txt",
-     lines 10-12:
-     = expr date=>[2010/02/10] && account =~ /^Expenses:(Cable|Utils)/ && account !~ /Expenses:Utils:Water/
-       $account                                     -0.5
-       Assets:Receivable:Andrew                      0.5
-     While parsing periodic transaction:
-     ~ monthly
-        Expenses:Cable                            $37.00
-        Expenses:Food                            $600.00
-        Expenses:Insurance:Car                    $81.15
-        Expenses:Insurance:Fees                    $1.00
-        Expenses:Insurance:Life                   $50.00
-        Expenses:Interest:Car                     $25.00
-        Expenses:Interest:Student                $150.00
-        Expenses:Rent                            $650.00
-        Expenses:Utils:Electric                   $50.00
-        Expenses:Utils:Gas                        $50.00
-        Assets
-     Error: Assertion failed in "src/item.cc", line 535: ledger::string
-     ledger::item_context(const ledger::item_t&, const ledger::string&):
-     len > 0
-     :END:
-
-     Not really sure what that means. If I comment out the periodic transaction
-     everything works again, except the automatic transaction is matching every
-     transaction, not just the ones that the expression should match.
-   It doesn't look to be very informative:
-   :OUTPUT:
-   (gdb) backtrace
-   #0  0x00000001000fd462 in ledger::post_t::date ()
-   #1  0x000000010010af79 in ledger::(anonymous
-   namespace)::get_wrapper<&(ledger::(anonymous
-   namespace)::get_date(ledger::item_t&))> ()
-   :END:
-
-   If that helps, cool. Otherwise I'm building next right now with debugging
-   symbols and I'll let you know if it's still happening.
-   :PROPERTIES:
-   :ID:       E51310FF-3548-45AE-AEFF-57B800E8A304
-   :Submitter: Peter Keen <peter.keen@bugsplat.info>
-   :Message:  [[message://AANLkTinY_1OpT4OeSNFn3B7oXnnqZ%3DAcgs-4rya1OZPM@mail.gmail.com][Re: Automatic rules and 3.0]]
-   :CREATED:  [2010-11-21 Sun 23:03]
-   :END:
-** TODO [#A] [[bug:438][#438]] Case where register and balance do not agree                         :critical:
-   The file below gives the following
-   :OUTPUT:
-   $ ledger/ledger -f foo -X \$ bal sub1
-             $18020.74  Assets:Sub1
-                 $8.10    Leftovers
-   --------------------
-             $18020.74
-   :END:
-   and
-   :OUTPUT:
-   $ ledger/ledger -f foo -X \$ reg sub1
-   10-Apr-04 Opening Balance       Assets:Sub1                   $1.00        $1.00
-   10-Apr-04 Opening Balance       Assets:Sub1                $3227.00     $3228.00
-   10-Apr-04 Opening Balance       Assets:Sub1                $1130.00     $4358.00
-   10-Apr-04 Opening Balance       Assets:Sub1                $2030.00     $6388.00
-   10-Apr-04 Opening Balance       Assets:Sub1:Leftovers         $6.79     $6394.79
-   10-Apr-04 Opening Balance       Assets:Sub1                 $223.30     $6618.09
-   10-Apr-04 Opening Balance       Assets:Sub1                 $297.00     $6915.09
-   10-May-18 FOO                   Assets:Sub1                $5438.00    $12353.09
-   10-Jul-02 Commodities revalued <Revalued>                  $259.74    $12612.83
-   10-Jul-02 BAR                   Assets:Sub1                 $135.84    $12748.67
-                                  Assets:Sub1:Leftovers         $1.31    $12749.98
-   10-Sep-29 Commodities revalued <Revalued>                 $5251.46    $18001.44
-   :END:
-
-   The price db is in the file.
-
-   I'm using 9fcf48482626f20151d75a2ebb81371b45d4540a, which is on the next
-   branch.
-   #+begin_src ledger
-   N $
-   P 2010/09/28 20:43:24 E $3.700
-   P 2010/09/28 20:43:25 A $5.230
-   P 2010/09/28 20:43:26 D $34.020
-   P 2010/09/28 20:43:27 C $12.370
-   P 2010/09/28 20:43:28 F $39.700
-   P 2010/09/28 20:43:29 B $39.430
-   P 2010/09/29 13:50:15 E $3.720
-   P 2010/09/29 13:50:15 A $5.240
-   P 2010/09/29 13:50:17 D $33.920
-   P 2010/09/29 13:50:18 C $12.310   P 2010/09/29 13:50:18 F $39.670
-   P 2010/09/29 13:50:19 B $39.830
-
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 A @ $0.01
-    Equity:Opening Balances
-
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 B @ $32.27
-    Equity:Opening Balances
-
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 C @ $11.30
-    Equity:Opening Balances
-
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 D @ $20.30
-    Equity:Opening Balances
-
-   2010/04/04 * Opening Balance
-    Assets:Sub1:Leftovers     $6.79
-    Equity:Opening Balances
-
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       11 D
-    Equity:Opening Balances
-
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 E @ $2.97
-    Equity:Opening Balances
-
-   2010/05/18=2010/05/21 * FOO
-    Assets:Sub1           200 F @ $27.190
-    Expenses:Qux         $29.95
-    Assets:Sub2
-
-   2010/07/02 * BAR
-    Income:D                      -$169.65
-    Assets:Sub2        $32.50
-    Assets:Sub1                       6 D @ $22.64
-    Assets:Sub1:Leftovers
-   #+end_src
-   :PROPERTIES:
-   :ID:       3FE26304-C336-48C5-85AB-909A1FC8D87B
-   :Submitter: Michael Norrish <michael.norrish@gmail.com>
-   :Message:  [[message://4CA31AA6.7080004@gmail.com][Re: reg vs bal in presence of recent commodity price info]]
-   :CREATED:  [2010-10-03 Sun 22:16]
-   :END:
-** TODO [#A] [[bug:440][#440]] Complex command causes core dump                                      :blocker:
-   - Note taken on [2011-03-07 Mon 15:05] \\
-     > for run command, i used the following args:
-
-     #+begin_src sh
-     run --args-only reg --group-by=account --related --subtotal --file
-     ~/speed-test.dat --exchange=€ --decimal-comma
-     #+end_src
-
-     > in gdb, just before "bt", I get this output:
-
-     :OUTPUT:
-     Program received signal SIGSEGV, Segmentation fault.
-     0x000000000055d44e in ledger::temporaries_t::clear (this=0x1f1f8b0)
-         at src/temps.cc:122
-     122            post.xact->remove_post(&post);
-
-     > in gdb, the call to "bt" command give this output:
-
-     #0  0x000000000055d44e in ledger::temporaries_t::clear (this=0x1f1f8b0)
-         at src/temps.cc:122
-     #1  0x000000000051727d in ledger::display_filter_posts::clear (
-         this=0x1f1f830) at src/filters.h:543
-     #2  0x000000000048a5b8 in ledger::item_handler<ledger::post_t>::clear (
-         this=0x1f1feb0) at src/chain.h:86
-     #3  0x0000000000517706 in ledger::changed_value_posts::clear (
-         this=0x1f1feb0) at src/filters.h:606
-     #4  0x000000000048a5b8 in ledger::item_handler<ledger::post_t>::clear (
-         this=0x1f1ffb0) at src/chain.h:86
-     #5  0x0000000000516851 in ledger::calc_posts::clear (this=0x1f1ffb0)
-         at src/filters.h:400
-     #6  0x000000000048a5b8 in ledger::item_handler<ledger::post_t>::clear (
-         this=0x1f20b10) at src/chain.h:86
-     #7  0x0000000000501a21 in ledger::subtotal_posts::clear (this=0x1f20b10)
-         at src/filters.h:676
-     #8  0x000000000048a5b8 in ledger::item_handler<ledger::post_t>::clear (
-         this=0x1f20320) at src/chain.h:86
-     #9  0x0000000000516e84 in ledger::related_posts::clear (this=0x1f20320)
-         at src/filters.h:498
-     #10 0x00000000005086f8 in ledger::post_splitter::flush (this=0x1f20c10)
-         at src/filters.cc:61
-     #11 0x000000000048b202 in ledger::item_handler<ledger::post_t>::flush (
-         this=0x7fffffffd520) at src/chain.h:75
-     #12 0x0000000000509453 in ledger::pass_down_posts::pass_down_posts (
-         this=0x7fffffffd520, handler=..., iter=...) at src/filters.cc:102
-     #13 0x000000000047032a in ledger::report_t::posts_report (this=0x1270480,
-         handler=...) at src/report.cc:321
-     #14 0x0000000000497303 in ledger::reporter<ledger::post_t,
-     boost::shared_ptr<ledger::item_handler<ledger::post_t> >,
-     &(ledger::report_t::posts_report)>::operator() (this=0x1f1e630, args=...) at
-     src/report.h:1024
-     #15 0x00000000004953e0 in
-     boost::detail::function::function_obj_invoker1<ledger::reporter<ledger::post_t,
-     boost::shared_ptr<ledger::item_handler<ledger::post_t> >,
-     &(ledger::report_t::posts_report)>, ledger::value_t,
-     ledger::call_scope_t&>::invoke (function_obj_ptr=..., a0=...)
-         at /usr/include/boost/function/function_template.hpp:132
-     #16 0x000000000044993e in boost::function1<ledger::value_t,
-     ledger::call_scope_t&>::operator() (this=0x7fffffffd7b0, a0=...)
-         at /usr/include/boost/function/function_template.hpp:1013
-     #17 0x000000000042bbb3 in ledger::global_scope_t::execute_command (
-         this=0x126db60, args=..., at_repl=false) at src/global.cc:232
-     #18 0x000000000042bd0f in ledger::global_scope_t::execute_command_wrapper (
-         this=0x126db60, args=..., at_repl=false) at src/global.cc:242
-     #19 0x000000000041b9bc in main (argc=10, argv=0x7fffffffe1f8,
-         envp=0x7fffffffe250) at src/main.cc:121
-     :END:
-   - Note taken on [2011-03-07 Mon 14:52] \\
-     From Thierry ([[message://AANLkTi%3Dr%2BgibQW-nv%3Dea7VkBRXk3die4-4XVYMfPq3Kd@mail.gmail.com][Re: core dump]]): Sorry for late testing, but unfortunately,
-     this is not solved on my machine.
-
-     The command still produces a "Segmentation fault" without any other help.
-     Should I try with a debug version of ledger? Can you remind me how to do
-     it?
-   - State "TODO"       from "DONE"       [2011-03-07 Mon 14:51]
-   - State "DONE"       from "STARTED"    [2011-02-10 Thu 23:00]
-   - State "TODO"       from "STARTED"    [2011-02-09 Wed 14:42]
-   :LOGBOOK:
-   CLOCK: [2011-02-10 Thu 20:35]--[2011-02-10 Thu 22:24] =>  1:49
-   CLOCK: [2011-02-09 Wed 14:13]--[2011-02-09 Wed 14:42] =>  0:29
-   :END:
-   #+begin_src sh
-   ledger --args-only reg --group-by=account --related --subtotal --file ~/doc/speed-test.dat --exchange=€ --decimal-comma
-   #+end_src
-   :PROPERTIES:
-   :ID:       CEE57FBC-DF19-40DD-901D-68B1AEC29888
-   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
-   :Message:  [[message://AANLkTimK1QtZdzAyVKV7h6T0OeeTXG0fgn5pr0HfVxYn@mail.gmail.com][core dump]]
-   :CREATED:  [2010-08-19 Thu 23:35]
-   :END:
-** TODO [#A] [[bug:463][#463]] Question about commodity sub-total vs. total in balance
-   I had a question about balance totals. Given this test data:
-   #+begin_src ledger
-   D $1,000.00
-   P 2011-01-01 22:00:00-0800 TESTA $78.35
-   P 2011-01-01 22:00:00-0800 TESTB $15.86
-   P 2011-01-01 22:00:09-0800 TESTC $13.01
-
-   2011/01/01 Example
-     Assets:Brokerage:TESTA         188.424 TESTA @      $76.61
-     Assets:Brokerage:TESTB       1,809.282 TESTB @      $15.60
-     Assets:Brokerage:TESTC         384.320 TESTC @@  $5,000.00
-     Assets:Brokerage:TESTC           5.306 TESTC @@     $68.18
-     Equity:Opening Balances
-   #+end_src
-
-   I'm a little bit surprised that the sub-accounts reflect a difference from
-   the top level account w/re to rounding the last cent:
-   :OUTPUT:
-   $ ledger -V -f test.dat  bal
-             $48,527.27  Assets:Brokerage
-             $14,763.02    TESTA
-             $28,695.21    TESTB
-              $5,069.03    TESTC
-            $-47,728.14  Equity:Opening Balances
-   --------------------
-                $799.13
-   :END:
-
-   Even if --no-rounding is passed in:
-   :OUTPUT:
-   $ ledger -V -f test.dat --no-rounding bal
-             $48,527.27  Assets:Brokerage
-             $14,763.02    TESTA
-             $28,695.21    TESTB
-              $5,069.03    TESTC
-            $-47,728.14  Equity:Opening Balances
-   --------------------
-                $799.13
-   :END:
-
-   Is there something off with how the data aboce is set up?  Should I be
-   using be more place holders?
-   :PROPERTIES:
-   :ID:       3715CC11-ADFF-4F6B-9C39-C7D1077A2F83
-   :Submitter: jimr <jim.robinson@gmail.com>
-   :Message:  [[message://d2d528e1-33ba-49d1-bddf-53f07e9b5f1b@y19g2000prb.googlegroups.com][question about commodity sub-total vs. total in balance]]
-   :CREATED:  [2011-01-05 Wed 16:20]
-   :END:
-** TODO [[bug:351][#351]] print command puts tag in same line as payee
-   :PROPERTIES:
-   :ID:       EAF396BD-3A6C-4209-82C2-08D102A725B6
-   :CREATED:  [2010-06-20 Sun 14:51]
-   :END:
 ** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
    #+begin_src sh
    reg -s --inject=Expected '^income:ceg'
@@ -1374,6 +1081,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Date:     Fri, 10 Jun 2011 06:10:23 -0700 (PDT)
    :Message:  [[message://02a1b2dd-2a45-4b76-8a87-4fc014193cb0@16g2000yqy.googlegroups.com][Trailing entry going past the forecast period]]
    :Submitter: Seppo Sade <sepposade1@gmail.com>
+   :END:
+** TODO [[bug:534][#534]] account_amount is listed on the man page, but is not supported
+   :PROPERTIES:
+   :ID:       FEDA301C-A3F0-4E5A-9C79-754E2E0DDFE3
+   :CREATED:  [2011-06-21 Tue 14:33]
    :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
@@ -2554,6 +2266,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Date:     Mon, 23 May 2011 18:17:27 -0700 (PDT)
    :Message:  [[message://30671703.170.1306199847233.JavaMail.geo-discussion-forums@prcm34][Re: My experience with Ledger so far]]
    :Submitter: Matthew Harris <mharris312@gmail.com>
+   :END:
+** TODO [[bug:535][#535]] Make timeclock transactions balanced
+   :PROPERTIES:
+   :ID:       B4110944-02C5-48B7-8788-2110365F0A85
+   :CREATED:  [2011-06-20 Mon 02:11]
+   :Date:     Sat, 18 Jun 2011 14:20:33 -0700 (PDT)
+   :Message:  [[message://4f2c2924-8502-4a3d-b722-ecf44fc88fbd@m24g2000yqc.googlegroups.com][Timeclock transactions balanced?]]
+   :Submitter: Seppo Sade <sepposade1@gmail.com>
+   :END:
+** TODO [[bug:536][#536]] Add an option to Ledger to account for time rounding
+   For example, that recorded time segments are rounded up to 15 minute blocks.
+   :PROPERTIES:
+   :ID:       4813EDF8-192E-42FF-9D14-ABB9261CB20C
+   :CREATED:  [2011-06-17 Fri 13:17]
    :END:
 ** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
@@ -3758,4 +3484,30 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Version:  2.6
    :Ticket:   174
    :ID:       F7A6A833-5AC6-4ED0-A5EA-93CD6B97EEBF
+   :END:
+** NOTE Questions on Ledger
+   - Did you use a separate ledger for this trip, or were your entries in the
+     same ledger as your personal finances?
+   - How did you discover the loss from roundtrip currency conversions?
+   - How do you label your currencies? (I find ascii $ works fine, but £ shows
+     up in emacs as £ (if typed into Terminal) and shows up in Terminal as ?
+     (if typed in Emacs). I've switched to GBP until Emacs supports UTF-8 NCD)
+   - How did you deal with using a USD based Mastercard to pay for a Shekels
+     meal? Do you have to wait until you get your Mastercard statement to
+     determine the exchange rate or extra fees for international usage?
+   - Your blog suggests that you kept a paper ledger during the trip, and only
+     used Ledger after you got home. Would it have worked if you'd used Ledger
+     in real-time?
+   - What accounts did you use? How many of each type (Income, Equity,
+     Liability, Expense, Asset?)
+   - What did your most basic entries look like?
+   - What were your most complex entries, and what lessons did you learn from
+     them? Did you restructure your accounts along the way because of an
+     unforeseen wrinkle?
+   - What ledger command lines did you use to compute the amount owed by each
+     person?
+   :PROPERTIES:
+   :ID:       7786026F-2E73-45CA-B89F-A234DC4A6317
+   :VISIBILITY: folded
+   :CREATED:  [2011-06-19 Sun 18:23]
    :END:
