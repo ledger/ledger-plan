@@ -1087,6 +1087,29 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       FEDA301C-A3F0-4E5A-9C79-754E2E0DDFE3
    :CREATED:  [2011-06-21 Tue 14:33]
    :END:
+** TODO [[bug:537][#537]] Auto-balancing of transactions of no value
+   :PROPERTIES:
+   :ID:       DAA39C02-64C1-4A5F-A4A6-93353C7ABAE5
+   :CREATED:  [2011-06-28 Tue 22:54]
+   :Date:     Tue, 28 Jun 2011 01:55:22 -0500 (CDT)
+   :Message:  [[message://bug-537-1@http.bugs.ledger-cli.org/][{Bug 537} New: Auto-balancing of transactions of no value]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:540][#540]] Adjustment accounts are not collapsed by -n
+   :OUTPUT:
+   > ledger -f test2.dat reg -MVnEn account
+   2010/01/01 - 2010/01/31          Account                         $1    $1
+   2010/02/01 - 2010/02/28          <None>                           0    $2
+   2010/03/01 - 2010/03/31          <Adjustment>                    $2    $3
+                                    Account                         $6    $9
+   :END:
+   :PROPERTIES:
+   :ID:       590C3C39-5916-414D-8A77-3AF43442E442
+   :CREATED:  [2011-06-30 Thu 11:51]
+   :Date:     Thu, 30 Jun 2011 09:44:22 -0700 (PDT)
+   :Message:  [[message://21774456.1840.1309452262141.JavaMail.geo-discussion-forums@prdr36][Re: Printing monthly balances]]
+   :Submitter: Matthew Harris <mharris312@gmail.com>
+   :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
    ${AMT} is the same as $(scrub(AMT))
@@ -2280,6 +2303,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       4813EDF8-192E-42FF-9D14-ABB9261CB20C
    :CREATED:  [2011-06-17 Fri 13:17]
+   :END:
+** TODO [[bug:538][#538]] -X should use posting dated values, and with -V should use current
+   :PROPERTIES:
+   :ID:       6BA58CB7-AE65-44FB-B0A2-9631950E133C
+   :CREATED:  [2011-06-29 Wed 14:58]
+   :END:
+** TODO [[bug:539][#539]] Add 'any' and 'all' as operators in query expressions
+   :PROPERTIES:
+   :ID:       3643CE28-8322-4CDF-B151-DC34F1A30112
+   :CREATED:  [2011-06-29 Wed 17:57]
    :END:
 ** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:

@@ -925,7 +925,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100531102647.GA23953@jirafa.cyrius.com][--european option not really European]]
    :CREATED:  [2010-05-31 Mon 14:32]
    :END:
-** DONE [[bug:224][#224]] A large number of GenerateTests are failing                    :ATTACH:
+** DONE [[bug:224][#224]] A large number of GenerateTests are failing                                 :ATTACH:
    - State "DONE"       from "TODO"       [2010-06-10 Thu 14:26]
    When running GenerateTests from 1 to 10001, 954 of the tests fail --
    although many of them for the same apparent reason.  These different types
@@ -3392,7 +3392,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       567B5118-7A77-42B9-A1CD-C5DA688AC406
    :CREATED:  [2007-10-29 Mon]
    :END:
-** WONTFIX [[bug:160][#160]] Attached file should print out Unrealized Gains in the report :ATTACH:
+** WONTFIX [[bug:160][#160]] Attached file should print out Unrealized Gains in the report            :ATTACH:
    - State "WONTFIX"    from "TODO"       [2010-06-09 Wed 08:15] \\
      The aim of --unrealized is to show how much your unrealized gains or losses
      were, not to balance all possible values.
@@ -8436,7 +8436,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100104044948.GA14665@atom][problems compiling with python support on debian squeeze]]
    :CREATED:  [2010-01-09 Sat 21:07]
    :END:
-** WORKSFORME [#A] [[bug:184][#184]] For those interested in the Python support         :blocker:
+** WORKSFORME [#A] [[bug:184][#184]] For those interested in the Python support                      :blocker:
    - State "WORKSFORME" from "TODO"       [2010-06-08 Tue 17:26] \\
      This can happen if the Python that Ledger is linked to is not the same as the
      Python that your libboost_python is linked to.
