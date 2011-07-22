@@ -1180,6 +1180,25 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-386-1@http.newartisans.com/bugzilla/][{Bug 386} New: strips quotation marks from commodity when it's required]]
    :CREATED:  [2010-07-25 Sun 16:25]
    :END:
+** DONE [[bug:510][#510]] Transactions match from oldest->newest
+   - State "DONE"       from "TODO"       [2011-07-19 Tue 23:30]
+   :PROPERTIES:
+   :ID:       28643E12-8272-43BC-A2B1-4FE0067BE9AA
+   :CREATED:  [2011-05-30 Mon 18:22]
+   :Date:     Mon, 30 May 2011 18:22:07 -0500 (CDT)
+   :Message:  [[message://bug-510-1@http.newartisans.com/bugzilla/][{Bug 510} New: xact matches oldest->newest]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** DONE [ledger] Reverse search for drafts (#29)
+   SCHEDULED: <2011-07-19 Tue>
+   - State "DONE"       from "TODO"       [2011-07-20 Wed 02:35]
+   :PROPERTIES:
+   :ID:       2EFFD62B-0C63-4459-8574-3418F2B64CD9
+   :CREATED:  [2011-07-19 Tue 16:30]
+   :Date:     Mon, 18 Jul 2011 18:10:42 -0700
+   :Message:  [[message://jwiegley/ledger/pull/29@github.com][{ledger} Reverse search for drafts (#29)]]
+   :Submitter: bettse <reply+i-1246734-0a9e229b294f344233880f5f03c4835dc047d91b@reply.github.com>
+   :END:
 ** DONE Abstract a function to verify a transaction double-entry status
    - State "DONE"       from "TODO"       [2009-11-11 Wed 20:43]
    :PROPERTIES:
@@ -2935,6 +2954,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       5936E070-F86A-4E52-B165-B70CE24C8109
    :CREATED:  [2008-07-24 Thu]
+   :END:
+** CANCELED [[bug:372][#372]] Rename "total" to "raw_total" and "display_total" to "total"
+   - State "CANCELED"   from "TODO"       [2011-07-03 Sun 00:34] \\
+     I've decided not to make this change.
+   This constantly confuses people trying to write their own format expressions.
+   :PROPERTIES:
+   :ID:       D3701AF0-0FFC-400E-84BE-E302DDAAA0EA
+   :CREATED:  [2010-07-01 Thu 17:55]
    :END:
 ** CANCELED [[bug:435][#435]] Re-anonymize speed-test.dat
    - State "CANCELED"   from "TODO"       [2010-11-26 Fri 13:50] \\
@@ -4960,6 +4987,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       567780B6-EABE-405E-8AB4-46F201AC42B3
    :CREATED:  [2010-05-23 Sun 17:04]
    :END:
+** DUPLICATE [[bug:541][#541]] --collapse not collapsing
+   - State "DUPLICATE"  from "TODO"       [2011-07-02 Sat 13:28] \\
+     This is a duplicate of #540.
+   :PROPERTIES:
+   :ID:       51765431-2635-49E8-B673-D3613233C465
+   :CREATED:  [2011-06-30 Thu 12:41]
+   :Date:     Thu, 30 Jun 2011 12:27:35 -0500 (CDT)
+   :Message:  [[message://bug-541-1@http.bugs.ledger-cli.org/][{Bug 541} New: --collapse not collapsing]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
 ** DUPLICATE Ledger formats UTF-8 strings incorrectly
    The report `ledger --tail 20 reg nrl:checking` has errors in the tabulation
    because of the width of UTF-8 characters that are larger than 8-bit.
@@ -6489,6 +6526,26 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       0DD9D927-7C79-41A4-8D9A-67C00550B67D
    :CREATED:  [2007-12-10 Mon]
    :END:
+** CANCELED [#C] Build a binary DMG of Ledger's next branch for dgou
+   SCHEDULED: <2011-07-18 Mon>
+   - State "CANCELED"   from "TODO"       [2011-07-18 Mon 03:33]
+   :PROPERTIES:
+   :ID:       78E3E8CE-32F5-496E-867F-B38031BF4431
+   :CREATED:  [2011-07-12 Tue 13:58]
+   :Date:     Tue, 12 Jul 2011 13:59:54 -0400
+   :Message:  [[message://8D4ECB3B-AB36-4E08-82E3-8F952723C495@mac.com][Re: ledger make check failure report...]]
+   :Submitter: Douglas Philips <dgou@mac.com>
+   :END:
+** CANCELED [#C] Work with dgou to resolve [[bug:543][#543]]
+   SCHEDULED: <2011-07-13 Wed>
+   - State "CANCELED"   from "TODO"       [2011-07-13 Wed 02:41]
+   :PROPERTIES:
+   :ID:       9ACD676A-B2B5-4416-99C0-4833E56D6206
+   :CREATED:  [2011-07-08 Fri 14:26]
+   :Date:     Fri,  8 Jul 2011 14:24:27 -0500 (CDT)
+   :Message:  [[message://20110708192427.C6C1588@mail.johnwiegley.com][{Bug 543} ledger make check failure report...]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
 ** NOTE Building Ledger with gcc and Clang on different media
    Test Machine:
      Early 2009 Mac Pro
@@ -6518,27 +6575,26 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :CREATED:  [2010-11-08 Mon 15:30]
    :END:
 ** NOTE Using Visual Studio 2008 to build Ledger for Windows
+   The build is huge, so I'd have to pick out only the parts you actually need
+   which is quite involved. You should be able to get it to work with the
+   binary installers from http://www.boostpro.com/download . I build from
+   source at work because I need to set some compiler flags (disable checked
+   iterators) but that's not necessary for ledger's case. I'm not sure where
+   the installer puts its files, I presume program files/boost or
+   something. There will probably be a directory called 'lib' or 'libs' or
+   something. You go to Tools -> Options -> Projects and Solutions -> VC++
+   Directories and select 'Library files' in the top right corner. In that
+   list you add a new directory, the one where the boost installer's library
+   files are in. If you select 'Include files' in that drop down box, you can
+   immediately set the path to the boost headers, too. These options can also
+   be set on the project level but since they'll be different on different
+   machines I prefer to put them in global settings and document them in the
+   build procedure.
    :PROPERTIES:
    :ID:       88838D10-FBA4-433C-A77D-AB64AC8D47CA
    :VISIBILITY: folded
    :CREATED:  [2010-06-15 Tue 04:21]
    :END:
-*** Boost
-    The build is huge, so I'd have to pick out only the parts you actually
-    need which is quite involved. You should be able to get it to work with
-    the binary installers from http://www.boostpro.com/download . I build from
-    source at work because I need to set some compiler flags (disable checked
-    iterators) but that's not necessary for ledger's case. I'm not sure where
-    the installer puts its files, I presume program files/boost or
-    something. There will probably be a directory called 'lib' or 'libs' or
-    something. You go to Tools -> Options -> Projects and Solutions -> VC++
-    Directories and select 'Library files' in the top right corner. In that
-    list you add a new directory, the one where the boost installer's library
-    files are in. If you select 'Include files' in that drop down box, you can
-    immediately set the path to the boost headers, too. These options can also
-    be set on the project level but since they'll be different on different
-    machines I prefer to put them in global settings and document them in the
-    build procedure.
 * Docs
 ** DONE [#A] [[bug:422][#422]] Correct definitions of release and beta in the README
    - State "DONE"       from "TODO"       [2010-12-09 Thu 17:25]

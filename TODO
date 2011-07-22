@@ -12,6 +12,55 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** STARTED [[bug:373][#373]] Change amount/total expr evaluation to use a priority queue
+   At the moment, -X and -A cannot be mixed because they both work by changing
+   the amount_expr.
+
+   Instead, there should be a priority queue so that -X is first applied, then
+   -A, as well as any other flags that want to modify the displayed amount.
+   :PROPERTIES:
+   :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
+   :CREATED:  [2010-07-01 Thu 17:55]
+   :END:
+** TODO [#A] [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)
+   :PROPERTIES:
+   :ID:       0E257D11-B836-4ACF-A937-7DEC4C0F28C0
+   :CREATED:  [2011-06-14 Tue 19:21]
+   :END:
+** TODO [#A] [[bug:406][#406]] Unable to install ledger on Ubuntu Hardy
+   :PROPERTIES:
+   :ID:       418D7760-03CD-441B-847F-BCD7EDE82E68
+   :CREATED:  [2011-06-14 Tue 19:21]
+   :END:
+** TODO [#A] [[bug:418][#418]] Ledger 3.0 will not build under cygwin on Windows
+   :PROPERTIES:
+   :ID:       C3AEDBF3-B2BD-4112-9EDE-865023E06532
+   :CREATED:  [2011-06-14 Tue 19:21]
+   :END:
+** TODO [#A] [[bug:503][#503]] Abort trap on MacOS 10.6.7                                            :blocker:
+   :PROPERTIES:
+   :ID:       CDEDA0D4-A7D1-4BEC-B8C6-F93EA8FFE305
+   :CREATED:  [2011-04-01 Fri 18:58]
+   :Message:  [[message://4D95020C.9090801@gmail.com][Re: Abort trap on MacOS 10.6.7]]
+   :Submitter: Michael Norrish <michael.norrish@gmail.com>
+   :Date:     Fri, 01 Apr 2011 09:37:00 +1100
+   :END:
+** TODO [#A] [[bug:543][#543]] ledger make check failure report...
+   - Note taken on [2011-07-08 Fri 14:16] \\
+     Here is my config.log:
+     [2. application/octet-stream; config.log]...
+     
+     I have Python 2.7 installed via MacPorts and it is my default python
+     selected.  I don't really know/expect if that makes a difference or not.
+     
+     Or maybe something else in the config log file will shed some light...
+   :PROPERTIES:
+   :ID:       C246A646-6768-45AB-A36B-3CCDA2E2404B
+   :CREATED:  [2011-07-06 Wed 12:14]
+   :Date:     Wed, 06 Jul 2011 11:28:44 -0400
+   :Message:  [[message://28CCC239-ACE4-40E5-A95C-81460729C966@mac.com][ledger make check failure report...]]
+   :Submitter: Douglas Philips <dgou@mac.com>
+   :END:
 ** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
    #+begin_src sh
    reg -s --inject=Expected '^income:ceg'
@@ -60,22 +109,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       AAFAFBE7-E103-4CCC-82B9-6D28BC9052A3
    :CREATED:  [2010-07-01 Thu 16:41]
-   :END:
-** TODO [[bug:372][#372]] Rename "total" to "raw_total" and "display_total" to "total"
-   This constantly confuses people trying to write their own format expressions.
-   :PROPERTIES:
-   :ID:       D3701AF0-0FFC-400E-84BE-E302DDAAA0EA
-   :CREATED:  [2010-07-01 Thu 17:55]
-   :END:
-** TODO [[bug:373][#373]] Change amount/total expr evaluation to use a priority queue
-   At the moment, -X and -A cannot be mixed because they both work by changing
-   the amount_expr.
-
-   Instead, there should be a priority queue so that -X is first applied, then
-   -A, as well as any other flags that want to modify the displayed amount.
-   :PROPERTIES:
-   :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
-   :CREATED:  [2010-07-01 Thu 17:55]
    :END:
 ** TODO [[bug:376][#376]] ledger reg ^exp is showing Assets in a budget report
    This happens if the periodic transaction contain both Assets and Expenses.
@@ -140,11 +173,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100719230158.GA26275@jirafa.cyrius.com][Our discussion on IRC today]]
    :CREATED:  [2010-07-20 Tue 00:15]
    :END:
-** TODO [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)
-   :PROPERTIES:
-   :ID:       0E257D11-B836-4ACF-A937-7DEC4C0F28C0
-   :CREATED:  [2011-06-14 Tue 19:21]
-   :END:
 ** TODO [[bug:392][#392]] Reporting multiple commodities with -J
    :PROPERTIES:
    :ID:       5590D50E-F380-4D76-8BAD-71B2A77346FB
@@ -167,11 +195,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Message:  [[message://bug-403-1@http.newartisans.com/bugzilla/][{Bug 403} New: --budget ignores "Yearly in August"-type transactions]]
    :CREATED:  [2010-08-30 Mon 18:27]
-   :END:
-** TODO [[bug:406][#406]] Unable to install ledger on Ubuntu Hardy
-   :PROPERTIES:
-   :ID:       418D7760-03CD-441B-847F-BCD7EDE82E68
-   :CREATED:  [2011-06-14 Tue 19:21]
    :END:
 ** TODO [[bug:411][#411]] Refrain from downloading a quote if can't get newer
    :PROPERTIES:
@@ -217,11 +240,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       3915D7F9-E69D-46F4-972E-C16DDEF90164
    :CREATED:  [2010-09-17 Fri 23:00]
-   :END:
-** TODO [[bug:418][#418]] Ledger 3.0 will not build under cygwin on Windows
-   :PROPERTIES:
-   :ID:       C3AEDBF3-B2BD-4112-9EDE-865023E06532
-   :CREATED:  [2011-06-14 Tue 19:21]
    :END:
 ** TODO [[bug:433][#433]] Possible issue with Balanced automated transactions
    Let's say I've got a ledger file like this:
@@ -658,14 +676,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Bill Harris <bill_harris@facilitatedsystems.com>
    :Date:     Fri, 25 Mar 2011 21:16:30 -0700
    :END:
-** TODO [[bug:503][#503]] Abort trap on MacOS 10.6.7                                                 :blocker:
-   :PROPERTIES:
-   :ID:       CDEDA0D4-A7D1-4BEC-B8C6-F93EA8FFE305
-   :CREATED:  [2011-04-01 Fri 18:58]
-   :Message:  [[message://4D95020C.9090801@gmail.com][Re: Abort trap on MacOS 10.6.7]]
-   :Submitter: Michael Norrish <michael.norrish@gmail.com>
-   :Date:     Fri, 01 Apr 2011 09:37:00 +1100
-   :END:
 ** TODO [[bug:504][#504]] Forecast doesn't include current month's budget
    :PROPERTIES:
    :ID:       745317A8-9D4F-433C-86B6-61C9794FDF0C
@@ -705,14 +715,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-508-1@http.newartisans.com/bugzilla/][{Bug 508} New: Register command doesn't filter anymore]]
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Date:     Sun,  8 May 2011 19:34:29 -0500 (CDT)
-   :END:
-** TODO [[bug:510][#510]] Transactions match from oldest->newest
-   :PROPERTIES:
-   :ID:       28643E12-8272-43BC-A2B1-4FE0067BE9AA
-   :CREATED:  [2011-05-30 Mon 18:22]
-   :Date:     Mon, 30 May 2011 18:22:07 -0500 (CDT)
-   :Message:  [[message://bug-510-1@http.newartisans.com/bugzilla/][{Bug 510} New: xact matches oldest->newest]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :END:
 ** TODO [[bug:511][#511]] ledger and currency format in entry command
    - Note taken on [2011-05-27 Fri 18:08] \\
@@ -1096,12 +1098,29 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :END:
 ** TODO [[bug:540][#540]] Adjustment accounts are not collapsed by -n
+   With the following input file:
+   #+begin_src ledger
+   P 2010/01/01 foo $1.00
+   P 2010/02/01 foo $2.00
+   P 2010/03/01 foo $3.00
+   
+   2010-01-01 First
+     Account  1 foo @ $1.00
+     Income
+   2010-03-01 Second
+     Account  2 foo @ $3.00
+     Income
+   #+end_src
+   
+   I would have expected the command "ledger -f test.dat reg -MVnE account" to
+   print exactly one line for each month, containing the dollar value of the
+   account for that month. Instead, I get two lines for March:
    :OUTPUT:
    > ledger -f test2.dat reg -MVnEn account
-   2010/01/01 - 2010/01/31          Account                         $1    $1
-   2010/02/01 - 2010/02/28          <None>                           0    $2
-   2010/03/01 - 2010/03/31          <Adjustment>                    $2    $3
-                                    Account                         $6    $9
+   2010/01/01 - 2010/01/31          Account                         $1   $1
+   2010/02/01 - 2010/02/28          <None>                           0   $2
+   2010/03/01 - 2010/03/31          <Adjustment>                    $2   $3
+                                 Account                         $6   $9
    :END:
    :PROPERTIES:
    :ID:       590C3C39-5916-414D-8A77-3AF43442E442
@@ -1109,6 +1128,22 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Date:     Thu, 30 Jun 2011 09:44:22 -0700 (PDT)
    :Message:  [[message://21774456.1840.1309452262141.JavaMail.geo-discussion-forums@prdr36][Re: Printing monthly balances]]
    :Submitter: Matthew Harris <mharris312@gmail.com>
+   :END:
+** TODO [ledger] GnuCash support? (#30)
+   :PROPERTIES:
+   :ID:       54F5239D-65D6-431B-A4AD-27B57FE6B149
+   :CREATED:  [2011-07-21 Thu 15:26]
+   :Date:     Thu, 21 Jul 2011 09:17:53 -0700
+   :Message:  [[message://jwiegley/ledger/issues/30@github.com][{ledger} GnuCash support? (#30)]]
+   :Submitter: peti <reply+i-1264193-264a927819dca1fe83fc7c5b9a987fbdac22d9f7@reply.github.com>
+   :END:
+** TODO Record timelog hours on the day of check-in
+   :PROPERTIES:
+   :ID:       ACE05ECE-DC73-43B6-98CF-5E362806E517
+   :CREATED:  [2011-07-21 Thu 16:11]
+   :Date:     Thu, 21 Jul 2011 03:20:36 -0700 (PDT)
+   :Message:  [[message://3c83e99a-8817-4976-a1c8-66ff1508ff21@d7g2000vbv.googlegroups.com][Record timelog hours on the day of check-in, instead of on the day of check-out?]]
+   :Submitter: Seppo Sade <sepposade1@gmail.com>
    :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
@@ -1515,6 +1550,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
+** TODO [ledger] Emacs mode 'reconcile' doesn't work (#31)
+   :PROPERTIES:
+   :ID:       400C0BA0-D132-465A-B0A4-AC7E6839DBD2
+   :CREATED:  [2011-07-21 Thu 15:26]
+   :Date:     Thu, 21 Jul 2011 09:23:28 -0700
+   :Message:  [[message://jwiegley/ledger/issues/31@github.com][{ledger} Emacs mode 'reconcile' doesn't work (#31)]]
+   :Submitter: peti <reply+i-1264237-1c07217de3933472fbd8fa785975d03170c352df@reply.github.com>
+   :END:
+** TODO [[bug:545][#545]] Create a quick entry function for Ledger to reduce keystrokes
+    It lets me just say "exxon 10" at the minibuffer, then takes me to the entry.
+    :PROPERTIES:
+    :ID:       7E625CF1-1258-4B29-9227-29153CC54B53
+    :CREATED:  [2011-07-09 Sat 20:44]
+    :END:
 ** TODO [[bug:431][#431]] Reconciling with ledger.el doesn't seem to work
    I use ledger.el with GNU Emacs 23.2.1. Is that supported at all? I wonder,
    because the reconcile mode doesn't seem to work. Hitting SPACE or RETURN
@@ -2047,6 +2096,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO [[bug:542][#542]] Create a --reset-amount/total option, to clear the expr series
+   :PROPERTIES:
+   :ID:       0C1BBB09-F27C-4EDF-81F0-31D959476F72
+   :CREATED:  [2011-07-04 Mon 23:07]
+   :END:
 ** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
    :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
@@ -2997,6 +3051,19 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** TODO Ledger on Mac
+   :PROPERTIES:
+   :ID:       AD002264-5D5A-40E8-8D28-82FD7505166E
+   :CREATED:  [2011-07-21 Thu 16:11]
+   :Date:     Thu, 21 Jul 2011 13:21:00 -0700 (PDT)
+   :Message:  [[message://4d29c35c-7f9c-4060-99e6-149f931e938a@c29g2000yqd.googlegroups.com][Ledger on Mac]]
+   :Submitter: rjc <richard+google@richardcooper.net>
+   :END:
+** TODO [[bug:544][#544]] Failing tests in Ledger should cause all tests to fail
+   :PROPERTIES:
+   :ID:       B4E16081-08C6-430E-82F6-00304C388A22
+   :CREATED:  [2011-07-08 Fri 13:40]
+   :END:
 ** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
    :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
@@ -3147,6 +3214,22 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO Depreciate assets (cars, equipment, buildings, etc)
+   :PROPERTIES:
+   :ID:       CB4A2972-2F68-4419-B4EC-973725107739
+   :CREATED:  [2011-07-21 Thu 21:12]
+   :Date:     Sat, 2 Apr 2011 16:23:55 -0700 (PDT)
+   :Message:  [[message://1024645.103.1301786635133.JavaMail.geo-discussion-forums@prfx36][Depreciate assets (cars, equipment, buildings, etc) and push them into the ledger file on a schedule]]
+   :Submitter: tazz_ben <ben@wbpsystems.com>
+   :END:
+** TODO [#C] What is the actual "--print-format" used in 2.6?
+   :PROPERTIES:
+   :ID:       6C40879B-677C-4CA3-ADD2-6FFB599A5E70
+   :CREATED:  [2011-07-01 Fri 17:27]
+   :Date:     Fri, 1 Jul 2011 08:58:50 -0700 (PDT)
+   :Message:  [[message://58efe2d2-f25b-4e8c-a01c-8a914c1578f0@gh5g2000vbb.googlegroups.com][What is the actual "--print-format" used in 2.6?]]
+   :Submitter: markscottwright <markscottwright@gmail.com>
+   :END:
 ** TODO [[bug:452][#452]] Fixes to the ledger wiki/README-1ST
    :PROPERTIES:
    :ID:       07EB8797-458D-4FBB-B125-062BAC1B732B
