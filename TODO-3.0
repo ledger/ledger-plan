@@ -3826,16 +3826,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 
    #+begin_src ledger
    ; -*- ledger -*-
-   
+
    N €
    C 655957 FCFA = 1000 €
-   
+
    ~ Monthly
     Dépense:Nourriture                      300
     Dépense:Transport                       300
     Dépense:Communication:Internet           23
     Actif:Disponibilité
-   
+
    ; Dépenses régulières
    2010/09/06 * FAI
     Dépense:Communication:Internet       23.92
@@ -3846,7 +3846,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    2010/08/05 * FAI
     Dépense:Communication:Internet       23.92
     Actif:Disponibilité:Ccp02
-   
+
    2010/11/01 * FAI2
     Dépense:Communication:Internet      10.75
     Actif:Disponibilité:Ccp02
@@ -3898,7 +3898,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
      namespace)::get_wrapper<&(ledger::(anonymous
      namespace)::get_date(ledger::item_t&))> ()
      :END:
-  
+
      If that helps, cool. Otherwise I'm building next right now with debugging
      symbols and I'll let you know if it's still happening.
    - Note taken on [2011-02-12 Sat 14:15] \\
@@ -3940,12 +3940,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    #+begin_src sh
    ;; starting on 2010/02/10, all util and cable transactions automatically
    ;; get half of their value assigned to andrew
-   
+
    = d>=[2010/02/10] & /^(?:Expenses:(Cable|Utils))/ & !/Expenses:Utils:Water/
      $account                                     -0.5
      Assets:Receivable:Andrew            0.5
    #+end_src
-   
+
    On a further note, where would I go in the source to learn about the filter
    language?  I've seen people post snippets but as far as I can tell there's
    no comprehensive docs yet, and my shallow dives into the source haven't
@@ -4576,18 +4576,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://a6e822eb-17e3-4ff3-8e41-25c1999fb871@h9g2000yqa.googlegroups.com][-V option]]
    :Submitter: thierry <thierry.daucourt@free.fr>
    :CREATED:  [2010-01-09 Sat 21:05]
-   :END:
-** WORKSFORME [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
-   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
-   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
-     To Thomas: I just tried this and it worked fine.  After your "push" command,
-     does the prompt change to a ]]?
-   :LOGBOOK:
-   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
-   :END:
-   :PROPERTIES:
-   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
-   :CREATED:  [2010-05-30 Sun 03:33]
    :END:
 ** WORKSFORME [[bug:213][#213]] Balancing problems with fixated commodity prices
    - State "WORKSFORME" from "TODO"       [2010-06-09 Wed 03:37]

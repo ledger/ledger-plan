@@ -49,10 +49,10 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    - Note taken on [2011-07-08 Fri 14:16] \\
      Here is my config.log:
      [2. application/octet-stream; config.log]...
-     
+
      I have Python 2.7 installed via MacPorts and it is my default python
      selected.  I don't really know/expect if that makes a difference or not.
-     
+
      Or maybe something else in the config log file will shed some light...
    :PROPERTIES:
    :ID:       C246A646-6768-45AB-A36B-3CCDA2E2404B
@@ -722,22 +722,22 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
      takes the first matching entry in the file as a template instead of the
      last like it did before. I gave a bit more detailed description of my
      observation here:
-     
+
      http://article.gmane.org/gmane.comp.finance.ledger.general/2561
-   Since my last update, the command entry now produces the wrong entry value 
+   Since my last update, the command entry now produces the wrong entry value
    regardless what decimal separator (comma or dot) I use.
    :OUTPUT:
    $ ledger -f BR01.dat entry 05/13 Salsa 12.00 Cash
-   
+
    2011/05/13 Salsalito
        Expenses:Restaurante                       1.200
-       Assets:Cash          
-   
+       Assets:Cash
+
    $ ledger -f BR01.dat entry 05/13 Salsa 12,00 Cash
-   
+
    2011/05/13 Salsalito
        Expenses:Restaurante                       1.200
-       Assets:Cash      
+       Assets:Cash
    :END:
    :PROPERTIES:
    :ID:       0831AC52-90BA-44EF-B39C-FD2F20ABC5BC
@@ -747,13 +747,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Alexandre Rademaker <arademaker@gmail.com>
    :END:
 ** TODO [[bug:512][#512]] --cache does nothing
-   > Yes, --cache does nothing.  Binary serialization using Boost is the same 
+   > Yes, --cache does nothing.  Binary serialization using Boost is the same
    > speed
    >
    > in most cases as plain text parsing, so I saw no point.  Plus, ever faster
    > computers -- plus SSDs -- make this an option with diminishing returns.
 
-   That's a good point. I suggest printing an error message or warning instead 
+   That's a good point. I suggest printing an error message or warning instead
    of silently ignoring --cache then.
    :PROPERTIES:
    :ID:       57A6BD14-0506-4A50-A45B-A7BDF07EAFBA
@@ -768,7 +768,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    >
    > --payee=comm, although the old option should still work.  Bug.
 
-   Ah. --payee=commodity and --payee=code work, but --payee=comm says "Unknown 
+   Ah. --payee=commodity and --payee=code work, but --payee=comm says "Unknown
    identifier 'comm'".
    :PROPERTIES:
    :ID:       5FBA9B5B-CFAD-42C4-AB65-AB44A7282659
@@ -778,7 +778,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Matthew Harris <mharris312@gmail.com>
    :END:
 ** TODO [[bug:514][#514]] 'accounts' and 'commodities' should sort their output
-   I'd also like to suggest that 'accounts' and 'commodities' sort their 
+   I'd also like to suggest that 'accounts' and 'commodities' sort their
    output, like 'payees' appears to. I don't see a reason to leave it unsorted.
    :PROPERTIES:
    :ID:       0EA1B52E-43D8-4577-87AE-CB837C8E9B32
@@ -813,7 +813,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    Expense:Food:Groceries    20,00 PLN
    Expense:Cash
    #+end_src
-   
+
    However, it looks like ledger-3 (365188a1) outputs entry after finding the
    first transaction. So if the first thing I bough in the nearby supermarket
    was a hammer:
@@ -840,7 +840,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    2010/1/1
    a   16$ @@ 10€
    b   -10€
-   
+
    2010/1/2
    a   -16$
    b   10€ @@ 16$
@@ -852,14 +852,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    --------------------
                   0
    :END:
-   
+
    With -B, again ledger and hledger agree, but I'm puzzled - usually -B
    results in fewer commodities in the output, not more:
    #+begin_src sh
    2010/1/1
    a   16$ @@ 10€
    b   -10€
-   
+
    2010/1/2
    a   -16$
    b   10€ @@ 16$
@@ -874,13 +874,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    --------------------
                   0
    :END:
-   
+
    This time with implicit conversion prices - strange output:
    #+begin_src sh
    2010/1/1
    a   16$
    b   -10€
-   
+
    2010/1/2
    a   -16$
    b   10€
@@ -981,8 +981,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    #+begin_src ledger
    ~ every 14 days from 2011/03/25
    #+end_src
-   
-   This is working except that when running a command like 
+
+   This is working except that when running a command like
    #+begin_src sh
    ledger register --sort d -b "January 01 2011" -e "June 31 2011" Income.*Me --add-budget -f my_ledger.dat
    #+end_src
@@ -999,7 +999,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 ** TODO [[bug:533][#533]] Trailing entry going past the forecast period
    Two questions about forecasts (please see the sample script and output
    below):
-   
+
    - Why is a trailing forecast entry (that doesn't balance) going over the
      forecast period generated? The manual seems to indicate this is to show
      the total somehow (section 2.9.2: "A final transaction is always output,
@@ -1008,30 +1008,30 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
      _within_ the forecast period, right? This additional entry causes issues
      with calculations of running totals for the forecast period (by including
      the out of the forecast period trailing entry).
-   
+
    - It seems the balance command when run with forecasts but without
      specifying an account regex doesn't include forecast entries in the
      calculation.  Shouldn't it? Notice that you can get around this by doing
      a "bal ^" which will match all transactions, but then you get the last
      trailing non-balanced transaction mentioned above included, making the
      calculation include entries that shouldn't be there.
-   
+
    Using ledger 2.6.2.
 
    Script:
    #+begin_src sh
    #!/bin/sh
-   
+
    cat > ledger.dat <<EOF
    ~ Monthly
     Income:Salary           -100.00
     Assets:Checking
-   
+
    06-01 Start
     Equity                    -1.00
     Assets:Checking
    EOF
-   
+
    ledger -f ledger.dat --forecast 'd < [september]' reg; echo
    ledger -f ledger.dat --forecast 'd < [september]' -s bal; echo
    ledger -f ledger.dat --forecast 'd < [september]' -s bal ^
@@ -1056,20 +1056,20 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    2011/09/01 Forecast entry       Income:Salary
    -100.00      -100.00
    + echo
-   
+
    # Notice that the balance below does not contain forecast entries,
    despite forecasting being specified:
-   
+
    + ledger -f ledger.dat --forecast 'd < [september]' -s bal
                  101.00  Assets:Checking
                   -1.00  Equity
                 -100.00  Income:Salary
    + echo
-   
+
    # Notice that the balance below includes the 2011/09/01 non-balanced
    trailing entry, making the running total not sum up and include
    entries from outside the forecast period:
-   
+
    + ledger -f ledger.dat --forecast 'd < [september]' -s bal '^'
                  201.00  Assets:Checking
                   -1.00  Equity
@@ -1103,7 +1103,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    P 2010/01/01 foo $1.00
    P 2010/02/01 foo $2.00
    P 2010/03/01 foo $3.00
-   
+
    2010-01-01 First
      Account  1 foo @ $1.00
      Income
@@ -1111,7 +1111,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
      Account  2 foo @ $3.00
      Income
    #+end_src
-   
+
    I would have expected the command "ledger -f test.dat reg -MVnE account" to
    print exactly one line for each month, containing the dollar value of the
    account for that month. Instead, I get two lines for March:
@@ -1665,16 +1665,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    separator rather than decimal separator:
    :OUTPUT:
    $ ledger -f BR01.dat entry 05/13 Salsa Resta 12.00 Cash
-   
+
    2011/05/13 Salsalito
        Expenses:Restaurante                       1.200
-       Assets:Cash        
-   
+       Assets:Cash
+
    $ ledger -f BR01.dat entry 05/13 Salsa Resta 12,00 Cash
-   
+
    2011/05/13 Salsalito
        Expenses:Restaurante                       12,00
-       Assets:Cash        
+       Assets:Cash
    :END:
 
    But the question is why is ledger using comma as default decimal separator
@@ -1732,24 +1732,24 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    - Note taken on [2011-06-09 Thu 01:21] \\
      My emergency workaround (for the past several weeks) has been to use
      some elisp to remove the double quotes:
-     
+
      #+begin_src diff
      diff --git a/ledger/ledger.el b/ledger/ledger.el
      index 8e4de27..20a4370 100644
      --- a/ledger/ledger.el
      +++ b/ledger/ledger.el
      @@ -583,6 +583,9 @@ dropped."
-     		   (ledger-run-ledger buf "--uncleared" "emacs" account)))
-     	      (when (= 0 exit-code)
-     		(goto-char (point-min))
+                   (ledger-run-ledger buf "--uncleared" "emacs" account)))
+              (when (= 0 exit-code)
+                (goto-char (point-min))
      +		(while (re-search-forward "\"\"" nil t)
-     +		  (replace-match "\""))
+     +            (replace-match "\""))
      +		(goto-char (point-min))
-     		(unless (eobp)
-     		  (unless (looking-at "(")
-     		    (error (buffer-string)))
+                (unless (eobp)
+                  (unless (looking-at "(")
+                    (error (buffer-string)))
      #+end_src
-     
+
      Obviously, this is not a long-term solution. :)
    In my case it errors out in the function ledger-do-reconcile at the point
    it is trying to goto the line number in the ledger file for a particular
@@ -1759,12 +1759,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    ((/dev/stdin 1890 (19667 18688 0) nil "John Lewis"
     (1897 "Liabilities:premier" "£-159.00" nil))...
    #+end_src
-   
+
    The file line numbers are the second item in the detail of each
    transction which are dug out with an (nth 1 call and passed to
    goto-line.  What I see being passed through to goto-line is actually
    /dev/stdin, which, not being a file position causes the error.
-   
+
    The transaction list is built by a call out to ledger with the emacs
    option that returns a stream suitable for the lisp reader to swallow up.
    In my case that stream looks like:
@@ -1772,15 +1772,15 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    ((""/dev/stdin"" 1890 (19667 18688 0) nil "John Lewis"
     (1897 "Liabilities:premier" "£-159.00" nil))...
    #+end_src
-   
+
    with those odd looking doubled quotes.  I am guessing but it looks
    like the reader is seeing an empty string as the first item in the list
    and therefore /dev/stdin, rather than the line number, as the second.
-   
+
    This isn't a lisp issue.  I am getting those doubled quotes on the
    command line as well.  If they are the source of the problem then I'm
    sorry but I have no idea where they are coming from.
-   
+
    For what it is worth I am building with boost 1.46.1
    :PROPERTIES:
    :ID:       2D813401-0D9C-469B-B047-EDF21AA53520
