@@ -12,6 +12,96 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO Double-quoting of filename in Emacs output breaks reconciliation
+   :PROPERTIES:
+   :ID:       CCDFD6E8-C816-4BCA-8C18-EE7C9A076140
+   :CREATED:  [2011-08-22 Mon 17:08]
+   :Date:     Mon, 22 Aug 2011 22:03:56 +0100
+   :Message:  [[message://20050.50236.344154.205060@dk.dks.ie][Emacs reconciliation 3.0]]
+   :Submitter: "David Keegan" <dksw@eircom.net>
+   :END:
+** TODO Ledger syntax checking
+   - Note taken on [2011-08-21 Sun 18:53] \\
+     I believe it's a regression in 3.0.  I filed a bug report about this some
+     time ago: http://bugs.ledger-cli.org/show_bug.cgi?id=443
+   :PROPERTIES:
+   :ID:       8EAF77C0-C2FA-4B8D-BAEE-4A886CEAE106
+   :CREATED:  [2011-08-21 Sun 18:53]
+   :Date:     Sun, 21 Aug 2011 22:12:40 +0100
+   :Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
+   :Submitter: "David Keegan" <dksw@eircom.net>
+   :END:
+** TODO Selinger's multiple currency accounting & ledger
+   :PROPERTIES:
+   :ID:       83B5FEC5-81F5-496B-B121-305B1F12EDFB
+   :CREATED:  [2011-08-13 Sat 16:50]
+   :Date:     Sat, 13 Aug 2011 08:03:30 -0700 (PDT)
+   :Message:  [[message://dc5590b5-3088-4394-93e3-73f7d70bd4ed@f41g2000yqh.googlegroups.com][Selinger's multiple currency accounting & ledger]]
+   :Submitter: thierry <thierry.daucourt@free.fr>
+   :END:
+** TODO Choosing the commodity in automatic transactions
+   :PROPERTIES:
+   :ID:       D7EE079F-354A-4CAB-B4EF-3B066711433C
+   :CREATED:  [2011-08-09 Tue 17:05]
+   :Date:     Tue, 9 Aug 2011 14:47:47 -0700 (PDT)
+   :Message:  [[message://5be6f581-b3b1-4749-ac63-c4168eff71b6@z14g2000yqh.googlegroups.com][Choosing the commodity in automatic transactions]]
+   :Submitter: rjc <richard+google@richardcooper.net>
+   :END:
+** TODO Forecast fails with "every <X> days from" for several values of <X>
+   :PROPERTIES:
+   :ID:       CDAFE1CE-226C-49B3-8EB3-A2E49459F9EC
+   :CREATED:  [2011-08-07 Sun 01:36]
+   :Date:     Sat, 6 Aug 2011 17:02:11 -0700
+   :Message:  [[message://jwiegley/ledger/issues/36@github.com][{ledger} Forecast fails with "every <X> days from" for several values of <X> (#36)]]
+   :Submitter: leamsi <reply+i-1359410-33fcca4575a13841571ed55da74547765f4c4979@reply.github.com>
+   :END:
+** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
+     Thierry confirms this still happens for him.
+   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
+   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
+     To Thomas: I just tried this and it worked fine.  After your "push" command,
+     does the prompt change to a ]]?
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
+   :END:
+   :PROPERTIES:
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :CREATED:  [2010-05-30 Sun 03:33]
+   :END:
+** TODO Strange cleared report formatting
+   Need to collapse the unnecessary vertical whitespace.
+   :PROPERTIES:
+   :ID:       88F931F2-A3FB-495A-B135-E9FD38975506
+   :CREATED:  [2011-08-04 Thu 14:35]
+   :Date:     Thu, 4 Aug 2011 12:18:37 -0700
+   :Message:  [[message://CAKs9TOKs9uqPJRWepvy7XRXcAbJQQFjFdA8E_aBk74m-TbH+Qg@mail.gmail.com][Strange cleared report formatting]]
+   :Submitter: Craig Earls <enderw88@gmail.com>
+   :END:
+** TODO Error in automated virtual postings with multiple commodities
+   :PROPERTIES:
+   :ID:       227CC4EE-EC28-479E-9727-4364EEE301EC
+   :CREATED:  [2011-08-03 Wed 15:52]
+   :Date:     Wed, 3 Aug 2011 13:22:08 -0700
+   :Message:  [[message://jwiegley/ledger/issues/35@github.com][{ledger} Error in automated virtual postings with multiple commodities (#35)]]
+   :Submitter: richardcooper <reply+i-1339989-90be759f0f0510a9fe33caba8e36a0b8e6a5c288@reply.github.com>
+   :END:
+** TODO [ledger] easier commenting/uncommenting in ledger-mode (#34)
+   :PROPERTIES:
+   :ID:       9C5FE2BF-F5CC-4A58-AB45-5942A0EB3D0E
+   :CREATED:  [2011-08-02 Tue 15:06]
+   :Date:     Tue, 2 Aug 2011 12:54:48 -0700
+   :Message:  [[message://jwiegley/ledger/pull/34@github.com][{ledger} easier commenting/uncommenting in ledger-mode (#34)]]
+   :Submitter: simonmichael <reply+i-1332753-1a564fc147000d9d917d6a45bb8f4bd23ae2e3b9@reply.github.com>
+   :END:
+** TODO [[bug:548][#548]] Are automatic transactions working in the latest 3.0.0
+   :PROPERTIES:
+   :ID:       B829263B-F16F-47AC-B8CD-0DEE953F8B9E
+   :CREATED:  [2011-07-31 Sun 10:26]
+   :Date:     Sun, 31 Jul 2011 06:40:30 -0700
+   :Message:  [[message://CAKs9TOJUwJbT7wrUXfJQU8QJ11fvniobCyZEAqdSECtg8Kg8mg@mail.gmail.com][Re: Are automatic transactions working in the latest 3.0.0]]
+   :Submitter: Craig Earls <enderw88@gmail.com>
+   :END:
 ** STARTED [[bug:373][#373]] Change amount/total expr evaluation to use a priority queue
    At the moment, -X and -A cannot be mixed because they both work by changing
    the amount_expr.
@@ -37,7 +127,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       C3AEDBF3-B2BD-4112-9EDE-865023E06532
    :CREATED:  [2011-06-14 Tue 19:21]
    :END:
-** TODO [#A] [[bug:503][#503]] Abort trap on MacOS 10.6.7                                            :blocker:
+** TODO [#A] [[bug:503][#503]] Abort trap on MacOS 10.6.7                               :blocker:
    :PROPERTIES:
    :ID:       CDEDA0D4-A7D1-4BEC-B8C6-F93EA8FFE305
    :CREATED:  [2011-04-01 Fri 18:58]
@@ -1137,7 +1227,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://jwiegley/ledger/issues/30@github.com][{ledger} GnuCash support? (#30)]]
    :Submitter: peti <reply+i-1264193-264a927819dca1fe83fc7c5b9a987fbdac22d9f7@reply.github.com>
    :END:
-** TODO Record timelog hours on the day of check-in
+** TODO [[bug:546][#546]] Record timelog hours on the day(s) of check-in
    :PROPERTIES:
    :ID:       ACE05ECE-DC73-43B6-98CF-5E362806E517
    :CREATED:  [2011-07-21 Thu 16:11]
@@ -1550,6 +1640,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
+** TODO Account name completion
+   :PROPERTIES:
+   :ID:       E17BCDD4-DEE0-47AC-A007-9C09D9B26D9D
+   :CREATED:  [2011-08-21 Sun 18:53]
+   :Date:     Sun, 21 Aug 2011 22:38:18 +0100
+   :Message:  [[message://20049.31434.956476.319847@dk.dks.ie][Account name completion.]]
+   :Submitter: "David Keegan" <dksw@eircom.net>
+   :END:
 ** TODO [ledger] Emacs mode 'reconcile' doesn't work (#31)
    :PROPERTIES:
    :ID:       400C0BA0-D132-465A-B0A4-AC7E6839DBD2
@@ -1832,7 +1930,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-396-1@http.newartisans.com/bugzilla/][{Bug 396} New: ledger emacs doesn't escape double quotes]]
    :CREATED:  [2010-08-16 Mon 16:28]
    :END:
-** TODO [#C] [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p                :ATTACH:
+** TODO [#C] [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p   :ATTACH:
    :PROPERTIES:
    :ID:       669AE4A1-E30D-4A3D-A330-06E183FBF66E
    :Submitter: Russell Adams <RLAdams@AdamsInfoServ.Com>
@@ -2096,6 +2194,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO [[bug:547][#547]] Allow Ledger to read data directly from CSV files
+   As an alternate input format.  Then I can maintain by "bank's view" using
+   Ledger itself, and not Excel.
+   :PROPERTIES:
+   :ID:       69D8C2FC-72E8-4C6B-BAEE-83B4BC92993D
+   :CREATED:  [2011-07-25 Mon 12:34]
+   :END:
 ** TODO [[bug:542][#542]] Create a --reset-amount/total option, to clear the expr series
    :PROPERTIES:
    :ID:       0C1BBB09-F27C-4EDF-81F0-31D959476F72
@@ -2882,7 +2987,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
    :CREATED:  [2010-08-16 Mon 16:47]
    :END:
-** TODO [[bug:424][#424]] Make acprep compatible with Python 3                                        :ATTACH:
+** TODO [[bug:424][#424]] Make acprep compatible with Python 3                           :ATTACH:
    - Note taken on [2010-11-26 Fri 12:55] \\
      [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
    :PROPERTIES:
@@ -3051,6 +3156,17 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** TODO acprep should accept --python --python-home and --python-version
+   :PROPERTIES:
+   :ID:       495BADED-6797-4E7E-B95E-DC9C7F292239
+   :CREATED:  [2011-08-18 Thu 14:32]
+   :END:
+** TODO Rebuild Boost and Ledger with gcc-4.6
+   - State "TODO"       from "STARTED"    [2011-08-21 Sun 15:03]
+   :PROPERTIES:
+   :ID:       BE861EF4-241B-4D26-A12C-03E8B369DA4F
+   :CREATED:  [2011-08-18 Thu 10:01]
+   :END:
 ** TODO Ledger on Mac
    :PROPERTIES:
    :ID:       AD002264-5D5A-40E8-8D28-82FD7505166E
@@ -3155,7 +3271,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       09B41575-766E-4598-A8F3-164D8AE25589
    :CREATED:  [2010-06-15 Tue 07:08]
    :END:
-** DEFERRED [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                   :blocker:
+** DEFERRED [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users      :blocker:
    - State "DEFERRED"   from "TODO"       [2011-02-12 Sat 18:18]
    :PROPERTIES:
    :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
@@ -3172,7 +3288,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
    :CREATED:  [2010-06-18 Fri 19:45]
    :END:
-** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies             :ATTACH:
+** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
@@ -3214,6 +3330,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO Differences 2.6.3->3.0.0
+   :PROPERTIES:
+   :ID:       3D486775-60A8-4A90-B2A2-453F680F67C7
+   :CREATED:  [2011-08-19 Fri 19:27]
+   :Date:     Thu, 18 Aug 2011 18:44:50 +0100
+   :Message:  [[message://20045.20370.231763.36820@dk.dks.ie][Differences 2.6.3->3.0.0]]
+   :Submitter: "David Keegan" <dksw@eircom.net>
+   :END:
 ** TODO Depreciate assets (cars, equipment, buildings, etc)
    :PROPERTIES:
    :ID:       CB4A2972-2F68-4419-B4EC-973725107739
@@ -3338,7 +3462,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :CREATED:  [2009-11-20 Fri 18:31]
    :END:
-** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
+** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                 :ATTACH:
    :PROPERTIES:
    :ID:       32A4A048-886F-43FC-892E-EC125F372750
    :Attachments: foo.dat
@@ -3543,7 +3667,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :CREATED:  [2008-08-14 Thu]
    :END:
-** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                                  :ATTACH:
+** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                     :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
