@@ -12,106 +12,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO Double-quoting of filename in Emacs output breaks reconciliation
-   :PROPERTIES:
-   :ID:       CCDFD6E8-C816-4BCA-8C18-EE7C9A076140
-   :CREATED:  [2011-08-22 Mon 17:08]
-   :Date:     Mon, 22 Aug 2011 22:03:56 +0100
-   :Message:  [[message://20050.50236.344154.205060@dk.dks.ie][Emacs reconciliation 3.0]]
-   :Submitter: "David Keegan" <dksw@eircom.net>
-   :END:
-** TODO Ledger syntax checking
-   - Note taken on [2011-08-21 Sun 18:53] \\
-     I believe it's a regression in 3.0.  I filed a bug report about this some
-     time ago: http://bugs.ledger-cli.org/show_bug.cgi?id=443
-   :PROPERTIES:
-   :ID:       8EAF77C0-C2FA-4B8D-BAEE-4A886CEAE106
-   :CREATED:  [2011-08-21 Sun 18:53]
-   :Date:     Sun, 21 Aug 2011 22:12:40 +0100
-   :Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
-   :Submitter: "David Keegan" <dksw@eircom.net>
-   :END:
-** TODO Selinger's multiple currency accounting & ledger
-   :PROPERTIES:
-   :ID:       83B5FEC5-81F5-496B-B121-305B1F12EDFB
-   :CREATED:  [2011-08-13 Sat 16:50]
-   :Date:     Sat, 13 Aug 2011 08:03:30 -0700 (PDT)
-   :Message:  [[message://dc5590b5-3088-4394-93e3-73f7d70bd4ed@f41g2000yqh.googlegroups.com][Selinger's multiple currency accounting & ledger]]
-   :Submitter: thierry <thierry.daucourt@free.fr>
-   :END:
-** TODO Choosing the commodity in automatic transactions
-   :PROPERTIES:
-   :ID:       D7EE079F-354A-4CAB-B4EF-3B066711433C
-   :CREATED:  [2011-08-09 Tue 17:05]
-   :Date:     Tue, 9 Aug 2011 14:47:47 -0700 (PDT)
-   :Message:  [[message://5be6f581-b3b1-4749-ac63-c4168eff71b6@z14g2000yqh.googlegroups.com][Choosing the commodity in automatic transactions]]
-   :Submitter: rjc <richard+google@richardcooper.net>
-   :END:
-** TODO Forecast fails with "every <X> days from" for several values of <X>
-   :PROPERTIES:
-   :ID:       CDAFE1CE-226C-49B3-8EB3-A2E49459F9EC
-   :CREATED:  [2011-08-07 Sun 01:36]
-   :Date:     Sat, 6 Aug 2011 17:02:11 -0700
-   :Message:  [[message://jwiegley/ledger/issues/36@github.com][{ledger} Forecast fails with "every <X> days from" for several values of <X> (#36)]]
-   :Submitter: leamsi <reply+i-1359410-33fcca4575a13841571ed55da74547765f4c4979@reply.github.com>
-   :END:
-** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
-   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
-     Thierry confirms this still happens for him.
-   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
-   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
-     To Thomas: I just tried this and it worked fine.  After your "push" command,
-     does the prompt change to a ]]?
-   :LOGBOOK:
-   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
-   :END:
-   :PROPERTIES:
-   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
-   :CREATED:  [2010-05-30 Sun 03:33]
-   :END:
-** TODO Strange cleared report formatting
-   Need to collapse the unnecessary vertical whitespace.
-   :PROPERTIES:
-   :ID:       88F931F2-A3FB-495A-B135-E9FD38975506
-   :CREATED:  [2011-08-04 Thu 14:35]
-   :Date:     Thu, 4 Aug 2011 12:18:37 -0700
-   :Message:  [[message://CAKs9TOKs9uqPJRWepvy7XRXcAbJQQFjFdA8E_aBk74m-TbH+Qg@mail.gmail.com][Strange cleared report formatting]]
-   :Submitter: Craig Earls <enderw88@gmail.com>
-   :END:
-** TODO Error in automated virtual postings with multiple commodities
-   :PROPERTIES:
-   :ID:       227CC4EE-EC28-479E-9727-4364EEE301EC
-   :CREATED:  [2011-08-03 Wed 15:52]
-   :Date:     Wed, 3 Aug 2011 13:22:08 -0700
-   :Message:  [[message://jwiegley/ledger/issues/35@github.com][{ledger} Error in automated virtual postings with multiple commodities (#35)]]
-   :Submitter: richardcooper <reply+i-1339989-90be759f0f0510a9fe33caba8e36a0b8e6a5c288@reply.github.com>
-   :END:
-** TODO [ledger] easier commenting/uncommenting in ledger-mode (#34)
-   :PROPERTIES:
-   :ID:       9C5FE2BF-F5CC-4A58-AB45-5942A0EB3D0E
-   :CREATED:  [2011-08-02 Tue 15:06]
-   :Date:     Tue, 2 Aug 2011 12:54:48 -0700
-   :Message:  [[message://jwiegley/ledger/pull/34@github.com][{ledger} easier commenting/uncommenting in ledger-mode (#34)]]
-   :Submitter: simonmichael <reply+i-1332753-1a564fc147000d9d917d6a45bb8f4bd23ae2e3b9@reply.github.com>
-   :END:
-** TODO [[bug:548][#548]] Are automatic transactions working in the latest 3.0.0
-   :PROPERTIES:
-   :ID:       B829263B-F16F-47AC-B8CD-0DEE953F8B9E
-   :CREATED:  [2011-07-31 Sun 10:26]
-   :Date:     Sun, 31 Jul 2011 06:40:30 -0700
-   :Message:  [[message://CAKs9TOJUwJbT7wrUXfJQU8QJ11fvniobCyZEAqdSECtg8Kg8mg@mail.gmail.com][Re: Are automatic transactions working in the latest 3.0.0]]
-   :Submitter: Craig Earls <enderw88@gmail.com>
-   :END:
-** STARTED [[bug:373][#373]] Change amount/total expr evaluation to use a priority queue
-   At the moment, -X and -A cannot be mixed because they both work by changing
-   the amount_expr.
-
-   Instead, there should be a priority queue so that -X is first applied, then
-   -A, as well as any other flags that want to modify the displayed amount.
-   :PROPERTIES:
-   :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
-   :CREATED:  [2010-07-01 Thu 17:55]
-   :END:
 ** TODO [#A] [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)
    :PROPERTIES:
    :ID:       0E257D11-B836-4ACF-A937-7DEC4C0F28C0
@@ -127,7 +27,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       C3AEDBF3-B2BD-4112-9EDE-865023E06532
    :CREATED:  [2011-06-14 Tue 19:21]
    :END:
-** TODO [#A] [[bug:503][#503]] Abort trap on MacOS 10.6.7                               :blocker:
+** TODO [#A] [[bug:503][#503]] Abort trap on MacOS 10.6.7                                            :blocker:
    :PROPERTIES:
    :ID:       CDEDA0D4-A7D1-4BEC-B8C6-F93EA8FFE305
    :CREATED:  [2011-04-01 Fri 18:58]
@@ -151,9 +51,23 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://28CCC239-ACE4-40E5-A95C-81460729C966@mac.com][ledger make check failure report...]]
    :Submitter: Douglas Philips <dgou@mac.com>
    :END:
+** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
+     Thierry confirms this still happens for him.
+   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
+   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
+     To Thomas: I just tried this and it worked fine.  After your "push" command,
+     does the prompt change to a ]]?
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
+   :END:
+   :PROPERTIES:
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :CREATED:  [2010-05-30 Sun 03:33]
+   :END:
 ** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
    #+begin_src sh
-   reg -s --inject=Expected '^income:ceg'
+   ledger reg -s --inject=Expected '^income:ceg'
    #+end_src
    :OUTPUT:
    07-Jan-12 - 10-Jun-22           Expected                $200,044.36  $200,044.36
@@ -199,6 +113,17 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       AAFAFBE7-E103-4CCC-82B9-6D28BC9052A3
    :CREATED:  [2010-07-01 Thu 16:41]
+   :END:
+** TODO [[bug:373][#373]] Change amount/total expr evaluation to use a priority queue
+   - State "TODO"       from "STARTED"    [2011-10-15 Sat 21:13]
+   At the moment, -X and -A cannot be mixed because they both work by changing
+   the amount_expr.
+
+   Instead, there should be a priority queue so that -X is first applied, then
+   -A, as well as any other flags that want to modify the displayed amount.
+   :PROPERTIES:
+   :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
+   :CREATED:  [2010-07-01 Thu 17:55]
    :END:
 ** TODO [[bug:376][#376]] ledger reg ^exp is showing Assets in a budget report
    This happens if the periodic transaction contain both Assets and Expenses.
@@ -1219,14 +1144,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://21774456.1840.1309452262141.JavaMail.geo-discussion-forums@prdr36][Re: Printing monthly balances]]
    :Submitter: Matthew Harris <mharris312@gmail.com>
    :END:
-** TODO [ledger] GnuCash support? (#30)
-   :PROPERTIES:
-   :ID:       54F5239D-65D6-431B-A4AD-27B57FE6B149
-   :CREATED:  [2011-07-21 Thu 15:26]
-   :Date:     Thu, 21 Jul 2011 09:17:53 -0700
-   :Message:  [[message://jwiegley/ledger/issues/30@github.com][{ledger} GnuCash support? (#30)]]
-   :Submitter: peti <reply+i-1264193-264a927819dca1fe83fc7c5b9a987fbdac22d9f7@reply.github.com>
-   :END:
 ** TODO [[bug:546][#546]] Record timelog hours on the day(s) of check-in
    :PROPERTIES:
    :ID:       ACE05ECE-DC73-43B6-98CF-5E362806E517
@@ -1234,6 +1151,1037 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Date:     Thu, 21 Jul 2011 03:20:36 -0700 (PDT)
    :Message:  [[message://3c83e99a-8817-4976-a1c8-66ff1508ff21@d7g2000vbv.googlegroups.com][Record timelog hours on the day of check-in, instead of on the day of check-out?]]
    :Submitter: Seppo Sade <sepposade1@gmail.com>
+   :END:
+** TODO [[bug:548][#548]] Are automatic transactions working in the latest 3.0.0
+   :PROPERTIES:
+   :ID:       B829263B-F16F-47AC-B8CD-0DEE953F8B9E
+   :CREATED:  [2011-07-31 Sun 10:26]
+   :Date:     Sun, 31 Jul 2011 06:40:30 -0700
+   :Message:  [[message://CAKs9TOJUwJbT7wrUXfJQU8QJ11fvniobCyZEAqdSECtg8Kg8mg@mail.gmail.com][Re: Are automatic transactions working in the latest 3.0.0]]
+   :Submitter: Craig Earls <enderw88@gmail.com>
+   :END:
+** TODO [[bug:550][#550]] Trailing white space is not ignored in tag vales
+   :PROPERTIES:
+   :ID:       AEDE9734-7FAA-4F02-9110-36C0CAF03D12
+   :CREATED:  [2011-09-22 Thu 17:58]
+   :Date:     Wed, 21 Sep 2011 13:16:32 +0000
+   :Message:  [[message://bug-550-1@http.bugs.ledger-cli.org/][{Bug 550} New: Trailing white space is not ignored in tag vales]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:551][#551]] Clear virtual transactions based on triggering real transaction
+   :PROPERTIES:
+   :ID:       D3AE4E7A-0C22-423D-874D-94C07C9894CD
+   :CREATED:  [2011-09-28 Wed 14:19]
+   :Date:     Wed, 28 Sep 2011 13:28:07 +0000
+   :Message:  [[message://bug-551-1@http.bugs.ledger-cli.org/][{Bug 551} New: Clear virtual transactions based on triggering real transaction]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:552][#552]] Missing ')' error in automated transactions with valexpr predicate
+   :PROPERTIES:
+   :ID:       03323540-3372-4E2F-8CD0-A5CDB55E2D07
+   :CREATED:  [2011-10-01 Sat 16:37]
+   :Date:     Sat, 01 Oct 2011 17:40:58 +0000
+   :Message:  [[message://bug-552-1@http.bugs.ledger-cli.org/][{Bug 552} New: Missing ')' error in automated transactions with value expression predicate]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:553][#553]] Budget period entry without interval gives error
+   :PROPERTIES:
+   :ID:       24C4A592-D8A0-4FCA-B692-B86B6AF4D048
+   :CREATED:  [2011-10-10 Mon 06:38]
+   :Date:     Sat, 08 Oct 2011 17:24:35 +0000
+   :Message:  [[message://bug-553-1@http.bugs.ledger-cli.org/][{Bug 553} New: Budget period entry without interval gives error]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:554][#554]] Error: Unexpected date period token '1000'
+   :PROPERTIES:
+   :ID:       F0730126-6F56-48E4-87CD-90310F8D347F
+   :CREATED:  [2011-10-10 Mon 06:38]
+   :Date:     Sat, 08 Oct 2011 17:26:08 +0000
+   :Message:  [[message://bug-554-1@http.bugs.ledger-cli.org/][{Bug 554} New: Error: Unexpected date period token '1000']]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:555][#555]] ledger stats reports days per posting, not postings per day
+   :PROPERTIES:
+   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
+   :CREATED:  [2011-10-10 Mon 15:02]
+   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
+   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:556][#556]] Value expressions do not handle significant figures correctly
+   :PROPERTIES:
+   :ID:       C5CB053F-0428-4A0F-A49D-B405984ED141
+   :CREATED:  [2011-10-13 Thu 16:05]
+   :Date:     Thu, 13 Oct 2011 20:32:40 +0000
+   :Message:  [[message://bug-556-1@http.bugs.ledger-cli.org/][{Bug 556} New: Value expressions do not handle significant figures correctly]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:557][#557]] Missing ")" in posting value expression does NOT cause an error.
+   :PROPERTIES:
+   :ID:       0F6A8043-AB78-451B-95F2-80F58095B7E8
+   :CREATED:  [2011-10-14 Fri 02:48]
+   :Date:     Fri, 14 Oct 2011 05:14:46 +0000
+   :Message:  [[message://bug-557-1@http.bugs.ledger-cli.org/][{Bug 557} New: Missing ")" in posting value expression does NOT cause an error.]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:558][#558]] Significant figure mishandling causes divide by zero.
+   :PROPERTIES:
+   :ID:       05B7B6F0-F55C-4245-B74D-7FBF15A3E924
+   :CREATED:  [2011-10-14 Fri 02:48]
+   :Date:     Fri, 14 Oct 2011 05:22:05 +0000
+   :Message:  [[message://bug-558-1@http.bugs.ledger-cli.org/][{Bug 558} New: Significant figure mishandling causes divide by zero.]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [[bug:559][#559]] Improve the Ledger 3.0 stats command with ideas from hledger
+   :PROPERTIES:
+   :ID:       073C471C-8660-466A-8CDA-0D09D48B5DC2
+   :CREATED:  [2011-10-10 Mon 16:47]
+   :Date:     Mon, 10 Oct 2011 22:47:25 +0200
+   :Message:  [[message://CA+R89YJ_C8ewrRjqix+ioM6Cz-GwphY0m=JLCJtCwCDtMT4Y+g@mail.gmail.com][Re: Ledger 3.0 performance compared with older versions]]
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :END:
+** TODO [[bug:560][#560]] Allow a space between the minus sign and its amount
+   :PROPERTIES:
+   :ID:       D51BFF74-9763-45CF-B9D4-0B2233AF2249
+   :CREATED:  [2011-09-22 Thu 14:51]
+   :Date:     Thu, 22 Sep 2011 09:33:36 -0700
+   :Message:  [[message://CAKs9TO+0H+b6gDWjzxYpSOi5eVYG6dCGLLsbDN0WDYsrkGMr2A@mail.gmail.com][Space before minus sign]]
+   :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+   :END:
+** TODO [[bug:561][#561]] ledger xml produces duplicate transactions
+   I tried this with a fresh build from master:
+   #+begin_src ledger
+   2011-09-09 Description
+       Expenses:Foo                $123.45
+       Expenses:Bar                 $67.89
+       Assets:Baz
+   #+end_src
+   
+   Running this through `ledger xml` produces the following:
+   #+begin_src xml
+   <?xml version="1.0" encoding="utf-8"?>
+   <ledger version="3.0.0-20110325">
+     <commodities>
+       <commodity flags="P">
+         <symbol>$</symbol>
+       </commodity>
+     </commodities>
+     <accounts>
+       <account id="0000000001622f40">
+         <name></name>
+         <total>
+           <amount>
+             <commodity flags="P">
+               <symbol>$</symbol>
+             </commodity>
+             <quantity>0</quantity>
+           </amount>
+         </total>
+       </account>
+       <account id="000000000162b540">
+         <name>Assets</name>
+         <total>
+           <amount>
+             <commodity flags="P">
+               <symbol>$</symbol>
+             </commodity>
+             <quantity>-191.34</quantity>
+           </amount>
+         </total>
+       </account>
+       <account id="000000000162b8a0">
+         <name>Baz</name>
+         <amount>
+           <amount>
+             <commodity flags="P">
+               <symbol>$</symbol>
+             </commodity>
+             <quantity>-191.34</quantity>
+           </amount>
+         </amount>
+         <total>
+           <amount>
+             <commodity flags="P">
+               <symbol>$</symbol>
+             </commodity>
+             <quantity>-191.34</quantity>
+           </amount>
+         </total>
+       </account>
+       <account id="000000000162a5e0">
+         <name>Expenses</name>
+         <total>
+           <amount>
+             <commodity flags="P">
+               <symbol>$</symbol>
+             </commodity>
+             <quantity>191.34</quantity>
+           </amount>
+         </total>
+       </account>
+       <account id="000000000162afb0">
+         <name>Bar</name>
+         <amount>
+           <amount>
+             <commodity flags="P">
+               <symbol>$</symbol>
+             </commodity>
+             <quantity>67.89</quantity>
+           </amount>
+         </amount>
+         <total>
+           <amount>
+             <commodity flags="P">
+               <symbol>$</symbol>
+             </commodity>
+             <quantity>67.89</quantity>
+           </amount>
+         </total>
+       </account>
+       <account id="000000000162a8a0">
+         <name>Foo</name>
+         <amount>
+           <amount>
+             <commodity flags="P">
+               <symbol>$</symbol>
+             </commodity>
+             <quantity>123.45</quantity>
+           </amount>
+         </amount>
+         <total>
+           <amount>
+             <commodity flags="P">
+               <symbol>$</symbol>
+             </commodity>
+             <quantity>123.45</quantity>
+           </amount>
+         </total>
+       </account>
+     </accounts>
+     <transactions>
+       <transaction>
+         <date>2011/09/09</date>
+         <payee>Description</payee>
+         <posting>
+           <account ref="000000000162a8a0">
+             <name>Expenses:Foo</name>
+           </account>
+           <post-amount>
+             <amount>
+               <commodity flags="P">
+                 <symbol>$</symbol>
+               </commodity>
+               <quantity>123.45</quantity>
+             </amount>
+           </post-amount>
+           <total>
+             <amount>
+               <commodity flags="P">
+                 <symbol>$</symbol>
+               </commodity>
+               <quantity>123.45</quantity>
+             </amount>
+           </total>
+         </posting>
+         <posting>
+           <account ref="000000000162afb0">
+             <name>Expenses:Bar</name>
+           </account>
+           <post-amount>
+             <amount>
+               <commodity flags="P">
+                 <symbol>$</symbol>
+               </commodity>
+               <quantity>67.89</quantity>
+             </amount>
+           </post-amount>
+           <total>
+             <amount>
+               <commodity flags="P">
+                 <symbol>$</symbol>
+               </commodity>
+               <quantity>191.34</quantity>
+             </amount>
+           </total>
+         </posting>
+         <posting>
+           <account ref="000000000162b8a0">
+             <name>Assets:Baz</name>
+           </account>
+           <post-amount>
+             <amount>
+               <commodity flags="P">
+                 <symbol>$</symbol>
+               </commodity>
+               <quantity>-191.34</quantity>
+             </amount>
+           </post-amount>
+           <total>
+             <amount>
+               <commodity flags="P">
+                 <symbol>$</symbol>
+               </commodity>
+               <quantity>0</quantity>
+             </amount>
+           </total>
+         </posting>
+       </transaction>
+       <transaction>
+         <date>2011/09/09</date>
+         <payee>Description</payee>
+         <posting>
+           <account>ref="000000000162a8a0"&gt;
+           <name>Expenses:Foo</name></account>
+           <post-amount>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>123.45</quantity>
+             </amount>
+           </post-amount>
+           <total>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>123.45</quantity>
+             </amount>
+           </total>
+         </posting>
+         <posting>
+           <account>ref="000000000162afb0"&gt;
+           <name>Expenses:Bar</name></account>
+           <post-amount>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>67.89</quantity>
+             </amount>
+           </post-amount>
+           <total>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>191.34</quantity>
+             </amount>
+           </total>
+         </posting>
+         <posting>
+           <account>ref="000000000162b8a0"&gt;
+           <name>Assets:Baz</name></account>
+           <post-amount>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>-191.34</quantity>
+             </amount>
+           </post-amount>
+           <total>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>0</quantity>
+             </amount>
+           </total>
+         </posting>
+       </transaction>
+       <transaction>
+         <date>2011/09/09</date>
+         <payee>Description</payee>
+         <posting>
+           <account>ref="000000000162a8a0"&gt;
+           <name>Expenses:Foo</name></account>
+           <post-amount>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>123.45</quantity>
+             </amount>
+           </post-amount>
+           <total>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>123.45</quantity>
+             </amount>
+           </total>
+         </posting>
+         <posting>
+           <account>ref="000000000162afb0"&gt;
+           <name>Expenses:Bar</name></account>
+           <post-amount>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>67.89</quantity>
+             </amount>
+           </post-amount>
+           <total>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>191.34</quantity>
+             </amount>
+           </total>
+         </posting>
+         <posting>
+           <account>ref="000000000162b8a0"&gt;
+           <name>Assets:Baz</name></account>
+           <post-amount>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>-191.34</quantity>
+             </amount>
+           </post-amount>
+           <total>
+             <amount>
+               <commodity>flags="P"&gt;
+               <symbol>$</symbol></commodity>
+               <quantity>0</quantity>
+             </amount>
+           </total>
+         </posting>
+       </transaction>
+     </transactions>
+   </ledger>
+   #+end_src
+   
+   The three `transaction` elements shown are identical:
+   #+begin_src sh
+   $ grep '<transaction>' test.xml
+   #+end_src
+   #+begin_src xml
+   <transaction>
+     <date>2011/09/09</date>
+     <payee>Description</payee>
+     <posting>
+       <account ref="000000000162a8a0">
+         <name>Expenses:Foo</name>
+       </account>
+       <post-amount>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>123.45</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>123.45</quantity>
+         </amount>
+       </total>
+     </posting>
+     <posting>
+       <account ref="000000000162afb0">
+         <name>Expenses:Bar</name>
+       </account>
+       <post-amount>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>67.89</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>191.34</quantity>
+         </amount>
+       </total>
+     </posting>
+     <posting>
+       <account ref="000000000162b8a0">
+         <name>Assets:Baz</name>
+       </account>
+       <post-amount>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>-191.34</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>0</quantity>
+         </amount>
+       </total>
+     </posting>
+   </transaction>
+   <transaction>
+     <date>2011/09/09</date>
+     <payee>Description</payee>
+     <posting>
+       <account>ref="000000000162a8a0"&gt;
+       <name>Expenses:Foo</name></account>
+       <post-amount>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>123.45</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>123.45</quantity>
+         </amount>
+       </total>
+     </posting>
+     <posting>
+       <account>ref="000000000162afb0"&gt;
+       <name>Expenses:Bar</name></account>
+       <post-amount>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>67.89</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>191.34</quantity>
+         </amount>
+       </total>
+     </posting>
+     <posting>
+       <account>ref="000000000162b8a0"&gt;
+       <name>Assets:Baz</name></account>
+       <post-amount>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>-191.34</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>0</quantity>
+         </amount>
+       </total>
+     </posting>
+   </transaction>
+   <transaction>
+     <date>2011/09/09</date>
+     <payee>Description</payee>
+     <posting>
+       <account>ref="000000000162a8a0"&gt;
+       <name>Expenses:Foo</name></account>
+       <post-amount>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>123.45</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>123.45</quantity>
+         </amount>
+       </total>
+     </posting>
+     <posting>
+       <account>ref="000000000162afb0"&gt;
+       <name>Expenses:Bar</name></account>
+       <post-amount>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>67.89</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>191.34</quantity>
+         </amount>
+       </total>
+     </posting>
+     <posting>
+       <account>ref="000000000162b8a0"&gt;
+       <name>Assets:Baz</name></account>
+       <post-amount>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>-191.34</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity>flags="P"&gt;
+           <symbol>$</symbol></commodity>
+           <quantity>0</quantity>
+         </amount>
+       </total>
+     </posting>
+   </transaction>$ grep '
+   <transaction>' test.xml | uniq 
+   <transaction>
+     <date>2011/09/09</date>
+     <payee>Description</payee>
+     <posting>
+       <account ref="000000000162a8a0">
+         <name>Expenses:Foo</name>
+       </account>
+       <post-amount>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>123.45</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>123.45</quantity>
+         </amount>
+       </total>
+     </posting>
+     <posting>
+       <account ref="000000000162afb0">
+         <name>Expenses:Bar</name>
+       </account>
+       <post-amount>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>67.89</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>191.34</quantity>
+         </amount>
+       </total>
+     </posting>
+     <posting>
+       <account ref="000000000162b8a0">
+         <name>Assets:Baz</name>
+       </account>
+       <post-amount>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>-191.34</quantity>
+         </amount>
+       </post-amount>
+       <total>
+         <amount>
+           <commodity flags="P">
+             <symbol>$</symbol>
+           </commodity>
+           <quantity>0</quantity>
+         </amount>
+       </total>
+     </posting>
+   </transaction></transaction></transaction>
+   #+end_src
+   
+   The number of transactions appears to correspond to the number of accounts
+   referenced.
+   :PROPERTIES:
+   :ID:       ED46C559-294C-48C9-B7CA-FFF15FEA4B9C
+   :CREATED:  [2011-09-09 Fri 22:06]
+   :Date:     Fri, 9 Sep 2011 19:28:13 -0700
+   :Message:  [[message://jwiegley/ledger/issues/39@github.com][{ledger} ledger xml produces duplicate transactions ]]
+   :Submitter: Matthew Turland <reply+i-1612871-d1d8357b67528589b8038a0904ccde9eceede741@reply.github.com>
+   :END:
+** TODO [[bug:562][#562]] Metadata/Note contents can't include a ledger formatted date
+   I am finally starting to play with the Metadata features.  I travel for
+   business and like to keep track of each trip separately along with it
+   reimbursement.  I use "Expenses:Company:Travel" for the asset to charge to.
+   After each expense I tried putting "; trip: 2011/08/30 Corona" to show the
+   day of departure and destination.
+   
+   Running
+   #+begin_src sh
+   ledger reg tag trip="2011/08/30 Corona"
+   #+end_src
+   
+   yields:
+   :OUTPUT:
+   While parsing value expression:
+     has_tag(((/trip/, /2011/08/30 Corona/)))
+                                          ^
+   Error: ) operator not followed by argument
+   :END:
+   
+   If I change my date format to use dashes instead of slashes it work as
+   expected.  Did I accidentally bump into a value expression?
+   :PROPERTIES:
+   :ID:       D0F48916-4058-4F08-ACE1-EE4013889B57
+   :CREATED:  [2011-09-08 Thu 01:58]
+   :Date:     Wed, 7 Sep 2011 13:40:01 -0700
+   :Message:  [[message://CAKs9TOLu142ntQ8e8a2HzfM7FDW2kNFrEG+rMBLA9E1QzqPAUA@mail.gmail.com][Metadata/Note contents can't include a ledger formatted date?]]
+   :Submitter: Craig Earls <enderw88@gmail.com>
+   :END:
+** TODO [[bug:563][#563]] Highlight account names with spaces
+   I started using `ledger-mode` provided by `ldg-new.el` over 2.6.2's
+   ledger-mode` and noticed it stopped highlighting account names with
+   spaces. I think this fix is reasonable, though I'm having a really hard
+   time with emacs regexp for some reason.
+   :PROPERTIES:
+   :ID:       35F37F42-4D5B-4DB6-B4CD-06253741B028
+   :CREATED:  [2011-08-28 Sun 14:00]
+   :Date:     Sun, 28 Aug 2011 08:36:27 -0700
+   :Message:  [[message://jwiegley/ledger/pull/37@github.com][{ledger} Highlight account names with spaces ]]
+   :Submitter: dpiddy <reply+i-1504015-00cea49a44f8de09cf5765af8085fdcc0692e908@reply.github.com>
+   :END:
+** TODO [[bug:564][#564]] Double-quoted filename in Emacs output breaks reconciliation
+   :PROPERTIES:
+   :ID:       CCDFD6E8-C816-4BCA-8C18-EE7C9A076140
+   :CREATED:  [2011-08-22 Mon 17:08]
+   :Date:     Mon, 22 Aug 2011 22:03:56 +0100
+   :Message:  [[message://20050.50236.344154.205060@dk.dks.ie][Emacs reconciliation 3.0]]
+   :Submitter: "David Keegan" <dksw@eircom.net>
+   :END:
+** TODO [[bug:565][#565]] Transactions with leading whitespace not detected
+   - Note taken on [2011-08-21 Sun 18:53] \\
+     I believe it's a regression in 3.0.  I filed a bug report about this some
+     time ago: http://bugs.ledger-cli.org/show_bug.cgi?id=443
+   In the attached sample ledger file a space has been inadvertently inserted
+   preceding one of the transaction dates.
+   
+   ledger-2.6.3 Detects the error and emits:
+   :OUTPUT:
+   Error: "sample.ldg", line 6: Line begins with whitespace
+   Error: "sample.ldg", line 7: Line begins with whitespace
+   Error: "sample.ldg", line 8: Line begins with whitespace
+   :END:
+   
+   This looks good to me.
+   
+   On the other hand ledger-3.0 (beta) silently ignores the offending
+   transaction.
+   
+   Is the change in behaviour intentional? Is there an option in 3.0 that
+   yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
+   :PROPERTIES:
+   :ID:       8EAF77C0-C2FA-4B8D-BAEE-4A886CEAE106
+   :CREATED:  [2011-08-21 Sun 18:53]
+   :Date:     Sun, 21 Aug 2011 22:12:40 +0100
+   :Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
+   :Submitter: "David Keegan" <dksw@eircom.net>
+   :END:
+** TODO [[bug:566][#566]] Selinger's multiple currency accounting & ledger
+   Well, after modifying two thousands transactions in my personal ledger
+   file, I realized that I got it wrong and that I had not fully
+   understood the way ledger handles multiple currency accounting.
+   
+   I used the following syntax, that I mistakenly believed the smartest.
+   #+begin_src ledger
+   2011/01/03 Buy food
+       Assets:US_Cash   -40 USD
+       Expenses:Food     40 USD @ 1.3 CAD
+       Income:Currency
+   #+end_src
+   
+   With 2000 transactions like that in my personal ledger, the problem is
+   that I accumulated a lot of "XX USD @ YY CAD". When accumulating
+   several thousands of USD, a very slight change in USD/CAD currency
+   rate make a huge change in CAD total.
+   
+   As an example, let's add the following line in my test files named
+   "selinger_table_4_4-*".
+   #+begin_src ledger
+   P 2011/01/08 USD 1.45 CAD
+   #+end_src
+   
+   When doing "ledger bal", only 3 files give a zero balance:
+   - selinger_table_4_4-currency_trading_account
+   - selinger_table_4_4-pricing@
+   - selinger_table_4_4-pricing@@
+   
+   When doing "ledger -X CAD bal", only 2 give a correct result:
+   - selinger_table_4_4-balanced
+   - selinger_table_4_4-currency_trading_account
+   
+   Only "selinger_table_4_4-currency_trading_account" looks to be the
+   solution. I remind the syntax used:
+   #+begin_src ledger
+   2011/01/03 Buy food
+       Assets:US_Cash        -40 USD
+       Income:Currency:USD    40 USD
+       Income:Currency:CAD   -52 CAD
+       Expenses:Food          52 CAD
+   #+end_src
+   
+   While correct, I do not like this syntax, because I have to manually
+   compute the CAD amount (52 CAD equals 40 USD @ 1.3 CAD), and also when
+   "ledger reg Food", I lost the fact that it was a 40 USD spending.
+   
+   After some thinking, I finally found the trick, by using the following
+   syntax:
+   #+begin_src ledger
+   2011/01/03 Buy food
+       Assets:US_Cash   -40 USD
+       Expenses:Food     40 USD {= 1.3 CAD}
+       Income:Currency
+   #+end_src
+   
+   This gives me satisfaction: "bal", "bal --basis", "bal -X CAD" all
+   gives correct results, even when using --end with dates 2011/01/04,
+   2011/01/07, and 2011/01/08.
+   
+   In my previous post, I disregarded "fixated commodity price" because
+   it gives weird results. Actually, it gives correct result when
+   balanced with an empty "Income:Currency". But if used without an empty
+   "Income:Currency", it gives strange results.
+   
+   As a summary, here is file syntax:
+   #+begin_src ledger
+   2011/01/01 Opening balance
+       Assets:Canadian_Cash        200 CAD
+       Equity:Initial_Capital
+   
+   2011/01/02 Exchange
+       Assets:Canadian_Cash       -120 CAD
+       Assets:US_Cash              100 USD
+       Income:Currency
+   
+   P 2011/01/03 USD 1.30 CAD
+   
+   2011/01/03 Buy food
+       Assets:US_Cash              -40 USD
+       Expenses:Food                40 USD {= 1.3 CAD}
+       Income:Currency
+   
+   2011/01/05 Exchange
+       Assets:US_Cash              -60 USD
+       Assets:Canadian_Cash         75 CAD
+       Income:Currency
+   
+   2011/01/07 Buy food
+       Assets:Canadian_Cash        -20 CAD
+       Expenses:Food
+   
+   P 2011/01/08 USD 1.45 CAD
+   #+end_src
+   :PROPERTIES:
+   :ID:       83B5FEC5-81F5-496B-B121-305B1F12EDFB
+   :CREATED:  [2011-08-13 Sat 16:50]
+   :Date:     Sat, 13 Aug 2011 08:03:30 -0700 (PDT)
+   :Message:  [[message://dc5590b5-3088-4394-93e3-73f7d70bd4ed@f41g2000yqh.googlegroups.com][Selinger's multiple currency accounting & ledger]]
+   :Submitter: thierry <thierry.daucourt@free.fr>
+   :END:
+** TODO [[bug:567][#567]] Error parsing auto-xact predicate mith "expr payee"
+   #+begin_src ledger
+   = /^Asset:Checking/ & expr payee =~ /^Buying Shares/
+       (Temp)              1
+   #+end_src
+   
+   :OUTPUT:
+   $ ledger bal -f test.txt
+   While parsing file "test.txt", line 1:
+   While parsing automated transaction:
+   > = /^Asset:Checking/ & expr payee =~ /^Buying Shares/
+   Error: payee operator not followed by argument
+   $
+   :END:
+   :PROPERTIES:
+   :ID:       D7EE079F-354A-4CAB-B4EF-3B066711433C
+   :CREATED:  [2011-08-09 Tue 17:05]
+   :Date:     Tue, 9 Aug 2011 14:47:47 -0700 (PDT)
+   :Message:  [[message://5be6f581-b3b1-4749-ac63-c4168eff71b6@z14g2000yqh.googlegroups.com][Choosing the commodity in automatic transactions]]
+   :Submitter: rjc <richard+google@richardcooper.net>
+   :END:
+** TODO [[bug:568][#568]] Forecast fails with "every <X> days from" for several values of <X>
+    Ran command as:
+    #+begin_src sh
+    ledger --forecast 'd<[2012]' reg
+    #+end_src
+    
+    This works OK:
+    #+begin_src ledger
+    ~ every 1 days from 2011/08/05
+        A  1
+        B
+    #+end_src
+    
+    This fails (nothing is shown).
+    #+begin_src ledger
+    ~ every 2 days from 2011/08/05
+        A  1
+        B
+    #+end_src
+    
+    This works:
+    #+begin_src ledger
+    ~ every 3 days from 2011/08/05
+        A  1
+        B
+    #+end_src
+    
+    These two don't work (nothing is shown again):
+    #+begin_src ledger
+    ~ every 4 days from 2011/08/05
+        A  1
+        B
+    
+    ~ every 5 days from 2011/08/05
+        A  1
+        B
+    #+end_src
+    
+    Those two work:
+    #+begin_src ledger
+    ~ every 6 days from 2011/08/05
+        A  1
+        B
+    
+    ~ every 7 days from 2011/08/05
+        A  1
+        B
+    #+end_src
+    
+    This fails (nothing shown):
+    #+begin_src ledger
+    ~ every 8 days from 2011/08/05
+        A  1
+        B
+    #+end_src
+    
+    This fails in a different way. The first date shown in the forecast is
+    *not* 9 days after the "from" date, that would've been the 14th, but the
+    11th is showing.
+    #+begin_src ledger
+    ~ every 9 days from 2011/08/05
+        A  1
+        B
+    #+end_src
+   :PROPERTIES:
+   :ID:       CDAFE1CE-226C-49B3-8EB3-A2E49459F9EC
+   :CREATED:  [2011-08-07 Sun 01:36]
+   :Date:     Sat, 6 Aug 2011 17:02:11 -0700
+   :Message:  [[message://jwiegley/ledger/issues/36@github.com][{ledger} Forecast fails with "every <X> days from" for several values of <X> (#36)]]
+   :Submitter: leamsi <reply+i-1359410-33fcca4575a13841571ed55da74547765f4c4979@reply.github.com>
+   :END:
+** TODO [[bug:576][#576]] Strange cleared report formatting
+   I tried running a cleared report today using the command
+   #+begin_src sh
+   ledger cleared Assets
+   #+end_src
+   
+   The report seems bit garbled, there are unexpected line feeds.  I replaced
+   all numerals with 'X' in below:
+   :OUTPUT:
+        $ XXXXX.XX
+      XXX.XXX VBMFX
+     XXX.XXXX VIFSX
+     XXX.XXXX VSGBX
+     XXX.XXXX VTHRX          $ XXXXX.XX
+                          XXX.XXX VBMFX
+                         XXX.XXXX VIFSX
+                         XXX.XXXX VSGBX
+                         XXX.XXXX VTHRX                 Assets
+      XXX.XXX VBMFX
+     XXX.XXXX VIFSX
+     XXX.XXXX VSGBX
+     XXX.XXXX VTHRX       XXX.XXX VBMFX
+                         XXX.XXXX VIFSX
+                         XXX.XXXX VSGBX
+                         XXX.XXXX VTHRX                   Investments
+     XXX.XXXX VIFSX
+     XXX.XXXX VSGBX      XXX.XXXX VIFSX
+                         XXX.XXXX VSGBX    XX-Aug-XX        XXXK Deferred
+     XXX.XXXX VIFSX
+     XXX.XXXX VSGBX      XXX.XXXX VIFSX
+                         XXX.XXXX VSGBX    XX-Aug-XX        XXXK Matching
+     XXX.XXXX VTHRX      XXX.XXXX VTHRX    XX-Apr-XX        Craig IRA
+     XXX.XXXX VTHRX      XXX.XXXX VTHRX    XX-Jan-XX        Grace IRA
+      XXX.XXX VBMFX       XXX.XXX VBMFX    XX-May-XX        Vanguard
+          $ XXXX.XX           $ XXXX.XX                   NFCU
+           $ XXX.XX           $ XXXX.XX    XX-Jul-XX        Checking
+          $ XXXX.XX            $ XXX.XX    XX-Jul-XX        Money Market
+          $ XXXX.XX           $ XXXX.XX    XX-Jul-XX        PV Escrow
+         $ XXXXX.XX          $ XXXXX.XX                   VWCU
+          $ XXXX.XX           $ XXXX.XX    XX-Aug-XX        Grace Checking
+           $ XXX.XX           $ XXXX.XX    XX-Aug-XX        Joint Checking
+         $ XXXXX.XX          $ XXXXX.XX    XX-Aug-XX        Savings
+   ----------------  ----------------    ---------
+         $ XXXXX.XX
+      XXX.XXX VBMFX
+     XXX.XXXX VIFSX
+     XXX.XXXX VSGBX
+     XXX.XXXX VTHRX          $ XXXXX.XX
+                          XXX.XXX VBMFX
+                         XXX.XXXX VIFSX
+                         XXX.XXXX VSGBX
+                         XXX.XXXX VTHRX
+   :END:
+   :PROPERTIES:
+   :ID:       88F931F2-A3FB-495A-B135-E9FD38975506
+   :CREATED:  [2011-08-04 Thu 14:35]
+   :Date:     Thu, 4 Aug 2011 12:18:37 -0700
+   :Message:  [[message://CAKs9TOKs9uqPJRWepvy7XRXcAbJQQFjFdA8E_aBk74m-TbH+Qg@mail.gmail.com][Strange cleared report formatting]]
+   :Submitter: Craig Earls <enderw88@gmail.com>
+   :END:
+** TODO [[bug:577][#577]] Error in automated virtual postings with multiple commodities
+   Given the following ledger file
+   #+begin_src ledger
+   = /^Equity:/
+       (Virtual Account)        1
+   
+   2011/01/01 Opening Balances
+       Account1                 100 USD
+       Account2                 100 GBP
+       Account3                 100 EUR
+       Equity:Opening Balance
+   #+end_src
+   
+   I get
+   :OUTPUT:
+   $ ledger bal -f test.txt
+                100 USD  Account1
+                100 GBP  Account2
+                100 EUR  Account3
+               -100 EUR
+               -100 GBP
+               -100 USD  Equity:Opening Balance
+               -100 EUR  Virtual Account
+   --------------------
+               -100 EUR
+   :END:
+   
+   I would expect my virtual account to be identical to Equity:Opening Balance
+   and contain -100 EUR, -100 GBP and -100 USD not just -100 EUR.
+   :OUTPUT:
+   $ ledger --version
+   Ledger 3.0.0-20110325, the command-line accounting tool
+   :END:
+   :PROPERTIES:
+   :ID:       227CC4EE-EC28-479E-9727-4364EEE301EC
+   :CREATED:  [2011-08-03 Wed 15:52]
+   :Date:     Wed, 3 Aug 2011 13:22:08 -0700
+   :Message:  [[message://jwiegley/ledger/issues/35@github.com][{ledger} Error in automated virtual postings with multiple commodities (#35)]]
+   :Submitter: richardcooper <reply+i-1339989-90be759f0f0510a9fe33caba8e36a0b8e6a5c288@reply.github.com>
    :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
@@ -1640,28 +2588,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
-** TODO Account name completion
-   :PROPERTIES:
-   :ID:       E17BCDD4-DEE0-47AC-A007-9C09D9B26D9D
-   :CREATED:  [2011-08-21 Sun 18:53]
-   :Date:     Sun, 21 Aug 2011 22:38:18 +0100
-   :Message:  [[message://20049.31434.956476.319847@dk.dks.ie][Account name completion.]]
-   :Submitter: "David Keegan" <dksw@eircom.net>
-   :END:
-** TODO [ledger] Emacs mode 'reconcile' doesn't work (#31)
-   :PROPERTIES:
-   :ID:       400C0BA0-D132-465A-B0A4-AC7E6839DBD2
-   :CREATED:  [2011-07-21 Thu 15:26]
-   :Date:     Thu, 21 Jul 2011 09:23:28 -0700
-   :Message:  [[message://jwiegley/ledger/issues/31@github.com][{ledger} Emacs mode 'reconcile' doesn't work (#31)]]
-   :Submitter: peti <reply+i-1264237-1c07217de3933472fbd8fa785975d03170c352df@reply.github.com>
-   :END:
-** TODO [[bug:545][#545]] Create a quick entry function for Ledger to reduce keystrokes
-    It lets me just say "exxon 10" at the minibuffer, then takes me to the entry.
-    :PROPERTIES:
-    :ID:       7E625CF1-1258-4B29-9227-29153CC54B53
-    :CREATED:  [2011-07-09 Sat 20:44]
-    :END:
 ** TODO [[bug:431][#431]] Reconciling with ledger.el doesn't seem to work
    I use ledger.el with GNU Emacs 23.2.1. Is that supported at all? I wonder,
    because the reconcile mode doesn't seem to work. Hitting SPACE or RETURN
@@ -1909,6 +2835,41 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: John Rakestraw <johnr@johnrakestraw.com>
    :Date:     Sat, 23 Apr 2011 10:44:57 -0400
    :END:
+** TODO [[bug:545][#545]] Create a quick entry function for Ledger to reduce keystrokes
+    It lets me just say "exxon 10" at the minibuffer, then takes me to the entry.
+    :PROPERTIES:
+    :ID:       7E625CF1-1258-4B29-9227-29153CC54B53
+    :CREATED:  [2011-07-09 Sat 20:44]
+    :END:
+** TODO [[bug:580][#580]] Emacs mode 'reconcile' doesn't work
+   I'm trying to reconcile a ledger file in "GNU Emacs 23.3.1
+   (x86_64-unknown-linux-gnu, GTK+ Version 2.24.3)". When I hit C-c C-r, I
+   just get the following error message:
+   :OUTPUT:
+   save-excursion: Wrong type argument: number-or-marker-p, nil
+   :END:
+   
+   I'm using the current git HEAD of ledger.
+   :PROPERTIES:
+   :ID:       400C0BA0-D132-465A-B0A4-AC7E6839DBD2
+   :CREATED:  [2011-07-21 Thu 15:26]
+   :Date:     Thu, 21 Jul 2011 09:23:28 -0700
+   :Message:  [[message://jwiegley/ledger/issues/31@github.com][{ledger} Emacs mode 'reconcile' doesn't work (#31)]]
+   :Submitter: peti <reply+i-1264237-1c07217de3933472fbd8fa785975d03170c352df@reply.github.com>
+   :END:
+** TODO [[bug:582][#582]] Problems with account name completion
+   I see TAB is bound to 'pcomplete in ledger.el. Sometimes I can get it to
+   cycle through the top-level account name categories. Other times nothing
+   happens other than the apparently incomplete message "No completions of".
+   
+   What should I expect here? Is the feature documented?
+   :PROPERTIES:
+   :ID:       E17BCDD4-DEE0-47AC-A007-9C09D9B26D9D
+   :CREATED:  [2011-08-21 Sun 18:53]
+   :Date:     Sun, 21 Aug 2011 22:38:18 +0100
+   :Message:  [[message://20049.31434.956476.319847@dk.dks.ie][Account name completion.]]
+   :Submitter: "David Keegan" <dksw@eircom.net>
+   :END:
 ** TODO [#C] [[bug:389][#389]] Emacs mode autocompletion issue
    :PROPERTIES:
    :ID:       87255055-84B2-4B95-B643-0F8848C06D70
@@ -1930,7 +2891,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-396-1@http.newartisans.com/bugzilla/][{Bug 396} New: ledger emacs doesn't escape double quotes]]
    :CREATED:  [2010-08-16 Mon 16:28]
    :END:
-** TODO [#C] [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p   :ATTACH:
+** TODO [#C] [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p                :ATTACH:
    :PROPERTIES:
    :ID:       669AE4A1-E30D-4A3D-A330-06E183FBF66E
    :Submitter: Russell Adams <RLAdams@AdamsInfoServ.Com>
@@ -2194,18 +3155,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [[bug:547][#547]] Allow Ledger to read data directly from CSV files
-   As an alternate input format.  Then I can maintain by "bank's view" using
-   Ledger itself, and not Excel.
-   :PROPERTIES:
-   :ID:       69D8C2FC-72E8-4C6B-BAEE-83B4BC92993D
-   :CREATED:  [2011-07-25 Mon 12:34]
-   :END:
-** TODO [[bug:542][#542]] Create a --reset-amount/total option, to clear the expr series
-   :PROPERTIES:
-   :ID:       0C1BBB09-F27C-4EDF-81F0-31D959476F72
-   :CREATED:  [2011-07-04 Mon 23:07]
-   :END:
 ** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
    :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
@@ -2472,6 +3421,34 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       3643CE28-8322-4CDF-B151-DC34F1A30112
    :CREATED:  [2011-06-29 Wed 17:57]
+   :END:
+** TODO [[bug:542][#542]] Create a --reset-amount/total option, to clear the expr series
+   :PROPERTIES:
+   :ID:       0C1BBB09-F27C-4EDF-81F0-31D959476F72
+   :CREATED:  [2011-07-04 Mon 23:07]
+   :END:
+** TODO [[bug:547][#547]] Allow Ledger to read data directly from CSV files
+   As an alternate input format.  Then I can maintain by "bank's view" using
+   Ledger itself, and not Excel.
+   :PROPERTIES:
+   :ID:       69D8C2FC-72E8-4C6B-BAEE-83B4BC92993D
+   :CREATED:  [2011-07-25 Mon 12:34]
+   :END:
+** TODO [[bug:575][#575]] Save file comments along with the transaction that follows them
+   :PROPERTIES:
+   :ID:       50C6A5FE-E2A3-4532-A02E-C49ACDA871E7
+   :CREATED:  [2011-10-11 Tue 03:36]
+   :Date:     Mon, 10 Oct 2011 15:53:55 -0700
+   :Message:  [[message://j6vt24$h0r$1@dough.gmane.org][Re: Comments that persist through "Print"]]
+   :Submitter: Simon Michael <simon-jbxitMBJ2LLQT0dZR+AlfA@public.gmane.org>
+   :END:
+** TODO [[bug:581][#581]] Port GnuCash support to 3.0
+   :PROPERTIES:
+   :ID:       54F5239D-65D6-431B-A4AD-27B57FE6B149
+   :CREATED:  [2011-07-21 Thu 15:26]
+   :Date:     Thu, 21 Jul 2011 09:17:53 -0700
+   :Message:  [[message://jwiegley/ledger/issues/30@github.com][{ledger} GnuCash support? (#30)]]
+   :Submitter: peti <reply+i-1264193-264a927819dca1fe83fc7c5b9a987fbdac22d9f7@reply.github.com>
    :END:
 ** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
@@ -2987,7 +3964,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
    :CREATED:  [2010-08-16 Mon 16:47]
    :END:
-** TODO [[bug:424][#424]] Make acprep compatible with Python 3                           :ATTACH:
+** TODO [[bug:424][#424]] Make acprep compatible with Python 3                                        :ATTACH:
    - Note taken on [2010-11-26 Fri 12:55] \\
      [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
    :PROPERTIES:
@@ -3156,36 +4133,33 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO acprep should accept --python --python-home and --python-version
-   :PROPERTIES:
-   :ID:       495BADED-6797-4E7E-B95E-DC9C7F292239
-   :CREATED:  [2011-08-18 Thu 14:32]
-   :END:
-** TODO Rebuild Boost and Ledger with gcc-4.6
-   - State "TODO"       from "STARTED"    [2011-08-21 Sun 15:03]
-   :PROPERTIES:
-   :ID:       BE861EF4-241B-4D26-A12C-03E8B369DA4F
-   :CREATED:  [2011-08-18 Thu 10:01]
-   :END:
-** TODO Ledger on Mac
-   :PROPERTIES:
-   :ID:       AD002264-5D5A-40E8-8D28-82FD7505166E
-   :CREATED:  [2011-07-21 Thu 16:11]
-   :Date:     Thu, 21 Jul 2011 13:21:00 -0700 (PDT)
-   :Message:  [[message://4d29c35c-7f9c-4060-99e6-149f931e938a@c29g2000yqd.googlegroups.com][Ledger on Mac]]
-   :Submitter: rjc <richard+google@richardcooper.net>
-   :END:
-** TODO [[bug:544][#544]] Failing tests in Ledger should cause all tests to fail
-   :PROPERTIES:
-   :ID:       B4E16081-08C6-430E-82F6-00304C388A22
-   :CREATED:  [2011-07-08 Fri 13:40]
-   :END:
 ** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
    :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
    :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
    :Message:  [[message://AANLkTilwxjENAIajnVXvoes8H1ccWUgeDsMNirDNgbu-@mail.gmail.com][VS project files & Windows installer]]
    :CREATED:  [2010-06-28 Mon 23:54]
+   :END:
+** TODO [[bug:544][#544]] Failing tests in Ledger should cause all tests to fail
+   :PROPERTIES:
+   :ID:       B4E16081-08C6-430E-82F6-00304C388A22
+   :CREATED:  [2011-07-08 Fri 13:40]
+   :END:
+** TODO [[bug:572][#572]] Rebuild Boost and Ledger with gcc-4.6
+   - State "TODO"       from "STARTED"    [2011-08-21 Sun 15:03]
+   :PROPERTIES:
+   :ID:       BE861EF4-241B-4D26-A12C-03E8B369DA4F
+   :CREATED:  [2011-08-18 Thu 10:01]
+   :END:
+** TODO [[bug:573][#573]] acprep should accept --python --python-home and --python-version
+   :PROPERTIES:
+   :ID:       495BADED-6797-4E7E-B95E-DC9C7F292239
+   :CREATED:  [2011-08-18 Thu 14:32]
+   :END:
+** TODO [[bug:574][#574]] Change acprep bindmg to include Boost and all dependencies
+   :PROPERTIES:
+   :ID:       BD6B88C1-1312-4DEB-B63F-B679F01807BE
+   :CREATED:  [2011-08-23 Tue 13:24]
    :END:
 ** TODO [#C] [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
@@ -3271,7 +4245,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       09B41575-766E-4598-A8F3-164D8AE25589
    :CREATED:  [2010-06-15 Tue 07:08]
    :END:
-** DEFERRED [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users      :blocker:
+** DEFERRED [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                   :blocker:
    - State "DEFERRED"   from "TODO"       [2011-02-12 Sat 18:18]
    :PROPERTIES:
    :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
@@ -3288,7 +4262,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
    :CREATED:  [2010-06-18 Fri 19:45]
    :END:
-** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies :ATTACH:
+** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies             :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
@@ -3330,30 +4304,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO Differences 2.6.3->3.0.0
-   :PROPERTIES:
-   :ID:       3D486775-60A8-4A90-B2A2-453F680F67C7
-   :CREATED:  [2011-08-19 Fri 19:27]
-   :Date:     Thu, 18 Aug 2011 18:44:50 +0100
-   :Message:  [[message://20045.20370.231763.36820@dk.dks.ie][Differences 2.6.3->3.0.0]]
-   :Submitter: "David Keegan" <dksw@eircom.net>
-   :END:
-** TODO Depreciate assets (cars, equipment, buildings, etc)
-   :PROPERTIES:
-   :ID:       CB4A2972-2F68-4419-B4EC-973725107739
-   :CREATED:  [2011-07-21 Thu 21:12]
-   :Date:     Sat, 2 Apr 2011 16:23:55 -0700 (PDT)
-   :Message:  [[message://1024645.103.1301786635133.JavaMail.geo-discussion-forums@prfx36][Depreciate assets (cars, equipment, buildings, etc) and push them into the ledger file on a schedule]]
-   :Submitter: tazz_ben <ben@wbpsystems.com>
-   :END:
-** TODO [#C] What is the actual "--print-format" used in 2.6?
-   :PROPERTIES:
-   :ID:       6C40879B-677C-4CA3-ADD2-6FFB599A5E70
-   :CREATED:  [2011-07-01 Fri 17:27]
-   :Date:     Fri, 1 Jul 2011 08:58:50 -0700 (PDT)
-   :Message:  [[message://58efe2d2-f25b-4e8c-a01c-8a914c1578f0@gh5g2000vbb.googlegroups.com][What is the actual "--print-format" used in 2.6?]]
-   :Submitter: markscottwright <markscottwright@gmail.com>
-   :END:
 ** TODO [[bug:452][#452]] Fixes to the ledger wiki/README-1ST
    :PROPERTIES:
    :ID:       07EB8797-458D-4FBB-B125-062BAC1B732B
@@ -3446,6 +4396,99 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: felix <reply+i-902562-5184554569b2269b61f555ca1f9b8d0d07d8e681@reply.github.com>
    :Date:     Sun, 15 May 2011 07:47:45 -0700
    :END:
+** TODO [[bug:569][#569]] Problem in ledger3.texi
+   :OUTPUT:
+   ledger3.texi:196: Misplaced {.
+   ledger3.texi:196: Misplaced }.
+   ledger3.texi:102: Cross reference to nonexistent node `Principles of accounting' (perhaps incorrect sectioning?).
+   ledger3.texi:82: Cross reference to nonexistent node `Keeping a journal' (perhaps incorrect sectioning?).
+   :END:
+   :PROPERTIES:
+   :ID:       2274E886-AB1E-4FD7-B298-A8D71311E0B6
+   :CREATED:  [2011-10-13 Thu 15:38]
+   :Date:     Tue, 11 Oct 2011 13:53:21 -0700
+   :Message:  [[message://301CD0BF-228A-4DEC-9C94-9411889896B7@joyful.com][Fwd: Cron <simon@joyful>  cd /repos/ledger;         git pull -q && cd doc && make --quiet]]
+   :Submitter: Simon Michael <simon@joyful.com>
+   :END:
+** TODO [[bug:570][#570]] Add warning to docs about whitespace in ledger format
+   Ledger won't accept a ledger without at least two spaces between the
+   account name and value.  This adds a warning about it in the File format
+   section of the docs.
+   
+   When you edit or view the docs in your editor the monospace display makes
+   it easy to see the two space requirement.  I was viewing the HTML version
+   of the docs in my browser and missed the subtle distinction.  This gave me
+   quite a bit of pain trying to hunt down the source of the problem.  This
+   patch was entirely motivated by the problems I had trying to get my ledger
+   up and off the ground.
+   :PROPERTIES:
+   :ID:       A8037486-3EBB-4F3B-A720-9A0F6BFDF6F2
+   :CREATED:  [2011-09-01 Thu 19:56]
+   :Date:     Thu, 1 Sep 2011 15:40:10 -0700
+   :Message:  [[message://jwiegley/ledger/pull/38@github.com][{ledger} Add warning to docs about whitespace in ledger format. ]]
+   :Submitter: dgilman <reply+i-1546723-a9cdb41421bafec77dd1c029b11e110838cce71d@reply.github.com>
+   :END:
+** TODO [[bug:571][#571]] List differences 2.6.3->3.0.0
+   :PROPERTIES:
+   :ID:       3D486775-60A8-4A90-B2A2-453F680F67C7
+   :CREATED:  [2011-08-19 Fri 19:27]
+   :Date:     Thu, 18 Aug 2011 18:44:50 +0100
+   :Message:  [[message://20045.20370.231763.36820@dk.dks.ie][Differences 2.6.3->3.0.0]]
+   :Submitter: "David Keegan" <dksw@eircom.net>
+   :END:
+** TODO [[bug:578][#578]] Show Craig how to write testable Ledger examples
+   :PROPERTIES:
+   :ID:       A204A515-E665-41C1-9C77-389F2F45EFF7
+   :CREATED:  [2011-10-04 Tue 14:26]
+   :Date:     Sun, 2 Oct 2011 21:20:27 -0700
+   :Message:  [[message://CAKs9TOJxATpjCeQZ2JVoGSwszULOigy0NpcKYtVcj19AXWi34Q@mail.gmail.com][Draft of manual.]]
+   :Submitter: Craig Earls <enderw88@gmail.com>
+   :END:
+** TODO [[bug:579][#579]] Depreciate assets (cars, equipment, buildings, etc)
+   I've developed a couple of apps to help out ledger with depreciation.
+   Depreciation, for those that don't know, is the method of recognizing an
+   expense inline with when the asset is used.  For instance if you buy a
+   building, you wouldn't expense it when you buy it, you'd expense it over
+   the life of the building (like say 50 years).  A computer would have a much
+   shorter depreciation schedule, but it would use one of the accelerated
+   methods (ddb or sum of the years digits).
+   
+   Anyhow, ledger by itself can't really deal with this, you would have to
+   make a depreciation schedule by hand then make every entry as they come up
+   over time (which might encourage you to not do it on smallish assets --
+   which is against GAAP -- or do it once a year, which would screw up monthly
+   income).  I've automated this process with a couple of tools:
+   https://github.com/tazzben/DepreciateForLedger/wiki
+   https://github.com/tazzben/LedgerScheduler/wiki
+   
+   Depreciate for Ledger, creates every entry of the depreciation schedule.
+   You can specify the depreciation method (it currently supports
+   straight-line, double declining balance, sum of the years digits and a
+   hybrid of straight-line and DDB), cost, residual, etc. and save it to a
+   file.  This looks like any other ledger file except the dates are all in
+   the future.
+   
+   Ledger Scheduler takes the file (which can contain any future ledger
+   entries) and pushes the appropriate transactions into a target file on the
+   appropriate date.  You can set this to run with cron.  Technically, you
+   could set any schedule you want, but given the nature of depreciation, once
+   a month is sufficient for most people, and once a day would be sufficient
+   for anyone.
+   :PROPERTIES:
+   :ID:       CB4A2972-2F68-4419-B4EC-973725107739
+   :CREATED:  [2011-07-21 Thu 21:12]
+   :Date:     Sat, 2 Apr 2011 16:23:55 -0700 (PDT)
+   :Message:  [[message://1024645.103.1301786635133.JavaMail.geo-discussion-forums@prfx36][Depreciate assets (cars, equipment, buildings, etc) and push them into the ledger file on a schedule]]
+   :Submitter: tazz_ben <ben@wbpsystems.com>
+   :END:
+** TODO [#C] What is the actual "--print-format" used in 2.6?
+   :PROPERTIES:
+   :ID:       6C40879B-677C-4CA3-ADD2-6FFB599A5E70
+   :CREATED:  [2011-07-01 Fri 17:27]
+   :Date:     Fri, 1 Jul 2011 08:58:50 -0700 (PDT)
+   :Message:  [[message://58efe2d2-f25b-4e8c-a01c-8a914c1578f0@gh5g2000vbb.googlegroups.com][What is the actual "--print-format" used in 2.6?]]
+   :Submitter: markscottwright <markscottwright@gmail.com>
+   :END:
 ** TODO [#C] [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
@@ -3462,7 +4505,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
    :CREATED:  [2009-11-20 Fri 18:31]
    :END:
-** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                 :ATTACH:
+** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
    :PROPERTIES:
    :ID:       32A4A048-886F-43FC-892E-EC125F372750
    :Attachments: foo.dat
@@ -3628,6 +4671,15 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Karen Sandler <karen@softwarefreedom.org>
    :CREATED:  [2009-12-17 Thu 02:44]
    :END:
+** DEFERRED Improve download/install instructions for the Mac (#32)
+    - State "DEFERRED"   from "TODO"       [2011-08-18 Thu 13:15]
+   :PROPERTIES:
+   :ID:       2BB63C6F-90D0-4433-8308-80A9D201D880
+   :CREATED:  [2011-07-25 Mon 00:55]
+   :Date:     Sun, 24 Jul 2011 10:21:51 -0700
+   :Message:  [[message://jwiegley/ledger/issues/32@github.com][{ledger} Improve download/install instructions for the Mac (#32)]]
+   :Submitter: richardcooper <reply+i-1278078-1be2b9ab93ac7c481fd66bb7244f2447690518e1@reply.github.com>
+   :END:
 ** DEFERRED [[bug:193][#193]] Useful links from the mailing list
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
    Since I'm new to ledger and accounting, I went through the mailing list
@@ -3667,7 +4719,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :CREATED:  [2008-08-14 Thu]
    :END:
-** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                     :ATTACH:
+** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                                  :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
