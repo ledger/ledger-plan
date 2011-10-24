@@ -51,6 +51,110 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://28CCC239-ACE4-40E5-A95C-81460729C966@mac.com][ledger make check failure report...]]
    :Submitter: Douglas Philips <dgou@mac.com>
    :END:
+** TODO [[bug:584][#584]] Trailing white space is not ignored in payee names
+  :PROPERTIES:
+  :ID:       C9D593B3-6263-494E-AF38-6D48BE109C63
+  :CREATED:  [2011-10-21 Fri 00:52]
+  :Date:     Thu, 20 Oct 2011 05:03:39 +0000
+  :Message:  [[message://bug-584-1@http.bugs.ledger-cli.org/][{Bug 584} New: Trailing white space is not ignored in payee names]]
+  :Submitter: bugzilla-daemon@mail.johnwiegley.com
+  :END:
+** TODO [[bug:588][#588]] 'getquote' only queries one commodity at a time, which can be slow
+  :PROPERTIES:
+  :ID:       D367EB64-B542-49C3-958B-C099E3291361
+  :CREATED:  [2011-10-18 Tue 02:42]
+  :Date:     Mon, 17 Oct 2011 16:29:53 -0700
+  :Message:  [[message://CAKs9TOKgBfCwS+gDt78f39SBGou6waPqaF79wK4p-bFwex28Dg@mail.gmail.com][Re: 'getquote' responsibilities]]
+  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+  :END:
+** TODO [[bug:587][#587]] ledger --anon print regex fails
+Using 24d6619a52 (recent origin/next):
+
+Output from 
+#+begin_src sh
+$ ledger --anon print asx 
+#+end_src
+produces a file that doesn't balance (most transactions have only one account
+line).  See below for an example.
+
+Also, can you get this mode to also print out pricing info (P lines), with
+commodities suitably anonymised of course?
+
+I have a bug to report that is dependent on the included prices, so it would
+be nice to be able to easily report this in suitably anonymous form.
+
+#+begin_src ledger
+2010/04/04 * ce80e1d8
+    4c56e22c:ffa2eb05:3cd29cb0:54187da5       1142 A
+
+2010/04/04 * a6af6b86
+    a2ab19c2:a61f2fdf:3e112853:5ca7144b        155 B @ C32.27
+
+2010/04/04 * 5b210ea7
+    83c7b8b9:306dcb9c:b1703f6b:2df07fdc        450 D @ C11.30
+
+2010/04/04 * 1292cf1c
+    aceeecab:6831267b:97503fd9:da7e2834        250 E @ C20.30
+
+2010/04/04 * 277aed6b
+    273a85a6:a43d6c12:f4e329ea:8bfbfa5c:bdd039b2       C6.79
+
+2010/04/04 * 2ca15c6a
+    9649be03:bf8c0d59:2544d251:f58fb6fa         11 F
+
+2010/04/04 * d3622969
+    05ef8415:2647caab:ab0a7fe2:e5c02402       1700 G @ C2.97
+
+2010/05/18=2010/05/21 * a67b13c6
+    ed1c01b4:5d2ccb92:bd4a343d:cb0df7f2        200 H @ C27.19
+
+2010/07/02 * b54b0e38
+    440fb1c4:973d920a:3367793e:4c656b96          6 I @ C22.64
+    2a419ca0:45a18c24:3a7851e8:87f1487f:40df29e3
+
+2010/10/15 * bc1f024f
+    2a580f0d:8a12ecf0:6da144e1:9ba590d4          2 J @ C29.23
+    9ab62257:a5962488:da55f7fa:430026f6:3d915197       C3.54
+
+2010/12/20 * 7e8ecf2b
+    8e1f36b1:77cd4b0c:690330fc:4aa25a1d          7 K @ C21.57
+    d939ffc2:536a1935:3c6ad6b0:5d3f8004:4f8d78cf
+
+2011/04/20 * 976ef9b9
+    71d3bd54:f1ada5f2:60aab10b:0928961b         60 L @ C81.90
+
+2011/04/29 * 10a331bb
+    1b5554c1:4797d976:240a9f6e:e7e064db          2 M @ C26.885
+    d6f119d4:468c1c83:595a0afd:04c0d9a0:693dd2d4       C4.37
+
+2011/05/10 * d7fd2ea6
+    b21ebdf6:4f0208a8:1d515d0a:dc39cfcc        780 N @ C6.33
+
+2011/05/10 * bb93b8c7
+    d8287474:298d1128:c3af6113:eaf430fc        210 O @ C23.36
+
+2011/07/04 * de028b78
+    648d6bf7:ba62d49e:adbea0cf:7bb5a5c3          8 P @ C21.78
+    a780b5d3:7250b0c2:2c6e5566:3b89e252:ea78592b      C-4.00
+
+2011/08/04 * 92dd1a28
+    e077926e:b93ecd2b:98b240bd:c151d8a0        325 Q @ C15.21
+#+end_src
+:PROPERTIES:
+:ID:       1A83FBAE-C015-43E2-B748-97D8A8D12231
+:CREATED:  [2011-10-17 Mon 18:24]
+:Date:     Mon, 17 Oct 2011 16:52:07 +1100
+:Message:  [[message://4E9BC287.1020803@gmail.com][ledger --anon print regex fails]]
+:Submitter: Michael Norrish <michael.norrish-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:583][#583]] --monthly prices report SUM rather than average or end of month price
+  :PROPERTIES:
+  :ID:       49CA1DB2-060D-418D-BE28-0A6A01966F18
+  :CREATED:  [2011-10-17 Mon 18:30]
+  :Date:     Mon, 17 Oct 2011 20:14:22 +0000
+  :Message:  [[message://bug-583-1@http.bugs.ledger-cli.org/][{Bug 583} New: --monthly prices report SUM rather than average or end of month price]]
+  :Submitter: bugzilla-daemon@mail.johnwiegley.com
+  :END:
 ** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
    - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
      Thierry confirms this still happens for him.
@@ -94,6 +198,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :CREATED:  [2010-06-22 Tue 18:44]
    :END:
 ** TODO [[bug:370][#370]] Let time periods use "starting" to fix the exact start date
+SCHEDULED: <2011-10-24 Mon>
    This issue is related to #342.  Consider this entry:
    #+begin_src ledger
    ~ Biweekly from 2010/02/23
@@ -3155,6 +3260,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO [[bug:589][#589]] Add ability to control color output
+  The user should be able to indicate the RGB value used for "blue", for
+  example.
+  :PROPERTIES:
+  :ID:       340A8A87-A5E6-4E51-B327-280F27E3931A
+  :CREATED:  [2011-10-18 Tue 21:31]
+  :Date:     Tue, 18 Oct 2011 11:16:58 -0700
+  :Message:  [[message://CAKs9TOLAMJsrvRAbD0pgCiBAHXJ75OvHM9ZvEGQ2Py749f5ahA@mail.gmail.com][Controlling color output]]
+  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+  :END:
 ** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
    :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
@@ -3441,14 +3556,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Date:     Mon, 10 Oct 2011 15:53:55 -0700
    :Message:  [[message://j6vt24$h0r$1@dough.gmane.org][Re: Comments that persist through "Print"]]
    :Submitter: Simon Michael <simon-jbxitMBJ2LLQT0dZR+AlfA@public.gmane.org>
-   :END:
-** TODO [[bug:581][#581]] Port GnuCash support to 3.0
-   :PROPERTIES:
-   :ID:       54F5239D-65D6-431B-A4AD-27B57FE6B149
-   :CREATED:  [2011-07-21 Thu 15:26]
-   :Date:     Thu, 21 Jul 2011 09:17:53 -0700
-   :Message:  [[message://jwiegley/ledger/issues/30@github.com][{ledger} GnuCash support? (#30)]]
-   :Submitter: peti <reply+i-1264193-264a927819dca1fe83fc7c5b9a987fbdac22d9f7@reply.github.com>
    :END:
 ** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
@@ -4133,6 +4240,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** TODO [[bug:586][#586]] Improve build error for users without MacPorts or Fink
+  "./acprep dependencies" only works if you have MacPorts installed. If you
+  have Fink installed rather than MacPorts then it reports an error, but if
+  you have neither then it silently does nothing. This silence led me to this
+  that it had there were were no unresolved dependencies.
+  :PROPERTIES:
+  :ID:       AE5942B2-1622-42A3-B554-1C5E2BA3A1B1
+  :CREATED:  [2011-10-24 Mon 15:33]
+  :URL:      https://github.com/jwiegley/ledger/issues/33
+  :END:
 ** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
    :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
@@ -4380,7 +4497,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: press0 <press0@gmail.com>
    :Date:     Mon, 18 Apr 2011 01:20:35 -0500
    :END:
-** TODO [[bug:528][#528]] Pull request: vim 'commentstring'
+** TODO [[bug:528][#528]] vim 'commentstring'
+   - Note taken on [2011-10-24 Mon 15:29] \\
+     Where should this be added?
+   (one liner addition, can't be bother forking)
+   
+   add this to 'contrib/vim/ftplugin/ledger.vim'
+   #+begin_src vim
+   set commentstring=;%s
+   #+end_src
+   useful for setting modelines in ledger files
    :PROPERTIES:
    :ID:       5E9FEB37-907E-4494-B75E-ACA9D6AA3BFA
    :CREATED:  [2011-05-17 Tue 17:54]
@@ -4388,7 +4514,43 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: felix <reply+i-902603-b6d6abde0c89d70840fd263ccbd9750abc4e5819@reply.github.com>
    :Date:     Sun, 15 May 2011 08:04:12 -0700
    :END:
-** TODO [[bug:529][#529]] Pull request: vim indent file
+** TODO [[bug:529][#529]] vim indent file
+   There is another one floating around but it doesn't seem to work. It is
+   basic but here it is nonetheless:
+   #+begin_src vim
+   " File Name: ledger.vim
+   " Maintainer: Felix Hanley
+   " Created: 2011-05-15
+   " Updated: 2011-05-15
+   " Description: Ledger indentation file for vim
+   
+   if exists("b:did_indent")
+       finish
+   endif
+   let b:did_indent = 1 
+   
+   setlocal indentexpr=LedgerIndent()
+   
+   if exists("*LedgerIndent")
+       finish
+   endif
+   
+   
+   function LedgerIndent()
+       let lnum = prevnonblank(v:lnum - 1)
+       let ind = 0 
+       if lnum == 0
+           return 0
+       endif
+       if indent(lnum) != 0 && getline(v:lnum - 1) !~ '^$'
+           return -1
+       endif
+       if getline(lnum) =~ '^[^\d]\S\+'
+           let ind = ind + &sw 
+       endif
+       return ind 
+   endfunction
+   #+end_src
    :PROPERTIES:
    :ID:       5E9B3912-B3C4-4985-BB74-FF99C7328F80
    :CREATED:  [2011-05-17 Tue 17:55]

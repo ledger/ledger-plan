@@ -4363,6 +4363,29 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Attachments: ledger.txt.gpg
    :CREATED:  [2010-01-18 Mon 02:56]
    :END:
+** WORKSFORME ledger bal --flat --display 'depth <= 2' fails to show any accounts
+   - State "WORKSFORME" from "TODO"       [2009-10-26 Mon 22:14] \\
+     This is working fine in 3.0.
+   It works fine without --flat, but not with.
+   :PROPERTIES:
+   :ID:       CEA59DB9-93E4-44A9-977C-F68A9E2D308A
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/2
+   :CREATED:  [2009-10-26 Mon 21:32]
+   :END:
+** WORKSFORME next_element should honor quoting
+   - State "WORKSFORME" from "STARTED"    [2010-05-23 Sun 00:49] \\
+     This already works for the pricing directive.
+   :LOGBOOK:
+   CLOCK: [2010-05-23 Sun 00:36]--[2010-05-23 Sun 00:48] =>  0:12
+   :END:
+   To make this possible:
+   #+begin_src ledger
+   P 2009/08/20 "FOO BAR" $2
+   #+end_src
+   :PROPERTIES:
+   :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
+   :CREATED:  [2009-11-25 Wed 04:27]
+   :END:
 ** WORKSFORME [[bug:159][#159]] --unrealized also reports realized gains
    - State "WORKSFORME" from "TODO"       [2010-06-05 Sat 03:42] \\
      The meaning of "--unrealized" is simply that it *adds* unrealized gains
@@ -4800,29 +4823,16 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       F5D66D56-36D8-4AD1-85BB-B6E792A5A1DF
    :CREATED:  [2010-06-16 Wed 18:09]
    :END:
-** WORKSFORME ledger bal --flat --display 'depth <= 2' fails to show any accounts
-   - State "WORKSFORME" from "TODO"       [2009-10-26 Mon 22:14] \\
-     This is working fine in 3.0.
-   It works fine without --flat, but not with.
-   :PROPERTIES:
-   :ID:       CEA59DB9-93E4-44A9-977C-F68A9E2D308A
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/2
-   :CREATED:  [2009-10-26 Mon 21:32]
-   :END:
-** WORKSFORME next_element should honor quoting
-   - State "WORKSFORME" from "STARTED"    [2010-05-23 Sun 00:49] \\
-     This already works for the pricing directive.
-   :LOGBOOK:
-   CLOCK: [2010-05-23 Sun 00:36]--[2010-05-23 Sun 00:48] =>  0:12
-   :END:
-   To make this possible:
-   #+begin_src ledger
-   P 2009/08/20 "FOO BAR" $2
-   #+end_src
-   :PROPERTIES:
-   :ID:       1D6EB807-6BFA-4C63-B993-930102A7AFF2
-   :CREATED:  [2009-11-25 Wed 04:27]
-   :END:
+** WORKSFORME [[bug:585][#585]] ledger payees is not honoring its regexp argument
+SCHEDULED: <2011-10-22 Sat>
+- State "WORKSFORME" from "TODO"       [2011-10-22 Sat 15:31]
+  :PROPERTIES:
+  :ID:       CC03871C-9C1A-43A3-82A7-4F18B4803E97
+  :CREATED:  [2011-10-21 Fri 00:58]
+  :Date:     Wed, 19 Oct 2011 20:39:54 -0700
+  :Message:  [[message://CAKs9TOLTHt3gDkgr0dAaPz_btXWtmOzAwXe4=dHO=ObQH6AnLg@mail.gmail.com][{DOCS} Arguments to the payees and accounts commands]]
+  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+  :END:
 ** INVALID [#A] [[bug:463][#463]] Question about commodity sub-total vs. total in balance
    - State "INVALID"    from "TODO"       [2011-06-20 Mon 00:23] \\
      I cannot see why the reporter thinks there is a bug here.
@@ -8250,6 +8260,28 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       D964682A-2B95-482F-B7FE-BAEE3E2E2AA8
    :CREATED:  [2008-04-11 Fri]
    :END:
+** DUPLICATE ~/.ledgerrc not being consulted
+   - State "DUPLICATE"  from "TODO"       [2009-10-27 Tue 21:58] \\
+     This is being caused by [[id:71FE0FAB-622D-403C-A944-C7541948AFFF]].
+   :OUTPUT:
+   % git log -1
+   commit <a href="/jwiegley/ledger/commit/f35bc939c96c3a3bf09c5881d638b5ba60449c03">f35bc93</a>
+   Author: John Wiegley <johnw@newartisans.com>
+   Date:   Sun Oct 11 14:07:55 2009 -0400
+
+       Added a note about "acprep update" to README
+   % more ~/.ledgerrc
+   --date-format %Y/%m/%d
+   % ./ledger reg -p this grocer | head -1
+   09-Oct-02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
+   % ./ledger reg --date-format %Y/%m/%d -p this grocer | head -1
+   2009/10/02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
+   :END:
+   :PROPERTIES:
+   :ID:       863A769C-E97C-4CA6-B89F-B72C47F07543
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/4
+   :CREATED:  [2009-10-26 Mon 21:29]
+   :END:
 ** DUPLICATE [[bug:229][#229]] Have a primary directive
    - State "DUPLICATE"  from "TODO"       [2010-06-04 Fri 06:16] \\
      Duplicate of #217.
@@ -8279,27 +8311,15 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       28BD75AE-219C-4DF5-9D19-E7774BFC8DED
    :CREATED:  [2009-10-23 Fri 06:12]
    :END:
-** DUPLICATE ~/.ledgerrc not being consulted
-   - State "DUPLICATE"  from "TODO"       [2009-10-27 Tue 21:58] \\
-     This is being caused by [[id:71FE0FAB-622D-403C-A944-C7541948AFFF]].
-   :OUTPUT:
-   % git log -1
-   commit <a href="/jwiegley/ledger/commit/f35bc939c96c3a3bf09c5881d638b5ba60449c03">f35bc93</a>
-   Author: John Wiegley <johnw@newartisans.com>
-   Date:   Sun Oct 11 14:07:55 2009 -0400
-
-       Added a note about "acprep update" to README
-   % more ~/.ledgerrc
-   --date-format %Y/%m/%d
-   % ./ledger reg -p this grocer | head -1
-   09-Oct-02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
-   % ./ledger reg --date-format %Y/%m/%d -p this grocer | head -1
-   2009/10/02 Kroger               Expenses:Food:Groceries      $ 38.63      $ 38.63
-   :END:
+** DUPLICATE [[bug:581][#581]] Port GnuCash support to 3.0
+- State "DUPLICATE"  from "TODO"       [2011-10-24 Mon 15:26] \\
+  Duplicates 182.
    :PROPERTIES:
-   :ID:       863A769C-E97C-4CA6-B89F-B72C47F07543
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/4
-   :CREATED:  [2009-10-26 Mon 21:29]
+   :ID:       54F5239D-65D6-431B-A4AD-27B57FE6B149
+   :CREATED:  [2011-07-21 Thu 15:26]
+   :Date:     Thu, 21 Jul 2011 09:17:53 -0700
+   :Message:  [[message://jwiegley/ledger/issues/30@github.com][{ledger} GnuCash support? (#30)]]
+   :Submitter: peti <reply+i-1264193-264a927819dca1fe83fc7c5b9a987fbdac22d9f7@reply.github.com>
    :END:
 * Python
 ** DONE Add expr_t(string) and expr_t::operator() for ease of use from Python
