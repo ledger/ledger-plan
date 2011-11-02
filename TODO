@@ -51,110 +51,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://28CCC239-ACE4-40E5-A95C-81460729C966@mac.com][ledger make check failure report...]]
    :Submitter: Douglas Philips <dgou@mac.com>
    :END:
-** TODO [[bug:584][#584]] Trailing white space is not ignored in payee names
-  :PROPERTIES:
-  :ID:       C9D593B3-6263-494E-AF38-6D48BE109C63
-  :CREATED:  [2011-10-21 Fri 00:52]
-  :Date:     Thu, 20 Oct 2011 05:03:39 +0000
-  :Message:  [[message://bug-584-1@http.bugs.ledger-cli.org/][{Bug 584} New: Trailing white space is not ignored in payee names]]
-  :Submitter: bugzilla-daemon@mail.johnwiegley.com
-  :END:
-** TODO [[bug:588][#588]] 'getquote' only queries one commodity at a time, which can be slow
-  :PROPERTIES:
-  :ID:       D367EB64-B542-49C3-958B-C099E3291361
-  :CREATED:  [2011-10-18 Tue 02:42]
-  :Date:     Mon, 17 Oct 2011 16:29:53 -0700
-  :Message:  [[message://CAKs9TOKgBfCwS+gDt78f39SBGou6waPqaF79wK4p-bFwex28Dg@mail.gmail.com][Re: 'getquote' responsibilities]]
-  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-  :END:
-** TODO [[bug:587][#587]] ledger --anon print regex fails
-Using 24d6619a52 (recent origin/next):
-
-Output from 
-#+begin_src sh
-$ ledger --anon print asx 
-#+end_src
-produces a file that doesn't balance (most transactions have only one account
-line).  See below for an example.
-
-Also, can you get this mode to also print out pricing info (P lines), with
-commodities suitably anonymised of course?
-
-I have a bug to report that is dependent on the included prices, so it would
-be nice to be able to easily report this in suitably anonymous form.
-
-#+begin_src ledger
-2010/04/04 * ce80e1d8
-    4c56e22c:ffa2eb05:3cd29cb0:54187da5       1142 A
-
-2010/04/04 * a6af6b86
-    a2ab19c2:a61f2fdf:3e112853:5ca7144b        155 B @ C32.27
-
-2010/04/04 * 5b210ea7
-    83c7b8b9:306dcb9c:b1703f6b:2df07fdc        450 D @ C11.30
-
-2010/04/04 * 1292cf1c
-    aceeecab:6831267b:97503fd9:da7e2834        250 E @ C20.30
-
-2010/04/04 * 277aed6b
-    273a85a6:a43d6c12:f4e329ea:8bfbfa5c:bdd039b2       C6.79
-
-2010/04/04 * 2ca15c6a
-    9649be03:bf8c0d59:2544d251:f58fb6fa         11 F
-
-2010/04/04 * d3622969
-    05ef8415:2647caab:ab0a7fe2:e5c02402       1700 G @ C2.97
-
-2010/05/18=2010/05/21 * a67b13c6
-    ed1c01b4:5d2ccb92:bd4a343d:cb0df7f2        200 H @ C27.19
-
-2010/07/02 * b54b0e38
-    440fb1c4:973d920a:3367793e:4c656b96          6 I @ C22.64
-    2a419ca0:45a18c24:3a7851e8:87f1487f:40df29e3
-
-2010/10/15 * bc1f024f
-    2a580f0d:8a12ecf0:6da144e1:9ba590d4          2 J @ C29.23
-    9ab62257:a5962488:da55f7fa:430026f6:3d915197       C3.54
-
-2010/12/20 * 7e8ecf2b
-    8e1f36b1:77cd4b0c:690330fc:4aa25a1d          7 K @ C21.57
-    d939ffc2:536a1935:3c6ad6b0:5d3f8004:4f8d78cf
-
-2011/04/20 * 976ef9b9
-    71d3bd54:f1ada5f2:60aab10b:0928961b         60 L @ C81.90
-
-2011/04/29 * 10a331bb
-    1b5554c1:4797d976:240a9f6e:e7e064db          2 M @ C26.885
-    d6f119d4:468c1c83:595a0afd:04c0d9a0:693dd2d4       C4.37
-
-2011/05/10 * d7fd2ea6
-    b21ebdf6:4f0208a8:1d515d0a:dc39cfcc        780 N @ C6.33
-
-2011/05/10 * bb93b8c7
-    d8287474:298d1128:c3af6113:eaf430fc        210 O @ C23.36
-
-2011/07/04 * de028b78
-    648d6bf7:ba62d49e:adbea0cf:7bb5a5c3          8 P @ C21.78
-    a780b5d3:7250b0c2:2c6e5566:3b89e252:ea78592b      C-4.00
-
-2011/08/04 * 92dd1a28
-    e077926e:b93ecd2b:98b240bd:c151d8a0        325 Q @ C15.21
-#+end_src
-:PROPERTIES:
-:ID:       1A83FBAE-C015-43E2-B748-97D8A8D12231
-:CREATED:  [2011-10-17 Mon 18:24]
-:Date:     Mon, 17 Oct 2011 16:52:07 +1100
-:Message:  [[message://4E9BC287.1020803@gmail.com][ledger --anon print regex fails]]
-:Submitter: Michael Norrish <michael.norrish-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO [[bug:583][#583]] --monthly prices report SUM rather than average or end of month price
-  :PROPERTIES:
-  :ID:       49CA1DB2-060D-418D-BE28-0A6A01966F18
-  :CREATED:  [2011-10-17 Mon 18:30]
-  :Date:     Mon, 17 Oct 2011 20:14:22 +0000
-  :Message:  [[message://bug-583-1@http.bugs.ledger-cli.org/][{Bug 583} New: --monthly prices report SUM rather than average or end of month price]]
-  :Submitter: bugzilla-daemon@mail.johnwiegley.com
-  :END:
 ** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
    - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
      Thierry confirms this still happens for him.
@@ -198,7 +94,39 @@ be nice to be able to easily report this in suitably anonymous form.
    :CREATED:  [2010-06-22 Tue 18:44]
    :END:
 ** TODO [[bug:370][#370]] Let time periods use "starting" to fix the exact start date
-SCHEDULED: <2011-10-24 Mon>
+- Note taken on [2011-11-01 Tue 10:04] \\
+  I tried "every 14 days" as suggested.  The results are a little better,
+  but there still seems to be something off.  I tried the following
+  command:
+  
+  :OUTPUT:
+  $ ledger period every 14 days from 2011/10/03
+  --- Period expression tokens ---
+  TOK_EVERY: every
+  TOK_INT: 14
+  TOK_DAYS: days
+  TOK_SINCE: since
+  TOK_DATE:  year 2011 month Oct day 3
+  END_REACHED: <EOF>
+  
+  --- Before stabilization ---
+     range: from year 2011 month Oct day 3
+  duration: 14 days
+  
+  --- After stabilization ---
+     range: from year 2011 month Oct day 3
+     start: 11-Oct-03
+  duration: 14 days
+  
+  --- Sample dates in range (max. 20) ---
+   1: 11-Oct-03 -- 11-Oct-08
+   2: 11-Oct-09 -- 11-Oct-22
+   3: 11-Oct-23 -- 11-Nov-05
+   4: 11-Nov-06 -- 11-Nov-19
+  :END:
+  
+  I tried for other start dates in october and it looks like the first
+  period is always 6 days.
    This issue is related to #342.  Consider this entry:
    #+begin_src ledger
    ~ Biweekly from 2010/02/23
@@ -2288,6 +2216,187 @@ SCHEDULED: <2011-10-24 Mon>
    :Message:  [[message://jwiegley/ledger/issues/35@github.com][{ledger} Error in automated virtual postings with multiple commodities (#35)]]
    :Submitter: richardcooper <reply+i-1339989-90be759f0f0510a9fe33caba8e36a0b8e6a5c288@reply.github.com>
    :END:
+** TODO [[bug:583][#583]] --monthly prices report SUM rather than average or end of month price
+  :PROPERTIES:
+  :ID:       49CA1DB2-060D-418D-BE28-0A6A01966F18
+  :CREATED:  [2011-10-17 Mon 18:30]
+  :Date:     Mon, 17 Oct 2011 20:14:22 +0000
+  :Message:  [[message://bug-583-1@http.bugs.ledger-cli.org/][{Bug 583} New: --monthly prices report SUM rather than average or end of month price]]
+  :Submitter: bugzilla-daemon@mail.johnwiegley.com
+  :END:
+** TODO [[bug:584][#584]] Trailing white space is not ignored in payee names
+  :PROPERTIES:
+  :ID:       C9D593B3-6263-494E-AF38-6D48BE109C63
+  :CREATED:  [2011-10-21 Fri 00:52]
+  :Date:     Thu, 20 Oct 2011 05:03:39 +0000
+  :Message:  [[message://bug-584-1@http.bugs.ledger-cli.org/][{Bug 584} New: Trailing white space is not ignored in payee names]]
+  :Submitter: bugzilla-daemon@mail.johnwiegley.com
+  :END:
+** TODO [[bug:587][#587]] ledger --anon print regex fails
+Using 24d6619a52 (recent origin/next):
+
+Output from 
+#+begin_src sh
+$ ledger --anon print asx 
+#+end_src
+produces a file that doesn't balance (most transactions have only one account
+line).  See below for an example.
+
+Also, can you get this mode to also print out pricing info (P lines), with
+commodities suitably anonymised of course?
+
+I have a bug to report that is dependent on the included prices, so it would
+be nice to be able to easily report this in suitably anonymous form.
+
+#+begin_src ledger
+2010/04/04 * ce80e1d8
+    4c56e22c:ffa2eb05:3cd29cb0:54187da5       1142 A
+
+2010/04/04 * a6af6b86
+    a2ab19c2:a61f2fdf:3e112853:5ca7144b        155 B @ C32.27
+
+2010/04/04 * 5b210ea7
+    83c7b8b9:306dcb9c:b1703f6b:2df07fdc        450 D @ C11.30
+
+2010/04/04 * 1292cf1c
+    aceeecab:6831267b:97503fd9:da7e2834        250 E @ C20.30
+
+2010/04/04 * 277aed6b
+    273a85a6:a43d6c12:f4e329ea:8bfbfa5c:bdd039b2       C6.79
+
+2010/04/04 * 2ca15c6a
+    9649be03:bf8c0d59:2544d251:f58fb6fa         11 F
+
+2010/04/04 * d3622969
+    05ef8415:2647caab:ab0a7fe2:e5c02402       1700 G @ C2.97
+
+2010/05/18=2010/05/21 * a67b13c6
+    ed1c01b4:5d2ccb92:bd4a343d:cb0df7f2        200 H @ C27.19
+
+2010/07/02 * b54b0e38
+    440fb1c4:973d920a:3367793e:4c656b96          6 I @ C22.64
+    2a419ca0:45a18c24:3a7851e8:87f1487f:40df29e3
+
+2010/10/15 * bc1f024f
+    2a580f0d:8a12ecf0:6da144e1:9ba590d4          2 J @ C29.23
+    9ab62257:a5962488:da55f7fa:430026f6:3d915197       C3.54
+
+2010/12/20 * 7e8ecf2b
+    8e1f36b1:77cd4b0c:690330fc:4aa25a1d          7 K @ C21.57
+    d939ffc2:536a1935:3c6ad6b0:5d3f8004:4f8d78cf
+
+2011/04/20 * 976ef9b9
+    71d3bd54:f1ada5f2:60aab10b:0928961b         60 L @ C81.90
+
+2011/04/29 * 10a331bb
+    1b5554c1:4797d976:240a9f6e:e7e064db          2 M @ C26.885
+    d6f119d4:468c1c83:595a0afd:04c0d9a0:693dd2d4       C4.37
+
+2011/05/10 * d7fd2ea6
+    b21ebdf6:4f0208a8:1d515d0a:dc39cfcc        780 N @ C6.33
+
+2011/05/10 * bb93b8c7
+    d8287474:298d1128:c3af6113:eaf430fc        210 O @ C23.36
+
+2011/07/04 * de028b78
+    648d6bf7:ba62d49e:adbea0cf:7bb5a5c3          8 P @ C21.78
+    a780b5d3:7250b0c2:2c6e5566:3b89e252:ea78592b      C-4.00
+
+2011/08/04 * 92dd1a28
+    e077926e:b93ecd2b:98b240bd:c151d8a0        325 Q @ C15.21
+#+end_src
+:PROPERTIES:
+:ID:       1A83FBAE-C015-43E2-B748-97D8A8D12231
+:CREATED:  [2011-10-17 Mon 18:24]
+:Date:     Mon, 17 Oct 2011 16:52:07 +1100
+:Message:  [[message://4E9BC287.1020803@gmail.com][ledger --anon print regex fails]]
+:Submitter: Michael Norrish <michael.norrish-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:588][#588]] 'getquote' only queries one commodity at a time, which can be slow
+  :PROPERTIES:
+  :ID:       D367EB64-B542-49C3-958B-C099E3291361
+  :CREATED:  [2011-10-18 Tue 02:42]
+  :Date:     Mon, 17 Oct 2011 16:29:53 -0700
+  :Message:  [[message://CAKs9TOKgBfCwS+gDt78f39SBGou6waPqaF79wK4p-bFwex28Dg@mail.gmail.com][Re: 'getquote' responsibilities]]
+  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+  :END:
+** TODO [[bug:590][#590]] Budget entry is applied only once if xacts are in reverse order
+I have a single monthly budget entry and I can't get it to work correctly. Here is the command and the output:
+:OUTPUT:
+$ ledger -f budget_test.txt --budget reg ^income
+2011/10/01 Budget entry         Income:Salary                  $500         $500
+2011/10/04 Work                 Income:Salary                 $-500            0
+2011/09/04 Work                 Income:Salary                 $-500        $-500
+2011/08/04 Work                 Income:Salary                 $-500       $-1000
+2011/07/04 Work                 Income:Salary                 $-500       $-1500
+:END:
+
+I am using the file below:
+#+begin_src ledger
+~ Monthly
+    Assets:Bank:Checking                                                 $500
+    Income:Salary
+
+2011/10/04 Work
+    Assets:Bank:Checking                                                 $500
+    Income:Salary
+
+2011/09/04 Work
+    Assets:Bank:Checking                                                 $500
+    Income:Salary
+
+2011/08/04 Work
+    Assets:Bank:Checking                                                 $500
+    Income:Salary
+
+2011/07/04 Work
+    Assets:Bank:Checking                                                 $500
+    Income:Salary
+#+end_src
+
+I expect it to output something like this:
+:OUTPUT:
+$ ledger -f budget_test.txt --budget reg ^income
+2011/10/01 Budget entry         Income:Salary                  $500         $500
+2011/10/04 Work                 Income:Salary                 $-500            0
+2011/09/01 Budget entry         Income:Salary                  $500         $500
+2011/09/04 Work                 Income:Salary                 $-500           $0
+2011/08/01 Budget entry         Income:Salary                  $500         $500
+2011/08/04 Work                 Income:Salary                 $-500           $0
+2011/07/01 Budget entry         Income:Salary                  $500         $500
+2011/07/04 Work                 Income:Salary                 $-500           $0
+:END:
+  :PROPERTIES:
+  :ID:       5E54B30B-5E92-40A8-A4B0-D015F3BAAA87
+  :CREATED:  [2011-10-24 Mon 19:06]
+  :Date:     Mon, 24 Oct 2011 16:54:22 -0700
+  :Message:  [[message://jwiegley/ledger/issues/42/2511217@github.com][Re: {ledger} Budget entry is applied only once (#42)]]
+  :Submitter: Atamert Ölçgen <reply+i-2040004-d712a429bf511af30213a3c11f67e893d9505cf0@reply.github.com>
+  :END:
+** TODO [[bug:591][#591]] Future forecast events aren't shown in forecast
+  :PROPERTIES:
+  :ID:       8794BC3F-A3EE-41B7-BAB8-421E03B16521
+  :CREATED:  [2011-11-01 Tue 21:58]
+  :Date:     Wed, 02 Nov 2011 02:40:34 +0000
+  :Message:  [[message://bug-591-1@http.bugs.ledger-cli.org/][{Bug 591} New: future Forecast events aren't shown in forecast]]
+  :Submitter: bugzilla-daemon@mail.johnwiegley.com
+  :END:
+** TODO [[bug:592][#592]] 'print' command does not handle multiple spaces in the payee
+  :PROPERTIES:
+  :ID:       EC6FCE89-CFFD-4EC0-9882-1D2F0F94C2DD
+  :CREATED:  [2011-11-01 Tue 10:06]
+  :Date:     Thu, 27 Oct 2011 20:18:21 -0700
+  :Message:  [[message://jwiegley/ledger/issues/44@github.com][{ledger} print command does not handle multiple spaces in the payee]]
+  :Submitter: Peter Ross <reply+i-2075303-b72936dde164d8d4ce9bb65f0ae35544d621b8a8@reply.github.com>
+  :END:
+** TODO [[bug:593][#593]] XML reports should output a <fullname> tag
+  :PROPERTIES:
+  :ID:       6FE4EB4E-0780-4F54-9AB6-B091020A8C6E
+  :CREATED:  [2011-11-01 Tue 10:31]
+  :Date:     Thu, 27 Oct 2011 14:03:23 -0600
+  :Message:  [[message://CAMfPF2cESuukGfGUOLusrV65=OOaPrpNVLZkutvDpk6_xhuO4w@mail.gmail.com][Re: Having Problems With XML]]
+  :Submitter: Ryan May <ryan-wTxsuUSx66j3fQ9qLvQP4Q@public.gmane.org>
+  :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
    ${AMT} is the same as $(scrub(AMT))
@@ -3260,16 +3369,6 @@ SCHEDULED: <2011-10-24 Mon>
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO [[bug:589][#589]] Add ability to control color output
-  The user should be able to indicate the RGB value used for "blue", for
-  example.
-  :PROPERTIES:
-  :ID:       340A8A87-A5E6-4E51-B327-280F27E3931A
-  :CREATED:  [2011-10-18 Tue 21:31]
-  :Date:     Tue, 18 Oct 2011 11:16:58 -0700
-  :Message:  [[message://CAKs9TOLAMJsrvRAbD0pgCiBAHXJ75OvHM9ZvEGQ2Py749f5ahA@mail.gmail.com][Controlling color output]]
-  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-  :END:
 ** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
    :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
@@ -3557,6 +3656,24 @@ SCHEDULED: <2011-10-24 Mon>
    :Message:  [[message://j6vt24$h0r$1@dough.gmane.org][Re: Comments that persist through "Print"]]
    :Submitter: Simon Michael <simon-jbxitMBJ2LLQT0dZR+AlfA@public.gmane.org>
    :END:
+** TODO [[bug:589][#589]] Add ability to control color output
+  The user should be able to indicate the RGB value used for "blue", for
+  example.
+  :PROPERTIES:
+  :ID:       340A8A87-A5E6-4E51-B327-280F27E3931A
+  :CREATED:  [2011-10-18 Tue 21:31]
+  :Date:     Tue, 18 Oct 2011 11:16:58 -0700
+  :Message:  [[message://CAKs9TOLAMJsrvRAbD0pgCiBAHXJ75OvHM9ZvEGQ2Py749f5ahA@mail.gmail.com][Controlling color output]]
+  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+  :END:
+** TODO [[bug:595][#595]] Add a value expression function to round non-commoditized amounts
+  :PROPERTIES:
+  :ID:       E4757F31-F20B-40F4-B53C-CE4CA1257849
+  :CREATED:  [2011-11-02 Wed 12:34]
+  :Date:     Wed, 2 Nov 2011 06:16:01 -0700
+  :Message:  [[message://CAKs9TOJ_AL1uXfUVUTU6wUAY6juw=yVw8Ghiir+f+6zq_bm0GA@mail.gmail.com][Re: Controlling the precision displayed in amounts]]
+  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+  :END:
 ** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
@@ -4240,16 +4357,6 @@ SCHEDULED: <2011-10-24 Mon>
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [[bug:586][#586]] Improve build error for users without MacPorts or Fink
-  "./acprep dependencies" only works if you have MacPorts installed. If you
-  have Fink installed rather than MacPorts then it reports an error, but if
-  you have neither then it silently does nothing. This silence led me to this
-  that it had there were were no unresolved dependencies.
-  :PROPERTIES:
-  :ID:       AE5942B2-1622-42A3-B554-1C5E2BA3A1B1
-  :CREATED:  [2011-10-24 Mon 15:33]
-  :URL:      https://github.com/jwiegley/ledger/issues/33
-  :END:
 ** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
    :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
@@ -4278,6 +4385,24 @@ SCHEDULED: <2011-10-24 Mon>
    :ID:       BD6B88C1-1312-4DEB-B63F-B679F01807BE
    :CREATED:  [2011-08-23 Tue 13:24]
    :END:
+** TODO [[bug:586][#586]] Improve build error for users without MacPorts or Fink
+  "./acprep dependencies" only works if you have MacPorts installed. If you
+  have Fink installed rather than MacPorts then it reports an error, but if
+  you have neither then it silently does nothing. This silence led me to this
+  that it had there were were no unresolved dependencies.
+  :PROPERTIES:
+  :ID:       AE5942B2-1622-42A3-B554-1C5E2BA3A1B1
+  :CREATED:  [2011-10-24 Mon 15:33]
+  :URL:      https://github.com/jwiegley/ledger/issues/33
+  :END:
+** TODO [[bug:594][#594]] ExprTests fail if --decimal-comma is specified in ~/.ledgerrc
+  :PROPERTIES:
+  :ID:       B89723B6-203F-4746-8B16-299FB5480659
+  :CREATED:  [2011-11-01 Tue 10:30]
+  :Date:     Mon, 31 Oct 2011 20:03:45 +0100
+  :Message:  [[message://CA+R89YLLmnr2iYxCnmsjkwNwf8dSv1zHaE6s3xHGxJnEWzC1UQ@mail.gmail.com][{ledger bug} ExprTests failed]]
+  :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+  :END:
 ** TODO [#C] [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
@@ -4643,14 +4768,6 @@ SCHEDULED: <2011-10-24 Mon>
    :Message:  [[message://1024645.103.1301786635133.JavaMail.geo-discussion-forums@prfx36][Depreciate assets (cars, equipment, buildings, etc) and push them into the ledger file on a schedule]]
    :Submitter: tazz_ben <ben@wbpsystems.com>
    :END:
-** TODO [#C] What is the actual "--print-format" used in 2.6?
-   :PROPERTIES:
-   :ID:       6C40879B-677C-4CA3-ADD2-6FFB599A5E70
-   :CREATED:  [2011-07-01 Fri 17:27]
-   :Date:     Fri, 1 Jul 2011 08:58:50 -0700 (PDT)
-   :Message:  [[message://58efe2d2-f25b-4e8c-a01c-8a914c1578f0@gh5g2000vbb.googlegroups.com][What is the actual "--print-format" used in 2.6?]]
-   :Submitter: markscottwright <markscottwright@gmail.com>
-   :END:
 ** TODO [#C] [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
@@ -4833,15 +4950,6 @@ SCHEDULED: <2011-10-24 Mon>
    :Submitter: Karen Sandler <karen@softwarefreedom.org>
    :CREATED:  [2009-12-17 Thu 02:44]
    :END:
-** DEFERRED Improve download/install instructions for the Mac (#32)
-    - State "DEFERRED"   from "TODO"       [2011-08-18 Thu 13:15]
-   :PROPERTIES:
-   :ID:       2BB63C6F-90D0-4433-8308-80A9D201D880
-   :CREATED:  [2011-07-25 Mon 00:55]
-   :Date:     Sun, 24 Jul 2011 10:21:51 -0700
-   :Message:  [[message://jwiegley/ledger/issues/32@github.com][{ledger} Improve download/install instructions for the Mac (#32)]]
-   :Submitter: richardcooper <reply+i-1278078-1be2b9ab93ac7c481fd66bb7244f2447690518e1@reply.github.com>
-   :END:
 ** DEFERRED [[bug:193][#193]] Useful links from the mailing list
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
    Since I'm new to ledger and accounting, I went through the mailing list
@@ -4938,6 +5046,15 @@ SCHEDULED: <2011-10-24 Mon>
    :Version:  2.6
    :Ticket:   174
    :ID:       F7A6A833-5AC6-4ED0-A5EA-93CD6B97EEBF
+   :END:
+** DEFERRED [[bug:596][#596]] Improve download/install instructions for the Mac
+    - State "DEFERRED"   from "TODO"       [2011-08-18 Thu 13:15]
+   :PROPERTIES:
+   :ID:       2BB63C6F-90D0-4433-8308-80A9D201D880
+   :CREATED:  [2011-07-25 Mon 00:55]
+   :Date:     Sun, 24 Jul 2011 10:21:51 -0700
+   :Message:  [[message://jwiegley/ledger/issues/32@github.com][{ledger} Improve download/install instructions for the Mac (#32)]]
+   :Submitter: richardcooper <reply+i-1278078-1be2b9ab93ac7c481fd66bb7244f2447690518e1@reply.github.com>
    :END:
 ** NOTE Questions on Ledger
    - Did you use a separate ledger for this trip, or were your entries in the
