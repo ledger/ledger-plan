@@ -1193,6 +1193,11 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://CAKs9TOJUwJbT7wrUXfJQU8QJ11fvniobCyZEAqdSECtg8Kg8mg@mail.gmail.com][Re: Are automatic transactions working in the latest 3.0.0]]
    :Submitter: Craig Earls <enderw88@gmail.com>
    :END:
+** TODO [[bug:549][#549]] ledger-next-amount does not handle fixated commodity prices
+   :PROPERTIES:
+   :ID:       BDF9B99E-C9AB-40AA-9030-29A81B8B8B70
+   :CREATED:  [2011-11-02 Wed 12:59]
+   :END:
 ** TODO [[bug:550][#550]] Trailing white space is not ignored in tag vales
    :PROPERTIES:
    :ID:       AEDE9734-7FAA-4F02-9110-36C0CAF03D12
