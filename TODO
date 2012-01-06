@@ -8,296 +8,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 #+LINK: bug http://bugs.ledger-cli.org/show_bug.cgi?id=
 #+CATEGORY: Ledger
 
-* Inbox
-** DONE (Craig) Question about new parser
-  SCHEDULED: <2011-11-10 Thu>
-  - State "DONE"       from "TODO"       [2011-11-10 Thu 17:32]
-  :PROPERTIES:
-  :ID:       FDFB690E-0072-4A4D-831D-7CD51A9A1378
-  :CREATED:  [2011-11-10 Thu 14:27]
-  :Date:     Wed, 9 Nov 2011 15:58:26 -0700
-  :Message:  [[message://CAKs9TOL96MwFdMZGFL0CcidoXKhByQ3RqnW3g7uWfy20n9pTow@mail.gmail.com][Question about new parser]]
-  :Submitter: Craig Earls <enderw88@gmail.com>
-  :END:
-** DONE Unbound local variable 'package' in ./acprep dependencies script
-SCHEDULED: <2011-12-21 Wed>
-- State "DONE"       from "TODO"       [2011-12-21 Wed 17:40]
-:PROPERTIES:
-:ID:       95057FE2-99CC-47F5-96B7-3BB314C89CDA
-:CREATED:  [2011-12-21 Wed 17:13]
-:Date: Wed, 21 Dec 2011 14:43:30 -0800
-:Message: [[message://jwiegley/ledger/issues/50@github.com][{ledger} unbound local variable 'package' in ./acprep dependencies script (#50)]]
-:Submitter: Dominic Tarr <reply+i-2630652-e80c61cf818badfb94fcd02537c1fbbc10349176-8460@reply.github.com>
-:END:
-** DONE [[bug:193][#193]] Useful links from the mailing list
-- State "DONE"       from "DEFERRED"   [2011-11-18 Fri 20:01]
-   - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
-   Since I'm new to ledger and accounting, I went through the mailing list
-   archives to look for useful examples and questions.  Here is a list of
-   threads that I found useful.  Maybe this will save someone the time to look
-   through the whole mailing list archive. (John, maybe you can add a link to
-   the web site.)
-
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/43a25dcafc0f31d7#][Billing]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/312f41276af412ed#][how to show credit card liability when initializing ledger Options]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/980e8f4540fc71a2#][actual date, effective date]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/c8b2ce3206878c15#][debit and credit accounts, & reporting]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/5954cd1801b8256a#][example balance sheet report]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/94136141ff10aab1#][simple ledger data entry question Options]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/515ffdf8edd2bc9d#][mileage]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/baf6312d124b1f0b#][Ledger Invoicing]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/65964a4ad3bfb184#][Pre-Paid Cards]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/31d8a10a6c4f18af#][New metadata/note syntax]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/58c402a82b8dc53a#][HTML Plotting Utility]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/5d789daf21ac7865#][html reporting for ledger]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/5bac3df2a0a3a087#][More metadata goodness]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/34d9a40607384e2a#][stocks]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/81f59f2a3e8ac382#][Opening balance for an income or expense account?]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/e98bee73e279b3af#][New feature today: Fixated commodity prices]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/b64f474414ac4f7e#][reporting scripts]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/0c674c77302391d8#][What is the relative account of Expenses:Tax]]
-   - [[http://groups.google.com/group/ledger-cli/browse_thread/thread/fe5919f35b93a6d9#][numbers in commodity name]]
-   :PROPERTIES:
-   :ID:       5EBF9B2F-CE06-4C15-8B54-BB4E524ADC26
-   :Message:  [[message://20100410170831.GA24387@jirafa.cyrius.com][Useful links from the mailing list]]
-   :Submitter: Martin Michlmayr <tbm@cyrius.com>
-   :CREATED:  [2010-04-11 Sun 03:55]
-   :END:
-** DONE [[bug:501][#501]] Confusion about a few things
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :PROPERTIES:
-   :ID:       82247D07-82CD-4575-A097-08E0C4E12509
-   :CREATED:  [2011-03-16 Wed 16:38]
-   :Message:  [[message://81e9d804-5fd1-42ee-b228-fb87a4b01a80@y3g2000vbh.googlegroups.com][Re: Confusion about a few things]]
-   :Submitter: "J.L. Reid" <jlr1001@gmail.com>
-   :Date:     Sun, 13 Mar 2011 20:19:18 -0700 (PDT)
-   :END:
-** DONE [[bug:548][#548]] Are automatic transactions working in the latest 3.0.0
-- State "DONE"       from "TODO"       [2011-11-22 Tue 23:44]
-   :PROPERTIES:
-   :ID:       B829263B-F16F-47AC-B8CD-0DEE953F8B9E
-   :CREATED:  [2011-07-31 Sun 10:26]
-   :Date:     Sun, 31 Jul 2011 06:40:30 -0700
-   :Message:  [[message://CAKs9TOJUwJbT7wrUXfJQU8QJ11fvniobCyZEAqdSECtg8Kg8mg@mail.gmail.com][Re: Are automatic transactions working in the latest 3.0.0]]
-   :Submitter: Craig Earls <enderw88@gmail.com>
-   :END:
-** DONE [[bug:552][#552]] Missing ')' error in automated transactions with valexpr predicate
-SCHEDULED: <2011-11-10 Thu>
-- State "DONE"       from "TODO"       [2011-11-10 Thu 17:31]
-- State "TODO"       from "DONE"       [2011-11-10 Thu 14:26]
-- State "DONE"       from "TODO"       [2011-11-10 Thu 01:36]
-   :PROPERTIES:
-   :ID:       03323540-3372-4E2F-8CD0-A5CDB55E2D07
-   :CREATED:  [2011-10-01 Sat 16:37]
-   :Date:     Sat, 01 Oct 2011 17:40:58 +0000
-   :Message:  [[message://bug-552-1@http.bugs.ledger-cli.org/][{Bug 552} New: Missing ')' error in automated transactions with value expression predicate]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
-** DONE [[bug:555][#555]] ledger stats reports days per posting, not postings per day
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :PROPERTIES:
-   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
-   :CREATED:  [2011-10-10 Mon 15:02]
-   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
-   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
-** DONE [[bug:557][#557]] Missing ')' in posting value expression does NOT cause an error
-SCHEDULED: <2011-11-09 Wed>
-- State "DONE"       from "TODO"       [2011-11-10 Thu 01:36]
-   :PROPERTIES:
-   :ID:       0F6A8043-AB78-451B-95F2-80F58095B7E8
-   :CREATED:  [2011-10-14 Fri 02:48]
-   :Date:     Fri, 14 Oct 2011 05:14:46 +0000
-   :Message:  [[message://bug-557-1@http.bugs.ledger-cli.org/][{Bug 557} New: Missing ")" in posting value expression does NOT cause an error.]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
-** DONE [[bug:569][#569]] Problem in ledger3.texi
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :OUTPUT:
-   ledger3.texi:196: Misplaced {.
-   ledger3.texi:196: Misplaced }.
-   ledger3.texi:102: Cross reference to nonexistent node `Principles of accounting' (perhaps incorrect sectioning?).
-   ledger3.texi:82: Cross reference to nonexistent node `Keeping a journal' (perhaps incorrect sectioning?).
-   :END:
-   :PROPERTIES:
-   :ID:       2274E886-AB1E-4FD7-B298-A8D71311E0B6
-   :CREATED:  [2011-10-13 Thu 15:38]
-   :Date:     Tue, 11 Oct 2011 13:53:21 -0700
-   :Message:  [[message://301CD0BF-228A-4DEC-9C94-9411889896B7@joyful.com][Fwd: Cron <simon@joyful>  cd /repos/ledger;         git pull -q && cd doc && make --quiet]]
-   :Submitter: Simon Michael <simon@joyful.com>
-   :END:
-** DONE [[bug:570][#570]] Add warning to docs about whitespace in ledger format
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   Ledger won't accept a ledger without at least two spaces between the
-   account name and value.  This adds a warning about it in the File format
-   section of the docs.
-   
-   When you edit or view the docs in your editor the monospace display makes
-   it easy to see the two space requirement.  I was viewing the HTML version
-   of the docs in my browser and missed the subtle distinction.  This gave me
-   quite a bit of pain trying to hunt down the source of the problem.  This
-   patch was entirely motivated by the problems I had trying to get my ledger
-   up and off the ground.
-   :PROPERTIES:
-   :ID:       A8037486-3EBB-4F3B-A720-9A0F6BFDF6F2
-   :CREATED:  [2011-09-01 Thu 19:56]
-   :Date:     Thu, 1 Sep 2011 15:40:10 -0700
-   :Message:  [[message://jwiegley/ledger/pull/38@github.com][{ledger} Add warning to docs about whitespace in ledger format. ]]
-   :Submitter: dgilman <reply+i-1546723-a9cdb41421bafec77dd1c029b11e110838cce71d@reply.github.com>
-   :END:
-** DONE [[bug:571][#571]] List differences 2.6.3->3.0.0
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :PROPERTIES:
-   :ID:       3D486775-60A8-4A90-B2A2-453F680F67C7
-   :CREATED:  [2011-08-19 Fri 19:27]
-   :Date:     Thu, 18 Aug 2011 18:44:50 +0100
-   :Message:  [[message://20045.20370.231763.36820@dk.dks.ie][Differences 2.6.3->3.0.0]]
-   :Submitter: "David Keegan" <dksw@eircom.net>
-   :END:
-** DONE [[bug:582][#582]] Problems with account name completion
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   I see TAB is bound to 'pcomplete in ledger.el. Sometimes I can get it to
-   cycle through the top-level account name categories. Other times nothing
-   happens other than the apparently incomplete message "No completions of".
-   
-   What should I expect here? Is the feature documented?
-   :PROPERTIES:
-   :ID:       E17BCDD4-DEE0-47AC-A007-9C09D9B26D9D
-   :CREATED:  [2011-08-21 Sun 18:53]
-   :Date:     Sun, 21 Aug 2011 22:38:18 +0100
-   :Message:  [[message://20049.31434.956476.319847@dk.dks.ie][Account name completion.]]
-   :Submitter: "David Keegan" <dksw@eircom.net>
-   :END:
-** DONE [#C] [[bug:329][#329]] Suggestions for improving the documentation
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:01]
-   - I think it's great that there is such an elaborate manual, but the
-     structure is a bit unintuitive to learn from. May I suggest to move the
-     'keeping a ledger' section to the beginning, before 'running ledger'. Or
-     maybe shrink 'running ledger' to one page with the general explanation,
-     and move the details to the back in a 'command line options reference'
-     section. I understand that it's hard to combine a tutorial style manual
-     and a reference manual in one document; I have the same problem when
-     documenting my software. Having tutorial style in the front and reference
-     in the back seems to work OK for me, without requiring two document with
-     the problems that brings.
-   - Some real-world examples of complete commands, as collected from the
-     collective of ledger users, would be nice. Maybe this could be put in a
-     'tick and tricks' section.
-   - In this section, it would be nice if there was a section on Windows that
-     explains that the Windows cmd.exe can't show € symbols. That one cost me
-     20 minutes to figure out, after which I had to switch to EUR.
-   - It would also be nice if this section had a table with the names of
-     assests, equity, debts etc. in various languages/locales. At least a part
-     of ledger users don't have background in accounting I think, and as for
-     myself, despite having taken several accountancy/finance classes I still
-     need to look up the terms each time because I don't use them every day. I
-     would like to use the English terms but this is not feasible because I
-     may need to communicate my numbers with the local tax office, tax
-     advisors etc. later on, and they all only know and use the local
-     terms.
-   - Next step will be for me to document everything that is necessary to
-     build ledger: getting and building libraries, getting and building boost,
-     setting config options etc. It's rather challenging I image for anyone
-     who doesn't do this every day.
-   - The biggest issue I've run into is that syntax section isn't quite
-     complete.  In the copy I have, this file syntax in section 2.7 lacks the
-     $account keyword which is only mentioned deep in the text of section
-     3.10.
-   - As an addition to the tutorial documentation, it might be helpful to
-     solicit user contributed ledger files.  I'd be willing to contribute what
-     I'm using internally - I have a fairly complex customer payment
-     processing methodology that keeps track of account receivable, and
-     collected but undeposited payments.
-   :PROPERTIES:
-   :ID:       A68C8837-EB85-454B-A731-3B319D898697
-   :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
-   :Message:  [[message://AANLkTilNxUsD8glzKcEWW4fQ56uGF5GlPOmMWA1oPM3_@mail.gmail.com][Building Ledger with VS (was: Re: Help: How do I start?)]]
-   :CREATED:  [2010-06-11 Fri 17:29]
-   :END:
-** DONE [#C] [[bug:341][#341]] Document suggestions from Russell
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:01]
-   - I was completely unaware of ti and to --- nice little toy; a man page
-     comes to mind
-
-   - Could you add to the front cover page a 'last added to' datemark that
-     persists and is not auto-updated, si I can print and carry stuff around;
-     also it is missing a formal 'Copyright' and license summary page
-
-     It lays out OK for lulu to print it, in terms of production of the PDF
-     being 'press ready':
-     http://www.lulu.com/content/paperback-book/ledger-wip-doco/8971830
-
-   - The document 'just ends'; an index end section, and possibly an Appendix
-     to collate definitions would provide a more graceful ending
-
-     I would 'wordsmith' to the effect that a Journal of transactions is more
-     important than a ledger, as one is the document of entry (not original
-     entry, as there are receipts, etc, before transactions get journalized)
-     and the other is a more RO collation and organization of the journalled
-     data
-
-     A sample dataset, particularly showing off the gnuplot hook, and
-     cascading into the doco PDF would be cool
-
-   - I dont see any Python example code installed in the site-local -- did I
-     mess up?  Also I think splitting the headers out to a -devel sub-package
-     looks like a good idea. Looking, I see no Versioned .so names and a link
-     to an API level?  I need to locate and add the sample scripts refereeced
-
-     /usr/share/doc/ledger-0.0.20100615.git/doc/.dirstamp looks like it should
-     go and not be installed by me
-
-   - [herrold@centos-5 ~]$ rpm -ql ledger | grep -v h$
-     /usr/bin/ledger
-     /usr/lib64/libledger_data.la
-     /usr/lib64/libledger_expr.la
-     /usr/lib64/libledger_math.la
-     /usr/lib64/libledger_report.la
-     /usr/lib64/libledger_util.la
-     /usr/lib64/python2.4
-     /usr/lib64/python2.4/site-packages
-     /usr/share/doc/ledger-0.0.20100615.git
-     /usr/share/doc/ledger-0.0.20100615.git/LICENSE
-     /usr/share/doc/ledger-0.0.20100615.git/LICENSE-utfcpp
-     /usr/share/doc/ledger-0.0.20100615.git/NEWS
-     /usr/share/doc/ledger-0.0.20100615.git/README
-     /usr/share/doc/ledger-0.0.20100615.git/doc
-     /usr/share/doc/ledger-0.0.20100615.git/doc/.dirstamp
-     /usr/share/doc/ledger-0.0.20100615.git/doc/Doxyfile
-     /usr/share/doc/ledger-0.0.20100615.git/doc/INSTALL
-     /usr/share/doc/ledger-0.0.20100615.git/doc/LICENSE
-     /usr/share/doc/ledger-0.0.20100615.git/doc/LICENSE-sha1
-     /usr/share/doc/ledger-0.0.20100615.git/doc/LICENSE-utfcpp
-     /usr/share/doc/ledger-0.0.20100615.git/doc/NEWS
-     /usr/share/doc/ledger-0.0.20100615.git/doc/README
-     /usr/share/doc/ledger-0.0.20100615.git/doc/devel
-     /usr/share/doc/ledger-0.0.20100615.git/doc/devel/README-1ST
-     /usr/share/doc/ledger-0.0.20100615.git/doc/devel/README.textile
-     /usr/share/doc/ledger-0.0.20100615.git/doc/grammar.y
-     /usr/share/doc/ledger-0.0.20100615.git/doc/ledger.1
-     /usr/share/doc/ledger-0.0.20100615.git/doc/ledger.info
-     /usr/share/doc/ledger-0.0.20100615.git/doc/ledger.pdf
-     /usr/share/doc/ledger-0.0.20100615.git/doc/ledger.texi
-     /usr/share/doc/ledger-0.0.20100615.git/doc/sample.dat
-     /usr/share/emacs/site-lisp/ledger.el
-     /usr/share/emacs/site-lisp/timeclock.el
-     /usr/share/info/ledger.info.gz
-     /usr/share/man/man1/ledger.1.gz
-   :PROPERTIES:
-   :ID:       24868F00-3342-4865-A4A5-1B46622A98F2
-   :Submitter: R P Herrold <herrold@owlriver.com>
-   :Message:  [[message://alpine.LRH.2.00.1006150907240.22955@arj.bjyevire.pbz][reading the doco end to end {random thots}]]
-   :CREATED:  [2010-06-15 Tue 21:59]
-   :END:
-** DONE [#C] [[bug:397][#397]] --price-db doesn't expand ~
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:01]
-   :PROPERTIES:
-   :ID:       00CA42F0-B1F5-4FDD-9190-E0584C707DC3
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-397-1@http.newartisans.com/bugzilla/][{Bug 397} New: --price-db don't expand ~]]
-   :CREATED:  [2010-08-16 Mon 16:28]
-   :END:
 * Bugs
   :PROPERTIES:
   :CATEGORY: Bugs
@@ -397,14 +107,6 @@ SCHEDULED: <2011-11-09 Wed>
   :Message:  [[message://CAKs9TOKNi9LH0Timo9wVOCiTayEhELpaHW9VmPyV_HpojkwShw@mail.gmail.com][tag/pop still working?]]
   :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
   :END:
-** TODO (Dan) Use backwards-compatible GMP_RNDx symbols
-  :PROPERTIES:
-  :ID:       2A994786-DBAD-4E37-9A10-D6DF49A92095
-  :CREATED:  [2011-11-04 Fri 01:10]
-  :Date:     Thu, 3 Nov 2011 17:10:10 -0700
-  :Message:  [[message://jwiegley/ledger/pull/45@github.com][{ledger} Use backwards-compatible GMP_RNDx symbols. (#45)]]
-  :Submitter: Dan White <reply+i-2139460-9e7cefc412d2f47a5cbad2cd8a10d3aac1df8c48@reply.github.com>
-  :END:
 ** TODO (Dan) [ledger] Use backwards-compatible GMP_RNDx symbols.
   :PROPERTIES:
   :ID:       747997C2-774F-4BB9-8566-965ADEBAA887
@@ -413,6 +115,22 @@ SCHEDULED: <2011-11-09 Wed>
   :Message:  [[message://jwiegley/ledger/pull/45@github.com][{ledger} Use backwards-compatible GMP_RNDx symbols. (#45)]]
   :Submitter: Dan White <reply+i-2139460-9e7cefc412d2f47a5cbad2cd8a10d3aac1df8c48@reply.github.com>
   :END:
+** TODO (Dan) Use backwards-compatible GMP_RNDx symbols
+  :PROPERTIES:
+  :ID:       2A994786-DBAD-4E37-9A10-D6DF49A92095
+  :CREATED:  [2011-11-04 Fri 01:10]
+  :Date:     Thu, 3 Nov 2011 17:10:10 -0700
+  :Message:  [[message://jwiegley/ledger/pull/45@github.com][{ledger} Use backwards-compatible GMP_RNDx symbols. (#45)]]
+  :Submitter: Dan White <reply+i-2139460-9e7cefc412d2f47a5cbad2cd8a10d3aac1df8c48@reply.github.com>
+  :END:
+** TODO (Jim) ledger.el and support for YYYY-MM-DD dates
+:PROPERTIES:
+:ID:       2DC5CB7E-F612-4813-9246-E95C691DCEAB
+:CREATED:  [2012-01-02 Mon 04:13]
+:Date: Fri, 30 Dec 2011 07:28:14 -0800 (PST)
+:Message: [[message://1006733.2027.1325258894225.JavaMail.geo-discussion-forums@prht13][ledger.el and support for YYYY-MM-DD dates]]
+:Submitter: Jim Robinson <jim.robinson-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 ** TODO (John Rakestraw) Bug in budget report?
   :PROPERTIES:
   :ID:       D2846B5C-EDD1-4B45-9A00-11DE1CAF42A2
@@ -2850,6 +2568,30 @@ $ ledger -f budget_test.txt --budget reg ^income
 :Message: [[message://bug-619-1@http.bugs.ledger-cli.org/][{Bug 619} New: format function do not work in --group-title-format]]
 :Submitter: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** TODO [[bug:621][#621]] New install will not execute without ~/.pricedb existing
+:PROPERTIES:
+:ID:       DA7CB86F-E169-4287-8A40-DA97AE516BB0
+:CREATED:  [2011-12-28 Wed 18:51]
+:Date: Fri, 23 Dec 2011 00:51:32 +0000
+:Message: [[message://bug-621-1@http.bugs.ledger-cli.org/][{Bug 621} New: New install will not execute  without ~/.pricedb existing]]
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:622][#622]] print ignores Y.... tag
+:PROPERTIES:
+:ID:       BB3AFC4C-0B54-4E80-A7F0-6CB0C9E2C8B7
+:CREATED:  [2011-12-31 Sat 17:01]
+:Date: Sat, 31 Dec 2011 15:50:25 +0000
+:Message: [[message://bug-622-1@http.bugs.ledger-cli.org/][{Bug 622} New: print ignores Y.... tag]]
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:623][#623]] Virtual transactions cause unbalanced equity report
+:PROPERTIES:
+:ID:       22141D8B-E1F8-4B48-9FEB-B2E5422C617A
+:CREATED:  [2012-01-04 Wed 18:11]
+:Date: Wed, 04 Jan 2012 23:20:08 +0000
+:Message: [[message://bug-623-1@http.bugs.ledger-cli.org/][{Bug 623} New: virtual transactions cause unbalanced equity report]]
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** TODO [#C] Merge Craig's changes into next branch
 :PROPERTIES:
 :ID:       15CE5322-71AC-4A2B-9D25-EED42CD8ACD1
@@ -5170,6 +4912,14 @@ $ ledger -f budget_test.txt --budget reg ^income
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO [#C] (Sergey) Add note about ledger openbsd port to ledger-cli.org                  :Net:
+:PROPERTIES:
+:ID:       209EBF3A-D147-49F0-B731-510183D54AEB
+:CREATED:  [2011-12-15 Thu 13:23]
+:Date: Thu, 15 Dec 2011 19:48:09 +0400
+:Message: [[message://20111215154809.GA19226@sergeyb.sw.ru][port ledger to openbsd]]
+:Submitter: Sergey Bronnikov <estetus@gmail.com>
+:END:
 ** TODO (Bill) icsv2ledger
   :PROPERTIES:
   :ID:       E2CE5C0E-4C21-46CB-A3BC-151FB44ABE74
