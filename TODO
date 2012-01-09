@@ -1,17 +1,17 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
-#+STARTUP: content fninline hidestars
-#+ARCHIVE: TODO-3.0::
-#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) REVIEW(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
-#+TAGS: blocker(B) critical(C)
-#+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
-#+LINK: bug http://bugs.ledger-cli.org/show_bug.cgi?id=
-#+CATEGORY: Ledger
-
 * Bugs
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO [[bug:624][#624]] Lack of newline at end of file causes rounding error
+:PROPERTIES:
+:ID:       F739F74D-2523-4624-A8F0-CDD50CBD28D5
+:CREATED:  [2012-01-06 Fri 16:55]
+:Date: Fri, 06 Jan 2012 20:33:40 +0000
+:Message: [[message://bug-624-1@http.bugs.ledger-cli.org/][{Bug 624} New: Lack of newline at end of file causes rounding error]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** TODO [#A] [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)
    :PROPERTIES:
    :ID:       0E257D11-B836-4ACF-A937-7DEC4C0F28C0
@@ -165,7 +165,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 :Message: [[message://565113c5-1ea0-4ee4-8f60-782cfc28e42a@da3g2000vbb.googlegroups.com][historical prices with and without revaluation]]
 :Submitter: Qwertyu <scheit-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO (Vinod) Dowloading stock prices, a workaround                                       :Net:
+** TODO (Vinod) Dowloading stock prices, a workaround
 :PROPERTIES:
 :ID:       DE28E5EC-9481-4E86-9C78-C3E793B1FF4A
 :CREATED:  [2011-11-24 Thu 00:41]
@@ -173,7 +173,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 :Message: [[message://d4abc803-fa54-4b5f-9649-83c38f872d11@w1g2000vba.googlegroups.com][Dowloading stock prices, a workaround]]
 :Submitter: Vinod Kurup <vvkurup-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO Don't use boost::any in value.h, it causes allocations
+** TODO Don't use boost::any in value.h, since it causes allocations
 :PROPERTIES:
 :ID:       D8131379-1E53-474D-92A7-817AFD1DB84D
 :CREATED:  [2011-12-21 Wed 15:36]
@@ -3696,6 +3696,14 @@ $ ledger -f budget_test.txt --budget reg ^income
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO Valexpr  round(value) should take a precision amount
+:PROPERTIES:
+:ID:       BE07F550-6BA8-43C2-B625-118ABC6E8D0B
+:CREATED:  [2012-01-06 Fri 21:19]
+:Date: Fri, 6 Jan 2012 14:27:42 -0700
+:Message: [[message://CAKs9TO+0EpJRkW5yyyfR_H9w94i314HgTT9s4Qf=Bkp91ZdVhQ@mail.gmail.com][Re: Rounding formula for automatic transactions]]
+:Author: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 ** TODO Add option option "--help-{commands|options}-plain"
 :PROPERTIES:
 :ID:       22C7A4C4-3895-4457-B5E1-5F3BD50C3A23
@@ -4696,7 +4704,7 @@ $ ledger -f budget_test.txt --budget reg ^income
   :Message:  [[message://CAKs9TOLp84z6Od+Cg27y-uY42ZW7UkQAbUVo4TeviX2Mv1wRbQ@mail.gmail.com][acprep opt producing a debug executable]]
   :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
   :END:
-** TODO (MacPorts) #25213: ledger-devel Portfile                                            :Net:
+** TODO (MacPorts) #25213: ledger-devel Portfile
 :PROPERTIES:
 :ID:       C1CC1703-52F7-4203-B0C2-1C5BDA590493
 :CREATED:  [2011-11-24 Thu 01:27]
@@ -4912,7 +4920,15 @@ $ ledger -f budget_test.txt --budget reg ^income
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO [#C] (Sergey) Add note about ledger openbsd port to ledger-cli.org                  :Net:
+** TODO (Shea) Post to the Wiki that Ledger 3 is in nixpkgs
+:PROPERTIES:
+:ID:       49B5728F-565B-47F1-B01B-38A6F273C502
+:CREATED:  [2012-01-08 Sun 16:43]
+:Date: Sat, 07 Jan 2012 12:39:53 -0500
+:Message: [[message://4F088369.6060102@shealevy.com][Ledger 3 is in nixpkgs]]
+:Author: Shea Levy <shea@shealevy.com>
+:END:
+** TODO (Sergey) Add note about ledger openbsd port to ledger-cli.org
 :PROPERTIES:
 :ID:       209EBF3A-D147-49F0-B731-510183D54AEB
 :CREATED:  [2011-12-15 Thu 13:23]
@@ -5276,3 +5292,11 @@ $ ledger -f budget_test.txt --budget reg ^income
    :VISIBILITY: folded
    :CREATED:  [2011-06-19 Sun 18:23]
    :END:
+* Colophon
+#+STARTUP: content fninline hidestars
+#+ARCHIVE: TODO-3.0::
+#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) REVIEW(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
+#+TAGS: blocker(B) critical(C)
+#+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
+#+LINK: bug http://bugs.ledger-cli.org/show_bug.cgi?id=
+#+CATEGORY: Ledger
