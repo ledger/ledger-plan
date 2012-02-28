@@ -4,189 +4,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [[bug:624][#624]] Lack of newline at end of file causes rounding error
-:PROPERTIES:
-:ID:       F739F74D-2523-4624-A8F0-CDD50CBD28D5
-:CREATED:  [2012-01-06 Fri 16:55]
-:Date: Fri, 06 Jan 2012 20:33:40 +0000
-:Message: [[message://bug-624-1@http.bugs.ledger-cli.org/][{Bug 624} New: Lack of newline at end of file causes rounding error]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** TODO [#A] [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)
-   :PROPERTIES:
-   :ID:       0E257D11-B836-4ACF-A937-7DEC4C0F28C0
-   :CREATED:  [2011-06-14 Tue 19:21]
-   :END:
-** TODO [#A] [[bug:406][#406]] Unable to install ledger on Ubuntu Hardy
-   :PROPERTIES:
-   :ID:       418D7760-03CD-441B-847F-BCD7EDE82E68
-   :CREATED:  [2011-06-14 Tue 19:21]
-   :END:
-** TODO [#A] [[bug:418][#418]] Ledger 3.0 will not build under cygwin on Windows
-   :PROPERTIES:
-   :ID:       C3AEDBF3-B2BD-4112-9EDE-865023E06532
-   :CREATED:  [2011-06-14 Tue 19:21]
-   :END:
-** TODO [#A] [[bug:503][#503]] Abort trap on MacOS 10.6.7                                            :blocker:
-   :PROPERTIES:
-   :ID:       CDEDA0D4-A7D1-4BEC-B8C6-F93EA8FFE305
-   :CREATED:  [2011-04-01 Fri 18:58]
-   :Message:  [[message://4D95020C.9090801@gmail.com][Re: Abort trap on MacOS 10.6.7]]
-   :Submitter: Michael Norrish <michael.norrish@gmail.com>
-   :Date:     Fri, 01 Apr 2011 09:37:00 +1100
-   :END:
-** TODO [#A] [[bug:543][#543]] ledger make check failure report...
-   - Note taken on [2011-07-08 Fri 14:16] \\
-     Here is my config.log:
-     [2. application/octet-stream; config.log]...
-
-     I have Python 2.7 installed via MacPorts and it is my default python
-     selected.  I don't really know/expect if that makes a difference or not.
-
-     Or maybe something else in the config log file will shed some light...
-   :PROPERTIES:
-   :ID:       C246A646-6768-45AB-A36B-3CCDA2E2404B
-   :CREATED:  [2011-07-06 Wed 12:14]
-   :Date:     Wed, 06 Jul 2011 11:28:44 -0400
-   :Message:  [[message://28CCC239-ACE4-40E5-A95C-81460729C966@mac.com][ledger make check failure report...]]
-   :Submitter: Douglas Philips <dgou@mac.com>
-   :END:
-** TODO (Craig) Calculating Asset Allocation
-  :PROPERTIES:
-  :ID:       F6AE6402-0777-4D44-88C1-EDE280341D95
-  :CREATED:  [2011-11-21 Mon 16:31]
-  :Date:     Fri, 18 Nov 2011 22:36:06 -0700
-  :Message:  [[message://CAKs9TO+wWyr2vrnppfAdstNHtyn19gt--4jSor-OBSYASGwedA@mail.gmail.com][Calculating Asset Allocation]]
-  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-  :END:
-** TODO (Craig) Do automatic transactions break emacs reconcile mode?
-  :PROPERTIES:
-  :ID:       A7D23C81-73A4-4849-BB03-5B3C489332B5
-  :CREATED:  [2011-11-16 Wed 15:15]
-  :Date:     Tue, 15 Nov 2011 16:00:35 -0700
-  :Message:  [[message://CAKs9TOLF1tFi9fzsbboAfwSor-uXU69hDJM4GxFBLjFu4PAxJw@mail.gmail.com][Do automatic transactions break emacs reconcile mode?]]
-  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-  :END:
-** TODO (Craig) How to handle stale results from getquote
-:PROPERTIES:
-:ID:       42D6D5F2-DDB5-4C24-BE8D-A14525065400
-:CREATED:  [2011-12-08 Thu 00:43]
-:Date: Wed, 7 Dec 2011 22:39:53 -0700
-:Message: [[message://CAKs9TO+BC++bBCk4Tc6W=Ee8JqW8=n0yYEgjmQ44Je7PKRp1VA@mail.gmail.com][How to handle stale results from getquote]]
-:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO (Craig) Pull Request: Fixed a few formatting bugs, and doc updates
-  :PROPERTIES:
-  :ID:       F85B33CE-4BA9-446F-B015-7A287910599E
-  :CREATED:  [2011-11-04 Fri 01:09]
-  :Date:     Thu, 3 Nov 2011 20:34:54 -0700
-  :Message:  [[message://jwiegley/ledger/pull/46@github.com][{ledger} Fixed a few formatting bugs and made some documentation updates (#46)]]
-  :Submitter: Craig Earls <reply+i-2140513-efa8e8547db415a363f3107dff2ff096f40f141d@reply.github.com>
-  :END:
-** TODO (Craig) Question about account exclusion
-:PROPERTIES:
-:ID:       ED644B36-64CC-403F-B196-C9CD6FB66D23
-:CREATED:  [2011-12-14 Wed 17:18]
-:Date: Wed, 14 Dec 2011 12:59:46 -0800 (PST)
-:Message: [[message://4c90b360-8e91-4154-a5ea-8e8d47203309@h3g2000yqa.googlegroups.com][Re: account exclusion]]
-:Submitter: enderw88 <enderw88@gmail.com>
-:END:
-** TODO (Craig) Reconciling Statements (bug 195)
-  :PROPERTIES:
-  :ID:       E31DA885-950D-46B4-AD92-FA34795194BF
-  :CREATED:  [2011-11-15 Tue 02:28]
-  :Date:     Mon, 14 Nov 2011 19:24:30 -0700
-  :Message:  [[message://CAKs9TO+oCEbu_56N9usOJMmygqiTgV6FAO4h1dxZv1w-PqtUwA@mail.gmail.com][Reconciling Statements (bug 195)]]
-  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-  :END:
-** TODO (Craig) tag/pop still working?
-  :PROPERTIES:
-  :ID:       E462A3AC-B60B-497A-8805-B6B55A63617F
-  :CREATED:  [2011-11-15 Tue 02:28]
-  :Date:     Mon, 14 Nov 2011 20:49:34 -0700
-  :Message:  [[message://CAKs9TOKNi9LH0Timo9wVOCiTayEhELpaHW9VmPyV_HpojkwShw@mail.gmail.com][tag/pop still working?]]
-  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-  :END:
-** TODO (Dan) [ledger] Use backwards-compatible GMP_RNDx symbols.
-  :PROPERTIES:
-  :ID:       747997C2-774F-4BB9-8566-965ADEBAA887
-  :CREATED:  [2011-11-03 Thu 19:16]
-  :Date:     Thu, 3 Nov 2011 17:10:10 -0700
-  :Message:  [[message://jwiegley/ledger/pull/45@github.com][{ledger} Use backwards-compatible GMP_RNDx symbols. (#45)]]
-  :Submitter: Dan White <reply+i-2139460-9e7cefc412d2f47a5cbad2cd8a10d3aac1df8c48@reply.github.com>
-  :END:
-** TODO (Dan) Use backwards-compatible GMP_RNDx symbols
-  :PROPERTIES:
-  :ID:       2A994786-DBAD-4E37-9A10-D6DF49A92095
-  :CREATED:  [2011-11-04 Fri 01:10]
-  :Date:     Thu, 3 Nov 2011 17:10:10 -0700
-  :Message:  [[message://jwiegley/ledger/pull/45@github.com][{ledger} Use backwards-compatible GMP_RNDx symbols. (#45)]]
-  :Submitter: Dan White <reply+i-2139460-9e7cefc412d2f47a5cbad2cd8a10d3aac1df8c48@reply.github.com>
-  :END:
-** TODO (Jim) ledger.el and support for YYYY-MM-DD dates
-:PROPERTIES:
-:ID:       2DC5CB7E-F612-4813-9246-E95C691DCEAB
-:CREATED:  [2012-01-02 Mon 04:13]
-:Date: Fri, 30 Dec 2011 07:28:14 -0800 (PST)
-:Message: [[message://1006733.2027.1325258894225.JavaMail.geo-discussion-forums@prht13][ledger.el and support for YYYY-MM-DD dates]]
-:Submitter: Jim Robinson <jim.robinson-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO (John Rakestraw) Bug in budget report?
-  :PROPERTIES:
-  :ID:       D2846B5C-EDD1-4B45-9A00-11DE1CAF42A2
-  :CREATED:  [2011-11-21 Mon 16:31]
-  :Date:     Sun, 20 Nov 2011 12:26:29 -0500
-  :Message:  [[message://87mxbqln7e.fsf@buster.johnrakestraw.com][Bug in budget report?]]
-  :Submitter: John Rakestraw <johnr-hdTKlMK9g6hNu5YjidvPyAC/G2K4zDHf@public.gmane.org>
-  :END:
-** TODO (John) Trying to understand the pivot command
-  :PROPERTIES:
-  :ID:       3A14DE96-6D94-4559-AB68-7DC7F403CCAC
-  :CREATED:  [2011-11-14 Mon 18:04]
-  :Date:     Fri, 11 Nov 2011 20:11:02 -0500
-  :Message:  [[message://87obwitaah.fsf@buster.johnrakestraw.com][Trying to understand the pivot command]]
-  :Submitter: John Rakestraw <johnr-hdTKlMK9g6hNu5YjidvPyAC/G2K4zDHf@public.gmane.org>
-  :END:
-** TODO (Jonas) Input date format not recognized
-:PROPERTIES:
-:ID:       751B2357-21E7-4704-A9CD-D241A0846057
-:CREATED:  [2011-12-06 Tue 15:07]
-:Date: Tue, 6 Dec 2011 12:45:19 -0800
-:Message: [[message://jwiegley/ledger/issues/48@github.com][{ledger} Input date format not recognized (#48)]]
-:Submitter: Jonas <reply+i-2467193-d935c086e8421ab641d9f9aaddfdfcd560f8c39c-8460@reply.github.com>
-:END:
-** TODO (Qwertyu) Historical prices with and without revaluation
-- Note taken on [2011-12-04 Sun 14:18] \\
-  [[message://dbdba529-4c22-4807-adbb-75cf562b3fd0@u6g2000vbg.googlegroups.com][Re: historical prices with and without revaluation]]
-:PROPERTIES:
-:ID:       E6B85390-C2F3-4CFD-9C20-5CBA800210D7
-:CREATED:  [2011-12-02 Fri 13:35]
-:Date: Fri, 2 Dec 2011 10:01:59 -0800 (PST)
-:Message: [[message://565113c5-1ea0-4ee4-8f60-782cfc28e42a@da3g2000vbb.googlegroups.com][historical prices with and without revaluation]]
-:Submitter: Qwertyu <scheit-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO (Vinod) Dowloading stock prices, a workaround
-:PROPERTIES:
-:ID:       DE28E5EC-9481-4E86-9C78-C3E793B1FF4A
-:CREATED:  [2011-11-24 Thu 00:41]
-:Date: Wed, 23 Nov 2011 12:53:45 -0800 (PST)
-:Message: [[message://d4abc803-fa54-4b5f-9649-83c38f872d11@w1g2000vba.googlegroups.com][Dowloading stock prices, a workaround]]
-:Submitter: Vinod Kurup <vvkurup-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO Don't use boost::any in value.h, since it causes allocations
-:PROPERTIES:
-:ID:       D8131379-1E53-474D-92A7-817AFD1DB84D
-:CREATED:  [2011-12-21 Wed 15:36]
-:END:
-** TODO Unrecognized initial chars in a journal should cause an error
-:PROPERTIES:
-:ID:       AE7BCF3F-5F73-4776-84AB-721D0E460DE8
-:CREATED:  [2011-11-22 Tue 23:43]
-:Date: Tue, 22 Nov 2011 20:54:43 -0700
-:Message: [[message://CAKs9TO+fsB8rn1GXgWNS0iXjMcoyhvhorsgya8X1qdZTEz+r6w@mail.gmail.com][Re: {DOCS} Different ways Commenting Journals]]
-:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+** TODO [#C] [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
    - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
      Thierry confirms this still happens for him.
    - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
@@ -362,15 +180,154 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100730074700.GA3033@kerneis.info][Reporting multiple commodities with -J]]
    :CREATED:  [2010-07-30 Fri 06:08]
    :END:
-** TODO [[bug:394][#394]] Weekly report and monthly report (possible bug)
-   - Note taken on [2010-08-10 Tue 21:26] \\
-     [[message://AANLkTi%3DfZNAJNvhq_H0k8VGDuYY%3D6o3moqGVmw_wQWNs@mail.gmail.com][Re: weekly report and monthly report (Is it a BUG?)]]
-   :PROPERTIES:
-   :ID:       F06D5554-425C-4E4E-A8B4-3CF29E07AA1E
-   :Submitter: Leandro Henrique Oliveira Fernandes <leandroohf@gmail.com>
-   :Message:  [[message://AANLkTimSSZPgYKQR6U2oZ7uaJtXBdTYF%2BmCn_3SXatko@mail.gmail.com][weekly report and monthly report (Is it a BUG?)]]
-   :CREATED:  [2010-08-01 Sun 18:55]
-   :END:
+** DONE [[bug:394][#394]] Weekly report and monthly report (possible bug)
+- State "DONE"       from "TODO"       [2012-02-28 Tue 02:36] \\
+  Fixed by 6adfcc8
+- Note taken on [2012-02-28 Tue 00:16] \\
+  #+begin_src sh
+  ledger -p "apr 2011" reg Expenses -X '$'   
+  #+end_src
+  :OUTPUT:
+  11-Apr-01 serveraxis.com            Expenses:Computer:Internet             $15.00          $15.00
+                                      Expenses:Computer:Internet              $1.10          $16.10
+  11-Apr-05 Pennsylvania toll booth   Expenses:Auto:Fees                     $13.00          $29.10
+                                      Expenses:Cash                         $-13.00          $16.10
+  11-Apr-05 iTunes                    Expenses:Music                          $1.29          $17.39
+                                      Expenses:Taxes:Sales                    $0.09          $17.48
+  11-Apr-19 iTunes                    Expenses:Computer:Software              $4.99          $22.47
+                                      Expenses:Taxes:Sales                    $0.35          $22.82
+  11-Apr-24 iTunes                    Expenses:Movies                         $1.99          $24.81
+                                      Expenses:Movies                         $2.99          $27.80
+                                      Expenses:Taxes:Sales                    $0.35          $28.15
+  11-Apr-29 iTunes                    Expenses:Computer:Movies                $0.99          $29.14
+                                      Expenses:Taxes:Sales                    $0.07          $29.21
+  :END:
+
+  #+begin_src sh
+  ledger -M -p "apr 2011" reg Expenses -X '$'
+  #+end_src
+  :OUTPUT:
+  11-Apr-01 - 11-Apr-29               Expenses:Auto:Fees                     $13.00          $13.00
+                                      Expenses:Cash                         $-13.00               0
+                                      Expenses:Computer:Internet             $16.10          $16.10
+                                      Expenses:Computer:Movies                $0.99          $17.09
+                                      Expenses:Computer:Software              $4.99          $22.08
+                                      Expenses:Movies                         $4.98          $27.06
+                                      Expenses:Music                          $1.29          $28.35
+                                      Expenses:Taxes:Sales                    $0.86          $29.21
+  :END:
+  
+  #+begin_src sh
+  ledger -W -p "apr 2011" reg Expenses -X '$'
+  #+end_src
+  :OUTPUT:
+  11-Apr-01 - 11-Apr-02               Expenses:Computer:Internet             $16.10          $16.10
+  11-Apr-15 - 11-Apr-21               Expenses:Computer:Software              $4.99          $21.09
+                                      Expenses:Taxes:Sales                    $0.35          $21.44
+  11-Apr-22 - 11-Apr-28               Expenses:Movies                         $4.98          $26.42
+                                      Expenses:Taxes:Sales                    $0.35          $26.77
+  11-Apr-29 - 11-Apr-29               Expenses:Computer:Movies                $0.99          $27.76
+                                      Expenses:Taxes:Sales                    $0.07          $27.83
+  :END:
+  
+  #+begin_src sh
+  ledger -E -W -p "apr 2011" reg Expenses -X '$'
+  #+end_src
+  :OUTPUT:
+  11-Apr-01 - 11-Apr-02               Expenses:Computer:Internet             $16.10          $16.10
+  11-Apr-03 - 11-Apr-09               Expenses:Computer:Software              $4.99          $21.09
+  11-Apr-10 - 11-Apr-16               Expenses:Taxes:Sales                    $0.35          $21.44
+  11-Apr-17 - 11-Apr-23               Expenses:Movies                         $1.99          $23.43
+  11-Apr-24 - 11-Apr-30               Expenses:Movies                         $2.99          $26.42
+  11-Apr-24 - 11-Apr-29               Expenses:Computer:Movies                $0.99          $27.41
+                                      Expenses:Taxes:Sales                    $0.42          $27.83
+  :END:
+I am using Ledger 3.0.0-20100615 and I guess I found a bug.
+
+I ran the commands bellow on July 30.
+
+#+begin_src sh
+ledger -M -s -p "this month" reg Bakery Work Supermarket Vindinha Fuel
+#+end_src
+:OUTPUT:
+10-Jul-01 - 10-Jul-31   Expenses:Car:Fuel              $199.01      $199.01
+                        Expenses:Foods:Bakery          $126.20      $325.21
+                        Expenses:Foods:Work            $432.54      $757.75
+                        Expenses:Supermarket           $380.23     $1137.98
+:END:
+
+But when I ran the command bellow I had got this results:
+
+#+begin_src sh
+ledger -W -p "this month" reg Bakery Work Supermarket Vindinha Fuel
+#+end_src
+:OUTPUT:
+10-Jul-01 - 10-Jul-03   Expenses:Foods:Bakery   $31.00       $31.00
+                        Expenses:Foods:Work     $29.69       $60.69
+10-Jul-08 - 10-Jul-14   Expenses:Car:Fuel       $35.00       $95.69
+                        Expenses:Foods:Bakery   $31.50      $127.19
+                        Expenses:Foods:Work     $65.53      $192.72
+                        Expenses:Supermarket    $94.29      $287.01
+10-Jul-15 - 10-Jul-21   Expenses:Car:Fuel       $59.01      $346.02
+                        Expenses:Foods:Bakery   $11.00      $357.02
+                        Expenses:Foods:Work    $136.10      $493.12
+                        Expenses:Supermarket    $66.66      $559.78
+10-Jul-22 - 10-Jul-28   Expenses:Car:Fuel       $20.00      $579.78
+                        Expenses:Foods:Bakery   $40.90      $620.68
+                        Expenses:Foods:Work    $112.65      $733.33
+                        Expenses:Supermarket    $98.17      $831.50
+10-Jul-29 - 10-Jul-31   Expenses:Car:Fuel       $30.00      $861.50
+                        Expenses:Foods:Bakery    $7.30      $868.80
+                        Expenses:Foods:Work     $35.99      $904.79
+:END:
+
+The days between 2010/07/04 and 2010/07/07 do not appear in the report. So I
+ran this:
+
+#+begin_src sh
+ledger -b 2010/07/04 -e 2010/07/07 reg  Bakery Work Supermarket Vindinha Fuel
+#+end_src
+:OUTPUT:
+10-Jul-04 Portal Imperatriz  Expenses:Car:Fuel      $15.00       $15.00
+10-Jul-04 Marche             Expenses:Supermarket   $25.49       $40.49
+10-Jul-04 Marche             Expenses:Supermarket   $80.62      $121.11
+10-Jul-05 Extra Facil        Expenses:Supermarket   $15.00      $136.11
+10-Jul-05 Funchal Grill      Expenses:Foods:Work    $12.87      $148.98
+10-Jul-05 Padaria Moema      Expenses:Foods:Bakery   $4.50      $153.48
+10-Jul-06 Vilachic Funchal   Expenses:Foods:Work    $17.90      $171.38
+10-Jul-06 Posto Jucelino     Expenses:Car:Fuel      $20.00      $191.38
+:END:
+
+I didn't get the amount difference between the other two reports above.  So I
+tried:
+
+#+begin_src sh
+ledger -b 2010/07/04 -e 2010/07/08 reg  Bakery Work Supermarket Vindinha Fuel
+#+end_src
+:OUTPUT:
+10-Jul-04 Portal Imperatriz       Expenses:Car:Fuel      $15.00       $15.00
+10-Jul-04 Marche                  Expenses:Supermarket   $25.49       $40.49
+10-Jul-04 Marche                  Expenses:Supermarket   $80.62      $121.11
+10-Jul-05 Extra Facil             Expenses:Supermarket   $15.00      $136.11
+10-Jul-05 Funchal Grill           Expenses:Foods:Work    $12.87      $148.98
+10-Jul-05 Padaria Moema           Expenses:Foods:Bakery   $4.50      $153.48
+10-Jul-06 Vilachic Funchal        Expenses:Foods:Work    $17.90      $171.38
+10-Jul-06 Posto Jucelino          Expenses:Car:Fuel      $20.00      $191.38
+10-Jul-07 Viena Shopping Vila..   Expenses:Foods:Work    $21.81      $213.19
+10-Jul-07 Posto Caminho Brade..   Expenses:Car:Fuel      $20.00      $233.19
+:END:
+
+I got the exact difference between the first and the second reports:
+$1137.98 - $904.79 = $ $233.19.
+
+So, I guess this is not the normal behavior expected by the second report
+(weekly report).
+:PROPERTIES:
+:ID:       F06D5554-425C-4E4E-A8B4-3CF29E07AA1E
+:Submitter: Leandro Henrique Oliveira Fernandes <leandroohf@gmail.com>
+:Message:  [[message://AANLkTimSSZPgYKQR6U2oZ7uaJtXBdTYF%2BmCn_3SXatko@mail.gmail.com][weekly report and monthly report (Is it a BUG?)]]
+:CREATED:  [2010-08-01 Sun 18:55]
+:END:
 ** TODO [[bug:403][#403]] --budget ignores "Yearly in August"-type transactions
    :PROPERTIES:
    :ID:       B9CC8CD3-71EA-40DC-AAE6-EA59FA57B5D6
@@ -542,14 +499,71 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTikwx%2B-AQQrjQ62nm__P0BAwaNB4WRKF4bPc2Bfj@mail.gmail.com][ledger: balance sorting bug]]
    :CREATED:  [2010-10-18 Mon 16:04]
    :END:
-** TODO [[bug:448][#448]] Only one posting with null amount allowed because of note
-   :PROPERTIES:
-   :ID:       CFE5D8AA-1060-4A7D-816D-42F72C444118
-   :Submitter: Michael Ploujnikov <ploujj@gmail.com>
-   :Message:  [[message://a065e461-e06e-45e0-aa39-aec74b13c864@l32g2000yqc.googlegroups.com][Error: Only one posting with null amount allowed per transaction because of note]]
-   :CREATED:  [2010-11-28 Sun 20:33]
-   :END:
-** TODO [[bug:454][#454]] Rename actual and effective dates to primary/auxiliary
+** DONE [[bug:448][#448]] Only one posting with null amount allowed because of note
+- State "DONE"       from "TODO"       [2012-02-28 Tue 02:47] \\
+  Fixed by 7a55c7f
+I've noticed that adding a note to a periodic entry without specifying the
+redundant transaction values produces a null amount error:
+:OUTPUT:
+# this works fine:
+$ cat /tmp/sample
+~ monthly
+  ; note
+  assets:checking  $1,000.00
+  income:work:salary   -$1,000.00
+
+$ ledger --forecast "d<[2011]" reg -f /tmp/sample
+10-Dec-01 Forecast transaction  assets:checking           $1,000.00
+$1,000.00
+10-Dec-01 Forecast transaction  income:work:salary
+$-1,000.00            0
+:END:
+:OUTPUT:
+# removing the redundant info from the entry breaks it for some reason:
+$ cat /tmp/sample
+~ monthly
+  ; note
+  assets:checking  $1,000.00
+  income:work:salary
+
+$ ledger --forecast "d<[2011]" reg -f /tmp/sample
+While parsing file "/tmp/sample", line 4:
+While parsing periodic transaction:
+> ~ monthly
+>   ; note
+>   assets:checking  $1,000.00
+>   income:work:salary
+Error: Only one posting with null amount allowed per transaction
+:END:
+:OUTPUT:
+# this works without notes:
+$ cat /tmp/sample
+~ monthly
+  assets:checking  $1,000.00
+  income:work:salary
+
+$ ledger --forecast "d<[2011]" reg -f /tmp/
+sample
+10-Dec-01 Forecast transaction  assets:checking           $1,000.00
+$1,000.00
+10-Dec-01 Forecast transaction  income:work:salary
+$-1,000.00            0
+:END:
+
+:OUTPUT:
+$ ledger --version
+Ledger 3.0.0-20100623, the command-line accounting tool
+:END:
+
+I expect all three cases to not fail with an error.
+:PROPERTIES:
+:ID:       CFE5D8AA-1060-4A7D-816D-42F72C444118
+:Submitter: Michael Ploujnikov <ploujj@gmail.com>
+:Message:  [[message://a065e461-e06e-45e0-aa39-aec74b13c864@l32g2000yqc.googlegroups.com][Error: Only one posting with null amount allowed per transaction because of note]]
+:CREATED:  [2010-11-28 Sun 20:33]
+:END:
+** DONE [[bug:454][#454]] Rename actual and effective dates to primary/auxiliary
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:07]
    :PROPERTIES:
    :ID:       43ACF050-6723-41D6-BC3A-B3672AD7C2B7
    :CREATED:  [2010-12-14 Tue 17:54]
@@ -594,7 +608,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://17302579.215.1294968238136.JavaMail.geo-discussion-forums@yqep2][Period support and forecast reports]]
    :CREATED:  [2011-01-13 Thu 23:10]
    :END:
-** TODO [[bug:476][#476]] alias does not work across !include
+** DONE [[bug:476][#476]] alias does not work across !include
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:08]
    :PROPERTIES:
    :ID:       13A2FCDF-6A62-4EC3-AC7A-A5F26B333065
    :CREATED:  [2011-02-09 Wed 14:39]
@@ -809,7 +824,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: tazz_ben <ben@wbpsystems.com>
    :Date:     Sat, 26 Feb 2011 17:52:37 -0800 (PST)
    :END:
-** TODO [[bug:490][#490]] Pull request: Next [jwiegley/ledger GH-22]
+** WONTFIX [[bug:490][#490]] Pull request: Next [jwiegley/ledger GH-22]
+- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:08]
    :PROPERTIES:
    :ID:       AE12485D-BD34-4DC3-8938-CBDF34560EB6
    :CREATED:  [2011-02-28 Mon 01:32]
@@ -873,7 +889,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Date:     Mon, 18 Apr 2011 15:57:32 -0500 (CDT)
    :END:
-** TODO [[bug:506][#506]] Loss of data in weekly report
+** DONE [[bug:506][#506]] Loss of data in weekly report
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:11]
    :PROPERTIES:
    :ID:       F514E031-CA81-481F-BC3A-254D61A7CFA5
    :CREATED:  [2011-04-27 Wed 22:22]
@@ -1259,7 +1276,26 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://21774456.1840.1309452262141.JavaMail.geo-discussion-forums@prdr36][Re: Printing monthly balances]]
    :Submitter: Matthew Harris <mharris312@gmail.com>
    :END:
-** TODO [[bug:546][#546]] Record timelog hours on the day(s) of check-in
+** WORKSFORME [[bug:543][#543]] ledger make check failure report...
+- State "WORKSFORME" from "TODO"       [2012-02-28 Tue 03:13]
+   - Note taken on [2011-07-08 Fri 14:16] \\
+     Here is my config.log:
+     [2. application/octet-stream; config.log]...
+
+     I have Python 2.7 installed via MacPorts and it is my default python
+     selected.  I don't really know/expect if that makes a difference or not.
+
+     Or maybe something else in the config log file will shed some light...
+   :PROPERTIES:
+   :ID:       C246A646-6768-45AB-A36B-3CCDA2E2404B
+   :CREATED:  [2011-07-06 Wed 12:14]
+   :Date:     Wed, 06 Jul 2011 11:28:44 -0400
+   :Message:  [[message://28CCC239-ACE4-40E5-A95C-81460729C966@mac.com][ledger make check failure report...]]
+   :Submitter: Douglas Philips <dgou@mac.com>
+   :END:
+** DONE [[bug:546][#546]] Record timelog hours on the day(s) of check-in
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:19] \\
+  Fixed by 6cbceb8.
    :PROPERTIES:
    :ID:       ACE05ECE-DC73-43B6-98CF-5E362806E517
    :CREATED:  [2011-07-21 Thu 16:11]
@@ -1922,14 +1958,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://CAKs9TOLu142ntQ8e8a2HzfM7FDW2kNFrEG+rMBLA9E1QzqPAUA@mail.gmail.com][Metadata/Note contents can't include a ledger formatted date?]]
    :Submitter: Craig Earls <enderw88@gmail.com>
    :END:
-** TODO [[bug:564][#564]] Double-quoted filename in Emacs output breaks reconciliation
-   :PROPERTIES:
-   :ID:       CCDFD6E8-C816-4BCA-8C18-EE7C9A076140
-   :CREATED:  [2011-08-22 Mon 17:08]
-   :Date:     Mon, 22 Aug 2011 22:03:56 +0100
-   :Message:  [[message://20050.50236.344154.205060@dk.dks.ie][Emacs reconciliation 3.0]]
-   :Submitter: "David Keegan" <dksw@eircom.net>
-   :END:
 ** TODO [[bug:566][#566]] Selinger's multiple currency accounting & ledger
    Well, after modifying two thousands transactions in my personal ledger
    file, I realized that I got it wrong and that I had not fully
@@ -2519,14 +2547,6 @@ $ ledger -f budget_test.txt --budget reg ^income
 :Message: [[message://bug-613-1@http.bugs.ledger-cli.org/][{Bug 613} New: convert fails on empty lines]]
 :Submitter: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:614][#614]] --input-date-format does not effect convert
-:PROPERTIES:
-:ID:       1FFA2CFA-BB14-4245-9029-34E868EE3EF9
-:CREATED:  [2011-12-13 Tue 19:04]
-:Date: Tue, 13 Dec 2011 22:43:37 +0000
-:Message: [[message://bug-614-1@http.bugs.ledger-cli.org/][{Bug 614} New: --input-date-format does not effect convert]]
-:Submitter: bugzilla-daemon@mail.johnwiegley.com
-:END:
 ** TODO [[bug:615][#615]] --strict sees auto xacts at beginning of Journal as uncleared
 ... so reports their accounts as unknown
 :PROPERTIES:
@@ -2592,13 +2612,583 @@ $ ledger -f budget_test.txt --budget reg ^income
 :Message: [[message://bug-623-1@http.bugs.ledger-cli.org/][{Bug 623} New: virtual transactions cause unbalanced equity report]]
 :Submitter: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [#C] Merge Craig's changes into next branch
+** TODO [[bug:624][#624]] Lack of newline at end of file causes rounding error
+- Note taken on [2012-01-09 Mon 18:13] \\
+  It seems that the last character is assumed to be a newline. If I change to:
+  #+begin_src ledger
+  1/5 Opening Balance
+    Equity:Opening Balances
+    Assets:Checking              $123.45
+    Assets:Savings:Emergency    $3000.00
+    Assets:Savings:Other         $901.37q
+  #+end_src
+  
+  ...it works as intended.
 :PROPERTIES:
-:ID:       15CE5322-71AC-4A2B-9D25-EED42CD8ACD1
-:CREATED:  [2011-11-22 Tue 17:53]
-:Date: Tue, 22 Nov 2011 14:35:53 -0600 (CST)
-:Message: [[message://8592039.8154.1321994153563.JavaMail.SYSTEM@dlev230][{Code Collaborator} Respond to new chat in Review #4115]]
-:Submitter: Cody Addison <c-addison@ti.com>
+:ID:       F739F74D-2523-4624-A8F0-CDD50CBD28D5
+:CREATED:  [2012-01-06 Fri 16:55]
+:Date: Fri, 06 Jan 2012 20:33:40 +0000
+:Message: [[message://bug-624-1@http.bugs.ledger-cli.org/][{Bug 624} New: Lack of newline at end of file causes rounding error]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:626][#626]] emacs command does not report xact level comments/tags
+:PROPERTIES:
+:ID:       90ADD172-DA7E-411F-AA13-CC2BE3E5E338
+:CREATED:  [2012-01-18 Wed 00:02]
+:Date: Wed, 18 Jan 2012 03:31:38 +0000
+:Message: [[message://bug-626-1@http.bugs.ledger-cli.org/][{Bug 626} New: emacs command does not report xact level comments/tags]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:630][#630]] Basis cost should "follow" commodities with lot pricing
+:PROPERTIES:
+:ID:       23C96A70-7429-4DBE-9EF6-2053319C1D6A
+:CREATED:  [2012-02-22 Wed 15:07]
+:Date: Wed, 22 Feb 2012 18:18:12 +0000
+:Message: [[message://bug-630-1@http.bugs.ledger-cli.org/][{Bug 630} New: basis cost should "follow" commodities with lot pricing]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:631][#631]] Minimize redundant scope walks due to multiple SCOPE bindings
+When using bind_scope_t with SCOPE nodes, it can cause multiple references to
+the same scopes.
+:PROPERTIES:
+:ID:       BF6E06E4-C004-47BB-BE48-7837B643ECBE
+:CREATED:  [2012-02-21 Tue 02:15]
+:END:
+** TODO [[bug:633][#633]] Ledger crashes with --account=payee --monthly
+The bug is with cleanup of temporary accounts and postings:
+#+begin_src sh
+ledger -f test/input/sample.dat --account=payee --monthly -n -AE reg
+#+end_src
+:PROPERTIES:
+:ID:       D60B0FD8-74C6-43D5-8FAF-0CB5F6BA9F85
+:CREATED:  [2012-01-31 Tue 17:20]
+:END:
+** TODO [[bug:634][#634]] Correctly implement floor(), ceil() and round()
+:PROPERTIES:
+:ID:       757871B5-00C4-4EA5-9F0C-B16159DA4AD5
+:CREATED:  [2012-01-11 Wed 23:28]
+:Date: Sat, 07 Jan 2012 00:31:19 -0600
+:Message: [[message://m2pqew2fd4.fsf@gmail.com][Re: Rounding formula for automatic transactions]]
+:Author: John Wiegley <jwiegley-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:635][#635]] ledger.el and support for YYYY-MM-DD dates
+I don't recall if I picked these changes up from this list or if I muddled
+through it myself at one point, but since I just had to restore a backup from
+the ledger.el provided by the github repo for ledger I thought I'd post this:
+
+  http://highwire.stanford.edu/~jimr/misc/ledger.el.diff
+
+It's a small set of changes to the ledger.el that supports clearing
+transactions that use the YYYY-MM-DD format, and which make some adjustments
+to tab vs. spaces in the pattern matching used in the lisp code. I think I
+submitted a bug report for this last one, but can't find it in the bugzilla db
+right now.
+:PROPERTIES:
+:ID:       2DC5CB7E-F612-4813-9246-E95C691DCEAB
+:CREATED:  [2012-01-02 Mon 04:13]
+:Date: Fri, 30 Dec 2011 07:28:14 -0800 (PST)
+:Message: [[message://1006733.2027.1325258894225.JavaMail.geo-discussion-forums@prht13][ledger.el and support for YYYY-MM-DD dates]]
+:Submitter: Jim Robinson <jim.robinson-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:636][#636]] Budget report query doesn't generate correct report
+It appears that a budget report query doesn't generate a correct report for a
+particular account unless there's a register entry for the budgeted account in
+the first month of the year.
+
+For example, if I budget $100.00/month for vacation, but don't have a posting
+in the vacation account until February, a budget report for the complete year
+shows that I've budgeted $550.00. If the first entry for the year comes in
+March, a budget report for the complete year shows that I've budgeted $500.00.
+
+(A budget query for ^Expenses shows the correct budgeted amount for the
+vacation account regardless when the first entry for vacation comes.)
+
+Using the next branch updated last night (19 Nov).
+:PROPERTIES:
+:ID:       D2846B5C-EDD1-4B45-9A00-11DE1CAF42A2
+:CREATED:  [2011-11-21 Mon 16:31]
+:Date:     Sun, 20 Nov 2011 12:26:29 -0500
+:Message:  [[message://87mxbqln7e.fsf@buster.johnrakestraw.com][Bug in budget report?]]
+:Submitter: John Rakestraw <johnr-hdTKlMK9g6hNu5YjidvPyAC/G2K4zDHf@public.gmane.org>
+:END:
+** TODO [[bug:637][#637]] Trying to understand the pivot command
+I think I'm just not understanding this. I've been intrigued by the "pivot"
+feature in Ledger since I first learned of it, but I've not been able to make
+it work. After seeing Russell Adams simple presentation of it earlier this
+week, I decided to try again tonight.
+
+I can use Russell's simple example file and get the results that he got.
+However, if I add another entry to it that doesn't include the relevant
+categories, this entry is still included in the reports.
+
+Here's Russell's sample file (renamed to test) with one additional entry:
+#+begin_src ledger
+2011/11/01 Airplane ride
+    Source:VISA                   -$1000.00
+    Dest:Project
+        ; ER: ER0001
+        ; CATEGORY: Airfare
+        ; PROJECT: Test
+
+2011/11/02 Hotel overnight
+    Source:VISA                    -$200.00
+    Dest:Project
+        ; ER: ER0001
+        ; CATEGORY: Lodging
+        ; PROJECT: Test
+
+2011/11/03 Airplane ride
+    Source:VISA                   -$1500.00
+    Dest:Project
+        ; ER: ER0002
+        ; CATEGORY: Airfare
+        ; PROJECT: Bob
+
+2011/11/04 Hotel overnight
+    Source:VISA                    -$250.00
+    Dest:Project
+        ; ER: ER0002
+        ; CATEGORY: Lodging
+        ; PROJECT: Bob
+
+2011/11/05 Reimbursement
+    Source:VISA                    $1200.00
+    Dest:Project
+        ; ER: ER0001
+
+2011/11/07 Another entry
+    Source:Checking                    $1000.00
+    Dest:Other
+#+end_src
+
+Note that the last entry doesn't include any of the categories included in the
+other entries. I would expect it not to show up in the reports. For example,:
+#+begin_src sh
+ledger -f test -sEV bal --pivot CATEGORY
+#+end_src
+
+Yields this:
+:OUTPUT:
+
+            $2950.00  CATEGORY
+            $2500.00    Airfare:Dest:Project
+             $450.00    Lodging:Dest:Project
+           $-2200.00  Dest
+           $-1000.00    Other
+           $-1200.00    Project
+            $-750.00  Source
+            $1000.00    Checking
+           $-1750.00    VISA
+--------------------
+                   0
+:END:
+
+#+begin_src sh
+ledger -f test -sEV bal --pivot ER
+#+end_src
+
+Yields this:
+:OUTPUT:
+           $-1000.00  Dest:Other
+            $1750.00  ER
+                   0    ER0001:Dest:Project
+            $1750.00    ER0002:Dest:Project
+            $-750.00  Source
+            $1000.00    Checking
+           $-1750.00    VISA
+--------------------
+                   0
+:END:
+
+In each case, the report includes the lines for "Dest:Other" and "Checking."
+This is not a problem with such a simple file, but when I run similar reports
+on my entire ledger file, I get what appears to be a line for every account
+mentioned in the file. It's not helpful.
+:PROPERTIES:
+:ID:       3A14DE96-6D94-4559-AB68-7DC7F403CCAC
+:CREATED:  [2011-11-14 Mon 18:04]
+:Date:     Fri, 11 Nov 2011 20:11:02 -0500
+:Message:  [[message://87obwitaah.fsf@buster.johnrakestraw.com][Trying to understand the pivot command]]
+:Submitter: John Rakestraw <johnr-hdTKlMK9g6hNu5YjidvPyAC/G2K4zDHf@public.gmane.org>
+:END:
+** TODO [[bug:648][#648]] Don't use boost::any in value.h, since it causes allocations
+:PROPERTIES:
+:ID:       D8131379-1E53-474D-92A7-817AFD1DB84D
+:CREATED:  [2011-12-21 Wed 15:36]
+:END:
+** TODO [[bug:649][#649]] Unrecognized initial chars in a journal should cause an error
+:PROPERTIES:
+:ID:       AE7BCF3F-5F73-4776-84AB-721D0E460DE8
+:CREATED:  [2011-11-22 Tue 23:43]
+:Date: Tue, 22 Nov 2011 20:54:43 -0700
+:Message: [[message://CAKs9TO+fsB8rn1GXgWNS0iXjMcoyhvhorsgya8X1qdZTEz+r6w@mail.gmail.com][Re: {DOCS} Different ways Commenting Journals]]
+:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:650][#650]] Input date format not recognized
+Anyway, we're based in Germany and I'd like to enter dates in German format:
+`%d.%m.%Y`. I can get ledger to use this format when outputting dates with the
+"--date-format" option. However, I haven't found a way to get ledger to
+_accept_ dates in this format as input.
+
+For instance, a ledger file looking like this:
+#+begin_src ledger
+    2011/10/01 4b4e2a89 
+        ef9d9585:efa1fb7b:22845e93:0e3763f0       2,00 A
+        2c166ff7:d34e3aa1:8a5075b3:56f3c726
+
+    2011/10/01 15983995
+        eb78b6c0:a2857de3:d6d8ea07:6688fc4e       2,58 A
+        ba3ffe56:c3ba36a5:aa63399f:e9e1d043
+#+end_src
+
+Results in this output from `ledger print`:
+:OUTPUT:
+    01.10.2011 4b4e2a89 
+        ef9d9585:efa1fb7b:22845e93:0e3763f0       2,00 A
+        2c166ff7:d34e3aa1:8a5075b3:56f3c726
+
+    01.10.2011 15983995
+        eb78b6c0:a2857de3:d6d8ea07:6688fc4e       2,58 A
+        ba3ffe56:c3ba36a5:aa63399f:e9e1d043
+:END:
+
+Putting this exact output back into ledger results in:
+:OUTPUT:
+    $ ledger -f test.ledger bal
+    While parsing file "test.ledger", line 1: 
+    While parsing transaction:
+    > 01.10.2011 15983995
+    Error: Invalid date: 01.10.2011
+    While parsing file "test.ledger", line 5: 
+    While parsing transaction:
+    > 01.10.2011 15983995
+    Error: Invalid date: 01.10.2011
+:END:
+
+Using the (undocumented) option "--input-date-format=%d.%m.%Y" yields the same result.
+
+I'm using Ledger 3.0.0-20110325 from the Ubuntu PPA repository Michael Budde
+created (https://launchpad.net/~mbudde/+archive/ledger) under Ubuntu
+11.10. I'd be very grateful for any pointers!
+:PROPERTIES:
+:ID:       751B2357-21E7-4704-A9CD-D241A0846057
+:CREATED:  [2011-12-06 Tue 15:07]
+:Date: Tue, 6 Dec 2011 12:45:19 -0800
+:Message: [[message://jwiegley/ledger/issues/48@github.com][{ledger} Input date format not recognized (#48)]]
+:Submitter: Jonas <reply+i-2467193-d935c086e8421ab641d9f9aaddfdfcd560f8c39c-8460@reply.github.com>
+:END:
+** TODO [[bug:651][#651]] The - query prefix character no longer excludes accounts
+Blast from the past:  the "-" thing no longer works in 3.0 is this a
+bug or deprecated?
+:OUTPUT:
+12:01:43 ~/FinanceData (master)> ledger bal Expenses -Expenses:Drinks
+Error: Illegal option -x
+13:58:53 ~/FinanceData (master)> ledger bal Expenses
+-"Expenses:Drinks"
+Error: Illegal option -x
+:END:
+:PROPERTIES:
+:ID:       ED644B36-64CC-403F-B196-C9CD6FB66D23
+:CREATED:  [2011-12-14 Wed 17:18]
+:Date: Wed, 14 Dec 2011 12:59:46 -0800 (PST)
+:Message: [[message://4c90b360-8e91-4154-a5ea-8e8d47203309@h3g2000yqa.googlegroups.com][Re: account exclusion]]
+:Submitter: enderw88 <enderw88@gmail.com>
+:END:
+** TODO [[bug:652][#652]] How to handle stale results from getquote
+I am very close to completing reimplementation of quote downloading in ledger
+3 (it works completely on my machine but doesn't report problems in any sane
+way).  I have addressed bugs 174 (configurable getquote path) and 411 (don't
+keep trying to download if you receive a stale price).  Right now I am adding
+some sanity checking to the options and working on error reporting.  I should
+be able to push this to git within the next few days.  I need some advice on
+how people would prefer to handle the following situations:
+
+NOTE: ledger assumes the getquote script returns the latest available price.
+
+1. Stale results: If getquote returns a price that is stale (age exceeds the
+   --price-exp) should ledger silently accept that as the latest price, accept
+   it and generate a warning, or generate an error and quit? Right now I have
+   it silently accepting the stale value.
+
+2. Valid Option combinations: --download does nothing if -V isn't
+   specified. Should ledger silently accept this, warn about the missing -V
+   option or stop and report?
+   
+I had hoped to address bug 588 ('getquote' only queries one commodity at a
+time, which can be slow) but this requires some significant changes to the
+internal flow ledger takes (ledger deals with commodities immediately as they
+are parsed, grouping commodities for a batch download would require two passes
+through the journal files).
+:PROPERTIES:
+:ID:       42D6D5F2-DDB5-4C24-BE8D-A14525065400
+:CREATED:  [2011-12-08 Thu 00:43]
+:Date: Wed, 7 Dec 2011 22:39:53 -0700
+:Message: [[message://CAKs9TO+BC++bBCk4Tc6W=Ee8JqW8=n0yYEgjmQ44Je7PKRp1VA@mail.gmail.com][How to handle stale results from getquote]]
+:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:654][#654]] Commodity flags cleanup
+I have confused myself a great deal with -B/-V/-X, as a user and
+implementor. I have been studying http://ledger-cli.org/3.0/doc/ledger.1.html
+and https://groups.google.com/forum/#!topic/ledger-cli/9oa47zA-qqM/discussion,
+thinking, and getting a bit clearer. What do you think of the following slight
+semantic and UI cleanup ?
+
+1. http://hledger.org/MANUAL.html#prices
+
+2. 
+
+--cost/-B
+shows amounts as their transaction price, where specified.
+
+--market-value/-V [COMMODITY] [--now DATE]
+shows amounts as their value in COMMODITY as of today (or another date
+specified with --now) using P historical prices, if possible.  If
+COMMODITY is not specified, the first suitable one found in the
+journal's P directives is used.
+
+--convert/--exchange/-X [--now DATE]
+after generating a report, does a final conversion of all amounts to
+their value in COMMODITY as of today (or another date specified with
+--now), where possible. (This is orthogonal to -B and -V.)
+:PROPERTIES:
+:ID:       48CC0B07-6E1D-4605-B1EF-DD694CE473AA
+:CREATED:  [2012-01-30 Mon 17:10]
+:Date: Sun, 22 Jan 2012 17:55:58 -0800
+:Message: [[message://13797315-A496-427C-8F17-4946066FD087@joyful.com][commodity flags cleanup]]
+:Author: Simon Michael <simon-jbxitMBJ2LLQT0dZR+AlfA@public.gmane.org>
+:END:
+** TODO [[bug:655][#655]] Ledger no longer downloads stock prices using the -Q option
+Since upgrading to ledger 3.0, I've noticed that it no longer downloads stock
+prices using the -Q option like it used to. Based on this post, that's a
+feature that is planned, but not yet reinstated yet.
+
+http://groups.google.com/group/ledger-cli/browse_thread/thread/d58f29605d4bdd02/dd26788d2b2d934a?lnk=gst&q=download#dd26788d2b2d934a
+
+In the meantime, I've created a Bash script that does the same work.  It's
+super simple, so I'm not sure if it will work for everyone, but it should be
+easy to fix, if not.
+
+https://gist.github.com/1389840
+:PROPERTIES:
+:ID:       DE28E5EC-9481-4E86-9C78-C3E793B1FF4A
+:CREATED:  [2011-11-24 Thu 00:41]
+:Date: Wed, 23 Nov 2011 12:53:45 -0800 (PST)
+:Message: [[message://d4abc803-fa54-4b5f-9649-83c38f872d11@w1g2000vba.googlegroups.com][Dowloading stock prices, a workaround]]
+:Submitter: Vinod Kurup <vvkurup-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:656][#656]] Historical prices with and without revaluation
+- Note taken on [2012-02-23 Thu 21:29] \\
+  One syntax can be (using fixated commodity price)
+  #+begin_src ledger
+  P 2011/11/01 00:00:00 LiterGas 1.00 $
+  2011/11/01 Get Gas
+       Expenses:Car:Gas  10 LiterGas {=1$}
+       Assets:Cash
+  
+  P 2011/11/02 00:00:00 LiterGas 10.00 $
+  2011/11/02 Get Gas
+       Expenses:Car:Gas  10 LiterGas {=10$}
+       Assets:Cash
+  
+  P 2011/11/03 00:00:00 LiterGas 100.00 $
+  2011/11/03 Get Gas
+       Expenses:Car:Gas  10 LiterGas {=100$}
+       Assets:Cash
+  #+end_src
+  
+  and then
+  :OUTPUT:
+  $ ledger --exchange=$ reg Car:Gas
+  11-Nov-01 Get Gas            Expenses:Car:Gas          $10         $10
+  11-Nov-02 Get Gas            Expenses:Car:Gas         $100        $110
+  11-Nov-03 Get Gas            Expenses:Car:Gas        $1000       $1110
+  :END:
+  
+  you have to read about multiple currency accounting, reference is
+  http://www.mscs.dal.ca/~selinger/accounting/tutorial.html, and read about
+  commodities fixated prices, which is one of the way of ledger to
+  implement it.
+  
+  Here is how I would write it in ledger syntax
+  #+begin_src ledger
+  P 2011/11/01 LiterGas 1.00 $
+  2011/11/01 Get Gas
+      Assets:Cash         -10 $
+      Assets:Gas           10 LiterGas
+      Assets:Gas           -9 LiterGas
+      Expenses:Car:Gas      9 $
+  
+  P 2011/11/02 LiterGas 10.00 $
+  2011/11/02 Get Gas
+      Assets:Cash        -100 $
+      Assets:Gas           10 LiterGas
+      Assets:Gas          -10 LiterGas
+      Expenses:Car:Gas    100 $
+  
+  P 2011/11/03 LiterGas 100.00 $
+  2011/11/03 Get Gas
+      Assets:Cash       -1000 $
+      Assets:Gas           10 LiterGas
+      Assets:Gas          -10 LiterGas
+      Expenses:Car:Gas   1000 $
+  
+  2011/11/03 Sell 1 LiterGas
+      Assets:Gas           -1 LiterGas @@ 100 $
+      Assets:Cash         100 $
+      Incomes:Gas          -1 LiterGas @ 1 $
+      Incomes:Gas           1 LiterGas @ 100 $
+      Incomes:Gas
+  #+end_src
+  
+  Two "tricks"
+  - in my mind, the account Expenses:Car:Gas is of currency dollar, not
+    LiterGas
+  - the 3 last lines enables me to not compute the gain
+  
+  :OUTPUT:
+  $ ledger register Assets:Gas
+  11-Nov-01 Get Gas            Assets:Gas        10 LiterGas 10 LiterGas
+                               Assets:Gas        -9 LiterGas  1 LiterGas
+  11-Nov-02 Get Gas            Assets:Gas        10 LiterGas 11 LiterGas
+                               Assets:Gas        -10 LiterGas  1
+  LiterGas
+  11-Nov-03 Get Gas            Assets:Gas        10 LiterGas 11 LiterGas
+                               Assets:Gas        -10 LiterGas  1
+  LiterGas
+  11-Nov-03 Get Gas            Assets:Gas        -1 LiterGas           0
+  :END:
+  
+  is different, because I separate the "buy" from the "consumption". You
+  can not accumulate indefinitely LiterGas, you have to consume them.  I
+  treat the "LiterGas" as it was a stock share.
+  
+  :OUTPUT:
+  $ ledger register Assets:Cash
+  11-Nov-01 Get Gas            Assets:Cash             -10 $       -10 $
+  11-Nov-02 Get Gas            Assets:Cash            -100 $      -110 $
+  11-Nov-03 Get Gas            Assets:Cash           -1000 $     -1110 $
+  11-Nov-03 Get Gas            Assets:Cash             100 $     -1010 $
+  :END:
+If I try to keep track of gasoline usage I could do this:
+#+begin_src ledger
+P 2011/11/01 00:00:00 LiterGas 1.00 $
+2011/11/01 Get Gas
+      Expenses:Car:Gas  10 LiterGas
+      Assets:Cash
+
+P 2011/11/02 00:00:00 LiterGas 10.00 $
+2011/11/02 Get Gas
+      Expenses:Car:Gas  10 LiterGas
+      Assets:Cash
+
+P 2011/11/03 00:00:00 LiterGas 100.00 $
+2011/11/03 Get Gas
+      Expenses:Car:Gas  10 LiterGas
+      Assets:Cash
+#+end_src
+
+To see how much gas was used works OK:
+:OUTPUT:
+> ledger reg Car:Gas
+11-Nov-01 Get Gas           Expenses:Car:Gas        10 LiterGas  10
+LiterGas
+11-Nov-02 Get Gas           Expenses:Car:Gas        10 LiterGas  20
+LiterGas
+11-Nov-03 Get Gas           Expenses:Car:Gas        10 LiterGas  30
+LiterGas
+:END:
+
+And now, how much was spent on gas:
+:OUTPUT:
+> ledger -X $ reg Car:Gas
+11-Nov-01 Get Gas               Expenses:Car:Gas
+$10          $10
+11-Nov-02 Commodities revalued  <Revalued>
+$90         $100
+11-Nov-02 Get Gas               Expenses:Car:Gas
+$100         $200
+11-Nov-03 Commodities revalued  <Revalued>
+$1800        $2000
+11-Nov-03 Get Gas               Expenses:Car:Gas
+$1000        $3000
+:END:
+
+This wrong, since I have spent only $1110 on gas.  What is the proper way to
+do this?  Somehow the revaluation should be disabled.  On the other hand, if I
+kept, say one liter bought on 11/11/01 and sold it again on 11/11/03, then
+this should be revalued.  Say, we change the ledger file to:
+#+begin_src ledger
+P 2011/11/01 00:00:00 LiterGas 1.00 $
+2011/11/01 Get Gas
+      Expenses:Car:Gas  10 LiterGas
+      Assets:Gas         1 LiterGas
+      Assets:Cash
+
+P 2011/11/02 00:00:00 LiterGas 10.00 $
+2011/11/02 Get Gas
+      Expenses:Car:Gas  10 LiterGas
+      Assets:Gas         1 LiterGas
+      Assets:Cash
+
+P 2011/11/03 00:00:00 LiterGas 100.00 $
+2011/11/03 Get Gas
+      Expenses:Car:Gas  10 LiterGas
+      Assets:Gas         1 LiterGas
+      Assets:Cash
+#+end_src
+
+Now
+:OUTPUT:
+> ledger -X $ reg Assets:Gas
+11-Nov-01 Get Gas               Assets:Gas
+$1           $1
+11-Nov-02 Commodities revalued  <Revalued>
+$9          $10
+11-Nov-02 Get Gas               Assets:Gas
+$10          $20
+11-Nov-03 Commodities revalued  <Revalued>
+$180         $200
+11-Nov-03 Get Gas               Assets:Gas
+$100         $300
+:END:
+is actually correct but
+:OUTPUT:
+> ledger -X $ reg Assets:Cash
+11-Nov-01 Get Gas               Assets:Cash
+$-11         $-11
+11-Nov-02 Commodities revalued  <Revalued>
+$-99        $-110
+11-Nov-02 Get Gas               Assets:Cash
+$-110        $-220
+11-Nov-03 Commodities revalued  <Revalued>
+$-1980       $-2200
+11-Nov-03 Get Gas               Assets:Cash
+$-1100       $-3300
+:END:
+is wrong.
+
+Somehow one should be able to specify
+
+ - Assets:Gas :: use historical prices AND revaluate
+ - Assets:Cash :: use historical prices without revaluation (but if you have
+                  10 GPB in there it should be revalued, but not the -10
+                  LiterGas)
+ - Expenses:Car:Gas :: use historical prices without revaluation
+
+There is a similar situation with currencies.  If you spend, say 10 GBP, worth
+15$ then this should not be revalued later on.  However, if you have 10 GPB in
+your wallet, I guess it should be revalued according to the current rate.
+
+Any good ideas how to handle this with ledger?
+
+There were some similar discussion already:
+http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/5b0721d1dff72135http://groups.google.com/group/ledger-cli/browse_thread/thread/6cbcaa9aa20bab6d/21424ed3eae62d58
+:PROPERTIES:
+:ID:       E6B85390-C2F3-4CFD-9C20-5CBA800210D7
+:CREATED:  [2011-12-02 Fri 13:35]
+:Date: Fri, 2 Dec 2011 10:01:59 -0800 (PST)
+:Message: [[message://565113c5-1ea0-4ee4-8f60-782cfc28e42a@da3g2000vbb.googlegroups.com][historical prices with and without revaluation]]
+:Submitter: Qwertyu <scheit-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
@@ -2993,6 +3583,89 @@ $ ledger -f budget_test.txt --budget reg ^income
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :CREATED:  [2010-04-04 Sun 15:18]
    :END:
+** REVIEW [[bug:555][#555]] ledger stats reports days per posting, not postings per day
+- State "REVIEW"     from "TODO"       [2012-02-23 Thu 21:50]
+- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
+   :PROPERTIES:
+   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
+   :CREATED:  [2011-10-10 Mon 15:02]
+   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
+   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** REVIEW [[bug:565][#565]] Transactions with leading whitespace not detected
+- State "REVIEW"     from "DUPLICATE"  [2012-02-23 Thu 21:51]
+- Note taken on [2011-08-21 Sun 18:53] \\
+  I believe it's a regression in 3.0.  I filed a bug report about this some
+  time ago: http://bugs.ledger-cli.org/show_bug.cgi?id=443
+In the attached sample ledger file a space has been inadvertently inserted
+preceding one of the transaction dates.
+
+ledger-2.6.3 Detects the error and emits:
+:OUTPUT:
+Error: "sample.ldg", line 6: Line begins with whitespace
+Error: "sample.ldg", line 7: Line begins with whitespace
+Error: "sample.ldg", line 8: Line begins with whitespace
+:END:
+
+This looks good to me.
+
+On the other hand ledger-3.0 (beta) silently ignores the offending
+transaction.
+
+Is the change in behaviour intentional? Is there an option in 3.0 that
+yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
+:PROPERTIES:
+:ID:       8EAF77C0-C2FA-4B8D-BAEE-4A886CEAE106
+:CREATED:  [2011-08-21 Sun 18:53]
+:Date:     Sun, 21 Aug 2011 22:12:40 +0100
+:Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
+:Submitter: "David Keegan" <dksw@eircom.net>
+:END:
+** DONE Ledger is failing test/regress/D060256A.test
+SCHEDULED: <2012-02-17 Fri>
+- State "DONE"       from "TODO"       [2012-02-17 Fri 17:11]
+:PROPERTIES:
+:ID:       390D8B54-6E5E-453A-993C-45521CAE904B
+:CREATED:  [2012-02-16 Thu 19:31]
+:END:
+** DONE [[bug:632][#632]] Strange "print" behavior in comments
+- State "DONE"       from "TODO"       [2012-02-26 Sun 02:10]
+Related question: is there a way to specify that ledger should not
+reformat comments?  In other words:
+
+If the comment is on the same line as the account, such as
+#+begin_src ledger
+   Expenses   $10  ; very long comment on this account that exceeds the width
+#+end_src
+
+Then the comment should NOT be wrapped; and if the comment is on the following
+line, such as:
+#+begin_src ledger
+   Expenses   $10
+   ; short comment
+#+end_src
+
+Then it should not be combined with the previous line.
+:PROPERTIES:
+:ID:       50D6F711-7C3B-4BF8-B5F5-DB94B997BD04
+:CREATED:  [2012-02-06 Mon 14:30]
+:Date: Tue, 31 Jan 2012 09:33:48 -0800 (PST)
+:Message: [[message://37986445-0db3-476b-8f70-d6a59236bb4e@i10g2000pbl.googlegroups.com][Re: Strange "print" behavior in comments]]
+:Author: Hsiu-Khuern Tang <tangoh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** WONTFIX [#A] [[bug:406][#406]] Unable to install ledger on Ubuntu Hardy
+- State "WONTFIX"    from "TODO"       [2012-02-27 Mon 23:10]
+   :PROPERTIES:
+   :ID:       418D7760-03CD-441B-847F-BCD7EDE82E68
+   :CREATED:  [2011-06-14 Tue 19:21]
+   :END:
+** WONTFIX [#A] [[bug:418][#418]] Ledger 3.0 will not build under cygwin on Windows
+- State "WONTFIX"    from "TODO"       [2012-02-27 Mon 23:10]
+   :PROPERTIES:
+   :ID:       C3AEDBF3-B2BD-4112-9EDE-865023E06532
+   :CREATED:  [2011-06-14 Tue 19:21]
+   :END:
 ** WONTFIX [[bug:592][#592]] 'print' command does not handle multiple spaces in the payee
 - State "WONTFIX"    from "TODO"       [2011-11-22 Tue 23:45]
   :PROPERTIES:
@@ -3002,6 +3675,21 @@ $ ledger -f budget_test.txt --budget reg ^income
   :Message:  [[message://jwiegley/ledger/issues/44@github.com][{ledger} print command does not handle multiple spaces in the payee]]
   :Submitter: Peter Ross <reply+i-2075303-b72936dde164d8d4ce9bb65f0ae35544d621b8a8@reply.github.com>
   :END:
+** WORKSFORME [#A] [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)
+- State "WORKSFORME" from "TODO"       [2012-02-27 Mon 22:53]
+   :PROPERTIES:
+   :ID:       0E257D11-B836-4ACF-A937-7DEC4C0F28C0
+   :CREATED:  [2011-06-14 Tue 19:21]
+   :END:
+** WORKSFORME [#A] [[bug:503][#503]] Abort trap on MacOS 10.6.7                                      :blocker:
+- State "WORKSFORME" from "TODO"       [2012-02-27 Mon 23:11]
+   :PROPERTIES:
+   :ID:       CDEDA0D4-A7D1-4BEC-B8C6-F93EA8FFE305
+   :CREATED:  [2011-04-01 Fri 18:58]
+   :Message:  [[message://4D95020C.9090801@gmail.com][Re: Abort trap on MacOS 10.6.7]]
+   :Submitter: Michael Norrish <michael.norrish@gmail.com>
+   :Date:     Fri, 01 Apr 2011 09:37:00 +1100
+   :END:
 ** WORKSFORME [[bug:516][#516]] Ledger entry takes the first entry
 - State "WORKSFORME" from "DONE"       [2011-11-18 Fri 20:03]
 - State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
@@ -3042,6 +3730,17 @@ $ ledger -f budget_test.txt --budget reg ^income
    :Submitter: =?utf-8?Q?=C5=81ukasz?= Stelmach <lukasz.stelmach@iem.pw.edu.pl>
    :Date:     Fri, 06 May 2011 00:50:42 +0200
    :END:
+** WORKSFORME [[bug:614][#614]] --input-date-format does not effect convert
+- State "WORKSFORME" from "TODO"       [2012-02-23 Thu 21:41] \\
+  Craig Earls: I don't know what was happening earlier today, this is now
+  working.
+:PROPERTIES:
+:ID:       1FFA2CFA-BB14-4245-9029-34E868EE3EF9
+:CREATED:  [2011-12-13 Tue 19:04]
+:Date: Tue, 13 Dec 2011 22:43:37 +0000
+:Message: [[message://bug-614-1@http.bugs.ledger-cli.org/][{Bug 614} New: --input-date-format does not effect convert]]
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** INVALID [[bug:508][#508]] Register command doesn't filter anymore
 - State "INVALID"    from "DONE"       [2011-11-18 Fri 20:03] \\
   Not a bug.  Works in V3 if you use --limit properly:
@@ -3094,56 +3793,20 @@ $ ledger -f budget_test.txt --budget reg ^income
    :Message:  [[message://jwiegley/ledger/pull/37@github.com][{ledger} Highlight account names with spaces ]]
    :Submitter: dpiddy <reply+i-1504015-00cea49a44f8de09cf5765af8085fdcc0692e908@reply.github.com>
    :END:
-** DUPLICATE [[bug:565][#565]] Transactions with leading whitespace not detected
-- State "DUPLICATE"  from "TODO"       [2011-11-21 Mon 16:06] \\
-  Duplicate of #525.
-   - Note taken on [2011-08-21 Sun 18:53] \\
-     I believe it's a regression in 3.0.  I filed a bug report about this some
-     time ago: http://bugs.ledger-cli.org/show_bug.cgi?id=443
-   In the attached sample ledger file a space has been inadvertently inserted
-   preceding one of the transaction dates.
-   
-   ledger-2.6.3 Detects the error and emits:
-   :OUTPUT:
-   Error: "sample.ldg", line 6: Line begins with whitespace
-   Error: "sample.ldg", line 7: Line begins with whitespace
-   Error: "sample.ldg", line 8: Line begins with whitespace
-   :END:
-   
-   This looks good to me.
-   
-   On the other hand ledger-3.0 (beta) silently ignores the offending
-   transaction.
-   
-   Is the change in behaviour intentional? Is there an option in 3.0 that
-   yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
+** DUPLICATE [[bug:564][#564]] Double-quoted filename in Emacs output breaks reconciliation
+- State "DUPLICATE"  from "TODO"       [2012-02-23 Thu 21:40] \\
+  Duplicate of 525.
    :PROPERTIES:
-   :ID:       8EAF77C0-C2FA-4B8D-BAEE-4A886CEAE106
-   :CREATED:  [2011-08-21 Sun 18:53]
-   :Date:     Sun, 21 Aug 2011 22:12:40 +0100
-   :Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
+   :ID:       CCDFD6E8-C816-4BCA-8C18-EE7C9A076140
+   :CREATED:  [2011-08-22 Mon 17:08]
+   :Date:     Mon, 22 Aug 2011 22:03:56 +0100
+   :Message:  [[message://20050.50236.344154.205060@dk.dks.ie][Emacs reconciliation 3.0]]
    :Submitter: "David Keegan" <dksw@eircom.net>
    :END:
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
-** TODO (Craig) Minor annoyance with emacs mode
-  :PROPERTIES:
-  :ID:       E39956E4-B4BF-4B83-B80D-38820CCEFAFB
-  :CREATED:  [2011-11-15 Tue 18:05]
-  :Date:     Tue, 15 Nov 2011 10:07:17 -0700
-  :Message:  [[message://CAKs9TOJfSSjmqfi8i7xu=JdqJ=aayRgkwdxRdvJt4CUcgW7oMQ@mail.gmail.com][Minor annoyance with emacs mode]]
-  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-  :END:
-** TODO (Kenny) Add easy-menu for Emacs-mode
-:PROPERTIES:
-:ID:       34D222C4-7343-4AC0-AF00-202DF030482A
-:CREATED:  [2011-12-08 Thu 22:12]
-:Date: Thu, 8 Dec 2011 18:56:54 -0800
-:Message: [[message://jwiegley/ledger/pull/49@github.com][{ledger} Add easy-menu for Emacs-mode (#49)]]
-:Submitter: Kenny Meyer <reply+i-2498116-e90a1a758c19fe7dfe49f3a101c160aa4aa822aa-8460@reply.github.com>
-:END:
 ** TODO [[bug:431][#431]] Reconciling with ledger.el doesn't seem to work
    I use ledger.el with GNU Emacs 23.2.1. Is that supported at all? I wonder,
    because the reconcile mode doesn't seem to work. Hitting SPACE or RETURN
@@ -3396,22 +4059,72 @@ $ ledger -f budget_test.txt --budget reg ^income
     :ID:       7E625CF1-1258-4B29-9227-29153CC54B53
     :CREATED:  [2011-07-09 Sat 20:44]
     :END:
-** TODO [[bug:580][#580]] Emacs mode 'reconcile' doesn't work
-   I'm trying to reconcile a ledger file in "GNU Emacs 23.3.1
-   (x86_64-unknown-linux-gnu, GTK+ Version 2.24.3)". When I hit C-c C-r, I
-   just get the following error message:
-   :OUTPUT:
-   save-excursion: Wrong type argument: number-or-marker-p, nil
-   :END:
-   
-   I'm using the current git HEAD of ledger.
-   :PROPERTIES:
-   :ID:       400C0BA0-D132-465A-B0A4-AC7E6839DBD2
-   :CREATED:  [2011-07-21 Thu 15:26]
-   :Date:     Thu, 21 Jul 2011 09:23:28 -0700
-   :Message:  [[message://jwiegley/ledger/issues/31@github.com][{ledger} Emacs mode 'reconcile' doesn't work (#31)]]
-   :Submitter: peti <reply+i-1264237-1c07217de3933472fbd8fa785975d03170c352df@reply.github.com>
-   :END:
+** TODO [[bug:620][#620]] The -j option needs a way to specific the base to report values in
+If you report the following data using "reg -j", it outputs commodityless
+values that nonetheless have different bases: some are minute quantities,
+others are hour quantities.
+
+You can get around this using --base, however then your only recourse is to
+report in terms of seconds.  But what if you wanted to graph hours worked per
+day?  The -j option should force use of the default base (hours), and then
+there should be an option added to manually specify the reporting base, such
+as  "--use-base m".
+:PROPERTIES:
+:ID:       B7C2C869-7319-449C-8350-E14F3A26DCB8
+:CREATED: [2012-02-23 Thu 21:52]
+:END:
+** TODO [[bug:638][#638]] ledger-mode dropping first digit of inserted dates
+I use Aquamacs on OS X.  When I use the ledger-mode facility for adding
+entries, ledger-mode inserts the entry without the most significant digit. For
+example:
+#+begin_src ledger
+011/11/15 Bountiful Baskets
+    Expenses:Groceries                        $16.50
+    Assets:VWCU:Joint Checking
+#+end_src
+
+Which requires hand correction.
+:PROPERTIES:
+:ID:       E39956E4-B4BF-4B83-B80D-38820CCEFAFB
+:CREATED:  [2011-11-15 Tue 18:05]
+:Date:     Tue, 15 Nov 2011 10:07:17 -0700
+:Message:  [[message://CAKs9TOJfSSjmqfi8i7xu=JdqJ=aayRgkwdxRdvJt4CUcgW7oMQ@mail.gmail.com][Minor annoyance with emacs mode]]
+:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:639][#639]] Highlight accounts with spaces in Emacs
+I have recently upgraded to ledger 3.0 and found that highlight of account
+names with spaces is broken. I took a look at git repo and found that there's
+a change set fixing exactly the same problem in 2009:
+https://github.com/jwiegley/ledger/commit/8834fc0c15a53b8db8c2aaee95d2b25a050fe786
+
+However the change set above adresses file ldg-mode.el, not ledger.el, I guess
+something has been changed with packaging. Anyway I just reapplied this patch
+to ledger.el locally and problem is fixed.
+:PROPERTIES:
+:ID:       E6D64332-BD37-48FD-A9B7-ACD1D213C240
+:CREATED:  [2012-02-06 Mon 14:29]
+:Date: Mon, 16 Jan 2012 21:58:28 -0800 (PST)
+:Message: [[message://dd6656b9-eb45-4df1-a78d-6476cf75d112@a11g2000vbz.googlegroups.com][Highlight accounts with spaces in Emacs]]
+:Author: Ivan <ivan.inozemtsev-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:653][#653]] Do automatic transactions break emacs reconcile mode?
+This may be related to a feature request I made a while back.  Automatic
+transactions are getting reported to the reconciliation mode as uncleared
+transactions.  This appears to be breaking the reconciliation mode.  reconcile
+gives a paramter error that happens to complain about a check number I have in
+my jounral.  I added --real to the ledger command called by ledger and it no
+longer complains, but the buffer is empty.  It doesn repond to the 'q'
+command, but nothing else I do seems to bring anything up in the buffer.
+
+I assume that if I type C-c C-r Expenses, the reconcile buffer should show all
+my uncleared transactions.  All I get is an empty buffer.
+:PROPERTIES:
+:ID:       A7D23C81-73A4-4849-BB03-5B3C489332B5
+:CREATED:  [2011-11-16 Wed 15:15]
+:Date:     Tue, 15 Nov 2011 16:00:35 -0700
+:Message:  [[message://CAKs9TOLF1tFi9fzsbboAfwSor-uXU69hDJM4GxFBLjFu4PAxJw@mail.gmail.com][Do automatic transactions break emacs reconcile mode?]]
+:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 ** TODO [#C] [[bug:389][#389]] Emacs mode autocompletion issue
    :PROPERTIES:
    :ID:       87255055-84B2-4B95-B643-0F8848C06D70
@@ -3692,37 +4405,151 @@ $ ledger -f budget_test.txt --budget reg ^income
    :ID:       178EC4C8-F87A-40C2-91CE-C5BD9CA50BD3
    :CREATED:  [2009-10-23 Fri 06:14]
    :END:
+** DONE Add easy-menu for Emacs-mode
+- State "DONE"       from "TODO"       [2012-02-23 Thu 21:10]
+:PROPERTIES:
+:ID:       34D222C4-7343-4AC0-AF00-202DF030482A
+:CREATED:  [2011-12-08 Thu 22:12]
+:Date: Thu, 8 Dec 2011 18:56:54 -0800
+:Message: [[message://jwiegley/ledger/pull/49@github.com][{ledger} Add easy-menu for Emacs-mode (#49)]]
+:Submitter: Kenny Meyer <reply+i-2498116-e90a1a758c19fe7dfe49f3a101c160aa4aa822aa-8460@reply.github.com>
+:END:
+** DONE [[bug:580][#580]] Emacs mode 'reconcile' doesn't work
+- State "DONE"       from "TODO"       [2012-02-23 Thu 21:41] \\
+  Fixed by d2915c6
+   I'm trying to reconcile a ledger file in "GNU Emacs 23.3.1
+   (x86_64-unknown-linux-gnu, GTK+ Version 2.24.3)". When I hit C-c C-r, I
+   just get the following error message:
+   :OUTPUT:
+   save-excursion: Wrong type argument: number-or-marker-p, nil
+   :END:
+   
+   I'm using the current git HEAD of ledger.
+   :PROPERTIES:
+   :ID:       400C0BA0-D132-465A-B0A4-AC7E6839DBD2
+   :CREATED:  [2011-07-21 Thu 15:26]
+   :Date:     Thu, 21 Jul 2011 09:23:28 -0700
+   :Message:  [[message://jwiegley/ledger/issues/31@github.com][{ledger} Emacs mode 'reconcile' doesn't work (#31)]]
+   :Submitter: peti <reply+i-1264237-1c07217de3933472fbd8fa785975d03170c352df@reply.github.com>
+   :END:
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
-** TODO Valexpr  round(value) should take a precision amount
-:PROPERTIES:
-:ID:       BE07F550-6BA8-43C2-B625-118ABC6E8D0B
-:CREATED:  [2012-01-06 Fri 21:19]
-:Date: Fri, 6 Jan 2012 14:27:42 -0700
-:Message: [[message://CAKs9TO+0EpJRkW5yyyfR_H9w94i314HgTT9s4Qf=Bkp91ZdVhQ@mail.gmail.com][Re: Rounding formula for automatic transactions]]
-:Author: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO Add option option "--help-{commands|options}-plain"
-:PROPERTIES:
-:ID:       22C7A4C4-3895-4457-B5E1-5F3BD50C3A23
-:CREATED:  [2011-11-29 Tue 12:27]
-:Date: Mon, 28 Nov 2011 21:48:13 -0700
-:Message: [[message://CAKs9TOKWUbS4vjwkfmez7h+uOpi0E9T2yQjtND6R7MPpwGviHQ@mail.gmail.com][ATTN Clemens Fischer, input on command line completion]]
-:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
 ** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
    :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
    :CREATED:  [2010-07-30 Fri 06:11]
    :END:
 ** TODO [[bug:475][#475]] A solution to the commodity pricing problem
-   :PROPERTIES:
-   :ID:       AEDF58BB-CE44-4C3E-B66E-0BB955E64206
-   :Message:  [[message://B24180CF-D2DB-49DD-BEBD-4FF7170D3639@newartisans.com][A solution to the commodity pricing problem]]
-   :CREATED:  [2011-02-04 Fri 07:32]
-   :END:
+One of the things which stalled Ledger development recently is that I'd never
+found a truly satisfying way to handle the "commodity pricing problem".  That
+is, the current day value of a commodity can mean different things to
+different people, depending on the accounts involved, the commodities, the
+nature of the transactions, etc.
+
+After experimenting with several different concepts and syntaxes, I found none
+of them were either satisfying or general enough.  My one attempt at providing
+"fixated prices" was too specific, and too inelegant for many usage patterns.
+
+This morning, however, I think I've finally cracked this nut; and in a way
+which fits harmoniously into the Ledger architecture as if it were meant to be
+there all along...
+
+Here's how the new scheme will work: When a user specifies '-V', or '-X COMM',
+they are requesting that some or all of the commodities in their Ledger file
+be valuated as of today (or whatever --now is set to).  But what does such a
+valuation mean?  This meaning shall be governed by the presence of a "VALUE"
+metadata property, whose content is an expression used to compute that value.
+
+If no VALUE property is specified, each posting is assumed to have a default,
+as if you'd specified a global, automated transaction as follows:
+
+#+begin_src ledger
+= expr true
+  ; VALUE:: market(amount, date, exchange)
+#+end_src
+
+This definition emulates the present day behavior of -V and -X (in the case of
+-X, the requested commodity is passed via the string 'exchange' above).
+
+One thing many people have wanted to do is to fixate the valuation of old
+European currencies in terms of the Euro after a certain date:
+
+#+begin_src ledger
+= expr commodity == "DM"
+  ; VALUE:: date < [Jun 2008] ? market(amount, date, exchange) : 1.44 EUR
+#+end_src
+
+This says: If --now is some old date, use market prices as they were at that
+time; but if --now is past June 2008, use a fixed price for converting Deutsch
+Mark to Euro.
+
+Or how about never re-valuating commodities used in Expenses, since they
+cannot have a different future value:
+
+#+begin_src ledger
+= /^Expenses:/
+  ; VALUE:: market(amount, post.date, exchange)
+#+end_src
+
+This says the future valuation is the same as the valuation at the time of
+posting.  post.date equals the posting's date, while just 'date' is the value
+of --now (defaults to today).
+
+Or how about valuating miles based on a reimbursement rate during a specific
+time period:
+
+#+begin_src ledger
+= expr commodity == "miles" and date >= [2007] and date < [2008]
+  ; VALUE:: market($1.05, date, exchange)
+#+end_src
+
+In this case, miles driven in 2007 will always be valuated at $1.05 each.  If
+you use -X EUR to expressly request all amounts in Euro, Ledger shall convert
+$1.05 to Euro by whatever means are appropriate for dollars.
+
+Note that you can have a valuation expression specific to a particular posting
+or transaction, by overriding these general defaults using specific metadata:
+
+#+begin_src ledger
+2010-12-26 Example
+    Expenses:Food                $20
+    ; Just to be silly, always valuate *these* $20 as 30 DM, no matter what
+    ; the user asks for with -V or -X
+    ; VALUE:: 30 DM
+    Assets:Cash
+#+end_src
+
+This example demonstrates that your VALUE expression should be as symbolic as
+possible, using terms like 'amount' and 'date', rather than specific amounts
+and dates.  Also, you should pass the amount along to the function 'market' so
+it can be further revalued if the user has asked for a specific currency.
+
+Or, if it better suits your accounting, you can be less symbolic, which allows
+you to report most everything in EUR if you use -X EUR, except for certain
+accounts or postings which should always be valuated in another currency.  For
+example:
+
+#+begin_src ledger
+= /^Assets:Brokerage:CAD$/
+  ; Always report the value of commodities in this account in terms of
+  ; present day dollars, despite what was asked for on the command-line
+  ; VALUE:: market(amount, date, '$')
+#+end_src
+
+I think this scheme, of using predicated value expressions which can be
+generalized in automated transactions, and made specific via transaction and
+posting-based metadata, provides sufficient flexibility to express most of the
+use cases which have occurred on this topic.
+
+Comments on the design welcome, as I haven't begun coding yet.  Feel free to
+pose scenarios, and I'll try to model them for you.
+:PROPERTIES:
+:ID:       AEDF58BB-CE44-4C3E-B66E-0BB955E64206
+:Message:  [[message://B24180CF-D2DB-49DD-BEBD-4FF7170D3639@newartisans.com][A solution to the commodity pricing problem]]
+:CREATED:  [2011-02-04 Fri 07:32]
+:END:
 ** TODO [[bug:481][#481]] Add a native "test" command to Ledger
    This would allow users to have their own "test" blocks in their data files,
    without having to run a Python script to do those tests.
@@ -4014,6 +4841,59 @@ $ ledger -f budget_test.txt --budget reg ^income
   :Message:  [[message://CAKs9TOJ_AL1uXfUVUTU6wUAY6juw=yVw8Ghiir+f+6zq_bm0GA@mail.gmail.com][Re: Controlling the precision displayed in amounts]]
   :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
   :END:
+** TODO [[bug:625][#625]] Add "semiannually" interval
+I'd like to be able to create a periodic transaction for my car insurance
+payment, which is due semiannually.  The attached patch adds a "semiannually"
+interval so that I can do so.
+:PROPERTIES:
+:ID:       99641892-1A8D-4557-9800-2122873300B9
+:CREATED: [2012-02-23 Thu 21:53]
+:END:
+** TODO [[bug:627][#627]] Add help option "--help-{commands|options}-plain"
+:PROPERTIES:
+:ID:       22C7A4C4-3895-4457-B5E1-5F3BD50C3A23
+:CREATED:  [2011-11-29 Tue 12:27]
+:Date: Mon, 28 Nov 2011 21:48:13 -0700
+:Message: [[message://CAKs9TOKWUbS4vjwkfmez7h+uOpi0E9T2yQjtND6R7MPpwGviHQ@mail.gmail.com][ATTN Clemens Fischer, input on command line completion]]
+:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:628][#628]] round(value) should take an optional precision amount
+:PROPERTIES:
+:ID:       BE07F550-6BA8-43C2-B625-118ABC6E8D0B
+:CREATED:  [2012-01-06 Fri 21:19]
+:Date: Fri, 6 Jan 2012 14:27:42 -0700
+:Message: [[message://CAKs9TO+0EpJRkW5yyyfR_H9w94i314HgTT9s4Qf=Bkp91ZdVhQ@mail.gmail.com][Re: Rounding formula for automatic transactions]]
+:Author: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:629][#629]] Add ability to jump to transactions from a report buffer
+:PROPERTIES:
+:ID:       EC4C7A71-3C1C-43C2-81A6-2BBC3ED4A406
+:CREATED:  [2012-02-16 Thu 16:02]
+:Date: Thu, 16 Feb 2012 21:49:37 +0000
+:Message: [[message://bug-629-1@http.bugs.ledger-cli.org/][{Bug 629} New: Add ability to jump to transactions from a report buffer.]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:647][#647]] Add ability to pass offset dates to xact command
+When using the entry command is there an easy way to specify that the
+transaction occurred yesterday or the day before. I imagine something like
+#+begin_src sh
+$ledger entry t-1 Blah groceries '$3.41'
+#+end_src
+would give something like (today is 2012/01/26)
+:OUTPUT:
+2012/01/25 Blah
+    Expenses:Dining:Groceries                $3.41
+    Liabilities:CC:Amex
+:END:
+
+and t-2 would give the same entry but with the date of 2012/01/24.
+:PROPERTIES:
+:ID:       C1FD166C-7A14-4C40-808C-A87022379AEA
+:CREATED:  [2012-02-06 Mon 14:29]
+:Date: Thu, 26 Jan 2012 00:22:32 -0600
+:Message: [[message://CABZEcScd3PkLkWKzWxCssDbh-Y+gC+rA24DPejHfE23L6ODDHA@mail.gmail.com][questions regarding draft (entry/xact)]]
+:Author: David Whitmarsh <dwhitmarsh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 ** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
    :PROPERTIES:
    :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
@@ -4520,14 +5400,16 @@ $ ledger -f budget_test.txt --budget reg ^income
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO [[bug:407][#407]] Problem with decimal commas and Python integration support
+** DEFERRED [[bug:407][#407]] Problem with decimal commas and Python integration support
+- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
    :PROPERTIES:
    :ID:       91F750B3-C7D0-4945-8E9D-268AAA40529C
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
    :CREATED:  [2010-08-16 Mon 16:47]
    :END:
-** TODO [[bug:424][#424]] Make acprep compatible with Python 3                                        :ATTACH:
+** DEFERRED [[bug:424][#424]] Make acprep compatible with Python 3                                    :ATTACH:
+- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
    - Note taken on [2010-11-26 Fri 12:55] \\
      [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
    :PROPERTIES:
@@ -4696,31 +5578,6 @@ $ ledger -f budget_test.txt --budget reg ^income
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO (Craig) acprep opt producing a debug executable
-  :PROPERTIES:
-  :ID:       0D1B3962-02A1-4213-8025-3849DA554337
-  :CREATED:  [2011-11-11 Fri 14:08]
-  :Date:     Thu, 10 Nov 2011 20:38:12 -0700
-  :Message:  [[message://CAKs9TOLp84z6Od+Cg27y-uY42ZW7UkQAbUVo4TeviX2Mv1wRbQ@mail.gmail.com][acprep opt producing a debug executable]]
-  :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-  :END:
-** TODO (MacPorts) #25213: ledger-devel Portfile
-:PROPERTIES:
-:ID:       C1CC1703-52F7-4203-B0C2-1C5BDA590493
-:CREATED:  [2011-11-24 Thu 01:27]
-:Date: Thu, 24 Nov 2011 07:04:31 +0000
-:Message: [[message://063.34c9b6114c17ced1224f656ffb8081df@macports.org][Re: {MacPorts} #25213: ledger-devel Portfile]]
-:Submitter: MacPorts <noreply@macports.org>
-:END:
-** TODO (Marc) configure is not finding python on freebsd 8.2
-... 2.6 and 2.7 installed
-:PROPERTIES:
-:ID:       A82B7536-D1F5-47C2-9CDE-6E66AC07B454
-:CREATED:  [2011-12-05 Mon 00:36]
-:Date: Sat, 3 Dec 2011 11:41:04 -0800
-:Message: [[message://jwiegley/ledger/issues/47@github.com][{ledger} configure is not finding python on freebsd 8.2, 2.6 and 2.7 installed (#47)]]
-:Submitter: Marc Spitzer <reply+i-2438826-719e6bc6d8ff7b4d80a3aa0f1e5d3ce9db669c36-8460@reply.github.com>
-:END:
 ** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
    :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
@@ -4777,6 +5634,60 @@ $ ledger -f budget_test.txt --budget reg ^income
   :Message:  [[message://CA+R89YLLmnr2iYxCnmsjkwNwf8dSv1zHaE6s3xHGxJnEWzC1UQ@mail.gmail.com][{ledger bug} ExprTests failed]]
   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
   :END:
+** TODO [[bug:644][#644]] MacPorts #25213: ledger-devel Portfile
+:PROPERTIES:
+:ID:       C1CC1703-52F7-4203-B0C2-1C5BDA590493
+:CREATED:  [2011-11-24 Thu 01:27]
+:Date: Thu, 24 Nov 2011 07:04:31 +0000
+:Message: [[message://063.34c9b6114c17ced1224f656ffb8081df@macports.org][Re: {MacPorts} #25213: ledger-devel Portfile]]
+:Submitter: MacPorts <noreply@macports.org>
+:END:
+** TODO [[bug:645][#645]] acprep opt producing a debug executable
+Just grabbed the latest "next" and acprep opt is building a 14MB executable
+that runs very slowly.  It produces a file identical to acprep debug
+:OUTPUT:
+20:06:04 ~/ledger > ./acprep opt
+...
+20:18:34 ~/ledger > ls -la ledger
+-rwxr-xr-x  1 cpearls  staff  14061676 Nov 10 20:18 ledger
+
+20:20:36 ~/ledger > ./acprep debug update
+...
+20:33:13 ~/ledger > ls -la ledger
+-rwxr-xr-x  1 cpearls  staff  14061676 Nov 10 20:33 ledger
+:END:
+:PROPERTIES:
+:ID:       0D1B3962-02A1-4213-8025-3849DA554337
+:CREATED:  [2011-11-11 Fri 14:08]
+:Date:     Thu, 10 Nov 2011 20:38:12 -0700
+:Message:  [[message://CAKs9TOLp84z6Od+Cg27y-uY42ZW7UkQAbUVo4TeviX2Mv1wRbQ@mail.gmail.com][acprep opt producing a debug executable]]
+:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:646][#646]] configure is not finding python on freebsd 8.2
+... 2.6 and 2.7 installed
+
+:OUTPUT:
+checking whether /usr/bin/python version >= 2.4... configure: error: too old
+acprep: ERROR: Execution failed: sh configure CPPFLAGS=-isystem
+/usr/local/include -isystem /usr/local/include -isystem
+/usr/local/include/python2.6 CXXFLAGS=-Wconversion -g -pipe LDFLAGS=-fpch-deps
+-g -L/usr/local/lib --with-included-gettext --enable-python --enable-pch
+--enable-debug
+:END:
+
+also config is setting python to /usr/bin/python, from config.log:
+PYTHON='/usr/bin/python'
+
+and python is /usr/local/bin/python , python version 2.7 
+
+how do I get you the config.log file?
+:PROPERTIES:
+:ID:       A82B7536-D1F5-47C2-9CDE-6E66AC07B454
+:CREATED:  [2011-12-05 Mon 00:36]
+:Date: Sat, 3 Dec 2011 11:41:04 -0800
+:Message: [[message://jwiegley/ledger/issues/47@github.com][{ledger} configure is not finding python on freebsd 8.2, 2.6 and 2.7 installed (#47)]]
+:Submitter: Marc Spitzer <reply+i-2438826-719e6bc6d8ff7b4d80a3aa0f1e5d3ce9db669c36-8460@reply.github.com>
+:END:
 ** TODO [#C] [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
@@ -4920,51 +5831,12 @@ $ ledger -f budget_test.txt --budget reg ^income
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO (Shea) Post to the Wiki that Ledger 3 is in nixpkgs
-:PROPERTIES:
-:ID:       49B5728F-565B-47F1-B01B-38A6F273C502
-:CREATED:  [2012-01-08 Sun 16:43]
-:Date: Sat, 07 Jan 2012 12:39:53 -0500
-:Message: [[message://4F088369.6060102@shealevy.com][Ledger 3 is in nixpkgs]]
-:Author: Shea Levy <shea@shealevy.com>
-:END:
-** TODO (Sergey) Add note about ledger openbsd port to ledger-cli.org
-:PROPERTIES:
-:ID:       209EBF3A-D147-49F0-B731-510183D54AEB
-:CREATED:  [2011-12-15 Thu 13:23]
-:Date: Thu, 15 Dec 2011 19:48:09 +0400
-:Message: [[message://20111215154809.GA19226@sergeyb.sw.ru][port ledger to openbsd]]
-:Submitter: Sergey Bronnikov <estetus@gmail.com>
-:END:
-** TODO (Bill) icsv2ledger
-  :PROPERTIES:
-  :ID:       E2CE5C0E-4C21-46CB-A3BC-151FB44ABE74
-  :CREATED:  [2011-11-14 Mon 18:04]
-  :Date:     Sun, 13 Nov 2011 09:24:20 -0800
-  :Message:  [[message://87bosgdjgb.fsf@facilitatedsystems.com][Re: icsv2ledger]]
-  :Submitter: Bill Harris <bill_harris-QZ6Oi4O73aIGVxvUd/LB5TGjJy/sRE9J@public.gmane.org>
-  :END:
-** TODO (Martin) Add the "autopoint" dependency for Debian to the README
-:PROPERTIES:
-:ID:       282660AC-1A0A-4681-9B62-EB9A51DC0B5F
-:CREATED:  [2011-12-02 Fri 14:24]
-:Date: Tue, 29 Nov 2011 20:58:58 +0000
-:Message: [[message://20111129205858.GG21967@jirafa.cyrius.com][Re: ledger fails to build]]
-:Submitter: Martin Michlmayr <tbm@cyrius.com>
-:END:
 ** TODO [[bug:452][#452]] Fixes to the ledger wiki/README-1ST
    :PROPERTIES:
    :ID:       07EB8797-458D-4FBB-B125-062BAC1B732B
    :Submitter: Matthew Palmer <mpalmer@hezmatt.org>
    :Message:  [[message://20101207061035.GC4783@hezmatt.org][Fixes to the ledger wiki/README-1ST]]
    :CREATED:  [2010-12-07 Tue 16:33]
-   :END:
-** TODO [[bug:474][#474]] Create documentation stubs in ledger3.texi for all features
-- State "TODO"       from "DONE"       [2011-11-18 Fri 20:04]
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :PROPERTIES:
-   :ID:       F8237174-35B6-493D-A0B0-FEC900C2C2D3
-   :CREATED:  [2011-01-26 Wed 13:21]
    :END:
 ** TODO [[bug:500][#500]] Enforcing balanced books
    - Note taken on [2011-03-16 Wed 22:14] \\
@@ -5128,6 +6000,48 @@ $ ledger -f budget_test.txt --budget reg ^income
    :Message:  [[message://1024645.103.1301786635133.JavaMail.geo-discussion-forums@prfx36][Depreciate assets (cars, equipment, buildings, etc) and push them into the ledger file on a schedule]]
    :Submitter: tazz_ben <ben@wbpsystems.com>
    :END:
+** TODO [[bug:640][#640]] Add the "autopoint" dependency for Debian to the README
+:PROPERTIES:
+:ID:       282660AC-1A0A-4681-9B62-EB9A51DC0B5F
+:CREATED:  [2011-12-02 Fri 14:24]
+:Date: Tue, 29 Nov 2011 20:58:58 +0000
+:Message: [[message://20111129205858.GG21967@jirafa.cyrius.com][Re: ledger fails to build]]
+:Submitter: Martin Michlmayr <tbm@cyrius.com>
+:END:
+** TODO [[bug:641][#641]] Add note about ledger openbsd port to ledger-cli.org
+:PROPERTIES:
+:ID:       209EBF3A-D147-49F0-B731-510183D54AEB
+:CREATED:  [2011-12-15 Thu 13:23]
+:Date: Thu, 15 Dec 2011 19:48:09 +0400
+:Message: [[message://20111215154809.GA19226@sergeyb.sw.ru][port ledger to openbsd]]
+:Submitter: Sergey Bronnikov <estetus@gmail.com>
+:END:
+** TODO [[bug:642][#642]] Post to the Wiki that Ledger 3 is in nixpkgs
+:PROPERTIES:
+:ID:       49B5728F-565B-47F1-B01B-38A6F273C502
+:CREATED:  [2012-01-08 Sun 16:43]
+:Date: Sat, 07 Jan 2012 12:39:53 -0500
+:Message: [[message://4F088369.6060102@shealevy.com][Ledger 3 is in nixpkgs]]
+:Author: Shea Levy <shea@shealevy.com>
+:END:
+** TODO [[bug:643][#643]] Ledger syntax coloring for TextWrangler
+Those among you who (would like to) use TextWrangler (free OS X text editor)
+to edit a ledger file may be interested in adding some colors to their
+transactions:
+
+https://gist.github.com/1597432
+
+Just copy Ledger.plist into ~/Library/Application Support/TextWrangler and
+re-open TextWrangler. Files with suffix .ledger will be recognized as Ledger
+files. Additional suffixes can be added in TextWrangler > Preferences >
+Languages.
+:PROPERTIES:
+:ID:       B93B60D0-1B57-4653-8E04-FEF5DCDF0725
+:CREATED:  [2012-01-12 Thu 17:35]
+:Date: Thu, 12 Jan 2012 10:54:58 +0100
+:Message: [[message://github-87F922.10545812012012@news.gmane.org][Ledger syntax coloring for TextWrangler]]
+:Author: Niekas <github-Vzr4Esry4JzzIImvGDD8mw@public.gmane.org>
+:END:
 ** TODO [#C] [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
@@ -5138,6 +6052,19 @@ $ ledger -f budget_test.txt --budget reg ^income
    :PROPERTIES:
    :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
    :CREATED:  [2009-11-09 Mon 03:40]
+   :END:
+** TODO [#C] [[bug:170][#170]] Fill out membership form for the Software Conservancy
+- State "TODO"       from "WAITING"    [2012-01-11 Wed 14:25]
+   - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
+     I'm waiting for the official form to come from the Conservancy.
+   - State "TODO"       from "WAITING"    [2010-05-22 Sat 15:05]
+   - State "WAITING"    from "TODO"       [2010-01-22 Fri 20:06] \\
+     I'm waiting on the new agreement to be sent.
+   :PROPERTIES:
+   :ID:       78635C7A-98F2-494F-93A4-7CDA6094E681
+   :Message:  [[message://4B240026.5040408@softwarefreedom.org][Re: Offer of membership to the Ledger project into the Software Freedom Conservancy, Inc.]]
+   :Submitter: Karen Sandler <karen@softwarefreedom.org>
+   :CREATED:  [2009-12-17 Thu 02:44]
    :END:
 ** TODO [#C] [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
    :PROPERTIES:
@@ -5172,17 +6099,13 @@ $ ledger -f budget_test.txt --budget reg ^income
    :Message:  [[message://AANLkTin8%3DcrNWggCMtHP%2B6MhvR41RHQeqBSveN05oiEd@mail.gmail.com][Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
    :CREATED:  [2010-11-07 Sun 13:10]
    :END:
-** WAITING [#C] [[bug:170][#170]] Fill out membership form for the Software Conservancy
-   - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
-     I'm waiting for the official form to come from the Conservancy.
-   - State "TODO"       from "WAITING"    [2010-05-22 Sat 15:05]
-   - State "WAITING"    from "TODO"       [2010-01-22 Fri 20:06] \\
-     I'm waiting on the new agreement to be sent.
+** DELEGATED [[bug:474][#474]] Create documentation stubs in ledger3.texi for all features
+- State "DELEGATED"  from "TODO"       [2012-02-23 Thu 21:54]
+- State "TODO"       from "DONE"       [2011-11-18 Fri 20:04]
+- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
    :PROPERTIES:
-   :ID:       78635C7A-98F2-494F-93A4-7CDA6094E681
-   :Message:  [[message://4B240026.5040408@softwarefreedom.org][Re: Offer of membership to the Ledger project into the Software Freedom Conservancy, Inc.]]
-   :Submitter: Karen Sandler <karen@softwarefreedom.org>
-   :CREATED:  [2009-12-17 Thu 02:44]
+   :ID:       F8237174-35B6-493D-A0B0-FEC900C2C2D3
+   :CREATED:  [2011-01-26 Wed 13:21]
    :END:
 ** DEFERRED [[bug:241][#241]] Complete the internal documentation, exported using Doxygen
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 17:10]
@@ -5256,6 +6179,13 @@ $ ledger -f budget_test.txt --budget reg ^income
    :Message:  [[message://jwiegley/ledger/issues/32@github.com][{ledger} Improve download/install instructions for the Mac (#32)]]
    :Submitter: richardcooper <reply+i-1278078-1be2b9ab93ac7c481fd66bb7244f2447690518e1@reply.github.com>
    :END:
+** DONE Post links on Ledger Web to the new dmg and coverage report
+SCHEDULED: <2012-02-18 Sat>
+- State "DONE"       from "TODO"       [2012-02-19 Sun 02:05]
+:PROPERTIES:
+:ID:       A2E9F14E-A826-45D3-9BFB-8D3EBFD9F8C8
+:CREATED:  [2012-02-17 Fri 17:26]
+:END:
 ** DUPLICATE [#C] [[bug:450][#450]] Document how to do inventory accounting
 - State "DUPLICATE"  from "DONE"       [2011-11-18 Fri 20:05] \\
   This is a duplicate of #244.
@@ -5267,35 +6197,35 @@ $ ledger -f budget_test.txt --budget reg ^income
    :CREATED:  [2010-12-27 Mon 03:40]
    :END:
 ** NOTE Questions on Ledger
-   - Did you use a separate ledger for this trip, or were your entries in the
-     same ledger as your personal finances?
-   - How did you discover the loss from roundtrip currency conversions?
-   - How do you label your currencies? (I find ascii $ works fine, but £ shows
-     up in emacs as £ (if typed into Terminal) and shows up in Terminal as ?
-     (if typed in Emacs). I've switched to GBP until Emacs supports UTF-8 NCD)
-   - How did you deal with using a USD based Mastercard to pay for a Shekels
-     meal? Do you have to wait until you get your Mastercard statement to
-     determine the exchange rate or extra fees for international usage?
-   - Your blog suggests that you kept a paper ledger during the trip, and only
-     used Ledger after you got home. Would it have worked if you'd used Ledger
-     in real-time?
-   - What accounts did you use? How many of each type (Income, Equity,
-     Liability, Expense, Asset?)
-   - What did your most basic entries look like?
-   - What were your most complex entries, and what lessons did you learn from
-     them? Did you restructure your accounts along the way because of an
-     unforeseen wrinkle?
-   - What ledger command lines did you use to compute the amount owed by each
-     person?
-   :PROPERTIES:
-   :ID:       7786026F-2E73-45CA-B89F-A234DC4A6317
-   :VISIBILITY: folded
-   :CREATED:  [2011-06-19 Sun 18:23]
-   :END:
+- Did you use a separate ledger for this trip, or were your entries in the
+  same ledger as your personal finances?
+- How did you discover the loss from roundtrip currency conversions?
+- How do you label your currencies? (I find ascii $ works fine, but £ shows
+  up in emacs as £ (if typed into Terminal) and shows up in Terminal as ?
+  (if typed in Emacs). I've switched to GBP until Emacs supports UTF-8 NCD)
+- How did you deal with using a USD based Mastercard to pay for a Shekels
+  meal? Do you have to wait until you get your Mastercard statement to
+  determine the exchange rate or extra fees for international usage?
+- Your blog suggests that you kept a paper ledger during the trip, and only
+  used Ledger after you got home. Would it have worked if you'd used Ledger
+  in real-time?
+- What accounts did you use? How many of each type (Income, Equity,
+  Liability, Expense, Asset?)
+- What did your most basic entries look like?
+- What were your most complex entries, and what lessons did you learn from
+  them? Did you restructure your accounts along the way because of an
+  unforeseen wrinkle?
+- What ledger command lines did you use to compute the amount owed by each
+  person?
+:PROPERTIES:
+:ID:       7786026F-2E73-45CA-B89F-A234DC4A6317
+:VISIBILITY: folded
+:CREATED:  [2011-06-19 Sun 18:23]
+:END:
 * Colophon
 #+STARTUP: content fninline hidestars
 #+ARCHIVE: TODO-3.0::
-#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) REVIEW(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
+#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) REVIEW(@) REVIEW(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
 #+TAGS: blocker(B) critical(C)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
 #+LINK: bug http://bugs.ledger-cli.org/show_bug.cgi?id=

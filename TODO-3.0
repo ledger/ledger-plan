@@ -1,7 +1,7 @@
 LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+STARTUP: content fninline hidestars
-#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
+#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) REVIEW(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
 #+TAGS: blocker(B) critical(C)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
 #+LINK: bug http://bugs.ledger-cli.org/show_bug.cgi?id=
@@ -1117,15 +1117,6 @@ SCHEDULED: <2011-11-10 Thu>
    :CREATED:  [2011-10-01 Sat 16:37]
    :Date:     Sat, 01 Oct 2011 17:40:58 +0000
    :Message:  [[message://bug-552-1@http.bugs.ledger-cli.org/][{Bug 552} New: Missing ')' error in automated transactions with value expression predicate]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
-** DONE [[bug:555][#555]] ledger stats reports days per posting, not postings per day
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :PROPERTIES:
-   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
-   :CREATED:  [2011-10-10 Mon 15:02]
-   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
-   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :END:
 ** DONE [[bug:557][#557]] Missing ')' in posting value expression does NOT cause an error
