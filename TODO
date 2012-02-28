@@ -4,20 +4,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [#C] [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
-   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
-     Thierry confirms this still happens for him.
-   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
-   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
-     To Thomas: I just tried this and it worked fine.  After your "push" command,
-     does the prompt change to a ]]?
-   :LOGBOOK:
-   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
-   :END:
-   :PROPERTIES:
-   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
-   :CREATED:  [2010-05-30 Sun 03:33]
-   :END:
 ** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
    #+begin_src sh
    ledger reg -s --inject=Expected '^income:ceg'
@@ -180,154 +166,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100730074700.GA3033@kerneis.info][Reporting multiple commodities with -J]]
    :CREATED:  [2010-07-30 Fri 06:08]
    :END:
-** DONE [[bug:394][#394]] Weekly report and monthly report (possible bug)
-- State "DONE"       from "TODO"       [2012-02-28 Tue 02:36] \\
-  Fixed by 6adfcc8
-- Note taken on [2012-02-28 Tue 00:16] \\
-  #+begin_src sh
-  ledger -p "apr 2011" reg Expenses -X '$'   
-  #+end_src
-  :OUTPUT:
-  11-Apr-01 serveraxis.com            Expenses:Computer:Internet             $15.00          $15.00
-                                      Expenses:Computer:Internet              $1.10          $16.10
-  11-Apr-05 Pennsylvania toll booth   Expenses:Auto:Fees                     $13.00          $29.10
-                                      Expenses:Cash                         $-13.00          $16.10
-  11-Apr-05 iTunes                    Expenses:Music                          $1.29          $17.39
-                                      Expenses:Taxes:Sales                    $0.09          $17.48
-  11-Apr-19 iTunes                    Expenses:Computer:Software              $4.99          $22.47
-                                      Expenses:Taxes:Sales                    $0.35          $22.82
-  11-Apr-24 iTunes                    Expenses:Movies                         $1.99          $24.81
-                                      Expenses:Movies                         $2.99          $27.80
-                                      Expenses:Taxes:Sales                    $0.35          $28.15
-  11-Apr-29 iTunes                    Expenses:Computer:Movies                $0.99          $29.14
-                                      Expenses:Taxes:Sales                    $0.07          $29.21
-  :END:
-
-  #+begin_src sh
-  ledger -M -p "apr 2011" reg Expenses -X '$'
-  #+end_src
-  :OUTPUT:
-  11-Apr-01 - 11-Apr-29               Expenses:Auto:Fees                     $13.00          $13.00
-                                      Expenses:Cash                         $-13.00               0
-                                      Expenses:Computer:Internet             $16.10          $16.10
-                                      Expenses:Computer:Movies                $0.99          $17.09
-                                      Expenses:Computer:Software              $4.99          $22.08
-                                      Expenses:Movies                         $4.98          $27.06
-                                      Expenses:Music                          $1.29          $28.35
-                                      Expenses:Taxes:Sales                    $0.86          $29.21
-  :END:
-  
-  #+begin_src sh
-  ledger -W -p "apr 2011" reg Expenses -X '$'
-  #+end_src
-  :OUTPUT:
-  11-Apr-01 - 11-Apr-02               Expenses:Computer:Internet             $16.10          $16.10
-  11-Apr-15 - 11-Apr-21               Expenses:Computer:Software              $4.99          $21.09
-                                      Expenses:Taxes:Sales                    $0.35          $21.44
-  11-Apr-22 - 11-Apr-28               Expenses:Movies                         $4.98          $26.42
-                                      Expenses:Taxes:Sales                    $0.35          $26.77
-  11-Apr-29 - 11-Apr-29               Expenses:Computer:Movies                $0.99          $27.76
-                                      Expenses:Taxes:Sales                    $0.07          $27.83
-  :END:
-  
-  #+begin_src sh
-  ledger -E -W -p "apr 2011" reg Expenses -X '$'
-  #+end_src
-  :OUTPUT:
-  11-Apr-01 - 11-Apr-02               Expenses:Computer:Internet             $16.10          $16.10
-  11-Apr-03 - 11-Apr-09               Expenses:Computer:Software              $4.99          $21.09
-  11-Apr-10 - 11-Apr-16               Expenses:Taxes:Sales                    $0.35          $21.44
-  11-Apr-17 - 11-Apr-23               Expenses:Movies                         $1.99          $23.43
-  11-Apr-24 - 11-Apr-30               Expenses:Movies                         $2.99          $26.42
-  11-Apr-24 - 11-Apr-29               Expenses:Computer:Movies                $0.99          $27.41
-                                      Expenses:Taxes:Sales                    $0.42          $27.83
-  :END:
-I am using Ledger 3.0.0-20100615 and I guess I found a bug.
-
-I ran the commands bellow on July 30.
-
-#+begin_src sh
-ledger -M -s -p "this month" reg Bakery Work Supermarket Vindinha Fuel
-#+end_src
-:OUTPUT:
-10-Jul-01 - 10-Jul-31   Expenses:Car:Fuel              $199.01      $199.01
-                        Expenses:Foods:Bakery          $126.20      $325.21
-                        Expenses:Foods:Work            $432.54      $757.75
-                        Expenses:Supermarket           $380.23     $1137.98
-:END:
-
-But when I ran the command bellow I had got this results:
-
-#+begin_src sh
-ledger -W -p "this month" reg Bakery Work Supermarket Vindinha Fuel
-#+end_src
-:OUTPUT:
-10-Jul-01 - 10-Jul-03   Expenses:Foods:Bakery   $31.00       $31.00
-                        Expenses:Foods:Work     $29.69       $60.69
-10-Jul-08 - 10-Jul-14   Expenses:Car:Fuel       $35.00       $95.69
-                        Expenses:Foods:Bakery   $31.50      $127.19
-                        Expenses:Foods:Work     $65.53      $192.72
-                        Expenses:Supermarket    $94.29      $287.01
-10-Jul-15 - 10-Jul-21   Expenses:Car:Fuel       $59.01      $346.02
-                        Expenses:Foods:Bakery   $11.00      $357.02
-                        Expenses:Foods:Work    $136.10      $493.12
-                        Expenses:Supermarket    $66.66      $559.78
-10-Jul-22 - 10-Jul-28   Expenses:Car:Fuel       $20.00      $579.78
-                        Expenses:Foods:Bakery   $40.90      $620.68
-                        Expenses:Foods:Work    $112.65      $733.33
-                        Expenses:Supermarket    $98.17      $831.50
-10-Jul-29 - 10-Jul-31   Expenses:Car:Fuel       $30.00      $861.50
-                        Expenses:Foods:Bakery    $7.30      $868.80
-                        Expenses:Foods:Work     $35.99      $904.79
-:END:
-
-The days between 2010/07/04 and 2010/07/07 do not appear in the report. So I
-ran this:
-
-#+begin_src sh
-ledger -b 2010/07/04 -e 2010/07/07 reg  Bakery Work Supermarket Vindinha Fuel
-#+end_src
-:OUTPUT:
-10-Jul-04 Portal Imperatriz  Expenses:Car:Fuel      $15.00       $15.00
-10-Jul-04 Marche             Expenses:Supermarket   $25.49       $40.49
-10-Jul-04 Marche             Expenses:Supermarket   $80.62      $121.11
-10-Jul-05 Extra Facil        Expenses:Supermarket   $15.00      $136.11
-10-Jul-05 Funchal Grill      Expenses:Foods:Work    $12.87      $148.98
-10-Jul-05 Padaria Moema      Expenses:Foods:Bakery   $4.50      $153.48
-10-Jul-06 Vilachic Funchal   Expenses:Foods:Work    $17.90      $171.38
-10-Jul-06 Posto Jucelino     Expenses:Car:Fuel      $20.00      $191.38
-:END:
-
-I didn't get the amount difference between the other two reports above.  So I
-tried:
-
-#+begin_src sh
-ledger -b 2010/07/04 -e 2010/07/08 reg  Bakery Work Supermarket Vindinha Fuel
-#+end_src
-:OUTPUT:
-10-Jul-04 Portal Imperatriz       Expenses:Car:Fuel      $15.00       $15.00
-10-Jul-04 Marche                  Expenses:Supermarket   $25.49       $40.49
-10-Jul-04 Marche                  Expenses:Supermarket   $80.62      $121.11
-10-Jul-05 Extra Facil             Expenses:Supermarket   $15.00      $136.11
-10-Jul-05 Funchal Grill           Expenses:Foods:Work    $12.87      $148.98
-10-Jul-05 Padaria Moema           Expenses:Foods:Bakery   $4.50      $153.48
-10-Jul-06 Vilachic Funchal        Expenses:Foods:Work    $17.90      $171.38
-10-Jul-06 Posto Jucelino          Expenses:Car:Fuel      $20.00      $191.38
-10-Jul-07 Viena Shopping Vila..   Expenses:Foods:Work    $21.81      $213.19
-10-Jul-07 Posto Caminho Brade..   Expenses:Car:Fuel      $20.00      $233.19
-:END:
-
-I got the exact difference between the first and the second reports:
-$1137.98 - $904.79 = $ $233.19.
-
-So, I guess this is not the normal behavior expected by the second report
-(weekly report).
-:PROPERTIES:
-:ID:       F06D5554-425C-4E4E-A8B4-3CF29E07AA1E
-:Submitter: Leandro Henrique Oliveira Fernandes <leandroohf@gmail.com>
-:Message:  [[message://AANLkTimSSZPgYKQR6U2oZ7uaJtXBdTYF%2BmCn_3SXatko@mail.gmail.com][weekly report and monthly report (Is it a BUG?)]]
-:CREATED:  [2010-08-01 Sun 18:55]
-:END:
 ** TODO [[bug:403][#403]] --budget ignores "Yearly in August"-type transactions
    :PROPERTIES:
    :ID:       B9CC8CD3-71EA-40DC-AAE6-EA59FA57B5D6
@@ -499,75 +337,6 @@ So, I guess this is not the normal behavior expected by the second report
    :Message:  [[message://AANLkTikwx%2B-AQQrjQ62nm__P0BAwaNB4WRKF4bPc2Bfj@mail.gmail.com][ledger: balance sorting bug]]
    :CREATED:  [2010-10-18 Mon 16:04]
    :END:
-** DONE [[bug:448][#448]] Only one posting with null amount allowed because of note
-- State "DONE"       from "TODO"       [2012-02-28 Tue 02:47] \\
-  Fixed by 7a55c7f
-I've noticed that adding a note to a periodic entry without specifying the
-redundant transaction values produces a null amount error:
-:OUTPUT:
-# this works fine:
-$ cat /tmp/sample
-~ monthly
-  ; note
-  assets:checking  $1,000.00
-  income:work:salary   -$1,000.00
-
-$ ledger --forecast "d<[2011]" reg -f /tmp/sample
-10-Dec-01 Forecast transaction  assets:checking           $1,000.00
-$1,000.00
-10-Dec-01 Forecast transaction  income:work:salary
-$-1,000.00            0
-:END:
-:OUTPUT:
-# removing the redundant info from the entry breaks it for some reason:
-$ cat /tmp/sample
-~ monthly
-  ; note
-  assets:checking  $1,000.00
-  income:work:salary
-
-$ ledger --forecast "d<[2011]" reg -f /tmp/sample
-While parsing file "/tmp/sample", line 4:
-While parsing periodic transaction:
-> ~ monthly
->   ; note
->   assets:checking  $1,000.00
->   income:work:salary
-Error: Only one posting with null amount allowed per transaction
-:END:
-:OUTPUT:
-# this works without notes:
-$ cat /tmp/sample
-~ monthly
-  assets:checking  $1,000.00
-  income:work:salary
-
-$ ledger --forecast "d<[2011]" reg -f /tmp/
-sample
-10-Dec-01 Forecast transaction  assets:checking           $1,000.00
-$1,000.00
-10-Dec-01 Forecast transaction  income:work:salary
-$-1,000.00            0
-:END:
-
-:OUTPUT:
-$ ledger --version
-Ledger 3.0.0-20100623, the command-line accounting tool
-:END:
-
-I expect all three cases to not fail with an error.
-:PROPERTIES:
-:ID:       CFE5D8AA-1060-4A7D-816D-42F72C444118
-:Submitter: Michael Ploujnikov <ploujj@gmail.com>
-:Message:  [[message://a065e461-e06e-45e0-aa39-aec74b13c864@l32g2000yqc.googlegroups.com][Error: Only one posting with null amount allowed per transaction because of note]]
-:CREATED:  [2010-11-28 Sun 20:33]
-:END:
-** DONE [[bug:454][#454]] Rename actual and effective dates to primary/auxiliary
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:07]
-   :PROPERTIES:
-   :ID:       43ACF050-6723-41D6-BC3A-B3672AD7C2B7
-   :CREATED:  [2010-12-14 Tue 17:54]
-   :END:
 ** TODO [[bug:455][#455]] Free shares & --exchange & --total-data
    :PROPERTIES:
    :ID:       E0DAC7C0-471E-4A45-A341-1F29F4670A98
@@ -607,13 +376,6 @@ I expect all three cases to not fail with an error.
    :ID:       0A606F26-9B6F-44A1-8C25-72D9E3E68297
    :Message:  [[message://17302579.215.1294968238136.JavaMail.geo-discussion-forums@yqep2][Period support and forecast reports]]
    :CREATED:  [2011-01-13 Thu 23:10]
-   :END:
-** DONE [[bug:476][#476]] alias does not work across !include
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:08]
-   :PROPERTIES:
-   :ID:       13A2FCDF-6A62-4EC3-AC7A-A5F26B333065
-   :CREATED:  [2011-02-09 Wed 14:39]
-   :Message:  [[message://bug-476-1@http.newartisans.com/bugzilla/][{Bug 476} New: alias does not work across !include]]
    :END:
 ** TODO [[bug:477][#477]] Ledger print command does not handle GnuCash Capital Gain Split
    :PROPERTIES:
@@ -824,15 +586,6 @@ I expect all three cases to not fail with an error.
    :Submitter: tazz_ben <ben@wbpsystems.com>
    :Date:     Sat, 26 Feb 2011 17:52:37 -0800 (PST)
    :END:
-** WONTFIX [[bug:490][#490]] Pull request: Next [jwiegley/ledger GH-22]
-- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:08]
-   :PROPERTIES:
-   :ID:       AE12485D-BD34-4DC3-8938-CBDF34560EB6
-   :CREATED:  [2011-02-28 Mon 01:32]
-   :Message:  [[message://jwiegley/ledger/pull/22@github.com][{GitHub} Next {jwiegley/ledger GH-22}]]
-   :Submitter: cypok <noreply@github.com>
-   :Date:     Sun, 27 Feb 2011 01:58:04 -0800
-   :END:
 ** TODO [[bug:491][#491]] Automated postings match differently
    :PROPERTIES:
    :ID:       0C605FC2-BBD2-41EC-9842-EA2A79473C12
@@ -888,15 +641,6 @@ I expect all three cases to not fail with an error.
    :Message:  [[message://bug-505-1@http.newartisans.com/bugzilla/][{Bug 505} New: Ampersand in GnuCash transaction creates conversion problem]]
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Date:     Mon, 18 Apr 2011 15:57:32 -0500 (CDT)
-   :END:
-** DONE [[bug:506][#506]] Loss of data in weekly report
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:11]
-   :PROPERTIES:
-   :ID:       F514E031-CA81-481F-BC3A-254D61A7CFA5
-   :CREATED:  [2011-04-27 Wed 22:22]
-   :Message:  [[message://bug-506-1@http.newartisans.com/bugzilla/][{Bug 506} New: lost of data in weekly report]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Date:     Wed, 27 Apr 2011 20:25:57 -0500 (CDT)
    :END:
 ** TODO [[bug:507][#507]] Reproducible crash
    :PROPERTIES:
@@ -1236,6 +980,14 @@ I expect all three cases to not fail with an error.
    :ID:       FEDA301C-A3F0-4E5A-9C79-754E2E0DDFE3
    :CREATED:  [2011-06-21 Tue 14:33]
    :END:
+** TODO [[bug:535][#535]] Make timeclock transactions balanced
+   :PROPERTIES:
+   :ID:       B4110944-02C5-48B7-8788-2110365F0A85
+   :CREATED:  [2011-06-20 Mon 02:11]
+   :Date:     Sat, 18 Jun 2011 14:20:33 -0700 (PDT)
+   :Message:  [[message://4f2c2924-8502-4a3d-b722-ecf44fc88fbd@m24g2000yqc.googlegroups.com][Timeclock transactions balanced?]]
+   :Submitter: Seppo Sade <sepposade1@gmail.com>
+   :END:
 ** TODO [[bug:537][#537]] Auto-balancing of transactions of no value
    :PROPERTIES:
    :ID:       DAA39C02-64C1-4A5F-A4A6-93353C7ABAE5
@@ -1275,33 +1027,6 @@ I expect all three cases to not fail with an error.
    :Date:     Thu, 30 Jun 2011 09:44:22 -0700 (PDT)
    :Message:  [[message://21774456.1840.1309452262141.JavaMail.geo-discussion-forums@prdr36][Re: Printing monthly balances]]
    :Submitter: Matthew Harris <mharris312@gmail.com>
-   :END:
-** WORKSFORME [[bug:543][#543]] ledger make check failure report...
-- State "WORKSFORME" from "TODO"       [2012-02-28 Tue 03:13]
-   - Note taken on [2011-07-08 Fri 14:16] \\
-     Here is my config.log:
-     [2. application/octet-stream; config.log]...
-
-     I have Python 2.7 installed via MacPorts and it is my default python
-     selected.  I don't really know/expect if that makes a difference or not.
-
-     Or maybe something else in the config log file will shed some light...
-   :PROPERTIES:
-   :ID:       C246A646-6768-45AB-A36B-3CCDA2E2404B
-   :CREATED:  [2011-07-06 Wed 12:14]
-   :Date:     Wed, 06 Jul 2011 11:28:44 -0400
-   :Message:  [[message://28CCC239-ACE4-40E5-A95C-81460729C966@mac.com][ledger make check failure report...]]
-   :Submitter: Douglas Philips <dgou@mac.com>
-   :END:
-** DONE [[bug:546][#546]] Record timelog hours on the day(s) of check-in
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:19] \\
-  Fixed by 6cbceb8.
-   :PROPERTIES:
-   :ID:       ACE05ECE-DC73-43B6-98CF-5E362806E517
-   :CREATED:  [2011-07-21 Thu 16:11]
-   :Date:     Thu, 21 Jul 2011 03:20:36 -0700 (PDT)
-   :Message:  [[message://3c83e99a-8817-4976-a1c8-66ff1508ff21@d7g2000vbv.googlegroups.com][Record timelog hours on the day of check-in, instead of on the day of check-out?]]
-   :Submitter: Seppo Sade <sepposade1@gmail.com>
    :END:
 ** TODO [[bug:549][#549]] ledger-next-amount does not handle fixated commodity prices
    :PROPERTIES:
@@ -2416,14 +2141,6 @@ $ ledger -f budget_test.txt --budget reg ^income
   :Message:  [[message://bug-591-1@http.bugs.ledger-cli.org/][{Bug 591} New: future Forecast events aren't shown in forecast]]
   :Submitter: bugzilla-daemon@mail.johnwiegley.com
   :END:
-** TODO [[bug:593][#593]] XML reports should output a <fullname> tag
-  :PROPERTIES:
-  :ID:       6FE4EB4E-0780-4F54-9AB6-B091020A8C6E
-  :CREATED:  [2011-11-01 Tue 10:31]
-  :Date:     Thu, 27 Oct 2011 14:03:23 -0600
-  :Message:  [[message://CAMfPF2cESuukGfGUOLusrV65=OOaPrpNVLZkutvDpk6_xhuO4w@mail.gmail.com][Re: Having Problems With XML]]
-  :Submitter: Ryan May <ryan-wTxsuUSx66j3fQ9qLvQP4Q@public.gmane.org>
-  :END:
 ** TODO [[bug:597][#597]] If total transaction in a budgeted account equals zero...
   ...the report fails trying to multiply a balance * quantity
   :PROPERTIES:
@@ -2440,14 +2157,6 @@ $ ledger -f budget_test.txt --budget reg ^income
   :CREATED:  [2011-11-04 Fri 01:10]
   :Date:     Fri, 04 Nov 2011 03:27:14 +0000
   :Message:  [[message://bug-598-1@http.bugs.ledger-cli.org/][{Bug 598} New: cleared report total lines are not aligned correctly (off by two characters)]]
-  :Submitter: bugzilla-daemon@mail.johnwiegley.com
-  :END:
-** TODO [[bug:600][#600]] -d "l>=2" performs > rather than >=
-  :PROPERTIES:
-  :ID:       854150DF-C34B-447B-89FB-24D5006C798E
-  :CREATED:  [2011-11-14 Mon 15:06]
-  :Date:     Mon, 14 Nov 2011 01:44:22 +0000
-  :Message:  [[message://bug-600-1@http.bugs.ledger-cli.org/][{Bug 600} New: -d "l>=2" performs > rather than >=]]
   :Submitter: bugzilla-daemon@mail.johnwiegley.com
   :END:
 ** TODO [[bug:602][#602]] Provide facility for easy generation of command line completion
@@ -2472,14 +2181,6 @@ $ ledger -f budget_test.txt --budget reg ^income
 :CREATED:  [2011-11-24 Thu 00:42]
 :Date: Thu, 24 Nov 2011 05:11:06 +0000
 :Message: [[message://bug-604-1@http.bugs.ledger-cli.org/][{Bug 604} New: print ignores @bucket]]
-:Submitter: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** TODO [[bug:605][#605]] Inconsistent command directive syntax
-:PROPERTIES:
-:ID:       61F3122F-EAA3-4C5A-BD3D-2C47B50AACC2
-:CREATED:  [2011-11-24 Thu 00:42]
-:Date: Thu, 24 Nov 2011 05:57:44 +0000
-:Message: [[message://bug-605-1@http.bugs.ledger-cli.org/][{Bug 605} New: inconsistent command directive syntax]]
 :Submitter: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO [[bug:606][#606]] Padding formatting commands does not ignore invisible characters
@@ -2671,25 +2372,6 @@ ledger -f test/input/sample.dat --account=payee --monthly -n -AE reg
 :Message: [[message://m2pqew2fd4.fsf@gmail.com][Re: Rounding formula for automatic transactions]]
 :Author: John Wiegley <jwiegley-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO [[bug:635][#635]] ledger.el and support for YYYY-MM-DD dates
-I don't recall if I picked these changes up from this list or if I muddled
-through it myself at one point, but since I just had to restore a backup from
-the ledger.el provided by the github repo for ledger I thought I'd post this:
-
-  http://highwire.stanford.edu/~jimr/misc/ledger.el.diff
-
-It's a small set of changes to the ledger.el that supports clearing
-transactions that use the YYYY-MM-DD format, and which make some adjustments
-to tab vs. spaces in the pattern matching used in the lisp code. I think I
-submitted a bug report for this last one, but can't find it in the bugzilla db
-right now.
-:PROPERTIES:
-:ID:       2DC5CB7E-F612-4813-9246-E95C691DCEAB
-:CREATED:  [2012-01-02 Mon 04:13]
-:Date: Fri, 30 Dec 2011 07:28:14 -0800 (PST)
-:Message: [[message://1006733.2027.1325258894225.JavaMail.geo-discussion-forums@prht13][ledger.el and support for YYYY-MM-DD dates]]
-:Submitter: Jim Robinson <jim.robinson-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
 ** TODO [[bug:636][#636]] Budget report query doesn't generate correct report
 It appears that a budget report query doesn't generate a correct report for a
 particular account unless there's a register entry for the budgeted account in
@@ -2876,23 +2558,6 @@ created (https://launchpad.net/~mbudde/+archive/ledger) under Ubuntu
 :Date: Tue, 6 Dec 2011 12:45:19 -0800
 :Message: [[message://jwiegley/ledger/issues/48@github.com][{ledger} Input date format not recognized (#48)]]
 :Submitter: Jonas <reply+i-2467193-d935c086e8421ab641d9f9aaddfdfcd560f8c39c-8460@reply.github.com>
-:END:
-** TODO [[bug:651][#651]] The - query prefix character no longer excludes accounts
-Blast from the past:  the "-" thing no longer works in 3.0 is this a
-bug or deprecated?
-:OUTPUT:
-12:01:43 ~/FinanceData (master)> ledger bal Expenses -Expenses:Drinks
-Error: Illegal option -x
-13:58:53 ~/FinanceData (master)> ledger bal Expenses
--"Expenses:Drinks"
-Error: Illegal option -x
-:END:
-:PROPERTIES:
-:ID:       ED644B36-64CC-403F-B196-C9CD6FB66D23
-:CREATED:  [2011-12-14 Wed 17:18]
-:Date: Wed, 14 Dec 2011 12:59:46 -0800 (PST)
-:Message: [[message://4c90b360-8e91-4154-a5ea-8e8d47203309@h3g2000yqa.googlegroups.com][Re: account exclusion]]
-:Submitter: enderw88 <enderw88@gmail.com>
 :END:
 ** TODO [[bug:652][#652]] How to handle stale results from getquote
 I am very close to completing reimplementation of quote downloading in ledger
@@ -3190,6 +2855,20 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://565113c5-1ea0-4ee4-8f60-782cfc28e42a@da3g2000vbb.googlegroups.com][historical prices with and without revaluation]]
 :Submitter: Qwertyu <scheit-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
+** TODO [#C] [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
+     Thierry confirms this still happens for him.
+   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
+   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
+     To Thomas: I just tried this and it worked fine.  After your "push" command,
+     does the prompt change to a ]]?
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
+   :END:
+   :PROPERTIES:
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :CREATED:  [2010-05-30 Sun 03:33]
+   :END:
 ** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
    %[OPTS](expr) should be equal to %(justify(expr, OPTS))
    ${AMT} is the same as $(scrub(AMT))
@@ -3629,6 +3308,278 @@ SCHEDULED: <2012-02-17 Fri>
 :ID:       390D8B54-6E5E-453A-993C-45521CAE904B
 :CREATED:  [2012-02-16 Thu 19:31]
 :END:
+** DONE [[bug:394][#394]] Weekly report and monthly report (possible bug)
+- State "DONE"       from "TODO"       [2012-02-28 Tue 02:36] \\
+  Fixed by 6adfcc8
+- Note taken on [2012-02-28 Tue 00:16] \\
+  #+begin_src sh
+  ledger -p "apr 2011" reg Expenses -X '$'   
+  #+end_src
+  :OUTPUT:
+  11-Apr-01 serveraxis.com            Expenses:Computer:Internet             $15.00          $15.00
+                                      Expenses:Computer:Internet              $1.10          $16.10
+  11-Apr-05 Pennsylvania toll booth   Expenses:Auto:Fees                     $13.00          $29.10
+                                      Expenses:Cash                         $-13.00          $16.10
+  11-Apr-05 iTunes                    Expenses:Music                          $1.29          $17.39
+                                      Expenses:Taxes:Sales                    $0.09          $17.48
+  11-Apr-19 iTunes                    Expenses:Computer:Software              $4.99          $22.47
+                                      Expenses:Taxes:Sales                    $0.35          $22.82
+  11-Apr-24 iTunes                    Expenses:Movies                         $1.99          $24.81
+                                      Expenses:Movies                         $2.99          $27.80
+                                      Expenses:Taxes:Sales                    $0.35          $28.15
+  11-Apr-29 iTunes                    Expenses:Computer:Movies                $0.99          $29.14
+                                      Expenses:Taxes:Sales                    $0.07          $29.21
+  :END:
+
+  #+begin_src sh
+  ledger -M -p "apr 2011" reg Expenses -X '$'
+  #+end_src
+  :OUTPUT:
+  11-Apr-01 - 11-Apr-29               Expenses:Auto:Fees                     $13.00          $13.00
+                                      Expenses:Cash                         $-13.00               0
+                                      Expenses:Computer:Internet             $16.10          $16.10
+                                      Expenses:Computer:Movies                $0.99          $17.09
+                                      Expenses:Computer:Software              $4.99          $22.08
+                                      Expenses:Movies                         $4.98          $27.06
+                                      Expenses:Music                          $1.29          $28.35
+                                      Expenses:Taxes:Sales                    $0.86          $29.21
+  :END:
+  
+  #+begin_src sh
+  ledger -W -p "apr 2011" reg Expenses -X '$'
+  #+end_src
+  :OUTPUT:
+  11-Apr-01 - 11-Apr-02               Expenses:Computer:Internet             $16.10          $16.10
+  11-Apr-15 - 11-Apr-21               Expenses:Computer:Software              $4.99          $21.09
+                                      Expenses:Taxes:Sales                    $0.35          $21.44
+  11-Apr-22 - 11-Apr-28               Expenses:Movies                         $4.98          $26.42
+                                      Expenses:Taxes:Sales                    $0.35          $26.77
+  11-Apr-29 - 11-Apr-29               Expenses:Computer:Movies                $0.99          $27.76
+                                      Expenses:Taxes:Sales                    $0.07          $27.83
+  :END:
+  
+  #+begin_src sh
+  ledger -E -W -p "apr 2011" reg Expenses -X '$'
+  #+end_src
+  :OUTPUT:
+  11-Apr-01 - 11-Apr-02               Expenses:Computer:Internet             $16.10          $16.10
+  11-Apr-03 - 11-Apr-09               Expenses:Computer:Software              $4.99          $21.09
+  11-Apr-10 - 11-Apr-16               Expenses:Taxes:Sales                    $0.35          $21.44
+  11-Apr-17 - 11-Apr-23               Expenses:Movies                         $1.99          $23.43
+  11-Apr-24 - 11-Apr-30               Expenses:Movies                         $2.99          $26.42
+  11-Apr-24 - 11-Apr-29               Expenses:Computer:Movies                $0.99          $27.41
+                                      Expenses:Taxes:Sales                    $0.42          $27.83
+  :END:
+I am using Ledger 3.0.0-20100615 and I guess I found a bug.
+
+I ran the commands bellow on July 30.
+
+#+begin_src sh
+ledger -M -s -p "this month" reg Bakery Work Supermarket Vindinha Fuel
+#+end_src
+:OUTPUT:
+10-Jul-01 - 10-Jul-31   Expenses:Car:Fuel              $199.01      $199.01
+                        Expenses:Foods:Bakery          $126.20      $325.21
+                        Expenses:Foods:Work            $432.54      $757.75
+                        Expenses:Supermarket           $380.23     $1137.98
+:END:
+
+But when I ran the command bellow I had got this results:
+
+#+begin_src sh
+ledger -W -p "this month" reg Bakery Work Supermarket Vindinha Fuel
+#+end_src
+:OUTPUT:
+10-Jul-01 - 10-Jul-03   Expenses:Foods:Bakery   $31.00       $31.00
+                        Expenses:Foods:Work     $29.69       $60.69
+10-Jul-08 - 10-Jul-14   Expenses:Car:Fuel       $35.00       $95.69
+                        Expenses:Foods:Bakery   $31.50      $127.19
+                        Expenses:Foods:Work     $65.53      $192.72
+                        Expenses:Supermarket    $94.29      $287.01
+10-Jul-15 - 10-Jul-21   Expenses:Car:Fuel       $59.01      $346.02
+                        Expenses:Foods:Bakery   $11.00      $357.02
+                        Expenses:Foods:Work    $136.10      $493.12
+                        Expenses:Supermarket    $66.66      $559.78
+10-Jul-22 - 10-Jul-28   Expenses:Car:Fuel       $20.00      $579.78
+                        Expenses:Foods:Bakery   $40.90      $620.68
+                        Expenses:Foods:Work    $112.65      $733.33
+                        Expenses:Supermarket    $98.17      $831.50
+10-Jul-29 - 10-Jul-31   Expenses:Car:Fuel       $30.00      $861.50
+                        Expenses:Foods:Bakery    $7.30      $868.80
+                        Expenses:Foods:Work     $35.99      $904.79
+:END:
+
+The days between 2010/07/04 and 2010/07/07 do not appear in the report. So I
+ran this:
+
+#+begin_src sh
+ledger -b 2010/07/04 -e 2010/07/07 reg  Bakery Work Supermarket Vindinha Fuel
+#+end_src
+:OUTPUT:
+10-Jul-04 Portal Imperatriz  Expenses:Car:Fuel      $15.00       $15.00
+10-Jul-04 Marche             Expenses:Supermarket   $25.49       $40.49
+10-Jul-04 Marche             Expenses:Supermarket   $80.62      $121.11
+10-Jul-05 Extra Facil        Expenses:Supermarket   $15.00      $136.11
+10-Jul-05 Funchal Grill      Expenses:Foods:Work    $12.87      $148.98
+10-Jul-05 Padaria Moema      Expenses:Foods:Bakery   $4.50      $153.48
+10-Jul-06 Vilachic Funchal   Expenses:Foods:Work    $17.90      $171.38
+10-Jul-06 Posto Jucelino     Expenses:Car:Fuel      $20.00      $191.38
+:END:
+
+I didn't get the amount difference between the other two reports above.  So I
+tried:
+
+#+begin_src sh
+ledger -b 2010/07/04 -e 2010/07/08 reg  Bakery Work Supermarket Vindinha Fuel
+#+end_src
+:OUTPUT:
+10-Jul-04 Portal Imperatriz       Expenses:Car:Fuel      $15.00       $15.00
+10-Jul-04 Marche                  Expenses:Supermarket   $25.49       $40.49
+10-Jul-04 Marche                  Expenses:Supermarket   $80.62      $121.11
+10-Jul-05 Extra Facil             Expenses:Supermarket   $15.00      $136.11
+10-Jul-05 Funchal Grill           Expenses:Foods:Work    $12.87      $148.98
+10-Jul-05 Padaria Moema           Expenses:Foods:Bakery   $4.50      $153.48
+10-Jul-06 Vilachic Funchal        Expenses:Foods:Work    $17.90      $171.38
+10-Jul-06 Posto Jucelino          Expenses:Car:Fuel      $20.00      $191.38
+10-Jul-07 Viena Shopping Vila..   Expenses:Foods:Work    $21.81      $213.19
+10-Jul-07 Posto Caminho Brade..   Expenses:Car:Fuel      $20.00      $233.19
+:END:
+
+I got the exact difference between the first and the second reports:
+$1137.98 - $904.79 = $ $233.19.
+
+So, I guess this is not the normal behavior expected by the second report
+(weekly report).
+:PROPERTIES:
+:ID:       F06D5554-425C-4E4E-A8B4-3CF29E07AA1E
+:Submitter: Leandro Henrique Oliveira Fernandes <leandroohf@gmail.com>
+:Message:  [[message://AANLkTimSSZPgYKQR6U2oZ7uaJtXBdTYF%2BmCn_3SXatko@mail.gmail.com][weekly report and monthly report (Is it a BUG?)]]
+:CREATED:  [2010-08-01 Sun 18:55]
+:END:
+** DONE [[bug:448][#448]] Only one posting with null amount allowed because of note
+- State "DONE"       from "TODO"       [2012-02-28 Tue 02:47] \\
+  Fixed by 7a55c7f
+I've noticed that adding a note to a periodic entry without specifying the
+redundant transaction values produces a null amount error:
+:OUTPUT:
+# this works fine:
+$ cat /tmp/sample
+~ monthly
+  ; note
+  assets:checking  $1,000.00
+  income:work:salary   -$1,000.00
+
+$ ledger --forecast "d<[2011]" reg -f /tmp/sample
+10-Dec-01 Forecast transaction  assets:checking           $1,000.00
+$1,000.00
+10-Dec-01 Forecast transaction  income:work:salary
+$-1,000.00            0
+:END:
+:OUTPUT:
+# removing the redundant info from the entry breaks it for some reason:
+$ cat /tmp/sample
+~ monthly
+  ; note
+  assets:checking  $1,000.00
+  income:work:salary
+
+$ ledger --forecast "d<[2011]" reg -f /tmp/sample
+While parsing file "/tmp/sample", line 4:
+While parsing periodic transaction:
+> ~ monthly
+>   ; note
+>   assets:checking  $1,000.00
+>   income:work:salary
+Error: Only one posting with null amount allowed per transaction
+:END:
+:OUTPUT:
+# this works without notes:
+$ cat /tmp/sample
+~ monthly
+  assets:checking  $1,000.00
+  income:work:salary
+
+$ ledger --forecast "d<[2011]" reg -f /tmp/
+sample
+10-Dec-01 Forecast transaction  assets:checking           $1,000.00
+$1,000.00
+10-Dec-01 Forecast transaction  income:work:salary
+$-1,000.00            0
+:END:
+
+:OUTPUT:
+$ ledger --version
+Ledger 3.0.0-20100623, the command-line accounting tool
+:END:
+
+I expect all three cases to not fail with an error.
+:PROPERTIES:
+:ID:       CFE5D8AA-1060-4A7D-816D-42F72C444118
+:Submitter: Michael Ploujnikov <ploujj@gmail.com>
+:Message:  [[message://a065e461-e06e-45e0-aa39-aec74b13c864@l32g2000yqc.googlegroups.com][Error: Only one posting with null amount allowed per transaction because of note]]
+:CREATED:  [2010-11-28 Sun 20:33]
+:END:
+** DONE [[bug:454][#454]] Rename actual and effective dates to primary/auxiliary
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:07]
+   :PROPERTIES:
+   :ID:       43ACF050-6723-41D6-BC3A-B3672AD7C2B7
+   :CREATED:  [2010-12-14 Tue 17:54]
+   :END:
+** DONE [[bug:476][#476]] alias does not work across !include
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:08]
+   :PROPERTIES:
+   :ID:       13A2FCDF-6A62-4EC3-AC7A-A5F26B333065
+   :CREATED:  [2011-02-09 Wed 14:39]
+   :Message:  [[message://bug-476-1@http.newartisans.com/bugzilla/][{Bug 476} New: alias does not work across !include]]
+   :END:
+** DONE [[bug:506][#506]] Loss of data in weekly report
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:11]
+   :PROPERTIES:
+   :ID:       F514E031-CA81-481F-BC3A-254D61A7CFA5
+   :CREATED:  [2011-04-27 Wed 22:22]
+   :Message:  [[message://bug-506-1@http.newartisans.com/bugzilla/][{Bug 506} New: lost of data in weekly report]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Wed, 27 Apr 2011 20:25:57 -0500 (CDT)
+   :END:
+** DONE [[bug:546][#546]] Record timelog hours on the day(s) of check-in
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:19] \\
+  Fixed by 6cbceb8.
+   :PROPERTIES:
+   :ID:       ACE05ECE-DC73-43B6-98CF-5E362806E517
+   :CREATED:  [2011-07-21 Thu 16:11]
+   :Date:     Thu, 21 Jul 2011 03:20:36 -0700 (PDT)
+   :Message:  [[message://3c83e99a-8817-4976-a1c8-66ff1508ff21@d7g2000vbv.googlegroups.com][Record timelog hours on the day of check-in, instead of on the day of check-out?]]
+   :Submitter: Seppo Sade <sepposade1@gmail.com>
+   :END:
+** DONE [[bug:593][#593]] XML reports should output a <fullname> tag
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:38] \\
+  Fixed by f4a8f6b
+  :PROPERTIES:
+  :ID:       6FE4EB4E-0780-4F54-9AB6-B091020A8C6E
+  :CREATED:  [2011-11-01 Tue 10:31]
+  :Date:     Thu, 27 Oct 2011 14:03:23 -0600
+  :Message:  [[message://CAMfPF2cESuukGfGUOLusrV65=OOaPrpNVLZkutvDpk6_xhuO4w@mail.gmail.com][Re: Having Problems With XML]]
+  :Submitter: Ryan May <ryan-wTxsuUSx66j3fQ9qLvQP4Q@public.gmane.org>
+  :END:
+** DONE [[bug:600][#600]] -d "l>=2" performs > rather than >=
+- State "DONE"       from "TODO"       [2012-02-28 Tue 04:02] \\
+  Fixed by 9376b0f
+:PROPERTIES:
+:ID:       854150DF-C34B-447B-89FB-24D5006C798E
+:CREATED:  [2011-11-14 Mon 15:06]
+:Date:     Mon, 14 Nov 2011 01:44:22 +0000
+:Message:  [[message://bug-600-1@http.bugs.ledger-cli.org/][{Bug 600} New: -d "l>=2" performs > rather than >=]]
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE [[bug:605][#605]] Inconsistent command directive syntax
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:32]
+:PROPERTIES:
+:ID:       61F3122F-EAA3-4C5A-BD3D-2C47B50AACC2
+:CREATED:  [2011-11-24 Thu 00:42]
+:Date: Thu, 24 Nov 2011 05:57:44 +0000
+:Message: [[message://bug-605-1@http.bugs.ledger-cli.org/][{Bug 605} New: inconsistent command directive syntax]]
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** DONE [[bug:632][#632]] Strange "print" behavior in comments
 - State "DONE"       from "TODO"       [2012-02-26 Sun 02:10]
 Related question: is there a way to specify that ledger should not
@@ -3666,6 +3617,15 @@ Then it should not be combined with the previous line.
    :ID:       C3AEDBF3-B2BD-4112-9EDE-865023E06532
    :CREATED:  [2011-06-14 Tue 19:21]
    :END:
+** WONTFIX [[bug:490][#490]] Pull request: Next [jwiegley/ledger GH-22]
+- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:08]
+   :PROPERTIES:
+   :ID:       AE12485D-BD34-4DC3-8938-CBDF34560EB6
+   :CREATED:  [2011-02-28 Mon 01:32]
+   :Message:  [[message://jwiegley/ledger/pull/22@github.com][{GitHub} Next {jwiegley/ledger GH-22}]]
+   :Submitter: cypok <noreply@github.com>
+   :Date:     Sun, 27 Feb 2011 01:58:04 -0800
+   :END:
 ** WONTFIX [[bug:592][#592]] 'print' command does not handle multiple spaces in the payee
 - State "WONTFIX"    from "TODO"       [2011-11-22 Tue 23:45]
   :PROPERTIES:
@@ -3675,6 +3635,25 @@ Then it should not be combined with the previous line.
   :Message:  [[message://jwiegley/ledger/issues/44@github.com][{ledger} print command does not handle multiple spaces in the payee]]
   :Submitter: Peter Ross <reply+i-2075303-b72936dde164d8d4ce9bb65f0ae35544d621b8a8@reply.github.com>
   :END:
+** WONTFIX [[bug:651][#651]] The - query prefix character no longer excludes accounts
+- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:36] \\
+  This is expected behavior now that options can occur anywhere.
+Blast from the past:  the "-" thing no longer works in 3.0 is this a
+bug or deprecated?
+:OUTPUT:
+12:01:43 ~/FinanceData (master)> ledger bal Expenses -Expenses:Drinks
+Error: Illegal option -x
+13:58:53 ~/FinanceData (master)> ledger bal Expenses
+-"Expenses:Drinks"
+Error: Illegal option -x
+:END:
+:PROPERTIES:
+:ID:       ED644B36-64CC-403F-B196-C9CD6FB66D23
+:CREATED:  [2011-12-14 Wed 17:18]
+:Date: Wed, 14 Dec 2011 12:59:46 -0800 (PST)
+:Message: [[message://4c90b360-8e91-4154-a5ea-8e8d47203309@h3g2000yqa.googlegroups.com][Re: account exclusion]]
+:Submitter: enderw88 <enderw88@gmail.com>
+:END:
 ** WORKSFORME [#A] [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)
 - State "WORKSFORME" from "TODO"       [2012-02-27 Mon 22:53]
    :PROPERTIES:
@@ -3729,6 +3708,23 @@ Then it should not be combined with the previous line.
    :Message:  [[message://87bozgwym5.fsf%lukasz.stelmach@iem.pw.edu.pl][{BUG} ledger entry takes the firs entry]]
    :Submitter: =?utf-8?Q?=C5=81ukasz?= Stelmach <lukasz.stelmach@iem.pw.edu.pl>
    :Date:     Fri, 06 May 2011 00:50:42 +0200
+   :END:
+** WORKSFORME [[bug:543][#543]] ledger make check failure report...
+- State "WORKSFORME" from "TODO"       [2012-02-28 Tue 03:13]
+   - Note taken on [2011-07-08 Fri 14:16] \\
+     Here is my config.log:
+     [2. application/octet-stream; config.log]...
+
+     I have Python 2.7 installed via MacPorts and it is my default python
+     selected.  I don't really know/expect if that makes a difference or not.
+
+     Or maybe something else in the config log file will shed some light...
+   :PROPERTIES:
+   :ID:       C246A646-6768-45AB-A36B-3CCDA2E2404B
+   :CREATED:  [2011-07-06 Wed 12:14]
+   :Date:     Wed, 06 Jul 2011 11:28:44 -0400
+   :Message:  [[message://28CCC239-ACE4-40E5-A95C-81460729C966@mac.com][ledger make check failure report...]]
+   :Submitter: Douglas Philips <dgou@mac.com>
    :END:
 ** WORKSFORME [[bug:614][#614]] --input-date-format does not effect convert
 - State "WORKSFORME" from "TODO"       [2012-02-23 Thu 21:41] \\
@@ -4072,6 +4068,25 @@ as  "--use-base m".
 :PROPERTIES:
 :ID:       B7C2C869-7319-449C-8350-E14F3A26DCB8
 :CREATED: [2012-02-23 Thu 21:52]
+:END:
+** TODO [[bug:635][#635]] ledger.el and support for YYYY-MM-DD dates
+I don't recall if I picked these changes up from this list or if I muddled
+through it myself at one point, but since I just had to restore a backup from
+the ledger.el provided by the github repo for ledger I thought I'd post this:
+
+  http://highwire.stanford.edu/~jimr/misc/ledger.el.diff
+
+It's a small set of changes to the ledger.el that supports clearing
+transactions that use the YYYY-MM-DD format, and which make some adjustments
+to tab vs. spaces in the pattern matching used in the lisp code. I think I
+submitted a bug report for this last one, but can't find it in the bugzilla db
+right now.
+:PROPERTIES:
+:ID:       2DC5CB7E-F612-4813-9246-E95C691DCEAB
+:CREATED:  [2012-01-02 Mon 04:13]
+:Date: Fri, 30 Dec 2011 07:28:14 -0800 (PST)
+:Message: [[message://1006733.2027.1325258894225.JavaMail.geo-discussion-forums@prht13][ledger.el and support for YYYY-MM-DD dates]]
+:Submitter: Jim Robinson <jim.robinson-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
 ** TODO [[bug:638][#638]] ledger-mode dropping first digit of inserted dates
 I use Aquamacs on OS X.  When I use the ledger-mode facility for adding
@@ -4550,13 +4565,6 @@ pose scenarios, and I'll try to model them for you.
 :Message:  [[message://B24180CF-D2DB-49DD-BEBD-4FF7170D3639@newartisans.com][A solution to the commodity pricing problem]]
 :CREATED:  [2011-02-04 Fri 07:32]
 :END:
-** TODO [[bug:481][#481]] Add a native "test" command to Ledger
-   This would allow users to have their own "test" blocks in their data files,
-   without having to run a Python script to do those tests.
-   :PROPERTIES:
-   :ID:       90A2246B-DE3E-4744-BC21-48F75FF852E8
-   :CREATED:  [2011-02-24 Thu 14:54]
-   :END:
 ** TODO [[bug:486][#486]] More formal methods of doing lot-based reporting
    - Note taken on [2011-02-09 Wed 14:31] \\
      Martin Michlmayr: Yeah, I know... but I think it's a feature that ledger
@@ -4752,22 +4760,6 @@ pose scenarios, and I'll try to model them for you.
    :CREATED:  [2011-02-09 Wed 14:28]
    :Message:  [[message://20110202001414.GD16162@jirafa.cyrius.com][Re: reporting on specific commodities?]]
    :END:
-** TODO [[bug:496][#496]] Add --time-colon option
-   :PROPERTIES:
-   :ID:       2E01D36E-41AB-4185-8528-686A5599438E
-   :CREATED:  [2011-03-07 Mon 14:48]
-   :Message:  [[message://jwiegley/ledger/pull/23@github.com][{GitHub} Add --time-colon option {jwiegley/ledger GH-23}]]
-   :Submitter: afh <noreply@github.com>
-   :Date:     Sat, 5 Mar 2011 15:02:09 -0800
-   :END:
-** TODO [[bug:497][#497]] Review: CSV converter for multipart transactions
-   :PROPERTIES:
-   :ID:       EC914849-D8CC-42E2-A0E2-F90294A6CFAC
-   :CREATED:  [2011-03-07 Mon 14:49]
-   :Message:  [[message://66bf854e-da6d-447b-927b-75595be016a0@j9g2000prj.googlegroups.com][For those that care, a CSV converter for multipart transactions]]
-   :Submitter: tazz_ben <ben@wbpsystems.com>
-   :Date:     Sat, 5 Mar 2011 10:27:33 -0800 (PST)
-   :END:
 ** TODO [[bug:522][#522]] Add a 'tags' command
    Since you have 'commodities' and 'payees' and 'accounts' commands, it seems
    logical that there should be a 'tags' command. Such commands help me check
@@ -4778,14 +4770,6 @@ pose scenarios, and I'll try to model them for you.
    :Date:     Mon, 23 May 2011 18:17:27 -0700 (PDT)
    :Message:  [[message://30671703.170.1306199847233.JavaMail.geo-discussion-forums@prcm34][Re: My experience with Ledger so far]]
    :Submitter: Matthew Harris <mharris312@gmail.com>
-   :END:
-** TODO [[bug:535][#535]] Make timeclock transactions balanced
-   :PROPERTIES:
-   :ID:       B4110944-02C5-48B7-8788-2110365F0A85
-   :CREATED:  [2011-06-20 Mon 02:11]
-   :Date:     Sat, 18 Jun 2011 14:20:33 -0700 (PDT)
-   :Message:  [[message://4f2c2924-8502-4a3d-b722-ecf44fc88fbd@m24g2000yqc.googlegroups.com][Timeclock transactions balanced?]]
-   :Submitter: Seppo Sade <sepposade1@gmail.com>
    :END:
 ** TODO [[bug:536][#536]] Add an option to Ledger to account for time rounding
    For example, that recorded time segments are rounded up to 15 minute blocks.
@@ -4798,11 +4782,6 @@ pose scenarios, and I'll try to model them for you.
    :ID:       6BA58CB7-AE65-44FB-B0A2-9631950E133C
    :CREATED:  [2011-06-29 Wed 14:58]
    :END:
-** TODO [[bug:539][#539]] Add 'any' and 'all' as operators in query expressions
-   :PROPERTIES:
-   :ID:       3643CE28-8322-4CDF-B151-DC34F1A30112
-   :CREATED:  [2011-06-29 Wed 17:57]
-   :END:
 ** TODO [[bug:542][#542]] Create a --reset-amount/total option, to clear the expr series
    :PROPERTIES:
    :ID:       0C1BBB09-F27C-4EDF-81F0-31D959476F72
@@ -4814,14 +4793,6 @@ pose scenarios, and I'll try to model them for you.
    :PROPERTIES:
    :ID:       69D8C2FC-72E8-4C6B-BAEE-83B4BC92993D
    :CREATED:  [2011-07-25 Mon 12:34]
-   :END:
-** TODO [[bug:575][#575]] Save file comments along with the transaction that follows them
-   :PROPERTIES:
-   :ID:       50C6A5FE-E2A3-4532-A02E-C49ACDA871E7
-   :CREATED:  [2011-10-11 Tue 03:36]
-   :Date:     Mon, 10 Oct 2011 15:53:55 -0700
-   :Message:  [[message://j6vt24$h0r$1@dough.gmane.org][Re: Comments that persist through "Print"]]
-   :Submitter: Simon Michael <simon-jbxitMBJ2LLQT0dZR+AlfA@public.gmane.org>
    :END:
 ** TODO [[bug:589][#589]] Add ability to control color output
   The user should be able to indicate the RGB value used for "blue", for
@@ -5385,6 +5356,47 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :Message:  [[message://4D31324D.3070903@pathscale.com][Re: Collaborating on boost performance]]
    :CREATED:  [2011-01-18 Tue 04:23]
    :END:
+** DEFERRED [[bug:481][#481]] Add a native "test" command to Ledger
+- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:22]
+   This would allow users to have their own "test" blocks in their data files,
+   without having to run a Python script to do those tests.
+   :PROPERTIES:
+   :ID:       90A2246B-DE3E-4744-BC21-48F75FF852E8
+   :CREATED:  [2011-02-24 Thu 14:54]
+   :END:
+** DEFERRED [[bug:496][#496]] Add --time-colon option
+- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:22]
+   :PROPERTIES:
+   :ID:       2E01D36E-41AB-4185-8528-686A5599438E
+   :CREATED:  [2011-03-07 Mon 14:48]
+   :Message:  [[message://jwiegley/ledger/pull/23@github.com][{GitHub} Add --time-colon option {jwiegley/ledger GH-23}]]
+   :Submitter: afh <noreply@github.com>
+   :Date:     Sat, 5 Mar 2011 15:02:09 -0800
+   :END:
+** DONE [[bug:539][#539]] Add 'any' and 'all' as operators in query expressions
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:24]
+   :PROPERTIES:
+   :ID:       3643CE28-8322-4CDF-B151-DC34F1A30112
+   :CREATED:  [2011-06-29 Wed 17:57]
+   :END:
+** WONTFIX [[bug:575][#575]] Save file comments along with the transaction that follows them
+- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:29]
+   :PROPERTIES:
+   :ID:       50C6A5FE-E2A3-4532-A02E-C49ACDA871E7
+   :CREATED:  [2011-10-11 Tue 03:36]
+   :Date:     Mon, 10 Oct 2011 15:53:55 -0700
+   :Message:  [[message://j6vt24$h0r$1@dough.gmane.org][Re: Comments that persist through "Print"]]
+   :Submitter: Simon Michael <simon-jbxitMBJ2LLQT0dZR+AlfA@public.gmane.org>
+   :END:
+** INVALID [[bug:497][#497]] Review: CSV converter for multipart transactions
+- State "INVALID"    from "TODO"       [2012-02-28 Tue 03:23]
+   :PROPERTIES:
+   :ID:       EC914849-D8CC-42E2-A0E2-F90294A6CFAC
+   :CREATED:  [2011-03-07 Mon 14:49]
+   :Message:  [[message://66bf854e-da6d-447b-927b-75595be016a0@j9g2000prj.googlegroups.com][For those that care, a CSV converter for multipart transactions]]
+   :Submitter: tazz_ben <ben@wbpsystems.com>
+   :Date:     Sat, 5 Mar 2011 10:27:33 -0800 (PST)
+   :END:
 ** NOTE Different types of commodity transactions
    - Never revalue this commodity
    - Only revalue this commodity if -X is used
@@ -5400,25 +5412,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** DEFERRED [[bug:407][#407]] Problem with decimal commas and Python integration support
-- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
-   :PROPERTIES:
-   :ID:       91F750B3-C7D0-4945-8E9D-268AAA40529C
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
-   :CREATED:  [2010-08-16 Mon 16:47]
-   :END:
-** DEFERRED [[bug:424][#424]] Make acprep compatible with Python 3                                    :ATTACH:
-- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
-   - Note taken on [2010-11-26 Fri 12:55] \\
-     [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
-   :PROPERTIES:
-   :ID:       AA0C71E0-00BB-4EEF-A5F6-F7B44CA4C3E0
-   :Submitter: John Piasetzki <john.piasetzki@gmail.com>
-   :Message:  [[message://AANLkTimJcMdtJ-xwZkoRyJw7WjoNvzUwU6mmKhr9wjK_@mail.gmail.com][acprep Python 3 {patch}]]
-   :Attachments: 0001-Update-acprep-to-work-with-Python3.patch
-   :CREATED:  [2010-11-24 Wed 13:43]
-   :END:
 ** DEFERRED [[bug:302][#302]] Add implicit conversion of mask_t to re
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:36]
    [[file:py_value.cc::jww%202009%2011%2002%20Add%20implicit%20conversion%20of%20mask%20objects][py_value.cc]]
@@ -5574,6 +5567,25 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
    :CREATED:  [2009-11-19 Thu 17:37]
    :END:
+** DEFERRED [[bug:407][#407]] Problem with decimal commas and Python integration support
+- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
+   :PROPERTIES:
+   :ID:       91F750B3-C7D0-4945-8E9D-268AAA40529C
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
+   :CREATED:  [2010-08-16 Mon 16:47]
+   :END:
+** DEFERRED [[bug:424][#424]] Make acprep compatible with Python 3                                    :ATTACH:
+- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
+   - Note taken on [2010-11-26 Fri 12:55] \\
+     [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
+   :PROPERTIES:
+   :ID:       AA0C71E0-00BB-4EEF-A5F6-F7B44CA4C3E0
+   :Submitter: John Piasetzki <john.piasetzki@gmail.com>
+   :Message:  [[message://AANLkTimJcMdtJ-xwZkoRyJw7WjoNvzUwU6mmKhr9wjK_@mail.gmail.com][acprep Python 3 {patch}]]
+   :Attachments: 0001-Update-acprep-to-work-with-Python3.patch
+   :CREATED:  [2010-11-24 Wed 13:43]
+   :END:
 * Build
   :PROPERTIES:
   :CATEGORY: Build
@@ -5590,21 +5602,10 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :ID:       B4E16081-08C6-430E-82F6-00304C388A22
    :CREATED:  [2011-07-08 Fri 13:40]
    :END:
-** TODO [[bug:572][#572]] Rebuild Boost and Ledger with gcc-4.6
-   - State "TODO"       from "STARTED"    [2011-08-21 Sun 15:03]
-   :PROPERTIES:
-   :ID:       BE861EF4-241B-4D26-A12C-03E8B369DA4F
-   :CREATED:  [2011-08-18 Thu 10:01]
-   :END:
 ** TODO [[bug:573][#573]] acprep should accept --python --python-home and --python-version
    :PROPERTIES:
    :ID:       495BADED-6797-4E7E-B95E-DC9C7F292239
    :CREATED:  [2011-08-18 Thu 14:32]
-   :END:
-** TODO [[bug:574][#574]] Change acprep bindmg to include Boost and all dependencies
-   :PROPERTIES:
-   :ID:       BD6B88C1-1312-4DEB-B63F-B679F01807BE
-   :CREATED:  [2011-08-23 Tue 13:24]
    :END:
 ** TODO [[bug:586][#586]] Improve build error for users without MacPorts or Fink
   "./acprep dependencies" only works if you have MacPorts installed. If you
@@ -5662,31 +5663,6 @@ that runs very slowly.  It produces a file identical to acprep debug
 :Date:     Thu, 10 Nov 2011 20:38:12 -0700
 :Message:  [[message://CAKs9TOLp84z6Od+Cg27y-uY42ZW7UkQAbUVo4TeviX2Mv1wRbQ@mail.gmail.com][acprep opt producing a debug executable]]
 :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO [[bug:646][#646]] configure is not finding python on freebsd 8.2
-... 2.6 and 2.7 installed
-
-:OUTPUT:
-checking whether /usr/bin/python version >= 2.4... configure: error: too old
-acprep: ERROR: Execution failed: sh configure CPPFLAGS=-isystem
-/usr/local/include -isystem /usr/local/include -isystem
-/usr/local/include/python2.6 CXXFLAGS=-Wconversion -g -pipe LDFLAGS=-fpch-deps
--g -L/usr/local/lib --with-included-gettext --enable-python --enable-pch
---enable-debug
-:END:
-
-also config is setting python to /usr/bin/python, from config.log:
-PYTHON='/usr/bin/python'
-
-and python is /usr/local/bin/python , python version 2.7 
-
-how do I get you the config.log file?
-:PROPERTIES:
-:ID:       A82B7536-D1F5-47C2-9CDE-6E66AC07B454
-:CREATED:  [2011-12-05 Mon 00:36]
-:Date: Sat, 3 Dec 2011 11:41:04 -0800
-:Message: [[message://jwiegley/ledger/issues/47@github.com][{ledger} configure is not finding python on freebsd 8.2, 2.6 and 2.7 installed (#47)]]
-:Submitter: Marc Spitzer <reply+i-2438826-719e6bc6d8ff7b4d80a3aa0f1e5d3ce9db669c36-8460@reply.github.com>
 :END:
 ** TODO [#C] [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
@@ -5780,6 +5756,46 @@ how do I get you the config.log file?
    :Message:  [[message://AANLkTimq1xuJbPnka5%2BoNLjV_zjPoMeGMR6yeWTBg2mz@mail.gmail.com][Ledger 3 on OS X 10.5?]]
    :CREATED:  [2010-10-18 Mon 16:12]
    :END:
+** DONE [[bug:574][#574]] Change acprep bindmg to include Boost and all dependencies
+- State "DONE"       from "TODO"       [2012-02-28 Tue 03:30]
+   :PROPERTIES:
+   :ID:       BD6B88C1-1312-4DEB-B63F-B679F01807BE
+   :CREATED:  [2011-08-23 Tue 13:24]
+   :END:
+** WONTFIX [[bug:572][#572]] Rebuild Boost and Ledger with gcc-4.6
+- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:30]
+   - State "TODO"       from "STARTED"    [2011-08-21 Sun 15:03]
+   :PROPERTIES:
+   :ID:       BE861EF4-241B-4D26-A12C-03E8B369DA4F
+   :CREATED:  [2011-08-18 Thu 10:01]
+   :END:
+** DUPLICATE [[bug:646][#646]] configure is not finding python on freebsd 8.2
+- State "DUPLICATE"  from "TODO"       [2012-02-28 Tue 03:31] \\
+  Will be fixed by #573
+... 2.6 and 2.7 installed
+
+:OUTPUT:
+checking whether /usr/bin/python version >= 2.4... configure: error: too old
+acprep: ERROR: Execution failed: sh configure CPPFLAGS=-isystem
+/usr/local/include -isystem /usr/local/include -isystem
+/usr/local/include/python2.6 CXXFLAGS=-Wconversion -g -pipe LDFLAGS=-fpch-deps
+-g -L/usr/local/lib --with-included-gettext --enable-python --enable-pch
+--enable-debug
+:END:
+
+also config is setting python to /usr/bin/python, from config.log:
+PYTHON='/usr/bin/python'
+
+and python is /usr/local/bin/python , python version 2.7 
+
+how do I get you the config.log file?
+:PROPERTIES:
+:ID:       A82B7536-D1F5-47C2-9CDE-6E66AC07B454
+:CREATED:  [2011-12-05 Mon 00:36]
+:Date: Sat, 3 Dec 2011 11:41:04 -0800
+:Message: [[message://jwiegley/ledger/issues/47@github.com][{ledger} configure is not finding python on freebsd 8.2, 2.6 and 2.7 installed (#47)]]
+:Submitter: Marc Spitzer <reply+i-2438826-719e6bc6d8ff7b4d80a3aa0f1e5d3ce9db669c36-8460@reply.github.com>
+:END:
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
