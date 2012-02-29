@@ -4,6 +4,53 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
+     Thierry confirms this still happens for him.
+   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
+   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
+     To Thomas: I just tried this and it worked fine.  After your "push" command,
+     does the prompt change to a ]]?
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
+   :END:
+   :PROPERTIES:
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :CREATED:  [2010-05-30 Sun 03:33]
+   :END:
+** TODO [[bug:337][#337]] Rationalize formatting strings
+   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
+   ${AMT} is the same as $(scrub(AMT))
+   %T is the same as ${display_total}.
+
+   Right now formatting strings are a nightmare for users to modify.
+   :PROPERTIES:
+   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
+   :CREATED:  [2010-06-14 Mon 08:35]
+   :END:
+** TODO [[bug:347][#347]] All contexts should be accessible by name
+   - post.foo
+   - xact.foo
+   - account.foo
+   - report.foo
+   - session.foo
+   - global.foo
+   - options.foo
+   - python.foo
+   :PROPERTIES:
+   :ID:       FA125CB3-F420-4350-9774-83186C81C8F3
+   :CREATED:  [2010-06-18 Fri 17:37]
+   :END:
+** TODO [[bug:348][#348]] Make Date:: a synonym for just [foo] in a posting comment
+   :PROPERTIES:
+   :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
+   :CREATED:  [2010-06-18 Fri 06:52]
+   :END:
+** TODO [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
+   :PROPERTIES:
+   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
+   :CREATED:  [2010-06-21 Mon 18:12]
+   :END:
 ** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
    #+begin_src sh
    ledger reg -s --inject=Expected '^income:ceg'
@@ -96,11 +143,115 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
    :CREATED:  [2010-07-01 Thu 17:55]
    :END:
+** TODO [[bug:374][#374]] Problem with periodic transactions having a null posting
+   - Note taken on [2010-07-02 Fri 04:16] \\
+     Yes, it is expected behavior.  Nice find!  I don't like the idea of
+     making a hack to try and get around this, though, it's likely to only
+     work right in the most obvious situations.  I'll think about having a
+     better way to catch this (like having a warning if a null posting's
+     account name contains digits).
+   - Note taken on [2010-07-02 Fri 04:15] \\
+     Found the problem. In xact.cc, within the declaration for bool
+     xact_base_t::finalize(), I tried changing this...
+     #+begin_src cpp
+     else if (null_post) {
+     #+end_src
+
+     to this...
+     #+begin_src cpp
+     else if (null_post) {
+       DEBUG("xact.finalize", "first null post = " <<
+     null_post->reported_account()->fullname());
+       DEBUG("xact.finalize", "second null post = " <<
+     post->reported_account()->fullname());
+     #+end_src
+
+     and came up with this output...
+     :OUTPUT:
+     5ms  [DEBUG] post must balance = $1062.96
+     5ms  [DEBUG] first null post = Expenses:Entertainment:Blizzard $16.00
+     5ms  [DEBUG] second null post = Assets:Bank:Checking
+     :END:
+     So there needed to be more than a single space between the account name
+     and the transaction amount, or the intended amount was read as part of
+     the transaction name.
+
+     I would imagine that this is expected behavior, though if possible it
+     would be nice if the parser would account for it such that the last
+     non-whitespace text element on a line is used as the amount regardless of
+     the amount of space separating it from the previous text element.
+   :PROPERTIES:
+   :ID:       5D92A5EB-48DD-4ED8-AFED-2A24884FAD4B
+   :CREATED:  [2010-07-01 Thu 22:03]
+   :END:
+** TODO [[bug:375][#375]] -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works
+   :PROPERTIES:
+   :ID:       DE5CBC0F-BD49-46A3-AEB1-4F354B9F4A36
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-375-1@http.newartisans.com/bugzilla/][{Bug 375} New: -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works]]
+   :CREATED:  [2010-07-05 Mon 00:06]
+   :END:
 ** TODO [[bug:376][#376]] ledger reg ^exp is showing Assets in a budget report
    This happens if the periodic transaction contain both Assets and Expenses.
    :PROPERTIES:
    :ID:       3806746F-6745-4D2F-BC8A-20B26F90C3B9
    :CREATED:  [2010-07-06 Tue 16:14]
+   :END:
+** TODO [[bug:377][#377]] ledger -f DIRECTORY doesn't fail with a clear error
+   :PROPERTIES:
+   :ID:       8DC11F98-5C85-4651-A63D-6847474E3CD2
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-377-1@http.newartisans.com/bugzilla/][{Bug 377} New: -f DIRECTORY doesn't fail with a clear error]]
+   :CREATED:  [2010-07-15 Thu 08:02]
+   :END:
+** TODO [[bug:378][#378]] budget: Cannot convert balance with multiple commodities to amount
+   :PROPERTIES:
+   :ID:       30B48934-48F2-46B9-B058-99DEF9BF43C7
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-378-1@http.newartisans.com/bugzilla/][{Bug 378} New: budget: Cannot convert a balance with multiple commodities to an amount]]
+   :CREATED:  [2010-07-15 Thu 08:02]
+   :END:
+** TODO [[bug:379][#379]] equity shows two entries for the same commodity/account
+   :PROPERTIES:
+   :ID:       B39F083E-1C30-4F08-BFB7-E0E1FC7B7356
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-379-1@http.newartisans.com/bugzilla/][{Bug 379} New: equity shows two entries for the same commodity/account]]
+   :CREATED:  [2010-07-15 Thu 08:02]
+   :END:
+** TODO [[bug:380][#380]] "Unbalanced remainder" pops up depending on the order of postings
+   :PROPERTIES:
+   :ID:       1E192DF6-AB81-4DC0-A205-1AAF00F64052
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-380-1@http.newartisans.com/bugzilla/][{Bug 380} New: "Unbalanced remainder" pops up depending on the order of postings]]
+   :CREATED:  [2010-07-17 Sat 05:01]
+   :END:
+** TODO [[bug:381][#381]] ledger bal and --forecast gives wrong result (60 * of monthly value)
+   :PROPERTIES:
+   :ID:       24678A34-5DD0-4119-B0CB-CC56ED5CA3D8
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-381-1@http.newartisans.com/bugzilla/][{Bug 381} New: ledger bal and --forecast gives wrong result (60 * of monthly value)]]
+   :CREATED:  [2010-07-18 Sun 23:13]
+   :END:
+** TODO [[bug:382][#382]] treats {xx} as {=xx}
+   :PROPERTIES:
+   :ID:       15D16351-F0B2-4B79-8BCE-A47193607CDB
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-382-1@http.newartisans.com/bugzilla/][{Bug 382} New: treats {xx} as {=xx}]]
+   :CREATED:  [2010-07-19 Mon 16:59]
+   :END:
+** TODO [[bug:383][#383]] --lot-prices doesn't honour date-format
+   :PROPERTIES:
+   :ID:       FDC49608-9E96-4DF5-AFD8-BA2041A89D82
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-383-1@http.newartisans.com/bugzilla/][{Bug 383} New: --lot-prices doesn't honour date-format]]
+   :CREATED:  [2010-07-19 Mon 17:43]
+   :END:
+** TODO [[bug:384][#384]] ledger shows lot prices for fixated commodities when not requested
+   :PROPERTIES:
+   :ID:       D4668D57-05F9-46E4-A1D6-1B4CA122588C
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-384-1@http.newartisans.com/bugzilla/][{Bug 384} New: ledger shows lot prices for fixated commodities even when I didn't request it]]
+   :CREATED:  [2010-07-19 Mon 17:52]
    :END:
 ** TODO [[bug:387][#387]] There should be a simpler syntax for referring to past lots
    - Note taken on [2010-07-30 Fri 03:07] \\
@@ -159,12 +310,59 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100719230158.GA26275@jirafa.cyrius.com][Our discussion on IRC today]]
    :CREATED:  [2010-07-20 Tue 00:15]
    :END:
+** TODO [[bug:390][#390]] Cannot access account total in automated transaction
+   :PROPERTIES:
+   :ID:       38AB760F-06BC-401A-8FED-A8B394125D20
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-390-1@http.newartisans.com/bugzilla/][{Bug 390} New: Cannot access account total in automated transaction]]
+   :CREATED:  [2010-08-01 Sun 18:55]
+   :END:
 ** TODO [[bug:392][#392]] Reporting multiple commodities with -J
    :PROPERTIES:
    :ID:       5590D50E-F380-4D76-8BAD-71B2A77346FB
    :Submitter: Gabriel Kerneis <kerneis@pps.jussieu.fr>
    :Message:  [[message://20100730074700.GA3033@kerneis.info][Reporting multiple commodities with -J]]
    :CREATED:  [2010-07-30 Fri 06:08]
+   :END:
+** TODO [[bug:395][#395]] Need commodity alias
+   :PROPERTIES:
+   :ID:       13B53049-4795-4111-A679-6866AEFC4640
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-395-1@http.newartisans.com/bugzilla/][{Bug 395} New: need commodity alias]]
+   :CREATED:  [2010-08-16 Mon 16:28]
+   :END:
+** TODO [[bug:398][#398]] Default commodity depends on the order of postings
+   :PROPERTIES:
+   :ID:       9A925FF4-5BDD-489C-8585-BAABB61BF345
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-398-1@http.newartisans.com/bugzilla/][{Bug 398} New: default commodity depends on the order of postings]]
+   :CREATED:  [2010-08-16 Mon 16:28]
+   :END:
+** TODO [[bug:399][#399]] Add function to determine budgeted amount for a time period
+   budget_amount(ACCOUNT, START_DATE, DAYS)
+   :PROPERTIES:
+   :ID:       E38F502D-9E83-485D-9D10-848B0CFD6FDD
+   :CREATED:  [2010-08-16 Mon 19:47]
+   :END:
+** TODO [[bug:400][#400]] -l commodity and -B
+   :PROPERTIES:
+   :ID:       79B191C4-5A95-408B-A473-6D1520129941
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :CREATED:  [2010-08-28 Sat 15:33]
+   :END:
+** TODO [[bug:401][#401]] -l "commodity = ''AA1" doesn't match when commodity contains digits
+   :PROPERTIES:
+   :ID:       F3B9F18B-9366-4607-9B28-4912123E9140
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-401-1@http.newartisans.com/bugzilla/][{Bug 401} New: -l "commodity = ''AA1" doesn't match when commodity contains digits]]
+   :CREATED:  [2010-08-28 Sat 15:33]
+   :END:
+** TODO [[bug:402][#402]] Enhance color output for --budget
+   :PROPERTIES:
+   :ID:       016E1187-1FB7-4E77-906D-55D490588D24
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-402-1@http.newartisans.com/bugzilla/][{Bug 402} New: Enhance color output for --budget]]
+   :CREATED:  [2010-08-29 Sun 19:25]
    :END:
 ** TODO [[bug:403][#403]] --budget ignores "Yearly in August"-type transactions
    :PROPERTIES:
@@ -173,12 +371,26 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-403-1@http.newartisans.com/bugzilla/][{Bug 403} New: --budget ignores "Yearly in August"-type transactions]]
    :CREATED:  [2010-08-30 Mon 18:27]
    :END:
+** TODO [[bug:410][#410]] Forecasting is broken
+   :PROPERTIES:
+   :ID:       6F51229F-1C32-4C01-983A-52BA47421A38
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-410-1@http.newartisans.com/bugzilla/][{Bug 410} New: Forecasting broken]]
+   :CREATED:  [2010-10-03 Sun 22:16]
+   :END:
 ** TODO [[bug:411][#411]] Refrain from downloading a quote if can't get newer
    :PROPERTIES:
    :ID:       1AB29C8F-B661-4D47-8B80-E785E480D97B
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Message:  [[message://bug-411-1@http.newartisans.com/bugzilla/][{Bug 411} New: refrain from downloading a quote if can't get newer]]
    :CREATED:  [2010-10-03 Sun 22:19]
+   :END:
+** TODO [[bug:412][#412]] Error masked by certain options with -J -X EUR
+   :PROPERTIES:
+   :ID:       660641D5-0203-4A95-83A0-58E055803311
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-412-1@http.newartisans.com/bugzilla/][{Bug 412} New: error masked by certain options with -J -X EUR]]
+   :CREATED:  [2010-11-13 Sat 12:01]
    :END:
 ** TODO [[bug:415][#415]] Order of budget entries is significant
    The order of budget entries is important.  The following budget:
@@ -217,6 +429,17 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       3915D7F9-E69D-46F4-972E-C16DDEF90164
    :CREATED:  [2010-09-17 Fri 23:00]
+   :END:
+** TODO [[bug:417][#417]] '&' in account names causes trouble during GNU Cash import
+   In gnucash, I have an account called "1 & 1 Internet AG". It appears that
+   ledger can deal with that name during import, probably because it's encoded
+   as "1 &amp; 1 Internet AG" in the XML file.
+   :PROPERTIES:
+   :ID:       8E2A2C39-C8F4-435B-A5FF-754F51FE4EB0
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4c8bd8a9b4d5c_6bdb3fc37c8298743cd@fe3.rs.github.com.tmail][{GitHub} '&' in account names causes trouble during GNU Cash import {jwiegley/ledger GH-16}]]
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/16
+   :CREATED:  [2010-09-12 Sun 23:14]
    :END:
 ** TODO [[bug:433][#433]] Possible issue with Balanced automated transactions
    Let's say I've got a ledger file like this:
@@ -294,6 +517,28 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       500F3A63-69F9-4E40-8A88-9121D24F3FB5
    :CREATED:  [2010-11-26 Fri 13:15]
    :END:
+** TODO [[bug:436][#436]] Allow multiple null amounts if the rest have balance assignments
+   #+begin_src ledger
+   2010/01/01 * Check or set balance
+      Assets              = $ 1,000
+      Equity:Balance
+   #+end_src
+
+   What I would expect is:
+   - ledger computes the amount x for the first line, so that
+      current_assets + x = $ 1,000
+   - and then sets equity to -x.
+   - and did not work when x = 0.
+
+   It was some time ago, so maybe this works now.  Or is there some reason for
+   it not to work that I cannot figure out (my algorithm looks straightforward
+   but it might not generalize to more complex cases)?
+   :PROPERTIES:
+   :ID:       6A3BCDE8-DD0C-4749-888F-71AC6825558A
+   :Submitter: Gabriel Kerneis <kerneis@pps.jussieu.fr>
+   :Message:  [[message://20101126151723.GA17097@rhodium.pps.jussieu.fr][Re: null amount allowed per entry error because of note]]
+   :CREATED:  [2010-11-26 Fri 11:51]
+   :END:
 ** TODO [[bug:439][#439]] Ledger does not correctly sort balance of anonymized data
    - Note taken on [2010-12-27 Mon 18:27] \\
      [[message://AANLkTikxjUwSPLMLpY%2BomL0A1TNJgCr1n37eM2Zqqq9G@mail.gmail.com][Re: ledger: balance sorting bug]]
@@ -337,6 +582,27 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://AANLkTikwx%2B-AQQrjQ62nm__P0BAwaNB4WRKF4bPc2Bfj@mail.gmail.com][ledger: balance sorting bug]]
    :CREATED:  [2010-10-18 Mon 16:04]
    :END:
+** TODO [[bug:443][#443]] Ignores entry with wrong data instead of giving an error
+   :PROPERTIES:
+   :ID:       94A4467D-FDD2-47B0-9796-6889824E84BA
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-443-1@http.newartisans.com/bugzilla/][{Bug 443} New: ignores entry with wrong data instead of giving an error]]
+   :CREATED:  [2010-11-29 Mon 19:52]
+   :END:
+** TODO [[bug:444][#444]] Output of lines w/ negative amounts and thousands separator is 81 chars
+   :PROPERTIES:
+   :ID:       071633F4-C52A-4BE7-954D-297A0F4B778B
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4cfcd2658178a_635d3fa1c18bc87c270@fe4.rs.github.com.tmail][{GitHub} Output of lines containing negative amounts with thousands separator is 81 chars long {jwiegley/ledger GH-20}]]
+   :CREATED:  [2010-12-06 Mon 14:48]
+   :END:
+** TODO [[bug:445][#445]] Could handle mixing of decimal comma and decimal point better
+   :PROPERTIES:
+   :ID:       038408E7-7926-44AC-96D3-0E113E515903
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-445-1@http.newartisans.com/bugzilla/][{Bug 445} New: could handle mixing of decimal comma and decimal point better]]
+   :CREATED:  [2010-12-17 Fri 05:14]
+   :END:
 ** TODO [[bug:455][#455]] Free shares & --exchange & --total-data
    :PROPERTIES:
    :ID:       E0DAC7C0-471E-4A45-A341-1F29F4670A98
@@ -364,6 +630,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Zack Williams <zdwzdw@gmail.com>
    :Message:  [[message://AANLkTin1k5DdW_Ctc0d_WsBb%2BxnPLBUs6%3DA11VdhX8d4@mail.gmail.com][Re: Automatic transactions only for certain entry amounts]]
    :CREATED:  [2010-12-29 Wed 17:42]
+   :END:
+** TODO [[bug:462][#462]] Default currency/commodity not respected
+   In 2.6.2 on 64-bit ubuntu; calculations in disagreement.
+   :PROPERTIES:
+   :ID:       BA8A5D0A-C65F-42BC-801F-78A37BD9CDD4
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-462-1@http.newartisans.com/bugzilla/][{Bug 462} New: Default currency/commodity not respected in 2.6.2 on 64-bit ubuntu; calculations in disagreement]]
+   :CREATED:  [2011-01-03 Mon 23:10]
    :END:
 ** TODO [[bug:469][#469]] Account / commodity periodic gain question
    :PROPERTIES:
@@ -2855,280 +3129,6 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://565113c5-1ea0-4ee4-8f60-782cfc28e42a@da3g2000vbb.googlegroups.com][historical prices with and without revaluation]]
 :Submitter: Qwertyu <scheit-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO [#C] [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
-   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
-     Thierry confirms this still happens for him.
-   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
-   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
-     To Thomas: I just tried this and it worked fine.  After your "push" command,
-     does the prompt change to a ]]?
-   :LOGBOOK:
-   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
-   :END:
-   :PROPERTIES:
-   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
-   :CREATED:  [2010-05-30 Sun 03:33]
-   :END:
-** TODO [#C] [[bug:337][#337]] Rationalize formatting strings
-   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
-   ${AMT} is the same as $(scrub(AMT))
-   %T is the same as ${display_total}.
-
-   Right now formatting strings are a nightmare for users to modify.
-   :PROPERTIES:
-   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
-   :CREATED:  [2010-06-14 Mon 08:35]
-   :END:
-** TODO [#C] [[bug:347][#347]] All contexts should be accessible by name
-   - post.foo
-   - xact.foo
-   - account.foo
-   - report.foo
-   - session.foo
-   - global.foo
-   - options.foo
-   - python.foo
-   :PROPERTIES:
-   :ID:       FA125CB3-F420-4350-9774-83186C81C8F3
-   :CREATED:  [2010-06-18 Fri 17:37]
-   :END:
-** TODO [#C] [[bug:348][#348]] Make Date:: a synonym for just [foo] in a posting comment
-   :PROPERTIES:
-   :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
-   :CREATED:  [2010-06-18 Fri 06:52]
-   :END:
-** TODO [#C] [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
-   :PROPERTIES:
-   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
-   :CREATED:  [2010-06-21 Mon 18:12]
-   :END:
-** TODO [#C] [[bug:374][#374]] Problem with periodic transactions having a null posting
-   - Note taken on [2010-07-02 Fri 04:16] \\
-     Yes, it is expected behavior.  Nice find!  I don't like the idea of
-     making a hack to try and get around this, though, it's likely to only
-     work right in the most obvious situations.  I'll think about having a
-     better way to catch this (like having a warning if a null posting's
-     account name contains digits).
-   - Note taken on [2010-07-02 Fri 04:15] \\
-     Found the problem. In xact.cc, within the declaration for bool
-     xact_base_t::finalize(), I tried changing this...
-     #+begin_src cpp
-     else if (null_post) {
-     #+end_src
-
-     to this...
-     #+begin_src cpp
-     else if (null_post) {
-       DEBUG("xact.finalize", "first null post = " <<
-     null_post->reported_account()->fullname());
-       DEBUG("xact.finalize", "second null post = " <<
-     post->reported_account()->fullname());
-     #+end_src
-
-     and came up with this output...
-     :OUTPUT:
-     5ms  [DEBUG] post must balance = $1062.96
-     5ms  [DEBUG] first null post = Expenses:Entertainment:Blizzard $16.00
-     5ms  [DEBUG] second null post = Assets:Bank:Checking
-     :END:
-     So there needed to be more than a single space between the account name
-     and the transaction amount, or the intended amount was read as part of
-     the transaction name.
-
-     I would imagine that this is expected behavior, though if possible it
-     would be nice if the parser would account for it such that the last
-     non-whitespace text element on a line is used as the amount regardless of
-     the amount of space separating it from the previous text element.
-   :PROPERTIES:
-   :ID:       5D92A5EB-48DD-4ED8-AFED-2A24884FAD4B
-   :CREATED:  [2010-07-01 Thu 22:03]
-   :END:
-** TODO [#C] [[bug:375][#375]] -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works
-   :PROPERTIES:
-   :ID:       DE5CBC0F-BD49-46A3-AEB1-4F354B9F4A36
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-375-1@http.newartisans.com/bugzilla/][{Bug 375} New: -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works]]
-   :CREATED:  [2010-07-05 Mon 00:06]
-   :END:
-** TODO [#C] [[bug:377][#377]] ledger -f DIRECTORY doesn't fail with a clear error
-   :PROPERTIES:
-   :ID:       8DC11F98-5C85-4651-A63D-6847474E3CD2
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-377-1@http.newartisans.com/bugzilla/][{Bug 377} New: -f DIRECTORY doesn't fail with a clear error]]
-   :CREATED:  [2010-07-15 Thu 08:02]
-   :END:
-** TODO [#C] [[bug:378][#378]] budget: Cannot convert balance with multiple commodities to amount
-   :PROPERTIES:
-   :ID:       30B48934-48F2-46B9-B058-99DEF9BF43C7
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-378-1@http.newartisans.com/bugzilla/][{Bug 378} New: budget: Cannot convert a balance with multiple commodities to an amount]]
-   :CREATED:  [2010-07-15 Thu 08:02]
-   :END:
-** TODO [#C] [[bug:379][#379]] equity shows two entries for the same commodity/account
-   :PROPERTIES:
-   :ID:       B39F083E-1C30-4F08-BFB7-E0E1FC7B7356
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-379-1@http.newartisans.com/bugzilla/][{Bug 379} New: equity shows two entries for the same commodity/account]]
-   :CREATED:  [2010-07-15 Thu 08:02]
-   :END:
-** TODO [#C] [[bug:380][#380]] "Unbalanced remainder" pops up depending on the order of postings
-   :PROPERTIES:
-   :ID:       1E192DF6-AB81-4DC0-A205-1AAF00F64052
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-380-1@http.newartisans.com/bugzilla/][{Bug 380} New: "Unbalanced remainder" pops up depending on the order of postings]]
-   :CREATED:  [2010-07-17 Sat 05:01]
-   :END:
-** TODO [#C] [[bug:381][#381]] ledger bal and --forecast gives wrong result (60 * of monthly value)
-   :PROPERTIES:
-   :ID:       24678A34-5DD0-4119-B0CB-CC56ED5CA3D8
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-381-1@http.newartisans.com/bugzilla/][{Bug 381} New: ledger bal and --forecast gives wrong result (60 * of monthly value)]]
-   :CREATED:  [2010-07-18 Sun 23:13]
-   :END:
-** TODO [#C] [[bug:382][#382]] treats {xx} as {=xx}
-   :PROPERTIES:
-   :ID:       15D16351-F0B2-4B79-8BCE-A47193607CDB
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-382-1@http.newartisans.com/bugzilla/][{Bug 382} New: treats {xx} as {=xx}]]
-   :CREATED:  [2010-07-19 Mon 16:59]
-   :END:
-** TODO [#C] [[bug:383][#383]] --lot-prices doesn't honour date-format
-   :PROPERTIES:
-   :ID:       FDC49608-9E96-4DF5-AFD8-BA2041A89D82
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-383-1@http.newartisans.com/bugzilla/][{Bug 383} New: --lot-prices doesn't honour date-format]]
-   :CREATED:  [2010-07-19 Mon 17:43]
-   :END:
-** TODO [#C] [[bug:384][#384]] ledger shows lot prices for fixated commodities when not requested
-   :PROPERTIES:
-   :ID:       D4668D57-05F9-46E4-A1D6-1B4CA122588C
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-384-1@http.newartisans.com/bugzilla/][{Bug 384} New: ledger shows lot prices for fixated commodities even when I didn't request it]]
-   :CREATED:  [2010-07-19 Mon 17:52]
-   :END:
-** TODO [#C] [[bug:390][#390]] Cannot access account total in automated transaction
-   :PROPERTIES:
-   :ID:       38AB760F-06BC-401A-8FED-A8B394125D20
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-390-1@http.newartisans.com/bugzilla/][{Bug 390} New: Cannot access account total in automated transaction]]
-   :CREATED:  [2010-08-01 Sun 18:55]
-   :END:
-** TODO [#C] [[bug:395][#395]] Need commodity alias
-   :PROPERTIES:
-   :ID:       13B53049-4795-4111-A679-6866AEFC4640
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-395-1@http.newartisans.com/bugzilla/][{Bug 395} New: need commodity alias]]
-   :CREATED:  [2010-08-16 Mon 16:28]
-   :END:
-** TODO [#C] [[bug:398][#398]] Default commodity depends on the order of postings
-   :PROPERTIES:
-   :ID:       9A925FF4-5BDD-489C-8585-BAABB61BF345
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-398-1@http.newartisans.com/bugzilla/][{Bug 398} New: default commodity depends on the order of postings]]
-   :CREATED:  [2010-08-16 Mon 16:28]
-   :END:
-** TODO [#C] [[bug:399][#399]] Add function to determine budgeted amount for a time period
-   budget_amount(ACCOUNT, START_DATE, DAYS)
-   :PROPERTIES:
-   :ID:       E38F502D-9E83-485D-9D10-848B0CFD6FDD
-   :CREATED:  [2010-08-16 Mon 19:47]
-   :END:
-** TODO [#C] [[bug:400][#400]] -l commodity and -B
-   :PROPERTIES:
-   :ID:       79B191C4-5A95-408B-A473-6D1520129941
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :CREATED:  [2010-08-28 Sat 15:33]
-   :END:
-** TODO [#C] [[bug:401][#401]] -l "commodity = ''AA1" doesn't match when commodity contains digits
-   :PROPERTIES:
-   :ID:       F3B9F18B-9366-4607-9B28-4912123E9140
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-401-1@http.newartisans.com/bugzilla/][{Bug 401} New: -l "commodity = ''AA1" doesn't match when commodity contains digits]]
-   :CREATED:  [2010-08-28 Sat 15:33]
-   :END:
-** TODO [#C] [[bug:402][#402]] Enhance color output for --budget
-   :PROPERTIES:
-   :ID:       016E1187-1FB7-4E77-906D-55D490588D24
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-402-1@http.newartisans.com/bugzilla/][{Bug 402} New: Enhance color output for --budget]]
-   :CREATED:  [2010-08-29 Sun 19:25]
-   :END:
-** TODO [#C] [[bug:410][#410]] Forecasting is broken
-   :PROPERTIES:
-   :ID:       6F51229F-1C32-4C01-983A-52BA47421A38
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-410-1@http.newartisans.com/bugzilla/][{Bug 410} New: Forecasting broken]]
-   :CREATED:  [2010-10-03 Sun 22:16]
-   :END:
-** TODO [#C] [[bug:412][#412]] Error masked by certain options with -J -X EUR
-   :PROPERTIES:
-   :ID:       660641D5-0203-4A95-83A0-58E055803311
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-412-1@http.newartisans.com/bugzilla/][{Bug 412} New: error masked by certain options with -J -X EUR]]
-   :CREATED:  [2010-11-13 Sat 12:01]
-   :END:
-** TODO [#C] [[bug:417][#417]] '&' in account names causes trouble during GNU Cash import
-   In gnucash, I have an account called "1 & 1 Internet AG". It appears that
-   ledger can deal with that name during import, probably because it's encoded
-   as "1 &amp; 1 Internet AG" in the XML file.
-   :PROPERTIES:
-   :ID:       8E2A2C39-C8F4-435B-A5FF-754F51FE4EB0
-   :Submitter: GitHub <noreply@github.com>
-   :Message:  [[message://4c8bd8a9b4d5c_6bdb3fc37c8298743cd@fe3.rs.github.com.tmail][{GitHub} '&' in account names causes trouble during GNU Cash import {jwiegley/ledger GH-16}]]
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/16
-   :CREATED:  [2010-09-12 Sun 23:14]
-   :END:
-** TODO [#C] [[bug:436][#436]] Allow multiple null amounts if the rest have balance assignments
-   #+begin_src ledger
-   2010/01/01 * Check or set balance
-      Assets              = $ 1,000
-      Equity:Balance
-   #+end_src
-
-   What I would expect is:
-   - ledger computes the amount x for the first line, so that
-      current_assets + x = $ 1,000
-   - and then sets equity to -x.
-   - and did not work when x = 0.
-
-   It was some time ago, so maybe this works now.  Or is there some reason for
-   it not to work that I cannot figure out (my algorithm looks straightforward
-   but it might not generalize to more complex cases)?
-   :PROPERTIES:
-   :ID:       6A3BCDE8-DD0C-4749-888F-71AC6825558A
-   :Submitter: Gabriel Kerneis <kerneis@pps.jussieu.fr>
-   :Message:  [[message://20101126151723.GA17097@rhodium.pps.jussieu.fr][Re: null amount allowed per entry error because of note]]
-   :CREATED:  [2010-11-26 Fri 11:51]
-   :END:
-** TODO [#C] [[bug:443][#443]] Ignores entry with wrong data instead of giving an error
-   :PROPERTIES:
-   :ID:       94A4467D-FDD2-47B0-9796-6889824E84BA
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-443-1@http.newartisans.com/bugzilla/][{Bug 443} New: ignores entry with wrong data instead of giving an error]]
-   :CREATED:  [2010-11-29 Mon 19:52]
-   :END:
-** TODO [#C] [[bug:444][#444]] Output of lines w/ negative amounts and thousands separator is 81 chars
-   :PROPERTIES:
-   :ID:       071633F4-C52A-4BE7-954D-297A0F4B778B
-   :Submitter: GitHub <noreply@github.com>
-   :Message:  [[message://4cfcd2658178a_635d3fa1c18bc87c270@fe4.rs.github.com.tmail][{GitHub} Output of lines containing negative amounts with thousands separator is 81 chars long {jwiegley/ledger GH-20}]]
-   :CREATED:  [2010-12-06 Mon 14:48]
-   :END:
-** TODO [#C] [[bug:445][#445]] Could handle mixing of decimal comma and decimal point better
-   :PROPERTIES:
-   :ID:       038408E7-7926-44AC-96D3-0E113E515903
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-445-1@http.newartisans.com/bugzilla/][{Bug 445} New: could handle mixing of decimal comma and decimal point better]]
-   :CREATED:  [2010-12-17 Fri 05:14]
-   :END:
-** TODO [#C] [[bug:462][#462]] Default currency/commodity not respected
-   In 2.6.2 on 64-bit ubuntu; calculations in disagreement.
-   :PROPERTIES:
-   :ID:       BA8A5D0A-C65F-42BC-801F-78A37BD9CDD4
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-462-1@http.newartisans.com/bugzilla/][{Bug 462} New: Default currency/commodity not respected in 2.6.2 on 64-bit ubuntu; calculations in disagreement]]
-   :CREATED:  [2011-01-03 Mon 23:10]
-   :END:
 ** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
    - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
    :PROPERTIES:
@@ -3301,508 +3301,31 @@ yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
 :Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
 :Submitter: "David Keegan" <dksw@eircom.net>
 :END:
-** DONE Ledger is failing test/regress/D060256A.test
-SCHEDULED: <2012-02-17 Fri>
-- State "DONE"       from "TODO"       [2012-02-17 Fri 17:11]
-:PROPERTIES:
-:ID:       390D8B54-6E5E-453A-993C-45521CAE904B
-:CREATED:  [2012-02-16 Thu 19:31]
-:END:
-** DONE [[bug:394][#394]] Weekly report and monthly report (possible bug)
-- State "DONE"       from "TODO"       [2012-02-28 Tue 02:36] \\
-  Fixed by 6adfcc8
-- Note taken on [2012-02-28 Tue 00:16] \\
-  #+begin_src sh
-  ledger -p "apr 2011" reg Expenses -X '$'   
-  #+end_src
-  :OUTPUT:
-  11-Apr-01 serveraxis.com            Expenses:Computer:Internet             $15.00          $15.00
-                                      Expenses:Computer:Internet              $1.10          $16.10
-  11-Apr-05 Pennsylvania toll booth   Expenses:Auto:Fees                     $13.00          $29.10
-                                      Expenses:Cash                         $-13.00          $16.10
-  11-Apr-05 iTunes                    Expenses:Music                          $1.29          $17.39
-                                      Expenses:Taxes:Sales                    $0.09          $17.48
-  11-Apr-19 iTunes                    Expenses:Computer:Software              $4.99          $22.47
-                                      Expenses:Taxes:Sales                    $0.35          $22.82
-  11-Apr-24 iTunes                    Expenses:Movies                         $1.99          $24.81
-                                      Expenses:Movies                         $2.99          $27.80
-                                      Expenses:Taxes:Sales                    $0.35          $28.15
-  11-Apr-29 iTunes                    Expenses:Computer:Movies                $0.99          $29.14
-                                      Expenses:Taxes:Sales                    $0.07          $29.21
-  :END:
-
-  #+begin_src sh
-  ledger -M -p "apr 2011" reg Expenses -X '$'
-  #+end_src
-  :OUTPUT:
-  11-Apr-01 - 11-Apr-29               Expenses:Auto:Fees                     $13.00          $13.00
-                                      Expenses:Cash                         $-13.00               0
-                                      Expenses:Computer:Internet             $16.10          $16.10
-                                      Expenses:Computer:Movies                $0.99          $17.09
-                                      Expenses:Computer:Software              $4.99          $22.08
-                                      Expenses:Movies                         $4.98          $27.06
-                                      Expenses:Music                          $1.29          $28.35
-                                      Expenses:Taxes:Sales                    $0.86          $29.21
-  :END:
-  
-  #+begin_src sh
-  ledger -W -p "apr 2011" reg Expenses -X '$'
-  #+end_src
-  :OUTPUT:
-  11-Apr-01 - 11-Apr-02               Expenses:Computer:Internet             $16.10          $16.10
-  11-Apr-15 - 11-Apr-21               Expenses:Computer:Software              $4.99          $21.09
-                                      Expenses:Taxes:Sales                    $0.35          $21.44
-  11-Apr-22 - 11-Apr-28               Expenses:Movies                         $4.98          $26.42
-                                      Expenses:Taxes:Sales                    $0.35          $26.77
-  11-Apr-29 - 11-Apr-29               Expenses:Computer:Movies                $0.99          $27.76
-                                      Expenses:Taxes:Sales                    $0.07          $27.83
-  :END:
-  
-  #+begin_src sh
-  ledger -E -W -p "apr 2011" reg Expenses -X '$'
-  #+end_src
-  :OUTPUT:
-  11-Apr-01 - 11-Apr-02               Expenses:Computer:Internet             $16.10          $16.10
-  11-Apr-03 - 11-Apr-09               Expenses:Computer:Software              $4.99          $21.09
-  11-Apr-10 - 11-Apr-16               Expenses:Taxes:Sales                    $0.35          $21.44
-  11-Apr-17 - 11-Apr-23               Expenses:Movies                         $1.99          $23.43
-  11-Apr-24 - 11-Apr-30               Expenses:Movies                         $2.99          $26.42
-  11-Apr-24 - 11-Apr-29               Expenses:Computer:Movies                $0.99          $27.41
-                                      Expenses:Taxes:Sales                    $0.42          $27.83
-  :END:
-I am using Ledger 3.0.0-20100615 and I guess I found a bug.
-
-I ran the commands bellow on July 30.
-
-#+begin_src sh
-ledger -M -s -p "this month" reg Bakery Work Supermarket Vindinha Fuel
-#+end_src
-:OUTPUT:
-10-Jul-01 - 10-Jul-31   Expenses:Car:Fuel              $199.01      $199.01
-                        Expenses:Foods:Bakery          $126.20      $325.21
-                        Expenses:Foods:Work            $432.54      $757.75
-                        Expenses:Supermarket           $380.23     $1137.98
-:END:
-
-But when I ran the command bellow I had got this results:
-
-#+begin_src sh
-ledger -W -p "this month" reg Bakery Work Supermarket Vindinha Fuel
-#+end_src
-:OUTPUT:
-10-Jul-01 - 10-Jul-03   Expenses:Foods:Bakery   $31.00       $31.00
-                        Expenses:Foods:Work     $29.69       $60.69
-10-Jul-08 - 10-Jul-14   Expenses:Car:Fuel       $35.00       $95.69
-                        Expenses:Foods:Bakery   $31.50      $127.19
-                        Expenses:Foods:Work     $65.53      $192.72
-                        Expenses:Supermarket    $94.29      $287.01
-10-Jul-15 - 10-Jul-21   Expenses:Car:Fuel       $59.01      $346.02
-                        Expenses:Foods:Bakery   $11.00      $357.02
-                        Expenses:Foods:Work    $136.10      $493.12
-                        Expenses:Supermarket    $66.66      $559.78
-10-Jul-22 - 10-Jul-28   Expenses:Car:Fuel       $20.00      $579.78
-                        Expenses:Foods:Bakery   $40.90      $620.68
-                        Expenses:Foods:Work    $112.65      $733.33
-                        Expenses:Supermarket    $98.17      $831.50
-10-Jul-29 - 10-Jul-31   Expenses:Car:Fuel       $30.00      $861.50
-                        Expenses:Foods:Bakery    $7.30      $868.80
-                        Expenses:Foods:Work     $35.99      $904.79
-:END:
-
-The days between 2010/07/04 and 2010/07/07 do not appear in the report. So I
-ran this:
-
-#+begin_src sh
-ledger -b 2010/07/04 -e 2010/07/07 reg  Bakery Work Supermarket Vindinha Fuel
-#+end_src
-:OUTPUT:
-10-Jul-04 Portal Imperatriz  Expenses:Car:Fuel      $15.00       $15.00
-10-Jul-04 Marche             Expenses:Supermarket   $25.49       $40.49
-10-Jul-04 Marche             Expenses:Supermarket   $80.62      $121.11
-10-Jul-05 Extra Facil        Expenses:Supermarket   $15.00      $136.11
-10-Jul-05 Funchal Grill      Expenses:Foods:Work    $12.87      $148.98
-10-Jul-05 Padaria Moema      Expenses:Foods:Bakery   $4.50      $153.48
-10-Jul-06 Vilachic Funchal   Expenses:Foods:Work    $17.90      $171.38
-10-Jul-06 Posto Jucelino     Expenses:Car:Fuel      $20.00      $191.38
-:END:
-
-I didn't get the amount difference between the other two reports above.  So I
-tried:
-
-#+begin_src sh
-ledger -b 2010/07/04 -e 2010/07/08 reg  Bakery Work Supermarket Vindinha Fuel
-#+end_src
-:OUTPUT:
-10-Jul-04 Portal Imperatriz       Expenses:Car:Fuel      $15.00       $15.00
-10-Jul-04 Marche                  Expenses:Supermarket   $25.49       $40.49
-10-Jul-04 Marche                  Expenses:Supermarket   $80.62      $121.11
-10-Jul-05 Extra Facil             Expenses:Supermarket   $15.00      $136.11
-10-Jul-05 Funchal Grill           Expenses:Foods:Work    $12.87      $148.98
-10-Jul-05 Padaria Moema           Expenses:Foods:Bakery   $4.50      $153.48
-10-Jul-06 Vilachic Funchal        Expenses:Foods:Work    $17.90      $171.38
-10-Jul-06 Posto Jucelino          Expenses:Car:Fuel      $20.00      $191.38
-10-Jul-07 Viena Shopping Vila..   Expenses:Foods:Work    $21.81      $213.19
-10-Jul-07 Posto Caminho Brade..   Expenses:Car:Fuel      $20.00      $233.19
-:END:
-
-I got the exact difference between the first and the second reports:
-$1137.98 - $904.79 = $ $233.19.
-
-So, I guess this is not the normal behavior expected by the second report
-(weekly report).
-:PROPERTIES:
-:ID:       F06D5554-425C-4E4E-A8B4-3CF29E07AA1E
-:Submitter: Leandro Henrique Oliveira Fernandes <leandroohf@gmail.com>
-:Message:  [[message://AANLkTimSSZPgYKQR6U2oZ7uaJtXBdTYF%2BmCn_3SXatko@mail.gmail.com][weekly report and monthly report (Is it a BUG?)]]
-:CREATED:  [2010-08-01 Sun 18:55]
-:END:
-** DONE [[bug:448][#448]] Only one posting with null amount allowed because of note
-- State "DONE"       from "TODO"       [2012-02-28 Tue 02:47] \\
-  Fixed by 7a55c7f
-I've noticed that adding a note to a periodic entry without specifying the
-redundant transaction values produces a null amount error:
-:OUTPUT:
-# this works fine:
-$ cat /tmp/sample
-~ monthly
-  ; note
-  assets:checking  $1,000.00
-  income:work:salary   -$1,000.00
-
-$ ledger --forecast "d<[2011]" reg -f /tmp/sample
-10-Dec-01 Forecast transaction  assets:checking           $1,000.00
-$1,000.00
-10-Dec-01 Forecast transaction  income:work:salary
-$-1,000.00            0
-:END:
-:OUTPUT:
-# removing the redundant info from the entry breaks it for some reason:
-$ cat /tmp/sample
-~ monthly
-  ; note
-  assets:checking  $1,000.00
-  income:work:salary
-
-$ ledger --forecast "d<[2011]" reg -f /tmp/sample
-While parsing file "/tmp/sample", line 4:
-While parsing periodic transaction:
-> ~ monthly
->   ; note
->   assets:checking  $1,000.00
->   income:work:salary
-Error: Only one posting with null amount allowed per transaction
-:END:
-:OUTPUT:
-# this works without notes:
-$ cat /tmp/sample
-~ monthly
-  assets:checking  $1,000.00
-  income:work:salary
-
-$ ledger --forecast "d<[2011]" reg -f /tmp/
-sample
-10-Dec-01 Forecast transaction  assets:checking           $1,000.00
-$1,000.00
-10-Dec-01 Forecast transaction  income:work:salary
-$-1,000.00            0
-:END:
-
-:OUTPUT:
-$ ledger --version
-Ledger 3.0.0-20100623, the command-line accounting tool
-:END:
-
-I expect all three cases to not fail with an error.
-:PROPERTIES:
-:ID:       CFE5D8AA-1060-4A7D-816D-42F72C444118
-:Submitter: Michael Ploujnikov <ploujj@gmail.com>
-:Message:  [[message://a065e461-e06e-45e0-aa39-aec74b13c864@l32g2000yqc.googlegroups.com][Error: Only one posting with null amount allowed per transaction because of note]]
-:CREATED:  [2010-11-28 Sun 20:33]
-:END:
-** DONE [[bug:454][#454]] Rename actual and effective dates to primary/auxiliary
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:07]
-   :PROPERTIES:
-   :ID:       43ACF050-6723-41D6-BC3A-B3672AD7C2B7
-   :CREATED:  [2010-12-14 Tue 17:54]
-   :END:
-** DONE [[bug:476][#476]] alias does not work across !include
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:08]
-   :PROPERTIES:
-   :ID:       13A2FCDF-6A62-4EC3-AC7A-A5F26B333065
-   :CREATED:  [2011-02-09 Wed 14:39]
-   :Message:  [[message://bug-476-1@http.newartisans.com/bugzilla/][{Bug 476} New: alias does not work across !include]]
-   :END:
-** DONE [[bug:506][#506]] Loss of data in weekly report
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:11]
-   :PROPERTIES:
-   :ID:       F514E031-CA81-481F-BC3A-254D61A7CFA5
-   :CREATED:  [2011-04-27 Wed 22:22]
-   :Message:  [[message://bug-506-1@http.newartisans.com/bugzilla/][{Bug 506} New: lost of data in weekly report]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Date:     Wed, 27 Apr 2011 20:25:57 -0500 (CDT)
-   :END:
-** DONE [[bug:546][#546]] Record timelog hours on the day(s) of check-in
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:19] \\
-  Fixed by 6cbceb8.
-   :PROPERTIES:
-   :ID:       ACE05ECE-DC73-43B6-98CF-5E362806E517
-   :CREATED:  [2011-07-21 Thu 16:11]
-   :Date:     Thu, 21 Jul 2011 03:20:36 -0700 (PDT)
-   :Message:  [[message://3c83e99a-8817-4976-a1c8-66ff1508ff21@d7g2000vbv.googlegroups.com][Record timelog hours on the day of check-in, instead of on the day of check-out?]]
-   :Submitter: Seppo Sade <sepposade1@gmail.com>
-   :END:
-** DONE [[bug:593][#593]] XML reports should output a <fullname> tag
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:38] \\
-  Fixed by f4a8f6b
-  :PROPERTIES:
-  :ID:       6FE4EB4E-0780-4F54-9AB6-B091020A8C6E
-  :CREATED:  [2011-11-01 Tue 10:31]
-  :Date:     Thu, 27 Oct 2011 14:03:23 -0600
-  :Message:  [[message://CAMfPF2cESuukGfGUOLusrV65=OOaPrpNVLZkutvDpk6_xhuO4w@mail.gmail.com][Re: Having Problems With XML]]
-  :Submitter: Ryan May <ryan-wTxsuUSx66j3fQ9qLvQP4Q@public.gmane.org>
-  :END:
-** DONE [[bug:600][#600]] -d "l>=2" performs > rather than >=
-- State "DONE"       from "TODO"       [2012-02-28 Tue 04:02] \\
-  Fixed by 9376b0f
-:PROPERTIES:
-:ID:       854150DF-C34B-447B-89FB-24D5006C798E
-:CREATED:  [2011-11-14 Mon 15:06]
-:Date:     Mon, 14 Nov 2011 01:44:22 +0000
-:Message:  [[message://bug-600-1@http.bugs.ledger-cli.org/][{Bug 600} New: -d "l>=2" performs > rather than >=]]
-:Submitter: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** DONE [[bug:605][#605]] Inconsistent command directive syntax
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:32]
-:PROPERTIES:
-:ID:       61F3122F-EAA3-4C5A-BD3D-2C47B50AACC2
-:CREATED:  [2011-11-24 Thu 00:42]
-:Date: Thu, 24 Nov 2011 05:57:44 +0000
-:Message: [[message://bug-605-1@http.bugs.ledger-cli.org/][{Bug 605} New: inconsistent command directive syntax]]
-:Submitter: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** DONE [[bug:632][#632]] Strange "print" behavior in comments
-- State "DONE"       from "TODO"       [2012-02-26 Sun 02:10]
-Related question: is there a way to specify that ledger should not
-reformat comments?  In other words:
-
-If the comment is on the same line as the account, such as
-#+begin_src ledger
-   Expenses   $10  ; very long comment on this account that exceeds the width
-#+end_src
-
-Then the comment should NOT be wrapped; and if the comment is on the following
-line, such as:
-#+begin_src ledger
-   Expenses   $10
-   ; short comment
-#+end_src
-
-Then it should not be combined with the previous line.
-:PROPERTIES:
-:ID:       50D6F711-7C3B-4BF8-B5F5-DB94B997BD04
-:CREATED:  [2012-02-06 Mon 14:30]
-:Date: Tue, 31 Jan 2012 09:33:48 -0800 (PST)
-:Message: [[message://37986445-0db3-476b-8f70-d6a59236bb4e@i10g2000pbl.googlegroups.com][Re: Strange "print" behavior in comments]]
-:Author: Hsiu-Khuern Tang <tangoh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** WONTFIX [#A] [[bug:406][#406]] Unable to install ledger on Ubuntu Hardy
-- State "WONTFIX"    from "TODO"       [2012-02-27 Mon 23:10]
-   :PROPERTIES:
-   :ID:       418D7760-03CD-441B-847F-BCD7EDE82E68
-   :CREATED:  [2011-06-14 Tue 19:21]
-   :END:
-** WONTFIX [#A] [[bug:418][#418]] Ledger 3.0 will not build under cygwin on Windows
-- State "WONTFIX"    from "TODO"       [2012-02-27 Mon 23:10]
-   :PROPERTIES:
-   :ID:       C3AEDBF3-B2BD-4112-9EDE-865023E06532
-   :CREATED:  [2011-06-14 Tue 19:21]
-   :END:
-** WONTFIX [[bug:490][#490]] Pull request: Next [jwiegley/ledger GH-22]
-- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:08]
-   :PROPERTIES:
-   :ID:       AE12485D-BD34-4DC3-8938-CBDF34560EB6
-   :CREATED:  [2011-02-28 Mon 01:32]
-   :Message:  [[message://jwiegley/ledger/pull/22@github.com][{GitHub} Next {jwiegley/ledger GH-22}]]
-   :Submitter: cypok <noreply@github.com>
-   :Date:     Sun, 27 Feb 2011 01:58:04 -0800
-   :END:
-** WONTFIX [[bug:592][#592]] 'print' command does not handle multiple spaces in the payee
-- State "WONTFIX"    from "TODO"       [2011-11-22 Tue 23:45]
-  :PROPERTIES:
-  :ID:       EC6FCE89-CFFD-4EC0-9882-1D2F0F94C2DD
-  :CREATED:  [2011-11-01 Tue 10:06]
-  :Date:     Thu, 27 Oct 2011 20:18:21 -0700
-  :Message:  [[message://jwiegley/ledger/issues/44@github.com][{ledger} print command does not handle multiple spaces in the payee]]
-  :Submitter: Peter Ross <reply+i-2075303-b72936dde164d8d4ce9bb65f0ae35544d621b8a8@reply.github.com>
-  :END:
-** WONTFIX [[bug:651][#651]] The - query prefix character no longer excludes accounts
-- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:36] \\
-  This is expected behavior now that options can occur anywhere.
-Blast from the past:  the "-" thing no longer works in 3.0 is this a
-bug or deprecated?
-:OUTPUT:
-12:01:43 ~/FinanceData (master)> ledger bal Expenses -Expenses:Drinks
-Error: Illegal option -x
-13:58:53 ~/FinanceData (master)> ledger bal Expenses
--"Expenses:Drinks"
-Error: Illegal option -x
-:END:
-:PROPERTIES:
-:ID:       ED644B36-64CC-403F-B196-C9CD6FB66D23
-:CREATED:  [2011-12-14 Wed 17:18]
-:Date: Wed, 14 Dec 2011 12:59:46 -0800 (PST)
-:Message: [[message://4c90b360-8e91-4154-a5ea-8e8d47203309@h3g2000yqa.googlegroups.com][Re: account exclusion]]
-:Submitter: enderw88 <enderw88@gmail.com>
-:END:
-** WORKSFORME [#A] [[bug:388][#388]] Can't build next branch OS X 10.6.4 (Intel)
-- State "WORKSFORME" from "TODO"       [2012-02-27 Mon 22:53]
-   :PROPERTIES:
-   :ID:       0E257D11-B836-4ACF-A937-7DEC4C0F28C0
-   :CREATED:  [2011-06-14 Tue 19:21]
-   :END:
-** WORKSFORME [#A] [[bug:503][#503]] Abort trap on MacOS 10.6.7                                      :blocker:
-- State "WORKSFORME" from "TODO"       [2012-02-27 Mon 23:11]
-   :PROPERTIES:
-   :ID:       CDEDA0D4-A7D1-4BEC-B8C6-F93EA8FFE305
-   :CREATED:  [2011-04-01 Fri 18:58]
-   :Message:  [[message://4D95020C.9090801@gmail.com][Re: Abort trap on MacOS 10.6.7]]
-   :Submitter: Michael Norrish <michael.norrish@gmail.com>
-   :Date:     Fri, 01 Apr 2011 09:37:00 +1100
-   :END:
-** WORKSFORME [[bug:516][#516]] Ledger entry takes the first entry
-- State "WORKSFORME" from "DONE"       [2011-11-18 Fri 20:03]
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   The `entry' command for ledger-2 made it search for the last entry of the
-   chosen payee. This makes sense because the way we log transactions for any
-   payee may change over time and then it is most probable that the most
-   recent is what we want. If I buy food in the nearby supermarket and record
-   transactions like this:
-   #+begin_src ledger
-   2011-01-02 SuperMarket
-   Expense:Food:Groceries    10,00 PLN
-   Expense:Cash
-   #+end_src
-   then it is sufficient to say: `ledger entry 2011-02-03 SuperMarket 20', to
-   get:
-   #+begin_src ledger
-   2011-02-03 SuperMarket
-   Expense:Food:Groceries    20,00 PLN
-   Expense:Cash
-   #+end_src
-
-   However, it looks like ledger-3 (365188a1) outputs entry after finding the
-   first transaction. So if the first thing I bough in the nearby supermarket
-   was a hammer:
-   #+begin_src ledger
-   2011-02-03 SuperMarket
-   Expense:Tools    12,00 PLN
-   Expense:Cash
-   #+end_src
-   then I have to specify `Groceries' account ever after (until I buy a
-   screwdriver). This wouldn't be much of a problem as 'Gr' is enough to
-   ditinguish from Tools but I've got several accounts with :AtWork
-   subaccounts which makes it quite cumbersome to write it everytime.
-   :PROPERTIES:
-   :ID:       7C148789-529A-4026-AF0E-354D9F62CC3A
-   :CREATED:  [2011-05-10 Tue 09:11]
-   :Message:  [[message://87bozgwym5.fsf%lukasz.stelmach@iem.pw.edu.pl][{BUG} ledger entry takes the firs entry]]
-   :Submitter: =?utf-8?Q?=C5=81ukasz?= Stelmach <lukasz.stelmach@iem.pw.edu.pl>
-   :Date:     Fri, 06 May 2011 00:50:42 +0200
-   :END:
-** WORKSFORME [[bug:543][#543]] ledger make check failure report...
-- State "WORKSFORME" from "TODO"       [2012-02-28 Tue 03:13]
-   - Note taken on [2011-07-08 Fri 14:16] \\
-     Here is my config.log:
-     [2. application/octet-stream; config.log]...
-
-     I have Python 2.7 installed via MacPorts and it is my default python
-     selected.  I don't really know/expect if that makes a difference or not.
-
-     Or maybe something else in the config log file will shed some light...
-   :PROPERTIES:
-   :ID:       C246A646-6768-45AB-A36B-3CCDA2E2404B
-   :CREATED:  [2011-07-06 Wed 12:14]
-   :Date:     Wed, 06 Jul 2011 11:28:44 -0400
-   :Message:  [[message://28CCC239-ACE4-40E5-A95C-81460729C966@mac.com][ledger make check failure report...]]
-   :Submitter: Douglas Philips <dgou@mac.com>
-   :END:
-** WORKSFORME [[bug:614][#614]] --input-date-format does not effect convert
-- State "WORKSFORME" from "TODO"       [2012-02-23 Thu 21:41] \\
-  Craig Earls: I don't know what was happening earlier today, this is now
-  working.
-:PROPERTIES:
-:ID:       1FFA2CFA-BB14-4245-9029-34E868EE3EF9
-:CREATED:  [2011-12-13 Tue 19:04]
-:Date: Tue, 13 Dec 2011 22:43:37 +0000
-:Message: [[message://bug-614-1@http.bugs.ledger-cli.org/][{Bug 614} New: --input-date-format does not effect convert]]
-:Submitter: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** INVALID [[bug:508][#508]] Register command doesn't filter anymore
-- State "INVALID"    from "DONE"       [2011-11-18 Fri 20:03] \\
-  Not a bug.  Works in V3 if you use --limit properly:
-  #+begin_src sh
-  ledger reg --limit "(account=~/Expenses/ & payee=~/Andy/)"
-  #+end_src
-  
-  Might be some incantation that is briefer but this is very clear.
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :PROPERTIES:
-   :ID:       3752B680-236C-4FAA-902F-D7EAAC980EEA
-   :CREATED:  [2011-05-10 Tue 09:03]
-   :Message:  [[message://bug-508-1@http.newartisans.com/bugzilla/][{Bug 508} New: Register command doesn't filter anymore]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Date:     Sun,  8 May 2011 19:34:29 -0500 (CDT)
-   :END:
-** INVALID [[bug:556][#556]] Value expressions do not handle significant figures correctly
-- State "INVALID"    from "TODO"       [2011-11-22 Tue 17:53] \\
-  Craig: Ledger is following the real world's rules for sigfigs.  Don't
-  know what I was thinking.
-   :PROPERTIES:
-   :ID:       C5CB053F-0428-4A0F-A49D-B405984ED141
-   :CREATED:  [2011-10-13 Thu 16:05]
-   :Date:     Thu, 13 Oct 2011 20:32:40 +0000
-   :Message:  [[message://bug-556-1@http.bugs.ledger-cli.org/][{Bug 556} New: Value expressions do not handle significant figures correctly]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
-** INVALID [[bug:601][#601]] ledger entry command skipping digit after currency sign
-- State "INVALID"    from "TODO"       [2011-11-21 Mon 20:26] \\
-  $ in front of a number is a shell command that never makes it to ledger.
-  Quote it or leave it off.  This is not a ledger bug.
-  :PROPERTIES:
-  :ID:       D07EC69C-B9C0-4144-AB1E-9BE9D2846EB3
-  :CREATED:  [2011-11-15 Tue 12:50]
-  :Date:     Tue, 15 Nov 2011 18:35:08 +0000
-  :Message:  [[message://bug-601-1@http.bugs.ledger-cli.org/][{Bug 601} New: ledger entry command skipping digit after currency sign]]
-  :Submitter: bugzilla-daemon@mail.johnwiegley.com
-  :END:
-** DUPLICATE [[bug:563][#563]] Highlight account names with spaces
-- State "DUPLICATE"  from "TODO"       [2011-11-21 Mon 16:07] \\
-  Duplicate of #524.
-   I started using `ledger-mode` provided by `ldg-new.el` over 2.6.2's
-   ledger-mode` and noticed it stopped highlighting account names with
-   spaces. I think this fix is reasonable, though I'm having a really hard
-   time with emacs regexp for some reason.
-   :PROPERTIES:
-   :ID:       35F37F42-4D5B-4DB6-B4CD-06253741B028
-   :CREATED:  [2011-08-28 Sun 14:00]
-   :Date:     Sun, 28 Aug 2011 08:36:27 -0700
-   :Message:  [[message://jwiegley/ledger/pull/37@github.com][{ledger} Highlight account names with spaces ]]
-   :Submitter: dpiddy <reply+i-1504015-00cea49a44f8de09cf5765af8085fdcc0692e908@reply.github.com>
-   :END:
-** DUPLICATE [[bug:564][#564]] Double-quoted filename in Emacs output breaks reconciliation
-- State "DUPLICATE"  from "TODO"       [2012-02-23 Thu 21:40] \\
-  Duplicate of 525.
-   :PROPERTIES:
-   :ID:       CCDFD6E8-C816-4BCA-8C18-EE7C9A076140
-   :CREATED:  [2011-08-22 Mon 17:08]
-   :Date:     Mon, 22 Aug 2011 22:03:56 +0100
-   :Message:  [[message://20050.50236.344154.205060@dk.dks.ie][Emacs reconciliation 3.0]]
-   :Submitter: "David Keegan" <dksw@eircom.net>
-   :END:
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
+** TODO [[bug:389][#389]] Emacs mode autocompletion issue
+   :PROPERTIES:
+   :ID:       87255055-84B2-4B95-B643-0F8848C06D70
+   :Submitter: Todd B <avtsbtmn@gmail.com>
+   :Message:  [[message://97c84a1d-67f6-48be-b718-6abdf592e3bd@y11g2000yqm.googlegroups.com][Emacs mode autocompletion issue]]
+   :CREATED:  [2010-07-17 Sat 05:01]
+   :END:
+** TODO [[bug:391][#391]] Emacs reconciliation mode does not work on Linux
+   :PROPERTIES:
+   :ID:       63328ED4-3C26-4DF6-8C1A-526E86A56ED2
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-391-1@http.newartisans.com/bugzilla/][{Bug 391} New: Emacs reconciliation mode does not work on Linux]]
+   :CREATED:  [2010-08-05 Thu 19:08]
+   :END:
+** TODO [[bug:396][#396]] ledger emacs doesn't escape double quotes
+   :PROPERTIES:
+   :ID:       8CE53771-0142-4F89-8C09-F24418AE3B93
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-396-1@http.newartisans.com/bugzilla/][{Bug 396} New: ledger emacs doesn't escape double quotes]]
+   :CREATED:  [2010-08-16 Mon 16:28]
+   :END:
 ** TODO [[bug:431][#431]] Reconciling with ledger.el doesn't seem to work
    I use ledger.el with GNU Emacs 23.2.1. Is that supported at all? I wonder,
    because the reconcile mode doesn't seem to work. Hitting SPACE or RETURN
@@ -3814,6 +3337,14 @@ Error: Illegal option -x
    :Submitter: GitHub <noreply@github.com>
    :Message:  [[message://4c8e1d53a5fb0_5b163fae2e59506c1fb@fe1.rs.github.com.tmail][{GitHub} Reconciling with ledger.el doesn't seem to work {jwiegley/ledger GH-17}]]
    :CREATED:  [2010-09-13 Mon 17:19]
+   :END:
+** TODO [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p                     :ATTACH:
+   :PROPERTIES:
+   :ID:       669AE4A1-E30D-4A3D-A330-06E183FBF66E
+   :Submitter: Russell Adams <RLAdams@AdamsInfoServ.Com>
+   :Message:  [[message://20101110003259.GN30297@x201][Patch for ledger.el]]
+   :Attachments: ledger.el.movement.patch
+   :CREATED:  [2010-11-10 Wed 09:14]
    :END:
 ** TODO [[bug:442][#442]] Trouble with the emacs reconciling features
    - Note taken on [2010-11-26 Fri 13:45] \\
@@ -3839,6 +3370,21 @@ Error: Illegal option -x
    :Message:  [[message://cc55b8f2-8b24-4a8f-ad3e-8c2842722593@l6g2000yqb.googlegroups.com][ledger.el troubles]]
    :CREATED:  [2010-10-03 Sun 22:16]
    :END:
+** TODO [[bug:460][#460]] ledger.el expects blank lines around transactions
+   :PROPERTIES:
+   :ID:       190E8223-FCD1-4592-B1CF-7C682E3D3F8B
+   :Submitter: David Brown <ledger@davidb.org>
+   :Message:  [[message://87sjxgi7wd.fsf@a64.davidb.org][Some ledger.el questions]]
+   :CREATED:  [2010-12-29 Wed 17:41]
+   :END:
+** TODO [[bug:464][#464]] auto-indenting in emacs mode?
+   - State "TODO"       from "DEFERRED"   [2011-01-02 Sun 04:48]
+   - State "DEFERRED"   from "TODO"       [2010-04-27 Tue 08:59]
+   :PROPERTIES:
+   :ID:       9CCBD7BF-DB21-4BEA-B603-16BB87BA0082
+   :Message:  [[message://m2p1ea387f61004101209lb0fb93a8z160df933074f99b1@mail.gmail.com][auto-indenting in emacs mode?]]
+   :CREATED:  [2010-04-11 Sun 03:55]
+   :END:
 ** TODO [[bug:465][#465]] ledger.el tweak for handling yyyy-mm-dd
    :PROPERTIES:
    :ID:       8BFE15FF-71AD-4F4E-AE15-C922E6A10205
@@ -3852,6 +3398,13 @@ Error: Illegal option -x
    :Submitter: GitHub <noreply@github.com>
    :Message:  [[message://4d26879ee6e14_2a73fd58175e87412f@fe2.rs.github.com.tmail][{GitHub} ledger.el won't highlight account names if they have a space {jwiegley/ledger GH-21}]]
    :CREATED:  [2011-01-07 Fri 04:48]
+   :END:
+** TODO [[bug:468][#468]] New ledger mode in master sometimes erases data when aligning amounts
+   :PROPERTIES:
+   :ID:       EF8918DA-97AC-4BD2-8676-7D8B49A35097
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-468-1@http.newartisans.com/bugzilla/][{Bug 468} New: new ledger mode in master sometimes erases data when aligning amounts]]
+   :CREATED:  [2011-01-10 Mon 17:21]
    :END:
 ** TODO [[bug:479][#479]] Descriptions of cleared transactions are not highlighted
    :PROPERTIES:
@@ -4140,57 +3693,6 @@ my uncleared transactions.  All I get is an empty buffer.
 :Message:  [[message://CAKs9TOLF1tFi9fzsbboAfwSor-uXU69hDJM4GxFBLjFu4PAxJw@mail.gmail.com][Do automatic transactions break emacs reconcile mode?]]
 :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO [#C] [[bug:389][#389]] Emacs mode autocompletion issue
-   :PROPERTIES:
-   :ID:       87255055-84B2-4B95-B643-0F8848C06D70
-   :Submitter: Todd B <avtsbtmn@gmail.com>
-   :Message:  [[message://97c84a1d-67f6-48be-b718-6abdf592e3bd@y11g2000yqm.googlegroups.com][Emacs mode autocompletion issue]]
-   :CREATED:  [2010-07-17 Sat 05:01]
-   :END:
-** TODO [#C] [[bug:391][#391]] Emacs reconciliation mode does not work on Linux
-   :PROPERTIES:
-   :ID:       63328ED4-3C26-4DF6-8C1A-526E86A56ED2
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-391-1@http.newartisans.com/bugzilla/][{Bug 391} New: Emacs reconciliation mode does not work on Linux]]
-   :CREATED:  [2010-08-05 Thu 19:08]
-   :END:
-** TODO [#C] [[bug:396][#396]] ledger emacs doesn't escape double quotes
-   :PROPERTIES:
-   :ID:       8CE53771-0142-4F89-8C09-F24418AE3B93
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-396-1@http.newartisans.com/bugzilla/][{Bug 396} New: ledger emacs doesn't escape double quotes]]
-   :CREATED:  [2010-08-16 Mon 16:28]
-   :END:
-** TODO [#C] [[bug:441][#441]] Patch to allow jumping between records with M-n and M-p                :ATTACH:
-   :PROPERTIES:
-   :ID:       669AE4A1-E30D-4A3D-A330-06E183FBF66E
-   :Submitter: Russell Adams <RLAdams@AdamsInfoServ.Com>
-   :Message:  [[message://20101110003259.GN30297@x201][Patch for ledger.el]]
-   :Attachments: ledger.el.movement.patch
-   :CREATED:  [2010-11-10 Wed 09:14]
-   :END:
-** TODO [#C] [[bug:460][#460]] ledger.el expects blank lines around transactions
-   :PROPERTIES:
-   :ID:       190E8223-FCD1-4592-B1CF-7C682E3D3F8B
-   :Submitter: David Brown <ledger@davidb.org>
-   :Message:  [[message://87sjxgi7wd.fsf@a64.davidb.org][Some ledger.el questions]]
-   :CREATED:  [2010-12-29 Wed 17:41]
-   :END:
-** TODO [#C] [[bug:464][#464]] auto-indenting in emacs mode?
-   - State "TODO"       from "DEFERRED"   [2011-01-02 Sun 04:48]
-   - State "DEFERRED"   from "TODO"       [2010-04-27 Tue 08:59]
-   :PROPERTIES:
-   :ID:       9CCBD7BF-DB21-4BEA-B603-16BB87BA0082
-   :Message:  [[message://m2p1ea387f61004101209lb0fb93a8z160df933074f99b1@mail.gmail.com][auto-indenting in emacs mode?]]
-   :CREATED:  [2010-04-11 Sun 03:55]
-   :END:
-** TODO [#C] [[bug:468][#468]] New ledger mode in master sometimes erases data when aligning amounts
-   :PROPERTIES:
-   :ID:       EF8918DA-97AC-4BD2-8676-7D8B49A35097
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-468-1@http.newartisans.com/bugzilla/][{Bug 468} New: new ledger mode in master sometimes erases data when aligning amounts]]
-   :CREATED:  [2011-01-10 Mon 17:21]
-   :END:
 ** DEFERRED [[bug:245][#245]] Add colorized highlighting to the reconciler
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
    http://thread.gmane.org/gmane.comp.finance.ledger.general/483
@@ -4420,41 +3922,247 @@ my uncleared transactions.  All I get is an empty buffer.
    :ID:       178EC4C8-F87A-40C2-91CE-C5BD9CA50BD3
    :CREATED:  [2009-10-23 Fri 06:14]
    :END:
-** DONE Add easy-menu for Emacs-mode
-- State "DONE"       from "TODO"       [2012-02-23 Thu 21:10]
-:PROPERTIES:
-:ID:       34D222C4-7343-4AC0-AF00-202DF030482A
-:CREATED:  [2011-12-08 Thu 22:12]
-:Date: Thu, 8 Dec 2011 18:56:54 -0800
-:Message: [[message://jwiegley/ledger/pull/49@github.com][{ledger} Add easy-menu for Emacs-mode (#49)]]
-:Submitter: Kenny Meyer <reply+i-2498116-e90a1a758c19fe7dfe49f3a101c160aa4aa822aa-8460@reply.github.com>
-:END:
-** DONE [[bug:580][#580]] Emacs mode 'reconcile' doesn't work
-- State "DONE"       from "TODO"       [2012-02-23 Thu 21:41] \\
-  Fixed by d2915c6
-   I'm trying to reconcile a ledger file in "GNU Emacs 23.3.1
-   (x86_64-unknown-linux-gnu, GTK+ Version 2.24.3)". When I hit C-c C-r, I
-   just get the following error message:
-   :OUTPUT:
-   save-excursion: Wrong type argument: number-or-marker-p, nil
-   :END:
-   
-   I'm using the current git HEAD of ledger.
-   :PROPERTIES:
-   :ID:       400C0BA0-D132-465A-B0A4-AC7E6839DBD2
-   :CREATED:  [2011-07-21 Thu 15:26]
-   :Date:     Thu, 21 Jul 2011 09:23:28 -0700
-   :Message:  [[message://jwiegley/ledger/issues/31@github.com][{ledger} Emacs mode 'reconcile' doesn't work (#31)]]
-   :Submitter: peti <reply+i-1264237-1c07217de3933472fbd8fa785975d03170c352df@reply.github.com>
-   :END:
 * Features
   :PROPERTIES:
   :CATEGORY: Features
   :END:
+** TODO [[bug:172][#172]] Merge functionality of the C and P directives
+   :PROPERTIES:
+   :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
+   :CREATED:  [2010-04-02 Fri 14:11]
+   :END:
+** TODO [[bug:173][#173]] Make the prices report use standard report query terms
+   The idea here is that report query filtering is done before the building up
+   of commodities prices, so that you can see which commodities are involved
+   with which reports:
+   #+begin_src sh
+   ledger prices 'Lebensmittel:Milch'
+   ledger prices '%kauf=leche'
+   #+end_src
+   :PROPERTIES:
+   :ID:       5229AE44-F390-4E4E-BAC6-674373CC775D
+   :Message:  [[message://4B0E7757.1030607@gmail.com][How to type out a sales slip?]]
+   :Submitter: Johann Klähn <kljohann@gmail.com>
+   :CREATED:  [2009-12-01 Tue 03:04]
+   :END:
+** TODO [[bug:174][#174]] Make path to getquote script configurable using an option
+   :PROPERTIES:
+   :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
+   :CREATED:  [2010-04-13 Tue 01:37]
+   :END:
+** TODO [[bug:190][#190]] Optimize finding and creation of annotated commodities
+   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
+   Don't use textual names, but lookup based on annotation details
+   directly.
+   :PROPERTIES:
+   :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
+   :CREATED:  [2010-05-23 Sun 17:04]
+   :END:
+** TODO [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
+   :PROPERTIES:
+   :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
+   :CREATED:  [2010-05-31 Mon 10:35]
+   :END:
+** TODO [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
+   - State "TODO"       from "DEFERRED"   [2010-06-02 Wed 18:11]
+   - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
+   #+begin_src sh
+   ledger -M -s reg ^actifs
+   #+end_src
+   Adding the -s option seems to break the -M one (instead of three months,
+   there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
+   can't be combined in ledger reg.
+   :PROPERTIES:
+   :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
+   :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
+   :CREATED:  [2010-01-18 Mon 02:55]
+   :END:
+** TODO [[bug:230][#230]] Make format strings backward compatible with 2.x
+   That way, %D would be the same as %(date).
+   :PROPERTIES:
+   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
+   :CREATED:  [2010-06-03 Thu 23:22]
+   :END:
+** TODO [[bug:231][#231]] Allow conversion of some but not all commodities
+   With -X, you currently can only say "convert everything to one commodity"
+   but I'd like to be able to convert some stuff but not everything.
+
+   My scenario: I have lived both in Autria (a EUR country) and the UK (which
+   has GPB).  So right now I have accounts in EUR and GBP and then I also have
+   some random money from travel (USD, TWD, etc) floating around as well as
+   some shares.
+
+   I'd like to be able to say: convert everything _but_ GBP to EUR (or GBP).
+   This is what I'd like to see most of the time... just those two currencies.
+   But sometimes I want to convert _everything_ (including GBP) to EUR.
+
+   I like the "primary COMM ACCOUNT" syntax you propose in #217 but to achieve
+   what I want I think we need an option --convert-primary or so.  Then I
+   could say:
+   #+begin_src sh
+   -X EUR,GBP
+   #+end_src
+   to get EUR and GBP, or
+   #+begin_src sh
+   -X EUR --convert-primary
+   #+end_src
+   to get just EUR.
+   :PROPERTIES:
+   :ID:       83B4A0E5-3CC6-4F5E-9C58-A87F690836C8
+   :CREATED:  [2010-06-08 Tue 16:45]
+   :END:
+** TODO [[bug:232][#232]] Support variant behaviors for -V
+   The problem is: for a given amount of a commodity, which commodity should
+   its value be reported in terms of?
+
+   1. For a transaction, an amount of the commodity might be permanently
+      associated with another commodity.  This is a "price value".
+   2. For a certain commodity, another commodity may always be the pricing
+      commodity.  This is a "commodity value".
+   3. For a certain account, a specific commodity may always be used for
+      pricing.  This is an "account value".
+   4. For a certain report, the user may request valuation using a list of
+      candidate commodities.  This is a "report value".
+   5. Otherwise, the user may desire simply the most recent valuation
+      possible.  This is a "market value".
+
+   So the target commodity might be bound to: a particular amount, a
+   commodity, or an account.  If it's not bound during parsing, it may be
+   bound during reporting using -X to specify a commodity.  If it's not bound
+   at all, then it is valued using the most recent prices available, no matter
+   their commodity.
+
+   Then here is the logic:
+
+   1.  If --exchange-only is specified, use those commodities.
+   2.  Else if a commodity has been FIXED to the amount, use that.
+   3.  Else if a commodity has been FIXED to the account, use that.
+   4.  Else if a commodity has been FIXED to the commodity, use that.
+   5.  Else if the amount's commodity is itself primary, use that.
+   6.  Else if -X is specified, use those commodities.
+   7.  Else if the amount has a price/cost, use the price's commodity.
+   8.  Else if the account balance contains primary commodities, use
+       whichever has the highest absolute value.
+   9.  Else if the commodity has a history of association with other
+       commodities, use whichever is most frequent.
+   10. Else use whichever commodity yields the most recent market value.
+   :PROPERTIES:
+   :ID:       AA092062-FBA5-4142-B3E4-E67FA9E12C19
+   :CREATED:  [2010-06-07 Mon 08:39]
+   :END:
+** TODO [[bug:270][#270]] Add a feature for "object descriptions"
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   For example:
+
+   def OBJECT NAME
+     alias NAME
+     commodities NAME[, NAME...]
+     report NAME[, NAME...]
+     set NAME EXPR
+     assert EXPR
+   end def
+
+   def commodity GAL
+     set fixed_commodity true
+     set another_value $100 * 20
+   end def
+
+   def account Expenses:Food
+     alias Chow
+     commodities $, EUR
+     report $
+   end def
+   :PROPERTIES:
+   :ID:       B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
+   :CREATED:  [2009-03-02 Mon 20:39]
+   :END:
+** TODO [[bug:292][#292]] Make alias names for directives, like convert for C
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   :PROPERTIES:
+   :ID:       BD78C023-BB16-446C-9347-2F1AA16C7C5C
+   :CREATED:  [2009-02-27 Fri 15:35]
+   :END:
+** TODO [[bug:299][#299]] The CSV report should optionally generate a "title line"
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:30]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   :PROPERTIES:
+   :ID:       65B7E207-1BCC-4448-881C-1574623346D7
+   :CREATED:  [2009-03-03 Tue 21:49]
+   :END:
+** TODO [[bug:333][#333]] Add warning when duplicate meta references are given
+   :PROPERTIES:
+   :ID:       7B4EFB7D-B815-44DE-83CE-F8F902AC954D
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-333-1@http.newartisans.com/bugzilla/][{Bug 333} New: Add warning when duplicate meta references are given]]
+   :CREATED:  [2010-06-13 Sun 17:43]
+   :END:
+** TODO [[bug:368][#368]] A commodity annotation that asserts no negative quantities
+   :PROPERTIES:
+   :ID:       09FA1386-E890-4600-98D0-86C248A24C31
+   :CREATED:  [2010-06-27 Sun 21:27]
+   :END:
 ** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
    :ID:       E98C208C-876F-44B2-8BD1-1B60F1E293D2
    :CREATED:  [2010-07-30 Fri 06:11]
+   :END:
+** TODO [[bug:409][#409]] Almost strictly defined accounts
+   I've seen it beeing discussed here to introduce strict verification of
+   account names. I think it may by very handy, however, I think another
+   approach may be usefull too: a predefined branches. One can define several
+   branches of arbitrary depth and every posting must be on one of them. Eg.
+   Defined branches:
+   :OUTPUT:
+   Income:Salary
+   Income:Iterest
+   Expenses:Rent
+   Expenses:Food:Groceries
+   Expenses:Food:Dining
+   etc.
+   :END:
+   Now account names in postings must begin with one of the defined
+   branches:
+   :OUTPUT:
+   Income:Salary:Small Co.
+   Income:Salary:World Corp.
+   :END:
+   are both correct
+
+   But
+   :OUTPUT:
+   Expenses:Rant:Flower St.
+           ^^^
+   :END:
+   is not. One can introduce new accounts only below strictly defined
+   structure.
+   :PROPERTIES:
+   :ID:       9F29112A-CFA7-4C3C-91FD-871D8187AE39
+   :Submitter: Łukasz Stelmach <lukasz.stelmach@iem.pw.edu.pl>
+   :Message:  [[message://87zkwhth69.fsf@dasa3.iem.pw.edu.pl][almost strictly defined accounts]]
+   :CREATED:  [2010-08-20 Fri 12:17]
+   :END:
+** TODO [[bug:432][#432]] Create a command to list all options, commands, and functions
+   :PROPERTIES:
+   :ID:       4BF09022-7059-4CFE-90C2-3507A7B54EDD
+   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
+   :Message:  [[message://AANLkTik8FPboAMJFg1z4ZW6msRrC8_e6R1H-0Mp0VY0C@mail.gmail.com][list of possible ledger options and commands]]
+   :CREATED:  [2010-08-16 Mon 16:48]
+   :END:
+** TODO [[bug:447][#447]] Make value sequences comparable
+   If done, no special code is needed to do multi-column sorting.
+   :PROPERTIES:
+   :ID:       44493384-34BE-4184-AFCC-8AB7E3B1443E
+   :CREATED:  [2010-12-03 Fri 14:13]
+   :END:
+** TODO [[bug:451][#451]] Handling multiple Ledgers
+   - Note taken on [2010-12-27 Mon 18:25] \\
+     [[message://AANLkTik8PZ4_bOSVhfPmSYfmNE3m5_cDbw7fovqD3uNX@mail.gmail.com][Re: Multiple Ledgers]]
+   :PROPERTIES:
+   :ID:       195EA2CB-2EDC-47DA-85A5-5C8950387ECF
+   :Submitter: Zack Williams <zdwzdw@gmail.com>
+   :CREATED:  [2010-12-17 Fri 05:14]
    :END:
 ** TODO [[bug:475][#475]] A solution to the commodity pricing problem
 One of the things which stalled Ledger development recently is that I'd never
@@ -4865,239 +4573,14 @@ and t-2 would give the same entry but with the date of 2012/01/24.
 :Message: [[message://CABZEcScd3PkLkWKzWxCssDbh-Y+gC+rA24DPejHfE23L6ODDHA@mail.gmail.com][questions regarding draft (entry/xact)]]
 :Author: David Whitmarsh <dwhitmarsh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO [#C] [[bug:172][#172]] Merge functionality of the C and P directives
-   :PROPERTIES:
-   :ID:       B2A5D46F-4CF2-4725-BD1B-8641439CF115
-   :CREATED:  [2010-04-02 Fri 14:11]
-   :END:
-** TODO [#C] [[bug:173][#173]] Make the prices report use standard report query terms
-   The idea here is that report query filtering is done before the building up
-   of commodities prices, so that you can see which commodities are involved
-   with which reports:
-   #+begin_src sh
-   ledger prices 'Lebensmittel:Milch'
-   ledger prices '%kauf=leche'
-   #+end_src
-   :PROPERTIES:
-   :ID:       5229AE44-F390-4E4E-BAC6-674373CC775D
-   :Message:  [[message://4B0E7757.1030607@gmail.com][How to type out a sales slip?]]
-   :Submitter: Johann Klähn <kljohann@gmail.com>
-   :CREATED:  [2009-12-01 Tue 03:04]
-   :END:
-** TODO [#C] [[bug:174][#174]] Make path to getquote script configurable using an option
-   :PROPERTIES:
-   :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
-   :CREATED:  [2010-04-13 Tue 01:37]
-   :END:
-** TODO [#C] [[bug:190][#190]] Optimize finding and creation of annotated commodities
-   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
-   Don't use textual names, but lookup based on annotation details
-   directly.
-   :PROPERTIES:
-   :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
-   :CREATED:  [2010-05-23 Sun 17:04]
-   :END:
-** TODO [#C] [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
-   :PROPERTIES:
-   :ID:       C88403DF-F983-45D4-830B-4F0F69B6946D
-   :CREATED:  [2010-05-31 Mon 10:35]
-   :END:
-** TODO [#C] [[bug:225][#225]] Complain about mutually exclusive options (such as -M and -s)
-   - State "TODO"       from "DEFERRED"   [2010-06-02 Wed 18:11]
-   - State "DEFERRED"   from "TODO"       [2010-01-22 Fri 20:05]
-   #+begin_src sh
-   ledger -M -s reg ^actifs
-   #+end_src
-   Adding the -s option seems to break the -M one (instead of three months,
-   there is a single "09-Nov-01 - 10-Jan-01" period).  In short, -s and -M
-   can't be combined in ledger reg.
-   :PROPERTIES:
-   :ID:       3BC282AF-4C48-4D54-A156-C9840A80EFA1
-   :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
-   :CREATED:  [2010-01-18 Mon 02:55]
-   :END:
-** TODO [#C] [[bug:230][#230]] Make format strings backward compatible with 2.x
-   That way, %D would be the same as %(date).
-   :PROPERTIES:
-   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
-   :CREATED:  [2010-06-03 Thu 23:22]
-   :END:
-** TODO [#C] [[bug:231][#231]] Allow conversion of some but not all commodities
-   With -X, you currently can only say "convert everything to one commodity"
-   but I'd like to be able to convert some stuff but not everything.
-
-   My scenario: I have lived both in Autria (a EUR country) and the UK (which
-   has GPB).  So right now I have accounts in EUR and GBP and then I also have
-   some random money from travel (USD, TWD, etc) floating around as well as
-   some shares.
-
-   I'd like to be able to say: convert everything _but_ GBP to EUR (or GBP).
-   This is what I'd like to see most of the time... just those two currencies.
-   But sometimes I want to convert _everything_ (including GBP) to EUR.
-
-   I like the "primary COMM ACCOUNT" syntax you propose in #217 but to achieve
-   what I want I think we need an option --convert-primary or so.  Then I
-   could say:
-   #+begin_src sh
-   -X EUR,GBP
-   #+end_src
-   to get EUR and GBP, or
-   #+begin_src sh
-   -X EUR --convert-primary
-   #+end_src
-   to get just EUR.
-   :PROPERTIES:
-   :ID:       83B4A0E5-3CC6-4F5E-9C58-A87F690836C8
-   :CREATED:  [2010-06-08 Tue 16:45]
-   :END:
-** TODO [#C] [[bug:232][#232]] Support variant behaviors for -V
-   The problem is: for a given amount of a commodity, which commodity should
-   its value be reported in terms of?
-
-   1. For a transaction, an amount of the commodity might be permanently
-      associated with another commodity.  This is a "price value".
-   2. For a certain commodity, another commodity may always be the pricing
-      commodity.  This is a "commodity value".
-   3. For a certain account, a specific commodity may always be used for
-      pricing.  This is an "account value".
-   4. For a certain report, the user may request valuation using a list of
-      candidate commodities.  This is a "report value".
-   5. Otherwise, the user may desire simply the most recent valuation
-      possible.  This is a "market value".
-
-   So the target commodity might be bound to: a particular amount, a
-   commodity, or an account.  If it's not bound during parsing, it may be
-   bound during reporting using -X to specify a commodity.  If it's not bound
-   at all, then it is valued using the most recent prices available, no matter
-   their commodity.
-
-   Then here is the logic:
-
-   1.  If --exchange-only is specified, use those commodities.
-   2.  Else if a commodity has been FIXED to the amount, use that.
-   3.  Else if a commodity has been FIXED to the account, use that.
-   4.  Else if a commodity has been FIXED to the commodity, use that.
-   5.  Else if the amount's commodity is itself primary, use that.
-   6.  Else if -X is specified, use those commodities.
-   7.  Else if the amount has a price/cost, use the price's commodity.
-   8.  Else if the account balance contains primary commodities, use
-       whichever has the highest absolute value.
-   9.  Else if the commodity has a history of association with other
-       commodities, use whichever is most frequent.
-   10. Else use whichever commodity yields the most recent market value.
-   :PROPERTIES:
-   :ID:       AA092062-FBA5-4142-B3E4-E67FA9E12C19
-   :CREATED:  [2010-06-07 Mon 08:39]
-   :END:
-** TODO [#C] [[bug:270][#270]] Add a feature for "object descriptions"
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
-   For example:
-
-   def OBJECT NAME
-     alias NAME
-     commodities NAME[, NAME...]
-     report NAME[, NAME...]
-     set NAME EXPR
-     assert EXPR
-   end def
-
-   def commodity GAL
-     set fixed_commodity true
-     set another_value $100 * 20
-   end def
-
-   def account Expenses:Food
-     alias Chow
-     commodities $, EUR
-     report $
-   end def
-   :PROPERTIES:
-   :ID:       B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
-   :CREATED:  [2009-03-02 Mon 20:39]
-   :END:
-** TODO [#C] [[bug:292][#292]] Make alias names for directives, like convert for C
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
-   :PROPERTIES:
-   :ID:       BD78C023-BB16-446C-9347-2F1AA16C7C5C
-   :CREATED:  [2009-02-27 Fri 15:35]
-   :END:
-** TODO [#C] [[bug:299][#299]] The CSV report should optionally generate a "title line"
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:30]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
-   :PROPERTIES:
-   :ID:       65B7E207-1BCC-4448-881C-1574623346D7
-   :CREATED:  [2009-03-03 Tue 21:49]
-   :END:
-** TODO [#C] [[bug:333][#333]] Add warning when duplicate meta references are given
-   :PROPERTIES:
-   :ID:       7B4EFB7D-B815-44DE-83CE-F8F902AC954D
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-333-1@http.newartisans.com/bugzilla/][{Bug 333} New: Add warning when duplicate meta references are given]]
-   :CREATED:  [2010-06-13 Sun 17:43]
-   :END:
-** TODO [#C] [[bug:368][#368]] A commodity annotation that asserts no negative quantities
-   :PROPERTIES:
-   :ID:       09FA1386-E890-4600-98D0-86C248A24C31
-   :CREATED:  [2010-06-27 Sun 21:27]
-   :END:
-** TODO [#C] [[bug:409][#409]] Almost strictly defined accounts
-   I've seen it beeing discussed here to introduce strict verification of
-   account names. I think it may by very handy, however, I think another
-   approach may be usefull too: a predefined branches. One can define several
-   branches of arbitrary depth and every posting must be on one of them. Eg.
-   Defined branches:
-   :OUTPUT:
-   Income:Salary
-   Income:Iterest
-   Expenses:Rent
-   Expenses:Food:Groceries
-   Expenses:Food:Dining
-   etc.
-   :END:
-   Now account names in postings must begin with one of the defined
-   branches:
-   :OUTPUT:
-   Income:Salary:Small Co.
-   Income:Salary:World Corp.
-   :END:
-   are both correct
-
-   But
-   :OUTPUT:
-   Expenses:Rant:Flower St.
-           ^^^
-   :END:
-   is not. One can introduce new accounts only below strictly defined
-   structure.
-   :PROPERTIES:
-   :ID:       9F29112A-CFA7-4C3C-91FD-871D8187AE39
-   :Submitter: Łukasz Stelmach <lukasz.stelmach@iem.pw.edu.pl>
-   :Message:  [[message://87zkwhth69.fsf@dasa3.iem.pw.edu.pl][almost strictly defined accounts]]
-   :CREATED:  [2010-08-20 Fri 12:17]
-   :END:
-** TODO [#C] [[bug:432][#432]] Create a command to list all options, commands, and functions
-   :PROPERTIES:
-   :ID:       4BF09022-7059-4CFE-90C2-3507A7B54EDD
-   :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
-   :Message:  [[message://AANLkTik8FPboAMJFg1z4ZW6msRrC8_e6R1H-0Mp0VY0C@mail.gmail.com][list of possible ledger options and commands]]
-   :CREATED:  [2010-08-16 Mon 16:48]
-   :END:
-** TODO [#C] [[bug:447][#447]] Make value sequences comparable
-   If done, no special code is needed to do multi-column sorting.
-   :PROPERTIES:
-   :ID:       44493384-34BE-4184-AFCC-8AB7E3B1443E
-   :CREATED:  [2010-12-03 Fri 14:13]
-   :END:
-** TODO [#C] [[bug:451][#451]] Handling multiple Ledgers
-   - Note taken on [2010-12-27 Mon 18:25] \\
-     [[message://AANLkTik8PZ4_bOSVhfPmSYfmNE3m5_cDbw7fovqD3uNX@mail.gmail.com][Re: Multiple Ledgers]]
-   :PROPERTIES:
-   :ID:       195EA2CB-2EDC-47DA-85A5-5C8950387ECF
-   :Submitter: Zack Williams <zdwzdw@gmail.com>
-   :CREATED:  [2010-12-17 Fri 05:14]
-   :END:
+** TODO [[bug:660][#660]] Create options in Ledger to define important localized strings
+:PROPERTIES:
+:ID:       BC412F6F-D490-432B-A021-F23F3193CE5F
+:CREATED:  [2012-02-27 Mon 19:40]
+:Date: Mon, 27 Feb 2012 23:50:11 +0100
+:Message: [[message://CAE+8KM2QoZhi1dA0GUWsK8B=qwLtzhoutsHAVTJDjPrRgHXbMg@mail.gmail.com][Re: New feature: pre-declaring accounts, payees, commodities and tags]]
+:Author: Johann Klähn <kljohann-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 ** DEFERRED [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
    - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:23]
    :PROPERTIES:
@@ -5373,30 +4856,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :Submitter: afh <noreply@github.com>
    :Date:     Sat, 5 Mar 2011 15:02:09 -0800
    :END:
-** DONE [[bug:539][#539]] Add 'any' and 'all' as operators in query expressions
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:24]
-   :PROPERTIES:
-   :ID:       3643CE28-8322-4CDF-B151-DC34F1A30112
-   :CREATED:  [2011-06-29 Wed 17:57]
-   :END:
-** WONTFIX [[bug:575][#575]] Save file comments along with the transaction that follows them
-- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:29]
-   :PROPERTIES:
-   :ID:       50C6A5FE-E2A3-4532-A02E-C49ACDA871E7
-   :CREATED:  [2011-10-11 Tue 03:36]
-   :Date:     Mon, 10 Oct 2011 15:53:55 -0700
-   :Message:  [[message://j6vt24$h0r$1@dough.gmane.org][Re: Comments that persist through "Print"]]
-   :Submitter: Simon Michael <simon-jbxitMBJ2LLQT0dZR+AlfA@public.gmane.org>
-   :END:
-** INVALID [[bug:497][#497]] Review: CSV converter for multipart transactions
-- State "INVALID"    from "TODO"       [2012-02-28 Tue 03:23]
-   :PROPERTIES:
-   :ID:       EC914849-D8CC-42E2-A0E2-F90294A6CFAC
-   :CREATED:  [2011-03-07 Mon 14:49]
-   :Message:  [[message://66bf854e-da6d-447b-927b-75595be016a0@j9g2000prj.googlegroups.com][For those that care, a CSV converter for multipart transactions]]
-   :Submitter: tazz_ben <ben@wbpsystems.com>
-   :Date:     Sat, 5 Mar 2011 10:27:33 -0800 (PST)
-   :END:
 ** NOTE Different types of commodity transactions
    - Never revalue this commodity
    - Only revalue this commodity if -X is used
@@ -5590,12 +5049,67 @@ and t-2 would give the same entry but with the date of 2012/01/24.
   :PROPERTIES:
   :CATEGORY: Build
   :END:
+** TODO [[bug:234][#234]] Add some more configure arguments
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
+   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
+   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
+   :PROPERTIES:
+   :ID:       070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
+   :CREATED:  [2009-03-26 Thu 02:09]
+   :END:
 ** TODO [[bug:371][#371]] VS project files & Windows installer
    :PROPERTIES:
    :ID:       E8F11AFF-8FD8-411C-8876-4A942793E9C9
    :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
    :Message:  [[message://AANLkTilwxjENAIajnVXvoes8H1ccWUgeDsMNirDNgbu-@mail.gmail.com][VS project files & Windows installer]]
    :CREATED:  [2010-06-28 Mon 23:54]
+   :END:
+** TODO [[bug:405][#405]] Strange libboost suffix on Debian Squeeze with acprep
+   :OUTPUT:
+   ./acprep update
+   acprep: INFO: Invoking primary phase: update
+   acprep: INFO: Executing phase: update
+   acprep: INFO: Executing phase: pull
+   Already up-to-date.
+   acprep: INFO: Executing phase: submodule
+   acprep: INFO: Executing phase: make
+   acprep: INFO: Executing phase: config
+   acprep: INFO: Executing phase: submodule
+   acprep: INFO: Executing phase: autoconf
+   acprep: INFO: Executing phase: configure
+   acprep: INFO: ./configure must be run because Makefile does not exist
+   acprep: INFO: Looking for Boost in /usr/local/lib...
+   acprep: INFO: Looking for Boost in /opt/local/lib...
+   acprep: INFO: Looking for Boost in /sw/lib...
+   acprep: INFO: Looking for Boost in /usr/lib...
+   acprep: INFO: Found a Boost library: libboost_regex-gcc41-1_34_1.so.1.34.1
+   acprep: INFO: Found Boost suffix => -gcc41-1_34_1
+   acprep: INFO: Boost was found here:
+   acprep: INFO: BOOST_HOME    => /usr
+   acprep: INFO: BOOST_SUFFIX  => -gcc41-1_34_1
+   acprep: INFO: Noticing include directory => /usr/local/include
+   acprep: INFO: Noticing include directory => /usr/include/boost
+   acprep: INFO: Noticing library directory => /usr/local/lib
+   acprep: INFO: Noticing library directory => /usr/lib
+   acprep: INFO: System type is => Linux
+   acprep: INFO: Setting up build flavor => debug
+   ...
+   configure: error: in `/var/www/dev/ledger':
+   configure: error: "Could not find boost_regex library (set CPPFLAGS and LDFLAGS?)"
+   See `config.log' for more details.
+   acprep: ERROR: Execution failed: sh configure CPPFLAGS=-isystem /usr/local/include -isystem /usr/include/boost CXXFLAGS=-fpch-deps -Wconversion -pthread -g -pipe LDFLAGS=-g -L/usr/local/lib -L/usr/lib --with-boost-suffix=-gcc41-1_34_1 --with-included-gettext --enable-python --enable-pch --enable-debug
+   :END:
+   I'm now trying just "./configure" and it seems to be going OK
+   :PROPERTIES:
+   :ID:       4EBBD321-AE9E-45A6-A37E-18EBEFFB865F
+   :CREATED:  [2010-09-10 Fri 17:21]
+   :END:
+** TODO [[bug:456][#456]] Building on Arch Linux
+   :PROPERTIES:
+   :ID:       00C5345C-E8FA-475A-BCEA-3F15E848AC84
+   :Submitter: emsenn <emsenn@emsenn.com>
+   :Message:  [[message://AANLkTikJRbwJ6mkChu0zXF1ny1UL0vpaX9mtK%2BXP_A7F@mail.gmail.com][ledger on Arch Linux]]
+   :CREATED:  [2010-11-28 Sun 20:32]
    :END:
 ** TODO [[bug:544][#544]] Failing tests in Ledger should cause all tests to fail
    :PROPERTIES:
@@ -5664,61 +5178,6 @@ that runs very slowly.  It produces a file identical to acprep debug
 :Message:  [[message://CAKs9TOLp84z6Od+Cg27y-uY42ZW7UkQAbUVo4TeviX2Mv1wRbQ@mail.gmail.com][acprep opt producing a debug executable]]
 :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO [#C] [[bug:234][#234]] Add some more configure arguments
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
-   - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
-   ./configure .... with-gmp=...  with-mpfr= ... with-python=...
-   :PROPERTIES:
-   :ID:       070D3625-FCAE-44B0-B1B7-BFD6BAD4028D
-   :CREATED:  [2009-03-26 Thu 02:09]
-   :END:
-** TODO [#C] [[bug:405][#405]] Strange libboost suffix on Debian Squeeze with acprep
-   :OUTPUT:
-   ./acprep update
-   acprep: INFO: Invoking primary phase: update
-   acprep: INFO: Executing phase: update
-   acprep: INFO: Executing phase: pull
-   Already up-to-date.
-   acprep: INFO: Executing phase: submodule
-   acprep: INFO: Executing phase: make
-   acprep: INFO: Executing phase: config
-   acprep: INFO: Executing phase: submodule
-   acprep: INFO: Executing phase: autoconf
-   acprep: INFO: Executing phase: configure
-   acprep: INFO: ./configure must be run because Makefile does not exist
-   acprep: INFO: Looking for Boost in /usr/local/lib...
-   acprep: INFO: Looking for Boost in /opt/local/lib...
-   acprep: INFO: Looking for Boost in /sw/lib...
-   acprep: INFO: Looking for Boost in /usr/lib...
-   acprep: INFO: Found a Boost library: libboost_regex-gcc41-1_34_1.so.1.34.1
-   acprep: INFO: Found Boost suffix => -gcc41-1_34_1
-   acprep: INFO: Boost was found here:
-   acprep: INFO: BOOST_HOME    => /usr
-   acprep: INFO: BOOST_SUFFIX  => -gcc41-1_34_1
-   acprep: INFO: Noticing include directory => /usr/local/include
-   acprep: INFO: Noticing include directory => /usr/include/boost
-   acprep: INFO: Noticing library directory => /usr/local/lib
-   acprep: INFO: Noticing library directory => /usr/lib
-   acprep: INFO: System type is => Linux
-   acprep: INFO: Setting up build flavor => debug
-   ...
-   configure: error: in `/var/www/dev/ledger':
-   configure: error: "Could not find boost_regex library (set CPPFLAGS and LDFLAGS?)"
-   See `config.log' for more details.
-   acprep: ERROR: Execution failed: sh configure CPPFLAGS=-isystem /usr/local/include -isystem /usr/include/boost CXXFLAGS=-fpch-deps -Wconversion -pthread -g -pipe LDFLAGS=-g -L/usr/local/lib -L/usr/lib --with-boost-suffix=-gcc41-1_34_1 --with-included-gettext --enable-python --enable-pch --enable-debug
-   :END:
-   I'm now trying just "./configure" and it seems to be going OK
-   :PROPERTIES:
-   :ID:       4EBBD321-AE9E-45A6-A37E-18EBEFFB865F
-   :CREATED:  [2010-09-10 Fri 17:21]
-   :END:
-** TODO [#C] [[bug:456][#456]] Building on Arch Linux
-   :PROPERTIES:
-   :ID:       00C5345C-E8FA-475A-BCEA-3F15E848AC84
-   :Submitter: emsenn <emsenn@emsenn.com>
-   :Message:  [[message://AANLkTikJRbwJ6mkChu0zXF1ny1UL0vpaX9mtK%2BXP_A7F@mail.gmail.com][ledger on Arch Linux]]
-   :CREATED:  [2010-11-28 Sun 20:32]
-   :END:
 ** DEFERRED [[bug:216][#216]] Ledger packages for Debian
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
    - Note taken on [2010-05-31 Mon 15:06] \\
@@ -5756,65 +5215,25 @@ that runs very slowly.  It produces a file identical to acprep debug
    :Message:  [[message://AANLkTimq1xuJbPnka5%2BoNLjV_zjPoMeGMR6yeWTBg2mz@mail.gmail.com][Ledger 3 on OS X 10.5?]]
    :CREATED:  [2010-10-18 Mon 16:12]
    :END:
-** DONE [[bug:574][#574]] Change acprep bindmg to include Boost and all dependencies
-- State "DONE"       from "TODO"       [2012-02-28 Tue 03:30]
-   :PROPERTIES:
-   :ID:       BD6B88C1-1312-4DEB-B63F-B679F01807BE
-   :CREATED:  [2011-08-23 Tue 13:24]
-   :END:
-** WONTFIX [[bug:572][#572]] Rebuild Boost and Ledger with gcc-4.6
-- State "WONTFIX"    from "TODO"       [2012-02-28 Tue 03:30]
-   - State "TODO"       from "STARTED"    [2011-08-21 Sun 15:03]
-   :PROPERTIES:
-   :ID:       BE861EF4-241B-4D26-A12C-03E8B369DA4F
-   :CREATED:  [2011-08-18 Thu 10:01]
-   :END:
-** DUPLICATE [[bug:646][#646]] configure is not finding python on freebsd 8.2
-- State "DUPLICATE"  from "TODO"       [2012-02-28 Tue 03:31] \\
-  Will be fixed by #573
-... 2.6 and 2.7 installed
-
-:OUTPUT:
-checking whether /usr/bin/python version >= 2.4... configure: error: too old
-acprep: ERROR: Execution failed: sh configure CPPFLAGS=-isystem
-/usr/local/include -isystem /usr/local/include -isystem
-/usr/local/include/python2.6 CXXFLAGS=-Wconversion -g -pipe LDFLAGS=-fpch-deps
--g -L/usr/local/lib --with-included-gettext --enable-python --enable-pch
---enable-debug
-:END:
-
-also config is setting python to /usr/bin/python, from config.log:
-PYTHON='/usr/bin/python'
-
-and python is /usr/local/bin/python , python version 2.7 
-
-how do I get you the config.log file?
-:PROPERTIES:
-:ID:       A82B7536-D1F5-47C2-9CDE-6E66AC07B454
-:CREATED:  [2011-12-05 Mon 00:36]
-:Date: Sat, 3 Dec 2011 11:41:04 -0800
-:Message: [[message://jwiegley/ledger/issues/47@github.com][{ledger} configure is not finding python on freebsd 8.2, 2.6 and 2.7 installed (#47)]]
-:Submitter: Marc Spitzer <reply+i-2438826-719e6bc6d8ff7b4d80a3aa0f1e5d3ce9db669c36-8460@reply.github.com>
-:END:
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
   :END:
-** TODO [[bug:349][#349]] Implement empty tests in test/baseline
-   :PROPERTIES:
-   :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
-   :CREATED:  [2010-06-18 Fri 19:45]
-   :END:
-** TODO [#C] [[bug:185][#185]] Read through Peter's article, and make sure it all applies             :ATTACH:
+** TODO [[bug:185][#185]] Read through Peter's article, and make sure it all applies                  :ATTACH:
    :PROPERTIES:
    :ID:       72FC1715-E53C-4D4D-BF2C-514EB376DD19
    :Attachments: Tutorial%20on%20multiple%20currency%20accounting.pdf
    :CREATED:  [2009-11-24 Tue 22:04]
    :END:
-** TODO [#C] [[bug:340][#340]] Create OptionsTests, which generate possible option combinations
+** TODO [[bug:340][#340]] Create OptionsTests, which generate possible option combinations
    :PROPERTIES:
    :ID:       54EED1FA-C0A2-4D3A-9C5A-F44E36504179
    :CREATED:  [2010-06-15 Tue 20:25]
+   :END:
+** TODO [[bug:349][#349]] Implement empty tests in test/baseline
+   :PROPERTIES:
+   :ID:       C243CD5F-F852-4BA8-A164-1F14CB56F326
+   :CREATED:  [2010-06-18 Fri 19:45]
    :END:
 ** DEFERRED [[bug:187][#187]] Use coverage analysis to determine if everything is being tested
    - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 00:44]
@@ -5847,6 +5266,63 @@ how do I get you the config.log file?
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO [[bug:169][#169]] Language translations for 3.0
+   | Name                    | E-mail                           | Language             |
+   |-------------------------+----------------------------------+----------------------|
+   | Thierry Daucourt        | thierry.daucourt@free.fr         | French               |
+   | Alexis Hildebrandt      | alexis.hildebrandt@surryhill.net | German               |
+   | Felipe Magno de Almeida | felipe.m.almeida@gmail.com       | Brazilian Portuguese |
+   | Roel Vanhout            | roel.vanhout@gmail.com           | Dutch                |
+   :PROPERTIES:
+   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
+   :CREATED:  [2009-11-09 Mon 03:40]
+   :END:
+** TODO [[bug:170][#170]] Fill out membership form for the Software Conservancy
+- State "TODO"       from "WAITING"    [2012-01-11 Wed 14:25]
+   - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
+     I'm waiting for the official form to come from the Conservancy.
+   - State "TODO"       from "WAITING"    [2010-05-22 Sat 15:05]
+   - State "WAITING"    from "TODO"       [2010-01-22 Fri 20:06] \\
+     I'm waiting on the new agreement to be sent.
+   :PROPERTIES:
+   :ID:       78635C7A-98F2-494F-93A4-7CDA6094E681
+   :Message:  [[message://4B240026.5040408@softwarefreedom.org][Re: Offer of membership to the Ledger project into the Software Freedom Conservancy, Inc.]]
+   :Submitter: Karen Sandler <karen@softwarefreedom.org>
+   :CREATED:  [2009-12-17 Thu 02:44]
+   :END:
+** TODO [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
+   :PROPERTIES:
+   :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
+   :CREATED:  [2009-11-20 Fri 18:31]
+   :END:
+** TODO [[bug:195][#195]] How to declare a statement reconciliation                                   :ATTACH:
+   :PROPERTIES:
+   :ID:       32A4A048-886F-43FC-892E-EC125F372750
+   :Attachments: foo.dat
+   :CREATED:  [2009-12-10 Thu 18:05]
+   :END:
+** TODO [[bug:369][#369]] Internalize the --help option in v3
+   :PROPERTIES:
+   :ID:       F1FEC526-6B6D-48C2-9BA8-CDDD15595BD5
+   :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
+   :Message:  [[message://AANLkTinl0OW5pklgt-LV-t0QbmoCor1W6wBQgFB4mdbg@mail.gmail.com][Re: --help option in v3]]
+   :CREATED:  [2010-06-28 Mon 23:54]
+   :END:
+** TODO [[bug:423][#423]] Rubygem for converting arbitrary csv files into ledger format
+   - Note taken on [2010-11-14 Sun 20:51] \\
+     [[message://AANLkTimZ%2B%3DeisPa4rYgcLkb%2BnOZoqn6yj%3DuXEceNdtuh@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   - Note taken on [2010-11-11 Thu 12:31] \\
+     [[message://AANLkTikZ4Fa45ez784k9SP47%3DkQczLA2GCyTo%3DhiLU5W@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   - Note taken on [2010-11-11 Thu 12:31] \\
+     [[message://AANLkTim0_TFnT5WL3nBhqK%3DvE2ZNqwRvBwYQbZvvUOks@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   - Note taken on [2010-11-07 Sun 14:08] \\
+     [[message://AANLkTinoU88tNVkO9gbOphYDsbv9oeY6uO5DmWcODv%2BQ@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   :PROPERTIES:
+   :ID:       68744705-640F-4F62-9A7B-EE8C815FD596
+   :Submitter: Andrew Cantino <cantino@gmail.com>
+   :Message:  [[message://AANLkTin8%3DcrNWggCMtHP%2B6MhvR41RHQeqBSveN05oiEd@mail.gmail.com][Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
+   :CREATED:  [2010-11-07 Sun 13:10]
+   :END:
 ** TODO [[bug:452][#452]] Fixes to the ledger wiki/README-1ST
    :PROPERTIES:
    :ID:       07EB8797-458D-4FBB-B125-062BAC1B732B
@@ -6058,63 +5534,6 @@ Languages.
 :Message: [[message://github-87F922.10545812012012@news.gmane.org][Ledger syntax coloring for TextWrangler]]
 :Author: Niekas <github-Vzr4Esry4JzzIImvGDD8mw@public.gmane.org>
 :END:
-** TODO [#C] [[bug:169][#169]] Language translations for 3.0
-   | Name                    | E-mail                           | Language             |
-   |-------------------------+----------------------------------+----------------------|
-   | Thierry Daucourt        | thierry.daucourt@free.fr         | French               |
-   | Alexis Hildebrandt      | alexis.hildebrandt@surryhill.net | German               |
-   | Felipe Magno de Almeida | felipe.m.almeida@gmail.com       | Brazilian Portuguese |
-   | Roel Vanhout            | roel.vanhout@gmail.com           | Dutch                |
-   :PROPERTIES:
-   :ID:       9D19729F-343C-464D-BE88-143C9DDA9394
-   :CREATED:  [2009-11-09 Mon 03:40]
-   :END:
-** TODO [#C] [[bug:170][#170]] Fill out membership form for the Software Conservancy
-- State "TODO"       from "WAITING"    [2012-01-11 Wed 14:25]
-   - State "WAITING"    from "TODO"       [2010-05-22 Sat 18:47] \\
-     I'm waiting for the official form to come from the Conservancy.
-   - State "TODO"       from "WAITING"    [2010-05-22 Sat 15:05]
-   - State "WAITING"    from "TODO"       [2010-01-22 Fri 20:06] \\
-     I'm waiting on the new agreement to be sent.
-   :PROPERTIES:
-   :ID:       78635C7A-98F2-494F-93A4-7CDA6094E681
-   :Message:  [[message://4B240026.5040408@softwarefreedom.org][Re: Offer of membership to the Ledger project into the Software Freedom Conservancy, Inc.]]
-   :Submitter: Karen Sandler <karen@softwarefreedom.org>
-   :CREATED:  [2009-12-17 Thu 02:44]
-   :END:
-** TODO [#C] [[bug:186][#186]] Rewrite the sample.dat file to be more realistic
-   :PROPERTIES:
-   :ID:       6E0F0FD6-38A2-4269-870F-41DE8B10D23C
-   :CREATED:  [2009-11-20 Fri 18:31]
-   :END:
-** TODO [#C] [[bug:195][#195]] How to declare a statement reconciliation                              :ATTACH:
-   :PROPERTIES:
-   :ID:       32A4A048-886F-43FC-892E-EC125F372750
-   :Attachments: foo.dat
-   :CREATED:  [2009-12-10 Thu 18:05]
-   :END:
-** TODO [#C] [[bug:369][#369]] Internalize the --help option in v3
-   :PROPERTIES:
-   :ID:       F1FEC526-6B6D-48C2-9BA8-CDDD15595BD5
-   :Submitter: Roel Vanhout <roel.vanhout@gmail.com>
-   :Message:  [[message://AANLkTinl0OW5pklgt-LV-t0QbmoCor1W6wBQgFB4mdbg@mail.gmail.com][Re: --help option in v3]]
-   :CREATED:  [2010-06-28 Mon 23:54]
-   :END:
-** TODO [#C] [[bug:423][#423]] Rubygem for converting arbitrary csv files into ledger format
-   - Note taken on [2010-11-14 Sun 20:51] \\
-     [[message://AANLkTimZ%2B%3DeisPa4rYgcLkb%2BnOZoqn6yj%3DuXEceNdtuh@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   - Note taken on [2010-11-11 Thu 12:31] \\
-     [[message://AANLkTikZ4Fa45ez784k9SP47%3DkQczLA2GCyTo%3DhiLU5W@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   - Note taken on [2010-11-11 Thu 12:31] \\
-     [[message://AANLkTim0_TFnT5WL3nBhqK%3DvE2ZNqwRvBwYQbZvvUOks@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   - Note taken on [2010-11-07 Sun 14:08] \\
-     [[message://AANLkTinoU88tNVkO9gbOphYDsbv9oeY6uO5DmWcODv%2BQ@mail.gmail.com][Re: Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   :PROPERTIES:
-   :ID:       68744705-640F-4F62-9A7B-EE8C815FD596
-   :Submitter: Andrew Cantino <cantino@gmail.com>
-   :Message:  [[message://AANLkTin8%3DcrNWggCMtHP%2B6MhvR41RHQeqBSveN05oiEd@mail.gmail.com][Rubygem for converting arbitrary csv files into ledger format and guessing accounts]]
-   :CREATED:  [2010-11-07 Sun 13:10]
-   :END:
 ** DELEGATED [[bug:474][#474]] Create documentation stubs in ledger3.texi for all features
 - State "DELEGATED"  from "TODO"       [2012-02-23 Thu 21:54]
 - State "TODO"       from "DONE"       [2011-11-18 Fri 20:04]
@@ -6194,23 +5613,6 @@ Languages.
    :Date:     Sun, 24 Jul 2011 10:21:51 -0700
    :Message:  [[message://jwiegley/ledger/issues/32@github.com][{ledger} Improve download/install instructions for the Mac (#32)]]
    :Submitter: richardcooper <reply+i-1278078-1be2b9ab93ac7c481fd66bb7244f2447690518e1@reply.github.com>
-   :END:
-** DONE Post links on Ledger Web to the new dmg and coverage report
-SCHEDULED: <2012-02-18 Sat>
-- State "DONE"       from "TODO"       [2012-02-19 Sun 02:05]
-:PROPERTIES:
-:ID:       A2E9F14E-A826-45D3-9BFB-8D3EBFD9F8C8
-:CREATED:  [2012-02-17 Fri 17:26]
-:END:
-** DUPLICATE [#C] [[bug:450][#450]] Document how to do inventory accounting
-- State "DUPLICATE"  from "DONE"       [2011-11-18 Fri 20:05] \\
-  This is a duplicate of #244.
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:01]
-   :PROPERTIES:
-   :ID:       0F52624A-61F8-43D8-8ECD-A6595BBB78C5
-   :Submitter: Jeff Kowalczyk <jeff.kowalczyk@gmail.com>
-   :Message:  [[message://53ee80cf-2711-430f-8c00-e4c7959b0916@f20g2000prn.googlegroups.com][re: inventory accounting]]
-   :CREATED:  [2010-12-27 Mon 03:40]
    :END:
 ** NOTE Questions on Ledger
 - Did you use a separate ledger for this trip, or were your entries in the
