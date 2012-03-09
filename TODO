@@ -4,29 +4,178 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
-** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
-   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
-     Thierry confirms this still happens for him.
-   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
-   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
-     To Thomas: I just tried this and it worked fine.  After your "push" command,
-     does the prompt change to a ]]?
-   :LOGBOOK:
-   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
-   :END:
+** TODO [#A] [[bug:358][#358]] When abbreviating account names, consume trailing whitespace
    :PROPERTIES:
-   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
-   :CREATED:  [2010-05-30 Sun 03:33]
+   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
+   :CREATED:  [2010-06-21 Mon 18:12]
    :END:
-** TODO [[bug:337][#337]] Rationalize formatting strings
-   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
-   ${AMT} is the same as $(scrub(AMT))
-   %T is the same as ${display_total}.
+** TODO [#A] [[bug:444][#444]] Output of lines w/ negative amounts and thousands separator is 81 chars
+   :PROPERTIES:
+   :ID:       071633F4-C52A-4BE7-954D-297A0F4B778B
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4cfcd2658178a_635d3fa1c18bc87c270@fe4.rs.github.com.tmail][{GitHub} Output of lines containing negative amounts with thousands separator is 81 chars long {jwiegley/ledger GH-20}]]
+   :CREATED:  [2010-12-06 Mon 14:48]
+   :END:
+** TODO [#A] [[bug:458][#458]] Spaces seem to be significant in automatic transaction predicate
+   :PROPERTIES:
+   :ID:       605A410D-FBBE-4089-84B1-452473325994
+   :Submitter: Zack Williams <zdwzdw@gmail.com>
+   :Message:  [[message://AANLkTikJrn5v4zPezXvmedNDoE-DfoTfUpgMw7QuwcPg@mail.gmail.com][Re: Automatic transactions only for certain entry amounts]]
+   :CREATED:  [2010-12-29 Wed 17:42]
+   :END:
+** TODO [#A] [[bug:550][#550]] Trailing white space is not ignored in tag vales
+   :PROPERTIES:
+   :ID:       AEDE9734-7FAA-4F02-9110-36C0CAF03D12
+   :CREATED:  [2011-09-22 Thu 17:58]
+   :Date:     Wed, 21 Sep 2011 13:16:32 +0000
+   :Message:  [[message://bug-550-1@http.bugs.ledger-cli.org/][{Bug 550} New: Trailing white space is not ignored in tag vales]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** TODO [#A] [[bug:584][#584]] Trailing white space is not ignored in payee names
+  :PROPERTIES:
+  :ID:       C9D593B3-6263-494E-AF38-6D48BE109C63
+  :CREATED:  [2011-10-21 Fri 00:52]
+  :Date:     Thu, 20 Oct 2011 05:03:39 +0000
+  :Message:  [[message://bug-584-1@http.bugs.ledger-cli.org/][{Bug 584} New: Trailing white space is not ignored in payee names]]
+  :Submitter: bugzilla-daemon@mail.johnwiegley.com
+  :END:
+** TODO [#A] [[bug:672][#672]] Latest next/HEAD does not build
+SCHEDULED: <2012-03-08 Thu>
+:PROPERTIES:
+:ID:       E447F248-389D-411E-A6A6-ECF5E59B0D8F
+:CREATED:  [2012-03-07 Wed 11:41]
+:Date: Wed, 07 Mar 2012 17:36:53 +0000
+:Message: [[message://bug-672-1@http.bugs.ledger-cli.org/][{Bug 672} New: Latest next/HEAD does not build]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:166][#166]] --percent incompatible with --exchange
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:37]
+   - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 01:41] \\
+     You are right, --percent cannot handle multiple commodities.  And since
+     --exchange always takes place after --percent, it's not as
+     straightforward as it seems.  I'm going to defer this bug until after
+     3.0, since it may not be worth fixing.  But I'll keep thinking on it.
+   I've found that --percent option is incompatible with --exchange.  Well,
+    actually I suspect that --percent is not able to handle multi currencies.
 
-   Right now formatting strings are a nightmare for users to modify.
+    In the following simple exemple, I would have expected that --percent
+    option works correctly.
+
+   #+begin_src ledger
+   P 2008/01/01 $ €1
+
+   2008/01/11 LIAT
+      Expenses:Travel:Airfare                   $40.00
+      Liabilities:MasterCard
+
+   2008/02/05 CTX
+      Expenses:Travel:Auto                     €240.38
+      Liabilities:MasterCard
+   #+end_src
+
+    :OUTPUT:
+    $ ledger --file=test_12.ledger bal --exchange=€
+                €280.38  Expenses:Travel
+                 €40.00    Airfare
+                €240.38    Auto
+               €-280.38  Liabilities:MasterCard
+    --------------------
+                      0
+    :END:
+    :OUTPUT:
+    $ ledger --file=test_12.ledger bal --exchange=€ --percent
+    While evaluating value expression:
+     (((is_account & parent) & parent.total) & percent(total,
+    parent.total))
+
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    While evaluating value expression:
+     market(total_expr, date, exchange)
+    While evaluating value expression:
+     justify(scrub(display_total), 20, -1, true, color)
+    Error: Cannot convert a balance with multiple commodities to an amount
+    :END:
    :PROPERTIES:
-   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
-   :CREATED:  [2010-06-14 Mon 08:35]
+   :ID:       4509F714-BA35-4659-8F57-6BD6A725FA73
+   :Message:  [[message://fabd9b4b-3c20-4507-92e5-55a5e8996790@g19g2000yqe.googlegroups.com][--percent incompatible with --exchange]]
+   :Submitter: thierry <thierry.daucourt@free.fr>
+   :CREATED:  [2010-04-04 Sun 15:11]
+   :END:
+** TODO [[bug:201][#201]] Handling currencies that were replaced by the Euro
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:37]
+   - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 12:57] \\
+     This is not something that can be supported in 3.0, as I believe it
+     requires many supporting features which don't exist yet.  Ledger doesn't
+     try this hard to allow for time-bounded commodity translations.
+   - Note taken on [2010-05-28 Fri 00:59] \\
+     Okay, using
+     #+begin_src sh
+      C 1.00 EUR = 13.7603 ATS
+     #+end_src
+     rather than
+     #+begin_src sh
+      P 2001-12-31 EUR 13.7603 ATS
+     #+end_src
+     solves most of these issues.
+
+     However, would it be possible to add a date for C?  I'd like to see ATS
+     before 2002-01-01 and EUR from then on.
+   There are a couple of problems with ledger when using currencies that were
+   replaced by the Euro as well as the Euro.
+
+   First, I know that ledger is mostly designed as a "calculator" without any
+   knowledge about the actual input.  However, given that some currencies
+   were replaced by the Euro and have fixed exchange rates that will not
+   change, it would be nice if ledger would know about those.  How about
+   adding a text file to ledger that is read by default with such fixed
+   conversion rates?  (If you agree, I'm happy to write one for the
+   currencies replaced by the Euro.)
+
+   Related to this is a problem with showing currencies.  Let's say that I
+   have accounts with ATS, EUR and GBP.  How can I tell ledger to convert ATS
+   to EUR but do no other conversation.  -X EUR won't work because it would
+   also convert GBP, but I want to see both EUR and GBP (I just want the
+   obsolete ATS to be converted to EUR).  Is this possible somehow?
+
+   Finally, there appear to be some artefacts because ledger doesn't know
+   that ATS is a currency replaced by EUR.  Normally, "ledger bal" does not
+   display accounts that are empty (see the first example below).  But if I
+   put something into an account as ATS and then take out exactly the same
+   amount (but as EUR), "ledger bal" will show the account name and "0"
+   (probably because it switches to commodity mode).
+
+   Example:
+
+   a)
+   #+begin_src sh
+   2010-04-02 Test
+      A:Foo  10.00
+      A:Bar
+
+   2010-04-02 Test
+      A:Foo  -10.00
+      A:Baz
+   #+end_src
+
+   b)
+   #+begin_src sh
+   P 2001-12-31 EUR 13.7603 ATS
+
+   2001-01-01 Test
+      B:Foo  13.7603 ATS
+      B:Bar
+
+   2010-04-02 Test
+      B:Foo  -1.00 EUR
+      B:Baz
+   #+end_src
+
+   a) will show no Foo with "ledger bal" but b) will show "0 Foo".
+   :PROPERTIES:
+   :ID:       9EAC63D2-8DD7-438D-9767-3AAE79BF0BD3
+   :Message:  [[message://20100402164233.GA10410@jirafa.cyrius.com][Handling currencies that were replaced by the Euro]]
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :CREATED:  [2010-04-04 Sun 15:18]
    :END:
 ** TODO [[bug:347][#347]] All contexts should be accessible by name
    - post.foo
@@ -41,16 +190,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :ID:       FA125CB3-F420-4350-9774-83186C81C8F3
    :CREATED:  [2010-06-18 Fri 17:37]
    :END:
-** TODO [[bug:348][#348]] Make Date:: a synonym for just [foo] in a posting comment
-   :PROPERTIES:
-   :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
-   :CREATED:  [2010-06-18 Fri 06:52]
-   :END:
-** TODO [[bug:358][#358]] When abbreviating account name, consume trailing whitespace
-   :PROPERTIES:
-   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
-   :CREATED:  [2010-06-21 Mon 18:12]
-   :END:
+** TODO [[bug:348][#348]] Make every item detail gettable and settable via metadata
+SCHEDULED: <2012-03-09 Fri>
+Make Date:: a synonym for just [foo] in a posting comment
+:PROPERTIES:
+:ID:       B301B118-5563-4EC9-8E1E-054819C2898E
+:CREATED:  [2010-06-18 Fri 06:52]
+:END:
 ** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
    #+begin_src sh
    ledger reg -s --inject=Expected '^income:ceg'
@@ -324,13 +470,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://20100730074700.GA3033@kerneis.info][Reporting multiple commodities with -J]]
    :CREATED:  [2010-07-30 Fri 06:08]
    :END:
-** TODO [[bug:395][#395]] Need commodity alias
-   :PROPERTIES:
-   :ID:       13B53049-4795-4111-A679-6866AEFC4640
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-395-1@http.newartisans.com/bugzilla/][{Bug 395} New: need commodity alias]]
-   :CREATED:  [2010-08-16 Mon 16:28]
-   :END:
 ** TODO [[bug:398][#398]] Default commodity depends on the order of postings
    :PROPERTIES:
    :ID:       9A925FF4-5BDD-489C-8585-BAABB61BF345
@@ -589,13 +728,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-443-1@http.newartisans.com/bugzilla/][{Bug 443} New: ignores entry with wrong data instead of giving an error]]
    :CREATED:  [2010-11-29 Mon 19:52]
    :END:
-** TODO [[bug:444][#444]] Output of lines w/ negative amounts and thousands separator is 81 chars
-   :PROPERTIES:
-   :ID:       071633F4-C52A-4BE7-954D-297A0F4B778B
-   :Submitter: GitHub <noreply@github.com>
-   :Message:  [[message://4cfcd2658178a_635d3fa1c18bc87c270@fe4.rs.github.com.tmail][{GitHub} Output of lines containing negative amounts with thousands separator is 81 chars long {jwiegley/ledger GH-20}]]
-   :CREATED:  [2010-12-06 Mon 14:48]
-   :END:
 ** TODO [[bug:445][#445]] Could handle mixing of decimal comma and decimal point better
    :PROPERTIES:
    :ID:       038408E7-7926-44AC-96D3-0E113E515903
@@ -616,13 +748,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Submitter: Andrew Stribblehill <stribb@gmail.com>
    :Message:  [[message://AANLkTinfypuh_Q%2BKkbEJaWBGh637C%3D%2BSDR95ZiwLL8cP@mail.gmail.com][Comma parsing problem]]
    :CREATED:  [2010-11-28 Sun 20:33]
-   :END:
-** TODO [[bug:458][#458]] Spaces seem to be significant in automatic transaction predicate
-   :PROPERTIES:
-   :ID:       605A410D-FBBE-4089-84B1-452473325994
-   :Submitter: Zack Williams <zdwzdw@gmail.com>
-   :Message:  [[message://AANLkTikJrn5v4zPezXvmedNDoE-DfoTfUpgMw7QuwcPg@mail.gmail.com][Re: Automatic transactions only for certain entry amounts]]
-   :CREATED:  [2010-12-29 Wed 17:42]
    :END:
 ** TODO [[bug:459][#459]] Expression-based automatic transaction predicate not working
    :PROPERTIES:
@@ -1306,14 +1431,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :PROPERTIES:
    :ID:       BDF9B99E-C9AB-40AA-9030-29A81B8B8B70
    :CREATED:  [2011-11-02 Wed 12:59]
-   :END:
-** TODO [[bug:550][#550]] Trailing white space is not ignored in tag vales
-   :PROPERTIES:
-   :ID:       AEDE9734-7FAA-4F02-9110-36C0CAF03D12
-   :CREATED:  [2011-09-22 Thu 17:58]
-   :Date:     Wed, 21 Sep 2011 13:16:32 +0000
-   :Message:  [[message://bug-550-1@http.bugs.ledger-cli.org/][{Bug 550} New: Trailing white space is not ignored in tag vales]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :END:
 ** TODO [[bug:551][#551]] Clear virtual transactions based on triggering real transaction
    :PROPERTIES:
@@ -2258,14 +2375,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :Message:  [[message://bug-583-1@http.bugs.ledger-cli.org/][{Bug 583} New: --monthly prices report SUM rather than average or end of month price]]
   :Submitter: bugzilla-daemon@mail.johnwiegley.com
   :END:
-** TODO [[bug:584][#584]] Trailing white space is not ignored in payee names
-  :PROPERTIES:
-  :ID:       C9D593B3-6263-494E-AF38-6D48BE109C63
-  :CREATED:  [2011-10-21 Fri 00:52]
-  :Date:     Thu, 20 Oct 2011 05:03:39 +0000
-  :Message:  [[message://bug-584-1@http.bugs.ledger-cli.org/][{Bug 584} New: Trailing white space is not ignored in payee names]]
-  :Submitter: bugzilla-daemon@mail.johnwiegley.com
-  :END:
 ** TODO [[bug:587][#587]] ledger --anon print regex fails
 Using 24d6619a52 (recent origin/next):
 
@@ -2615,6 +2724,7 @@ $ ledger -f budget_test.txt --budget reg ^income
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO [[bug:630][#630]] Basis cost should "follow" commodities with lot pricing
+SCHEDULED: <2012-03-09 Fri>
 :PROPERTIES:
 :ID:       23C96A70-7429-4DBE-9EF6-2053319C1D6A
 :CREATED:  [2012-02-22 Wed 15:07]
@@ -3129,150 +3239,26 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://565113c5-1ea0-4ee4-8f60-782cfc28e42a@da3g2000vbb.googlegroups.com][historical prices with and without revaluation]]
 :Submitter: Qwertyu <scheit-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
-   - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
-   :PROPERTIES:
-   :ID:       CE4F80CF-B298-43C5-B786-AA8ABEDA05C8
-   :CREATED:  [2010-05-27 Thu 01:12]
-   :END:
-** DEFERRED [[bug:166][#166]] --percent incompatible with --exchange
-   - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 01:41] \\
-     You are right, --percent cannot handle multiple commodities.  And since
-     --exchange always takes place after --percent, it's not as
-     straightforward as it seems.  I'm going to defer this bug until after
-     3.0, since it may not be worth fixing.  But I'll keep thinking on it.
-   I've found that --percent option is incompatible with --exchange.  Well,
-    actually I suspect that --percent is not able to handle multi currencies.
-
-    In the following simple exemple, I would have expected that --percent
-    option works correctly.
-
-   #+begin_src ledger
-   P 2008/01/01 $ €1
-
-   2008/01/11 LIAT
-      Expenses:Travel:Airfare                   $40.00
-      Liabilities:MasterCard
-
-   2008/02/05 CTX
-      Expenses:Travel:Auto                     €240.38
-      Liabilities:MasterCard
-   #+end_src
-
-    :OUTPUT:
-    $ ledger --file=test_12.ledger bal --exchange=€
-                €280.38  Expenses:Travel
-                 €40.00    Airfare
-                €240.38    Auto
-               €-280.38  Liabilities:MasterCard
-    --------------------
-                      0
-    :END:
-    :OUTPUT:
-    $ ledger --file=test_12.ledger bal --exchange=€ --percent
-    While evaluating value expression:
-     (((is_account & parent) & parent.total) & percent(total,
-    parent.total))
-
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    While evaluating value expression:
-     market(total_expr, date, exchange)
-    While evaluating value expression:
-     justify(scrub(display_total), 20, -1, true, color)
-    Error: Cannot convert a balance with multiple commodities to an amount
-    :END:
-   :PROPERTIES:
-   :ID:       4509F714-BA35-4659-8F57-6BD6A725FA73
-   :Message:  [[message://fabd9b4b-3c20-4507-92e5-55a5e8996790@g19g2000yqe.googlegroups.com][--percent incompatible with --exchange]]
-   :Submitter: thierry <thierry.daucourt@free.fr>
-   :CREATED:  [2010-04-04 Sun 15:11]
-   :END:
-** DEFERRED [[bug:201][#201]] Handling currencies that were replaced by the Euro
-   - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 12:57] \\
-     This is not something that can be supported in 3.0, as I believe it
-     requires many supporting features which don't exist yet.  Ledger doesn't
-     try this hard to allow for time-bounded commodity translations.
-   - Note taken on [2010-05-28 Fri 00:59] \\
-     Okay, using
-     #+begin_src sh
-      C 1.00 EUR = 13.7603 ATS
-     #+end_src
-     rather than
-     #+begin_src sh
-      P 2001-12-31 EUR 13.7603 ATS
-     #+end_src
-     solves most of these issues.
-
-     However, would it be possible to add a date for C?  I'd like to see ATS
-     before 2002-01-01 and EUR from then on.
-   There are a couple of problems with ledger when using currencies that were
-   replaced by the Euro as well as the Euro.
-
-   First, I know that ledger is mostly designed as a "calculator" without any
-   knowledge about the actual input.  However, given that some currencies
-   were replaced by the Euro and have fixed exchange rates that will not
-   change, it would be nice if ledger would know about those.  How about
-   adding a text file to ledger that is read by default with such fixed
-   conversion rates?  (If you agree, I'm happy to write one for the
-   currencies replaced by the Euro.)
-
-   Related to this is a problem with showing currencies.  Let's say that I
-   have accounts with ATS, EUR and GBP.  How can I tell ledger to convert ATS
-   to EUR but do no other conversation.  -X EUR won't work because it would
-   also convert GBP, but I want to see both EUR and GBP (I just want the
-   obsolete ATS to be converted to EUR).  Is this possible somehow?
-
-   Finally, there appear to be some artefacts because ledger doesn't know
-   that ATS is a currency replaced by EUR.  Normally, "ledger bal" does not
-   display accounts that are empty (see the first example below).  But if I
-   put something into an account as ATS and then take out exactly the same
-   amount (but as EUR), "ledger bal" will show the account name and "0"
-   (probably because it switches to commodity mode).
-
-   Example:
-
-   a)
-   #+begin_src sh
-   2010-04-02 Test
-      A:Foo  10.00
-      A:Bar
-
-   2010-04-02 Test
-      A:Foo  -10.00
-      A:Baz
-   #+end_src
-
-   b)
-   #+begin_src sh
-   P 2001-12-31 EUR 13.7603 ATS
-
-   2001-01-01 Test
-      B:Foo  13.7603 ATS
-      B:Bar
-
-   2010-04-02 Test
-      B:Foo  -1.00 EUR
-      B:Baz
-   #+end_src
-
-   a) will show no Foo with "ledger bal" but b) will show "0 Foo".
-   :PROPERTIES:
-   :ID:       9EAC63D2-8DD7-438D-9767-3AAE79BF0BD3
-   :Message:  [[message://20100402164233.GA10410@jirafa.cyrius.com][Handling currencies that were replaced by the Euro]]
-   :Submitter: Martin Michlmayr <tbm@cyrius.com>
-   :CREATED:  [2010-04-04 Sun 15:18]
-   :END:
-** REVIEW [[bug:555][#555]] ledger stats reports days per posting, not postings per day
-- State "REVIEW"     from "TODO"       [2012-02-23 Thu 21:50]
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :PROPERTIES:
-   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
-   :CREATED:  [2011-10-10 Mon 15:02]
-   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
-   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
-** REVIEW [[bug:565][#565]] Transactions with leading whitespace not detected
+** TODO [[bug:663][#663]] Detect recursive inclusion and report an error
+:PROPERTIES:
+:ID:       76DA1021-D527-4BED-8F1B-258E7D8BE34A
+:CREATED:  [2012-03-01 Thu 22:29]
+:END:
+** TODO [[bug:664][#664]] Value expression regexp matching should return a match object
+:PROPERTIES:
+:ID:       E80521C7-0AFC-48F1-B803-9856D4FA4613
+:CREATED:  [2012-02-29 Wed 15:16]
+:END:
+** TODO [[bug:673][#673]] display_total chokes on account with non-dollar commodities
+SCHEDULED: <2012-03-08 Thu>
+:PROPERTIES:
+:ID:       8A56499C-69DC-4B51-85EC-D7F83F6A8342
+:CREATED:  [2012-03-08 Thu 13:57]
+:Date: Thu, 08 Mar 2012 19:18:58 +0000
+:Message: [[message://bug-673-1@http.bugs.ledger-cli.org/][{Bug 673} New: display_total chokes on account with non-dollar commodities]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** REVIEW [#A] [[bug:565][#565]] Transactions with leading whitespace not detected
 - State "REVIEW"     from "DUPLICATE"  [2012-02-23 Thu 21:51]
 - Note taken on [2011-08-21 Sun 18:53] \\
   I believe it's a regression in 3.0.  I filed a bug report about this some
@@ -3301,10 +3287,131 @@ yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
 :Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
 :Submitter: "David Keegan" <dksw@eircom.net>
 :END:
+** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
+   - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
+   :PROPERTIES:
+   :ID:       CE4F80CF-B298-43C5-B786-AA8ABEDA05C8
+   :CREATED:  [2010-05-27 Thu 01:12]
+   :END:
+** DONE Allow for chaining, so that -VA works
+- State "DONE"       from "TODO"       [2012-03-07 Wed 14:32]
+:PROPERTIES:
+:ID:       EA18D948-C811-4F74-8BDF-21C53C19176B
+:CREATED:  [2012-03-07 Wed 05:33]
+:END:
+** DONE [[bug:337][#337]] Rationalize formatting strings
+- State "DONE"       from "TODO"       [2012-03-02 Fri 10:58] \\
+  Fixed by 35ace88
+   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
+   ${AMT} is the same as $(scrub(AMT))
+   %T is the same as ${display_total}.
+
+   Right now formatting strings are a nightmare for users to modify.
+   :PROPERTIES:
+   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
+   :CREATED:  [2010-06-14 Mon 08:35]
+   :END:
+** DONE [[bug:395][#395]] Need commodity alias
+- State "DONE"       from "TODO"       [2012-03-09 Fri 07:24]
+   :PROPERTIES:
+   :ID:       13B53049-4795-4111-A679-6866AEFC4640
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-395-1@http.newartisans.com/bugzilla/][{Bug 395} New: need commodity alias]]
+   :CREATED:  [2010-08-16 Mon 16:28]
+   :END:
+** DONE [[bug:555][#555]] ledger stats reports days per posting, not postings per day
+- State "DONE"       from "REVIEW"     [2012-02-28 Tue 22:58]
+- State "REVIEW"     from "TODO"       [2012-02-23 Thu 21:50]
+- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
+   :PROPERTIES:
+   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
+   :CREATED:  [2011-10-10 Mon 15:02]
+   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
+   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** DONE [[bug:661][#661]] include directive causes a segmentation fault
+- State "DONE"       from "TODO"       [2012-03-01 Thu 22:00]
+:PROPERTIES:
+:ID:       39FB15C4-59C8-407F-8242-FAC66F178035
+:CREATED:  [2012-03-01 Thu 21:19]
+:Date: Thu, 01 Mar 2012 22:14:57 +0000
+:Message: [[message://bug-661-1@http.bugs.ledger-cli.org/][{Bug 661} New: In HEAD, installed today, include directive causes a segmentation fault.]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** WORKSFORME [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+- State "WORKSFORME" from "TODO"       [2012-02-28 Tue 22:52]
+   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
+     Thierry confirms this still happens for him.
+   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
+   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
+     To Thomas: I just tried this and it worked fine.  After your "push" command,
+     does the prompt change to a ]]?
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
+   :END:
+   :PROPERTIES:
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :CREATED:  [2010-05-30 Sun 03:33]
+   :END:
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
   :END:
+** TODO [#A] [[bug:467][#467]] ledger.el won't highlight account names if they have a space
+   :PROPERTIES:
+   :ID:       02CD3C95-0B6A-4B09-8C33-4D5CE6ACB93C
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4d26879ee6e14_2a73fd58175e87412f@fe2.rs.github.com.tmail][{GitHub} ledger.el won't highlight account names if they have a space {jwiegley/ledger GH-21}]]
+   :CREATED:  [2011-01-07 Fri 04:48]
+   :END:
+** TODO [#A] [[bug:524][#524]] ledger.el, highlighting of account names w/spaces
+   I'm using the git ledger 3.0, and notice that account names with spaces
+   in them are not highlighted properly. I'm quite sure single spaces are
+   allowed in account names, and it troubles my little mind when they are
+   not highlighted properly. I suspect the following font-lock statement:
+   #+begin_src lisp
+   (defvar ledger-font-lock-keywords
+     '(("\\(       \\|  \\|^\\)\\(;.*\\)" 2 font-lock-comment-face)
+       ("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([^*].+?\\)\\(\\(        ;\\|  ;\\|$\\)\\)" 2 bold)
+       ;;("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([*].+?\\)\\(\\(       ;\\|  ;\\|$\\)\\)"
+       ;; 2 font-lock-type-face)
+       ("^\\s-+\\([*]\\s-*\\)?\\(\\([[(]\\)?[^*:
+           ]+?:[^]);
+           ]+?\\([])]\\)?\\)\\(    \\|  \\|$\\)"
+        2 font-lock-keyword-face)
+       ("^\\([~=].+\\)" 1 font-lock-function-name-face)
+       ("^\\([A-Za-z]+ .+\\)" 1 font-lock-function-name-face))
+     "Expressions to highlight in Ledger mode.")
+   #+end_src
+   In particular, the "font-lock-keyword-face" part. After staring at the
+   regexp, however, I can't tell where the whitespace counter should be
+   inserted. Can someone fix it?
+
+   Sorry for the petty confusion, but it does make a difference...
+   :PROPERTIES:
+   :ID:       6212750C-AC03-41CB-968B-2EE1E64C747E
+   :CREATED:  [2011-04-20 Wed 18:01]
+   :Message:  [[message://87bp03apoz.fsf@ericabrahamsen.net][ledger.el, highlighting of account names w/spaces]]
+   :Submitter: Eric Abrahamsen <eric@ericabrahamsen.net>
+   :Date:     Mon, 18 Apr 2011 17:12:12 +0800
+   :END:
+** TODO [#A] [[bug:639][#639]] Highlight accounts with spaces in Emacs
+I have recently upgraded to ledger 3.0 and found that highlight of account
+names with spaces is broken. I took a look at git repo and found that there's
+a change set fixing exactly the same problem in 2009:
+https://github.com/jwiegley/ledger/commit/8834fc0c15a53b8db8c2aaee95d2b25a050fe786
+
+However the change set above adresses file ldg-mode.el, not ledger.el, I guess
+something has been changed with packaging. Anyway I just reapplied this patch
+to ledger.el locally and problem is fixed.
+:PROPERTIES:
+:ID:       E6D64332-BD37-48FD-A9B7-ACD1D213C240
+:CREATED:  [2012-02-06 Mon 14:29]
+:Date: Mon, 16 Jan 2012 21:58:28 -0800 (PST)
+:Message: [[message://dd6656b9-eb45-4df1-a78d-6476cf75d112@a11g2000vbz.googlegroups.com][Highlight accounts with spaces in Emacs]]
+:Author: Ivan <ivan.inozemtsev-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 ** TODO [[bug:389][#389]] Emacs mode autocompletion issue
    :PROPERTIES:
    :ID:       87255055-84B2-4B95-B643-0F8848C06D70
@@ -3391,13 +3498,6 @@ yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
    :Submitter: jimr <jim.robinson@gmail.com>
    :Message:  [[message://52d270cf-30a2-45c1-9ad2-c0b95b0539b9@z26g2000prf.googlegroups.com][ledger.el tweak for handling yyyy-mm-dd]]
    :CREATED:  [2011-01-02 Sun 09:16]
-   :END:
-** TODO [[bug:467][#467]] ledger.el won't highlight account names if they have a space
-   :PROPERTIES:
-   :ID:       02CD3C95-0B6A-4B09-8C33-4D5CE6ACB93C
-   :Submitter: GitHub <noreply@github.com>
-   :Message:  [[message://4d26879ee6e14_2a73fd58175e87412f@fe2.rs.github.com.tmail][{GitHub} ledger.el won't highlight account names if they have a space {jwiegley/ledger GH-21}]]
-   :CREATED:  [2011-01-07 Fri 04:48]
    :END:
 ** TODO [[bug:468][#468]] New ledger mode in master sometimes erases data when aligning amounts
    :PROPERTIES:
@@ -3487,37 +3587,6 @@ yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
    :Message:  [[message://jwiegley/ledger/pull/25@github.com][{GitHub} Two patch for ledger.el {jwiegley/ledger GH-25}]]
    :Submitter: vanicat <reply+i-738876-e6c2bd7e07d155e7598aca9c15a040a6dc86b89a@reply.github.com>
    :Date:     Wed, 6 Apr 2011 11:20:37 -0700
-   :END:
-** TODO [[bug:524][#524]] ledger.el, highlighting of account names w/spaces
-   I'm using the git ledger 3.0, and notice that account names with spaces
-   in them are not highlighted properly. I'm quite sure single spaces are
-   allowed in account names, and it troubles my little mind when they are
-   not highlighted properly. I suspect the following font-lock statement:
-   #+begin_src lisp
-   (defvar ledger-font-lock-keywords
-     '(("\\(       \\|  \\|^\\)\\(;.*\\)" 2 font-lock-comment-face)
-       ("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([^*].+?\\)\\(\\(        ;\\|  ;\\|$\\)\\)" 2 bold)
-       ;;("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([*].+?\\)\\(\\(       ;\\|  ;\\|$\\)\\)"
-       ;; 2 font-lock-type-face)
-       ("^\\s-+\\([*]\\s-*\\)?\\(\\([[(]\\)?[^*:
-           ]+?:[^]);
-           ]+?\\([])]\\)?\\)\\(    \\|  \\|$\\)"
-        2 font-lock-keyword-face)
-       ("^\\([~=].+\\)" 1 font-lock-function-name-face)
-       ("^\\([A-Za-z]+ .+\\)" 1 font-lock-function-name-face))
-     "Expressions to highlight in Ledger mode.")
-   #+end_src
-   In particular, the "font-lock-keyword-face" part. After staring at the
-   regexp, however, I can't tell where the whitespace counter should be
-   inserted. Can someone fix it?
-
-   Sorry for the petty confusion, but it does make a difference...
-   :PROPERTIES:
-   :ID:       6212750C-AC03-41CB-968B-2EE1E64C747E
-   :CREATED:  [2011-04-20 Wed 18:01]
-   :Message:  [[message://87bp03apoz.fsf@ericabrahamsen.net][ledger.el, highlighting of account names w/spaces]]
-   :Submitter: Eric Abrahamsen <eric@ericabrahamsen.net>
-   :Date:     Mon, 18 Apr 2011 17:12:12 +0800
    :END:
 ** TODO [[bug:525][#525]] Trouble with Emacs ledger-mode
    - Note taken on [2011-06-09 Thu 01:21] \\
@@ -3658,22 +3727,6 @@ Which requires hand correction.
 :Date:     Tue, 15 Nov 2011 10:07:17 -0700
 :Message:  [[message://CAKs9TOJfSSjmqfi8i7xu=JdqJ=aayRgkwdxRdvJt4CUcgW7oMQ@mail.gmail.com][Minor annoyance with emacs mode]]
 :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO [[bug:639][#639]] Highlight accounts with spaces in Emacs
-I have recently upgraded to ledger 3.0 and found that highlight of account
-names with spaces is broken. I took a look at git repo and found that there's
-a change set fixing exactly the same problem in 2009:
-https://github.com/jwiegley/ledger/commit/8834fc0c15a53b8db8c2aaee95d2b25a050fe786
-
-However the change set above adresses file ldg-mode.el, not ledger.el, I guess
-something has been changed with packaging. Anyway I just reapplied this patch
-to ledger.el locally and problem is fixed.
-:PROPERTIES:
-:ID:       E6D64332-BD37-48FD-A9B7-ACD1D213C240
-:CREATED:  [2012-02-06 Mon 14:29]
-:Date: Mon, 16 Jan 2012 21:58:28 -0800 (PST)
-:Message: [[message://dd6656b9-eb45-4df1-a78d-6476cf75d112@a11g2000vbz.googlegroups.com][Highlight accounts with spaces in Emacs]]
-:Author: Ivan <ivan.inozemtsev-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
 ** TODO [[bug:653][#653]] Do automatic transactions break emacs reconcile mode?
 This may be related to a feature request I made a while back.  Automatic
@@ -3950,13 +4003,14 @@ my uncleared transactions.  All I get is an empty buffer.
    :ID:       81278A4A-C3EB-4C73-A38D-061598F727F2
    :CREATED:  [2010-04-13 Tue 01:37]
    :END:
-** TODO [[bug:190][#190]] Optimize finding and creation of annotated commodities
-   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
-   Don't use textual names, but lookup based on annotation details
-   directly.
+** TODO [[bug:182][#182]] Port Gnucash support to 3.0
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:39]
+   - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:57]
    :PROPERTIES:
-   :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
-   :CREATED:  [2010-05-23 Sun 17:04]
+   :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
+   :Message:  [[message://96abdebf-d2ae-40fa-b555-c2329f91602b@q36g2000prg.googlegroups.com][How to use gnucash with v3]]
+   :Submitter: Xavier Shay <xavier-list@rhnh.net>
+   :CREATED:  [2010-05-25 Tue 16:42]
    :END:
 ** TODO [[bug:217][#217]] Make "primary COMM ACCOUNT" force primary comm for an account
    :PROPERTIES:
@@ -3977,13 +4031,8 @@ my uncleared transactions.  All I get is an empty buffer.
    :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
    :CREATED:  [2010-01-18 Mon 02:55]
    :END:
-** TODO [[bug:230][#230]] Make format strings backward compatible with 2.x
-   That way, %D would be the same as %(date).
-   :PROPERTIES:
-   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
-   :CREATED:  [2010-06-03 Thu 23:22]
-   :END:
 ** TODO [[bug:231][#231]] Allow conversion of some but not all commodities
+SCHEDULED: <2012-03-09 Fri>
    With -X, you currently can only say "convert everything to one commodity"
    but I'd like to be able to convert some stuff but not everything.
 
@@ -4011,44 +4060,12 @@ my uncleared transactions.  All I get is an empty buffer.
    :ID:       83B4A0E5-3CC6-4F5E-9C58-A87F690836C8
    :CREATED:  [2010-06-08 Tue 16:45]
    :END:
-** TODO [[bug:232][#232]] Support variant behaviors for -V
-   The problem is: for a given amount of a commodity, which commodity should
-   its value be reported in terms of?
-
-   1. For a transaction, an amount of the commodity might be permanently
-      associated with another commodity.  This is a "price value".
-   2. For a certain commodity, another commodity may always be the pricing
-      commodity.  This is a "commodity value".
-   3. For a certain account, a specific commodity may always be used for
-      pricing.  This is an "account value".
-   4. For a certain report, the user may request valuation using a list of
-      candidate commodities.  This is a "report value".
-   5. Otherwise, the user may desire simply the most recent valuation
-      possible.  This is a "market value".
-
-   So the target commodity might be bound to: a particular amount, a
-   commodity, or an account.  If it's not bound during parsing, it may be
-   bound during reporting using -X to specify a commodity.  If it's not bound
-   at all, then it is valued using the most recent prices available, no matter
-   their commodity.
-
-   Then here is the logic:
-
-   1.  If --exchange-only is specified, use those commodities.
-   2.  Else if a commodity has been FIXED to the amount, use that.
-   3.  Else if a commodity has been FIXED to the account, use that.
-   4.  Else if a commodity has been FIXED to the commodity, use that.
-   5.  Else if the amount's commodity is itself primary, use that.
-   6.  Else if -X is specified, use those commodities.
-   7.  Else if the amount has a price/cost, use the price's commodity.
-   8.  Else if the account balance contains primary commodities, use
-       whichever has the highest absolute value.
-   9.  Else if the commodity has a history of association with other
-       commodities, use whichever is most frequent.
-   10. Else use whichever commodity yields the most recent market value.
+** TODO [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:39]
+   - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:15]
    :PROPERTIES:
-   :ID:       AA092062-FBA5-4142-B3E4-E67FA9E12C19
-   :CREATED:  [2010-06-07 Mon 08:39]
+   :ID:       7517CE3B-C3B0-460D-806B-31341272DE79
+   :CREATED:  [2010-06-06 Sun 06:42]
    :END:
 ** TODO [[bug:270][#270]] Add a feature for "object descriptions"
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
@@ -4076,6 +4093,33 @@ my uncleared transactions.  All I get is an empty buffer.
    :PROPERTIES:
    :ID:       B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
    :CREATED:  [2009-03-02 Mon 20:39]
+   :END:
+** TODO [[bug:271][#271]] Add a {{total}} syntax for lot price specification
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:39]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   I had another idea: do you remember I mentioned a problem I had, which that
+   some of my trade confirmation slips provide the "adjusted cost base" and not
+   the cost-per-share? This makes it a big ugly to enter such postings, even
+   with expressions:
+   :DATA:
+     BrokerAccount    -29.435 WIDGETS {353.51435/29.435 USD} @ 13.02 USD
+   :END:
+   (I didn't test the above, by the way, that was your suggestion when we
+   talked last time.)
+
+   I propose this syntax:
+   :DATA:
+     BrokerAccount    -29.435 WIDGETS {{353.51435 USD}} @ 13.02 USD
+   :END:
+   It's a bit similar to the idea of @ vs. @@ where the single char (@) is for
+   price, and the double (@@) is for total amount. Using {{ ... }} refers to
+   the total cost, while { ... } refers to the cost price (per share).
+   :PROPERTIES:
+   :Submitter: Martin Blais <blais@furius.ca>
+   :Version:  2.6
+   :Ticket:   188
+   :ID:       C9E09993-CC01-41C6-BADC-0A9AA1221419
+   :CREATED:  [2008-04-20 Sun]
    :END:
 ** TODO [[bug:292][#292]] Make alias names for directives, like convert for C
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
@@ -4150,12 +4194,6 @@ my uncleared transactions.  All I get is an empty buffer.
    :Message:  [[message://AANLkTik8FPboAMJFg1z4ZW6msRrC8_e6R1H-0Mp0VY0C@mail.gmail.com][list of possible ledger options and commands]]
    :CREATED:  [2010-08-16 Mon 16:48]
    :END:
-** TODO [[bug:447][#447]] Make value sequences comparable
-   If done, no special code is needed to do multi-column sorting.
-   :PROPERTIES:
-   :ID:       44493384-34BE-4184-AFCC-8AB7E3B1443E
-   :CREATED:  [2010-12-03 Fri 14:13]
-   :END:
 ** TODO [[bug:451][#451]] Handling multiple Ledgers
    - Note taken on [2010-12-27 Mon 18:25] \\
      [[message://AANLkTik8PZ4_bOSVhfPmSYfmNE3m5_cDbw7fovqD3uNX@mail.gmail.com][Re: Multiple Ledgers]]
@@ -4164,115 +4202,15 @@ my uncleared transactions.  All I get is an empty buffer.
    :Submitter: Zack Williams <zdwzdw@gmail.com>
    :CREATED:  [2010-12-17 Fri 05:14]
    :END:
-** TODO [[bug:475][#475]] A solution to the commodity pricing problem
-One of the things which stalled Ledger development recently is that I'd never
-found a truly satisfying way to handle the "commodity pricing problem".  That
-is, the current day value of a commodity can mean different things to
-different people, depending on the accounts involved, the commodities, the
-nature of the transactions, etc.
-
-After experimenting with several different concepts and syntaxes, I found none
-of them were either satisfying or general enough.  My one attempt at providing
-"fixated prices" was too specific, and too inelegant for many usage patterns.
-
-This morning, however, I think I've finally cracked this nut; and in a way
-which fits harmoniously into the Ledger architecture as if it were meant to be
-there all along...
-
-Here's how the new scheme will work: When a user specifies '-V', or '-X COMM',
-they are requesting that some or all of the commodities in their Ledger file
-be valuated as of today (or whatever --now is set to).  But what does such a
-valuation mean?  This meaning shall be governed by the presence of a "VALUE"
-metadata property, whose content is an expression used to compute that value.
-
-If no VALUE property is specified, each posting is assumed to have a default,
-as if you'd specified a global, automated transaction as follows:
-
-#+begin_src ledger
-= expr true
-  ; VALUE:: market(amount, date, exchange)
-#+end_src
-
-This definition emulates the present day behavior of -V and -X (in the case of
--X, the requested commodity is passed via the string 'exchange' above).
-
-One thing many people have wanted to do is to fixate the valuation of old
-European currencies in terms of the Euro after a certain date:
-
-#+begin_src ledger
-= expr commodity == "DM"
-  ; VALUE:: date < [Jun 2008] ? market(amount, date, exchange) : 1.44 EUR
-#+end_src
-
-This says: If --now is some old date, use market prices as they were at that
-time; but if --now is past June 2008, use a fixed price for converting Deutsch
-Mark to Euro.
-
-Or how about never re-valuating commodities used in Expenses, since they
-cannot have a different future value:
-
-#+begin_src ledger
-= /^Expenses:/
-  ; VALUE:: market(amount, post.date, exchange)
-#+end_src
-
-This says the future valuation is the same as the valuation at the time of
-posting.  post.date equals the posting's date, while just 'date' is the value
-of --now (defaults to today).
-
-Or how about valuating miles based on a reimbursement rate during a specific
-time period:
-
-#+begin_src ledger
-= expr commodity == "miles" and date >= [2007] and date < [2008]
-  ; VALUE:: market($1.05, date, exchange)
-#+end_src
-
-In this case, miles driven in 2007 will always be valuated at $1.05 each.  If
-you use -X EUR to expressly request all amounts in Euro, Ledger shall convert
-$1.05 to Euro by whatever means are appropriate for dollars.
-
-Note that you can have a valuation expression specific to a particular posting
-or transaction, by overriding these general defaults using specific metadata:
-
-#+begin_src ledger
-2010-12-26 Example
-    Expenses:Food                $20
-    ; Just to be silly, always valuate *these* $20 as 30 DM, no matter what
-    ; the user asks for with -V or -X
-    ; VALUE:: 30 DM
-    Assets:Cash
-#+end_src
-
-This example demonstrates that your VALUE expression should be as symbolic as
-possible, using terms like 'amount' and 'date', rather than specific amounts
-and dates.  Also, you should pass the amount along to the function 'market' so
-it can be further revalued if the user has asked for a specific currency.
-
-Or, if it better suits your accounting, you can be less symbolic, which allows
-you to report most everything in EUR if you use -X EUR, except for certain
-accounts or postings which should always be valuated in another currency.  For
-example:
-
-#+begin_src ledger
-= /^Assets:Brokerage:CAD$/
-  ; Always report the value of commodities in this account in terms of
-  ; present day dollars, despite what was asked for on the command-line
-  ; VALUE:: market(amount, date, '$')
-#+end_src
-
-I think this scheme, of using predicated value expressions which can be
-generalized in automated transactions, and made specific via transaction and
-posting-based metadata, provides sufficient flexibility to express most of the
-use cases which have occurred on this topic.
-
-Comments on the design welcome, as I haven't begun coding yet.  Feel free to
-pose scenarios, and I'll try to model them for you.
-:PROPERTIES:
-:ID:       AEDF58BB-CE44-4C3E-B66E-0BB955E64206
-:Message:  [[message://B24180CF-D2DB-49DD-BEBD-4FF7170D3639@newartisans.com][A solution to the commodity pricing problem]]
-:CREATED:  [2011-02-04 Fri 07:32]
-:END:
+** TODO [[bug:461][#461]] Balance report that shows commodities and value or basis cost
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:43]
+   - State "DEFERRED"   from "TODO"       [2011-01-01 Sat 05:18]
+   :PROPERTIES:
+   :ID:       EB865380-8B2E-4847-AC97-D07EE9EC8A9D
+   :Submitter: jimr <jim.robinson@gmail.com>
+   :Message:  [[message://760a3e61-0b99-458c-b251-4fe45378df99@22g2000prx.googlegroups.com][Re: reporting on specific commodities?]]
+   :CREATED:  [2010-12-30 Thu 07:51]
+   :END:
 ** TODO [[bug:486][#486]] More formal methods of doing lot-based reporting
    - Note taken on [2011-02-09 Wed 14:31] \\
      Martin Michlmayr: Yeah, I know... but I think it's a feature that ledger
@@ -4485,11 +4423,6 @@ pose scenarios, and I'll try to model them for you.
    :ID:       4813EDF8-192E-42FF-9D14-ABB9261CB20C
    :CREATED:  [2011-06-17 Fri 13:17]
    :END:
-** TODO [[bug:538][#538]] -X should use posting dated values, and with -V should use current
-   :PROPERTIES:
-   :ID:       6BA58CB7-AE65-44FB-B0A2-9631950E133C
-   :CREATED:  [2011-06-29 Wed 14:58]
-   :END:
 ** TODO [[bug:542][#542]] Create a --reset-amount/total option, to clear the expr series
    :PROPERTIES:
    :ID:       0C1BBB09-F27C-4EDF-81F0-31D959476F72
@@ -4581,6 +4514,94 @@ and t-2 would give the same entry but with the date of 2012/01/24.
 :Message: [[message://CAE+8KM2QoZhi1dA0GUWsK8B=qwLtzhoutsHAVTJDjPrRgHXbMg@mail.gmail.com][Re: New feature: pre-declaring accounts, payees, commodities and tags]]
 :Author: Johann Klähn <kljohann-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
+** TODO [[bug:666][#666]] Add --daybreak to split multi-day time log entries into multiple days
+:PROPERTIES:
+:ID:       0095F2CC-E2EB-4645-BCDC-D73006A89AB3
+:CREATED:  [2012-02-29 Wed 02:59]
+:END:
+** TODO [[bug:668][#668]] Add an option for specifying the separator to ledger convert
+:PROPERTIES:
+:ID:       EBECF506-D2D7-43B1-9559-DE27F866A7CC
+:CREATED:  [2012-03-06 Tue 04:24]
+:END:
+** TODO [[bug:670][#670]] Make ledger convert a sub-parser within textual.cc
+:PROPERTIES:
+:ID:       750ECE98-C110-4879-B87D-B0FF17BE1A2D
+:CREATED:  [2012-03-06 Tue 04:24]
+:END:
+** TODO [#C] Refactor commodity support [3/7]
+SCHEDULED: <2012-03-08 Thu>
+- [X] Use Boost.Graph to manage price histories
+- [X] Don't use mapping_key anymore, but a data-based lookup
+- [ ] Unify the lot-handling into a more general mechanism
+- [X] Make -O and -B and --price standalone options
+- [ ] Make -X and -V usable at all times
+- [ ] Add -H flag for reporting in terms of historical prices
+- [-] Add a value property for specializing -X
+  - [ ] Option scope (--value-expr)
+  - [X] File scope
+  - [X] Account scope
+  - [X] Commodity scope
+  - [X] Transaction scope
+  - [X] Posting scope
+  - [X] Amount "scope"
+
+; Changes to options:
+;
+; -O    --quantity    use each posting's amOunt (DEFAULT)
+; -B    --cost        use each posting's cost Basis
+; -I    --price       use each posting's commodity prIce (i.e., {$10})
+;                     this is the same as the cost if none specified
+;
+; -V    --value       request to value commodities, but DWIM-style
+; -X $  --exchange    request to value commodities in terms of $
+; -G    --change      show difference between cost basis and "value",
+;                     whatever that means based on the options used
+;
+; -H    --historical  value commodities at time of acquisition
+;       --current     value commodities as of today (DEFAULT)
+;       --now=        define "today"
+
+; These can all be mixed now, so:
+;
+;   bal brokerage --cost --exchange $ --historical
+;       show much I spent to buy stocks, in $
+;
+;   bal brokerage --cost --exchange $
+;       show much I spent to buy stocks, in today's $
+;
+;   bal assets --exchange $ --historical
+;       how many $ would it have taken (at the time) to acquire my assets?
+;
+;   bal assets --exchange $
+;       present value of my assets in $, or how many $ would it take to
+;       replace those assets today
+
+; NEW: Virtual Costs
+:
+; Normally each exchange of a commodity in a journal is recorded as an
+; historical price point.  You can now use "virtual costs" to keep a
+; particular exchange off the record.  Simply surround the @ or @@ symbols
+; with parentheses: (@) (@@).
+
+; NEW: Value Annotations
+;
+; Commodities can now have a "valuation" expression, surrounded by (()):
+;
+;     $20 {30 CAD} ((market))   ; value these $20 using market price
+;     $20 {30 CAD} ((30 CAD))   ; value is always 30 CAD, no matter what
+;
+;     $20 {30 CAD} ((a, d, c -> market(30 CAD, d, c) ))
+;                               ; value is always 30 CAD, but report that
+;                               ; 30 CAD in terms of user's request
+; Value expression functions:
+;
+;    appraise(a [, d, c])  ask the amount a for its value (opt. on d in c)
+;    market(a , d, c)      return the market price of a on d in c
+:PROPERTIES:
+:ID:       CD37989C-91E7-4E6B-A122-1FE27797ABCC
+:CREATED:  [2012-03-02 Fri 23:32]
+:END:
 ** DEFERRED [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
    - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:23]
    :PROPERTIES:
@@ -4598,20 +4619,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :ID:       C0A606E0-AC51-4D0A-99F7-75C3E5E98F2B
    :CREATED:  [2010-05-22 Sat 16:46]
    :END:
-** DEFERRED [[bug:182][#182]] Port Gnucash support to 3.0
-   - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:57]
-   :PROPERTIES:
-   :ID:       024046FE-DAB6-48E0-9F27-B2747180267C
-   :Message:  [[message://96abdebf-d2ae-40fa-b555-c2329f91602b@q36g2000prg.googlegroups.com][How to use gnucash with v3]]
-   :Submitter: Xavier Shay <xavier-list@rhnh.net>
-   :CREATED:  [2010-05-25 Tue 16:42]
-   :END:
-** DEFERRED [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
-   - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:15]
-   :PROPERTIES:
-   :ID:       7517CE3B-C3B0-460D-806B-31341272DE79
-   :CREATED:  [2010-06-06 Sun 06:42]
-   :END:
 ** DEFERRED [[bug:269][#269]] Add a "date" term to report queries
    - State "DEFERRED"   from "TODO"       [2009-11-06 Fri 01:55] \\
      This has been coded, but is not being enabled yet until I see that it has some
@@ -4625,32 +4632,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :PROPERTIES:
    :ID:       BBBD2434-3763-45DB-A8EC-59DD47B3E387
    :CREATED:  [2009-11-04 Wed 16:27]
-   :END:
-** DEFERRED [[bug:271][#271]] Add a {{total}} syntax for lot price specification
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
-   I had another idea: do you remember I mentioned a problem I had, which that
-   some of my trade confirmation slips provide the "adjusted cost base" and not
-   the cost-per-share? This makes it a big ugly to enter such postings, even
-   with expressions:
-   :DATA:
-     BrokerAccount    -29.435 WIDGETS {353.51435/29.435 USD} @ 13.02 USD
-   :END:
-   (I didn't test the above, by the way, that was your suggestion when we
-   talked last time.)
-
-   I propose this syntax:
-   :DATA:
-     BrokerAccount    -29.435 WIDGETS {{353.51435 USD}} @ 13.02 USD
-   :END:
-   It's a bit similar to the idea of @ vs. @@ where the single char (@) is for
-   price, and the double (@@) is for total amount. Using {{ ... }} refers to
-   the total cost, while { ... } refers to the cost price (per share).
-   :PROPERTIES:
-   :Submitter: Martin Blais <blais@furius.ca>
-   :Version:  2.6
-   :Ticket:   188
-   :ID:       C9E09993-CC01-41C6-BADC-0A9AA1221419
-   :CREATED:  [2008-04-20 Sun]
    :END:
 ** DEFERRED [[bug:273][#273]] Add complete calculation history in Ledger
    - State "DEFERRED"   [2009-02-24 Tue 04:00]
@@ -4688,15 +4669,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :Ticket:   149
    :ID:       F7DDD7D6-D219-4645-BB02-33AF74BED44B
    :CREATED:  [2008-04-11 Fri]
-   :END:
-** DEFERRED [[bug:280][#280]] Check for duplicated transactions
-   - State "DEFERRED"   from "TODO"       [2010-06-12 Sat 14:02]
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
-   Either by date/payee/magnitude, or even payee/magnitude if --strict is on.
-   :PROPERTIES:
-   :ID:       4F58ACC1-498A-41A5-9164-93CD30B3CAC5
-   :CREATED:  [2009-10-23 Fri 06:12]
    :END:
 ** DEFERRED [[bug:284][#284]] Greatly improve Ledger's help system
    - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 08:44]
@@ -4768,12 +4740,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :ID:       A8AC5063-AB2F-4031-8821-2084B7B6497C
    :CREATED:  [2008-04-11 Fri]
    :END:
-** DEFERRED [[bug:300][#300]] Warn if a file link points to a missing file
-   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:24]
-   :PROPERTIES:
-   :ID:       232CCAA9-77C3-4541-B894-7F0CA9A7747B
-   :CREATED:  [2009-11-02 Mon 15:50]
-   :END:
 ** DEFERRED [[bug:320][#320]] Implement move constructors for amount_t, balance_t and value_t
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:54]
    This implies getting rid of the current reference counting structures too.
@@ -4824,13 +4790,12 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :ID:       59AA0D1F-C788-4307-844C-716E74828F34
    :CREATED:  [2010-09-18 Sat 14:42]
    :END:
-** DEFERRED [[bug:461][#461]] Balance report that shows commodities and value or basis cost
-   - State "DEFERRED"   from "TODO"       [2011-01-01 Sat 05:18]
+** DEFERRED [[bug:447][#447]] Make value sequences comparable
+- State "DEFERRED"   from "TODO"       [2012-03-09 Fri 07:33]
+   If done, no special code is needed to do multi-column sorting.
    :PROPERTIES:
-   :ID:       EB865380-8B2E-4847-AC97-D07EE9EC8A9D
-   :Submitter: jimr <jim.robinson@gmail.com>
-   :Message:  [[message://760a3e61-0b99-458c-b251-4fe45378df99@22g2000prx.googlegroups.com][Re: reporting on specific commodities?]]
-   :CREATED:  [2010-12-30 Thu 07:51]
+   :ID:       44493384-34BE-4184-AFCC-8AB7E3B1443E
+   :CREATED:  [2010-12-03 Fri 14:13]
    :END:
 ** DEFERRED [[bug:471][#471]] Swapping out memory allocators for performance testing
    - State "DEFERRED"   from "TODO"       [2011-02-04 Fri 07:56]
@@ -4839,15 +4804,9 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :Message:  [[message://4D31324D.3070903@pathscale.com][Re: Collaborating on boost performance]]
    :CREATED:  [2011-01-18 Tue 04:23]
    :END:
-** DEFERRED [[bug:481][#481]] Add a native "test" command to Ledger
-- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:22]
-   This would allow users to have their own "test" blocks in their data files,
-   without having to run a Python script to do those tests.
-   :PROPERTIES:
-   :ID:       90A2246B-DE3E-4744-BC21-48F75FF852E8
-   :CREATED:  [2011-02-24 Thu 14:54]
-   :END:
 ** DEFERRED [[bug:496][#496]] Add --time-colon option
+- State "DEFERRED"   from "TODO"       [2012-03-09 Fri 07:28]
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:44]
 - State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:22]
    :PROPERTIES:
    :ID:       2E01D36E-41AB-4185-8528-686A5599438E
@@ -4855,6 +4814,206 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :Message:  [[message://jwiegley/ledger/pull/23@github.com][{GitHub} Add --time-colon option {jwiegley/ledger GH-23}]]
    :Submitter: afh <noreply@github.com>
    :Date:     Sat, 5 Mar 2011 15:02:09 -0800
+   :END:
+** DONE [[bug:190][#190]] Optimize finding and creation of annotated commodities
+- State "DONE"       from "TODO"       [2012-03-09 Fri 07:31]
+   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:11]
+   Don't use textual names, but lookup based on annotation details
+   directly.
+   :PROPERTIES:
+   :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
+   :CREATED:  [2010-05-23 Sun 17:04]
+   :END:
+** DONE [[bug:230][#230]] Make format strings backward compatible with 2.x
+- State "DONE"       from "TODO"       [2012-03-09 Fri 07:31]
+   That way, %D would be the same as %(date).
+   :PROPERTIES:
+   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
+   :CREATED:  [2010-06-03 Thu 23:22]
+   :END:
+** DONE [[bug:232][#232]] Support variant behaviors for -V
+- State "DONE"       from "TODO"       [2012-03-09 Fri 07:30]
+   The problem is: for a given amount of a commodity, which commodity should
+   its value be reported in terms of?
+
+   1. For a transaction, an amount of the commodity might be permanently
+      associated with another commodity.  This is a "price value".
+   2. For a certain commodity, another commodity may always be the pricing
+      commodity.  This is a "commodity value".
+   3. For a certain account, a specific commodity may always be used for
+      pricing.  This is an "account value".
+   4. For a certain report, the user may request valuation using a list of
+      candidate commodities.  This is a "report value".
+   5. Otherwise, the user may desire simply the most recent valuation
+      possible.  This is a "market value".
+
+   So the target commodity might be bound to: a particular amount, a
+   commodity, or an account.  If it's not bound during parsing, it may be
+   bound during reporting using -X to specify a commodity.  If it's not bound
+   at all, then it is valued using the most recent prices available, no matter
+   their commodity.
+
+   Then here is the logic:
+
+   1.  If --exchange-only is specified, use those commodities.
+   2.  Else if a commodity has been FIXED to the amount, use that.
+   3.  Else if a commodity has been FIXED to the account, use that.
+   4.  Else if a commodity has been FIXED to the commodity, use that.
+   5.  Else if the amount's commodity is itself primary, use that.
+   6.  Else if -X is specified, use those commodities.
+   7.  Else if the amount has a price/cost, use the price's commodity.
+   8.  Else if the account balance contains primary commodities, use
+       whichever has the highest absolute value.
+   9.  Else if the commodity has a history of association with other
+       commodities, use whichever is most frequent.
+   10. Else use whichever commodity yields the most recent market value.
+   :PROPERTIES:
+   :ID:       AA092062-FBA5-4142-B3E4-E67FA9E12C19
+   :CREATED:  [2010-06-07 Mon 08:39]
+   :END:
+** DONE [[bug:280][#280]] Check for duplicated transactions
+- State "DONE"       from "DEFERRED"   [2012-02-28 Tue 21:40] \\
+  This is supported now with UUID.
+   - State "DEFERRED"   from "TODO"       [2010-06-12 Sat 14:02]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:32]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
+   Either by date/payee/magnitude, or even payee/magnitude if --strict is on.
+   :PROPERTIES:
+   :ID:       4F58ACC1-498A-41A5-9164-93CD30B3CAC5
+   :CREATED:  [2009-10-23 Fri 06:12]
+   :END:
+** DONE [[bug:475][#475]] A solution to the commodity pricing problem
+- State "DONE"       from "TODO"       [2012-03-09 Fri 07:29]
+One of the things which stalled Ledger development recently is that I'd never
+found a truly satisfying way to handle the "commodity pricing problem".  That
+is, the current day value of a commodity can mean different things to
+different people, depending on the accounts involved, the commodities, the
+nature of the transactions, etc.
+
+After experimenting with several different concepts and syntaxes, I found none
+of them were either satisfying or general enough.  My one attempt at providing
+"fixated prices" was too specific, and too inelegant for many usage patterns.
+
+This morning, however, I think I've finally cracked this nut; and in a way
+which fits harmoniously into the Ledger architecture as if it were meant to be
+there all along...
+
+Here's how the new scheme will work: When a user specifies '-V', or '-X COMM',
+they are requesting that some or all of the commodities in their Ledger file
+be valuated as of today (or whatever --now is set to).  But what does such a
+valuation mean?  This meaning shall be governed by the presence of a "VALUE"
+metadata property, whose content is an expression used to compute that value.
+
+If no VALUE property is specified, each posting is assumed to have a default,
+as if you'd specified a global, automated transaction as follows:
+
+#+begin_src ledger
+= expr true
+  ; VALUE:: market(amount, date, exchange)
+#+end_src
+
+This definition emulates the present day behavior of -V and -X (in the case of
+-X, the requested commodity is passed via the string 'exchange' above).
+
+One thing many people have wanted to do is to fixate the valuation of old
+European currencies in terms of the Euro after a certain date:
+
+#+begin_src ledger
+= expr commodity == "DM"
+  ; VALUE:: date < [Jun 2008] ? market(amount, date, exchange) : 1.44 EUR
+#+end_src
+
+This says: If --now is some old date, use market prices as they were at that
+time; but if --now is past June 2008, use a fixed price for converting Deutsch
+Mark to Euro.
+
+Or how about never re-valuating commodities used in Expenses, since they
+cannot have a different future value:
+
+#+begin_src ledger
+= /^Expenses:/
+  ; VALUE:: market(amount, post.date, exchange)
+#+end_src
+
+This says the future valuation is the same as the valuation at the time of
+posting.  post.date equals the posting's date, while just 'date' is the value
+of --now (defaults to today).
+
+Or how about valuating miles based on a reimbursement rate during a specific
+time period:
+
+#+begin_src ledger
+= expr commodity == "miles" and date >= [2007] and date < [2008]
+  ; VALUE:: market($1.05, date, exchange)
+#+end_src
+
+In this case, miles driven in 2007 will always be valuated at $1.05 each.  If
+you use -X EUR to expressly request all amounts in Euro, Ledger shall convert
+$1.05 to Euro by whatever means are appropriate for dollars.
+
+Note that you can have a valuation expression specific to a particular posting
+or transaction, by overriding these general defaults using specific metadata:
+
+#+begin_src ledger
+2010-12-26 Example
+    Expenses:Food                $20
+    ; Just to be silly, always valuate *these* $20 as 30 DM, no matter what
+    ; the user asks for with -V or -X
+    ; VALUE:: 30 DM
+    Assets:Cash
+#+end_src
+
+This example demonstrates that your VALUE expression should be as symbolic as
+possible, using terms like 'amount' and 'date', rather than specific amounts
+and dates.  Also, you should pass the amount along to the function 'market' so
+it can be further revalued if the user has asked for a specific currency.
+
+Or, if it better suits your accounting, you can be less symbolic, which allows
+you to report most everything in EUR if you use -X EUR, except for certain
+accounts or postings which should always be valuated in another currency.  For
+example:
+
+#+begin_src ledger
+= /^Assets:Brokerage:CAD$/
+  ; Always report the value of commodities in this account in terms of
+  ; present day dollars, despite what was asked for on the command-line
+  ; VALUE:: market(amount, date, '$')
+#+end_src
+
+I think this scheme, of using predicated value expressions which can be
+generalized in automated transactions, and made specific via transaction and
+posting-based metadata, provides sufficient flexibility to express most of the
+use cases which have occurred on this topic.
+
+Comments on the design welcome, as I haven't begun coding yet.  Feel free to
+pose scenarios, and I'll try to model them for you.
+:PROPERTIES:
+:ID:       AEDF58BB-CE44-4C3E-B66E-0BB955E64206
+:Message:  [[message://B24180CF-D2DB-49DD-BEBD-4FF7170D3639@newartisans.com][A solution to the commodity pricing problem]]
+:CREATED:  [2011-02-04 Fri 07:32]
+:END:
+** DONE [[bug:538][#538]] -X should use posting dated values, and with -V should use current
+- State "DONE"       from "TODO"       [2012-03-09 Fri 07:28]
+   :PROPERTIES:
+   :ID:       6BA58CB7-AE65-44FB-B0A2-9631950E133C
+   :CREATED:  [2011-06-29 Wed 14:58]
+   :END:
+** CANCELED [[bug:481][#481]] Add a native "test" command to Ledger
+- State "CANCELED"   from "TODO"       [2012-03-09 Fri 07:34]
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:44]
+- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:22]
+   This would allow users to have their own "test" blocks in their data files,
+   without having to run a Python script to do those tests.
+   :PROPERTIES:
+   :ID:       90A2246B-DE3E-4744-BC21-48F75FF852E8
+   :CREATED:  [2011-02-24 Thu 14:54]
+   :END:
+** WONTFIX [[bug:300][#300]] Warn if a file link points to a missing file
+- State "WONTFIX"    from "DEFERRED"   [2012-02-28 Tue 21:42]
+   - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:24]
+   :PROPERTIES:
+   :ID:       232CCAA9-77C3-4541-B894-7F0CA9A7747B
+   :CREATED:  [2009-11-02 Mon 15:50]
    :END:
 ** NOTE Different types of commodity transactions
    - Never revalue this commodity
@@ -4871,6 +5030,16 @@ and t-2 would give the same entry but with the date of 2012/01/24.
   :PROPERTIES:
   :CATEGORY: Python
   :END:
+** TODO [[bug:665][#665]] pymodule.value doesn't work yet for Python
+I need to convert the pymodule to a scope_t-derived proxy whose lookup()
+method will check the module's namespace.
+
+Once this is done, then abstract the main module to use the same thing, and
+make this a child scope of the Python session.
+:PROPERTIES:
+:ID:       5CD94EF6-4791-4ACA-81A7-5BAACDC1B0B9
+:CREATED:  [2012-03-01 Thu 03:28]
+:END:
 ** DEFERRED [[bug:302][#302]] Add implicit conversion of mask_t to re
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:36]
    [[file:py_value.cc::jww%202009%2011%2002%20Add%20implicit%20conversion%20of%20mask%20objects][py_value.cc]]
@@ -5178,6 +5347,35 @@ that runs very slowly.  It produces a file identical to acprep debug
 :Message:  [[message://CAKs9TOLp84z6Od+Cg27y-uY42ZW7UkQAbUVo4TeviX2Mv1wRbQ@mail.gmail.com][acprep opt producing a debug executable]]
 :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
+** TODO [[bug:669][#669]] Fix --no-python option
+- Note taken on [2012-02-28 Tue 21:29] \\
+  Maybe `--no-python` should be a no-op then? Or you should check if
+  configure_args` contains `--enable-python`. In its current state calling
+  acprep with `--no-python` will fail:
+
+      self.configure_args.remove('--enable-python')
+      ValueError: list.remove(x): x not in list
+The `--no-python` option is currently broken:
+
+    self.configure_args.remove('--enable-python')
+    ValueError: list.remove(x): x not in list
+
+See my comment on [[https://github.com/jwiegley/ledger/commit/7e6dbcd64ca1edb3a68b686e1d0a3ecdb71a8816#commitcomment-1016510][commit 7e6dbc]].
+:PROPERTIES:
+:ID:       35713523-7B72-436B-9D4B-A9E7B63397D4
+:CREATED:  [2012-02-28 Tue 21:28]
+:Date: Mon, 27 Feb 2012 11:09:57 -0800
+:Message: [[message://jwiegley/ledger/issues/55@github.com][{ledger} Fix --no-python option (#55)]]
+:Author: Johann Klähn <reply+i-3406217-3f5841687d8b3e1421db209bdc8e2da2af0d080c-8460@reply.github.com>
+:END:
+** TODO [[bug:671][#671]] --boost-file-suffix=.so.1.49.0 has not effect
+:PROPERTIES:
+:ID:       6009BF5A-2DA3-4604-BEF4-C938BC28BD3E
+:CREATED:  [2012-03-07 Wed 11:42]
+:Date: Wed, 07 Mar 2012 15:25:16 +0000
+:Message: [[message://bug-671-1@http.bugs.ledger-cli.org/][{Bug 671} New: --boost-file-suffix=.so.1.49.0 has not effect]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** DEFERRED [[bug:216][#216]] Ledger packages for Debian
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
    - Note taken on [2010-05-31 Mon 15:06] \\
@@ -5207,7 +5405,8 @@ that runs very slowly.  It produces a file identical to acprep debug
    :ID:       09B41575-766E-4598-A8F3-164D8AE25589
    :CREATED:  [2010-06-15 Tue 07:08]
    :END:
-** DEFERRED [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                   :blocker:
+** WONTFIX [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                    :blocker:
+- State "WONTFIX"    from "DEFERRED"   [2012-02-28 Tue 21:38]
    - State "DEFERRED"   from "TODO"       [2011-02-12 Sat 18:18]
    :PROPERTIES:
    :ID:       61815102-1516-48A3-AC16-2746ADA72D3C
@@ -5534,6 +5733,13 @@ Languages.
 :Message: [[message://github-87F922.10545812012012@news.gmane.org][Ledger syntax coloring for TextWrangler]]
 :Author: Niekas <github-Vzr4Esry4JzzIImvGDD8mw@public.gmane.org>
 :END:
+** TODO [[bug:662][#662]] If Ledger crashes in std::string::_Rep::_M_dispose...
+Check which libstdc++.6.dylib Boost and Ledger (and the other component
+libraries) are linked with.
+:PROPERTIES:
+:ID:       594901C8-DF06-4E0B-B8E9-6BB7682047A0
+:CREATED:  [2012-03-01 Thu 22:41]
+:END:
 ** DELEGATED [[bug:474][#474]] Create documentation stubs in ledger3.texi for all features
 - State "DELEGATED"  from "TODO"       [2012-02-23 Thu 21:54]
 - State "TODO"       from "DONE"       [2011-11-18 Fri 20:04]
@@ -5643,7 +5849,7 @@ Languages.
 * Colophon
 #+STARTUP: content fninline hidestars
 #+ARCHIVE: TODO-3.0::
-#+SEQ_TODO: STARTED TODO(@) WAITING(@) DELEGATED(@) DEFERRED(@) REVIEW(@) REVIEW(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
+#+SEQ_TODO: STARTED TODO(@) REVIEW(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
 #+TAGS: blocker(B) critical(C)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
 #+LINK: bug http://bugs.ledger-cli.org/show_bug.cgi?id=
