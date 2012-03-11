@@ -39,69 +39,2772 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :Message:  [[message://bug-584-1@http.bugs.ledger-cli.org/][{Bug 584} New: Trailing white space is not ignored in payee names]]
   :Submitter: bugzilla-daemon@mail.johnwiegley.com
   :END:
-** TODO [#A] [[bug:672][#672]] Latest next/HEAD does not build
-SCHEDULED: <2012-03-08 Thu>
+** TODO [#A] [[bug:673][#673]] display_total chokes on account with non-dollar commodities
 :PROPERTIES:
-:ID:       E447F248-389D-411E-A6A6-ECF5E59B0D8F
-:CREATED:  [2012-03-07 Wed 11:41]
-:Date: Wed, 07 Mar 2012 17:36:53 +0000
-:Message: [[message://bug-672-1@http.bugs.ledger-cli.org/][{Bug 672} New: Latest next/HEAD does not build]]
+:ID:       8A56499C-69DC-4B51-85EC-D7F83F6A8342
+:CREATED:  [2012-03-08 Thu 13:57]
+:Date: Thu, 08 Mar 2012 19:18:58 +0000
+:Message: [[message://bug-673-1@http.bugs.ledger-cli.org/][{Bug 673} New: display_total chokes on account with non-dollar commodities]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:166][#166]] --percent incompatible with --exchange
-- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:37]
-   - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 01:41] \\
-     You are right, --percent cannot handle multiple commodities.  And since
-     --exchange always takes place after --percent, it's not as
-     straightforward as it seems.  I'm going to defer this bug until after
-     3.0, since it may not be worth fixing.  But I'll keep thinking on it.
-   I've found that --percent option is incompatible with --exchange.  Well,
-    actually I suspect that --percent is not able to handle multi currencies.
+** TODO (Alex) budgeting bug?
+- Note taken on [2012-03-10 Sat 22:16] \\
+  From [[message://CAJQFw%3D%2BaWf%2BJHvqAcUkUDB6pAg1UX2uG%3D5gWdJNgtOH1ALyQOA@mail.gmail.com][Re: budgeting bug?]]:
 
-    In the following simple exemple, I would have expected that --percent
-    option works correctly.
+  > Also, my budget transaction seemed to need to be reversed (notice how
+  > Cash is $-200) to work right. Is this correct?
 
-   #+begin_src ledger
-   P 2008/01/01 $ €1
+  The manuals are a bit sparse (at least the ones linked from ledger-cli.org),
+  but the idea is to compare your budgeted amounts with actual expenses, thus
+  for any net amount to make sense the sign has to be "wrong".
 
-   2008/01/11 LIAT
-      Expenses:Travel:Airfare                   $40.00
-      Liabilities:MasterCard
+  What I find I really want is not a budget amount, but a real and true
+  recurring expense.  For example, I just set up a subscription for automatic
+  payment (say with Amazon or Paypal or whatever).  This isn't a "budget"
+  amount. It is "automatic", but not in the sense that ledger uses that term,
+  and it certainly isn't virtual.  So I've ended up just creating a bunch of
+  manual transactions with dates into the future. Hopefully I'll remember to
+  make more copies of them when I catch up to the last one.
 
-   2008/02/05 CTX
-      Expenses:Travel:Auto                     €240.38
-      Liabilities:MasterCard
-   #+end_src
+  I really like ledger's facilities... it's just that these manually
+  maintained future entries are a pain...
+With Ledger 2.6.2, if I have:
+#+begin_src ledger
+~ Monthly from 2009-08-01
+  Cash:NewCar          $-200
+  Income:NewCar
+#+end_src
 
-    :OUTPUT:
-    $ ledger --file=test_12.ledger bal --exchange=€
-                €280.38  Expenses:Travel
-                 €40.00    Airfare
-                €240.38    Auto
-               €-280.38  Liabilities:MasterCard
-    --------------------
-                      0
-    :END:
-    :OUTPUT:
-    $ ledger --file=test_12.ledger bal --exchange=€ --percent
-    While evaluating value expression:
-     (((is_account & parent) & parent.total) & percent(total,
-    parent.total))
+And then do:
+:OUTPUT:
+ ledger --add-budget reg  Cash:NewCar
+(empty output)
+:END:
 
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    While evaluating value expression:
-     market(total_expr, date, exchange)
-    While evaluating value expression:
-     justify(scrub(display_total), 20, -1, true, color)
-    Error: Cannot convert a balance with multiple commodities to an amount
-    :END:
-   :PROPERTIES:
-   :ID:       4509F714-BA35-4659-8F57-6BD6A725FA73
-   :Message:  [[message://fabd9b4b-3c20-4507-92e5-55a5e8996790@g19g2000yqe.googlegroups.com][--percent incompatible with --exchange]]
-   :Submitter: thierry <thierry.daucourt@free.fr>
-   :CREATED:  [2010-04-04 Sun 15:11]
-   :END:
+but if I add atleast one real transaction, like this:
+#+begin_src ledger
+2012-03-01 test
+  Expenses:NewCar  $1
+  Cash:NewCar
+#+end_src
+
+I get the expected output with the same reg command:
+:OUTPUT:
+2009/08/01 Budget entry         Cash:NewCar
+$200         $200
+2009/09/01 Budget entry         Cash:NewCar
+$200         $400
+etc..
+:END:
+
+Is this a bug or am I missing something?
+
+Also, my budget transaction seemed to need to be reversed (notice how Cash is
+$-200) to work right. Is this correct?
+:PROPERTIES:
+:ID:       2B35972E-087C-4BBA-91B0-B9F897826DEC
+:CREATED:  [2012-03-10 Sat 22:16]
+:Date: Thu, 1 Mar 2012 20:27:37 -0800 (PST)
+:Message: [[message://6beffd28-99ec-464c-8f4b-17bcbd16005c@p7g2000yqk.googlegroups.com][budgeting bug?]]
+:Author: Alex D <ademko-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (Hyrum) Segfault on next branch
+Running the following command on the next branch results in a segfault:
+#+begin_src sh
+$ ./ledger -s bal Checking
+#+end_src
+
+The backtrace from gdb is:
+:OUTPUT:
+Program received signal EXC_BAD_ACCESS, Could not access memory.
+Reason: KERN_INVALID_ADDRESS at address: 0x0000000000000000
+0x00000001000f8720 in ledger::(anonymous namespace)::instance_t::lookup (this=0x7fff5fbfa050, kind=ledger::symbol_t::DIRECTIVE, name=@0x7fff5fbf7ba0) at src/textual.cc:1726
+1726      return context.scope->lookup(kind, name);
+(gdb) bt
+#0  0x00000001000f8720 in ledger::(anonymous namespace)::instance_t::lookup (this=0x7fff5fbfa050, kind=ledger::symbol_t::DIRECTIVE, name=@0x7fff5fbf7ba0) at src/textual.cc:1726
+#1  0x0000000100108ce5 in ledger::(anonymous namespace)::instance_t::general_directive (this=0x7fff5fbfa050, line=0x10301b249 "defaccount De Assets:Cash") at src/textual.cc:1194
+#2  0x0000000100106aba in ledger::(anonymous namespace)::instance_t::read_next_directive (this=0x7fff5fbfa050) at src/textual.cc:341
+#3  0x0000000100106e29 in ledger::(anonymous namespace)::instance_t::parse (this=0x7fff5fbfa050) at src/textual.cc:222
+#4  0x00000001001084be in ledger::(anonymous namespace)::instance_t::include_directive (this=0x7fff5fbfc780, line=0x7fff5fbfa358 "./header.ldg") at src/textual.cc:743
+#5  0x0000000100108be7 in ledger::(anonymous namespace)::instance_t::general_directive (this=0x7fff5fbfc780, line=0x103013649 "include ./header.ldg") at src/textual.cc:1170
+#6  0x0000000100106aba in ledger::(anonymous namespace)::instance_t::read_next_directive (this=0x7fff5fbfc780) at src/textual.cc:341
+#7  0x0000000100106e29 in ledger::(anonymous namespace)::instance_t::parse (this=0x7fff5fbfc780) at src/textual.cc:222
+#8  0x0000000100107914 in ledger::journal_t::read_textual (this=0x10290a5c0, context_stack=@0x103010258) at src/textual.cc:1736
+#9  0x0000000100117e76 in ledger::journal_t::read (this=0x10290a5c0, context=@0x103010258) at src/journal.cc:385
+#10 0x00000001000d94e0 in ledger::session_t::read_data (this=0x103010200, master_account=@0x7fff5fbfede0) at src/session.cc:163
+#11 0x00000001000d9b4b in ledger::session_t::read_journal_files (this=0x103010200) at src/session.cc:201
+#12 0x0000000100013e82 in ledger::global_scope_t::execute_command (this=0x10300c200, args=@0x7fff5fbff0c0, at_repl=false) at src/global.cc:200
+#13 0x0000000100014620 in ledger::global_scope_t::execute_command_wrapper (this=0x10300c200, args=@0x7fff5fbff190, at_repl=false) at src/global.cc:245
+#14 0x0000000100001c50 in main (argc=4, argv=0x7fff5fbffa38, envp=0x7fff5fbffa60) at src/main.cc:119
+(gdb)
+:END:
+
+Everything was working just fine until I added a single entry.  Running on
+just that entry doesn't give any problems, and I've yet to find a small
+reproduction recipe.  However, the above problem is reproducible for me on my
+dataset, and I hope that the backtrace is of some use.  This is using a debug
+build of the next branch on Mac OS X.
+:PROPERTIES:
+:ID:       6B61D9F6-5AB9-4B52-A96A-F25EA13D699F
+:CREATED:  [2012-03-10 Sat 22:17]
+:Date: Thu, 1 Mar 2012 20:10:44 -0600
+:Message: [[message://CAFwo6TZRtZuct=M_-p5sKQDmOqi33tjjOEkUueG7MhxbYKpsRg@mail.gmail.com][Segfault on next branch]]
+:Author: Hyrum K Wright <hyrum-krATTUSiS2OIzK9ZyXRbJA@public.gmane.org>
+:END:
+
+** TODO (Jins) The Equity account uses a hard-coded statement
+:PROPERTIES:
+:ID:       7855CD31-4445-4F6D-9934-EEE54086FE85
+:CREATED:  [2012-03-10 Sat 22:11]
+:Date: Mon, 5 Mar 2012 06:00:41 -0800 (PST)
+:Message: [[message://4d5a4440-3403-49f8-88a0-27776c656ccf@k29g2000yqc.googlegroups.com][equity]]
+:Author: Jins <renarsgrig-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (John Raketsraw) Can't run latest next version
+I'm running Ubuntu 11.10.
+
+I tried updating to the latest next version of ledger this morning.
+Running "./acprep update" seemed to work. However, when I run ledger I get
+this response:
+:OUTPUT:
+ledger: symbol lookup error: ledger: undefined symbol:\
+_ZN5boost6system19get_system_categoryEv
+:END:
+
+I don't know whether this is significant, but before getting to this error
+message it was failing because it couldn't find several libboost libraries
+version 1.42.0. I have version 1.46.0 on my system; I set up some symbolic
+links for these libraries.
+
+I've attached config.log to this message -- I don't know what to make of
+it, but I see several failure messages. Several of them indicate that
+mimix/config.h file or directory is missing.
+
+Any hints?
+
+:OUTPUT:
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+It was created by ledger configure 3.0.0-20120217, which was
+generated by GNU Autoconf 2.68.  Invocation command line was
+
+  $ configure CPPFLAGS=-isystem /usr/local/include -isystem /usr/include/python2.7 CXXFLAGS=-Wconversion -pthread -g -pipe LDFLAGS=-fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config --with-included-gettext --enable-pch --disable-static --enable-debug
+
+## --------- ##
+## Platform. ##
+## --------- ##
+
+hostname = geertz
+uname -m = x86_64
+uname -r = 3.0.0-16-generic
+uname -s = Linux
+uname -v = #28-Ubuntu SMP Fri Jan 27 17:44:39 UTC 2012
+
+/usr/bin/uname -p = unknown
+/bin/uname -X     = unknown
+
+/bin/arch              = unknown
+/usr/bin/arch -k       = unknown
+/usr/convex/getsysinfo = unknown
+/usr/bin/hostinfo      = unknown
+/bin/machine           = unknown
+/usr/bin/oslevel       = unknown
+/bin/universe          = unknown
+
+PATH: /usr/bin
+PATH: /home/jrake/bin
+PATH: /usr/lib/lightdm/lightdm
+PATH: /usr/local/sbin
+PATH: /usr/local/bin
+PATH: /usr/sbin
+PATH: /usr/bin
+PATH: /sbin
+PATH: /bin
+PATH: /usr/games
+PATH: /home/jrake/Dropbox/bin
+
+## ----------- ##
+## Core tests. ##
+## ----------- ##
+
+configure:2716: checking for a BSD-compatible install
+configure:2784: result: /usr/bin/install -c
+configure:2795: checking whether build environment is sane
+configure:2845: result: yes
+configure:2986: checking for a thread-safe mkdir -p
+configure:3025: result: /bin/mkdir -p
+configure:3038: checking for gawk
+configure:3068: result: no
+configure:3038: checking for mawk
+configure:3054: found /usr/bin/mawk
+configure:3065: result: mawk
+configure:3076: checking whether make sets $(MAKE)
+configure:3098: result: yes
+configure:3211: checking for style of include used by make
+configure:3239: result: GNU
+configure:3309: checking for gcc
+configure:3336: result: gcc
+configure:3565: checking for C compiler version
+configure:3574: gcc --version >&5
+gcc (Ubuntu/Linaro 4.6.1-9ubuntu3) 4.6.1
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+configure:3585: $? = 0
+configure:3574: gcc -v >&5
+Using built-in specs.
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.6.1/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 4.6.1-9ubuntu3' --with-bugurl=file:///usr/share/doc/gcc-4.6/README.Bugs --enable-languages=c,c++,fortran,objc,obj-c++,go --prefix=/usr --program-suffix=-4.6 --enable-shared --enable-linker-build-id --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.6 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-plugin --enable-objc-gc --disable-werror --with-arch-32=i686 --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 4.6.1 (Ubuntu/Linaro 4.6.1-9ubuntu3)
+configure:3585: $? = 0
+configure:3574: gcc -V >&5
+gcc: error: unrecognized option '-V'
+gcc: fatal error: no input files
+compilation terminated.
+configure:3585: $? = 4
+configure:3574: gcc -qversion >&5
+gcc: error: unrecognized option '-qversion'
+gcc: fatal error: no input files
+compilation terminated.
+configure:3585: $? = 4
+configure:3605: checking whether the C compiler works
+configure:3627: gcc  -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:3631: $? = 0
+configure:3679: result: yes
+configure:3682: checking for C compiler default output file name
+configure:3684: result: a.out
+configure:3690: checking for suffix of executables
+configure:3697: gcc -o conftest  -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:3701: $? = 0
+configure:3723: result:
+configure:3745: checking whether we are cross compiling
+configure:3753: gcc -o conftest  -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:3757: $? = 0
+configure:3764: ./conftest
+configure:3768: $? = 0
+configure:3783: result: no
+configure:3788: checking for suffix of object files
+configure:3810: gcc -c  -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:3814: $? = 0
+configure:3835: result: o
+configure:3839: checking whether we are using the GNU C compiler
+configure:3858: gcc -c  -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:3858: $? = 0
+configure:3867: result: yes
+configure:3876: checking whether gcc accepts -g
+configure:3896: gcc -c -g -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:3896: $? = 0
+configure:3937: result: yes
+configure:3954: checking for gcc option to accept ISO C89
+configure:4018: gcc  -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4018: $? = 0
+configure:4031: result: none needed
+configure:4053: checking dependency style of gcc
+configure:4163: result: gcc3
+configure:4184: checking how to run the C preprocessor
+configure:4215: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+configure:4215: $? = 0
+configure:4229: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+conftest.c:11:28: fatal error: ac_nonexistent.h: No such file or directory
+compilation terminated.
+configure:4229: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| /* end confdefs.h.  */
+| #include <ac_nonexistent.h>
+configure:4254: result: gcc -E
+configure:4274: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+configure:4274: $? = 0
+configure:4288: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+conftest.c:11:28: fatal error: ac_nonexistent.h: No such file or directory
+compilation terminated.
+configure:4288: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| /* end confdefs.h.  */
+| #include <ac_nonexistent.h>
+configure:4317: checking for grep that handles long lines and -e
+configure:4375: result: /bin/grep
+configure:4380: checking for egrep
+configure:4442: result: /bin/grep -E
+configure:4447: checking for ANSI C header files
+configure:4467: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4467: $? = 0
+configure:4540: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:4540: $? = 0
+configure:4540: ./conftest
+configure:4540: $? = 0
+configure:4551: result: yes
+configure:4564: checking for sys/types.h
+configure:4564: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4564: $? = 0
+configure:4564: result: yes
+configure:4564: checking for sys/stat.h
+configure:4564: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4564: $? = 0
+configure:4564: result: yes
+configure:4564: checking for stdlib.h
+configure:4564: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4564: $? = 0
+configure:4564: result: yes
+configure:4564: checking for string.h
+configure:4564: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4564: $? = 0
+configure:4564: result: yes
+configure:4564: checking for memory.h
+configure:4564: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4564: $? = 0
+configure:4564: result: yes
+configure:4564: checking for strings.h
+configure:4564: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4564: $? = 0
+configure:4564: result: yes
+configure:4564: checking for inttypes.h
+configure:4564: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4564: $? = 0
+configure:4564: result: yes
+configure:4564: checking for stdint.h
+configure:4564: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4564: $? = 0
+configure:4564: result: yes
+configure:4564: checking for unistd.h
+configure:4564: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4564: $? = 0
+configure:4564: result: yes
+configure:4577: checking minix/config.h usability
+configure:4577: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+conftest.c:54:26: fatal error: minix/config.h: No such file or directory
+compilation terminated.
+configure:4577: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| /* end confdefs.h.  */
+| #include <stdio.h>
+| #ifdef HAVE_SYS_TYPES_H
+| # include <sys/types.h>
+| #endif
+| #ifdef HAVE_SYS_STAT_H
+| # include <sys/stat.h>
+| #endif
+| #ifdef STDC_HEADERS
+| # include <stdlib.h>
+| # include <stddef.h>
+| #else
+| # ifdef HAVE_STDLIB_H
+| #  include <stdlib.h>
+| # endif
+| #endif
+| #ifdef HAVE_STRING_H
+| # if !defined STDC_HEADERS && defined HAVE_MEMORY_H
+| #  include <memory.h>
+| # endif
+| # include <string.h>
+| #endif
+| #ifdef HAVE_STRINGS_H
+| # include <strings.h>
+| #endif
+| #ifdef HAVE_INTTYPES_H
+| # include <inttypes.h>
+| #endif
+| #ifdef HAVE_STDINT_H
+| # include <stdint.h>
+| #endif
+| #ifdef HAVE_UNISTD_H
+| # include <unistd.h>
+| #endif
+| #include <minix/config.h>
+configure:4577: result: no
+configure:4577: checking minix/config.h presence
+configure:4577: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+conftest.c:21:26: fatal error: minix/config.h: No such file or directory
+compilation terminated.
+configure:4577: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| /* end confdefs.h.  */
+| #include <minix/config.h>
+configure:4577: result: no
+configure:4577: checking for minix/config.h
+configure:4577: result: no
+configure:4598: checking whether it is safe to define __EXTENSIONS__
+configure:4616: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:4616: $? = 0
+configure:4623: result: yes
+configure:4749: checking for C++ compiler version
+configure:4758: g++ --version >&5
+g++ (Ubuntu/Linaro 4.6.1-9ubuntu3) 4.6.1
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+configure:4769: $? = 0
+configure:4758: g++ -v >&5
+Using built-in specs.
+COLLECT_GCC=g++
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.6.1/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu/Linaro 4.6.1-9ubuntu3' --with-bugurl=file:///usr/share/doc/gcc-4.6/README.Bugs --enable-languages=c,c++,fortran,objc,obj-c++,go --prefix=/usr --program-suffix=-4.6 --enable-shared --enable-linker-build-id --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --with-gxx-include-dir=/usr/include/c++/4.6 --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --enable-plugin --enable-objc-gc --disable-werror --with-arch-32=i686 --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 4.6.1 (Ubuntu/Linaro 4.6.1-9ubuntu3)
+configure:4769: $? = 0
+configure:4758: g++ -V >&5
+g++: error: unrecognized option '-V'
+g++: fatal error: no input files
+compilation terminated.
+configure:4769: $? = 4
+configure:4758: g++ -qversion >&5
+g++: error: unrecognized option '-qversion'
+g++: fatal error: no input files
+compilation terminated.
+configure:4769: $? = 4
+configure:4773: checking whether we are using the GNU C++ compiler
+configure:4792: g++ -c -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.cpp >&5
+configure:4792: $? = 0
+configure:4801: result: yes
+configure:4810: checking whether g++ accepts -g
+configure:4830: g++ -c -g -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.cpp >&5
+configure:4830: $? = 0
+configure:4871: result: yes
+configure:4896: checking dependency style of g++
+configure:5006: result: gcc3
+configure:5021: checking whether make sets $(MAKE)
+configure:5043: result: yes
+configure:5081: checking build system type
+configure:5095: result: x86_64-unknown-linux-gnu
+configure:5115: checking host system type
+configure:5128: result: x86_64-unknown-linux-gnu
+configure:5169: checking how to print strings
+configure:5196: result: printf
+configure:5217: checking for a sed that does not truncate output
+configure:5281: result: /bin/sed
+configure:5299: checking for fgrep
+configure:5361: result: /bin/grep -F
+configure:5396: checking for ld used by gcc
+configure:5463: result: g++
+configure:5470: checking if the linker (g++) is GNU ld
+configure:5485: result: no
+configure:5497: checking for BSD- or MS-compatible name lister (nm)
+configure:5546: result: /usr/bin/nm -B
+configure:5676: checking the name lister (/usr/bin/nm -B) interface
+configure:5683: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:5686: /usr/bin/nm -B "conftest.o"
+configure:5689: output
+0000000000000000 B some_variable
+configure:5696: result: BSD nm
+configure:5699: checking whether ln -s works
+configure:5703: result: yes
+configure:5711: checking the maximum length of command line arguments
+configure:5836: result: 1572864
+configure:5853: checking whether the shell understands some XSI constructs
+configure:5863: result: yes
+configure:5867: checking whether the shell understands "+="
+configure:5873: result: yes
+configure:5908: checking how to convert x86_64-unknown-linux-gnu file names to x86_64-unknown-linux-gnu format
+configure:5948: result: func_convert_file_noop
+configure:5955: checking how to convert x86_64-unknown-linux-gnu file names to toolchain format
+configure:5975: result: func_convert_file_noop
+configure:5982: checking for g++ option to reload object files
+configure:5989: result: -r
+configure:6063: checking for objdump
+configure:6079: found /usr/bin/objdump
+configure:6090: result: objdump
+configure:6122: checking how to recognize dependent libraries
+configure:6324: result: pass_all
+configure:6409: checking for dlltool
+configure:6439: result: no
+configure:6469: checking how to associate runtime and link libraries
+configure:6496: result: printf %s\n
+configure:6556: checking for ar
+configure:6572: found /usr/bin/ar
+configure:6583: result: ar
+configure:6620: checking for archiver @FILE support
+configure:6637: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:6637: $? = 0
+configure:6640: ar cru libconftest.a @conftest.lst >&5
+configure:6643: $? = 0
+configure:6648: ar cru libconftest.a @conftest.lst >&5
+ar: conftest.o: No such file or directory
+configure:6651: $? = 1
+configure:6663: result: @
+configure:6721: checking for strip
+configure:6737: found /usr/bin/strip
+configure:6748: result: strip
+configure:6820: checking for ranlib
+configure:6836: found /usr/bin/ranlib
+configure:6847: result: ranlib
+configure:6949: checking command to parse /usr/bin/nm -B output from gcc object
+configure:7068: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:7071: $? = 0
+configure:7075: /usr/bin/nm -B conftest.o \| sed -n -e 's/^.*[ ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[ ][ ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p' | sed '/ __gnu_lto/d' \> conftest.nm
+configure:7078: $? = 0
+configure:7144: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c conftstm.o >&5
+configure:7147: $? = 0
+configure:7185: result: ok
+configure:7222: checking for sysroot
+configure:7252: result: no
+configure:7329: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:7332: $? = 0
+configure:7495: checking for mt
+configure:7511: found /bin/mt
+configure:7522: result: mt
+configure:7545: checking if mt is a manifest tool
+configure:7551: mt '-?'
+configure:7559: result: no
+configure:8188: checking for dlfcn.h
+configure:8188: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:8188: $? = 0
+configure:8188: result: yes
+configure:8386: checking for objdir
+configure:8401: result: .libs
+configure:8672: checking if gcc supports -fno-rtti -fno-exceptions
+configure:8690: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fno-rtti -fno-exceptions conftest.c >&5
+cc1: warning: command line option '-fno-rtti' is valid for C++/ObjC++ but not for C [enabled by default]
+configure:8694: $? = 0
+configure:8707: result: no
+configure:9017: checking for gcc option to produce PIC
+configure:9024: result: -fPIC -DPIC
+configure:9032: checking if gcc PIC flag -fPIC -DPIC works
+configure:9050: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fPIC -DPIC -DPIC conftest.c >&5
+configure:9054: $? = 0
+configure:9067: result: yes
+configure:9096: checking if gcc static flag -static works
+configure:9124: result: yes
+configure:9139: checking if gcc supports -c -o file.o
+configure:9160: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -o out/conftest2.o conftest.c >&5
+configure:9164: $? = 0
+configure:9186: result: yes
+configure:9194: checking if gcc supports -c -o file.o
+configure:9241: result: yes
+configure:9274: checking whether the gcc linker (g++ -m elf_x86_64) supports shared libraries
+configure:10436: result: no
+configure:10681: checking dynamic linker characteristics
+configure:11196: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config  conftest.c  >&5
+configure:11196: $? = 0
+configure:11430: result: GNU/Linux ld.so
+configure:11537: checking how to hardcode library paths into programs
+configure:11562: result: unsupported
+configure:12102: checking whether stripping libraries is possible
+configure:12107: result: yes
+configure:12142: checking if libtool supports shared libraries
+configure:12144: result: no
+configure:12147: checking whether to build shared libraries
+configure:12168: result: no
+configure:12171: checking whether to build static libraries
+configure:12175: result: yes
+configure:12198: checking how to run the C++ preprocessor
+configure:12225: g++ -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.cpp
+configure:12225: $? = 0
+configure:12239: g++ -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.cpp
+conftest.cpp:28:28: fatal error: ac_nonexistent.h: No such file or directory
+compilation terminated.
+configure:12239: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| /* end confdefs.h.  */
+| #include <ac_nonexistent.h>
+configure:12264: result: g++ -E
+configure:12284: g++ -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.cpp
+configure:12284: $? = 0
+configure:12298: g++ -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.cpp
+conftest.cpp:28:28: fatal error: ac_nonexistent.h: No such file or directory
+compilation terminated.
+configure:12298: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| /* end confdefs.h.  */
+| #include <ac_nonexistent.h>
+configure:12468: checking for ld used by g++
+configure:12535: result: g++ -m elf_x86_64
+configure:12542: checking if the linker (g++ -m elf_x86_64) is GNU ld
+configure:12557: result: no
+configure:12612: checking whether the g++ linker (g++ -m elf_x86_64) supports shared libraries
+configure:13616: result: yes
+configure:13651: g++ -c -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.cpp >&5
+configure:13654: $? = 0
+configure:14174: checking for g++ option to produce PIC
+configure:14181: result: -fPIC -DPIC
+configure:14189: checking if g++ PIC flag -fPIC -DPIC works
+configure:14207: g++ -c -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fPIC -DPIC -DPIC conftest.cpp >&5
+configure:14211: $? = 0
+configure:14224: result: yes
+configure:14247: checking if g++ static flag -static works
+configure:14275: result: yes
+configure:14287: checking if g++ supports -c -o file.o
+configure:14308: g++ -c -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -o out/conftest2.o conftest.cpp >&5
+configure:14312: $? = 0
+configure:14334: result: yes
+configure:14339: checking if g++ supports -c -o file.o
+configure:14386: result: yes
+configure:14416: checking whether the g++ linker (g++ -m elf_x86_64) supports shared libraries
+configure:14453: result: yes
+configure:14596: checking dynamic linker characteristics
+configure:15279: result: GNU/Linux ld.so
+configure:15332: checking how to hardcode library paths into programs
+configure:15357: result: unsupported
+configure:15417: checking whether NLS is requested
+configure:15426: result: yes
+configure:15467: checking for msgfmt
+configure: trying /usr/bin/msgfmt...
+0 translated messages.
+configure:15499: result: /usr/bin/msgfmt
+configure:15508: checking for gmsgfmt
+configure:15539: result: /usr/bin/msgfmt
+configure:15590: checking for xgettext
+configure: trying /usr/bin/xgettext...
+/usr/bin/xgettext: warning: file `/dev/null' extension `' is unknown; will try C
+configure:15622: result: /usr/bin/xgettext
+configure:15668: checking for msgmerge
+configure: trying /usr/bin/msgmerge...
+configure:15699: result: /usr/bin/msgmerge
+configure:15717: checking whether we are using the GNU C Library 2 or newer
+configure:15744: result: yes
+configure:15793: checking for ranlib
+configure:15820: result: ranlib
+configure:15847: checking for simple visibility declarations
+configure:15869: gcc -c -g -O2 -fvisibility=hidden -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:15869: $? = 0
+configure:15878: result: yes
+configure:15893: checking for inline
+configure:15909: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:15909: $? = 0
+configure:15917: result: inline
+configure:15935: checking for size_t
+configure:15935: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:15935: $? = 0
+configure:15935: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+conftest.c: In function 'main':
+conftest.c:65:21: error: expected expression before ')' token
+configure:15935: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| #define HAVE_VISIBILITY 1
+| /* end confdefs.h.  */
+| #include <stdio.h>
+| #ifdef HAVE_SYS_TYPES_H
+| # include <sys/types.h>
+| #endif
+| #ifdef HAVE_SYS_STAT_H
+| # include <sys/stat.h>
+| #endif
+| #ifdef STDC_HEADERS
+| # include <stdlib.h>
+| # include <stddef.h>
+| #else
+| # ifdef HAVE_STDLIB_H
+| #  include <stdlib.h>
+| # endif
+| #endif
+| #ifdef HAVE_STRING_H
+| # if !defined STDC_HEADERS && defined HAVE_MEMORY_H
+| #  include <memory.h>
+| # endif
+| # include <string.h>
+| #endif
+| #ifdef HAVE_STRINGS_H
+| # include <strings.h>
+| #endif
+| #ifdef HAVE_INTTYPES_H
+| # include <inttypes.h>
+| #endif
+| #ifdef HAVE_STDINT_H
+| # include <stdint.h>
+| #endif
+| #ifdef HAVE_UNISTD_H
+| # include <unistd.h>
+| #endif
+| int
+| main ()
+| {
+| if (sizeof ((size_t)))
+|           return 0;
+|   ;
+|   return 0;
+| }
+configure:15935: result: yes
+configure:15947: checking for stdint.h
+configure:15964: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:15964: $? = 0
+configure:15971: result: yes
+configure:15983: checking for working alloca.h
+configure:16000: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:16000: $? = 0
+configure:16008: result: yes
+configure:16016: checking for alloca
+configure:16053: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:16053: $? = 0
+configure:16061: result: yes
+configure:16176: checking for stdlib.h
+configure:16176: result: yes
+configure:16176: checking for unistd.h
+configure:16176: result: yes
+configure:16176: checking for sys/param.h
+configure:16176: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:16176: $? = 0
+configure:16176: result: yes
+configure:16196: checking for getpagesize
+configure:16196: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:16196: $? = 0
+configure:16196: result: yes
+configure:16205: checking for working mmap
+configure:16352: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:16352: $? = 0
+configure:16352: ./conftest
+configure:16352: $? = 0
+configure:16362: result: yes
+configure:16373: checking whether integer division by zero raises SIGFPE
+configure:16439: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+conftest.c:51:5: warning: built-in function 'nan' declared as non-function [enabled by default]
+configure:16439: $? = 0
+configure:16439: ./conftest
+configure:16439: $? = 0
+configure:16451: result: yes
+configure:16464: checking for inttypes.h
+configure:16481: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:16481: $? = 0
+configure:16488: result: yes
+configure:16499: checking for unsigned long long int
+configure:16539: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:16539: $? = 0
+configure:16547: result: yes
+configure:16577: checking for inttypes.h
+configure:16577: result: yes
+configure:16588: checking whether the inttypes.h PRIxNN macros are broken
+configure:16609: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:16609: $? = 0
+configure:16617: result: no
+configure:16712: checking for ld used by GCC
+configure:16776: result: g++ -m elf_x86_64
+configure:16783: checking if the linker (g++ -m elf_x86_64) is GNU ld
+configure:16796: result: no
+configure:16803: checking for shared library run path origin
+configure:16816: result: done
+configure:16862: checking whether imported symbols can be declared weak
+configure:16877: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:16877: $? = 0
+configure:16882: result: yes
+configure:16887: checking pthread.h usability
+configure:16887: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:16887: $? = 0
+configure:16887: result: yes
+configure:16887: checking pthread.h presence
+configure:16887: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+configure:16887: $? = 0
+configure:16887: result: yes
+configure:16887: checking for pthread.h
+configure:16887: result: yes
+configure:16915: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+/tmp/ccPRrDdD.o: In function `main':
+/home/jrake/ledger/conftest.c:47: undefined reference to `pthread_mutexattr_init'
+collect2: ld returned 1 exit status
+configure:16915: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| #define HAVE_VISIBILITY 1
+| #define HAVE_STDINT_H_WITH_UINTMAX 1
+| #define HAVE_ALLOCA_H 1
+| #define HAVE_ALLOCA 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETPAGESIZE 1
+| #define HAVE_MMAP 1
+| #define INTDIV0_RAISES_SIGFPE 1
+| #define HAVE_INTTYPES_H_WITH_UINTMAX 1
+| #define HAVE_UNSIGNED_LONG_LONG_INT 1
+| #define HAVE_UINTMAX_T 1
+| #define HAVE_INTTYPES_H 1
+| /* end confdefs.h.  */
+| #include <pthread.h>
+| int
+| main ()
+| {
+| pthread_mutex_lock((pthread_mutex_t*)0);
+|            pthread_mutexattr_init((pthread_mutexattr_t*)0);
+|   ;
+|   return 0;
+| }
+configure:16978: checking for pthread_kill in -lpthread
+configure:17003: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c -lpthread   >&5
+configure:17003: $? = 0
+configure:17012: result: yes
+configure:17082: checking for pthread_rwlock_t
+configure:17082: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:17082: $? = 0
+configure:17082: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+conftest.c: In function 'main':
+conftest.c:49:31: error: expected expression before ')' token
+configure:17082: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| #define HAVE_VISIBILITY 1
+| #define HAVE_STDINT_H_WITH_UINTMAX 1
+| #define HAVE_ALLOCA_H 1
+| #define HAVE_ALLOCA 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETPAGESIZE 1
+| #define HAVE_MMAP 1
+| #define INTDIV0_RAISES_SIGFPE 1
+| #define HAVE_INTTYPES_H_WITH_UINTMAX 1
+| #define HAVE_UNSIGNED_LONG_LONG_INT 1
+| #define HAVE_UINTMAX_T 1
+| #define HAVE_INTTYPES_H 1
+| #define USE_POSIX_THREADS 1
+| #define USE_POSIX_THREADS_WEAK 1
+| /* end confdefs.h.  */
+| #include <pthread.h>
+|
+| int
+| main ()
+| {
+| if (sizeof ((pthread_rwlock_t)))
+|           return 0;
+|   ;
+|   return 0;
+| }
+configure:17082: result: yes
+configure:17107: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:17107: $? = 0
+configure:17705: checking for multithread API to use
+configure:17707: result: posix
+configure:18175: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18175: $? = 0
+configure:18186: checking argz.h usability
+configure:18186: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:18186: $? = 0
+configure:18186: result: yes
+configure:18186: checking argz.h presence
+configure:18186: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+configure:18186: $? = 0
+configure:18186: result: yes
+configure:18186: checking for argz.h
+configure:18186: result: yes
+configure:18186: checking for inttypes.h
+configure:18186: result: yes
+configure:18186: checking limits.h usability
+configure:18186: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:18186: $? = 0
+configure:18186: result: yes
+configure:18186: checking limits.h presence
+configure:18186: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+configure:18186: $? = 0
+configure:18186: result: yes
+configure:18186: checking for limits.h
+configure:18186: result: yes
+configure:18186: checking for unistd.h
+configure:18186: result: yes
+configure:18186: checking for sys/param.h
+configure:18186: result: yes
+configure:18201: checking for getcwd
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for getegid
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for geteuid
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for getgid
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for getuid
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for mempcpy
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+conftest.c:80:6: warning: conflicting types for built-in function 'mempcpy' [enabled by default]
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for munmap
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for stpcpy
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+conftest.c:82:6: warning: conflicting types for built-in function 'stpcpy' [enabled by default]
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for strcasecmp
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+conftest.c:83:6: warning: conflicting types for built-in function 'strcasecmp' [enabled by default]
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for strdup
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+conftest.c:84:6: warning: conflicting types for built-in function 'strdup' [enabled by default]
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for strtoul
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for tsearch
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for argz_count
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for argz_stringify
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for argz_next
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18201: checking for __fsetlocking
+configure:18201: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18201: $? = 0
+configure:18201: result: yes
+configure:18212: checking whether feof_unlocked is declared
+configure:18232: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:18232: $? = 0
+configure:18239: result: yes
+configure:18253: checking whether fgets_unlocked is declared
+configure:18273: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:18273: $? = 0
+configure:18280: result: yes
+configure:18324: checking for iconv
+configure:18346: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18346: $? = 0
+configure:18378: result: yes
+configure:18381: checking for working iconv
+configure:18457: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18457: $? = 0
+configure:18457: ./conftest
+configure:18457: $? = 0
+configure:18469: result: yes
+configure:18497: checking for iconv declaration
+configure:18526: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:18526: $? = 0
+configure:18537: result:
+         extern size_t iconv (iconv_t cd, char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t *outbytesleft);
+configure:18548: checking for NL_LOCALE_NAME macro
+configure:18567: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18567: $? = 0
+configure:18576: result: yes
+configure:18588: checking for bison
+configure:18618: result: no
+configure:18646: checking for long long int
+configure:18686: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18686: $? = 0
+configure:18716: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18716: $? = 0
+configure:18716: ./conftest
+configure:18716: $? = 0
+configure:18731: result: yes
+configure:18740: checking for wchar_t
+configure:18757: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:18757: $? = 0
+configure:18764: result: yes
+configure:18773: checking for wint_t
+configure:18798: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:18798: $? = 0
+configure:18805: result: yes
+configure:18816: checking for intmax_t
+configure:18842: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:18842: $? = 0
+configure:18849: result: yes
+configure:18859: checking whether printf() supports POSIX/XSI format strings
+configure:18900: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:18900: $? = 0
+configure:18900: ./conftest
+configure:18900: $? = 0
+configure:18911: result: yes
+configure:18922: checking whether we are using the GNU C Library 2.1 or newer
+configure:18949: result: yes
+configure:18958: checking for stdint.h
+configure:18958: result: yes
+configure:18968: checking for SIZE_MAX
+configure:19040: result: yes
+configure:19055: checking for stdint.h
+configure:19055: result: yes
+configure:19067: checking for CFPreferencesCopyAppValue
+configure:19085: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  -Wl,-framework -Wl,CoreFoundation >&5
+conftest.c:80:42: fatal error: CoreFoundation/CFPreferences.h: No such file or directory
+compilation terminated.
+configure:19085: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| #define HAVE_VISIBILITY 1
+| #define HAVE_STDINT_H_WITH_UINTMAX 1
+| #define HAVE_ALLOCA_H 1
+| #define HAVE_ALLOCA 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETPAGESIZE 1
+| #define HAVE_MMAP 1
+| #define INTDIV0_RAISES_SIGFPE 1
+| #define HAVE_INTTYPES_H_WITH_UINTMAX 1
+| #define HAVE_UNSIGNED_LONG_LONG_INT 1
+| #define HAVE_UINTMAX_T 1
+| #define HAVE_INTTYPES_H 1
+| #define USE_POSIX_THREADS 1
+| #define USE_POSIX_THREADS_WEAK 1
+| #define HAVE_PTHREAD_RWLOCK 1
+| #define HAVE_PTHREAD_MUTEX_RECURSIVE 1
+| #define HAVE_BUILTIN_EXPECT 1
+| #define HAVE_ARGZ_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_LIMITS_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETCWD 1
+| #define HAVE_GETEGID 1
+| #define HAVE_GETEUID 1
+| #define HAVE_GETGID 1
+| #define HAVE_GETUID 1
+| #define HAVE_MEMPCPY 1
+| #define HAVE_MUNMAP 1
+| #define HAVE_STPCPY 1
+| #define HAVE_STRCASECMP 1
+| #define HAVE_STRDUP 1
+| #define HAVE_STRTOUL 1
+| #define HAVE_TSEARCH 1
+| #define HAVE_ARGZ_COUNT 1
+| #define HAVE_ARGZ_STRINGIFY 1
+| #define HAVE_ARGZ_NEXT 1
+| #define HAVE___FSETLOCKING 1
+| #define HAVE_DECL_FEOF_UNLOCKED 1
+| #define HAVE_DECL_FGETS_UNLOCKED 1
+| #define HAVE_ICONV 1
+| #define ICONV_CONST
+| #define HAVE_NL_LOCALE_NAME 1
+| #define HAVE_LONG_LONG_INT 1
+| #define HAVE_WCHAR_T 1
+| #define HAVE_WINT_T 1
+| #define HAVE_INTMAX_T 1
+| #define HAVE_POSIX_PRINTF 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_STDINT_H 1
+| /* end confdefs.h.  */
+| #include <CoreFoundation/CFPreferences.h>
+| int
+| main ()
+| {
+| CFPreferencesCopyAppValue(NULL, NULL)
+|   ;
+|   return 0;
+| }
+configure:19094: result: no
+configure:19101: checking for CFLocaleCopyCurrent
+configure:19119: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  -Wl,-framework -Wl,CoreFoundation >&5
+conftest.c:80:37: fatal error: CoreFoundation/CFLocale.h: No such file or directory
+compilation terminated.
+configure:19119: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| #define HAVE_VISIBILITY 1
+| #define HAVE_STDINT_H_WITH_UINTMAX 1
+| #define HAVE_ALLOCA_H 1
+| #define HAVE_ALLOCA 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETPAGESIZE 1
+| #define HAVE_MMAP 1
+| #define INTDIV0_RAISES_SIGFPE 1
+| #define HAVE_INTTYPES_H_WITH_UINTMAX 1
+| #define HAVE_UNSIGNED_LONG_LONG_INT 1
+| #define HAVE_UINTMAX_T 1
+| #define HAVE_INTTYPES_H 1
+| #define USE_POSIX_THREADS 1
+| #define USE_POSIX_THREADS_WEAK 1
+| #define HAVE_PTHREAD_RWLOCK 1
+| #define HAVE_PTHREAD_MUTEX_RECURSIVE 1
+| #define HAVE_BUILTIN_EXPECT 1
+| #define HAVE_ARGZ_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_LIMITS_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETCWD 1
+| #define HAVE_GETEGID 1
+| #define HAVE_GETEUID 1
+| #define HAVE_GETGID 1
+| #define HAVE_GETUID 1
+| #define HAVE_MEMPCPY 1
+| #define HAVE_MUNMAP 1
+| #define HAVE_STPCPY 1
+| #define HAVE_STRCASECMP 1
+| #define HAVE_STRDUP 1
+| #define HAVE_STRTOUL 1
+| #define HAVE_TSEARCH 1
+| #define HAVE_ARGZ_COUNT 1
+| #define HAVE_ARGZ_STRINGIFY 1
+| #define HAVE_ARGZ_NEXT 1
+| #define HAVE___FSETLOCKING 1
+| #define HAVE_DECL_FEOF_UNLOCKED 1
+| #define HAVE_DECL_FGETS_UNLOCKED 1
+| #define HAVE_ICONV 1
+| #define ICONV_CONST
+| #define HAVE_NL_LOCALE_NAME 1
+| #define HAVE_LONG_LONG_INT 1
+| #define HAVE_WCHAR_T 1
+| #define HAVE_WINT_T 1
+| #define HAVE_INTMAX_T 1
+| #define HAVE_POSIX_PRINTF 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_STDINT_H 1
+| /* end confdefs.h.  */
+| #include <CoreFoundation/CFLocale.h>
+| int
+| main ()
+| {
+| CFLocaleCopyCurrent();
+|   ;
+|   return 0;
+| }
+configure:19128: result: no
+configure:19146: checking for ptrdiff_t
+configure:19146: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:19146: $? = 0
+configure:19146: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+conftest.c: In function 'main':
+conftest.c:116:24: error: expected expression before ')' token
+configure:19146: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| #define HAVE_VISIBILITY 1
+| #define HAVE_STDINT_H_WITH_UINTMAX 1
+| #define HAVE_ALLOCA_H 1
+| #define HAVE_ALLOCA 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETPAGESIZE 1
+| #define HAVE_MMAP 1
+| #define INTDIV0_RAISES_SIGFPE 1
+| #define HAVE_INTTYPES_H_WITH_UINTMAX 1
+| #define HAVE_UNSIGNED_LONG_LONG_INT 1
+| #define HAVE_UINTMAX_T 1
+| #define HAVE_INTTYPES_H 1
+| #define USE_POSIX_THREADS 1
+| #define USE_POSIX_THREADS_WEAK 1
+| #define HAVE_PTHREAD_RWLOCK 1
+| #define HAVE_PTHREAD_MUTEX_RECURSIVE 1
+| #define HAVE_BUILTIN_EXPECT 1
+| #define HAVE_ARGZ_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_LIMITS_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETCWD 1
+| #define HAVE_GETEGID 1
+| #define HAVE_GETEUID 1
+| #define HAVE_GETGID 1
+| #define HAVE_GETUID 1
+| #define HAVE_MEMPCPY 1
+| #define HAVE_MUNMAP 1
+| #define HAVE_STPCPY 1
+| #define HAVE_STRCASECMP 1
+| #define HAVE_STRDUP 1
+| #define HAVE_STRTOUL 1
+| #define HAVE_TSEARCH 1
+| #define HAVE_ARGZ_COUNT 1
+| #define HAVE_ARGZ_STRINGIFY 1
+| #define HAVE_ARGZ_NEXT 1
+| #define HAVE___FSETLOCKING 1
+| #define HAVE_DECL_FEOF_UNLOCKED 1
+| #define HAVE_DECL_FGETS_UNLOCKED 1
+| #define HAVE_ICONV 1
+| #define ICONV_CONST
+| #define HAVE_NL_LOCALE_NAME 1
+| #define HAVE_LONG_LONG_INT 1
+| #define HAVE_WCHAR_T 1
+| #define HAVE_WINT_T 1
+| #define HAVE_INTMAX_T 1
+| #define HAVE_POSIX_PRINTF 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_STDINT_H 1
+| /* end confdefs.h.  */
+| #include <stdio.h>
+| #ifdef HAVE_SYS_TYPES_H
+| # include <sys/types.h>
+| #endif
+| #ifdef HAVE_SYS_STAT_H
+| # include <sys/stat.h>
+| #endif
+| #ifdef STDC_HEADERS
+| # include <stdlib.h>
+| # include <stddef.h>
+| #else
+| # ifdef HAVE_STDLIB_H
+| #  include <stdlib.h>
+| # endif
+| #endif
+| #ifdef HAVE_STRING_H
+| # if !defined STDC_HEADERS && defined HAVE_MEMORY_H
+| #  include <memory.h>
+| # endif
+| # include <string.h>
+| #endif
+| #ifdef HAVE_STRINGS_H
+| # include <strings.h>
+| #endif
+| #ifdef HAVE_INTTYPES_H
+| # include <inttypes.h>
+| #endif
+| #ifdef HAVE_STDINT_H
+| # include <stdint.h>
+| #endif
+| #ifdef HAVE_UNISTD_H
+| # include <unistd.h>
+| #endif
+| int
+| main ()
+| {
+| if (sizeof ((ptrdiff_t)))
+|           return 0;
+|   ;
+|   return 0;
+| }
+configure:19146: result: yes
+configure:19159: checking stddef.h usability
+configure:19159: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:19159: $? = 0
+configure:19159: result: yes
+configure:19159: checking stddef.h presence
+configure:19159: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+configure:19159: $? = 0
+configure:19159: result: yes
+configure:19159: checking for stddef.h
+configure:19159: result: yes
+configure:19159: checking for stdlib.h
+configure:19159: result: yes
+configure:19159: checking for string.h
+configure:19159: result: yes
+configure:19172: checking for asprintf
+configure:19172: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:19172: $? = 0
+configure:19172: result: yes
+configure:19172: checking for fwprintf
+configure:19172: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:19172: $? = 0
+configure:19172: result: yes
+configure:19172: checking for putenv
+configure:19172: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:19172: $? = 0
+configure:19172: result: yes
+configure:19172: checking for setenv
+configure:19172: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:19172: $? = 0
+configure:19172: result: yes
+configure:19172: checking for setlocale
+configure:19172: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:19172: $? = 0
+configure:19172: result: yes
+configure:19172: checking for snprintf
+configure:19172: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+conftest.c:111:6: warning: conflicting types for built-in function 'snprintf' [enabled by default]
+configure:19172: $? = 0
+configure:19172: result: yes
+configure:19172: checking for wcslen
+configure:19172: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:19172: $? = 0
+configure:19172: result: yes
+configure:19183: checking whether _snprintf is declared
+configure:19203: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+conftest.c: In function 'main':
+conftest.c:96:22: error: '_snprintf' undeclared (first use in this function)
+conftest.c:96:22: note: each undeclared identifier is reported only once for each function it appears in
+configure:19203: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| #define HAVE_VISIBILITY 1
+| #define HAVE_STDINT_H_WITH_UINTMAX 1
+| #define HAVE_ALLOCA_H 1
+| #define HAVE_ALLOCA 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETPAGESIZE 1
+| #define HAVE_MMAP 1
+| #define INTDIV0_RAISES_SIGFPE 1
+| #define HAVE_INTTYPES_H_WITH_UINTMAX 1
+| #define HAVE_UNSIGNED_LONG_LONG_INT 1
+| #define HAVE_UINTMAX_T 1
+| #define HAVE_INTTYPES_H 1
+| #define USE_POSIX_THREADS 1
+| #define USE_POSIX_THREADS_WEAK 1
+| #define HAVE_PTHREAD_RWLOCK 1
+| #define HAVE_PTHREAD_MUTEX_RECURSIVE 1
+| #define HAVE_BUILTIN_EXPECT 1
+| #define HAVE_ARGZ_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_LIMITS_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETCWD 1
+| #define HAVE_GETEGID 1
+| #define HAVE_GETEUID 1
+| #define HAVE_GETGID 1
+| #define HAVE_GETUID 1
+| #define HAVE_MEMPCPY 1
+| #define HAVE_MUNMAP 1
+| #define HAVE_STPCPY 1
+| #define HAVE_STRCASECMP 1
+| #define HAVE_STRDUP 1
+| #define HAVE_STRTOUL 1
+| #define HAVE_TSEARCH 1
+| #define HAVE_ARGZ_COUNT 1
+| #define HAVE_ARGZ_STRINGIFY 1
+| #define HAVE_ARGZ_NEXT 1
+| #define HAVE___FSETLOCKING 1
+| #define HAVE_DECL_FEOF_UNLOCKED 1
+| #define HAVE_DECL_FGETS_UNLOCKED 1
+| #define HAVE_ICONV 1
+| #define ICONV_CONST
+| #define HAVE_NL_LOCALE_NAME 1
+| #define HAVE_LONG_LONG_INT 1
+| #define HAVE_WCHAR_T 1
+| #define HAVE_WINT_T 1
+| #define HAVE_INTMAX_T 1
+| #define HAVE_POSIX_PRINTF 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_STDDEF_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_ASPRINTF 1
+| #define HAVE_FWPRINTF 1
+| #define HAVE_PUTENV 1
+| #define HAVE_SETENV 1
+| #define HAVE_SETLOCALE 1
+| #define HAVE_SNPRINTF 1
+| #define HAVE_WCSLEN 1
+| /* end confdefs.h.  */
+| #include <stdio.h>
+| int
+| main ()
+| {
+|
+| #ifndef _snprintf
+|   char *p = (char *) _snprintf;
+| #endif
+|
+|   ;
+|   return 0;
+| }
+configure:19210: result: no
+configure:19224: checking whether _snwprintf is declared
+configure:19244: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+conftest.c: In function 'main':
+conftest.c:97:22: error: '_snwprintf' undeclared (first use in this function)
+conftest.c:97:22: note: each undeclared identifier is reported only once for each function it appears in
+configure:19244: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| #define HAVE_VISIBILITY 1
+| #define HAVE_STDINT_H_WITH_UINTMAX 1
+| #define HAVE_ALLOCA_H 1
+| #define HAVE_ALLOCA 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETPAGESIZE 1
+| #define HAVE_MMAP 1
+| #define INTDIV0_RAISES_SIGFPE 1
+| #define HAVE_INTTYPES_H_WITH_UINTMAX 1
+| #define HAVE_UNSIGNED_LONG_LONG_INT 1
+| #define HAVE_UINTMAX_T 1
+| #define HAVE_INTTYPES_H 1
+| #define USE_POSIX_THREADS 1
+| #define USE_POSIX_THREADS_WEAK 1
+| #define HAVE_PTHREAD_RWLOCK 1
+| #define HAVE_PTHREAD_MUTEX_RECURSIVE 1
+| #define HAVE_BUILTIN_EXPECT 1
+| #define HAVE_ARGZ_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_LIMITS_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETCWD 1
+| #define HAVE_GETEGID 1
+| #define HAVE_GETEUID 1
+| #define HAVE_GETGID 1
+| #define HAVE_GETUID 1
+| #define HAVE_MEMPCPY 1
+| #define HAVE_MUNMAP 1
+| #define HAVE_STPCPY 1
+| #define HAVE_STRCASECMP 1
+| #define HAVE_STRDUP 1
+| #define HAVE_STRTOUL 1
+| #define HAVE_TSEARCH 1
+| #define HAVE_ARGZ_COUNT 1
+| #define HAVE_ARGZ_STRINGIFY 1
+| #define HAVE_ARGZ_NEXT 1
+| #define HAVE___FSETLOCKING 1
+| #define HAVE_DECL_FEOF_UNLOCKED 1
+| #define HAVE_DECL_FGETS_UNLOCKED 1
+| #define HAVE_ICONV 1
+| #define ICONV_CONST
+| #define HAVE_NL_LOCALE_NAME 1
+| #define HAVE_LONG_LONG_INT 1
+| #define HAVE_WCHAR_T 1
+| #define HAVE_WINT_T 1
+| #define HAVE_INTMAX_T 1
+| #define HAVE_POSIX_PRINTF 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_STDDEF_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_ASPRINTF 1
+| #define HAVE_FWPRINTF 1
+| #define HAVE_PUTENV 1
+| #define HAVE_SETENV 1
+| #define HAVE_SETLOCALE 1
+| #define HAVE_SNPRINTF 1
+| #define HAVE_WCSLEN 1
+| #define HAVE_DECL__SNPRINTF 0
+| /* end confdefs.h.  */
+| #include <stdio.h>
+| int
+| main ()
+| {
+|
+| #ifndef _snwprintf
+|   char *p = (char *) _snwprintf;
+| #endif
+|
+|   ;
+|   return 0;
+| }
+configure:19251: result: no
+configure:19266: checking whether getc_unlocked is declared
+configure:19286: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:19286: $? = 0
+configure:19293: result: yes
+configure:19332: checking for nl_langinfo and CODESET
+configure:19348: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:19348: $? = 0
+configure:19357: result: yes
+configure:19366: checking for LC_MESSAGES
+configure:19382: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c  >&5
+configure:19382: $? = 0
+configure:19390: result: yes
+configure:19541: checking for CFPreferencesCopyAppValue
+configure:19568: result: no
+configure:19575: checking for CFLocaleCopyCurrent
+configure:19602: result: no
+configure:19637: checking whether included gettext is requested
+configure:19647: result: yes
+configure:20262: checking whether to use NLS
+configure:20264: result: yes
+configure:20267: checking where the gettext function comes from
+configure:20278: result: included intl directory
+configure:20374: checking for emacs
+configure:20390: found /usr/bin/emacs
+configure:20401: result: emacs
+configure:20425: checking where .elc files should go
+configure:20438: $EMACS -batch -q -eval '(while load-path (princ (concat (car load-path) "\n")) (setq load-path (cdr load-path)))' </dev/null >conftest.out
+Loading 00debian-vars...
+Loading /etc/emacs23/site-start.d/50auctex.el (source)...
+Loading /usr/local/share/emacs/site-lisp/auctex.el (source)...
+Loading /usr/local/share/emacs/site-lisp/preview-latex.el (source)...
+Loading /etc/emacs/site-start.d/50autoconf.el (source)...
+Loading /etc/emacs/site-start.d/50dictionaries-common.el (source)...
+Loading debian-ispell...
+Loading /var/cache/dictionaries-common/emacsen-ispell-default.el (source)...
+Loading /var/cache/dictionaries-common/emacsen-ispell-dicts.el (source)...
+configure:20441: $? = 0
+configure:20454: result: ${datarootdir}/emacs/site-lisp
+configure:20583: checking if pipes can be used
+configure:20628: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp  >&5
+configure:20628: $? = 0
+configure:20642: result: true
+configure:20652: checking if GMP is available
+configure:20678: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp -lgmp  >&5
+configure:20678: $? = 0
+configure:20693: result: true
+configure:20706: checking if MPFR is available
+configure:20734: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp -lmpfr -lgmp  >&5
+configure:20734: $? = 0
+configure:20749: result: true
+configure:20762: checking if libedit is available
+configure:20790: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp -ledit -lmpfr -lgmp  >&5
+configure:20790: $? = 0
+configure:20805: result: true
+configure:20816: checking if boost_regex is available
+configure:20840: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:20840: $? = 0
+configure:20855: result: true
+configure:20867: checking if boost_regex w/ICU is available
+configure:20894: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:20894: $? = 0
+configure:20909: result: true
+configure:20920: checking if boost_date_time is available
+configure:20962: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:20962: $? = 0
+configure:20977: result: true
+configure:20990: checking if boost_filesystem is available
+configure:21014: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:21014: $? = 0
+configure:21029: result: true
+configure:21042: checking if boost_iostreams is available
+configure:21076: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp -lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:21076: $? = 0
+configure:21091: result: true
+configure:21471: checking if boost_test is available
+configure:21490: g++ -o conftest -Wconversion -pthread -g -pipe -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.cpp -lboost_unit_test_framework -lboost_test_exec_monitor -lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+/usr/bin/ld: cannot find -lboost_unit_test_framework
+/usr/bin/ld: cannot find -lboost_test_exec_monitor
+collect2: ld returned 1 exit status
+configure:21490: $? = 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ledger"
+| #define PACKAGE_TARNAME "ledger"
+| #define PACKAGE_VERSION "3.0.0-20120217"
+| #define PACKAGE_STRING "ledger 3.0.0-20120217"
+| #define PACKAGE_BUGREPORT "johnw@newartisans.com"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ledger"
+| #define VERSION "3.0.0-20120217"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define __EXTENSIONS__ 1
+| #define _ALL_SOURCE 1
+| #define _GNU_SOURCE 1
+| #define _POSIX_PTHREAD_SEMANTICS 1
+| #define _TANDEM_SOURCE 1
+| #define HAVE_DLFCN_H 1
+| #define LT_OBJDIR ".libs/"
+| #define HAVE_VISIBILITY 1
+| #define HAVE_STDINT_H_WITH_UINTMAX 1
+| #define HAVE_ALLOCA_H 1
+| #define HAVE_ALLOCA 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETPAGESIZE 1
+| #define HAVE_MMAP 1
+| #define INTDIV0_RAISES_SIGFPE 1
+| #define HAVE_INTTYPES_H_WITH_UINTMAX 1
+| #define HAVE_UNSIGNED_LONG_LONG_INT 1
+| #define HAVE_UINTMAX_T 1
+| #define HAVE_INTTYPES_H 1
+| #define USE_POSIX_THREADS 1
+| #define USE_POSIX_THREADS_WEAK 1
+| #define HAVE_PTHREAD_RWLOCK 1
+| #define HAVE_PTHREAD_MUTEX_RECURSIVE 1
+| #define HAVE_BUILTIN_EXPECT 1
+| #define HAVE_ARGZ_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_LIMITS_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_SYS_PARAM_H 1
+| #define HAVE_GETCWD 1
+| #define HAVE_GETEGID 1
+| #define HAVE_GETEUID 1
+| #define HAVE_GETGID 1
+| #define HAVE_GETUID 1
+| #define HAVE_MEMPCPY 1
+| #define HAVE_MUNMAP 1
+| #define HAVE_STPCPY 1
+| #define HAVE_STRCASECMP 1
+| #define HAVE_STRDUP 1
+| #define HAVE_STRTOUL 1
+| #define HAVE_TSEARCH 1
+| #define HAVE_ARGZ_COUNT 1
+| #define HAVE_ARGZ_STRINGIFY 1
+| #define HAVE_ARGZ_NEXT 1
+| #define HAVE___FSETLOCKING 1
+| #define HAVE_DECL_FEOF_UNLOCKED 1
+| #define HAVE_DECL_FGETS_UNLOCKED 1
+| #define HAVE_ICONV 1
+| #define ICONV_CONST
+| #define HAVE_NL_LOCALE_NAME 1
+| #define HAVE_LONG_LONG_INT 1
+| #define HAVE_WCHAR_T 1
+| #define HAVE_WINT_T 1
+| #define HAVE_INTMAX_T 1
+| #define HAVE_POSIX_PRINTF 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_STDDEF_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_ASPRINTF 1
+| #define HAVE_FWPRINTF 1
+| #define HAVE_PUTENV 1
+| #define HAVE_SETENV 1
+| #define HAVE_SETLOCALE 1
+| #define HAVE_SNPRINTF 1
+| #define HAVE_WCSLEN 1
+| #define HAVE_DECL__SNPRINTF 0
+| #define HAVE_DECL__SNWPRINTF 0
+| #define HAVE_DECL_GETC_UNLOCKED 1
+| #define HAVE_LANGINFO_CODESET 1
+| #define HAVE_LC_MESSAGES 1
+| #define ENABLE_NLS 1
+| #define DEBUG_MODE 1
+| #define USE_PCH 1
+| #define HAVE_UNIX_PIPES 1
+| #define HAVE_LIBEDIT 1
+| #define HAVE_BOOST_REGEX_UNICODE 1
+| /* end confdefs.h.  */
+| #define BOOST_TEST_MODULE sample
+|           #include <boost/test/unit_test.hpp>
+|           BOOST_AUTO_TEST_CASE(test_test) {}
+configure:21505: result: false
+configure:21518: checking for ANSI C header files
+configure:21622: result: yes
+configure:21630: checking whether stat file-mode macros are broken
+configure:21657: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:21657: $? = 0
+configure:21664: result: no
+configure:21674: checking langinfo.h usability
+configure:21674: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:21674: $? = 0
+configure:21674: result: yes
+configure:21674: checking langinfo.h presence
+configure:21674: gcc -E -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c
+configure:21674: $? = 0
+configure:21674: result: yes
+configure:21674: checking for langinfo.h
+configure:21674: result: yes
+configure:21686: checking for size_t
+configure:21686: result: yes
+configure:21697: checking whether struct tm is in sys/time.h or time.h
+configure:21717: gcc -c -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 conftest.c >&5
+configure:21717: $? = 0
+configure:21724: result: time.h
+configure:21740: checking for access
+configure:21740: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c -lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:21740: $? = 0
+configure:21740: result: yes
+configure:21740: checking for realpath
+configure:21740: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c -lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:21740: $? = 0
+configure:21740: result: yes
+configure:21740: checking for getpwuid
+configure:21740: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c -lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:21740: $? = 0
+configure:21740: result: yes
+configure:21740: checking for getpwnam
+configure:21740: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c -lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:21740: $? = 0
+configure:21740: result: yes
+configure:21740: checking for isatty
+configure:21740: gcc -o conftest -g -O2 -isystem /usr/local/include -isystem /usr/include/python2.7 -fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config conftest.c -lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp  >&5
+configure:21740: $? = 0
+configure:21740: result: yes
+configure:21931: creating ./config.status
+
+## ---------------------- ##
+## Running config.status. ##
+## ---------------------- ##
+
+This file was extended by ledger config.status 3.0.0-20120217, which was
+generated by GNU Autoconf 2.68.  Invocation command line was
+
+  CONFIG_FILES    =
+  CONFIG_HEADERS  =
+  CONFIG_LINKS    =
+  CONFIG_COMMANDS =
+  $ ./config.status
+
+on geertz
+
+config.status:1321: creating Makefile
+config.status:1321: creating po/Makefile.in
+config.status:1321: creating intl/Makefile
+config.status:1321: creating config.h
+config.status:1550: executing depfiles commands
+config.status:1550: executing libtool commands
+config.status:1550: executing po-directories commands
+
+## ---------------- ##
+## Cache variables. ##
+## ---------------- ##
+
+ac_cv_build=x86_64-unknown-linux-gnu
+ac_cv_c_compiler_gnu=yes
+ac_cv_c_inline=inline
+ac_cv_cxx_compiler_gnu=yes
+ac_cv_env_CCC_set=
+ac_cv_env_CCC_value=
+ac_cv_env_CC_set=set
+ac_cv_env_CC_value=gcc
+ac_cv_env_CFLAGS_set=
+ac_cv_env_CFLAGS_value=
+ac_cv_env_CPPFLAGS_set=set
+ac_cv_env_CPPFLAGS_value='-isystem /usr/local/include -isystem /usr/include/python2.7'
+ac_cv_env_CPP_set=
+ac_cv_env_CPP_value=
+ac_cv_env_CXXCPP_set=
+ac_cv_env_CXXCPP_value=
+ac_cv_env_CXXFLAGS_set=set
+ac_cv_env_CXXFLAGS_value='-Wconversion -pthread -g -pipe'
+ac_cv_env_CXX_set=set
+ac_cv_env_CXX_value=g++
+ac_cv_env_EMACSLOADPATH_set=
+ac_cv_env_EMACSLOADPATH_value=
+ac_cv_env_EMACS_set=
+ac_cv_env_EMACS_value=
+ac_cv_env_LDFLAGS_set=set
+ac_cv_env_LDFLAGS_value='-fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config'
+ac_cv_env_LIBS_set=
+ac_cv_env_LIBS_value=
+ac_cv_env_build_alias_set=
+ac_cv_env_build_alias_value=
+ac_cv_env_host_alias_set=
+ac_cv_env_host_alias_value=
+ac_cv_env_target_alias_set=
+ac_cv_env_target_alias_value=
+ac_cv_func___fsetlocking=yes
+ac_cv_func_access=yes
+ac_cv_func_alloca_works=yes
+ac_cv_func_argz_count=yes
+ac_cv_func_argz_next=yes
+ac_cv_func_argz_stringify=yes
+ac_cv_func_asprintf=yes
+ac_cv_func_fwprintf=yes
+ac_cv_func_getcwd=yes
+ac_cv_func_getegid=yes
+ac_cv_func_geteuid=yes
+ac_cv_func_getgid=yes
+ac_cv_func_getpagesize=yes
+ac_cv_func_getpwnam=yes
+ac_cv_func_getpwuid=yes
+ac_cv_func_getuid=yes
+ac_cv_func_isatty=yes
+ac_cv_func_mempcpy=yes
+ac_cv_func_mmap_fixed_mapped=yes
+ac_cv_func_munmap=yes
+ac_cv_func_putenv=yes
+ac_cv_func_realpath=yes
+ac_cv_func_setenv=yes
+ac_cv_func_setlocale=yes
+ac_cv_func_snprintf=yes
+ac_cv_func_stpcpy=yes
+ac_cv_func_strcasecmp=yes
+ac_cv_func_strdup=yes
+ac_cv_func_strtoul=yes
+ac_cv_func_tsearch=yes
+ac_cv_func_wcslen=yes
+ac_cv_gnu_library_2=yes
+ac_cv_gnu_library_2_1=yes
+ac_cv_have_decl__snprintf=no
+ac_cv_have_decl__snwprintf=no
+ac_cv_have_decl_feof_unlocked=yes
+ac_cv_have_decl_fgets_unlocked=yes
+ac_cv_have_decl_getc_unlocked=yes
+ac_cv_header_argz_h=yes
+ac_cv_header_dlfcn_h=yes
+ac_cv_header_inttypes_h=yes
+ac_cv_header_langinfo_h=yes
+ac_cv_header_limits_h=yes
+ac_cv_header_memory_h=yes
+ac_cv_header_minix_config_h=no
+ac_cv_header_pthread_h=yes
+ac_cv_header_stat_broken=no
+ac_cv_header_stdc=yes
+ac_cv_header_stddef_h=yes
+ac_cv_header_stdint_h=yes
+ac_cv_header_stdlib_h=yes
+ac_cv_header_string_h=yes
+ac_cv_header_strings_h=yes
+ac_cv_header_sys_param_h=yes
+ac_cv_header_sys_stat_h=yes
+ac_cv_header_sys_types_h=yes
+ac_cv_header_unistd_h=yes
+ac_cv_host=x86_64-unknown-linux-gnu
+ac_cv_lib_pthread_pthread_kill=yes
+ac_cv_objext=o
+ac_cv_path_EGREP='/bin/grep -E'
+ac_cv_path_FGREP='/bin/grep -F'
+ac_cv_path_GMSGFMT=/usr/bin/msgfmt
+ac_cv_path_GREP=/bin/grep
+ac_cv_path_MSGFMT=/usr/bin/msgfmt
+ac_cv_path_MSGMERGE=/usr/bin/msgmerge
+ac_cv_path_SED=/bin/sed
+ac_cv_path_XGETTEXT=/usr/bin/xgettext
+ac_cv_path_install='/usr/bin/install -c'
+ac_cv_path_mkdir=/bin/mkdir
+ac_cv_prog_AWK=mawk
+ac_cv_prog_CPP='gcc -E'
+ac_cv_prog_CXXCPP='g++ -E'
+ac_cv_prog_EMACS=emacs
+ac_cv_prog_ac_ct_AR=ar
+ac_cv_prog_ac_ct_CC=gcc
+ac_cv_prog_ac_ct_MANIFEST_TOOL=mt
+ac_cv_prog_ac_ct_OBJDUMP=objdump
+ac_cv_prog_ac_ct_RANLIB=ranlib
+ac_cv_prog_ac_ct_STRIP=strip
+ac_cv_prog_cc_c89=
+ac_cv_prog_cc_g=yes
+ac_cv_prog_cxx_g=yes
+ac_cv_prog_make_make_set=yes
+ac_cv_safe_to_define___extensions__=yes
+ac_cv_struct_tm=time.h
+ac_cv_type_long_long_int=yes
+ac_cv_type_pthread_rwlock_t=yes
+ac_cv_type_ptrdiff_t=yes
+ac_cv_type_size_t=yes
+ac_cv_type_unsigned_long_long_int=yes
+ac_cv_working_alloca_h=yes
+acl_cv_hardcode_direct=no
+acl_cv_hardcode_libdir_flag_spec=
+acl_cv_hardcode_libdir_separator=
+acl_cv_hardcode_minus_L=no
+acl_cv_libext=a
+acl_cv_libname_spec='lib$name'
+acl_cv_library_names_spec='$libname$shrext'
+acl_cv_path_LD='g++ -m elf_x86_64'
+acl_cv_prog_gnu_ld=no
+acl_cv_rpath=done
+acl_cv_shlibext=so
+acl_cv_wl=-Wl,
+am_cv_CC_dependencies_compiler_type=gcc3
+am_cv_CXX_dependencies_compiler_type=gcc3
+am_cv_func_iconv=yes
+am_cv_func_iconv_works=yes
+am_cv_langinfo_codeset=yes
+am_cv_lib_iconv=no
+am_cv_lispdir='${datarootdir}/emacs/site-lisp'
+am_cv_proto_iconv='extern size_t iconv (iconv_t cd, char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t *outbytesleft);'
+am_cv_proto_iconv_arg1=
+boost_date_time_cpplib_avail_cv_=true
+boost_filesystem_cpplib_avail_cv_=true
+boost_iostreams_cpplib_avail_cv_=true
+boost_regex_avail_cv_=true
+boost_regex_icu_avail_cv_=true
+boost_test_avail_cv_=false
+gl_cv_cc_visibility=yes
+gl_cv_header_inttypes_h=yes
+gl_cv_header_stdint_h=yes
+gl_cv_size_max=yes
+gt_cv_c_intmax_t=yes
+gt_cv_c_wchar_t=yes
+gt_cv_c_wint_t=yes
+gt_cv_func_CFLocaleCopyCurrent=no
+gt_cv_func_CFPreferencesCopyAppValue=no
+gt_cv_func_printf_posix=yes
+gt_cv_int_divbyzero_sigfpe=yes
+gt_cv_inttypes_pri_broken=no
+gt_cv_nl_locale_name=yes
+gt_cv_val_LC_MESSAGES=yes
+libedit_avail_cv_=true
+libgmp_avail_cv_=true
+libmpfr_avail_cv_=true
+lt_cv_ar_at_file=@
+lt_cv_deplibs_check_method=pass_all
+lt_cv_file_magic_cmd='$MAGIC_CMD'
+lt_cv_file_magic_test_file=
+lt_cv_ld_reload_flag=-r
+lt_cv_nm_interface='BSD nm'
+lt_cv_objdir=.libs
+lt_cv_path_LD=g++
+lt_cv_path_LDCXX='g++ -m elf_x86_64'
+lt_cv_path_NM='/usr/bin/nm -B'
+lt_cv_path_mainfest_tool=no
+lt_cv_prog_compiler_c_o=yes
+lt_cv_prog_compiler_c_o_CXX=yes
+lt_cv_prog_compiler_pic='-fPIC -DPIC'
+lt_cv_prog_compiler_pic_CXX='-fPIC -DPIC'
+lt_cv_prog_compiler_pic_works=yes
+lt_cv_prog_compiler_pic_works_CXX=yes
+lt_cv_prog_compiler_rtti_exceptions=no
+lt_cv_prog_compiler_static_works=yes
+lt_cv_prog_compiler_static_works_CXX=yes
+lt_cv_prog_gnu_ld=no
+lt_cv_prog_gnu_ldcxx=no
+lt_cv_sharedlib_from_linklib_cmd='printf %s\n'
+lt_cv_shlibpath_overrides_runpath=no
+lt_cv_sys_global_symbol_pipe='sed -n -e '\''s/^.*[       ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[         ][      ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p'\'' | sed '\''/ __gnu_lto/d'\'''
+lt_cv_sys_global_symbol_to_c_name_address='sed -n -e '\''s/^: \([^ ]*\)[ ]*$/  {\"\1\", (void *) 0},/p'\'' -e '\''s/^[ABCDGIRSTW]* \([^ ]*\) \([^ ]*\)$/  {"\2", (void *) \&\2},/p'\'''
+lt_cv_sys_global_symbol_to_c_name_address_lib_prefix='sed -n -e '\''s/^: \([^ ]*\)[ ]*$/  {\"\1\", (void *) 0},/p'\'' -e '\''s/^[ABCDGIRSTW]* \([^ ]*\) \(lib[^ ]*\)$/  {"\2", (void *) \&\2},/p'\'' -e '\''s/^[ABCDGIRSTW]* \([^ ]*\) \([^ ]*\)$/  {"lib\2", (void *) \&\2},/p'\'''
+lt_cv_sys_global_symbol_to_cdecl='sed -n -e '\''s/^T .* \(.*\)$/extern int \1();/p'\'' -e '\''s/^[ABCDGIRSTW]* .* \(.*\)$/extern char \1;/p'\'''
+lt_cv_sys_max_cmd_len=1572864
+lt_cv_to_host_file_cmd=func_convert_file_noop
+lt_cv_to_tool_file_cmd=func_convert_file_noop
+nls_cv_force_use_gnu_gettext=yes
+nls_cv_header_intl=
+nls_cv_header_libgt=
+nls_cv_use_gnu_gettext=yes
+pipes_avail_cv_=true
+
+## ----------------- ##
+## Output variables. ##
+## ----------------- ##
+
+ACLOCAL='${SHELL} /home/jrake/ledger/missing --run aclocal-1.11'
+ALLOCA=''
+AMDEPBACKSLASH='\'
+AMDEP_FALSE='#'
+AMDEP_TRUE=''
+AMTAR='${SHELL} /home/jrake/ledger/missing --run tar'
+AM_BACKSLASH='\'
+AM_DEFAULT_VERBOSITY='0'
+AR='ar'
+AUTOCONF='${SHELL} /home/jrake/ledger/missing --run autoconf'
+AUTOHEADER='${SHELL} /home/jrake/ledger/missing --run autoheader'
+AUTOMAKE='${SHELL} /home/jrake/ledger/missing --run automake-1.11'
+AWK='mawk'
+BOOST_SUFFIX=''
+BUILD_INCLUDED_LIBINTL='yes'
+CATOBJEXT='.gmo'
+CC='gcc'
+CCDEPMODE='depmode=gcc3'
+CFLAGS='-g -O2'
+CFLAG_VISIBILITY='-fvisibility=hidden'
+CPP='gcc -E'
+CPPFLAGS='-isystem /usr/local/include -isystem /usr/include/python2.7'
+CXX='g++'
+CXXCPP='g++ -E'
+CXXDEPMODE='depmode=gcc3'
+CXXFLAGS='-Wconversion -pthread -g -pipe'
+CYGPATH_W='echo'
+DATADIRNAME='share'
+DEBUG_FALSE='#'
+DEBUG_TRUE=''
+DEFS='-DHAVE_CONFIG_H'
+DEPDIR='.deps'
+DLLTOOL='false'
+DSYMUTIL=''
+DUMPBIN=''
+ECHO_C=''
+ECHO_N='-n'
+ECHO_T=''
+EGREP='/bin/grep -E'
+EMACS='emacs'
+EMACSLOADPATH=''
+EXEEXT=''
+FGREP='/bin/grep -F'
+GENCAT='gencat'
+GETTEXT_MACRO_VERSION='0.17'
+GLIBC21='yes'
+GLIBC2='yes'
+GMSGFMT='/usr/bin/msgfmt'
+GMSGFMT_015='/usr/bin/msgfmt'
+GREP='/bin/grep'
+HAVE_ASPRINTF='1'
+HAVE_BOOST_PYTHON_FALSE=''
+HAVE_BOOST_PYTHON_TRUE='#'
+HAVE_BOOST_SERIALIZATION_FALSE=''
+HAVE_BOOST_SERIALIZATION_TRUE='#'
+HAVE_BOOST_TEST_FALSE=''
+HAVE_BOOST_TEST_TRUE='#'
+HAVE_POSIX_PRINTF='1'
+HAVE_PYTHON_FALSE=''
+HAVE_PYTHON_TRUE='#'
+HAVE_SNPRINTF='1'
+HAVE_VISIBILITY='1'
+HAVE_WPRINTF='0'
+INSTALL_DATA='${INSTALL} -m 644'
+INSTALL_PROGRAM='${INSTALL}'
+INSTALL_SCRIPT='${INSTALL}'
+INSTALL_STRIP_PROGRAM='$(install_sh) -c -s'
+INSTOBJEXT='.mo'
+INTLBISON=':'
+INTLLIBS='${top_builddir}/intl/libintl.a  '
+INTLOBJS='$(GETTOBJS)'
+INTL_LIBTOOL_SUFFIX_PREFIX=''
+INTL_MACOSX_LIBS=''
+LD='g++ -m elf_x86_64'
+LDFLAGS='-fpch-deps -g -L/usr/local/lib -L/usr/lib -L/usr/lib/python2.7/config'
+LIBICONV=''
+LIBINTL='${top_builddir}/intl/libintl.a  '
+LIBMULTITHREAD='-lpthread'
+LIBOBJS=''
+LIBPTH=''
+LIBPTH_PREFIX=''
+LIBS='-lboost_iostreams -lboost_system -lboost_filesystem -lboost_system -lboost_date_time -licuuc -lboost_regex -ledit -lmpfr -lgmp '
+LIBTHREAD=''
+LIBTOOL='$(SHELL) $(top_builddir)/libtool'
+LIPO=''
+LN_S='ln -s'
+LTLIBC='-lc'
+LTLIBICONV=''
+LTLIBINTL='${top_builddir}/intl/libintl.a  '
+LTLIBMULTITHREAD='-lpthread'
+LTLIBOBJS=''
+LTLIBPTH=''
+LTLIBTHREAD=''
+MAKEINFO='${SHELL} /home/jrake/ledger/missing --run makeinfo'
+MANIFEST_TOOL=':'
+MKDIR_P='/bin/mkdir -p'
+MSGFMT='/usr/bin/msgfmt'
+MSGFMT_015='/usr/bin/msgfmt'
+MSGMERGE='/usr/bin/msgmerge'
+NM='/usr/bin/nm -B'
+NMEDIT=''
+OBJDUMP='objdump'
+OBJEXT='o'
+OTOOL64=''
+OTOOL=''
+PACKAGE='ledger'
+PACKAGE_BUGREPORT='johnw@newartisans.com'
+PACKAGE_NAME='ledger'
+PACKAGE_STRING='ledger 3.0.0-20120217'
+PACKAGE_TARNAME='ledger'
+PACKAGE_URL=''
+PACKAGE_VERSION='3.0.0-20120217'
+PATH_SEPARATOR=':'
+POSUB='po'
+PRI_MACROS_BROKEN='0'
+PYTHON='/usr/bin/python'
+PYTHON_EXEC_PREFIX=''
+PYTHON_PLATFORM=''
+PYTHON_PREFIX=''
+PYTHON_VERSION='2.7'
+RANLIB='ranlib'
+SED='/bin/sed'
+SET_MAKE=''
+SHELL='/bin/bash'
+STRIP='strip'
+USE_CACHE_OPTION_FALSE=''
+USE_CACHE_OPTION_TRUE='#'
+USE_DOXYGEN_FALSE=''
+USE_DOXYGEN_TRUE='#'
+USE_INCLUDED_LIBINTL='yes'
+USE_NLS='yes'
+USE_PCH_FALSE='#'
+USE_PCH_TRUE=''
+VERSION='3.0.0-20120217'
+WINDRES=''
+WOE32='no'
+WOE32DLL='no'
+XGETTEXT='/usr/bin/xgettext'
+XGETTEXT_015='/usr/bin/xgettext'
+XGETTEXT_EXTRA_OPTIONS=''
+ac_ct_AR='ar'
+ac_ct_CC='gcc'
+ac_ct_CXX=''
+ac_ct_DUMPBIN=''
+am__EXEEXT_FALSE=''
+am__EXEEXT_TRUE='#'
+am__fastdepCC_FALSE='#'
+am__fastdepCC_TRUE=''
+am__fastdepCXX_FALSE='#'
+am__fastdepCXX_TRUE=''
+am__include='include'
+am__isrc=''
+am__leading_dot='.'
+am__quote=''
+am__tar='${AMTAR} chof - "$$tardir"'
+am__untar='${AMTAR} xf -'
+bindir='${exec_prefix}/bin'
+build='x86_64-unknown-linux-gnu'
+build_alias=''
+build_cpu='x86_64'
+build_os='linux-gnu'
+build_vendor='unknown'
+datadir='${datarootdir}'
+datarootdir='${prefix}/share'
+docdir='${datarootdir}/doc/${PACKAGE_TARNAME}'
+dvidir='${docdir}'
+exec_prefix='${prefix}'
+host='x86_64-unknown-linux-gnu'
+host_alias=''
+host_cpu='x86_64'
+host_os='linux-gnu'
+host_vendor='unknown'
+htmldir='${docdir}'
+includedir='${prefix}/include'
+infodir='${datarootdir}/info'
+install_sh='${SHELL} /home/jrake/ledger/install-sh'
+libdir='${exec_prefix}/lib'
+libexecdir='${exec_prefix}/libexec'
+lispdir='${datarootdir}/emacs/site-lisp'
+localedir='${datarootdir}/locale'
+localstatedir='${prefix}/var'
+mandir='${datarootdir}/man'
+mkdir_p='/bin/mkdir -p'
+oldincludedir='/usr/include'
+pdfdir='${docdir}'
+pkgpyexecdir=''
+pkgpythondir=''
+prefix='/usr/local'
+program_transform_name='s,x,x,'
+psdir='${docdir}'
+pyexecdir=''
+pythondir=''
+sbindir='${exec_prefix}/sbin'
+sharedstatedir='${prefix}/com'
+sysconfdir='${prefix}/etc'
+target_alias=''
+
+## ----------- ##
+## confdefs.h. ##
+## ----------- ##
+
+/* confdefs.h */
+#define PACKAGE_NAME "ledger"
+#define PACKAGE_TARNAME "ledger"
+#define PACKAGE_VERSION "3.0.0-20120217"
+#define PACKAGE_STRING "ledger 3.0.0-20120217"
+#define PACKAGE_BUGREPORT "johnw@newartisans.com"
+#define PACKAGE_URL ""
+#define PACKAGE "ledger"
+#define VERSION "3.0.0-20120217"
+#define STDC_HEADERS 1
+#define HAVE_SYS_TYPES_H 1
+#define HAVE_SYS_STAT_H 1
+#define HAVE_STDLIB_H 1
+#define HAVE_STRING_H 1
+#define HAVE_MEMORY_H 1
+#define HAVE_STRINGS_H 1
+#define HAVE_INTTYPES_H 1
+#define HAVE_STDINT_H 1
+#define HAVE_UNISTD_H 1
+#define __EXTENSIONS__ 1
+#define _ALL_SOURCE 1
+#define _GNU_SOURCE 1
+#define _POSIX_PTHREAD_SEMANTICS 1
+#define _TANDEM_SOURCE 1
+#define HAVE_DLFCN_H 1
+#define LT_OBJDIR ".libs/"
+#define HAVE_VISIBILITY 1
+#define HAVE_STDINT_H_WITH_UINTMAX 1
+#define HAVE_ALLOCA_H 1
+#define HAVE_ALLOCA 1
+#define HAVE_STDLIB_H 1
+#define HAVE_UNISTD_H 1
+#define HAVE_SYS_PARAM_H 1
+#define HAVE_GETPAGESIZE 1
+#define HAVE_MMAP 1
+#define INTDIV0_RAISES_SIGFPE 1
+#define HAVE_INTTYPES_H_WITH_UINTMAX 1
+#define HAVE_UNSIGNED_LONG_LONG_INT 1
+#define HAVE_UINTMAX_T 1
+#define HAVE_INTTYPES_H 1
+#define USE_POSIX_THREADS 1
+#define USE_POSIX_THREADS_WEAK 1
+#define HAVE_PTHREAD_RWLOCK 1
+#define HAVE_PTHREAD_MUTEX_RECURSIVE 1
+#define HAVE_BUILTIN_EXPECT 1
+#define HAVE_ARGZ_H 1
+#define HAVE_INTTYPES_H 1
+#define HAVE_LIMITS_H 1
+#define HAVE_UNISTD_H 1
+#define HAVE_SYS_PARAM_H 1
+#define HAVE_GETCWD 1
+#define HAVE_GETEGID 1
+#define HAVE_GETEUID 1
+#define HAVE_GETGID 1
+#define HAVE_GETUID 1
+#define HAVE_MEMPCPY 1
+#define HAVE_MUNMAP 1
+#define HAVE_STPCPY 1
+#define HAVE_STRCASECMP 1
+#define HAVE_STRDUP 1
+#define HAVE_STRTOUL 1
+#define HAVE_TSEARCH 1
+#define HAVE_ARGZ_COUNT 1
+#define HAVE_ARGZ_STRINGIFY 1
+#define HAVE_ARGZ_NEXT 1
+#define HAVE___FSETLOCKING 1
+#define HAVE_DECL_FEOF_UNLOCKED 1
+#define HAVE_DECL_FGETS_UNLOCKED 1
+#define HAVE_ICONV 1
+#define ICONV_CONST
+#define HAVE_NL_LOCALE_NAME 1
+#define HAVE_LONG_LONG_INT 1
+#define HAVE_WCHAR_T 1
+#define HAVE_WINT_T 1
+#define HAVE_INTMAX_T 1
+#define HAVE_POSIX_PRINTF 1
+#define HAVE_STDINT_H 1
+#define HAVE_STDINT_H 1
+#define HAVE_STDDEF_H 1
+#define HAVE_STDLIB_H 1
+#define HAVE_STRING_H 1
+#define HAVE_ASPRINTF 1
+#define HAVE_FWPRINTF 1
+#define HAVE_PUTENV 1
+#define HAVE_SETENV 1
+#define HAVE_SETLOCALE 1
+#define HAVE_SNPRINTF 1
+#define HAVE_WCSLEN 1
+#define HAVE_DECL__SNPRINTF 0
+#define HAVE_DECL__SNWPRINTF 0
+#define HAVE_DECL_GETC_UNLOCKED 1
+#define HAVE_LANGINFO_CODESET 1
+#define HAVE_LC_MESSAGES 1
+#define ENABLE_NLS 1
+#define DEBUG_MODE 1
+#define USE_PCH 1
+#define HAVE_UNIX_PIPES 1
+#define HAVE_LIBEDIT 1
+#define HAVE_BOOST_REGEX_UNICODE 1
+#define STDC_HEADERS 1
+#define HAVE_LANGINFO_H 1
+#define HAVE_ACCESS 1
+#define HAVE_REALPATH 1
+#define HAVE_GETPWUID 1
+#define HAVE_GETPWNAM 1
+#define HAVE_ISATTY 1
+
+configure: exit 0
+:END:
+:PROPERTIES:
+:ID:       D74DC501-645A-4E14-A768-2C0AD84182D8
+:CREATED:  [2012-03-10 Sat 22:40]
+:Date: Sun, 04 Mar 2012 10:35:53 -0500
+:Message: [[message://87d38sjs4m.fsf@buster.johnrakestraw.com][can't run latest next version]]
+:Author: John Rakestraw <jar34@georgetown.edu>
+:END:
+** TODO (John) Virtual transactions and the equity command
+:PROPERTIES:
+:ID:       012ADB60-600A-44B6-93E6-DC859BC64436
+:CREATED:  [2012-03-10 Sat 22:11]
+:Date: Sun, 04 Mar 2012 16:52:14 -0500
+:Message: [[message://87vcmkhw4x.fsf@buster.johnrakestraw.com][Virtual transactions and the equity command]]
+:Author: John Rakestraw <johnr-hdTKlMK9g6hNu5YjidvPyAC/G2K4zDHf@public.gmane.org>
+:END:
+** TODO (Martin) Cannot build ledger
+- Note taken on [2012-03-10 Sat 22:24] \\
+  FWIW, I'm currently building on a system which has libboost 1.48 and
+  this error does not occur.
+
+  Not sure if the right fix is to require a newer libboost or to change
+  something in ledger.
+
+  I'll open a bug report so other users are aware of this issue.
+- Note taken on [2012-03-10 Sat 22:24] \\
+  I noticed that older ledger sources still build on my system, so I did
+  a git bisect I found that the first revision that shows this error is:
+   Switched to using Boost.Graph for commodity pricing
+   48ab6ad1dbab100bb8abd87029a0ca5bc501a3db
+
+  I noticed that I didn't have libboost-graph and libboost-graph-dev
+  installed.  Unfortunately, installing these didn't help either.
+
+  Maybe the problem is that I'm still using libboost 1.42.
+Do you know anything about the error below?  Is my version of boost
+wrong?
+:OUTPUT:
+  CXX    libledger_report_la-stats.lo
+In file included from /usr/include/boost/graph/adjacency_list.hpp:33,
+                 from system.hh:157:
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<ledger::date_specifier_t>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<ledger::date_specifier_t>’
+/home/tbm/tmp/src/ledger/src/times.h:480:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class ledger::date_specifier_t’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class ledger::date_specifier_t’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class ledger::date_specifier_t’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class ledger::date_specifier_t’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<ledger::date_range_t>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<ledger::date_range_t>’
+/home/tbm/tmp/src/ledger/src/times.h:482:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class ledger::date_range_t’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class ledger::date_range_t’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class ledger::date_range_t’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class ledger::date_range_t’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<bool>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<bool>’
+/home/tbm/tmp/src/ledger/src/value.h:554:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: ‘bool’ is not a class, struct, or union type
+/usr/include/boost/property_map/property_map.hpp:32: error: ‘bool’ is not a class, struct, or union type
+/usr/include/boost/property_map/property_map.hpp:33: error: ‘bool’ is not a class, struct, or union type
+/usr/include/boost/property_map/property_map.hpp:34: error: ‘bool’ is not a class, struct, or union type
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<boost::posix_time::ptime>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<boost::posix_time::ptime>’
+/home/tbm/tmp/src/ledger/src/value.h:571:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class boost::posix_time::ptime’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class boost::posix_time::ptime’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class boost::posix_time::ptime’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class boost::posix_time::ptime’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<boost::gregorian::date>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<boost::gregorian::date>’
+/home/tbm/tmp/src/ledger/src/value.h:588:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class boost::gregorian::date’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class boost::gregorian::date’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class boost::gregorian::date’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class boost::gregorian::date’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<long int>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<long int>’
+/home/tbm/tmp/src/ledger/src/value.h:605:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: ‘long int’ is not a class, struct, or union type
+/usr/include/boost/property_map/property_map.hpp:32: error: ‘long int’ is not a class, struct, or union type
+/usr/include/boost/property_map/property_map.hpp:33: error: ‘long int’ is not a class, struct, or union type
+/usr/include/boost/property_map/property_map.hpp:34: error: ‘long int’ is not a class, struct, or union type
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<ledger::amount_t>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<ledger::amount_t>’
+/home/tbm/tmp/src/ledger/src/value.h:622:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class ledger::amount_t’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class ledger::amount_t’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class ledger::amount_t’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class ledger::amount_t’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >’
+/home/tbm/tmp/src/ledger/src/value.h:658:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘struct std::basic_string<char, std::char_traits<char>, std::allocator<char> >’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘struct std::basic_string<char, std::char_traits<char>, std::allocator<char> >’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<ledger::mask_t>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<ledger::mask_t>’
+/home/tbm/tmp/src/ledger/src/value.h:682:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class ledger::mask_t’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class ledger::mask_t’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class ledger::mask_t’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class ledger::mask_t’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<boost::any>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<boost::any>’
+/home/tbm/tmp/src/ledger/src/value.h:742:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class boost::any’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class boost::any’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class boost::any’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class boost::any’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<ledger::value_t>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<ledger::value_t>’
+/home/tbm/tmp/src/ledger/src/op.h:146:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class ledger::value_t’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class ledger::value_t’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class ledger::value_t’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class ledger::value_t’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<boost::function<ledger::value_t(ledger::call_scope_t&)> >’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<boost::function<ledger::value_t(ledger::call_scope_t&)> >’
+/home/tbm/tmp/src/ledger/src/op.h:181:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘struct boost::function<ledger::value_t(ledger::call_scope_t&)>’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘struct boost::function<ledger::value_t(ledger::call_scope_t&)>’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘struct boost::function<ledger::value_t(ledger::call_scope_t&)>’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘struct boost::function<ledger::value_t(ledger::call_scope_t&)>’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<boost::shared_ptr<ledger::scope_t> >’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<boost::shared_ptr<ledger::scope_t> >’
+/home/tbm/tmp/src/ledger/src/op.h:198:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class boost::shared_ptr<ledger::scope_t>’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class boost::shared_ptr<ledger::scope_t>’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<boost::intrusive_ptr<ledger::expr_t::op_t> >’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<boost::intrusive_ptr<ledger::expr_t::op_t> >’
+/home/tbm/tmp/src/ledger/src/op.h:225:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class boost::intrusive_ptr<ledger::expr_t::op_t>’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class boost::intrusive_ptr<ledger::expr_t::op_t>’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class boost::intrusive_ptr<ledger::expr_t::op_t>’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class boost::intrusive_ptr<ledger::expr_t::op_t>’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<ledger::expr_t>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<ledger::expr_t>’
+/home/tbm/tmp/src/ledger/src/format.h:145:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘class ledger::expr_t’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘class ledger::expr_t’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘class ledger::expr_t’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘class ledger::expr_t’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<const ledger::date_specifier_t>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<const ledger::date_specifier_t>’
+/usr/include/boost/variant/get.hpp:193:   instantiated from ‘typename boost::add_reference<const U>::type boost::get(const boost::variant<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>&) [with U = ledger::date_specifier_t, T0 = int, T1 = ledger::date_specifier_t, T2 = ledger::date_range_t, T3 = boost::detail::variant::void_, T4 = boost::detail::variant::void_, T5 = boost::detail::variant::void_, T6 = boost::detail::variant::void_, T7 = boost::detail::variant::void_, T8 = boost::detail::variant::void_, T9 = boost::detail::variant::void_, T10 = boost::detail::variant::void_, T11 = boost::detail::variant::void_, T12 = boost::detail::variant::void_, T13 = boost::detail::variant::void_, T14 = boost::detail::variant::void_, T15 = boost::detail::variant::void_, T16 = boost::detail::variant::void_, T17 = boost::detail::variant::void_, T18 = boost::detail::variant::void_, T19 = boost::detail::variant::void_]’
+/home/tbm/tmp/src/ledger/src/times.h:480:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘const class ledger::date_specifier_t’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘const class ledger::date_specifier_t’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘const class ledger::date_specifier_t’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘const class ledger::date_specifier_t’
+/usr/include/boost/property_map/property_map.hpp: In instantiation of ‘boost::property_traits<const ledger::date_range_t>’:
+/usr/include/boost/graph/two_bit_color_map.hpp:47:   instantiated from ‘boost::two_bit_color_map<const ledger::date_range_t>’
+/usr/include/boost/variant/get.hpp:193:   instantiated from ‘typename boost::add_reference<const U>::type boost::get(const boost::variant<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>&) [with U = ledger::date_range_t, T0 = int, T1 = ledger::date_specifier_t, T2 = ledger::date_range_t, T3 = boost::detail::variant::void_, T4 = boost::detail::variant::void_, T5 = boost::detail::variant::void_, T6 = boost::detail::variant::void_, T7 = boost::detail::variant::void_, T8 = boost::detail::variant::void_, T9 = boost::detail::variant::void_, T10 = boost::detail::variant::void_, T11 = boost::detail::variant::void_, T12 = boost::detail::variant::void_, T13 = boost::detail::variant::void_, T14 = boost::detail::variant::void_, T15 = boost::detail::variant::void_, T16 = boost::detail::variant::void_, T17 = boost::detail::variant::void_, T18 = boost::detail::variant::void_, T19 = boost::detail::variant::void_]’
+/home/tbm/tmp/src/ledger/src/times.h:482:   instantiated from here
+/usr/include/boost/property_map/property_map.hpp:31: error: no type named ‘key_type’ in ‘const class ledger::date_range_t’
+/usr/include/boost/property_map/property_map.hpp:32: error: no type named ‘value_type’ in ‘const class ledger::date_range_t’
+/usr/include/boost/property_map/property_map.hpp:33: error: no type named ‘reference’ in ‘const class ledger::date_range_t’
+/usr/include/boost/property_map/property_map.hpp:34: error: no type named ‘category’ in ‘const class ledger::date_range_t’
+
+make[2]: *** [libledger_report_la-stats.lo] Error 1
+make[2]: Leaving directory `/home/tbm/tmp/src/ledger/build/ledger/opt'
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory `/home/tbm/tmp/src/ledger/build/ledger/opt'
+make: *** [all] Error 2
+:END:
+:PROPERTIES:
+:ID:       D60E8639-883D-4AC8-8326-EF2041C5DCDE
+:CREATED:  [2012-03-10 Sat 22:23]
+:Date: Sat, 10 Mar 2012 10:33:01 +0000
+:Message: [[message://20120310103301.GA17626@jirafa.cyrius.com][Cannot build ledger]]
+:Author: Martin Michlmayr <tbm@cyrius.com>
+:END:
+** TODO (Paul Lathrop) [ledger] Fix ledger-reconcile-visit.
+:PROPERTIES:
+:ID:       967C870C-8FDA-45A2-9792-6868626BFFC0
+:CREATED:  [2012-03-10 Sat 22:36]
+:Date: Mon, 5 Mar 2012 14:14:33 -0800
+:Message: [[message://jwiegley/ledger/pull/57@github.com][{ledger} Fix ledger-reconcile-visit. (#57)]]
+:Author: Paul Lathrop <reply+i-3515068-bffd1ffcec680c923e336bd783d093c5723dde2b-8460@reply.github.com>
+:END:
+** TODO (Robert) No rounding applied to transactions?
+> If you want the kind of rounding you're describing, you can use this:
+>
+>     = /Expenses:Bug Fixes/
+>       Liabilites:Refactoring     (truncated(amount) * 0.01)
+
+That seems like the Right Thing To Do(TM) as I'm trying to compute
+taxes using automatic transactions and my collected sales tax is
+precise to cents only, too.
+
+However, with Ledger 3.0.0-20120217 (the one available from the Ubuntu
+PPA) the above expression fails for me (after enclosing the account in
+either [] or () to balance, because it seems to fail otherwise with
+Ledger3) with the following error:
+:OUTPUT:
+While applying automated transaction from "bug.ledger", lines 1-2:
+> = /Expenses:Bug Fixes/
+>   (Liabilites:Refactoring)             (truncated(amount) * 0.01)
+While extending transaction from "bug.ledger", lines 4-6:
+> 2012/03/09 Automatically Incurring 0.044 Refactoring
+>   Expenses:Bug Fixes                   4.40$
+>   Assets:Code
+Error: Amount expressions must result in a simple amount
+:END:
+
+When I use the documented `truncate` function instead (truncated is
+not mentioned in the manual page that ships with the Ubuntu package?)
+the error is "Error: Unrecognized truncation style: '4.40$'".
+:PROPERTIES:
+:ID:       ED48363F-039E-4560-9BEC-A08D0D8DC60B
+:CREATED:  [2012-03-10 Sat 22:12]
+:Date: Fri, 9 Mar 2012 23:01:55 -0800 (PST)
+:Message: [[message://c4c1b98f-f1e8-43c6-a2dd-ac5d4cfc88eb@w1g2000vbx.googlegroups.com][Re: No rounding applied to transactions?]]
+:Author: Robert Lehmann <lehmannro-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (Thierry) ledger --anon pricedb gets a seg fault
+:PROPERTIES:
+:ID:       2CE7DADB-47DB-4226-B13F-1C65CE35103A
+:CREATED:  [2012-03-10 Sat 22:20]
+:Message: [[message://CA%2BR89Y%2B_CXrCdwopPT-n7k%3DKwMzGWuafoT14m%2B3pArMnTWaB%2Bg@mail.gmail.com][Re: ledger v3 slower than ledger v2]]
+:END:
+** TODO (bzg) [ledger] Two tiny typos
+:PROPERTIES:
+:ID:       6AFF6DA6-D38B-439B-AB26-B5D8ACD62936
+:CREATED:  [2012-03-10 Sat 22:45]
+:Date: Wed, 29 Feb 2012 06:17:17 -0800
+:Message: [[message://jwiegley/ledger/pull/56@github.com][{ledger} Two tiny typos (#56)]]
+:Author: bzg <reply+i-3437044-b88176438075b868ec460a63d919d4fbcc7c327d-8460@reply.github.com>
+:END:
+** TODO (thierry) Ledger v3 slower than ledger v2
+:PROPERTIES:
+:ID:       69328608-A930-42BE-B6AC-40C373A08C3F
+:CREATED:  [2012-03-10 Sat 22:11]
+:Date: Fri, 9 Mar 2012 13:25:52 -0800 (PST)
+:Message: [[message://32381169-60df-4c0e-9e35-3f5a9b7e14d0@b18g2000vbz.googlegroups.com][Re: ledger v3 slower than ledger v2]]
+:Author: thierry <thierry.daucourt-GANU6spQydw@public.gmane.org>
+:END:
 ** TODO [[bug:201][#201]] Handling currencies that were replaced by the Euro
+- State "TODO"       from "DONE"       [2012-03-09 Fri 20:09] \\
+  There are more issues with this bug than just the title line.
+- State "DONE"       from "TODO"       [2012-03-09 Fri 20:08]
 - State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:37]
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 12:57] \\
      This is not something that can be supported in 3.0, as I believe it
@@ -177,6 +2880,22 @@ SCHEDULED: <2012-03-08 Thu>
    :Submitter: Martin Michlmayr <tbm@cyrius.com>
    :CREATED:  [2010-04-04 Sun 15:18]
    :END:
+** TODO [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
+- State "TODO"       from "WORKSFORME" [2012-03-10 Sat 22:42]
+- State "WORKSFORME" from "TODO"       [2012-02-28 Tue 22:52]
+   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
+     Thierry confirms this still happens for him.
+   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
+   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
+     To Thomas: I just tried this and it worked fine.  After your "push" command,
+     does the prompt change to a ]]?
+   :LOGBOOK:
+   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
+   :END:
+   :PROPERTIES:
+   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
+   :CREATED:  [2010-05-30 Sun 03:33]
+   :END:
 ** TODO [[bug:347][#347]] All contexts should be accessible by name
    - post.foo
    - xact.foo
@@ -191,8 +2910,17 @@ SCHEDULED: <2012-03-08 Thu>
    :CREATED:  [2010-06-18 Fri 17:37]
    :END:
 ** TODO [[bug:348][#348]] Make every item detail gettable and settable via metadata
-SCHEDULED: <2012-03-09 Fri>
-Make Date:: a synonym for just [foo] in a posting comment
+- [ ] Date
+  Make Date:: a synonym for just [foo] in a posting comment
+- [ ] AuxDate
+- [ ] Code
+- [ ] Payee
+- [ ] State
+- [ ] Account
+- [ ] Amount
+- [ ] Price
+- [ ] Total
+- [ ] Cost
 :PROPERTIES:
 :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
 :CREATED:  [2010-06-18 Fri 06:52]
@@ -277,17 +3005,6 @@ Make Date:: a synonym for just [foo] in a posting comment
    :PROPERTIES:
    :ID:       AAFAFBE7-E103-4CCC-82B9-6D28BC9052A3
    :CREATED:  [2010-07-01 Thu 16:41]
-   :END:
-** TODO [[bug:373][#373]] Change amount/total expr evaluation to use a priority queue
-   - State "TODO"       from "STARTED"    [2011-10-15 Sat 21:13]
-   At the moment, -X and -A cannot be mixed because they both work by changing
-   the amount_expr.
-
-   Instead, there should be a priority queue so that -X is first applied, then
-   -A, as well as any other flags that want to modify the displayed amount.
-   :PROPERTIES:
-   :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
-   :CREATED:  [2010-07-01 Thu 17:55]
    :END:
 ** TODO [[bug:374][#374]] Problem with periodic transactions having a null posting
    - Note taken on [2010-07-02 Fri 04:16] \\
@@ -558,16 +3275,6 @@ Make Date:: a synonym for just [foo] in a posting comment
    :Submitter: Łukasz Stelmach <lukasz.stelmach@iem.pw.edu.pl>
    :Message:  [[message://87bp7ulmx4.fsf@kotik.lan][{NOTE} order of budget entries is important]]
    :CREATED:  [2010-09-19 Sun 14:43]
-   :END:
-** TODO [[bug:416][#416]] Not all past prices are repeatable or valid for future exchanges
-   Essentially this means that some links in the graph are not as reliable as
-   others.  For example, say I was able to buy a certain commodity on a past
-   day for $10.  It may be that this was an exclusive deal that can't ever
-   repeat.  Dave suggested looking at the Boost.Graph library for modeling the
-   complexity of this problem.
-   :PROPERTIES:
-   :ID:       3915D7F9-E69D-46F4-972E-C16DDEF90164
-   :CREATED:  [2010-09-17 Fri 23:00]
    :END:
 ** TODO [[bug:417][#417]] '&' in account names causes trouble during GNU Cash import
    In gnucash, I have an account called "1 & 1 Internet AG". It appears that
@@ -1033,22 +3740,6 @@ Make Date:: a synonym for just [foo] in a posting comment
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Date:     Mon,  4 Apr 2011 09:14:10 -0500 (CDT)
    :END:
-** TODO [[bug:505][#505]] Ampersand in GnuCash transaction creates conversion problem
-   :PROPERTIES:
-   :ID:       D567247E-F077-40E2-BE9A-C010593DD796
-   :CREATED:  [2011-04-20 Wed 18:04]
-   :Message:  [[message://bug-505-1@http.newartisans.com/bugzilla/][{Bug 505} New: Ampersand in GnuCash transaction creates conversion problem]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Date:     Mon, 18 Apr 2011 15:57:32 -0500 (CDT)
-   :END:
-** TODO [[bug:507][#507]] Reproducible crash
-   :PROPERTIES:
-   :ID:       AB57BA68-83A0-491A-8423-F4A821F2FBD2
-   :CREATED:  [2011-05-10 Tue 09:03]
-   :Message:  [[message://bug-507-1@http.newartisans.com/bugzilla/][{Bug 507} New: Reproducible crash]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Date:     Sun,  8 May 2011 16:47:14 -0500 (CDT)
-   :END:
 ** TODO [[bug:511][#511]] ledger and currency format in entry command
    - Note taken on [2011-05-27 Fri 18:08] \\
      I had some problem recently too. It looks like the `entry' command now
@@ -1224,18 +3915,6 @@ Make Date:: a synonym for just [foo] in a posting comment
    :Message:  [[message://29846561-b2be-4e61-af03-4d6b0c9413bb@r6g2000vbz.googlegroups.com][Weekly report lost data?]]
    :Submitter: leandroohf <leandroohf@gmail.com>
    :Date:     Sun, 17 Apr 2011 14:46:34 -0700 (PDT)
-   :END:
-** TODO [[bug:519][#519]] ledger reg expr 'code > 100' breaks
-   :OUTPUT:
-   Hermes ~/src/ledger $ ./ledger reg expr 'code > 100'
-   While parsing value expression:
-     (code > {100})
-
-   Error: Unexpected expression token '{'
-   :END:
-   :PROPERTIES:
-   :ID:       6B7C2D8A-6620-44C3-B8C1-3A897F84604E
-   :CREATED:  [2011-04-20 Wed 19:33]
    :END:
 ** TODO [[bug:530][#530]] Problem with "N" command
    :PROPERTIES:
@@ -2724,7 +5403,6 @@ $ ledger -f budget_test.txt --budget reg ^income
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO [[bug:630][#630]] Basis cost should "follow" commodities with lot pricing
-SCHEDULED: <2012-03-09 Fri>
 :PROPERTIES:
 :ID:       23C96A70-7429-4DBE-9EF6-2053319C1D6A
 :CREATED:  [2012-02-22 Wed 15:07]
@@ -2738,15 +5416,6 @@ the same scopes.
 :PROPERTIES:
 :ID:       BF6E06E4-C004-47BB-BE48-7837B643ECBE
 :CREATED:  [2012-02-21 Tue 02:15]
-:END:
-** TODO [[bug:633][#633]] Ledger crashes with --account=payee --monthly
-The bug is with cleanup of temporary accounts and postings:
-#+begin_src sh
-ledger -f test/input/sample.dat --account=payee --monthly -n -AE reg
-#+end_src
-:PROPERTIES:
-:ID:       D60B0FD8-74C6-43D5-8FAF-0CB5F6BA9F85
-:CREATED:  [2012-01-31 Tue 17:20]
 :END:
 ** TODO [[bug:634][#634]] Correctly implement floor(), ceil() and round()
 :PROPERTIES:
@@ -2975,7 +5644,237 @@ through the journal files).
 :Message: [[message://CAKs9TO+BC++bBCk4Tc6W=Ee8JqW8=n0yYEgjmQ44Je7PKRp1VA@mail.gmail.com][How to handle stale results from getquote]]
 :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO [[bug:654][#654]] Commodity flags cleanup
+** TODO [[bug:655][#655]] Ledger no longer downloads stock prices using the -Q option
+Since upgrading to ledger 3.0, I've noticed that it no longer downloads stock
+prices using the -Q option like it used to. Based on this post, that's a
+feature that is planned, but not yet reinstated yet.
+
+http://groups.google.com/group/ledger-cli/browse_thread/thread/d58f29605d4bdd02/dd26788d2b2d934a?lnk=gst&q=download#dd26788d2b2d934a
+
+In the meantime, I've created a Bash script that does the same work.  It's
+super simple, so I'm not sure if it will work for everyone, but it should be
+easy to fix, if not.
+
+https://gist.github.com/1389840
+:PROPERTIES:
+:ID:       DE28E5EC-9481-4E86-9C78-C3E793B1FF4A
+:CREATED:  [2011-11-24 Thu 00:41]
+:Date: Wed, 23 Nov 2011 12:53:45 -0800 (PST)
+:Message: [[message://d4abc803-fa54-4b5f-9649-83c38f872d11@w1g2000vba.googlegroups.com][Dowloading stock prices, a workaround]]
+:Submitter: Vinod Kurup <vvkurup-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:663][#663]] Detect recursive inclusion and report an error
+:PROPERTIES:
+:ID:       76DA1021-D527-4BED-8F1B-258E7D8BE34A
+:CREATED:  [2012-03-01 Thu 22:29]
+:END:
+** TODO [[bug:664][#664]] Value expression regexp matching should return a match object
+:PROPERTIES:
+:ID:       E80521C7-0AFC-48F1-B803-9856D4FA4613
+:CREATED:  [2012-02-29 Wed 15:16]
+:END:
+** TODO [[bug:667][#667]] ledger-reconcile-visit no longer functioning
+:PROPERTIES:
+:ID:       1CF3C088-551D-4058-8B5F-28E420E994F9
+:CREATED:  [2012-03-10 Sat 22:36]
+:Date: Mon, 05 Mar 2012 22:22:32 +0000
+:Message: [[message://bug-667-1@http.bugs.ledger-cli.org/][{Bug 667} New: ledger-reconcile-visit no longer functioning]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:676][#676]] Error about missing boost regex misleading when boost regex is installed but not boost regex dev
+:PROPERTIES:
+:ID:       33C71B01-519C-4862-AE7E-BC94DFF1CB3C
+:CREATED:  [2012-03-10 Sat 19:13]
+:Date: Sat, 10 Mar 2012 13:11:06 +0000
+:Message: [[message://bug-676-1@http.bugs.ledger-cli.org/][{Bug 676} New: Error about missing boost regex misleading when boost regex is installed but not boost regex dev]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:680][#680]] ledger pricedb shows incorrect(?) entries
+:PROPERTIES:
+:ID:       786A3DD0-B511-4746-8A4B-28216594491A
+:CREATED:  [2012-03-10 Sat 19:10]
+:Date: Sat, 10 Mar 2012 15:56:53 +0000
+:Message: [[message://bug-680-1@http.bugs.ledger-cli.org/][{Bug 680} New: ledger pricedb shows incorrect(?) entries]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** REVIEW [#A] [[bug:565][#565]] Transactions with leading whitespace not detected
+- State "REVIEW"     from "DUPLICATE"  [2012-02-23 Thu 21:51]
+- Note taken on [2011-08-21 Sun 18:53] \\
+  I believe it's a regression in 3.0.  I filed a bug report about this some
+  time ago: http://bugs.ledger-cli.org/show_bug.cgi?id=443
+In the attached sample ledger file a space has been inadvertently inserted
+preceding one of the transaction dates.
+
+ledger-2.6.3 Detects the error and emits:
+:OUTPUT:
+Error: "sample.ldg", line 6: Line begins with whitespace
+Error: "sample.ldg", line 7: Line begins with whitespace
+Error: "sample.ldg", line 8: Line begins with whitespace
+:END:
+
+This looks good to me.
+
+On the other hand ledger-3.0 (beta) silently ignores the offending
+transaction.
+
+Is the change in behaviour intentional? Is there an option in 3.0 that
+yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
+:PROPERTIES:
+:ID:       8EAF77C0-C2FA-4B8D-BAEE-4A886CEAE106
+:CREATED:  [2011-08-21 Sun 18:53]
+:Date:     Sun, 21 Aug 2011 22:12:40 +0100
+:Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
+:Submitter: "David Keegan" <dksw@eircom.net>
+:END:
+** DONE [#A] [[bug:672][#672]] Latest next/HEAD does not build
+SCHEDULED: <2012-03-09 Fri>
+- State "DONE"       from "TODO"       [2012-03-09 Fri 14:47] \\
+  Fixed by 3886428
+:PROPERTIES:
+:ID:       E447F248-389D-411E-A6A6-ECF5E59B0D8F
+:CREATED:  [2012-03-07 Wed 11:41]
+:Date: Wed, 07 Mar 2012 17:36:53 +0000
+:Message: [[message://bug-672-1@http.bugs.ledger-cli.org/][{Bug 672} New: Latest next/HEAD does not build]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE Allow for chaining, so that -VA works
+- State "DONE"       from "TODO"       [2012-03-07 Wed 14:32]
+:PROPERTIES:
+:ID:       EA18D948-C811-4F74-8BDF-21C53C19176B
+:CREATED:  [2012-03-07 Wed 05:33]
+:END:
+** DONE [[bug:166][#166]] --percent incompatible with --exchange
+- State "DONE"       from "TODO"       [2012-03-10 Sat 21:59] \\
+  Fixed by 6ddd935
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:37]
+   - State "DEFERRED"   from "TODO"       [2010-06-02 Wed 01:41] \\
+     You are right, --percent cannot handle multiple commodities.  And since
+     --exchange always takes place after --percent, it's not as
+     straightforward as it seems.  I'm going to defer this bug until after
+     3.0, since it may not be worth fixing.  But I'll keep thinking on it.
+   I've found that --percent option is incompatible with --exchange.  Well,
+    actually I suspect that --percent is not able to handle multi currencies.
+
+    In the following simple exemple, I would have expected that --percent
+    option works correctly.
+
+   #+begin_src ledger
+   P 2008/01/01 $ €1
+
+   2008/01/11 LIAT
+      Expenses:Travel:Airfare                   $40.00
+      Liabilities:MasterCard
+
+   2008/02/05 CTX
+      Expenses:Travel:Auto                     €240.38
+      Liabilities:MasterCard
+   #+end_src
+
+    :OUTPUT:
+    $ ledger --file=test_12.ledger bal --exchange=€
+                €280.38  Expenses:Travel
+                 €40.00    Airfare
+                €240.38    Auto
+               €-280.38  Liabilities:MasterCard
+    --------------------
+                      0
+    :END:
+    :OUTPUT:
+    $ ledger --file=test_12.ledger bal --exchange=€ --percent
+    While evaluating value expression:
+     (((is_account & parent) & parent.total) & percent(total,
+    parent.total))
+
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    While evaluating value expression:
+     market(total_expr, date, exchange)
+    While evaluating value expression:
+     justify(scrub(display_total), 20, -1, true, color)
+    Error: Cannot convert a balance with multiple commodities to an amount
+    :END:
+   :PROPERTIES:
+   :ID:       4509F714-BA35-4659-8F57-6BD6A725FA73
+   :Message:  [[message://fabd9b4b-3c20-4507-92e5-55a5e8996790@g19g2000yqe.googlegroups.com][--percent incompatible with --exchange]]
+   :Submitter: thierry <thierry.daucourt@free.fr>
+   :CREATED:  [2010-04-04 Sun 15:11]
+   :END:
+** DONE [[bug:337][#337]] Rationalize formatting strings
+- State "DONE"       from "TODO"       [2012-03-02 Fri 10:58] \\
+  Fixed by 35ace88
+   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
+   ${AMT} is the same as $(scrub(AMT))
+   %T is the same as ${display_total}.
+
+   Right now formatting strings are a nightmare for users to modify.
+   :PROPERTIES:
+   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
+   :CREATED:  [2010-06-14 Mon 08:35]
+   :END:
+** DONE [[bug:373][#373]] Change amount/total expr evaluation to use a priority queue
+- State "DONE"       from "TODO"       [2012-03-09 Fri 20:14]
+   - State "TODO"       from "STARTED"    [2011-10-15 Sat 21:13]
+   At the moment, -X and -A cannot be mixed because they both work by changing
+   the amount_expr.
+
+   Instead, there should be a priority queue so that -X is first applied, then
+   -A, as well as any other flags that want to modify the displayed amount.
+   :PROPERTIES:
+   :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
+   :CREATED:  [2010-07-01 Thu 17:55]
+   :END:
+** DONE [[bug:395][#395]] Need commodity alias
+- State "DONE"       from "TODO"       [2012-03-09 Fri 07:24]
+   :PROPERTIES:
+   :ID:       13B53049-4795-4111-A679-6866AEFC4640
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-395-1@http.newartisans.com/bugzilla/][{Bug 395} New: need commodity alias]]
+   :CREATED:  [2010-08-16 Mon 16:28]
+   :END:
+** DONE [[bug:416][#416]] Not all past prices are repeatable or valid for future exchanges
+- State "DONE"       from "TODO"       [2012-03-09 Fri 20:17]
+   Essentially this means that some links in the graph are not as reliable as
+   others.  For example, say I was able to buy a certain commodity on a past
+   day for $10.  It may be that this was an exclusive deal that can't ever
+   repeat.  Dave suggested looking at the Boost.Graph library for modeling the
+   complexity of this problem.
+   :PROPERTIES:
+   :ID:       3915D7F9-E69D-46F4-972E-C16DDEF90164
+   :CREATED:  [2010-09-17 Fri 23:00]
+   :END:
+** DONE [[bug:507][#507]] Reproducible crash
+- State "DONE"       from "TODO"       [2012-03-11 Sun 05:16] \\
+  A recent commit fixed this crash.
+   :PROPERTIES:
+   :ID:       AB57BA68-83A0-491A-8423-F4A821F2FBD2
+   :CREATED:  [2011-05-10 Tue 09:03]
+   :Message:  [[message://bug-507-1@http.newartisans.com/bugzilla/][{Bug 507} New: Reproducible crash]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Sun,  8 May 2011 16:47:14 -0500 (CDT)
+   :END:
+** DONE [[bug:555][#555]] ledger stats reports days per posting, not postings per day
+- State "DONE"       from "REVIEW"     [2012-02-28 Tue 22:58]
+- State "REVIEW"     from "TODO"       [2012-02-23 Thu 21:50]
+- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
+   :PROPERTIES:
+   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
+   :CREATED:  [2011-10-10 Mon 15:02]
+   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
+   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** DONE [[bug:633][#633]] Ledger crashes with --account=payee --monthly
+- State "DONE"       from "TODO"       [2012-03-11 Sun 05:09] \\
+  Fixed by fcc68a0
+The bug is with cleanup of temporary accounts and postings:
+#+begin_src sh
+ledger -f test/input/sample.dat --account=payee --monthly -n -AE reg
+#+end_src
+:PROPERTIES:
+:ID:       D60B0FD8-74C6-43D5-8FAF-0CB5F6BA9F85
+:CREATED:  [2012-01-31 Tue 17:20]
+:END:
+** DONE [[bug:654][#654]] Commodity flags cleanup
+- State "DONE"       from "TODO"       [2012-03-09 Fri 20:13]
 I have confused myself a great deal with -B/-V/-X, as a user and
 implementor. I have been studying http://ledger-cli.org/3.0/doc/ledger.1.html
 and https://groups.google.com/forum/#!topic/ledger-cli/9oa47zA-qqM/discussion,
@@ -3006,26 +5905,8 @@ their value in COMMODITY as of today (or another date specified with
 :Message: [[message://13797315-A496-427C-8F17-4946066FD087@joyful.com][commodity flags cleanup]]
 :Author: Simon Michael <simon-jbxitMBJ2LLQT0dZR+AlfA@public.gmane.org>
 :END:
-** TODO [[bug:655][#655]] Ledger no longer downloads stock prices using the -Q option
-Since upgrading to ledger 3.0, I've noticed that it no longer downloads stock
-prices using the -Q option like it used to. Based on this post, that's a
-feature that is planned, but not yet reinstated yet.
-
-http://groups.google.com/group/ledger-cli/browse_thread/thread/d58f29605d4bdd02/dd26788d2b2d934a?lnk=gst&q=download#dd26788d2b2d934a
-
-In the meantime, I've created a Bash script that does the same work.  It's
-super simple, so I'm not sure if it will work for everyone, but it should be
-easy to fix, if not.
-
-https://gist.github.com/1389840
-:PROPERTIES:
-:ID:       DE28E5EC-9481-4E86-9C78-C3E793B1FF4A
-:CREATED:  [2011-11-24 Thu 00:41]
-:Date: Wed, 23 Nov 2011 12:53:45 -0800 (PST)
-:Message: [[message://d4abc803-fa54-4b5f-9649-83c38f872d11@w1g2000vba.googlegroups.com][Dowloading stock prices, a workaround]]
-:Submitter: Vinod Kurup <vvkurup-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
-** TODO [[bug:656][#656]] Historical prices with and without revaluation
+** DONE [[bug:656][#656]] Historical prices with and without revaluation
+- State "DONE"       from "TODO"       [2012-03-09 Fri 20:07]
 - Note taken on [2012-02-23 Thu 21:29] \\
   One syntax can be (using fixated commodity price)
   #+begin_src ledger
@@ -3239,97 +6120,6 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://565113c5-1ea0-4ee4-8f60-782cfc28e42a@da3g2000vbb.googlegroups.com][historical prices with and without revaluation]]
 :Submitter: Qwertyu <scheit-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO [[bug:663][#663]] Detect recursive inclusion and report an error
-:PROPERTIES:
-:ID:       76DA1021-D527-4BED-8F1B-258E7D8BE34A
-:CREATED:  [2012-03-01 Thu 22:29]
-:END:
-** TODO [[bug:664][#664]] Value expression regexp matching should return a match object
-:PROPERTIES:
-:ID:       E80521C7-0AFC-48F1-B803-9856D4FA4613
-:CREATED:  [2012-02-29 Wed 15:16]
-:END:
-** TODO [[bug:673][#673]] display_total chokes on account with non-dollar commodities
-SCHEDULED: <2012-03-08 Thu>
-:PROPERTIES:
-:ID:       8A56499C-69DC-4B51-85EC-D7F83F6A8342
-:CREATED:  [2012-03-08 Thu 13:57]
-:Date: Thu, 08 Mar 2012 19:18:58 +0000
-:Message: [[message://bug-673-1@http.bugs.ledger-cli.org/][{Bug 673} New: display_total chokes on account with non-dollar commodities]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** REVIEW [#A] [[bug:565][#565]] Transactions with leading whitespace not detected
-- State "REVIEW"     from "DUPLICATE"  [2012-02-23 Thu 21:51]
-- Note taken on [2011-08-21 Sun 18:53] \\
-  I believe it's a regression in 3.0.  I filed a bug report about this some
-  time ago: http://bugs.ledger-cli.org/show_bug.cgi?id=443
-In the attached sample ledger file a space has been inadvertently inserted
-preceding one of the transaction dates.
-
-ledger-2.6.3 Detects the error and emits:
-:OUTPUT:
-Error: "sample.ldg", line 6: Line begins with whitespace
-Error: "sample.ldg", line 7: Line begins with whitespace
-Error: "sample.ldg", line 8: Line begins with whitespace
-:END:
-
-This looks good to me.
-
-On the other hand ledger-3.0 (beta) silently ignores the offending
-transaction.
-
-Is the change in behaviour intentional? Is there an option in 3.0 that
-yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
-:PROPERTIES:
-:ID:       8EAF77C0-C2FA-4B8D-BAEE-4A886CEAE106
-:CREATED:  [2011-08-21 Sun 18:53]
-:Date:     Sun, 21 Aug 2011 22:12:40 +0100
-:Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
-:Submitter: "David Keegan" <dksw@eircom.net>
-:END:
-** DEFERRED [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
-   - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
-   :PROPERTIES:
-   :ID:       CE4F80CF-B298-43C5-B786-AA8ABEDA05C8
-   :CREATED:  [2010-05-27 Thu 01:12]
-   :END:
-** DONE Allow for chaining, so that -VA works
-- State "DONE"       from "TODO"       [2012-03-07 Wed 14:32]
-:PROPERTIES:
-:ID:       EA18D948-C811-4F74-8BDF-21C53C19176B
-:CREATED:  [2012-03-07 Wed 05:33]
-:END:
-** DONE [[bug:337][#337]] Rationalize formatting strings
-- State "DONE"       from "TODO"       [2012-03-02 Fri 10:58] \\
-  Fixed by 35ace88
-   %[OPTS](expr) should be equal to %(justify(expr, OPTS))
-   ${AMT} is the same as $(scrub(AMT))
-   %T is the same as ${display_total}.
-
-   Right now formatting strings are a nightmare for users to modify.
-   :PROPERTIES:
-   :ID:       E2F5CEE7-7FFE-48CC-8A56-8089BB502C63
-   :CREATED:  [2010-06-14 Mon 08:35]
-   :END:
-** DONE [[bug:395][#395]] Need commodity alias
-- State "DONE"       from "TODO"       [2012-03-09 Fri 07:24]
-   :PROPERTIES:
-   :ID:       13B53049-4795-4111-A679-6866AEFC4640
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-395-1@http.newartisans.com/bugzilla/][{Bug 395} New: need commodity alias]]
-   :CREATED:  [2010-08-16 Mon 16:28]
-   :END:
-** DONE [[bug:555][#555]] ledger stats reports days per posting, not postings per day
-- State "DONE"       from "REVIEW"     [2012-02-28 Tue 22:58]
-- State "REVIEW"     from "TODO"       [2012-02-23 Thu 21:50]
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :PROPERTIES:
-   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
-   :CREATED:  [2011-10-10 Mon 15:02]
-   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
-   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
 ** DONE [[bug:661][#661]] include directive causes a segmentation fault
 - State "DONE"       from "TODO"       [2012-03-01 Thu 22:00]
 :PROPERTIES:
@@ -3339,20 +6129,127 @@ yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
 :Message: [[message://bug-661-1@http.bugs.ledger-cli.org/][{Bug 661} New: In HEAD, installed today, include directive causes a segmentation fault.]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** WORKSFORME [[bug:207][#207]] No output to file in REPL with "push -o output.journal"
-- State "WORKSFORME" from "TODO"       [2012-02-28 Tue 22:52]
-   - State "TODO"       from "WORKSFORME" [2011-08-05 Fri 14:10] \\
-     Thierry confirms this still happens for him.
-   - State "WORKSFORME" from "WAITING"    [2010-06-15 Tue 05:23]
-   - State "WAITING"    from "STARTED"    [2010-06-10 Thu 04:54] \\
-     To Thomas: I just tried this and it worked fine.  After your "push" command,
-     does the prompt change to a ]]?
-   :LOGBOOK:
-   CLOCK: [2010-06-10 Thu 04:52]--[2010-06-10 Thu 04:54] =>  0:02
+** DONE [[bug:674][#674]] --decimal-comma and --percent are incompatible
+- State "DONE"       from "TODO"       [2012-03-11 Sun 04:03] \\
+  Fixed by fad24d4
+:PROPERTIES:
+:ID:       47C579B8-D8B6-4D0B-8EAA-26A3D2FE8642
+:CREATED:  [2012-03-09 Fri 19:44]
+:Date: Fri, 09 Mar 2012 23:34:48 +0000
+:Message: [[message://bug-674-1@http.bugs.ledger-cli.org/][{Bug 674} New: --decimal-comma and --percent are incompatible]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE [[bug:677][#677]] Error building current next branch: no type named ‘key_type’ in ‘class ledger::date_specifier_t’
+- State "DONE"       from "TODO"       [2012-03-11 Sun 03:58] \\
+  Building Ledger now requires a more modern version of Boost than 1.42.
+:PROPERTIES:
+:ID:       80B016C0-B6AD-4425-AFD8-D525B26DCC0D
+:CREATED:  [2012-03-10 Sat 19:13]
+:Date: Sat, 10 Mar 2012 13:22:48 +0000
+:Message: [[message://bug-677-1@http.bugs.ledger-cli.org/][{Bug 677} New: Error building current next branch: no type named ‘key_type’ in ‘class ledger::date_specifier_t’]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE [[bug:678][#678]] -X GBP -H leads to Adjustment, or: ledger gets calculation/rounding wrong
+- State "DONE"       from "TODO"       [2012-03-11 Sun 03:06] \\
+  Fixed by 0d9d845
+I was testing the combination of -X and -H with ledger from current next
+(080c1d9a2d0f3013a4d26879a3e98cfa62ef3e48) and saw "<Adjustment>" in the
+register output, which I wasn't expecting with -H.  Then I realized this may
+be rounding, so I changed the precision of the output to see what's going on.
+What I found confused me...
+
+With the example below, I get the following output with "ledger reg
+income:adse -X GBP -H":
+:OUTPUT:
+11-Jan-31 AdSense earnings      Income:AdSense            -9.46 GBP    -9.46 GBP
+11-Feb-28 AdSense earnings      <Adjustment>              -0.01 GBP    -9.47 GBP
+                                Income:AdSense            -8.60 GBP   -18.07 GBP
+:END:
+
+11.00 * 0.8604 = 9.4644, so showing 9.46 and then adjusting by 0.01 GBP seems
+correct.
+
+However, when I add
+#+begin_src ledger
+D 1000.0000 GBP
+#+end_src
+
+I noticed:
+:OUTPUT:
+11-Jan-31 AdSense earnings      Income:AdSense          -9.4644 GBP  -9.4644 GBP
+11-Feb-28 AdSense earnings      Income:AdSense          -8.5760 GBP -18.0404 GBP
+:END:
+
+Again, 8.5760 is correct (10 * 0.8576).
+
+But, to get back to the first example, how does ledger come up with a rounded
+value of 8.60?  I would expected the rounded value to be 8.58.  In fact, when
+I remove the first transaction from the file, this is exactly what I get.
+
+Is ledger getting the calculation wrong?
+
+Test case:
+#+begin_src ledger
+D 1000.00 GBP
+
+P 2011-01-01 EUR 0.8604 GBP
+P 2011-02-01 EUR 0.8576 GBP
+
+2011-01-31 * AdSense earnings
+    Assets:Receivable:AdSense              11.00 EUR
+    Income:AdSense
+
+2011-02-28 * AdSense earnings
+    Assets:Receivable:AdSense              10.00 EUR
+    Income:AdSense
+#+end_src
+:PROPERTIES:
+:ID:       889BB167-2CF2-4A8D-A1BF-D8D1F8014BD1
+:CREATED:  [2012-03-10 Sat 19:11]
+:Date: Sat, 10 Mar 2012 15:38:56 +0000
+:Message: [[message://bug-678-1@http.bugs.ledger-cli.org/][{Bug 678} New: -X GBP -H leads to Adjustment, or: ledger gets calculation/rounding wrong]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE [[bug:679][#679]] Error: Attempting to nail down a balance with -X -H
+- State "DONE"       from "TODO"       [2012-03-11 Sun 03:07] \\
+  Fixed by 2303aa9
+:PROPERTIES:
+:ID:       14DB77E7-777A-4636-9E69-E4E0298359BF
+:CREATED:  [2012-03-10 Sat 19:10]
+:Date: Sat, 10 Mar 2012 15:41:36 +0000
+:Message: [[message://bug-679-1@http.bugs.ledger-cli.org/][{Bug 679} New: Error: Attempting to nail down a balance with -X -H]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** WONTFIX [[bug:156][#156]] Instead of unistring(x).length(), have unilength(x)
+- State "WONTFIX"    from "DEFERRED"   [2012-03-10 Sat 21:57]
+   - State "DEFERRED"   from "TODO"       [2010-06-01 Tue 17:14]
+   :PROPERTIES:
+   :ID:       CE4F80CF-B298-43C5-B786-AA8ABEDA05C8
+   :CREATED:  [2010-05-27 Thu 01:12]
+   :END:
+** WONTFIX [[bug:519][#519]] ledger reg expr 'code > 100' breaks
+- State "WONTFIX"    from "TODO"       [2012-03-11 Sun 05:18] \\
+  Use int(code) for something like this.
+   :OUTPUT:
+   Hermes ~/src/ledger $ ./ledger reg expr 'code > 100'
+   While parsing value expression:
+     (code > {100})
+
+   Error: Unexpected expression token '{'
    :END:
    :PROPERTIES:
-   :ID:       D6B17614-288D-44E5-99C2-569E020809C4
-   :CREATED:  [2010-05-30 Sun 03:33]
+   :ID:       6B7C2D8A-6620-44C3-B8C1-3A897F84604E
+   :CREATED:  [2011-04-20 Wed 19:33]
+   :END:
+** DUPLICATE [[bug:505][#505]] Ampersand in GnuCash transaction creates conversion problem
+- State "DUPLICATE"  from "TODO"       [2012-03-11 Sun 05:21] \\
+  Duplicate of #417
+   :PROPERTIES:
+   :ID:       D567247E-F077-40E2-BE9A-C010593DD796
+   :CREATED:  [2011-04-20 Wed 18:04]
+   :Message:  [[message://bug-505-1@http.newartisans.com/bugzilla/][{Bug 505} New: Ampersand in GnuCash transaction creates conversion problem]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Date:     Mon, 18 Apr 2011 15:57:32 -0500 (CDT)
    :END:
 * Emacs
   :PROPERTIES:
@@ -4031,95 +6928,12 @@ my uncleared transactions.  All I get is an empty buffer.
    :Submitter: Gabriel Kerneis <gabriel@kerneis.info>
    :CREATED:  [2010-01-18 Mon 02:55]
    :END:
-** TODO [[bug:231][#231]] Allow conversion of some but not all commodities
-SCHEDULED: <2012-03-09 Fri>
-   With -X, you currently can only say "convert everything to one commodity"
-   but I'd like to be able to convert some stuff but not everything.
-
-   My scenario: I have lived both in Autria (a EUR country) and the UK (which
-   has GPB).  So right now I have accounts in EUR and GBP and then I also have
-   some random money from travel (USD, TWD, etc) floating around as well as
-   some shares.
-
-   I'd like to be able to say: convert everything _but_ GBP to EUR (or GBP).
-   This is what I'd like to see most of the time... just those two currencies.
-   But sometimes I want to convert _everything_ (including GBP) to EUR.
-
-   I like the "primary COMM ACCOUNT" syntax you propose in #217 but to achieve
-   what I want I think we need an option --convert-primary or so.  Then I
-   could say:
-   #+begin_src sh
-   -X EUR,GBP
-   #+end_src
-   to get EUR and GBP, or
-   #+begin_src sh
-   -X EUR --convert-primary
-   #+end_src
-   to get just EUR.
-   :PROPERTIES:
-   :ID:       83B4A0E5-3CC6-4F5E-9C58-A87F690836C8
-   :CREATED:  [2010-06-08 Tue 16:45]
-   :END:
 ** TODO [[bug:233][#233]] Make 'last' a valexpr term of the last posting output
 - State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:39]
    - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:15]
    :PROPERTIES:
    :ID:       7517CE3B-C3B0-460D-806B-31341272DE79
    :CREATED:  [2010-06-06 Sun 06:42]
-   :END:
-** TODO [[bug:270][#270]] Add a feature for "object descriptions"
-   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
-   For example:
-
-   def OBJECT NAME
-     alias NAME
-     commodities NAME[, NAME...]
-     report NAME[, NAME...]
-     set NAME EXPR
-     assert EXPR
-   end def
-
-   def commodity GAL
-     set fixed_commodity true
-     set another_value $100 * 20
-   end def
-
-   def account Expenses:Food
-     alias Chow
-     commodities $, EUR
-     report $
-   end def
-   :PROPERTIES:
-   :ID:       B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
-   :CREATED:  [2009-03-02 Mon 20:39]
-   :END:
-** TODO [[bug:271][#271]] Add a {{total}} syntax for lot price specification
-- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:39]
-   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
-   I had another idea: do you remember I mentioned a problem I had, which that
-   some of my trade confirmation slips provide the "adjusted cost base" and not
-   the cost-per-share? This makes it a big ugly to enter such postings, even
-   with expressions:
-   :DATA:
-     BrokerAccount    -29.435 WIDGETS {353.51435/29.435 USD} @ 13.02 USD
-   :END:
-   (I didn't test the above, by the way, that was your suggestion when we
-   talked last time.)
-
-   I propose this syntax:
-   :DATA:
-     BrokerAccount    -29.435 WIDGETS {{353.51435 USD}} @ 13.02 USD
-   :END:
-   It's a bit similar to the idea of @ vs. @@ where the single char (@) is for
-   price, and the double (@@) is for total amount. Using {{ ... }} refers to
-   the total cost, while { ... } refers to the cost price (per share).
-   :PROPERTIES:
-   :Submitter: Martin Blais <blais@furius.ca>
-   :Version:  2.6
-   :Ticket:   188
-   :ID:       C9E09993-CC01-41C6-BADC-0A9AA1221419
-   :CREATED:  [2008-04-20 Sun]
    :END:
 ** TODO [[bug:292][#292]] Make alias names for directives, like convert for C
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:31]
@@ -4141,11 +6955,6 @@ SCHEDULED: <2012-03-09 Fri>
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :Message:  [[message://bug-333-1@http.newartisans.com/bugzilla/][{Bug 333} New: Add warning when duplicate meta references are given]]
    :CREATED:  [2010-06-13 Sun 17:43]
-   :END:
-** TODO [[bug:368][#368]] A commodity annotation that asserts no negative quantities
-   :PROPERTIES:
-   :ID:       09FA1386-E890-4600-98D0-86C248A24C31
-   :CREATED:  [2010-06-27 Sun 21:27]
    :END:
 ** TODO [[bug:393][#393]] Allow lot tags to "link" to a past priced commodity
    :PROPERTIES:
@@ -4529,78 +7338,10 @@ and t-2 would give the same entry but with the date of 2012/01/24.
 :ID:       750ECE98-C110-4879-B87D-B0FF17BE1A2D
 :CREATED:  [2012-03-06 Tue 04:24]
 :END:
-** TODO [#C] Refactor commodity support [3/7]
-SCHEDULED: <2012-03-08 Thu>
-- [X] Use Boost.Graph to manage price histories
-- [X] Don't use mapping_key anymore, but a data-based lookup
-- [ ] Unify the lot-handling into a more general mechanism
-- [X] Make -O and -B and --price standalone options
-- [ ] Make -X and -V usable at all times
-- [ ] Add -H flag for reporting in terms of historical prices
-- [-] Add a value property for specializing -X
-  - [ ] Option scope (--value-expr)
-  - [X] File scope
-  - [X] Account scope
-  - [X] Commodity scope
-  - [X] Transaction scope
-  - [X] Posting scope
-  - [X] Amount "scope"
-
-; Changes to options:
-;
-; -O    --quantity    use each posting's amOunt (DEFAULT)
-; -B    --cost        use each posting's cost Basis
-; -I    --price       use each posting's commodity prIce (i.e., {$10})
-;                     this is the same as the cost if none specified
-;
-; -V    --value       request to value commodities, but DWIM-style
-; -X $  --exchange    request to value commodities in terms of $
-; -G    --change      show difference between cost basis and "value",
-;                     whatever that means based on the options used
-;
-; -H    --historical  value commodities at time of acquisition
-;       --current     value commodities as of today (DEFAULT)
-;       --now=        define "today"
-
-; These can all be mixed now, so:
-;
-;   bal brokerage --cost --exchange $ --historical
-;       show much I spent to buy stocks, in $
-;
-;   bal brokerage --cost --exchange $
-;       show much I spent to buy stocks, in today's $
-;
-;   bal assets --exchange $ --historical
-;       how many $ would it have taken (at the time) to acquire my assets?
-;
-;   bal assets --exchange $
-;       present value of my assets in $, or how many $ would it take to
-;       replace those assets today
-
-; NEW: Virtual Costs
-:
-; Normally each exchange of a commodity in a journal is recorded as an
-; historical price point.  You can now use "virtual costs" to keep a
-; particular exchange off the record.  Simply surround the @ or @@ symbols
-; with parentheses: (@) (@@).
-
-; NEW: Value Annotations
-;
-; Commodities can now have a "valuation" expression, surrounded by (()):
-;
-;     $20 {30 CAD} ((market))   ; value these $20 using market price
-;     $20 {30 CAD} ((30 CAD))   ; value is always 30 CAD, no matter what
-;
-;     $20 {30 CAD} ((a, d, c -> market(30 CAD, d, c) ))
-;                               ; value is always 30 CAD, but report that
-;                               ; 30 CAD in terms of user's request
-; Value expression functions:
-;
-;    appraise(a [, d, c])  ask the amount a for its value (opt. on d in c)
-;    market(a , d, c)      return the market price of a on d in c
+** TODO [[bug:675][#675]] Add options --commodity-value-expr and --account-value-expr
 :PROPERTIES:
-:ID:       CD37989C-91E7-4E6B-A122-1FE27797ABCC
-:CREATED:  [2012-03-02 Fri 23:32]
+:ID:       4558A00D-5362-4C0D-9A60-E90AEDE7D51C
+:CREATED:  [2012-03-09 Fri 20:27]
 :END:
 ** DEFERRED [[bug:177][#177]] lot_price should be able to return if commodity is "fixed rate"
    - State "DEFERRED"   from "TODO"       [2010-06-15 Tue 05:23]
@@ -4720,17 +7461,6 @@ SCHEDULED: <2012-03-08 Thu>
    :ID:       68E4C919-14BA-4AB1-A60B-FC176E966B45
    :CREATED:  [2008-04-11 Fri]
    :END:
-** DEFERRED [[bug:297][#297]] Support debit/credit register and balance reports
-   - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:33]
-   - Note taken on [2009-11-25 Wed 02:11] \\
-     See: http://en.wikipedia.org/wiki/Debits_and_credits#.27T.27_Accounts.
-   This would show debit amounts in one column, and credit amounts in a second
-   column, rather than conflating positive and negative values in a single
-   column.
-   :PROPERTIES:
-   :ID:       A3A7E04A-036F-498D-8C7D-FCE38DC858BF
-   :CREATED:  [2009-11-25 Wed 02:09]
-   :END:
 ** DEFERRED [[bug:298][#298]] Support for exceptions to interval_t
    - State "DEFERRED"   from "TODO"       [2009-06-16 Tue 18:13]
    For example, "monthly except June".
@@ -4831,6 +7561,37 @@ SCHEDULED: <2012-03-08 Thu>
    :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
    :CREATED:  [2010-06-03 Thu 23:22]
    :END:
+** DONE [[bug:231][#231]] Allow conversion of some but not all commodities
+SCHEDULED: <2012-03-09 Fri>
+- State "DONE"       from "TODO"       [2012-03-09 Fri 20:14] \\
+  Fixed by 2df8edc
+   With -X, you currently can only say "convert everything to one commodity"
+   but I'd like to be able to convert some stuff but not everything.
+
+   My scenario: I have lived both in Autria (a EUR country) and the UK (which
+   has GPB).  So right now I have accounts in EUR and GBP and then I also have
+   some random money from travel (USD, TWD, etc) floating around as well as
+   some shares.
+
+   I'd like to be able to say: convert everything _but_ GBP to EUR (or GBP).
+   This is what I'd like to see most of the time... just those two currencies.
+   But sometimes I want to convert _everything_ (including GBP) to EUR.
+
+   I like the "primary COMM ACCOUNT" syntax you propose in #217 but to achieve
+   what I want I think we need an option --convert-primary or so.  Then I
+   could say:
+   #+begin_src sh
+   -X EUR,GBP
+   #+end_src
+   to get EUR and GBP, or
+   #+begin_src sh
+   -X EUR --convert-primary
+   #+end_src
+   to get just EUR.
+   :PROPERTIES:
+   :ID:       83B4A0E5-3CC6-4F5E-9C58-A87F690836C8
+   :CREATED:  [2010-06-08 Tue 16:45]
+   :END:
 ** DONE [[bug:232][#232]] Support variant behaviors for -V
 - State "DONE"       from "TODO"       [2012-03-09 Fri 07:30]
    The problem is: for a given amount of a commodity, which commodity should
@@ -4871,6 +7632,62 @@ SCHEDULED: <2012-03-08 Thu>
    :ID:       AA092062-FBA5-4142-B3E4-E67FA9E12C19
    :CREATED:  [2010-06-07 Mon 08:39]
    :END:
+** DONE [[bug:270][#270]] Add a feature for "object descriptions"
+- State "DONE"       from "TODO"       [2012-03-09 Fri 20:20]
+   - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   For example:
+
+   def OBJECT NAME
+     alias NAME
+     commodities NAME[, NAME...]
+     report NAME[, NAME...]
+     set NAME EXPR
+     assert EXPR
+   end def
+
+   def commodity GAL
+     set fixed_commodity true
+     set another_value $100 * 20
+   end def
+
+   def account Expenses:Food
+     alias Chow
+     commodities $, EUR
+     report $
+   end def
+   :PROPERTIES:
+   :ID:       B4BD2B5F-1F77-449B-80FF-DC7218DA2EFE
+   :CREATED:  [2009-03-02 Mon 20:39]
+   :END:
+** DONE [[bug:271][#271]] Add a {{total}} syntax for lot price specification
+- State "DONE"       from "TODO"       [2012-03-10 Sat 02:28]
+- State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:39]
+   - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
+   I had another idea: do you remember I mentioned a problem I had, which that
+   some of my trade confirmation slips provide the "adjusted cost base" and not
+   the cost-per-share? This makes it a big ugly to enter such postings, even
+   with expressions:
+   :DATA:
+     BrokerAccount    -29.435 WIDGETS {353.51435/29.435 USD} @ 13.02 USD
+   :END:
+   (I didn't test the above, by the way, that was your suggestion when we
+   talked last time.)
+
+   I propose this syntax:
+   :DATA:
+     BrokerAccount    -29.435 WIDGETS {{353.51435 USD}} @ 13.02 USD
+   :END:
+   It's a bit similar to the idea of @ vs. @@ where the single char (@) is for
+   price, and the double (@@) is for total amount. Using {{ ... }} refers to
+   the total cost, while { ... } refers to the cost price (per share).
+   :PROPERTIES:
+   :Submitter: Martin Blais <blais@furius.ca>
+   :Version:  2.6
+   :Ticket:   188
+   :ID:       C9E09993-CC01-41C6-BADC-0A9AA1221419
+   :CREATED:  [2008-04-20 Sun]
+   :END:
 ** DONE [[bug:280][#280]] Check for duplicated transactions
 - State "DONE"       from "DEFERRED"   [2012-02-28 Tue 21:40] \\
   This is supported now with UUID.
@@ -4881,6 +7698,31 @@ SCHEDULED: <2012-03-08 Thu>
    :PROPERTIES:
    :ID:       4F58ACC1-498A-41A5-9164-93CD30B3CAC5
    :CREATED:  [2009-10-23 Fri 06:12]
+   :END:
+** DONE [[bug:297][#297]] Support debit/credit register and balance reports
+- State "DONE"       from "DEFERRED"   [2012-03-10 Sat 21:39] \\
+  Fixed by 860610f
+   - State "DEFERRED"   from "TODO"       [2009-11-25 Wed 02:33]
+   - Note taken on [2009-11-25 Wed 02:11] \\
+     See: http://en.wikipedia.org/wiki/Debits_and_credits#.27T.27_Accounts.
+   This would show debit amounts in one column, and credit amounts in a second
+   column, rather than conflating positive and negative values in a single
+   column.
+   :PROPERTIES:
+   :ID:       A3A7E04A-036F-498D-8C7D-FCE38DC858BF
+   :CREATED:  [2009-11-25 Wed 02:09]
+   :END:
+** DONE [[bug:368][#368]] A commodity annotation that asserts no negative quantities
+- State "DONE"       from "TODO"       [2012-03-09 Fri 20:19] \\
+  You can do that with an automated transaction.  To prevent negative EUR
+  amounts from appearing in a journal:
+  #+begin_src ledger
+  = expr commodity == "EUR"
+      assert ! (amount < 0)
+  #+end_src
+   :PROPERTIES:
+   :ID:       09FA1386-E890-4600-98D0-86C248A24C31
+   :CREATED:  [2010-06-27 Sun 21:27]
    :END:
 ** DONE [[bug:475][#475]] A solution to the commodity pricing problem
 - State "DONE"       from "TODO"       [2012-03-09 Fri 07:29]
@@ -4998,6 +7840,83 @@ pose scenarios, and I'll try to model them for you.
    :ID:       6BA58CB7-AE65-44FB-B0A2-9631950E133C
    :CREATED:  [2011-06-29 Wed 14:58]
    :END:
+** DONE [#C] Refactor commodity support [6/6]
+SCHEDULED: <2012-03-09 Fri>
+- State "DONE"       from "TODO"       [2012-03-09 Fri 21:00]
+- [X] Use Boost.Graph to manage price histories
+- [X] Don't use mapping_key anymore, but a data-based lookup
+- [X] Make -O and -B and --price standalone options
+- [X] Make -X and -V usable at all times
+- [X] Add -H flag for reporting in terms of historical prices
+- [X] Add a value property for specializing -X
+  - [X] Option scope (--value-expr)
+    This should accept two forms:
+    $10                same as (($10))
+    $=$10              same as commodity $/value $10
+    $=$10,AU=$20       same as ... commodity AU/value $20
+  - [X] File scope
+  - [X] Account scope
+  - [X] Commodity scope
+  - [X] Transaction scope
+  - [X] Posting scope
+  - [X] Amount "scope"
+
+; Changes to options:
+;
+; -O    --quantity    use each posting's amOunt (DEFAULT)
+; -B    --cost        use each posting's cost Basis
+; -I    --price       use each posting's commodity prIce (i.e., {$10})
+;                     this is the same as the cost if none specified
+;
+; -V    --value       request to value commodities, but DWIM-style
+; -X $  --exchange    request to value commodities in terms of $
+; -G    --change      show difference between cost basis and "value",
+;                     whatever that means based on the options used
+;
+; -H    --historical  value commodities at time of acquisition
+;       --current     value commodities as of today (DEFAULT)
+;       --now=        define "today"
+
+; These can all be mixed now, so:
+;
+;   bal brokerage --cost --exchange $ --historical
+;       show much I spent to buy stocks, in $
+;
+;   bal brokerage --cost --exchange $
+;       show much I spent to buy stocks, in today's $
+;
+;   bal assets --exchange $ --historical
+;       how many $ would it have taken (at the time) to acquire my assets?
+;
+;   bal assets --exchange $
+;       present value of my assets in $, or how many $ would it take to
+;       replace those assets today
+
+; NEW: Virtual Costs
+:
+; Normally each exchange of a commodity in a journal is recorded as an
+; historical price point.  You can now use "virtual costs" to keep a
+; particular exchange off the record.  Simply surround the @ or @@ symbols
+; with parentheses: (@) (@@).
+
+; NEW: Value Annotations
+;
+; Commodities can now have a "valuation" expression, surrounded by (()):
+;
+;     $20 {30 CAD} ((market))   ; value these $20 using market price
+;     $20 {30 CAD} ((30 CAD))   ; value is always 30 CAD, no matter what
+;
+;     $20 {30 CAD} ((a, d, c -> market(30 CAD, d, c) ))
+;                               ; value is always 30 CAD, but report that
+;                               ; 30 CAD in terms of user's request
+; Value expression functions:
+;
+;    appraise(a [, d, c])  ask the amount a for its value (opt. on d in c)
+;    market(a , d, c)      return the market price of a on d in c
+:PROPERTIES:
+:ID:       CD37989C-91E7-4E6B-A122-1FE27797ABCC
+:CREATED:  [2012-03-02 Fri 23:32]
+:END:
 ** CANCELED [[bug:481][#481]] Add a native "test" command to Ledger
 - State "CANCELED"   from "TODO"       [2012-03-09 Fri 07:34]
 - State "TODO"       from "DEFERRED"   [2012-02-28 Tue 21:44]
@@ -5030,16 +7949,6 @@ pose scenarios, and I'll try to model them for you.
   :PROPERTIES:
   :CATEGORY: Python
   :END:
-** TODO [[bug:665][#665]] pymodule.value doesn't work yet for Python
-I need to convert the pymodule to a scope_t-derived proxy whose lookup()
-method will check the module's namespace.
-
-Once this is done, then abstract the main module to use the same thing, and
-make this a child scope of the Python session.
-:PROPERTIES:
-:ID:       5CD94EF6-4791-4ACA-81A7-5BAACDC1B0B9
-:CREATED:  [2012-03-01 Thu 03:28]
-:END:
 ** DEFERRED [[bug:302][#302]] Add implicit conversion of mask_t to re
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:36]
    [[file:py_value.cc::jww%202009%2011%2002%20Add%20implicit%20conversion%20of%20mask%20objects][py_value.cc]]
@@ -5158,7 +8067,45 @@ make this a child scope of the Python session.
    :ID:       7CF0160B-A3FF-4BE7-B6D3-788F9556A20F
    :CREATED:  [2009-01-23 Fri 15:57]
    :END:
-** DEFERRED [[bug:315][#315]] Use Python to create a per-account debit/credit report
+** DEFERRED [[bug:316][#316]] Write a Python demo script
+   - State "DEFERRED"   from "STARTED"    [2009-11-22 Sun 22:36]
+   :PROPERTIES:
+   :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
+   :CREATED:  [2009-11-19 Thu 17:37]
+   :END:
+** DEFERRED [[bug:407][#407]] Problem with decimal commas and Python integration support
+- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
+   :PROPERTIES:
+   :ID:       91F750B3-C7D0-4945-8E9D-268AAA40529C
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
+   :CREATED:  [2010-08-16 Mon 16:47]
+   :END:
+** DEFERRED [[bug:424][#424]] Make acprep compatible with Python 3                                    :ATTACH:
+- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
+   - Note taken on [2010-11-26 Fri 12:55] \\
+     [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
+   :PROPERTIES:
+   :ID:       AA0C71E0-00BB-4EEF-A5F6-F7B44CA4C3E0
+   :Submitter: John Piasetzki <john.piasetzki@gmail.com>
+   :Message:  [[message://AANLkTimJcMdtJ-xwZkoRyJw7WjoNvzUwU6mmKhr9wjK_@mail.gmail.com][acprep Python 3 {patch}]]
+   :Attachments: 0001-Update-acprep-to-work-with-Python3.patch
+   :CREATED:  [2010-11-24 Wed 13:43]
+   :END:
+** DONE [[bug:665][#665]] pymodule.value doesn't work yet for Python
+- State "DONE"       from "TODO"       [2012-03-11 Sun 04:42]
+I need to convert the pymodule to a scope_t-derived proxy whose lookup()
+method will check the module's namespace.
+
+Once this is done, then abstract the main module to use the same thing, and
+make this a child scope of the Python session.
+:PROPERTIES:
+:ID:       5CD94EF6-4791-4ACA-81A7-5BAACDC1B0B9
+:CREATED:  [2012-03-01 Thu 03:28]
+:END:
+** WONTFIX [[bug:315][#315]] Use Python to create a per-account debit/credit report
+- State "WONTFIX"    from "DEFERRED"   [2012-03-10 Sat 21:39] \\
+  This type of report can now be generated with the --dc option.
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:04]
    Is there a way to let ledger output its reports showing the accounts in the
    more conventional way as debit and credit accounts, instead of having a
@@ -5188,31 +8135,6 @@ make this a child scope of the Python session.
    :Version:  2.6.1
    :ID:       444EFEE1-D873-4FD3-BB07-4E605BCB2BF4
    :CREATED:  [2008-10-08 Wed 00:58]
-   :END:
-** DEFERRED [[bug:316][#316]] Write a Python demo script
-   - State "DEFERRED"   from "STARTED"    [2009-11-22 Sun 22:36]
-   :PROPERTIES:
-   :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
-   :CREATED:  [2009-11-19 Thu 17:37]
-   :END:
-** DEFERRED [[bug:407][#407]] Problem with decimal commas and Python integration support
-- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
-   :PROPERTIES:
-   :ID:       91F750B3-C7D0-4945-8E9D-268AAA40529C
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://20100811223735.A7B214227F8@mail.johnwiegley.com][{Bug 184} For those interested in the Python support]]
-   :CREATED:  [2010-08-16 Mon 16:47]
-   :END:
-** DEFERRED [[bug:424][#424]] Make acprep compatible with Python 3                                    :ATTACH:
-- State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
-   - Note taken on [2010-11-26 Fri 12:55] \\
-     [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
-   :PROPERTIES:
-   :ID:       AA0C71E0-00BB-4EEF-A5F6-F7B44CA4C3E0
-   :Submitter: John Piasetzki <john.piasetzki@gmail.com>
-   :Message:  [[message://AANLkTimJcMdtJ-xwZkoRyJw7WjoNvzUwU6mmKhr9wjK_@mail.gmail.com][acprep Python 3 {patch}]]
-   :Attachments: 0001-Update-acprep-to-work-with-Python3.patch
-   :CREATED:  [2010-11-24 Wed 13:43]
    :END:
 * Build
   :PROPERTIES:
@@ -5465,6 +8387,14 @@ See my comment on [[https://github.com/jwiegley/ledger/commit/7e6dbcd64ca1edb3a6
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
+** TODO (Simon) Consolidate the ledger-cli repository as a website branch
+:PROPERTIES:
+:ID:       488FD290-3F00-428D-A3B7-D7F115C2E5F0
+:CREATED:  [2012-03-10 Sat 22:10]
+:Date: Fri, 09 Mar 2012 19:31:19 -0800
+:Message: [[message://jjehu8$5uv$1@dough.gmane.org][Re: docs status (Re: consolidate docs?)]]
+:Author: Simon Michael <simon-jbxitMBJ2LLQT0dZR+AlfA@public.gmane.org>
+:END:
 ** TODO [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
@@ -5733,13 +8663,6 @@ Languages.
 :Message: [[message://github-87F922.10545812012012@news.gmane.org][Ledger syntax coloring for TextWrangler]]
 :Author: Niekas <github-Vzr4Esry4JzzIImvGDD8mw@public.gmane.org>
 :END:
-** TODO [[bug:662][#662]] If Ledger crashes in std::string::_Rep::_M_dispose...
-Check which libstdc++.6.dylib Boost and Ledger (and the other component
-libraries) are linked with.
-:PROPERTIES:
-:ID:       594901C8-DF06-4E0B-B8E9-6BB7682047A0
-:CREATED:  [2012-03-01 Thu 22:41]
-:END:
 ** DELEGATED [[bug:474][#474]] Create documentation stubs in ledger3.texi for all features
 - State "DELEGATED"  from "TODO"       [2012-02-23 Thu 21:54]
 - State "TODO"       from "DONE"       [2011-11-18 Fri 20:04]
@@ -5820,6 +8743,14 @@ libraries) are linked with.
    :Message:  [[message://jwiegley/ledger/issues/32@github.com][{ledger} Improve download/install instructions for the Mac (#32)]]
    :Submitter: richardcooper <reply+i-1278078-1be2b9ab93ac7c481fd66bb7244f2447690518e1@reply.github.com>
    :END:
+** WONTFIX [[bug:662][#662]] If Ledger crashes in std::string::_Rep::_M_dispose...
+- State "WONTFIX"    from "TODO"       [2012-03-11 Sun 04:43]
+Check which libstdc++.6.dylib Boost and Ledger (and the other component
+libraries) are linked with.
+:PROPERTIES:
+:ID:       594901C8-DF06-4E0B-B8E9-6BB7682047A0
+:CREATED:  [2012-03-01 Thu 22:41]
+:END:
 ** NOTE Questions on Ledger
 - Did you use a separate ledger for this trip, or were your entries in the
   same ledger as your personal finances?
