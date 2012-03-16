@@ -94,12 +94,6 @@ created (https://launchpad.net/~mbudde/+archive/ledger) under Ubuntu
 :Message: [[message://jwiegley/ledger/issues/48@github.com][{ledger} Input date format not recognized (#48)]]
 :Submitter: Jonas <reply+i-2467193-d935c086e8421ab641d9f9aaddfdfcd560f8c39c-8460@reply.github.com>
 :END:
-** TODO [#A] [[bug:683][#683]] ledger --anon pricedb gets a seg fault
-:PROPERTIES:
-:ID:       2CE7DADB-47DB-4226-B13F-1C65CE35103A
-:CREATED:  [2012-03-10 Sat 22:20]
-:Message: [[message://CA%2BR89Y%2B_CXrCdwopPT-n7k%3DKwMzGWuafoT14m%2B3pArMnTWaB%2Bg@mail.gmail.com][Re: ledger v3 slower than ledger v2]]
-:END:
 ** TODO [#A] [[bug:686][#686]] Virtual transactions and the equity command
 I have what I think is a large ledger file, with personal finances dating back
 to 1988. I'd like to archive the earlier years so that ledger will generate
@@ -2916,14 +2910,6 @@ https://gist.github.com/1389840
 :Message: [[message://bug-677-1@http.bugs.ledger-cli.org/][{Bug 677} New: Error building current next branch: no type named ‘key_type’ in ‘class ledger::date_specifier_t’]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:680][#680]] ledger pricedb shows incorrect(?) entries
-:PROPERTIES:
-:ID:       786A3DD0-B511-4746-8A4B-28216594491A
-:CREATED:  [2012-03-10 Sat 19:10]
-:Date: Sat, 10 Mar 2012 15:56:53 +0000
-:Message: [[message://bug-680-1@http.bugs.ledger-cli.org/][{Bug 680} New: ledger pricedb shows incorrect(?) entries]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
 ** TODO [[bug:681][#681]] Commodities revalued with -X -H when no pricedb entry for one transaction
 :PROPERTIES:
 :ID:       9E0E606D-8C04-40EB-8054-21CE86ADD5DD
@@ -2933,6 +2919,46 @@ https://gist.github.com/1389840
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO [[bug:684][#684]] Ledger v3 slower than ledger v2
+- Note taken on [2012-03-13 Tue 16:30] \\
+  I have compiled today using:
+  #+begin_src sh
+  $ ./acprep make -- distclean
+  $ ./acprep opt update --no-patch
+  #+end_src
+  
+  here is table, result are in last column, best viewed using org-mode:
+  
+  | reg -X € -J                                 | 2m07.451s | 2m01.476s | 1m16.583s | 1m18.624s |
+  | reg -X € -J --price-db prices.db-monthly    | 0m42.755s | 1m04.551s | 0m58.373s | 1m0.666s  |
+  | reg -X € -J -M                              | 0m34.802s | 0m34.283s | 0m24.437s | 0m24.608s |
+  | reg -X € -J -M --price-db prices.db-monthly | 0m12.562s | seg fault | 0m19.944s | 0m22.399s |
+  | reg -X € -J -Y                              | 0m09.555s | 0m08.683s | 0m07.117s | 0m6.543s  |
+  | reg -X € -J -Y --price-db prices.db-monthly | 0m03.401s | 0m04.280s | 0m05.448s | 0m5.292s  |
+  
+  You will see that there is no improvment. I suspect that you focused on
+  first line of output.txt from gmon.out.
+  
+  I believe that the most interesting part of gmon is the second part,
+  starting after keyword "granularity", that is line 7314 (see output of
+  "grep -n granularity output.txt")
+  
+  To analyse this second part there are tools like gprof2dot. I use command
+  like:
+  #+begin_src sh
+  $ gprof ~/ledger/ledger gmon.out | ~/gprof2dot.py | dot -Tpdf -o output.pdf
+  #+end_src
+  where ~/ledger/ledger is compiled using gprof options
+  
+  output.pdf file will be very big, depending on you platform (MacOs I
+  believe), please choose the graphic format that you are able to
+  read. This step caused me problems with 6GB RAM.
+  
+  I tried to profile again, but I am failing with error
+  :OUTPUT:
+  $ time ledger reg -X € -J --price-db price.db-201006292103 >/dev/null
+  _mcleanup: gmon.out: Too many levels of symbolic links
+  :END:
+  and google did not helped that much
 :PROPERTIES:
 :ID:       69328608-A930-42BE-B6AC-40C373A08C3F
 :CREATED:  [2012-03-10 Sat 22:11]
@@ -3164,6 +3190,31 @@ or am I misunderstanding what the report should be?
 :PROPERTIES:
 :ID:       DA021BA7-A742-497F-8CE7-9C1478C65D3E
 :CREATED:  [2012-03-12 Mon 05:59]
+:END:
+** TODO [[bug:700][#700]] @alias segfaults
+:PROPERTIES:
+:ID:       E36335EF-3960-4464-BA99-2C9DFF86B0C0
+:CREATED:  [2012-03-14 Wed 14:00]
+:Date: Wed, 14 Mar 2012 08:42:12 +0000
+:Message: [[message://bug-700-1@http.bugs.ledger-cli.org/][{Bug 700} New: @alias segfaults]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:701][#701]] Use of --pager corrupts the terminal
+:PROPERTIES:
+:ID:       7FCB580F-CB82-441A-9B1D-32812631AA8C
+:CREATED:  [2012-03-14 Wed 13:59]
+:Date: Wed, 14 Mar 2012 08:50:41 +0000
+:Message: [[message://bug-701-1@http.bugs.ledger-cli.org/][{Bug 701} New: pager corrupt terminal]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:704][#704]] pricedb entries randomly repeated
+SCHEDULED: <2012-03-15 Thu>
+:PROPERTIES:
+:ID:       8CE88DB4-B1B7-4303-9221-C1BEF3BBF17A
+:CREATED:  [2012-03-15 Thu 15:28]
+:Date: Thu, 15 Mar 2012 12:56:01 +0000
+:Message: [[message://bug-704-1@http.bugs.ledger-cli.org/][{Bug 704} New: pricedb entries randomly repeated]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DEFERRED [[bug:370][#370]] Let time periods use "starting" to fix the exact start date
 - State "DEFERRED"   from "TODO"       [2012-03-11 Sun 20:31]
@@ -3695,6 +3746,37 @@ SCHEDULED: <2012-03-09 Fri>
 :CREATED:  [2012-03-07 Wed 11:41]
 :Date: Wed, 07 Mar 2012 17:36:53 +0000
 :Message: [[message://bug-672-1@http.bugs.ledger-cli.org/][{Bug 672} New: Latest next/HEAD does not build]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE [#A] [[bug:683][#683]] ledger --anon pricedb gets a seg fault
+- State "DONE"       from "TODO"       [2012-03-13 Tue 00:05]
+:PROPERTIES:
+:ID:       2CE7DADB-47DB-4226-B13F-1C65CE35103A
+:CREATED:  [2012-03-10 Sat 22:20]
+:Message: [[message://CA%2BR89Y%2B_CXrCdwopPT-n7k%3DKwMzGWuafoT14m%2B3pArMnTWaB%2Bg@mail.gmail.com][Re: ledger v3 slower than ledger v2]]
+:END:
+** DONE [#A] [[bug:703][#703]] Assertion failed in "src/history.cc": source != price.commodity()
+SCHEDULED: <2012-03-15 Thu>
+- State "DONE"       from "TODO"       [2012-03-16 Fri 01:00] \\
+  Fixed by a49e33a
+This bug was introduced by the fix for bug #680.
+:OUTPUT:
+./ledger -f test.ledger pricedb
+While parsing file "test.ledger", line 3:
+Error: Assertion failed in "src/history.cc", line 135: void ledger::commodity_history_t::add_price(const ledger::commodity_t&, const datetime_t&, const ledger::amount_t&): source != price.commodity()
+:END:
+
+Test case:
+#+begin_src ledger
+2011-11-08 * Test
+    Assets:Voucher:Amazon                 137.87 GBP (48H5)
+    Assets:Cash                          -137.87 GBP
+#+end_src
+:PROPERTIES:
+:ID:       95350193-0238-4ECE-9AD4-D498331918A4
+:CREATED:  [2012-03-15 Thu 15:28]
+:Date: Thu, 15 Mar 2012 12:43:58 +0000
+:Message: [[message://bug-703-1@http.bugs.ledger-cli.org/][{Bug 703} New: Assertion failed in "src/history.cc": source != price.commodity()]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DONE [#A] ledger reg --account=payee -s, causes a segmentation fault
@@ -9607,6 +9689,16 @@ P 2011-02-01 EUR 0.8576 GBP
 :Message: [[message://bug-679-1@http.bugs.ledger-cli.org/][{Bug 679} New: Error: Attempting to nail down a balance with -X -H]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** DONE [[bug:680][#680]] ledger pricedb shows incorrect(?) entries
+- State "DONE"       from "TODO"       [2012-03-15 Thu 05:01] \\
+  Fixed by 610a3e1
+:PROPERTIES:
+:ID:       786A3DD0-B511-4746-8A4B-28216594491A
+:CREATED:  [2012-03-10 Sat 19:10]
+:Date: Sat, 10 Mar 2012 15:56:53 +0000
+:Message: [[message://bug-680-1@http.bugs.ledger-cli.org/][{Bug 680} New: ledger pricedb shows incorrect(?) entries]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** DONE [[bug:688][#688]] print command does not handle multiple spaces in the payee
 SCHEDULED: <2012-03-11 Sun>
 - State "DONE"       from "STARTED"    [2012-03-12 Mon 05:51] \\
@@ -11203,101 +11295,101 @@ Error: Illegal option -x
    :ARCHIVE_CATEGORY: Bugs
    :END:
 ** WORKSFORME [#A] [[bug:438][#438]] Case where register and balance do not agree                   :critical:
-   - State "WORKSFORME" from "TODO"       [2011-06-20 Mon 00:10] \\
-     I see this at the end of the register report:
-     :OUTPUT:
-     11-Jun-20 Commodities revalued  <Revalued>                   $19.30    $18020.74
-     :END:
-   The file below gives the following
-   :OUTPUT:
-   $ ledger/ledger -f foo -X \$ bal sub1
-             $18020.74  Assets:Sub1
-                 $8.10    Leftovers
-   --------------------
-             $18020.74
-   :END:
-   and
-   :OUTPUT:
-   $ ledger/ledger -f foo -X \$ reg sub1
-   10-Apr-04 Opening Balance       Assets:Sub1                   $1.00        $1.00
-   10-Apr-04 Opening Balance       Assets:Sub1                $3227.00     $3228.00
-   10-Apr-04 Opening Balance       Assets:Sub1                $1130.00     $4358.00
-   10-Apr-04 Opening Balance       Assets:Sub1                $2030.00     $6388.00
-   10-Apr-04 Opening Balance       Assets:Sub1:Leftovers         $6.79     $6394.79
-   10-Apr-04 Opening Balance       Assets:Sub1                 $223.30     $6618.09
-   10-Apr-04 Opening Balance       Assets:Sub1                 $297.00     $6915.09
-   10-May-18 FOO                   Assets:Sub1                $5438.00    $12353.09
-   10-Jul-02 Commodities revalued <Revalued>                  $259.74    $12612.83
-   10-Jul-02 BAR                   Assets:Sub1                 $135.84    $12748.67
-                                  Assets:Sub1:Leftovers         $1.31    $12749.98
-   10-Sep-29 Commodities revalued <Revalued>                 $5251.46    $18001.44
-   :END:
+- State "WORKSFORME" from "TODO"       [2011-06-20 Mon 00:10] \\
+  I see this at the end of the register report:
+  :OUTPUT:
+  11-Jun-20 Commodities revalued  <Revalued>                   $19.30    $18020.74
+  :END:
+The file below gives the following
+:OUTPUT:
+$ ledger/ledger -f foo -X \$ bal sub1
+          $18020.74  Assets:Sub1
+              $8.10    Leftovers
+--------------------
+          $18020.74
+:END:
+and
+:OUTPUT:
+$ ledger/ledger -f foo -X \$ reg sub1
+10-Apr-04 Opening Balance       Assets:Sub1                   $1.00        $1.00
+10-Apr-04 Opening Balance       Assets:Sub1                $3227.00     $3228.00
+10-Apr-04 Opening Balance       Assets:Sub1                $1130.00     $4358.00
+10-Apr-04 Opening Balance       Assets:Sub1                $2030.00     $6388.00
+10-Apr-04 Opening Balance       Assets:Sub1:Leftovers         $6.79     $6394.79
+10-Apr-04 Opening Balance       Assets:Sub1                 $223.30     $6618.09
+10-Apr-04 Opening Balance       Assets:Sub1                 $297.00     $6915.09
+10-May-18 FOO                   Assets:Sub1                $5438.00    $12353.09
+10-Jul-02 Commodities revalued <Revalued>                  $259.74    $12612.83
+10-Jul-02 BAR                   Assets:Sub1                 $135.84    $12748.67
+                               Assets:Sub1:Leftovers         $1.31    $12749.98
+10-Sep-29 Commodities revalued <Revalued>                 $5251.46    $18001.44
+:END:
 
-   The price db is in the file.
+The price db is in the file.
 
-   I'm using 9fcf48482626f20151d75a2ebb81371b45d4540a, which is on the next
-   branch.
-   #+begin_src ledger
-   N $
-   P 2010/09/28 20:43:24 E $3.700
-   P 2010/09/28 20:43:25 A $5.230
-   P 2010/09/28 20:43:26 D $34.020
-   P 2010/09/28 20:43:27 C $12.370
-   P 2010/09/28 20:43:28 F $39.700
-   P 2010/09/28 20:43:29 B $39.430
-   P 2010/09/29 13:50:15 E $3.720
-   P 2010/09/29 13:50:15 A $5.240
-   P 2010/09/29 13:50:17 D $33.920
-   P 2010/09/29 13:50:18 C $12.310   P 2010/09/29 13:50:18 F $39.670
-   P 2010/09/29 13:50:19 B $39.830
+I'm using 9fcf48482626f20151d75a2ebb81371b45d4540a, which is on the next
+branch.
+#+begin_src ledger
+N $
+P 2010/09/28 20:43:24 E $3.700
+P 2010/09/28 20:43:25 A $5.230
+P 2010/09/28 20:43:26 D $34.020
+P 2010/09/28 20:43:27 C $12.370
+P 2010/09/28 20:43:28 F $39.700
+P 2010/09/28 20:43:29 B $39.430
+P 2010/09/29 13:50:15 E $3.720
+P 2010/09/29 13:50:15 A $5.240
+P 2010/09/29 13:50:17 D $33.920
+P 2010/09/29 13:50:18 C $12.310   P 2010/09/29 13:50:18 F $39.670
+P 2010/09/29 13:50:19 B $39.830
 
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 A @ $0.01
-    Equity:Opening Balances
+2010/04/04 * Opening Balance
+ Assets:Sub1                       100 A @ $0.01
+ Equity:Opening Balances
 
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 B @ $32.27
-    Equity:Opening Balances
+2010/04/04 * Opening Balance
+ Assets:Sub1                       100 B @ $32.27
+ Equity:Opening Balances
 
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 C @ $11.30
-    Equity:Opening Balances
+2010/04/04 * Opening Balance
+ Assets:Sub1                       100 C @ $11.30
+ Equity:Opening Balances
 
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 D @ $20.30
-    Equity:Opening Balances
+2010/04/04 * Opening Balance
+ Assets:Sub1                       100 D @ $20.30
+ Equity:Opening Balances
 
-   2010/04/04 * Opening Balance
-    Assets:Sub1:Leftovers     $6.79
-    Equity:Opening Balances
+2010/04/04 * Opening Balance
+ Assets:Sub1:Leftovers     $6.79
+ Equity:Opening Balances
 
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       11 D
-    Equity:Opening Balances
+2010/04/04 * Opening Balance
+ Assets:Sub1                       11 D
+ Equity:Opening Balances
 
-   2010/04/04 * Opening Balance
-    Assets:Sub1                       100 E @ $2.97
-    Equity:Opening Balances
+2010/04/04 * Opening Balance
+ Assets:Sub1                       100 E @ $2.97
+ Equity:Opening Balances
 
-   2010/05/18=2010/05/21 * FOO
-    Assets:Sub1           200 F @ $27.190
-    Expenses:Qux         $29.95
-    Assets:Sub2
+2010/05/18=2010/05/21 * FOO
+ Assets:Sub1           200 F @ $27.190
+ Expenses:Qux         $29.95
+ Assets:Sub2
 
-   2010/07/02 * BAR
-    Income:D                      -$169.65
-    Assets:Sub2        $32.50
-    Assets:Sub1                       6 D @ $22.64
-    Assets:Sub1:Leftovers
-   #+end_src
-   :PROPERTIES:
-   :ID:       3FE26304-C336-48C5-85AB-909A1FC8D87B
-   :Submitter: Michael Norrish <michael.norrish@gmail.com>
-   :Message:  [[message://4CA31AA6.7080004@gmail.com][Re: reg vs bal in presence of recent commodity price info]]
-   :CREATED:  [2010-10-03 Sun 22:16]
-   :ARCHIVE_TIME: 2011-06-20 Mon 00:27
-   :ARCHIVE_CATEGORY: Bugs
-   :END:
+2010/07/02 * BAR
+ Income:D                      -$169.65
+ Assets:Sub2        $32.50
+ Assets:Sub1                       6 D @ $22.64
+ Assets:Sub1:Leftovers
+#+end_src
+:PROPERTIES:
+:ID:       3FE26304-C336-48C5-85AB-909A1FC8D87B
+:Submitter: Michael Norrish <michael.norrish@gmail.com>
+:Message:  [[message://4CA31AA6.7080004@gmail.com][Re: reg vs bal in presence of recent commodity price info]]
+:CREATED:  [2010-10-03 Sun 22:16]
+:ARCHIVE_TIME: 2011-06-20 Mon 00:27
+:ARCHIVE_CATEGORY: Bugs
+:END:
 ** WORKSFORME [#A] [[bug:440][#440]] Complex command causes core dump                                :blocker:
    - State "WORKSFORME" from "TODO"       [2011-06-20 Mon 00:16] \\
      I cannot reproduce this core dump.
@@ -12282,6 +12374,17 @@ SCHEDULED: <2011-10-22 Sat>
    :Message:  [[message://20050.50236.344154.205060@dk.dks.ie][Emacs reconciliation 3.0]]
    :Submitter: "David Keegan" <dksw@eircom.net>
    :END:
+** DUPLICATE [[bug:702][#702]] No carriage return
+SCHEDULED: <2012-03-14 Wed>
+- State "DUPLICATE"  from "TODO"       [2012-03-14 Wed 20:51] \\
+  Duplicate of #701
+:PROPERTIES:
+:ID:       3B7F3F81-F6DB-4AEA-9778-AE054846CABD
+:CREATED:  [2012-03-14 Wed 19:58]
+:Date: Wed, 14 Mar 2012 22:21:57 +0000
+:Message: [[message://bug-702-1@http.bugs.ledger-cli.org/][{Bug 702} New: no carriage return]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** CLOSED [#A] 'ledger -b 2007/08/16 -s reg food' is completely broken
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
    - State "DONE"       [2007-08-23 Thu 21:22] \\
@@ -12295,166 +12398,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       6CAF45D7-9098-41B4-A25A-12F8A8166006
    :CREATED:  [2007-08-22 Wed]
    :END:
-** CLOSED [#A] Change processing of ~/.ledgerrc
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
-   - State "DONE"       from "TODO"       [2009-10-29 Thu 00:51]
-   - Note taken on [2009-10-27 Tue 22:02] \\
-     Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
-   1. Before parsing, run through and handle options that session_t and
-      global_scope_t know about.
-   2. Before reporting or loading the REPL, run through and handle all other
-      options and any commands found.
-   :PROPERTIES:
-   :ID:       71FE0FAB-622D-403C-A944-C7541948AFFF
-   :CREATED:  [2009-02-19 Thu 15:10]
-   :END:
-** CLOSED [#A] Changes to make to the way things are calculated [8/10]
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
-   - State "DONE"       [2009-03-05 Thu 05:03]
-   - [X] During parsing, each account is given a pointer to the posts it
-         contains, in a deque.
-   - [X] calc_xacts should only compute the amount, and store it in the post's
-         xdata.
-   - [X] It then marks the post as "visited".
-   - [X] When session_t::clean_posts is called, it should clear the "visited"
-         flag.
-   - [ ] The running total is not stored with the post, but is calculated as
-         needed by the format_xacts object.
-   - [ ] Which means that format_xacts now need to know the display predicate,
-         much like format_accounts.
-   - [X] account_t's xdata must remember whether or not the amount/total for
-         the account has been calculated (with a different bool for each).
-   - [X] account_t exposes two methods: family_total and self_total, which
-         performs and caches a calculation based on walking the "visited"
-         posts relating to that account.
-   - [X] These calculations must be lazy, so that if a report never uses them,
-         it never calculates either one.
-   - [X] The same goes for statistics, which can determined from the list of
-         posts.
-   :PROPERTIES:
-   :ID:       240CAF9A-2681-4AE9-A0DF-F17416E31C60
-   :CREATED:  [2009-03-04 Wed 15:34]
-   :END:
-** CLOSED [#A] My current ledger.dat file is not reporting
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
-   - State "DONE"       [2008-10-29 Wed 03:29]
-   :PROPERTIES:
-   :ID:       807E9D3D-3F30-4818-9045-FDBC20C1417A
-   :ARCHIVE_TIME: 2008-11-28 Fri 16:44
-   :ARCHIVE_CATEGORY: Finance
-   :CREATED:  [2008-10-06 Mon 19:38]
-   :END:
-** CLOSED --verify fails to run now
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:35]
-   :PROPERTIES:
-   :ID:       A697E1A4-83D0-49EB-9533-29EB82659565
-   :CREATED:  [2009-10-27 Tue 23:20]
-   :END:
-** CLOSED Bug in account balance display
-   - State "CLOSED"     [2009-02-24 Tue 14:02] \\
-     Simon can't remember exactly was the bug was here, so I'm closing it.
-   - State "WAITING"    [2009-02-20 Fri 01:59]
-   :DATA:
-   2008/01/01 * previous balances
-    liabilities:credit cards:discover 4462            $-1094.38
-    equity:opening balances
-
-   2008/01/18 * DISCOVER FEES
-    liabilities:credit cards:discover 4462:interest          $-36.59
-    assets:bank:wells fargo:checking
-
-   2008/01/18 * DISCOVER FEES
-    liabilities:credit cards:discover 4462:fee          $-39
-    liabilities:credit cards:discover 4462:interest    $-28.17
-    assets:bank:wells fargo:checking
-
-   2008/3/1 * discover card payment
-    liabilities:credit cards:discover 4462        $1198.14
-    assets:bank:wells fargo:checking
-   :END:
-   that triggers it..
-   :SCRIPT:
-   ledger -f test.ledger -s bal discover
-   :END:
-   :PROPERTIES:
-   :Submitter: Simon Michael <simon@joyful.com>
-   :Version:  2.6.1
-   :ID:       55831A79-0556-4872-A81F-F082A7B2E96B
-   :CREATED:  [2008-11-20 Thu 23:48]
-   :END:
-** CLOSED ITEM_TEMP posts must be removed from xacts and accounts properly
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
-   - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
-   :PROPERTIES:
-   :ID:       F1D055D3-DDCE-49A2-A670-A84D1FD0C299
-   :CREATED:  [2009-10-27 Tue 05:13]
-   :END:
-** CLOSED Implied rates.
-   - State "CLOSED"     [2009-02-24 Tue 13:36]
-   Not sure what you should do in this case:
-   :DATA:
-   2007-12-31 * Start of year / Opening balances.
-    Account1   100 EUR @ 1.4 USD
-    Account1   -200 EUR
-    Account2   100 USD
-   :END:
-
-   You could calculate the cost:
-   :OUTPUT:
-   140 USD
-   -200 EUR
-   100 USD
-   :END:
-   So, 240 USD and -200 EUR, which implies an aggregate exchange rate of 1.2,
-   which is wildly different of the 1.4 EUR/USD rate declared above.
-
-   (Do you fill in? In my Python version, I'll prefer not to, because I think
-   that in general these will be errors rather than reflect implied rates.)
-   :PROPERTIES:
-   :Submitter: Martin Blais <blais@furius.ca>
-   :Version:  2.6
-   :Ticket:   181
-   :ID:       3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
-   :END:
-** CLOSED Latest build of next f35bc939 produces slow binary
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:10]
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
-   :PROPERTIES:
-   :ID:       18B7E853-848A-4211-BF98-C0C1B845E94F
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/3
-   :CREATED:  [2009-10-26 Mon 21:31]
-   :END:
-** CLOSED The Ledger REPL argument parser should honor quoting syntax
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:22]
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 17:17]
-   :PROPERTIES:
-   :ID:       7A3DF3DE-5425-491F-90AA-C8C162F1085A
-   :CREATED:  [2009-03-03 Tue 03:02]
-   :END:
-** CLOSED With --args-only, don't read ~/.pricedb
-   - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:24]
-   - State "DONE"       from "TODO"       [2009-06-28 Sun 15:21]
-   :PROPERTIES:
-   :ID:       5B07AD77-4920-4654-88F4-56CA55566BB4
-   :CREATED:  [2009-06-24 Wed 14:18]
-   :END:
-** CLOSED iterations.cc, and maybe others, need to use temporaries_t
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:19]
-   :PROPERTIES:
-   :ID:       CE2AA70E-0B44-4A50-8D36-1DC1451F5473
-   :CREATED:  [2009-10-27 Tue 23:20]
-   :END:
-** CLOSED value_t::dump should render a string as it would parse it
-   - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:28]
-   - State "DONE"       from "TODO"       [2009-06-28 Sun 15:28]
-   For example, what if "foo\"bar"?
-   :PROPERTIES:
-   :ID:       BA74FF13-7F2C-487A-922F-8E6931025B61
-   :CREATED:  [2009-02-27 Fri 04:45]
-   :END:
-** TESTED [#A] 'ledger -f src/value.h bal capital' crashes
+** CLOSED [#A] 'ledger -f src/value.h bal capital' crashes
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:48]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 16:41] \\
      It now reports a series of errors and exits.
@@ -12464,7 +12408,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       25A099C9-EE9C-42E2-A18A-202DE9B9E157
    :CREATED:  [2009-02-27 Fri 15:38]
    :END:
-** TESTED [#A] --budget not including "~ Monthly" entry                                  :ATTACH:
+** CLOSED [#A] --budget not including "~ Monthly" entry                                  :ATTACH:
    - State "TESTED"     from "WORKSFORME" [2009-11-02 Mon 01:10] \\
      Found this bug and fixed it.
    - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
@@ -12513,7 +12457,47 @@ SCHEDULED: <2011-10-22 Sat>
    :Attachments: testledger.dat
    :CREATED:  [2009-04-01 Wed 19:40]
    :END:
-** TESTED [#A] Found bugs in the report query syntax parser
+** CLOSED [#A] Change processing of ~/.ledgerrc
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "DONE"       from "TODO"       [2009-10-29 Thu 00:51]
+   - Note taken on [2009-10-27 Tue 22:02] \\
+     Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
+   1. Before parsing, run through and handle options that session_t and
+      global_scope_t know about.
+   2. Before reporting or loading the REPL, run through and handle all other
+      options and any commands found.
+   :PROPERTIES:
+   :ID:       71FE0FAB-622D-403C-A944-C7541948AFFF
+   :CREATED:  [2009-02-19 Thu 15:10]
+   :END:
+** CLOSED [#A] Changes to make to the way things are calculated [8/10]
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
+   - State "DONE"       [2009-03-05 Thu 05:03]
+   - [X] During parsing, each account is given a pointer to the posts it
+         contains, in a deque.
+   - [X] calc_xacts should only compute the amount, and store it in the post's
+         xdata.
+   - [X] It then marks the post as "visited".
+   - [X] When session_t::clean_posts is called, it should clear the "visited"
+         flag.
+   - [ ] The running total is not stored with the post, but is calculated as
+         needed by the format_xacts object.
+   - [ ] Which means that format_xacts now need to know the display predicate,
+         much like format_accounts.
+   - [X] account_t's xdata must remember whether or not the amount/total for
+         the account has been calculated (with a different bool for each).
+   - [X] account_t exposes two methods: family_total and self_total, which
+         performs and caches a calculation based on walking the "visited"
+         posts relating to that account.
+   - [X] These calculations must be lazy, so that if a report never uses them,
+         it never calculates either one.
+   - [X] The same goes for statistics, which can determined from the list of
+         posts.
+   :PROPERTIES:
+   :ID:       240CAF9A-2681-4AE9-A0DF-F17416E31C60
+   :CREATED:  [2009-03-04 Wed 15:34]
+   :END:
+** CLOSED [#A] Found bugs in the report query syntax parser
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:51]
    - State "DONE"       from "TODO"       [2009-10-28 Wed 23:09]
    Fails to parse:
@@ -12524,14 +12508,23 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       373540CC-613B-47BC-B72F-C6D347157736
    :CREATED:  [2009-10-26 Mon 17:50]
    :END:
-** TESTED 'ledger -f doc/sample.dat --color reg' is showing a red zero
+** CLOSED [#A] My current ledger.dat file is not reporting
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
+   - State "DONE"       [2008-10-29 Wed 03:29]
+   :PROPERTIES:
+   :ID:       807E9D3D-3F30-4818-9045-FDBC20C1417A
+   :ARCHIVE_TIME: 2008-11-28 Fri 16:44
+   :ARCHIVE_CATEGORY: Finance
+   :CREATED:  [2008-10-06 Mon 19:38]
+   :END:
+** CLOSED 'ledger -f doc/sample.dat --color reg' is showing a red zero
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:52]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:27]
    :PROPERTIES:
    :ID:       727B2DF8-A2A1-4716-9C15-547F20D5F933
    :CREATED:  [2009-02-23 Mon 02:47]
    :END:
-** TESTED --budget doesn't produce correct output
+** CLOSED --budget doesn't produce correct output
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:10]
    - State "DONE"       from "TODO"       [2009-10-27 Tue 05:51]
    I have a budget transaction like this:
@@ -12563,14 +12556,29 @@ SCHEDULED: <2011-10-22 Sat>
    :URL:      http://github.com/jwiegley/ledger/issues#issue/5
    :CREATED:  [2009-10-26 Mon 21:27]
    :END:
-** TESTED An amount like 0h @ $70 gives divide by zero error
+** CLOSED --verify fails to run now
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:35]
+   :PROPERTIES:
+   :ID:       A697E1A4-83D0-49EB-9533-29EB82659565
+   :CREATED:  [2009-10-27 Tue 23:20]
+   :END:
+** CLOSED An amount like 0h @ $70 gives divide by zero error
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:23]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:23]
    :PROPERTIES:
    :ID:       6DAB9FE3-1399-4727-9AB1-FE413FB85A03
    :CREATED:  [2009-03-11 Wed 19:24]
    :END:
-** TESTED Balance report is still broken
+** CLOSED Applying an account with apply account Steven Watanabe does not work
+- State "CLOSED"     from "STARTED"    [2012-03-12 Mon 23:02] \\
+  Fixed by be289fb, and tested by dir-apply.test
+SCHEDULED: <2012-03-12 Mon>
+:PROPERTIES:
+:ID:       F69D587A-4160-42AF-89E1-F6C3F85D2FBE
+:CREATED:  [2012-03-12 Mon 18:39]
+:END:
+** CLOSED Balance report is still broken
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 15:44]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:53]
    :SCRIPT:
@@ -12599,7 +12607,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ARCHIVE_CATEGORY: Ledger
    :CREATED:  [2009-03-24 Tue 18:38]
    :END:
-** TESTED Balances with non-matching exchange rates is ambiguous
+** CLOSED Balances with non-matching exchange rates is ambiguous
    - State "TESTED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 01:55]
    Not sure what it should say here... it balances in EUR, but not in
@@ -12631,7 +12639,39 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       2E3496BD-143C-4D3E-8815-A01FFD31D132
    :CREATED:  [2008-04-12 Sat]
    :END:
-** TESTED Bug in ledger equity output
+** CLOSED Bug in account balance display
+   - State "CLOSED"     [2009-02-24 Tue 14:02] \\
+     Simon can't remember exactly was the bug was here, so I'm closing it.
+   - State "WAITING"    [2009-02-20 Fri 01:59]
+   :DATA:
+   2008/01/01 * previous balances
+    liabilities:credit cards:discover 4462            $-1094.38
+    equity:opening balances
+
+   2008/01/18 * DISCOVER FEES
+    liabilities:credit cards:discover 4462:interest          $-36.59
+    assets:bank:wells fargo:checking
+
+   2008/01/18 * DISCOVER FEES
+    liabilities:credit cards:discover 4462:fee          $-39
+    liabilities:credit cards:discover 4462:interest    $-28.17
+    assets:bank:wells fargo:checking
+
+   2008/3/1 * discover card payment
+    liabilities:credit cards:discover 4462        $1198.14
+    assets:bank:wells fargo:checking
+   :END:
+   that triggers it..
+   :SCRIPT:
+   ledger -f test.ledger -s bal discover
+   :END:
+   :PROPERTIES:
+   :Submitter: Simon Michael <simon@joyful.com>
+   :Version:  2.6.1
+   :ID:       55831A79-0556-4872-A81F-F082A7B2E96B
+   :CREATED:  [2008-11-20 Thu 23:48]
+   :END:
+** CLOSED Bug in ledger equity output
    - State "TESTED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:06]
    Seeing as how I've reached the end of my financial year my thoughts turned
@@ -12677,14 +12717,14 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       1CF1EEC2-74F2-4538-8508-F0B424BA5D19
    :CREATED:  [2007-12-10 Mon]
    :END:
-** TESTED Cannot use uncommoditized amounts as a per-unit cost
+** CLOSED Cannot use uncommoditized amounts as a per-unit cost
    - State "TESTED"     from "DONE"       [2009-06-18 Thu 16:08]
    - State "DONE"       from "TODO"       [2009-06-18 Thu 16:08]
    :PROPERTIES:
    :ID:       86D2BDC4-53A4-4039-99C9-F8C0370A89FB
    :CREATED:  [2009-06-18 Thu 16:07]
    :END:
-** TESTED Completing currency fails
+** CLOSED Completing currency fails
    - State "TESTED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:08]
    Strange bug with inference of currency:
@@ -12736,7 +12776,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       E4C9A8EA-296B-443F-937A-80182B21AA20
    :CREATED:  [2008-04-07 Mon]
    :END:
-** TESTED Cost parsing bug
+** CLOSED Cost parsing bug
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 15:41]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:01]
    [[message://2aaaa8b6-4a51-4acb-8a73-ac4c98578b59@d7g2000prl.googlegroups.com][Re: Tracking fuel and milage]]
@@ -12746,7 +12786,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ARCHIVE_CATEGORY: Ledger
    :CREATED:  [2009-06-03 Wed 19:11]
    :END:
-** TESTED Don't print trailing spaces after amount-elided postings
+** CLOSED Don't print trailing spaces after amount-elided postings
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:51] \\
      This is being tested by several of the baseline tests.
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:40]
@@ -12754,7 +12794,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       68C50F8D-4407-430F-8FE1-40B96D38173A
    :CREATED:  [2009-10-27 Tue 22:42]
    :END:
-** TESTED Expenses:Wedding appears twice in the attached balance command
+** CLOSED Expenses:Wedding appears twice in the attached balance command
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:21]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 21:11]
    :SCRIPT:
@@ -12764,7 +12804,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       5F1BAF17-2A7C-4992-ACCA-B1111104E4EE
    :CREATED:  [2009-10-26 Mon 17:21]
    :END:
-** TESTED Forecasting goes too far
+** CLOSED Forecasting goes too far
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:43]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 20:55] \\
      This is fixed in 3.0.
@@ -12786,7 +12826,49 @@ SCHEDULED: <2011-10-22 Sat>
    :Ticket:   15
    :ID:       E627C594-A019-4D87-A6B4-C8E75F6D8FC0
    :END:
-** TESTED Ledger is still getting confused by trailing whitespace                        :ATTACH:
+** CLOSED ITEM_TEMP posts must be removed from xacts and accounts properly
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
+   :PROPERTIES:
+   :ID:       F1D055D3-DDCE-49A2-A670-A84D1FD0C299
+   :CREATED:  [2009-10-27 Tue 05:13]
+   :END:
+** CLOSED Implied rates.
+   - State "CLOSED"     [2009-02-24 Tue 13:36]
+   Not sure what you should do in this case:
+   :DATA:
+   2007-12-31 * Start of year / Opening balances.
+    Account1   100 EUR @ 1.4 USD
+    Account1   -200 EUR
+    Account2   100 USD
+   :END:
+
+   You could calculate the cost:
+   :OUTPUT:
+   140 USD
+   -200 EUR
+   100 USD
+   :END:
+   So, 240 USD and -200 EUR, which implies an aggregate exchange rate of 1.2,
+   which is wildly different of the 1.4 EUR/USD rate declared above.
+
+   (Do you fill in? In my Python version, I'll prefer not to, because I think
+   that in general these will be errors rather than reflect implied rates.)
+   :PROPERTIES:
+   :Submitter: Martin Blais <blais@furius.ca>
+   :Version:  2.6
+   :Ticket:   181
+   :ID:       3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
+   :END:
+** CLOSED Latest build of next f35bc939 produces slow binary
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:10]
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
+   :PROPERTIES:
+   :ID:       18B7E853-848A-4211-BF98-C0C1B845E94F
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/3
+   :CREATED:  [2009-10-26 Mon 21:31]
+   :END:
+** CLOSED Ledger is still getting confused by trailing whitespace                        :ATTACH:
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 17:04]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 17:03]
    I just noticed that ledger ist confused by whitespace at the end of
@@ -12819,14 +12901,14 @@ SCHEDULED: <2011-10-22 Sat>
    :Attachments: test.ldg
    :CREATED:  [2009-04-01 Wed 18:50]
    :END:
-** TESTED Left justifying an amount with %-12{amount} does nothing
+** CLOSED Left justifying an amount with %-12{amount} does nothing
    - State "TESTED"     from "DONE"       [2009-06-28 Sun 15:24]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:23]
    :PROPERTIES:
    :ID:       F559EC12-7645-465D-8B2D-D3BC61030493
    :CREATED:  [2009-03-03 Tue 04:12]
    :END:
-** TESTED Make sure the period flag (-p) can accept "YYYY/MM"
+** CLOSED Make sure the period flag (-p) can accept "YYYY/MM"
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:59]
    - State "DONE"       from "TODO"       [2009-11-02 Mon 01:59]
    :PROPERTIES:
@@ -12834,7 +12916,7 @@ SCHEDULED: <2011-10-22 Sat>
    :Message:  [[message://741c09a4-9f52-4346-9e6f-2f4d407e5e49@s31g2000yqs.googlegroups.com][Re: All known bugs and features for 3.0 implemented]]
    :CREATED:  [2009-11-01 Sun 05:51]
    :END:
-** TESTED Problem when specifying the year in a data file
+** CLOSED Problem when specifying the year in a data file
    When I use this file:
    :DATA:
    Y2008
@@ -12875,7 +12957,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       13965214-EFDD-43DF-BD9F-9EC72DC509AD
    :CREATED:  [2008-10-15 Wed 06:39]
    :END:
-** TESTED Regression: add support back for a "terminus" date
+** CLOSED Regression: add support back for a "terminus" date
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:46]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 18:46]
    Here's something I would like to open up for discussion.
@@ -12920,7 +13002,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       647D5DB9-DBBB-47C8-80CE-F3F70E3B0253
    :CREATED:  [2009-04-01 Wed 18:55]
    :END:
-** TESTED Rounding bug
+** CLOSED Rounding bug
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 15:43]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:13]
    [[message://20090411120649.GZ1037@lavos.net][Another rounding issue]]
@@ -12938,7 +13020,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ARCHIVE_CATEGORY: Ledger
    :CREATED:  [2009-06-03 Wed 19:11]
    :END:
-** TESTED Rounding problem
+** CLOSED Rounding problem
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:27]
    - State "DONE"       [2009-02-24 Tue 11:42]
    I seem to have a rounding problem when I use the -B option, if I have a
@@ -12969,7 +13051,7 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       5FBF2ED8-EEAA-440E-AED5-67401B107E44
    :CREATED:  [2008-10-21 Tue 19:00]
    :END:
-** TESTED The -V flag is not working
+** CLOSED The -V flag is not working
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:28]
    - State "DONE"       [2009-02-24 Tue 11:42]
    Here's the data input
@@ -12999,7 +13081,14 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       D943AE0F-44EA-47EE-BA85-AFC513E039EB
    :CREATED:  [2008-04-07 Mon]
    :END:
-** TESTED The entry command is broken
+** CLOSED The Ledger REPL argument parser should honor quoting syntax
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:22]
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 17:17]
+   :PROPERTIES:
+   :ID:       7A3DF3DE-5425-491F-90AA-C8C162F1085A
+   :CREATED:  [2009-03-03 Tue 03:02]
+   :END:
+** CLOSED The entry command is broken
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:17]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:15]
    :SCRIPT:
@@ -13016,14 +13105,14 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       793F6BF0-9CDE-4741-967A-2CEA697476B4
    :CREATED:  [2009-03-24 Tue 18:31]
    :END:
-** TESTED The period -p "june 2008" ranges from 6/2008-1/2009
+** CLOSED The period -p "june 2008" ranges from 6/2008-1/2009
    - State "TESTED"     from "DONE"       [2009-06-18 Thu 01:14]
    - State "DONE"       from "TODO"       [2009-06-18 Thu 01:13]
    :PROPERTIES:
    :ID:       BBFA1759-3E90-402B-93A7-FC4E7E342B08
    :CREATED:  [2009-06-17 Wed 17:07]
    :END:
-** TESTED Weird timelog report bug
+** CLOSED Weird timelog report bug
    - State "TESTED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:19]
    ledger 2.6.1 can report wrong numbers for midnight-spanning timelog records
@@ -13046,14 +13135,21 @@ SCHEDULED: <2011-10-22 Sat>
    :ID:       3AB70168-D4B6-48CE-8C61-8C775E5B0E1B
    :CREATED:  [2008-10-08 Wed 15:43]
    :END:
-** TESTED When --flat is being used, sort against all accounts
+** CLOSED When --flat is being used, sort against all accounts
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:40]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 18:52]
    :PROPERTIES:
    :ID:       7D084EBD-3D4C-4967-9A4B-7F014E625DF6
    :CREATED:  [2009-03-11 Wed 15:11]
    :END:
-** TESTED budget misbehavior with account tree
+** CLOSED With --args-only, don't read ~/.pricedb
+   - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:24]
+   - State "DONE"       from "TODO"       [2009-06-28 Sun 15:21]
+   :PROPERTIES:
+   :ID:       5B07AD77-4920-4654-88F4-56CA55566BB4
+   :CREATED:  [2009-06-24 Wed 14:18]
+   :END:
+** CLOSED budget misbehavior with account tree
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:40]
    - State "DONE"       from "TODO"       [2009-11-02 Mon 01:40]
    The budget command behaves slightly different than I would expect
@@ -13096,6 +13192,21 @@ SCHEDULED: <2011-10-22 Sat>
    :Message:  [[message://4aec9a0bee27d_4b733fce572cbaf4188@fe3.rs.github.com.tmail][{GitHub} drewr sent you a message]]
    :Issue:    http://github.com/jwiegley/ledger/issues#issue/7
    :CREATED:  [2009-11-01 Sun 05:51]
+   :END:
+** CLOSED iterations.cc, and maybe others, need to use temporaries_t
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:19]
+   :PROPERTIES:
+   :ID:       CE2AA70E-0B44-4A50-8D36-1DC1451F5473
+   :CREATED:  [2009-10-27 Tue 23:20]
+   :END:
+** CLOSED value_t::dump should render a string as it would parse it
+   - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:28]
+   - State "DONE"       from "TODO"       [2009-06-28 Sun 15:28]
+   For example, what if "foo\"bar"?
+   :PROPERTIES:
+   :ID:       BA74FF13-7F2C-487A-922F-8E6931025B61
+   :CREATED:  [2009-02-27 Fri 04:45]
    :END:
 ** NOTE Building Boost with g++-4.4:
    boost/tools/build/v2/user-config.jam:
@@ -18563,7 +18674,7 @@ how do I get you the config.log file?
    :ID:       3E4EA1F5-D949-43BD-A045-B4CD1EEA3384
    :CREATED:  [2011-02-09 Wed 09:27]
    :END:
-** TESTED Major areas of implementation remaining [117/117]
+** CLOSED Major areas of implementation remaining [117/117]
    - State "TESTED"     from "DONE"       [2009-06-28 Sun 15:14]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:14]
    - State "TODO"       from "TESTED"     [2009-06-27 Sat 01:44]
@@ -18703,6 +18814,19 @@ how do I get you the config.log file?
    :Message:  [[message://CAKs9TOJxATpjCeQZ2JVoGSwszULOigy0NpcKYtVcj19AXWi34Q@mail.gmail.com][Draft of manual.]]
    :Submitter: Craig Earls <enderw88@gmail.com>
    :END:
+** TODO (Raphael) Reply: Optimal automatic virtual transactions
+:PROPERTIES:
+:ID:       34BF68CD-F6BE-4C8A-B3CC-68C7A89647C6
+:CREATED:  [2012-03-15 Thu 00:32]
+:Date: Tue, 13 Mar 2012 19:32:43 -0700 (PDT)
+:Message: [[message://9778734.2026.1331692363192.JavaMail.geo-discussion-forums@vbmf37][Optimal automatic virtual transactions]]
+:Author: Raphael Lorenzeto <raphael.lorenzeto-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO Write up a mini-doc on the value expression language
+:PROPERTIES:
+:ID:       BBD6227A-6AB0-497C-985B-203FB79C2AAE
+:CREATED:  [2012-03-13 Tue 16:32]
+:END:
 ** TODO [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
@@ -19483,7 +19607,7 @@ libraries) are linked with.
 * Colophon
 #+STARTUP: content fninline hidestars
 #+ARCHIVE: TODO-3.0::
-#+SEQ_TODO: STARTED TODO(@) REVIEW(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED TESTED NOTE
+#+SEQ_TODO: STARTED TODO(@) REVIEW(@) WAITING(@) DELEGATED(@) DEFERRED(@) | DONE(@) CANCELED(@) WONTFIX(@) WORKSFORME(@) INVALID(@) DUPLICATE(@) CLOSED(@) NOTE
 #+TAGS: blocker(B) critical(C)
 #+DRAWERS: PROPERTIES LOGBOOK OUTPUT SCRIPT SOURCE DATA
 #+LINK: bug http://bugs.ledger-cli.org/show_bug.cgi?id=
