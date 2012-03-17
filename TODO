@@ -11,36 +11,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
    :Message:  [[message://bug-380-1@http.newartisans.com/bugzilla/][{Bug 380} New: "Unbalanced remainder" pops up depending on the order of postings]]
    :CREATED:  [2010-07-17 Sat 05:01]
    :END:
-** TODO [#A] [[bug:565][#565]] Transactions with leading whitespace not detected
-- State "TODO"       from "REVIEW"     [2012-03-11 Sun 20:54]
-- State "REVIEW"     from "DUPLICATE"  [2012-02-23 Thu 21:51]
-- Note taken on [2011-08-21 Sun 18:53] \\
-  I believe it's a regression in 3.0.  I filed a bug report about this some
-  time ago: http://bugs.ledger-cli.org/show_bug.cgi?id=443
-In the attached sample ledger file a space has been inadvertently inserted
-preceding one of the transaction dates.
-
-ledger-2.6.3 Detects the error and emits:
-:OUTPUT:
-Error: "sample.ldg", line 6: Line begins with whitespace
-Error: "sample.ldg", line 7: Line begins with whitespace
-Error: "sample.ldg", line 8: Line begins with whitespace
-:END:
-
-This looks good to me.
-
-On the other hand ledger-3.0 (beta) silently ignores the offending
-transaction.
-
-Is the change in behaviour intentional? Is there an option in 3.0 that
-yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
-:PROPERTIES:
-:ID:       8EAF77C0-C2FA-4B8D-BAEE-4A886CEAE106
-:CREATED:  [2011-08-21 Sun 18:53]
-:Date:     Sun, 21 Aug 2011 22:12:40 +0100
-:Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
-:Submitter: "David Keegan" <dksw@eircom.net>
-:END:
 ** TODO [#A] [[bug:650][#650]] Input date format not recognized
 Anyway, we're based in Germany and I'd like to enter dates in German format:
 `%d.%m.%Y`. I can get ledger to use this format when outputting dates with the
@@ -130,6 +100,14 @@ that include virtual transactions?
 :Date: Sun, 04 Mar 2012 16:52:14 -0500
 :Message: [[message://87vcmkhw4x.fsf@buster.johnrakestraw.com][Virtual transactions and the equity command]]
 :Author: John Rakestraw <johnr-hdTKlMK9g6hNu5YjidvPyAC/G2K4zDHf@public.gmane.org>
+:END:
+** TODO [#A] [[bug:708][#708]] Ignoring PriceDB file                                                 :blocker:
+:PROPERTIES:
+:ID:       A8FCC765-8A1C-4392-8449-B0D3C40135BA
+:CREATED:  [2012-03-16 Fri 20:26]
+:Date: Sat, 17 Mar 2012 00:59:45 +0000
+:Message: [[message://bug-708-1@http.bugs.ledger-cli.org/][{Bug 708} New: ignoring PriceDB file.]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO [[bug:201][#201]] Handling currencies that were replaced by the Euro
 - State "TODO"       from "DONE"       [2012-03-09 Fri 20:09] \\
@@ -255,127 +233,81 @@ that include virtual transactions?
 :ID:       B301B118-5563-4EC9-8E1E-054819C2898E
 :CREATED:  [2010-06-18 Fri 06:52]
 :END:
-** TODO [[bug:358][#358]] When abbreviating account names, consume trailing whitespace
-   :PROPERTIES:
-   :ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
-   :CREATED:  [2010-06-21 Mon 18:12]
-   :END:
 ** TODO [[bug:362][#362]] bal --inject=Expected '^income:ceg' output is not correct
-   #+begin_src sh
-   ledger reg -s --inject=Expected '^income:ceg'
-   #+end_src
-   :OUTPUT:
-   07-Jan-12 - 10-Jun-22           Expected                $200,044.36  $200,044.36
-                                   Income:CEG:Holiday Pay   $-4,153.83  $195,890.53
-                                   Income:CEG:Retro Pay     $-4,749.99  $191,140.54
-                                   Income:CEG:Salary      $-191,140.54            0
-   :END:
-   #+begin_src sh
-   bal --inject=Expected '^income:ceg'
-   #+end_src
-   :OUTPUT:
-                      0  Income:CEG
-             $-4,153.83    Holiday Pay
-             $-4,749.99    Retro Pay
-              $8,903.82    Salary
-   --------------------
-                      0
-   :END:
-   For some reason, in the balance reported the Expected account is being
-   subsumed within the Income:CEG:Salary account.
-   :PROPERTIES:
-   :ID:       807D19BB-DCF3-4ADA-99CC-7480BADF687C
-   :CREATED:  [2010-06-22 Tue 18:44]
-   :END:
-** TODO [[bug:374][#374]] Problem with periodic transactions having a null posting
-   - Note taken on [2010-07-02 Fri 04:16] \\
-     Yes, it is expected behavior.  Nice find!  I don't like the idea of
-     making a hack to try and get around this, though, it's likely to only
-     work right in the most obvious situations.  I'll think about having a
-     better way to catch this (like having a warning if a null posting's
-     account name contains digits).
-   - Note taken on [2010-07-02 Fri 04:15] \\
-     Found the problem. In xact.cc, within the declaration for bool
-     xact_base_t::finalize(), I tried changing this...
-     #+begin_src cpp
-     else if (null_post) {
-     #+end_src
-
-     to this...
-     #+begin_src cpp
-     else if (null_post) {
-       DEBUG("xact.finalize", "first null post = " <<
-     null_post->reported_account()->fullname());
-       DEBUG("xact.finalize", "second null post = " <<
-     post->reported_account()->fullname());
-     #+end_src
-
-     and came up with this output...
-     :OUTPUT:
-     5ms  [DEBUG] post must balance = $1062.96
-     5ms  [DEBUG] first null post = Expenses:Entertainment:Blizzard $16.00
-     5ms  [DEBUG] second null post = Assets:Bank:Checking
-     :END:
-     So there needed to be more than a single space between the account name
-     and the transaction amount, or the intended amount was read as part of
-     the transaction name.
-
-     I would imagine that this is expected behavior, though if possible it
-     would be nice if the parser would account for it such that the last
-     non-whitespace text element on a line is used as the amount regardless of
-     the amount of space separating it from the previous text element.
-   :PROPERTIES:
-   :ID:       5D92A5EB-48DD-4ED8-AFED-2A24884FAD4B
-   :CREATED:  [2010-07-01 Thu 22:03]
-   :END:
+#+begin_src sh
+ledger reg -s --inject=Expected '^income:ceg'
+#+end_src
+:OUTPUT:
+07-Jan-12 - 10-Jun-22           Expected                $200,044.36  $200,044.36
+                                Income:CEG:Holiday Pay   $-4,153.83  $195,890.53
+                                Income:CEG:Retro Pay     $-4,749.99  $191,140.54
+                                Income:CEG:Salary      $-191,140.54            0
+:END:
+#+begin_src sh
+bal --inject=Expected '^income:ceg'
+#+end_src
+:OUTPUT:
+                   0  Income:CEG
+          $-4,153.83    Holiday Pay
+          $-4,749.99    Retro Pay
+           $8,903.82    Salary
+--------------------
+                   0
+:END:
+For some reason, in the balance reported the Expected account is being
+subsumed within the Income:CEG:Salary account.
+:PROPERTIES:
+:ID:       807D19BB-DCF3-4ADA-99CC-7480BADF687C
+:CREATED:  [2010-06-22 Tue 18:44]
+:END:
 ** TODO [[bug:375][#375]] -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works
-   :PROPERTIES:
-   :ID:       DE5CBC0F-BD49-46A3-AEB1-4F354B9F4A36
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-375-1@http.newartisans.com/bugzilla/][{Bug 375} New: -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works]]
-   :CREATED:  [2010-07-05 Mon 00:06]
-   :END:
+:PROPERTIES:
+:ID:       DE5CBC0F-BD49-46A3-AEB1-4F354B9F4A36
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:Message:  [[message://bug-375-1@http.newartisans.com/bugzilla/][{Bug 375} New: -p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works]]
+:CREATED:  [2010-07-05 Mon 00:06]
+:END:
 ** TODO [[bug:376][#376]] ledger reg ^exp is showing Assets in a budget report
-   This happens if the periodic transaction contain both Assets and Expenses.
-   :PROPERTIES:
-   :ID:       3806746F-6745-4D2F-BC8A-20B26F90C3B9
-   :CREATED:  [2010-07-06 Tue 16:14]
-   :END:
+This happens if the periodic transaction contain both Assets and Expenses.
+:PROPERTIES:
+:ID:       3806746F-6745-4D2F-BC8A-20B26F90C3B9
+:CREATED:  [2010-07-06 Tue 16:14]
+:END:
 ** TODO [[bug:377][#377]] ledger -f DIRECTORY doesn't fail with a clear error
-   :PROPERTIES:
-   :ID:       8DC11F98-5C85-4651-A63D-6847474E3CD2
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-377-1@http.newartisans.com/bugzilla/][{Bug 377} New: -f DIRECTORY doesn't fail with a clear error]]
-   :CREATED:  [2010-07-15 Thu 08:02]
-   :END:
+:PROPERTIES:
+:ID:       8DC11F98-5C85-4651-A63D-6847474E3CD2
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:Message:  [[message://bug-377-1@http.newartisans.com/bugzilla/][{Bug 377} New: -f DIRECTORY doesn't fail with a clear error]]
+:CREATED:  [2010-07-15 Thu 08:02]
+:END:
 ** TODO [[bug:378][#378]] budget: Cannot convert balance with multiple commodities to amount
-   :PROPERTIES:
-   :ID:       30B48934-48F2-46B9-B058-99DEF9BF43C7
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-378-1@http.newartisans.com/bugzilla/][{Bug 378} New: budget: Cannot convert a balance with multiple commodities to an amount]]
-   :CREATED:  [2010-07-15 Thu 08:02]
-   :END:
+:PROPERTIES:
+:ID:       30B48934-48F2-46B9-B058-99DEF9BF43C7
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:Message:  [[message://bug-378-1@http.newartisans.com/bugzilla/][{Bug 378} New: budget: Cannot convert a balance with multiple commodities to an amount]]
+:CREATED:  [2010-07-15 Thu 08:02]
+:END:
 ** TODO [[bug:379][#379]] equity shows two entries for the same commodity/account
-   :PROPERTIES:
-   :ID:       B39F083E-1C30-4F08-BFB7-E0E1FC7B7356
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-379-1@http.newartisans.com/bugzilla/][{Bug 379} New: equity shows two entries for the same commodity/account]]
-   :CREATED:  [2010-07-15 Thu 08:02]
-   :END:
+:PROPERTIES:
+:ID:       B39F083E-1C30-4F08-BFB7-E0E1FC7B7356
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:Message:  [[message://bug-379-1@http.newartisans.com/bugzilla/][{Bug 379} New: equity shows two entries for the same commodity/account]]
+:CREATED:  [2010-07-15 Thu 08:02]
+:END:
 ** TODO [[bug:381][#381]] ledger bal and --forecast gives wrong result (60 * of monthly value)
-   :PROPERTIES:
-   :ID:       24678A34-5DD0-4119-B0CB-CC56ED5CA3D8
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-381-1@http.newartisans.com/bugzilla/][{Bug 381} New: ledger bal and --forecast gives wrong result (60 * of monthly value)]]
-   :CREATED:  [2010-07-18 Sun 23:13]
-   :END:
+:PROPERTIES:
+:ID:       24678A34-5DD0-4119-B0CB-CC56ED5CA3D8
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:Message:  [[message://bug-381-1@http.newartisans.com/bugzilla/][{Bug 381} New: ledger bal and --forecast gives wrong result (60 * of monthly value)]]
+:CREATED:  [2010-07-18 Sun 23:13]
+:END:
 ** TODO [[bug:382][#382]] treats {xx} as {=xx}
-   :PROPERTIES:
-   :ID:       15D16351-F0B2-4B79-8BCE-A47193607CDB
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-382-1@http.newartisans.com/bugzilla/][{Bug 382} New: treats {xx} as {=xx}]]
-   :CREATED:  [2010-07-19 Mon 16:59]
-   :END:
+:PROPERTIES:
+:ID:       15D16351-F0B2-4B79-8BCE-A47193607CDB
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:Message:  [[message://bug-382-1@http.newartisans.com/bugzilla/][{Bug 382} New: treats {xx} as {=xx}]]
+:CREATED:  [2010-07-19 Mon 16:59]
+:END:
 ** TODO [[bug:383][#383]] --lot-prices doesn't honour date-format
    :PROPERTIES:
    :ID:       FDC49608-9E96-4DF5-AFD8-BA2041A89D82
@@ -719,13 +651,6 @@ that include virtual transactions?
    :Submitter: Andrew Stribblehill <stribb@gmail.com>
    :Message:  [[message://AANLkTinfypuh_Q%2BKkbEJaWBGh637C%3D%2BSDR95ZiwLL8cP@mail.gmail.com][Comma parsing problem]]
    :CREATED:  [2010-11-28 Sun 20:33]
-   :END:
-** TODO [[bug:458][#458]] Spaces seem to be significant in automatic transaction predicate
-   :PROPERTIES:
-   :ID:       605A410D-FBBE-4089-84B1-452473325994
-   :Submitter: Zack Williams <zdwzdw@gmail.com>
-   :Message:  [[message://AANLkTikJrn5v4zPezXvmedNDoE-DfoTfUpgMw7QuwcPg@mail.gmail.com][Re: Automatic transactions only for certain entry amounts]]
-   :CREATED:  [2010-12-29 Wed 17:42]
    :END:
 ** TODO [[bug:459][#459]] Expression-based automatic transaction predicate not working
    :PROPERTIES:
@@ -1366,14 +1291,6 @@ that include virtual transactions?
    :ID:       BDF9B99E-C9AB-40AA-9030-29A81B8B8B70
    :CREATED:  [2011-11-02 Wed 12:59]
    :END:
-** TODO [[bug:550][#550]] Trailing white space is not ignored in tag vales
-   :PROPERTIES:
-   :ID:       AEDE9734-7FAA-4F02-9110-36C0CAF03D12
-   :CREATED:  [2011-09-22 Thu 17:58]
-   :Date:     Wed, 21 Sep 2011 13:16:32 +0000
-   :Message:  [[message://bug-550-1@http.bugs.ledger-cli.org/][{Bug 550} New: Trailing white space is not ignored in tag vales]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
 ** TODO [[bug:551][#551]] Clear virtual transactions based on triggering real transaction
    :PROPERTIES:
    :ID:       D3AE4E7A-0C22-423D-874D-94C07C9894CD
@@ -1405,14 +1322,6 @@ that include virtual transactions?
    :Date:     Fri, 14 Oct 2011 05:22:05 +0000
    :Message:  [[message://bug-558-1@http.bugs.ledger-cli.org/][{Bug 558} New: Significant figure mishandling causes divide by zero.]]
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
-** TODO [[bug:560][#560]] Allow a space between the minus sign and its amount
-   :PROPERTIES:
-   :ID:       D51BFF74-9763-45CF-B9D4-0B2233AF2249
-   :CREATED:  [2011-09-22 Thu 14:51]
-   :Date:     Thu, 22 Sep 2011 09:33:36 -0700
-   :Message:  [[message://CAKs9TO+0H+b6gDWjzxYpSOi5eVYG6dCGLLsbDN0WDYsrkGMr2A@mail.gmail.com][Space before minus sign]]
-   :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
    :END:
 ** TODO [[bug:561][#561]] ledger xml produces duplicate transactions
    I tried this with a fresh build from master:
@@ -2309,14 +2218,6 @@ that include virtual transactions?
   :Message:  [[message://bug-583-1@http.bugs.ledger-cli.org/][{Bug 583} New: --monthly prices report SUM rather than average or end of month price]]
   :Submitter: bugzilla-daemon@mail.johnwiegley.com
   :END:
-** TODO [[bug:584][#584]] Trailing white space is not ignored in payee names
-  :PROPERTIES:
-  :ID:       C9D593B3-6263-494E-AF38-6D48BE109C63
-  :CREATED:  [2011-10-21 Fri 00:52]
-  :Date:     Thu, 20 Oct 2011 05:03:39 +0000
-  :Message:  [[message://bug-584-1@http.bugs.ledger-cli.org/][{Bug 584} New: Trailing white space is not ignored in payee names]]
-  :Submitter: bugzilla-daemon@mail.johnwiegley.com
-  :END:
 ** TODO [[bug:587][#587]] ledger --anon print regex fails
 Using 24d6619a52 (recent origin/next):
 
@@ -3199,22 +3100,37 @@ or am I misunderstanding what the report should be?
 :Message: [[message://bug-700-1@http.bugs.ledger-cli.org/][{Bug 700} New: @alias segfaults]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:701][#701]] Use of --pager corrupts the terminal
+** TODO [[bug:705][#705]] Should error if file specified by --price-db does not exist
 :PROPERTIES:
-:ID:       7FCB580F-CB82-441A-9B1D-32812631AA8C
-:CREATED:  [2012-03-14 Wed 13:59]
-:Date: Wed, 14 Mar 2012 08:50:41 +0000
-:Message: [[message://bug-701-1@http.bugs.ledger-cli.org/][{Bug 701} New: pager corrupt terminal]]
+:ID:       40C47070-8F67-46F4-8C41-DD1D4CEA131D
+:CREATED:  [2012-03-16 Fri 04:45]
+:Date: Fri, 16 Mar 2012 09:08:05 +0000
+:Message: [[message://bug-705-1@http.bugs.ledger-cli.org/][{Bug 705} New: should produce error when file specified by --price-db does not exist]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:704][#704]] pricedb entries randomly repeated
-SCHEDULED: <2012-03-15 Thu>
+** TODO [[bug:706][#706]] Alias is causing segfault and other strangeness
 :PROPERTIES:
-:ID:       8CE88DB4-B1B7-4303-9221-C1BEF3BBF17A
-:CREATED:  [2012-03-15 Thu 15:28]
-:Date: Thu, 15 Mar 2012 12:56:01 +0000
-:Message: [[message://bug-704-1@http.bugs.ledger-cli.org/][{Bug 704} New: pricedb entries randomly repeated]]
+:ID:       6BCE2904-905A-4E57-B5B2-25B9F0D7FBAD
+:CREATED:  [2012-03-16 Fri 15:00]
+:Date: Fri, 16 Mar 2012 16:03:02 +0000
+:Message: [[message://bug-706-1@http.bugs.ledger-cli.org/][{Bug 706} New: Alias is causing segfault and other strangeness]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:707][#707]] Year directive confuses today for entry command
+:PROPERTIES:
+:ID:       B5F812EB-D58B-4C6F-A0BC-5035DA16A591
+:CREATED:  [2012-03-16 Fri 20:26]
+:Date: Sat, 17 Mar 2012 00:01:51 +0000
+:Message: [[message://bug-707-1@http.bugs.ledger-cli.org/][{Bug 707} New: Year directive confuses today for entry command]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:709][#709]] Make @account/!account be a synonym for "apply account"
+:PROPERTIES:
+:ID:       C7492F43-04BD-438F-83C6-F559DFE561A1
+:CREATED:  [2012-03-16 Fri 21:36]
+:Date: Fri, 16 Mar 2012 16:34:22 -0500
+:Message: [[message://m24ntofcwx.fsf@gmail.com][Re: Wishlist: accounts and payees list, account signs and subtotal in transactions.]]
+:Author: John Wiegley <jwiegley-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
 ** DEFERRED [[bug:370][#370]] Let time periods use "starting" to fix the exact start date
 - State "DEFERRED"   from "TODO"       [2012-03-11 Sun 20:31]
@@ -3754,6 +3670,16 @@ SCHEDULED: <2012-03-09 Fri>
 :ID:       2CE7DADB-47DB-4226-B13F-1C65CE35103A
 :CREATED:  [2012-03-10 Sat 22:20]
 :Message: [[message://CA%2BR89Y%2B_CXrCdwopPT-n7k%3DKwMzGWuafoT14m%2B3pArMnTWaB%2Bg@mail.gmail.com][Re: ledger v3 slower than ledger v2]]
+:END:
+** DONE [#A] [[bug:701][#701]] Use of --pager corrupts the terminal
+SCHEDULED: <2012-03-16 Fri>
+- State "DONE"       from "TODO"       [2012-03-16 Fri 20:24]
+:PROPERTIES:
+:ID:       7FCB580F-CB82-441A-9B1D-32812631AA8C
+:CREATED:  [2012-03-14 Wed 13:59]
+:Date: Wed, 14 Mar 2012 08:50:41 +0000
+:Message: [[message://bug-701-1@http.bugs.ledger-cli.org/][{Bug 701} New: pager corrupt terminal]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DONE [#A] [[bug:703][#703]] Assertion failed in "src/history.cc": source != price.commodity()
 SCHEDULED: <2012-03-15 Thu>
@@ -9723,6 +9649,17 @@ $ ledger -f x.ledger print
 :ID:       6D9066DD-3956-440D-91B2-C5621B5EA66D
 :CREATED:  [2012-03-11 Sun 22:03]
 :END:
+** DONE [[bug:704][#704]] pricedb entries randomly repeated
+SCHEDULED: <2012-03-15 Thu>
+- State "DONE"       from "TODO"       [2012-03-16 Fri 03:09] \\
+  Fixed by 49ec40a
+:PROPERTIES:
+:ID:       8CE88DB4-B1B7-4303-9221-C1BEF3BBF17A
+:CREATED:  [2012-03-15 Thu 15:28]
+:Date: Thu, 15 Mar 2012 12:56:01 +0000
+:Message: [[message://bug-704-1@http.bugs.ledger-cli.org/][{Bug 704} New: pricedb entries randomly repeated]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** DONE [ledger] Reverse search for drafts (#29)
    SCHEDULED: <2011-07-19 Tue>
    - State "DONE"       from "TODO"       [2011-07-20 Wed 02:35]
@@ -10888,6 +10825,16 @@ $ ledger -f x.ledger print
    :PROPERTIES:
    :ID:       6B7C2D8A-6620-44C3-B8C1-3A897F84604E
    :CREATED:  [2011-04-20 Wed 19:33]
+   :END:
+** WONTFIX [[bug:560][#560]] Allow a space between the minus sign and its amount
+SCHEDULED: <2012-03-15 Thu>
+- State "WONTFIX"    from "TODO"       [2012-03-16 Fri 03:16]
+   :PROPERTIES:
+   :ID:       D51BFF74-9763-45CF-B9D4-0B2233AF2249
+   :CREATED:  [2011-09-22 Thu 14:51]
+   :Date:     Thu, 22 Sep 2011 09:33:36 -0700
+   :Message:  [[message://CAKs9TO+0H+b6gDWjzxYpSOi5eVYG6dCGLLsbDN0WDYsrkGMr2A@mail.gmail.com][Space before minus sign]]
+   :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
    :END:
 ** WONTFIX [[bug:592][#592]] 'print' command does not handle multiple spaces in the payee
 - State "WONTFIX"    from "TODO"       [2011-11-22 Tue 23:45]
@@ -12517,6 +12464,38 @@ SCHEDULED: <2012-03-14 Wed>
    :ARCHIVE_CATEGORY: Finance
    :CREATED:  [2008-10-06 Mon 19:38]
    :END:
+** CLOSED [#A] [[bug:565][#565]] Transactions with leading whitespace not detected
+- State "CLOSED"     from "TODO"       [2012-03-16 Fri 02:40] \\
+  Fixed by 11067d9
+- State "TODO"       from "REVIEW"     [2012-03-11 Sun 20:54]
+- State "REVIEW"     from "DUPLICATE"  [2012-02-23 Thu 21:51]
+- Note taken on [2011-08-21 Sun 18:53] \\
+  I believe it's a regression in 3.0.  I filed a bug report about this some
+  time ago: http://bugs.ledger-cli.org/show_bug.cgi?id=443
+In the attached sample ledger file a space has been inadvertently inserted
+preceding one of the transaction dates.
+
+ledger-2.6.3 Detects the error and emits:
+:OUTPUT:
+Error: "sample.ldg", line 6: Line begins with whitespace
+Error: "sample.ldg", line 7: Line begins with whitespace
+Error: "sample.ldg", line 8: Line begins with whitespace
+:END:
+
+This looks good to me.
+
+On the other hand ledger-3.0 (beta) silently ignores the offending
+transaction.
+
+Is the change in behaviour intentional? Is there an option in 3.0 that
+yields the stricter (and in my view more reassuring) behaviour of 2.6.3?
+:PROPERTIES:
+:ID:       8EAF77C0-C2FA-4B8D-BAEE-4A886CEAE106
+:CREATED:  [2011-08-21 Sun 18:53]
+:Date:     Sun, 21 Aug 2011 22:12:40 +0100
+:Message:  [[message://20049.29896.551391.272261@dk.dks.ie][ledger syntax checking.]]
+:Submitter: "David Keegan" <dksw@eircom.net>
+:END:
 ** CLOSED 'ledger -f doc/sample.dat --color reg' is showing a red zero
    - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:52]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:27]
@@ -13149,6 +13128,138 @@ SCHEDULED: <2012-03-12 Mon>
    :ID:       5B07AD77-4920-4654-88F4-56CA55566BB4
    :CREATED:  [2009-06-24 Wed 14:18]
    :END:
+** CLOSED [[bug:358][#358]] When abbreviating account names, consume trailing whitespace
+SCHEDULED: <2012-03-15 Thu>
+- State "CLOSED"     from "TODO"       [2012-03-16 Fri 05:30] \\
+  Fixed by 6305855
+:PROPERTIES:
+:ID:       6E041C52-9EB1-45EC-8168-0EA62AB86843
+:CREATED:  [2010-06-21 Mon 18:12]
+:END:
+** CLOSED [[bug:374][#374]] Problem with periodic transactions having a null posting
+SCHEDULED: <2012-03-15 Thu>
+- State "CLOSED"     from "TODO"       [2012-03-16 Fri 04:29] \\
+  Fixed by 2605d8a.  The error reported is now:
+  :OUTPUT:
+  While parsing file "$sourcepath/test/regress/5D92A5EB.test", line 13: 
+  While parsing periodic transaction:
+  > ~ Monthly from 2010/7/1
+  >     Expenses:Auto:Gas               $100.00
+  >     Expenses:Auto:Insurance         $100.00
+  >     Expenses:Childcare              $100.00
+  >     Expenses:Entertainment:Blizzard $100.00
+  >     Expenses:Entertainment:Netflix  $100.00
+  >     Expenses:Groceries              $100.00
+  >     Expenses:Utilities:Electric     $100.00
+  >     Expenses:Utilities:Water        $100.00
+  >     Expenses:Utilities:Sewage       $100.00
+  >     Liabilities:Education:ULL       $100.00
+  >     Liabilities:Mortgage            $100.00
+  >     Assets:Bank:Checking
+  Error: Posting with null amount's account may be mispelled:
+  "Expenses:Entertainment:Blizzard $100.00"
+  :END:
+- Note taken on [2010-07-02 Fri 04:16] \\
+  Yes, it is expected behavior.  Nice find!  I don't like the idea of
+  making a hack to try and get around this, though, it's likely to only
+  work right in the most obvious situations.  I'll think about having a
+  better way to catch this (like having a warning if a null posting's
+  account name contains digits).
+- Note taken on [2010-07-02 Fri 04:15] \\
+  Found the problem. In xact.cc, within the declaration for bool
+  xact_base_t::finalize(), I tried changing this...
+  #+begin_src cpp
+  else if (null_post) {
+  #+end_src
+
+  to this...
+  #+begin_src cpp
+  else if (null_post) {
+    DEBUG("xact.finalize", "first null post = " <<
+  null_post->reported_account()->fullname());
+    DEBUG("xact.finalize", "second null post = " <<
+  post->reported_account()->fullname());
+  #+end_src
+
+  and came up with this output...
+  :OUTPUT:
+  5ms  [DEBUG] post must balance = $1062.96
+  5ms  [DEBUG] first null post = Expenses:Entertainment:Blizzard $16.00
+  5ms  [DEBUG] second null post = Assets:Bank:Checking
+  :END:
+  So there needed to be more than a single space between the account name
+  and the transaction amount, or the intended amount was read as part of
+  the transaction name.
+
+  I would imagine that this is expected behavior, though if possible it
+  would be nice if the parser would account for it such that the last
+  non-whitespace text element on a line is used as the amount regardless of
+  the amount of space separating it from the previous text element.
+:PROPERTIES:
+:ID:       5D92A5EB-48DD-4ED8-AFED-2A24884FAD4B
+:CREATED:  [2010-07-01 Thu 22:03]
+:END:
+** CLOSED [[bug:458][#458]] Spaces seem to be significant in automatic transaction predicate
+SCHEDULED: <2012-03-15 Thu>
+- State "CLOSED"     from "TODO"       [2012-03-16 Fri 04:09] \\
+  Fixed by 7462d09
+>>  = expr account =~ /Employer:Payroll/ and amount > 500
+
+Played with it some more and came up with this:
+#+begin_src ledger
+= expr amount>500 and account =~/Employer:Payroll/
+#+end_src
+
+Which applies to transactions over 500, but also has the inverse
+problem mentioned previously.
+
+Adding spaces to the starting expression ("amount > 500") causes it
+not to apply.
+
+Changing the order around the "and" causes it to apply to every
+transaction, not just the ones above 500:
+#+begin_src ledger
+= account =~ /Employer:Payroll/ and expr amount>500
+#+end_src
+
+On a slightly related note, is there a way to make an automatic
+transaction result in a fixed amount, rather than a percentage?
+:PROPERTIES:
+:ID:       605A410D-FBBE-4089-84B1-452473325994
+:Submitter: Zack Williams <zdwzdw@gmail.com>
+:Message:  [[message://AANLkTikJrn5v4zPezXvmedNDoE-DfoTfUpgMw7QuwcPg@mail.gmail.com][Re: Automatic transactions only for certain entry amounts]]
+:CREATED:  [2010-12-29 Wed 17:42]
+:END:
+** CLOSED [[bug:550][#550]] Trailing white space is not ignored in tag vales
+SCHEDULED: <2012-03-15 Thu>
+- State "CLOSED"     from "TODO"       [2012-03-16 Fri 03:50]
+   :PROPERTIES:
+   :ID:       AEDE9734-7FAA-4F02-9110-36C0CAF03D12
+   :CREATED:  [2011-09-22 Thu 17:58]
+   :Date:     Wed, 21 Sep 2011 13:16:32 +0000
+   :Message:  [[message://bug-550-1@http.bugs.ledger-cli.org/][{Bug 550} New: Trailing white space is not ignored in tag vales]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
+** CLOSED [[bug:584][#584]] Trailing white space is not ignored in payee names
+SCHEDULED: <2012-03-15 Thu>
+- State "CLOSED"     from "TODO"       [2012-03-16 Fri 03:12]
+  :PROPERTIES:
+  :ID:       C9D593B3-6263-494E-AF38-6D48BE109C63
+  :CREATED:  [2011-10-21 Fri 00:52]
+  :Date:     Thu, 20 Oct 2011 05:03:39 +0000
+  :Message:  [[message://bug-584-1@http.bugs.ledger-cli.org/][{Bug 584} New: Trailing white space is not ignored in payee names]]
+  :Submitter: bugzilla-daemon@mail.johnwiegley.com
+  :END:
+** CLOSED [[bug:711][#711]] Behavior of alias appears to have changed
+- State "CLOSED"     from "TODO"       [2012-03-17 Sat 07:02] \\
+  Fixed by bc31e48
+:PROPERTIES:
+:ID:       1384C1D8-CB33-4C66-A2C8-E02FD8EA6FAB
+:CREATED:  [2012-03-16 Fri 04:49]
+:Date: Thu, 15 Mar 2012 19:11:38 -0700
+:Message: [[message://CAKs9TO+RpW4qd7KTW9SzJtxfSZRykQ9FnJO4mwKXtdL8bN28Mg@mail.gmail.com][Behavior of alias changed?]]
+:Author: Craig Earls <enderw88@gmail.com>
+:END:
 ** CLOSED budget misbehavior with account tree
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:40]
    - State "DONE"       from "TODO"       [2009-11-02 Mon 01:40]
@@ -13442,13 +13553,6 @@ Which requires hand correction.
    :Message:  [[message://52d270cf-30a2-45c1-9ad2-c0b95b0539b9@z26g2000prf.googlegroups.com][ledger.el tweak for handling yyyy-mm-dd]]
    :CREATED:  [2011-01-02 Sun 09:16]
    :END:
-** TODO [[bug:467][#467]] ledger.el won't highlight account names if they have a space
-   :PROPERTIES:
-   :ID:       02CD3C95-0B6A-4B09-8C33-4D5CE6ACB93C
-   :Submitter: GitHub <noreply@github.com>
-   :Message:  [[message://4d26879ee6e14_2a73fd58175e87412f@fe2.rs.github.com.tmail][{GitHub} ledger.el won't highlight account names if they have a space {jwiegley/ledger GH-21}]]
-   :CREATED:  [2011-01-07 Fri 04:48]
-   :END:
 ** TODO [[bug:468][#468]] New ledger mode in master sometimes erases data when aligning amounts
    :PROPERTIES:
    :ID:       EF8918DA-97AC-4BD2-8676-7D8B49A35097
@@ -13518,37 +13622,6 @@ Which requires hand correction.
    :Message:  [[message://jwiegley/ledger/pull/25@github.com][{GitHub} Two patch for ledger.el {jwiegley/ledger GH-25}]]
    :Submitter: vanicat <reply+i-738876-e6c2bd7e07d155e7598aca9c15a040a6dc86b89a@reply.github.com>
    :Date:     Wed, 6 Apr 2011 11:20:37 -0700
-   :END:
-** TODO [[bug:524][#524]] ledger.el, highlighting of account names w/spaces
-   I'm using the git ledger 3.0, and notice that account names with spaces
-   in them are not highlighted properly. I'm quite sure single spaces are
-   allowed in account names, and it troubles my little mind when they are
-   not highlighted properly. I suspect the following font-lock statement:
-   #+begin_src lisp
-   (defvar ledger-font-lock-keywords
-     '(("\\(       \\|  \\|^\\)\\(;.*\\)" 2 font-lock-comment-face)
-       ("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([^*].+?\\)\\(\\(        ;\\|  ;\\|$\\)\\)" 2 bold)
-       ;;("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([*].+?\\)\\(\\(       ;\\|  ;\\|$\\)\\)"
-       ;; 2 font-lock-type-face)
-       ("^\\s-+\\([*]\\s-*\\)?\\(\\([[(]\\)?[^*:
-           ]+?:[^]);
-           ]+?\\([])]\\)?\\)\\(    \\|  \\|$\\)"
-        2 font-lock-keyword-face)
-       ("^\\([~=].+\\)" 1 font-lock-function-name-face)
-       ("^\\([A-Za-z]+ .+\\)" 1 font-lock-function-name-face))
-     "Expressions to highlight in Ledger mode.")
-   #+end_src
-   In particular, the "font-lock-keyword-face" part. After staring at the
-   regexp, however, I can't tell where the whitespace counter should be
-   inserted. Can someone fix it?
-
-   Sorry for the petty confusion, but it does make a difference...
-   :PROPERTIES:
-   :ID:       6212750C-AC03-41CB-968B-2EE1E64C747E
-   :CREATED:  [2011-04-20 Wed 18:01]
-   :Message:  [[message://87bp03apoz.fsf@ericabrahamsen.net][ledger.el, highlighting of account names w/spaces]]
-   :Submitter: Eric Abrahamsen <eric@ericabrahamsen.net>
-   :Date:     Mon, 18 Apr 2011 17:12:12 +0800
    :END:
 ** TODO [[bug:525][#525]] Trouble with Emacs ledger-mode
    - Note taken on [2011-06-09 Thu 01:21] \\
@@ -13672,22 +13745,6 @@ right now.
 :Message: [[message://1006733.2027.1325258894225.JavaMail.geo-discussion-forums@prht13][ledger.el and support for YYYY-MM-DD dates]]
 :Submitter: Jim Robinson <jim.robinson-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO [[bug:639][#639]] Highlight accounts with spaces in Emacs
-I have recently upgraded to ledger 3.0 and found that highlight of account
-names with spaces is broken. I took a look at git repo and found that there's
-a change set fixing exactly the same problem in 2009:
-https://github.com/jwiegley/ledger/commit/8834fc0c15a53b8db8c2aaee95d2b25a050fe786
-
-However the change set above adresses file ldg-mode.el, not ledger.el, I guess
-something has been changed with packaging. Anyway I just reapplied this patch
-to ledger.el locally and problem is fixed.
-:PROPERTIES:
-:ID:       E6D64332-BD37-48FD-A9B7-ACD1D213C240
-:CREATED:  [2012-02-06 Mon 14:29]
-:Date: Mon, 16 Jan 2012 21:58:28 -0800 (PST)
-:Message: [[message://dd6656b9-eb45-4df1-a78d-6476cf75d112@a11g2000vbz.googlegroups.com][Highlight accounts with spaces in Emacs]]
-:Author: Ivan <ivan.inozemtsev-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
 ** TODO [[bug:653][#653]] Do automatic transactions break emacs reconcile mode?
 This may be related to a feature request I made a while back.  Automatic
 transactions are getting reported to the reconciliation mode as uncleared
@@ -13710,6 +13767,11 @@ my uncleared transactions.  All I get is an empty buffer.
 :PROPERTIES:
 :ID:       B1AA3DBB-9766-4148-8A0E-7E87076D8963
 :CREATED:  [2012-03-12 Mon 06:00]
+:END:
+** TODO [[bug:710][#710]] ledger-mode is ruining the undo history
+:PROPERTIES:
+:ID:       BC63A8C3-B564-4AD6-97AE-056B1A4FBE5E
+:CREATED:  [2012-03-16 Fri 04:11]
 :END:
 ** DEFERRED [[bug:245][#245]] Add colorized highlighting to the reconciler
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
@@ -13997,6 +14059,15 @@ my uncleared transactions.  All I get is an empty buffer.
    :ID:       B38AC5A0-31BB-4F89-8112-5999D8A99C02
    :CREATED:  [2009-11-24 Tue 22:17]
    :END:
+** DONE [[bug:467][#467]] ledger.el won't highlight account names if they have a space
+SCHEDULED: <2012-03-15 Thu>
+- State "DONE"       from "TODO"       [2012-03-16 Fri 03:01]
+   :PROPERTIES:
+   :ID:       02CD3C95-0B6A-4B09-8C33-4D5CE6ACB93C
+   :Submitter: GitHub <noreply@github.com>
+   :Message:  [[message://4d26879ee6e14_2a73fd58175e87412f@fe2.rs.github.com.tmail][{GitHub} ledger.el won't highlight account names if they have a space {jwiegley/ledger GH-21}]]
+   :CREATED:  [2011-01-07 Fri 04:48]
+   :END:
 ** DONE [[bug:580][#580]] Emacs mode 'reconcile' doesn't work
 - State "DONE"       from "TODO"       [2012-02-23 Thu 21:41] \\
   Fixed by d2915c6
@@ -14052,6 +14123,59 @@ my uncleared transactions.  All I get is an empty buffer.
    :Submitter: henry atting <nsmp_02@online.de>
    :CREATED:  [2010-04-08 Thu 18:47]
    :END:
+** DUPLICATE [[bug:524][#524]] ledger.el, highlighting of account names w/spaces
+SCHEDULED: <2012-03-15 Thu>
+- State "DUPLICATE"  from "TODO"       [2012-03-16 Fri 03:01] \\
+  467
+   I'm using the git ledger 3.0, and notice that account names with spaces
+   in them are not highlighted properly. I'm quite sure single spaces are
+   allowed in account names, and it troubles my little mind when they are
+   not highlighted properly. I suspect the following font-lock statement:
+   #+begin_src lisp
+   (defvar ledger-font-lock-keywords
+     '(("\\(       \\|  \\|^\\)\\(;.*\\)" 2 font-lock-comment-face)
+       ("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([^*].+?\\)\\(\\(        ;\\|  ;\\|$\\)\\)" 2 bold)
+       ;;("^[0-9]+[-/.=][-/.=0-9]+\\s-+\\(([^)]+)\\s-+\\)?\\([*].+?\\)\\(\\(       ;\\|  ;\\|$\\)\\)"
+       ;; 2 font-lock-type-face)
+       ("^\\s-+\\([*]\\s-*\\)?\\(\\([[(]\\)?[^*:
+           ]+?:[^]);
+           ]+?\\([])]\\)?\\)\\(    \\|  \\|$\\)"
+        2 font-lock-keyword-face)
+       ("^\\([~=].+\\)" 1 font-lock-function-name-face)
+       ("^\\([A-Za-z]+ .+\\)" 1 font-lock-function-name-face))
+     "Expressions to highlight in Ledger mode.")
+   #+end_src
+   In particular, the "font-lock-keyword-face" part. After staring at the
+   regexp, however, I can't tell where the whitespace counter should be
+   inserted. Can someone fix it?
+
+   Sorry for the petty confusion, but it does make a difference...
+   :PROPERTIES:
+   :ID:       6212750C-AC03-41CB-968B-2EE1E64C747E
+   :CREATED:  [2011-04-20 Wed 18:01]
+   :Message:  [[message://87bp03apoz.fsf@ericabrahamsen.net][ledger.el, highlighting of account names w/spaces]]
+   :Submitter: Eric Abrahamsen <eric@ericabrahamsen.net>
+   :Date:     Mon, 18 Apr 2011 17:12:12 +0800
+   :END:
+** DUPLICATE [[bug:639][#639]] Highlight accounts with spaces in Emacs
+SCHEDULED: <2012-03-15 Thu>
+- State "DUPLICATE"  from "TODO"       [2012-03-16 Fri 03:01] \\
+  467
+I have recently upgraded to ledger 3.0 and found that highlight of account
+names with spaces is broken. I took a look at git repo and found that there's
+a change set fixing exactly the same problem in 2009:
+https://github.com/jwiegley/ledger/commit/8834fc0c15a53b8db8c2aaee95d2b25a050fe786
+
+However the change set above adresses file ldg-mode.el, not ledger.el, I guess
+something has been changed with packaging. Anyway I just reapplied this patch
+to ledger.el locally and problem is fixed.
+:PROPERTIES:
+:ID:       E6D64332-BD37-48FD-A9B7-ACD1D213C240
+:CREATED:  [2012-02-06 Mon 14:29]
+:Date: Mon, 16 Jan 2012 21:58:28 -0800 (PST)
+:Message: [[message://dd6656b9-eb45-4df1-a78d-6476cf75d112@a11g2000vbz.googlegroups.com][Highlight accounts with spaces in Emacs]]
+:Author: Ivan <ivan.inozemtsev-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 * Features
   :PROPERTIES:
   :CATEGORY: Features
@@ -17031,32 +17155,6 @@ make this a child scope of the Python session.
   :PROPERTIES:
   :CATEGORY: Build
   :END:
-** TODO [#A] [[bug:544][#544]] Failing tests in Ledger should cause all tests to fail
-   :PROPERTIES:
-   :ID:       B4E16081-08C6-430E-82F6-00304C388A22
-   :CREATED:  [2011-07-08 Fri 13:40]
-   :END:
-** TODO [#A] [[bug:645][#645]] acprep opt producing a debug executable
-Just grabbed the latest "next" and acprep opt is building a 14MB executable
-that runs very slowly.  It produces a file identical to acprep debug
-:OUTPUT:
-20:06:04 ~/ledger > ./acprep opt
-...
-20:18:34 ~/ledger > ls -la ledger
--rwxr-xr-x  1 cpearls  staff  14061676 Nov 10 20:18 ledger
-
-20:20:36 ~/ledger > ./acprep debug update
-...
-20:33:13 ~/ledger > ls -la ledger
--rwxr-xr-x  1 cpearls  staff  14061676 Nov 10 20:33 ledger
-:END:
-:PROPERTIES:
-:ID:       0D1B3962-02A1-4213-8025-3849DA554337
-:CREATED:  [2011-11-11 Fri 14:08]
-:Date:     Thu, 10 Nov 2011 20:38:12 -0700
-:Message:  [[message://CAKs9TOLp84z6Od+Cg27y-uY42ZW7UkQAbUVo4TeviX2Mv1wRbQ@mail.gmail.com][acprep opt producing a debug executable]]
-:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
 ** TODO [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 03:15]
@@ -17118,6 +17216,11 @@ that runs very slowly.  It produces a file identical to acprep debug
    :Submitter: emsenn <emsenn@emsenn.com>
    :Message:  [[message://AANLkTikJRbwJ6mkChu0zXF1ny1UL0vpaX9mtK%2BXP_A7F@mail.gmail.com][ledger on Arch Linux]]
    :CREATED:  [2010-11-28 Sun 20:32]
+   :END:
+** TODO [[bug:544][#544]] Failing tests in Ledger should cause all tests to fail
+   :PROPERTIES:
+   :ID:       B4E16081-08C6-430E-82F6-00304C388A22
+   :CREATED:  [2011-07-08 Fri 13:40]
    :END:
 ** TODO [[bug:586][#586]] Improve build error for users without MacPorts or Fink
   "./acprep dependencies" only works if you have MacPorts installed. If you
@@ -18334,6 +18437,28 @@ how do I get you the config.log file?
    :Submitter: Simon Michael <simon@joyful.com>
    :CREATED:  [2009-11-24 Tue 22:13]
    :END:
+** WORKSFORME [#A] [[bug:645][#645]] acprep opt producing a debug executable
+- State "WORKSFORME" from "TODO"       [2012-03-16 Fri 01:16]
+Just grabbed the latest "next" and acprep opt is building a 14MB executable
+that runs very slowly.  It produces a file identical to acprep debug
+:OUTPUT:
+20:06:04 ~/ledger > ./acprep opt
+...
+20:18:34 ~/ledger > ls -la ledger
+-rwxr-xr-x  1 cpearls  staff  14061676 Nov 10 20:18 ledger
+
+20:20:36 ~/ledger > ./acprep debug update
+...
+20:33:13 ~/ledger > ls -la ledger
+-rwxr-xr-x  1 cpearls  staff  14061676 Nov 10 20:33 ledger
+:END:
+:PROPERTIES:
+:ID:       0D1B3962-02A1-4213-8025-3849DA554337
+:CREATED:  [2011-11-11 Fri 14:08]
+:Date:     Thu, 10 Nov 2011 20:38:12 -0700
+:Message:  [[message://CAKs9TOLp84z6Od+Cg27y-uY42ZW7UkQAbUVo4TeviX2Mv1wRbQ@mail.gmail.com][acprep opt producing a debug executable]]
+:Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 ** DUPLICATE [#A] [[bug:473][#473]] RegressTests failing on Ubuntu 10.10
    - State "DUPLICATE"  from "TODO"       [2011-02-12 Sat 16:08] \\
      Duplicate of #472.
@@ -18806,14 +18931,6 @@ how do I get you the config.log file?
   :PROPERTIES:
   :CATEGORY: Docs
   :END:
-** TODO [#A] [[bug:578][#578]] Show Craig how to write testable Ledger examples
-   :PROPERTIES:
-   :ID:       A204A515-E665-41C1-9C77-389F2F45EFF7
-   :CREATED:  [2011-10-04 Tue 14:26]
-   :Date:     Sun, 2 Oct 2011 21:20:27 -0700
-   :Message:  [[message://CAKs9TOJxATpjCeQZ2JVoGSwszULOigy0NpcKYtVcj19AXWi34Q@mail.gmail.com][Draft of manual.]]
-   :Submitter: Craig Earls <enderw88@gmail.com>
-   :END:
 ** TODO (Raphael) Reply: Optimal automatic virtual transactions
 :PROPERTIES:
 :ID:       34BF68CD-F6BE-4C8A-B3CC-68C7A89647C6
@@ -19178,6 +19295,16 @@ Languages.
    :Submitter: Michael Ploujnikov <ploujj@gmail.com>
    :Message:  [[message://29d9299c-f958-42a2-928c-2bacbf6b63e3@29g2000prb.googlegroups.com][current beta release vs master maint 2.6.1]]
    :CREATED:  [2010-11-25 Thu 15:27]
+   :END:
+** DONE [#A] [[bug:578][#578]] Show Craig how to write testable Ledger examples
+- State "DONE"       from "TODO"       [2012-03-16 Fri 01:16] \\
+  I wrote about how to do this on the mailing list.
+   :PROPERTIES:
+   :ID:       A204A515-E665-41C1-9C77-389F2F45EFF7
+   :CREATED:  [2011-10-04 Tue 14:26]
+   :Date:     Sun, 2 Oct 2011 21:20:27 -0700
+   :Message:  [[message://CAKs9TOJxATpjCeQZ2JVoGSwszULOigy0NpcKYtVcj19AXWi34Q@mail.gmail.com][Draft of manual.]]
+   :Submitter: Craig Earls <enderw88@gmail.com>
    :END:
 ** DONE (Simon) Consolidate the ledger-cli repository as a website branch
 SCHEDULED: <2012-03-11 Sun>
