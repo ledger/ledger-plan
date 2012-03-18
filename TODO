@@ -107,7 +107,9 @@ that include virtual transactions?
 :Message: [[message://87vcmkhw4x.fsf@buster.johnrakestraw.com][Virtual transactions and the equity command]]
 :Author: John Rakestraw <johnr-hdTKlMK9g6hNu5YjidvPyAC/G2K4zDHf@public.gmane.org>
 :END:
-** WORKSFORME [#A] [[bug:708][#708]] Ignoring PriceDB file                                           :blocker:
+** CLOSED [#A] [[bug:708][#708]] Ignoring PriceDB file                                               :blocker:
+- State "CLOSED"     from "CLOSED"     [2012-03-18 Sun 18:57]
+- State "CLOSED"     from "WORKSFORME" [2012-03-18 Sun 18:57]
 - State "WORKSFORME" from "TODO"       [2012-03-17 Sat 21:44]
 :PROPERTIES:
 :ID:       A8FCC765-8A1C-4392-8449-B0D3C40135BA
@@ -4098,7 +4100,8 @@ the same scopes.
    :ID:       5B20DC9F-277F-495F-806A-4A147E833C49
    :CREATED:  [2010-06-17 Thu 08:17]
    :END:
-** DONE [#A] [[bug:353][#353]] No longer handles multiple postings to one account in one transacation
+** CLOSED [#A] [[bug:353][#353]] No longer handles multiple postings to one account in one transacation
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       from "TODO"       [2010-06-21 Mon 17:57]
    :PROPERTIES:
    :ID:       15230B79-E091-4A55-9F9E-A49602ECAC1A
@@ -4144,8 +4147,9 @@ SCHEDULED: <2012-03-16 Fri>
 :Message: [[message://bug-701-1@http.bugs.ledger-cli.org/][{Bug 701} New: pager corrupt terminal]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [#A] [[bug:703][#703]] Assertion failed in "src/history.cc": source != price.commodity()
+** CLOSED [#A] [[bug:703][#703]] Assertion failed in "src/history.cc": source != price.commodity()
 SCHEDULED: <2012-03-15 Thu>
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-03-16 Fri 01:00] \\
   Fixed by a49e33a
 This bug was introduced by the fix for bug #680.
@@ -7082,13 +7086,15 @@ SCHEDULED: <2012-03-11 Sun>
    :ID:       D913FCEE-88FF-41D1-98AB-2561382C7933
    :CREATED:  [2007-12-10 Mon]
    :END:
-** DONE Balance report was missing the parent account
+** CLOSED Balance report was missing the parent account
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       [2009-03-16 Mon 04:06]
    :PROPERTIES:
    :ID:       461980A1-86DE-4C76-9CB1-1480B5606624
    :CREATED:  [2009-03-15 Sun 22:32]
    :END:
-** DONE Balance report wasn't reporting a final total
+** CLOSED Balance report wasn't reporting a final total
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       [2009-03-16 Mon 04:06]
    :PROPERTIES:
    :ID:       E9F130C5-33AA-4841-B238-1148506B3DDF
@@ -8567,7 +8573,8 @@ SCHEDULED: <2011-12-21 Wed>
    :Attachments: ledger.txt.gpg
    :CREATED:  [2010-01-18 Mon 03:42]
    :END:
-** DONE [[bug:167][#167]] Another rounding issue                                                      :ATTACH:
+** CLOSED [[bug:167][#167]] Another rounding issue                                       :ATTACH:
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       from "STARTED"    [2010-06-02 Wed 06:25] \\
      Fixed by cbc0a125.
    :LOGBOOK:
@@ -8665,7 +8672,8 @@ SCHEDULED: <2011-12-21 Wed>
    :Attachments: ledger.txt.gpg
    :CREATED:  [2010-01-18 Mon 03:44]
    :END:
-** DONE [[bug:198][#198]] Errors with using the -J option
+** CLOSED [[bug:198][#198]] Errors with using the -J option
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       from "TODO"       [2010-06-09 Wed 03:12] \\
      This is now fixed, but you'll have to run:
      #+begin_src sh
@@ -8745,7 +8753,8 @@ SCHEDULED: <2011-12-21 Wed>
    :Submitter: thierry <thierry.daucourt@free.fr>
    :CREATED:  [2010-01-09 Sat 21:05]
    :END:
-** DONE [[bug:199][#199]] Issue with reporting asset history and -j/-J
+** CLOSED [[bug:199][#199]] Issue with reporting asset history and -j/-J
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       from "TODO"       [2010-05-30 Sun 22:00] \\
      Fixed by commits 5a2644c1b7220dc96e4de9cfb82f6d829cf34321 and
      654c842348c570a086f31cb79b7b3b4810463707.
@@ -9081,7 +9090,8 @@ SCHEDULED: <2011-12-21 Wed>
    :ID:       8AFF04B8-DAC0-4768-AD1D-ABA1F3C3E4F8
    :CREATED:  [2010-06-16 Wed 17:40]
    :END:
-** DONE [[bug:350][#350]] --gain shows wrong resuls
+** CLOSED [[bug:350][#350]] --gain shows wrong resuls
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - Note taken on [2010-06-20 Sun 17:48] \\
      Another possibility is that name-merging unless fixated and non-fixated
      versions both exist, in which case name merging is only done for the
@@ -9134,7 +9144,8 @@ SCHEDULED: <2011-12-21 Wed>
    :ID:       87C4A85D-237E-410F-B824-FE4C42F62011
    :CREATED:  [2010-06-20 Sun 14:51]
    :END:
-** DONE [[bug:354][#354]] Forecasting bug with terminating periodic entries
+** CLOSED [[bug:354][#354]] Forecasting bug with terminating periodic entries
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       from "TODO"       [2010-06-20 Sun 17:08]
    #+begin_src ledger
    ~ Monthly since 2010/01/01
@@ -9163,13 +9174,15 @@ SCHEDULED: <2011-12-21 Wed>
    :ID:       620F0674-B74F-452C-8F36-66F8425CA4BD
    :CREATED:  [2010-06-20 Sun 17:04]
    :END:
-** DONE [[bug:355][#355]] Problem with forecasting not showing biweekly transactions
+** CLOSED [[bug:355][#355]] Problem with forecasting not showing biweekly transactions
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       from "TODO"       [2010-06-21 Mon 17:16]
    :PROPERTIES:
    :ID:       D2829FC4-D319-4FB9-8A24-B8FFCF5F4E61
    :CREATED:  [2010-06-20 Sun 20:17]
    :END:
-** DONE [[bug:359][#359]] Balance command now shows empty accounts
+** CLOSED [[bug:359][#359]] Balance command now shows empty accounts
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       from "TODO"       [2010-06-21 Mon 18:30]
    :PROPERTIES:
    :ID:       56BBE69B-604C-4379-A39D-8B412A8921CC
@@ -9193,7 +9206,8 @@ SCHEDULED: <2011-12-21 Wed>
    :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
    :CREATED:  [2010-07-01 Thu 17:55]
    :END:
-** DONE [[bug:386][#386]] print command should never strip quotation marks from commodity
+** CLOSED [[bug:386][#386]] print command should never strip quotation marks from commodity
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
    - State "DONE"       from "STARTED"    [2010-07-29 Thu 04:12]
    :LOGBOOK:
    CLOCK: [2010-07-29 Thu 03:19]--[2010-07-29 Thu 04:12] =>  0:53
@@ -9204,7 +9218,8 @@ SCHEDULED: <2011-12-21 Wed>
    :Message:  [[message://bug-386-1@http.newartisans.com/bugzilla/][{Bug 386} New: strips quotation marks from commodity when it's required]]
    :CREATED:  [2010-07-25 Sun 16:25]
    :END:
-** DONE [[bug:394][#394]] Weekly report and monthly report (possible bug)
+** CLOSED [[bug:394][#394]] Weekly report and monthly report (possible bug)
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-02-28 Tue 02:36] \\
   Fixed by 6adfcc8
 - Note taken on [2012-02-28 Tue 00:16] \\
@@ -9371,7 +9386,8 @@ So, I guess this is not the normal behavior expected by the second report
    :ID:       3915D7F9-E69D-46F4-972E-C16DDEF90164
    :CREATED:  [2010-09-17 Fri 23:00]
    :END:
-** DONE [[bug:448][#448]] Only one posting with null amount allowed because of note
+** CLOSED [[bug:448][#448]] Only one posting with null amount allowed because of note
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-02-28 Tue 02:47] \\
   Fixed by 7a55c7f
 I've noticed that adding a note to a periodic entry without specifying the
@@ -9484,7 +9500,8 @@ I expect all three cases to not fail with an error.
    :Message:  [[message://bug-510-1@http.newartisans.com/bugzilla/][{Bug 510} New: xact matches oldest->newest]]
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :END:
-** DONE [[bug:546][#546]] Record timelog hours on the day(s) of check-in
+** CLOSED [[bug:546][#546]] Record timelog hours on the day(s) of check-in
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-02-28 Tue 03:19] \\
   Fixed by 6cbceb8.
    :PROPERTIES:
@@ -9603,7 +9620,8 @@ SCHEDULED: <2011-11-09 Wed>
   :Message:  [[message://CAMfPF2cESuukGfGUOLusrV65=OOaPrpNVLZkutvDpk6_xhuO4w@mail.gmail.com][Re: Having Problems With XML]]
   :Submitter: Ryan May <ryan-wTxsuUSx66j3fQ9qLvQP4Q@public.gmane.org>
   :END:
-** DONE [[bug:600][#600]] -d "l>=2" performs > rather than >=
+** CLOSED [[bug:600][#600]] -d "l>=2" performs > rather than >=
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-02-28 Tue 04:02] \\
   Fixed by 9376b0f
 :PROPERTIES:
@@ -9914,7 +9932,8 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://bug-657-1@http.bugs.ledger-cli.org/][{Bug 657} New: --print removes amount]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [[bug:658][#658]] print does not indent properly
+** CLOSED [[bug:658][#658]] print does not indent properly
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-02-28 Tue 04:06]
 :PROPERTIES:
 :ID:       DB490507-8C19-4081-A11D-C4A3D6415BA0
@@ -9923,7 +9942,8 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://bug-658-1@http.bugs.ledger-cli.org/][{Bug 658} New: print does not indent properly]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [[bug:659][#659]] Date parser does not accept 2/29 this year (2012)
+** CLOSED [[bug:659][#659]] Date parser does not accept 2/29 this year (2012)
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-02-28 Tue 21:19] \\
   Fixed by 5517871
 :PROPERTIES:
@@ -9942,7 +9962,8 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://bug-661-1@http.bugs.ledger-cli.org/][{Bug 661} New: In HEAD, installed today, include directive causes a segmentation fault.]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [[bug:678][#678]] -X GBP -H leads to Adjustment, or: ledger gets calculation/rounding wrong
+** CLOSED [[bug:678][#678]] -X GBP -H leads to Adjustment, or: ledger gets calculation/rounding wrong
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-03-11 Sun 03:06] \\
   Fixed by 0d9d845
 I was testing the combination of -X and -H with ledger from current next
@@ -10003,7 +10024,8 @@ P 2011-02-01 EUR 0.8576 GBP
 :Message: [[message://bug-678-1@http.bugs.ledger-cli.org/][{Bug 678} New: -X GBP -H leads to Adjustment, or: ledger gets calculation/rounding wrong]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [[bug:679][#679]] Error: Attempting to nail down a balance with -X -H
+** CLOSED [[bug:679][#679]] Error: Attempting to nail down a balance with -X -H
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-03-11 Sun 03:07] \\
   Fixed by 2303aa9
 :PROPERTIES:
@@ -10013,7 +10035,8 @@ P 2011-02-01 EUR 0.8576 GBP
 :Message: [[message://bug-679-1@http.bugs.ledger-cli.org/][{Bug 679} New: Error: Attempting to nail down a balance with -X -H]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [[bug:680][#680]] ledger pricedb shows incorrect(?) entries
+** CLOSED [[bug:680][#680]] ledger pricedb shows incorrect(?) entries
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-03-15 Thu 05:01] \\
   Fixed by 610a3e1
 :PROPERTIES:
@@ -10023,8 +10046,9 @@ P 2011-02-01 EUR 0.8576 GBP
 :Message: [[message://bug-680-1@http.bugs.ledger-cli.org/][{Bug 680} New: ledger pricedb shows incorrect(?) entries]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [[bug:688][#688]] print command does not handle multiple spaces in the payee
+** CLOSED [[bug:688][#688]] print command does not handle multiple spaces in the payee
 SCHEDULED: <2012-03-11 Sun>
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "STARTED"    [2012-03-12 Mon 05:51] \\
   Fixed by ed42a7e
 :LOGBOOK:
@@ -10047,8 +10071,9 @@ $ ledger -f x.ledger print
 :ID:       6D9066DD-3956-440D-91B2-C5621B5EA66D
 :CREATED:  [2012-03-11 Sun 22:03]
 :END:
-** DONE [[bug:704][#704]] pricedb entries randomly repeated
+** CLOSED [[bug:704][#704]] pricedb entries randomly repeated
 SCHEDULED: <2012-03-15 Thu>
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-03-16 Fri 03:09] \\
   Fixed by 49ec40a
 :PROPERTIES:
@@ -11224,8 +11249,9 @@ SCHEDULED: <2012-03-15 Thu>
    :ID:       6B7C2D8A-6620-44C3-B8C1-3A897F84604E
    :CREATED:  [2011-04-20 Wed 19:33]
    :END:
-** WONTFIX [[bug:560][#560]] Allow a space between the minus sign and its amount
+** CLOSED [[bug:560][#560]] Allow a space between the minus sign and its amount
 SCHEDULED: <2012-03-15 Thu>
+- State "CLOSED"     from "WONTFIX"    [2012-03-18 Sun 18:57]
 - State "WONTFIX"    from "TODO"       [2012-03-16 Fri 03:16]
    :PROPERTIES:
    :ID:       D51BFF74-9763-45CF-B9D4-0B2233AF2249
@@ -11639,7 +11665,8 @@ Error: Illegal option -x
    :ARCHIVE_TIME: 2011-06-20 Mon 00:26
    :ARCHIVE_CATEGORY: Bugs
    :END:
-** WORKSFORME [#A] [[bug:438][#438]] Case where register and balance do not agree                   :critical:
+** CLOSED [#A] [[bug:438][#438]] Case where register and balance do not agree          :critical:
+- State "CLOSED"     from "WORKSFORME" [2012-03-18 Sun 18:57]
 - State "WORKSFORME" from "TODO"       [2011-06-20 Mon 00:10] \\
   I see this at the end of the register report:
   :OUTPUT:
@@ -15963,8 +15990,9 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
    :CREATED:  [2010-06-03 Thu 23:22]
    :END:
-** DONE [[bug:231][#231]] Allow conversion of some but not all commodities
+** CLOSED [[bug:231][#231]] Allow conversion of some but not all commodities
 SCHEDULED: <2012-03-09 Fri>
+- State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-03-09 Fri 20:14] \\
   Fixed by 2df8edc
    With -X, you currently can only say "convert everything to one commodity"
