@@ -4,6 +4,12 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :PROPERTIES:
   :CATEGORY: Bugs
   :END:
+** DONE Ensure that every class uses CTOR/DTOR tracing functions
+- State "DONE"       from "TODO"       [2012-03-18 Sun 01:01]
+:PROPERTIES:
+:ID:       7F0DC354-E82F-4CB0-BD70-8311E47C97A8
+:CREATED:  [2012-03-17 Sat 17:30]
+:END:
 ** TODO [#A] [[bug:380][#380]] "Unbalanced remainder" pops up depending on the order of postings
    :PROPERTIES:
    :ID:       1E192DF6-AB81-4DC0-A205-1AAF00F64052
@@ -101,7 +107,8 @@ that include virtual transactions?
 :Message: [[message://87vcmkhw4x.fsf@buster.johnrakestraw.com][Virtual transactions and the equity command]]
 :Author: John Rakestraw <johnr-hdTKlMK9g6hNu5YjidvPyAC/G2K4zDHf@public.gmane.org>
 :END:
-** TODO [#A] [[bug:708][#708]] Ignoring PriceDB file                                                 :blocker:
+** WORKSFORME [#A] [[bug:708][#708]] Ignoring PriceDB file                                           :blocker:
+- State "WORKSFORME" from "TODO"       [2012-03-17 Sat 21:44]
 :PROPERTIES:
 :ID:       A8FCC765-8A1C-4392-8449-B0D3C40135BA
 :CREATED:  [2012-03-16 Fri 20:26]
@@ -2827,7 +2834,49 @@ https://gist.github.com/1389840
 :Message: [[message://bug-677-1@http.bugs.ledger-cli.org/][{Bug 677} New: Error building current next branch: no type named ‘key_type’ in ‘class ledger::date_specifier_t’]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:681][#681]] Commodities revalued with -X -H when no pricedb entry for one transaction
+** CLOSED [[bug:681][#681]] Commodities revalued with -X -H when no pricedb entry for one transaction
+- State "CLOSED"     from "TODO"       [2012-03-18 Sun 02:33] \\
+  Fixed by 20edb3a
+In the example below, there's no pricedb entry to convert EUR to GBP for the
+first transaction with -X GBP -H.  Bug #679 fixes this so EUR would shown and
+it would be revalued to GBP once there's a valid pricedb entry to allow this
+conversion.  So far so good.  However, now it constantly revalues this
+transaction whenever it finds a new pricedb entry.  This is not what I'd
+expect with -H.
+
+Output with current ledger (8fe68c5fc3a71fa17cf309f9b87b5089ecce8996)
+:OUTPUT:
+./ledger -f test.ledger reg income:ad -X GBP -H
+2011-01-31 AdSense earnings     Income:AdSense        -11.00 EUR   -11.00 EUR
+2011-02-01 Commodities revalued <Revalued>             -9.43 GBP    -9.43 GBP
+2011-02-28 AdSense earnings     Income:AdSense         -8.58 GBP   -18.01 GBP
+2011-03-01 Commodities revalued <Revalued>             -0.04 GBP   -18.05 GBP
+2011-04-01 Commodities revalued <Revalued>              0.11 GBP   -17.94 GBP
+:END:
+
+Expected output: 
+:OUTPUT:
+2011-01-31 AdSense earnings     Income:AdSense        -11.00 EUR   -11.00 EUR
+2011-02-01 Commodities revalued <Revalued>             -9.43 GBP    -9.43 GBP
+2011-02-28 AdSense earnings     Income:AdSense         -8.58 GBP   -18.01 GBP
+:END:
+
+Test case:
+#+begin_src ledger
+D 1000.00 GBP
+
+P 2011-02-01 EUR 0.8576 GBP
+P 2011-03-01 EUR 0.8612 GBP
+P 2011-04-01 EUR 0.8510 GBP
+
+2011-01-31 * AdSense earnings
+    Assets:Receivable:AdSense              11.00 EUR
+    Income:AdSense
+
+2011-02-28 * AdSense earnings
+    Assets:Receivable:AdSense              10.00 EUR
+    Income:AdSense
+#+end_src
 :PROPERTIES:
 :ID:       9E0E606D-8C04-40EB-8054-21CE86ADD5DD
 :CREATED:  [2012-03-11 Sun 19:59]
@@ -2979,7 +3028,9 @@ $-200) to work right. Is this correct?
 :Message: [[message://6beffd28-99ec-464c-8f4b-17bcbd16005c@p7g2000yqk.googlegroups.com][budgeting bug?]]
 :Author: Alex D <ademko-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
-** TODO [[bug:691][#691]] Assertion failed in "src/pool.cc" with -X -H
+** CLOSED [[bug:691][#691]] Assertion failed in "src/pool.cc" with -X -H
+- State "CLOSED"     from "TODO"       [2012-03-18 Sun 02:25] \\
+  Fixed by 47d7f5a
 :PROPERTIES:
 :ID:       96A8E4A1-67D9-4BF5-B91C-A7D62A9C7808
 :CREATED:  [2012-03-12 Mon 16:39]
