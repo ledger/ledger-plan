@@ -4361,15 +4361,6 @@ implement and does this fit into your plans for ledger?
 :Message: [[message://bug-714-1@http.bugs.ledger-cli.org/][{Bug 714} New: Support for re-write rules (aka ledger "views", allows keeping separate books)]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:715][#715]] Error: Cannot divide a balance by an amount with -X -H
-SCHEDULED: <2012-03-18 Sun>
-:PROPERTIES:
-:ID:       BFD3FBE1-2BF9-4109-8BF6-225C28C49837
-:CREATED:  [2012-03-18 Sun 19:22]
-:Date: Sun, 18 Mar 2012 10:26:22 +0000
-:Message: [[message://bug-715-1@http.bugs.ledger-cli.org/][{Bug 715} New: Error: Cannot divide a balance by an amount with -X -H]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
 ** DEFERRED [[bug:370][#370]] Let time periods use "starting" to fix the exact start date
 - State "DEFERRED"   from "TODO"       [2012-03-11 Sun 20:31]
 - Note taken on [2011-11-01 Tue 10:04] \\
@@ -14665,6 +14656,53 @@ SCHEDULED: <2012-03-15 Thu>
 :Date: Thu, 15 Mar 2012 19:11:38 -0700
 :Message: [[message://CAKs9TO+RpW4qd7KTW9SzJtxfSZRykQ9FnJO4mwKXtdL8bN28Mg@mail.gmail.com][Behavior of alias changed?]]
 :Author: Craig Earls <enderw88@gmail.com>
+:END:
+** CLOSED [[bug:715][#715]] Error: Cannot divide a balance by an amount with -X -H
+SCHEDULED: <2012-03-18 Sun>
+- State "CLOSED"     from "TODO"       [2012-03-19 Mon 00:42] \\
+  Fixed by cd50fe0
+The following test case used to show error from bug 691 but now that this is
+fixed I get:
+:OUTPUT:
+$ ledger -f 2011 reg -X EUR -H > /dev/null
+While evaluating value expression:
+ansify_if(justify(scrub(display_amount), int(amount_width), ((((((3 + int(meta_width)) + int(date_width)) + int(payee_width)) + int(account_width)) + int(amount_width)) + int(prepend_width)), true, color), (should_bold ? (bold : null)))
+While dividing -0.01 EUR by -0.00589775 EUR
+-0.00446825 EUR (({1.00 EUR})):
+While calling function 'nail_down (-0.01 EUR, -0.01 EUR)':
+While calling function 'market (<#EXPR display_amount>, <#EXPR value_date>, <#EXPR exchange>)':
+While calling function 'market (<#EXPR display_amount>, <#EXPR value_date>, <#EXPR exchange>)':
+While calling function 'scrub <#EXPR display_amount>':
+While calling function 'justify (<#EXPR scrub(display_amount)>, 12, 67, 1, 0)':
+While calling function 'ansify_if (<#EXPR justify(scrub(display_amount), int(amount_width), (((((({3} + int(meta_width)) + int(date_width)) + int(payee_width)) + int(account_width)) + int(amount_width)) + int(prepend_width)), true, color)>, (null))':
+While handling posting from "2011", line 7:
+>     Assets:A                                              1.59 GBP
+Error: Cannot divide a balance by an amount
+:END:
+
+I found it a bit hard to generate a test case because I don't know what the
+problem is.  Below is one small test case I managed to generate.  My original
+ledger file shows the problem in other transaction.  If you can fix this bug,
+I'll check with my original ledger file to see if all other transactions now
+work too.
+
+Test case:
+#+begin_src ledger
+2011-01-01 * Opening balance
+    Assets:Investment                  100 "AAA" @ 16.58900489 EUR
+    Assets:Investments                   5 "BBB" @ 24.79900855 EUR
+    Equity:Opening balance
+
+2011-02-10 * Reimbursement: Taxi / Subway / Bus / Train
+    Assets:A                                              1.59 GBP
+    Assets:B                  -1.80 EUR @ 0.884955752212389381 GBP
+#+end_src
+:PROPERTIES:
+:ID:       BFD3FBE1-2BF9-4109-8BF6-225C28C49837
+:CREATED:  [2012-03-18 Sun 19:22]
+:Date: Sun, 18 Mar 2012 10:26:22 +0000
+:Message: [[message://bug-715-1@http.bugs.ledger-cli.org/][{Bug 715} New: Error: Cannot divide a balance by an amount with -X -H]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED budget misbehavior with account tree
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:40]
