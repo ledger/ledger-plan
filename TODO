@@ -11875,7 +11875,7 @@ SCHEDULED: <2012-03-14 Wed>
    :CREATED:  [2007-08-22 Wed]
    :END:
 ** CLOSED [#A] 'ledger -f src/value.h bal capital' crashes
-   - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:48]
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:48]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 16:41] \\
      It now reports a series of errors and exits.
    - State "TODO"       from "DEFERRED"   [2009-10-22 Thu 07:34]
@@ -11885,8 +11885,7 @@ SCHEDULED: <2012-03-14 Wed>
    :CREATED:  [2009-02-27 Fri 15:38]
    :END:
 ** DONE [#A] --budget not including "~ Monthly" entry                                    :ATTACH:
-- State "DONE"       from "CLOSED"     [2012-03-18 Sun 19:02]
-   - State "TESTED"     from "WORKSFORME" [2009-11-02 Mon 01:10] \\
+   - State "DONE"       from "WORKSFORME" [2009-11-02 Mon 01:10] \\
      Found this bug and fixed it.
    - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
    - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:41] \\
@@ -11973,7 +11972,7 @@ SCHEDULED: <2012-03-14 Wed>
    :CREATED:  [2009-03-04 Wed 15:34]
    :END:
 ** CLOSED [#A] Found bugs in the report query syntax parser
-   - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:51]
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
    - State "DONE"       from "TODO"       [2009-10-28 Wed 23:09]
    Fails to parse:
    :SCRIPT:
@@ -12164,14 +12163,14 @@ Test case:
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED 'ledger -f doc/sample.dat --color reg' is showing a red zero
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:52]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 16:52]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:27]
    :PROPERTIES:
    :ID:       727B2DF8-A2A1-4716-9C15-547F20D5F933
    :CREATED:  [2009-02-23 Mon 02:47]
    :END:
 ** CLOSED --budget doesn't produce correct output
-   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:10]
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:10]
    - State "DONE"       from "TODO"       [2009-10-27 Tue 05:51]
    I have a budget transaction like this:
    :SOURCE:
@@ -12209,7 +12208,7 @@ Test case:
    :CREATED:  [2009-10-27 Tue 23:20]
    :END:
 ** CLOSED An amount like 0h @ $70 gives divide by zero error
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:23]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 16:23]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:23]
    :PROPERTIES:
    :ID:       6DAB9FE3-1399-4727-9AB1-FE413FB85A03
@@ -12224,7 +12223,7 @@ SCHEDULED: <2012-03-12 Mon>
 :CREATED:  [2012-03-12 Mon 18:39]
 :END:
 ** CLOSED Balance report is still broken
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 15:44]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 15:44]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:53]
    :SCRIPT:
    ./ledger -f test/input/drewr.dat bal assets
@@ -12267,7 +12266,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2009-03-15 Sun 22:32]
    :END:
 ** CLOSED Balances with non-matching exchange rates is ambiguous
-   - State "TESTED"     [2009-02-24 Tue 13:09]
+   - State "CLOSED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 01:55]
    Not sure what it should say here... it balances in EUR, but not in
    USD. Should it fail?
@@ -12331,7 +12330,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2008-11-20 Thu 23:48]
    :END:
 ** CLOSED Bug in ledger equity output
-   - State "TESTED"     [2009-02-24 Tue 13:09]
+   - State "CLOSED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:06]
    Seeing as how I've reached the end of my financial year my thoughts turned
    to how to 'close the books'.
@@ -12377,14 +12376,14 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2007-12-10 Mon]
    :END:
 ** CLOSED Cannot use uncommoditized amounts as a per-unit cost
-   - State "TESTED"     from "DONE"       [2009-06-18 Thu 16:08]
+   - State "CLOSED"     from "DONE"       [2009-06-18 Thu 16:08]
    - State "DONE"       from "TODO"       [2009-06-18 Thu 16:08]
    :PROPERTIES:
    :ID:       86D2BDC4-53A4-4039-99C9-F8C0370A89FB
    :CREATED:  [2009-06-18 Thu 16:07]
    :END:
 ** CLOSED Completing currency fails
-   - State "TESTED"     [2009-02-24 Tue 13:09]
+   - State "CLOSED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:08]
    Strange bug with inference of currency:
    :DATA:
@@ -12436,7 +12435,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2008-04-07 Mon]
    :END:
 ** CLOSED Cost parsing bug
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 15:41]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 15:41]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:01]
    [[message://2aaaa8b6-4a51-4acb-8a73-ac4c98578b59@d7g2000prl.googlegroups.com][Re: Tracking fuel and milage]]
    :PROPERTIES:
@@ -12454,7 +12453,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2009-10-27 Tue 22:42]
    :END:
 ** CLOSED Expenses:Wedding appears twice in the attached balance command
-   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:21]
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:21]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 21:11]
    :SCRIPT:
    ledger bal --sort amount --flat expenses:foo
@@ -12464,7 +12463,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2009-10-26 Mon 17:21]
    :END:
 ** CLOSED Forecasting goes too far
-   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:43]
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:43]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 20:55] \\
      This is fixed in 3.0.
    - Note taken on [2007-12-10 Mon 19:04] \\
@@ -12526,7 +12525,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2009-10-26 Mon 21:31]
    :END:
 ** CLOSED Ledger is still getting confused by trailing whitespace                        :ATTACH:
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 17:04]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 17:04]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 17:03]
    I just noticed that ledger ist confused by whitespace at the end of
    lines. Attached is a simple testcase where ledger reports:
@@ -12559,14 +12558,14 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2009-04-01 Wed 18:50]
    :END:
 ** CLOSED Left justifying an amount with %-12{amount} does nothing
-   - State "TESTED"     from "DONE"       [2009-06-28 Sun 15:24]
+   - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:24]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:23]
    :PROPERTIES:
    :ID:       F559EC12-7645-465D-8B2D-D3BC61030493
    :CREATED:  [2009-03-03 Tue 04:12]
    :END:
 ** CLOSED Make sure the period flag (-p) can accept "YYYY/MM"
-   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:59]
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:59]
    - State "DONE"       from "TODO"       [2009-11-02 Mon 01:59]
    :PROPERTIES:
    :ID:       7F3650FD-7225-47D5-AB77-A0D5025B4941
@@ -12615,7 +12614,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2008-10-15 Wed 06:39]
    :END:
 ** CLOSED Regression: add support back for a "terminus" date
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:46]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 18:46]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 18:46]
    Here's something I would like to open up for discussion.
 
@@ -12660,7 +12659,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2009-04-01 Wed 18:55]
    :END:
 ** CLOSED Rounding bug
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 15:43]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 15:43]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:13]
    [[message://20090411120649.GZ1037@lavos.net][Another rounding issue]]
    :DATA:
@@ -12678,7 +12677,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2009-06-03 Wed 19:11]
    :END:
 ** CLOSED Rounding problem
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:27]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 18:27]
    - State "DONE"       [2009-02-24 Tue 11:42]
    I seem to have a rounding problem when I use the -B option, if I have a
    ledger that looks like this:
@@ -12709,7 +12708,7 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2008-10-21 Tue 19:00]
    :END:
 ** CLOSED The -V flag is not working
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 18:28]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 18:28]
    - State "DONE"       [2009-02-24 Tue 11:42]
    Here's the data input
    :DATA:
@@ -12762,14 +12761,14 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2009-03-24 Tue 18:31]
    :END:
 ** CLOSED The period -p "june 2008" ranges from 6/2008-1/2009
-   - State "TESTED"     from "DONE"       [2009-06-18 Thu 01:14]
+   - State "CLOSED"     from "DONE"       [2009-06-18 Thu 01:14]
    - State "DONE"       from "TODO"       [2009-06-18 Thu 01:13]
    :PROPERTIES:
    :ID:       BBFA1759-3E90-402B-93A7-FC4E7E342B08
    :CREATED:  [2009-06-17 Wed 17:07]
    :END:
 ** CLOSED Weird timelog report bug
-   - State "TESTED"     [2009-02-24 Tue 13:09]
+   - State "CLOSED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:19]
    ledger 2.6.1 can report wrong numbers for midnight-spanning timelog records
    depending on dates.
@@ -12792,8 +12791,6 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2008-10-08 Wed 15:43]
    :END:
 ** DONE When --flat is being used, sort against all accounts
-- State "DONE"       from "CLOSED"     [2012-03-18 Sun 19:02]
-   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:40]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 18:52]
    :PROPERTIES:
    :ID:       7D084EBD-3D4C-4967-9A4B-7F014E625DF6
@@ -13746,7 +13743,7 @@ SCHEDULED: <2012-03-15 Thu>
 :Author: Craig Earls <enderw88@gmail.com>
 :END:
 ** CLOSED budget misbehavior with account tree
-   - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:40]
+   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:40]
    - State "DONE"       from "TODO"       [2009-11-02 Mon 01:40]
    The budget command behaves slightly different than I would expect
    for parent accounts.  Here is example output:
@@ -19284,9 +19281,7 @@ how do I get you the config.log file?
    :CREATED:  [2011-02-09 Wed 09:27]
    :END:
 ** DONE Major areas of implementation remaining [117/117]
-   - State "DONE"       from "TODO"       [2009-06-28 Sun 15:14]
-   - State "TODO"       from "TESTED"     [2009-06-27 Sat 01:44]
-   - State "TESTED"     from "DONE"       [2009-06-26 Fri 17:49] \\
+   - Note taken on [2009-06-26 Fri 17:49] \\
      These are all being tested (except for those marked).
    - State "DONE"       from "TODO"       [2009-06-26 Fri 17:49]
    - [X] abbrev_len_
