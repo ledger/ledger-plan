@@ -11862,8 +11862,7 @@ SCHEDULED: <2012-03-14 Wed>
 :Message: [[message://bug-702-1@http.bugs.ledger-cli.org/][{Bug 702} New: no carriage return]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** CLOSED [#A] 'ledger -b 2007/08/16 -s reg food' is completely broken
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
+** DONE [#A] 'ledger -b 2007/08/16 -s reg food' is completely broken
    - State "DONE"       [2007-08-23 Thu 21:22] \\
      Fixed by the following change:
         * walk.cc (handle_value): The xact xdata.dflags were being
@@ -11885,7 +11884,8 @@ SCHEDULED: <2012-03-14 Wed>
    :ID:       25A099C9-EE9C-42E2-A18A-202DE9B9E157
    :CREATED:  [2009-02-27 Fri 15:38]
    :END:
-** CLOSED [#A] --budget not including "~ Monthly" entry                                  :ATTACH:
+** DONE [#A] --budget not including "~ Monthly" entry                                    :ATTACH:
+- State "DONE"       from "CLOSED"     [2012-03-18 Sun 19:02]
    - State "TESTED"     from "WORKSFORME" [2009-11-02 Mon 01:10] \\
      Found this bug and fixed it.
    - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
@@ -11934,8 +11934,7 @@ SCHEDULED: <2012-03-14 Wed>
    :Attachments: testledger.dat
    :CREATED:  [2009-04-01 Wed 19:40]
    :END:
-** CLOSED [#A] Change processing of ~/.ledgerrc
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+** DONE [#A] Change processing of ~/.ledgerrc
    - State "DONE"       from "TODO"       [2009-10-29 Thu 00:51]
    - Note taken on [2009-10-27 Tue 22:02] \\
      Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
@@ -11947,8 +11946,7 @@ SCHEDULED: <2012-03-14 Wed>
    :ID:       71FE0FAB-622D-403C-A944-C7541948AFFF
    :CREATED:  [2009-02-19 Thu 15:10]
    :END:
-** CLOSED [#A] Changes to make to the way things are calculated [8/10]
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
+** DONE [#A] Changes to make to the way things are calculated [8/10]
    - State "DONE"       [2009-03-05 Thu 05:03]
    - [X] During parsing, each account is given a pointer to the posts it
          contains, in a deque.
@@ -11985,8 +11983,7 @@ SCHEDULED: <2012-03-14 Wed>
    :ID:       373540CC-613B-47BC-B72F-C6D347157736
    :CREATED:  [2009-10-26 Mon 17:50]
    :END:
-** CLOSED [#A] My current ledger.dat file is not reporting
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:49]
+** DONE [#A] My current ledger.dat file is not reporting
    - State "DONE"       [2008-10-29 Wed 03:29]
    :PROPERTIES:
    :ID:       807E9D3D-3F30-4818-9045-FDBC20C1417A
@@ -12205,8 +12202,7 @@ Test case:
    :URL:      http://github.com/jwiegley/ledger/issues#issue/5
    :CREATED:  [2009-10-26 Mon 21:27]
    :END:
-** CLOSED --verify fails to run now
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+** DONE --verify fails to run now
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:35]
    :PROPERTIES:
    :ID:       A697E1A4-83D0-49EB-9533-29EB82659565
@@ -12219,8 +12215,8 @@ Test case:
    :ID:       6DAB9FE3-1399-4727-9AB1-FE413FB85A03
    :CREATED:  [2009-03-11 Wed 19:24]
    :END:
-** CLOSED Applying an account with apply account Steven Watanabe does not work
-- State "CLOSED"     from "STARTED"    [2012-03-12 Mon 23:02] \\
+** DONE Applying an account with apply account Steven Watanabe does not work
+- State "DONE"       from "STARTED"    [2012-03-12 Mon 23:02] \\
   Fixed by be289fb, and tested by dir-apply.test
 SCHEDULED: <2012-03-12 Mon>
 :PROPERTIES:
@@ -12449,10 +12445,10 @@ SCHEDULED: <2012-03-12 Mon>
    :ARCHIVE_CATEGORY: Ledger
    :CREATED:  [2009-06-03 Wed 19:11]
    :END:
-** CLOSED Don't print trailing spaces after amount-elided postings
-   - State "TESTED"     from "DONE"       [2009-11-02 Mon 00:51] \\
-     This is being tested by several of the baseline tests.
+** DONE Don't print trailing spaces after amount-elided postings
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:40]
+   - Note taken on [2009-11-02 Mon 00:51] \\
+     This is being tested by several of the baseline tests.
    :PROPERTIES:
    :ID:       68C50F8D-4407-430F-8FE1-40B96D38173A
    :CREATED:  [2009-10-27 Tue 22:42]
@@ -12489,15 +12485,14 @@ SCHEDULED: <2012-03-12 Mon>
    :Ticket:   15
    :ID:       E627C594-A019-4D87-A6B4-C8E75F6D8FC0
    :END:
-** CLOSED ITEM_TEMP posts must be removed from xacts and accounts properly
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+** DONE ITEM_TEMP posts must be removed from xacts and accounts properly
    - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
    :PROPERTIES:
    :ID:       F1D055D3-DDCE-49A2-A670-A84D1FD0C299
    :CREATED:  [2009-10-27 Tue 05:13]
    :END:
-** CLOSED Implied rates.
-   - State "CLOSED"     [2009-02-24 Tue 13:36]
+** DONE Implied rates.
+- State "DONE"       from "TODO"       [2012-03-18 Sun 19:02]
    Not sure what you should do in this case:
    :DATA:
    2007-12-31 * Start of year / Opening balances.
@@ -12523,8 +12518,7 @@ SCHEDULED: <2012-03-12 Mon>
    :Ticket:   181
    :ID:       3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
    :END:
-** CLOSED Latest build of next f35bc939 produces slow binary
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:10]
+** DONE Latest build of next f35bc939 produces slow binary
    - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
    :PROPERTIES:
    :ID:       18B7E853-848A-4211-BF98-C0C1B845E94F
@@ -12744,15 +12738,14 @@ SCHEDULED: <2012-03-12 Mon>
    :ID:       D943AE0F-44EA-47EE-BA85-AFC513E039EB
    :CREATED:  [2008-04-07 Mon]
    :END:
-** CLOSED The Ledger REPL argument parser should honor quoting syntax
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:22]
+** DONE The Ledger REPL argument parser should honor quoting syntax
    - State "DONE"       from "TODO"       [2009-10-26 Mon 17:17]
    :PROPERTIES:
    :ID:       7A3DF3DE-5425-491F-90AA-C8C162F1085A
    :CREATED:  [2009-03-03 Tue 03:02]
    :END:
 ** CLOSED The entry command is broken
-   - State "TESTED"     from "DONE"       [2009-06-16 Tue 16:17]
+   - State "CLOSED"     from "DONE"       [2009-06-16 Tue 16:17]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:15]
    :SCRIPT:
    ledger -f doc/sample.dat entry 2009/03/15 book 10
@@ -12798,15 +12791,15 @@ SCHEDULED: <2012-03-12 Mon>
    :ID:       3AB70168-D4B6-48CE-8C61-8C775E5B0E1B
    :CREATED:  [2008-10-08 Wed 15:43]
    :END:
-** CLOSED When --flat is being used, sort against all accounts
+** DONE When --flat is being used, sort against all accounts
+- State "DONE"       from "CLOSED"     [2012-03-18 Sun 19:02]
    - State "TESTED"     from "DONE"       [2009-11-02 Mon 01:40]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 18:52]
    :PROPERTIES:
    :ID:       7D084EBD-3D4C-4967-9A4B-7F014E625DF6
    :CREATED:  [2009-03-11 Wed 15:11]
    :END:
-** CLOSED With --args-only, don't read ~/.pricedb
-   - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:24]
+** DONE With --args-only, don't read ~/.pricedb
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:21]
    :PROPERTIES:
    :ID:       5B07AD77-4920-4654-88F4-56CA55566BB4
@@ -13796,15 +13789,13 @@ SCHEDULED: <2012-03-15 Thu>
    :Issue:    http://github.com/jwiegley/ledger/issues#issue/7
    :CREATED:  [2009-11-01 Sun 05:51]
    :END:
-** CLOSED iterations.cc, and maybe others, need to use temporaries_t
-   - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
+** DONE iterations.cc, and maybe others, need to use temporaries_t
    - State "DONE"       from "TODO"       [2009-10-28 Wed 01:19]
    :PROPERTIES:
    :ID:       CE2AA70E-0B44-4A50-8D36-1DC1451F5473
    :CREATED:  [2009-10-27 Tue 23:20]
    :END:
-** CLOSED value_t::dump should render a string as it would parse it
-   - State "CLOSED"     from "DONE"       [2009-06-28 Sun 15:28]
+** DONE value_t::dump should render a string as it would parse it
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:28]
    For example, what if "foo\"bar"?
    :PROPERTIES:
@@ -19292,8 +19283,7 @@ how do I get you the config.log file?
    :ID:       3E4EA1F5-D949-43BD-A045-B4CD1EEA3384
    :CREATED:  [2011-02-09 Wed 09:27]
    :END:
-** CLOSED Major areas of implementation remaining [117/117]
-   - State "TESTED"     from "DONE"       [2009-06-28 Sun 15:14]
+** DONE Major areas of implementation remaining [117/117]
    - State "DONE"       from "TODO"       [2009-06-28 Sun 15:14]
    - State "TODO"       from "TESTED"     [2009-06-27 Sat 01:44]
    - State "TESTED"     from "DONE"       [2009-06-26 Fri 17:49] \\
