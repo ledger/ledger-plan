@@ -3649,11 +3649,72 @@ the same scopes.
    :Message:  [[message://161185f2-1873-4892-87d0-904c96a4a76a@n15g2000yqf.googlegroups.com]["print" command filters out the "balance assertions"]]
    :CREATED:  [2010-04-30 Fri 18:21]
    :END:
+** DONE [#A] 'ledger -b 2007/08/16 -s reg food' is completely broken
+   - State "DONE"       [2007-08-23 Thu 21:22] \\
+     Fixed by the following change:
+        * walk.cc (handle_value): The xact xdata.dflags were being
+        set too late; the XACT_COMPOUND setting was being thrown
+        away as a result.
+   Although reg without shows a ton of Expenses:Food expenses, searching for
+   food expenses shows none.
+   :PROPERTIES:
+   :ID:       6CAF45D7-9098-41B4-A25A-12F8A8166006
+   :CREATED:  [2007-08-22 Wed]
+   :END:
 ** DONE [#A] 'ledger emacs -s -b 2009/07 food' tries to use an uninitialized variable
    - State "DONE"       from "TODO"       [2010-05-22 Sat 13:17]
    :PROPERTIES:
    :ID:       7B54CF80-45A4-4D50-A8D3-63272D60FA1B
    :CREATED:  [2010-04-12 Mon 22:03]
+   :END:
+** DONE [#A] --budget not including "~ Monthly" entry                                    :ATTACH:
+   - State "DONE"       from "WORKSFORME" [2009-11-02 Mon 01:10] \\
+     Found this bug and fixed it.
+   - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
+   - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:41] \\
+     I've asked the user for more information; I can't see what's wrong with just
+     the test case he sent, and I cannot find the original message.
+   Thanks for your response.  I've attached a sample ledger file that I
+   successfully reproduced the behaviour with.  Maybe it's something to do with
+   it being the first of the month today?
+
+   Here's what I'm seeing on the command-line:
+   :OUTPUT:
+   sayotte@damocles:~$ ledger -p april --budget reg
+   2009/04/01 Budget entry         Assets:Bank:Checking     $-25000.00   $-25000.00
+   2009/04/01 Budget entry         In:Ludicrous Salary       $25000.00            0
+   2009/04/01 Budget entry         Expenses:Food              $-350.00     $-350.00
+   2009/04/01 Budget entry         Assets:Bank:Checking        $350.00            0
+   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
+                                  Assets:Bank:Checking         $-6.50            0
+   2009/04/10 Lienholder Bank      Assets:Bank:Checking       $-450.00     $-450.00
+   :END:
+   :OUTPUT:
+   sayotte@damocles:~$ ledger -p april --budget reg Food
+   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
+   :END:
+   :OUTPUT:
+   sayotte@damocles:~$ date
+   Wed Apr  1 19:07:20 EDT 2009
+   :END:
+   :OUTPUT:
+   sayotte@damocles:~$ ledger --version
+   Ledger 2.6.1, the command-line accounting tool
+
+   Copyright (c) 2003-2008, John Wiegley.  All rights reserved.
+
+   This program is made available under the terms of the BSD Public License.
+   See LICENSE file included with the distribution for details and disclaimer.
+
+   (modules: gmp, pcre)
+   :END:
+   :PROPERTIES:
+   :Submitter: Stephen Ayotte <stephen.ayotte@gmail.com>
+   :Message:  [[x-devonthink-item://%3C837b29c80904011614x79fed2b0la56f8a44a8dc45cb@mail.gmail.com%3E][ledger-2.6.1: --budget not including ~Monthly entry]]
+   :Version:  2.6.1
+   :ID:       655F6DF5-A30D-4CD9-AA06-787A2DB3C5C2
+   :Attachments: testledger.dat
+   :CREATED:  [2009-04-01 Wed 19:40]
    :END:
 ** DONE [#A] 1,00.00 should result in an amount parsing error
    - State "DONE"       from "TODO"       [2009-11-10 Tue 00:12]
@@ -3674,6 +3735,44 @@ the same scopes.
    :ID:       3A14C840-0407-465E-A5AC-09338BB6B707
    :Message:  [[message://165AA794-0741-46E8-B4B5-44EB3DB9D337@surryhill.net][Re: ledger make fullcheck]]
    :CREATED:  [2009-11-09 Mon 02:47]
+   :END:
+** DONE [#A] Change processing of ~/.ledgerrc
+   - State "DONE"       from "TODO"       [2009-10-29 Thu 00:51]
+   - Note taken on [2009-10-27 Tue 22:02] \\
+     Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
+   1. Before parsing, run through and handle options that session_t and
+      global_scope_t know about.
+   2. Before reporting or loading the REPL, run through and handle all other
+      options and any commands found.
+   :PROPERTIES:
+   :ID:       71FE0FAB-622D-403C-A944-C7541948AFFF
+   :CREATED:  [2009-02-19 Thu 15:10]
+   :END:
+** DONE [#A] Changes to make to the way things are calculated [8/10]
+   - State "DONE"       [2009-03-05 Thu 05:03]
+   - [X] During parsing, each account is given a pointer to the posts it
+         contains, in a deque.
+   - [X] calc_xacts should only compute the amount, and store it in the post's
+         xdata.
+   - [X] It then marks the post as "visited".
+   - [X] When session_t::clean_posts is called, it should clear the "visited"
+         flag.
+   - [ ] The running total is not stored with the post, but is calculated as
+         needed by the format_xacts object.
+   - [ ] Which means that format_xacts now need to know the display predicate,
+         much like format_accounts.
+   - [X] account_t's xdata must remember whether or not the amount/total for
+         the account has been calculated (with a different bool for each).
+   - [X] account_t exposes two methods: family_total and self_total, which
+         performs and caches a calculation based on walking the "visited"
+         posts relating to that account.
+   - [X] These calculations must be lazy, so that if a report never uses them,
+         it never calculates either one.
+   - [X] The same goes for statistics, which can determined from the list of
+         posts.
+   :PROPERTIES:
+   :ID:       240CAF9A-2681-4AE9-A0DF-F17416E31C60
+   :CREATED:  [2009-03-04 Wed 15:34]
    :END:
 ** DONE [#A] Ledger crashes when attempting to use !account
    - State "DONE"       from "STARTED"    [2010-05-22 Sat 13:23]
@@ -3699,6 +3798,14 @@ the same scopes.
    :ID:       4D63641F-3C9E-4C62-A45F-C9B1649BD712
    :Attachments: include.dat data.dat
    :CREATED:  [2009-12-07 Mon 18:52]
+   :END:
+** DONE [#A] My current ledger.dat file is not reporting
+   - State "DONE"       [2008-10-29 Wed 03:29]
+   :PROPERTIES:
+   :ID:       807E9D3D-3F30-4818-9045-FDBC20C1417A
+   :ARCHIVE_TIME: 2008-11-28 Fri 16:44
+   :ARCHIVE_CATEGORY: Finance
+   :CREATED:  [2008-10-06 Mon 19:38]
    :END:
 ** DONE [#A] No error message if the parser cannot find an included file
    - State "DONE"       from "TODO"       [2009-11-10 Tue 00:13]
@@ -6830,6 +6937,12 @@ SCHEDULED: <2012-03-11 Sun>
    :ID:       B3051A24-F835-4B2A-A601-501BC0FD69B8
    :CREATED:  [2009-01-31 Sat 06:18]
    :END:
+** DONE --verify fails to run now
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:35]
+   :PROPERTIES:
+   :ID:       A697E1A4-83D0-49EB-9533-29EB82659565
+   :CREATED:  [2009-10-27 Tue 23:20]
+   :END:
 ** DONE -M is doubling the running totals
    - State "DONE"       [2009-02-15 Sun 15:40]
    :PROPERTIES:
@@ -6936,6 +7049,14 @@ SCHEDULED: <2012-03-11 Sun>
    :Attachments: bug2.dat
    :CREATED:  [2009-11-24 Tue 03:08]
    :END:
+** DONE Applying an account with apply account Steven Watanabe does not work
+- State "DONE"       from "STARTED"    [2012-03-12 Mon 23:02] \\
+  Fixed by be289fb, and tested by dir-apply.test
+SCHEDULED: <2012-03-12 Mon>
+:PROPERTIES:
+:ID:       F69D587A-4160-42AF-89E1-F6C3F85D2FBE
+:CREATED:  [2012-03-12 Mon 18:39]
+:END:
 ** DONE Assertion failure using print --raw                                              :ATTACH:
    - State "DONE"       from "TODO"       [2010-03-17 Wed 00:51]
    #+begin_src sh
@@ -7262,6 +7383,14 @@ SCHEDULED: <2012-03-11 Sun>
    :ID:       59A8EF7E-7FA9-4C88-B429-DC4E0B3C9273
    :CREATED:  [2009-11-02 Mon 15:50]
    :END:
+** DONE Don't print trailing spaces after amount-elided postings
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:40]
+   - Note taken on [2009-11-02 Mon 00:51] \\
+     This is being tested by several of the baseline tests.
+   :PROPERTIES:
+   :ID:       68C50F8D-4407-430F-8FE1-40B96D38173A
+   :CREATED:  [2009-10-27 Tue 22:42]
+   :END:
 ** DONE Don't use -s for bal the way it's used now
    - State "DONE"       [2009-02-08 Sun 16:04]
    :PROPERTIES:
@@ -7440,6 +7569,12 @@ SCHEDULED: <2012-03-11 Sun>
    :ID:       116B0437-6BA9-4211-B5DE-3BBFA69F1D33
    :CREATED:  [2008-04-11 Fri]
    :END:
+** DONE ITEM_TEMP posts must be removed from xacts and accounts properly
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
+   :PROPERTIES:
+   :ID:       F1D055D3-DDCE-49A2-A670-A84D1FD0C299
+   :CREATED:  [2009-10-27 Tue 05:13]
+   :END:
 ** DONE If --date is used, don't change the item's real date
    - State "DONE"       from "TODO"       [2009-11-12 Thu 18:25]
    :PROPERTIES:
@@ -7504,6 +7639,33 @@ SCHEDULED: <2012-03-11 Sun>
    :ID:       E2E479BC-BC00-4539-A330-895B2C1C8D57
    :CREATED:  [2009-02-27 Fri 04:10]
    :END:
+** DONE Implied rates.
+- State "DONE"       from "TODO"       [2012-03-18 Sun 19:02]
+   Not sure what you should do in this case:
+   :DATA:
+   2007-12-31 * Start of year / Opening balances.
+    Account1   100 EUR @ 1.4 USD
+    Account1   -200 EUR
+    Account2   100 USD
+   :END:
+
+   You could calculate the cost:
+   :OUTPUT:
+   140 USD
+   -200 EUR
+   100 USD
+   :END:
+   So, 240 USD and -200 EUR, which implies an aggregate exchange rate of 1.2,
+   which is wildly different of the 1.4 EUR/USD rate declared above.
+
+   (Do you fill in? In my Python version, I'll prefer not to, because I think
+   that in general these will be errors rather than reflect implied rates.)
+   :PROPERTIES:
+   :Submitter: Martin Blais <blais@furius.ca>
+   :Version:  2.6
+   :Ticket:   181
+   :ID:       3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
+   :END:
 ** DONE Improve changed_value_xacts so it reports rounding discrepancies
    - State "DONE"       [2009-02-26 Thu 03:18]
    This will require adding a --revalued-amount options, and verifying that the
@@ -7553,6 +7715,13 @@ SCHEDULED: <2012-03-11 Sun>
    :PROPERTIES:
    :ID:       4E9D5FFB-24E3-43FC-AD14-1FA74B80E266
    :CREATED:  [2009-11-20 Fri 07:30]
+   :END:
+** DONE Latest build of next f35bc939 produces slow binary
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
+   :PROPERTIES:
+   :ID:       18B7E853-848A-4211-BF98-C0C1B845E94F
+   :URL:      http://github.com/jwiegley/ledger/issues#issue/3
+   :CREATED:  [2009-10-26 Mon 21:31]
    :END:
 ** DONE Ledger dies if a periodic transaction is unbalanced
    - State "DONE"       from "TODO"       [2010-01-18 Mon 03:41]
@@ -8204,6 +8373,12 @@ SCHEDULED: <2012-02-17 Fri>
    :ID:       0C00E4C0-3BA3-4785-8F29-52C8FA702AD4
    :CREATED:  [2009-02-09 Mon 15:19]
    :END:
+** DONE The Ledger REPL argument parser should honor quoting syntax
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 17:17]
+   :PROPERTIES:
+   :ID:       7A3DF3DE-5425-491F-90AA-C8C162F1085A
+   :CREATED:  [2009-03-03 Tue 03:02]
+   :END:
 ** DONE The expression "foo.bar.baz" gets precedence wrong too
    - State "DONE"       [2009-02-09 Mon 18:17]
    :PROPERTIES:
@@ -8391,6 +8566,12 @@ SCHEDULED: <2011-12-21 Wed>
    :ID:       21779153-CBB4-4B5B-B0A8-2E1C8DA08870
    :CREATED:  [2009-02-07 Sat 05:05]
    :END:
+** DONE When --flat is being used, sort against all accounts
+   - State "DONE"       from "TODO"       [2009-10-26 Mon 18:52]
+   :PROPERTIES:
+   :ID:       7D084EBD-3D4C-4967-9A4B-7F014E625DF6
+   :CREATED:  [2009-03-11 Wed 15:11]
+   :END:
 ** DONE When Nafai uses -E bal, it shows *all* accounts
    - State "DONE"       [2009-02-17 Tue 05:29]
    :PROPERTIES:
@@ -8409,6 +8590,12 @@ SCHEDULED: <2011-12-21 Wed>
    :PROPERTIES:
    :ID:       FE1E912D-7DFA-4489-98E9-8112B2B941CB
    :CREATED:  [2009-11-05 Thu 00:19]
+   :END:
+** DONE With --args-only, don't read ~/.pricedb
+   - State "DONE"       from "TODO"       [2009-06-28 Sun 15:21]
+   :PROPERTIES:
+   :ID:       5B07AD77-4920-4654-88F4-56CA55566BB4
+   :CREATED:  [2009-06-24 Wed 14:18]
    :END:
 ** DONE [[bug:157][#157]] Make sure this is legal: = expr 'account =~ /foo/'
    - State "DONE"       from "STARTED"    [2010-06-01 Tue 17:31]
@@ -9347,6 +9534,12 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
    :ID:       7B23FA1A-9AD3-48A3-A82E-5B0559A6448B
    :CREATED:  [2009-02-14 Sat 06:12]
    :END:
+** DONE iterations.cc, and maybe others, need to use temporaries_t
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:19]
+   :PROPERTIES:
+   :ID:       CE2AA70E-0B44-4A50-8D36-1DC1451F5473
+   :CREATED:  [2009-10-27 Tue 23:20]
+   :END:
 ** DONE ledger -Z causes a bad memory reference
    - State "DONE"       [2009-02-16 Mon 16:56]
    :PROPERTIES:
@@ -9402,6 +9595,13 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
    :PROPERTIES:
    :ID:       7A2732AF-FF0C-4418-AF38-BA65834866F0
    :CREATED:  [2009-11-02 Mon 15:50]
+   :END:
+** DONE value_t::dump should render a string as it would parse it
+   - State "DONE"       from "TODO"       [2009-06-28 Sun 15:28]
+   For example, what if "foo\"bar"?
+   :PROPERTIES:
+   :ID:       BA74FF13-7F2C-487A-922F-8E6931025B61
+   :CREATED:  [2009-02-27 Fri 04:45]
    :END:
 ** DONE with ledger, "a or b and c" should be "(a or b) and c"
    - State "DONE"       [2009-02-09 Mon 18:27]
@@ -11862,18 +12062,6 @@ SCHEDULED: <2012-03-14 Wed>
 :Message: [[message://bug-702-1@http.bugs.ledger-cli.org/][{Bug 702} New: no carriage return]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [#A] 'ledger -b 2007/08/16 -s reg food' is completely broken
-   - State "DONE"       [2007-08-23 Thu 21:22] \\
-     Fixed by the following change:
-        * walk.cc (handle_value): The xact xdata.dflags were being
-        set too late; the XACT_COMPOUND setting was being thrown
-        away as a result.
-   Although reg without shows a ton of Expenses:Food expenses, searching for
-   food expenses shows none.
-   :PROPERTIES:
-   :ID:       6CAF45D7-9098-41B4-A25A-12F8A8166006
-   :CREATED:  [2007-08-22 Wed]
-   :END:
 ** CLOSED [#A] 'ledger -f src/value.h bal capital' crashes
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:48]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 16:41] \\
@@ -11883,93 +12071,6 @@ SCHEDULED: <2012-03-14 Wed>
    :PROPERTIES:
    :ID:       25A099C9-EE9C-42E2-A18A-202DE9B9E157
    :CREATED:  [2009-02-27 Fri 15:38]
-   :END:
-** DONE [#A] --budget not including "~ Monthly" entry                                    :ATTACH:
-   - State "DONE"       from "WORKSFORME" [2009-11-02 Mon 01:10] \\
-     Found this bug and fixed it.
-   - State "WORKSFORME" from "WAITING"    [2009-10-27 Tue 04:38]
-   - State "WAITING"    from "TODO"       [2009-10-26 Mon 16:41] \\
-     I've asked the user for more information; I can't see what's wrong with just
-     the test case he sent, and I cannot find the original message.
-   Thanks for your response.  I've attached a sample ledger file that I
-   successfully reproduced the behaviour with.  Maybe it's something to do with
-   it being the first of the month today?
-
-   Here's what I'm seeing on the command-line:
-   :OUTPUT:
-   sayotte@damocles:~$ ledger -p april --budget reg
-   2009/04/01 Budget entry         Assets:Bank:Checking     $-25000.00   $-25000.00
-   2009/04/01 Budget entry         In:Ludicrous Salary       $25000.00            0
-   2009/04/01 Budget entry         Expenses:Food              $-350.00     $-350.00
-   2009/04/01 Budget entry         Assets:Bank:Checking        $350.00            0
-   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
-                                  Assets:Bank:Checking         $-6.50            0
-   2009/04/10 Lienholder Bank      Assets:Bank:Checking       $-450.00     $-450.00
-   :END:
-   :OUTPUT:
-   sayotte@damocles:~$ ledger -p april --budget reg Food
-   2009/04/01 Taco Schmell         Expenses:Food                 $6.50        $6.50
-   :END:
-   :OUTPUT:
-   sayotte@damocles:~$ date
-   Wed Apr  1 19:07:20 EDT 2009
-   :END:
-   :OUTPUT:
-   sayotte@damocles:~$ ledger --version
-   Ledger 2.6.1, the command-line accounting tool
-
-   Copyright (c) 2003-2008, John Wiegley.  All rights reserved.
-
-   This program is made available under the terms of the BSD Public License.
-   See LICENSE file included with the distribution for details and disclaimer.
-
-   (modules: gmp, pcre)
-   :END:
-   :PROPERTIES:
-   :Submitter: Stephen Ayotte <stephen.ayotte@gmail.com>
-   :Message:  [[x-devonthink-item://%3C837b29c80904011614x79fed2b0la56f8a44a8dc45cb@mail.gmail.com%3E][ledger-2.6.1: --budget not including ~Monthly entry]]
-   :Version:  2.6.1
-   :ID:       655F6DF5-A30D-4CD9-AA06-787A2DB3C5C2
-   :Attachments: testledger.dat
-   :CREATED:  [2009-04-01 Wed 19:40]
-   :END:
-** DONE [#A] Change processing of ~/.ledgerrc
-   - State "DONE"       from "TODO"       [2009-10-29 Thu 00:51]
-   - Note taken on [2009-10-27 Tue 22:02] \\
-     Fixing this will fix [[id:863A769C-E97C-4CA6-B89F-B72C47F07543]].
-   1. Before parsing, run through and handle options that session_t and
-      global_scope_t know about.
-   2. Before reporting or loading the REPL, run through and handle all other
-      options and any commands found.
-   :PROPERTIES:
-   :ID:       71FE0FAB-622D-403C-A944-C7541948AFFF
-   :CREATED:  [2009-02-19 Thu 15:10]
-   :END:
-** DONE [#A] Changes to make to the way things are calculated [8/10]
-   - State "DONE"       [2009-03-05 Thu 05:03]
-   - [X] During parsing, each account is given a pointer to the posts it
-         contains, in a deque.
-   - [X] calc_xacts should only compute the amount, and store it in the post's
-         xdata.
-   - [X] It then marks the post as "visited".
-   - [X] When session_t::clean_posts is called, it should clear the "visited"
-         flag.
-   - [ ] The running total is not stored with the post, but is calculated as
-         needed by the format_xacts object.
-   - [ ] Which means that format_xacts now need to know the display predicate,
-         much like format_accounts.
-   - [X] account_t's xdata must remember whether or not the amount/total for
-         the account has been calculated (with a different bool for each).
-   - [X] account_t exposes two methods: family_total and self_total, which
-         performs and caches a calculation based on walking the "visited"
-         posts relating to that account.
-   - [X] These calculations must be lazy, so that if a report never uses them,
-         it never calculates either one.
-   - [X] The same goes for statistics, which can determined from the list of
-         posts.
-   :PROPERTIES:
-   :ID:       240CAF9A-2681-4AE9-A0DF-F17416E31C60
-   :CREATED:  [2009-03-04 Wed 15:34]
    :END:
 ** CLOSED [#A] Found bugs in the report query syntax parser
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 00:51]
@@ -11981,14 +12082,6 @@ SCHEDULED: <2012-03-14 Wed>
    :PROPERTIES:
    :ID:       373540CC-613B-47BC-B72F-C6D347157736
    :CREATED:  [2009-10-26 Mon 17:50]
-   :END:
-** DONE [#A] My current ledger.dat file is not reporting
-   - State "DONE"       [2008-10-29 Wed 03:29]
-   :PROPERTIES:
-   :ID:       807E9D3D-3F30-4818-9045-FDBC20C1417A
-   :ARCHIVE_TIME: 2008-11-28 Fri 16:44
-   :ARCHIVE_CATEGORY: Finance
-   :CREATED:  [2008-10-06 Mon 19:38]
    :END:
 ** CLOSED [#A] [[bug:353][#353]] No longer handles multiple postings to one account in one transacation
 - State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
@@ -12201,12 +12294,6 @@ Test case:
    :URL:      http://github.com/jwiegley/ledger/issues#issue/5
    :CREATED:  [2009-10-26 Mon 21:27]
    :END:
-** DONE --verify fails to run now
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:35]
-   :PROPERTIES:
-   :ID:       A697E1A4-83D0-49EB-9533-29EB82659565
-   :CREATED:  [2009-10-27 Tue 23:20]
-   :END:
 ** CLOSED An amount like 0h @ $70 gives divide by zero error
    - State "CLOSED"     from "DONE"       [2009-06-16 Tue 16:23]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:23]
@@ -12214,14 +12301,6 @@ Test case:
    :ID:       6DAB9FE3-1399-4727-9AB1-FE413FB85A03
    :CREATED:  [2009-03-11 Wed 19:24]
    :END:
-** DONE Applying an account with apply account Steven Watanabe does not work
-- State "DONE"       from "STARTED"    [2012-03-12 Mon 23:02] \\
-  Fixed by be289fb, and tested by dir-apply.test
-SCHEDULED: <2012-03-12 Mon>
-:PROPERTIES:
-:ID:       F69D587A-4160-42AF-89E1-F6C3F85D2FBE
-:CREATED:  [2012-03-12 Mon 18:39]
-:END:
 ** CLOSED Balance report is still broken
    - State "CLOSED"     from "DONE"       [2009-06-16 Tue 15:44]
    - State "DONE"       from "TODO"       [2009-06-15 Mon 17:53]
@@ -12444,14 +12523,6 @@ SCHEDULED: <2012-03-12 Mon>
    :ARCHIVE_CATEGORY: Ledger
    :CREATED:  [2009-06-03 Wed 19:11]
    :END:
-** DONE Don't print trailing spaces after amount-elided postings
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:40]
-   - Note taken on [2009-11-02 Mon 00:51] \\
-     This is being tested by several of the baseline tests.
-   :PROPERTIES:
-   :ID:       68C50F8D-4407-430F-8FE1-40B96D38173A
-   :CREATED:  [2009-10-27 Tue 22:42]
-   :END:
 ** CLOSED Expenses:Wedding appears twice in the attached balance command
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:21]
    - State "DONE"       from "TODO"       [2009-10-26 Mon 21:11]
@@ -12483,46 +12554,6 @@ SCHEDULED: <2012-03-12 Mon>
    :Version:  2.6
    :Ticket:   15
    :ID:       E627C594-A019-4D87-A6B4-C8E75F6D8FC0
-   :END:
-** DONE ITEM_TEMP posts must be removed from xacts and accounts properly
-   - State "DONE"       from "TODO"       [2009-10-27 Tue 16:40]
-   :PROPERTIES:
-   :ID:       F1D055D3-DDCE-49A2-A670-A84D1FD0C299
-   :CREATED:  [2009-10-27 Tue 05:13]
-   :END:
-** DONE Implied rates.
-- State "DONE"       from "TODO"       [2012-03-18 Sun 19:02]
-   Not sure what you should do in this case:
-   :DATA:
-   2007-12-31 * Start of year / Opening balances.
-    Account1   100 EUR @ 1.4 USD
-    Account1   -200 EUR
-    Account2   100 USD
-   :END:
-
-   You could calculate the cost:
-   :OUTPUT:
-   140 USD
-   -200 EUR
-   100 USD
-   :END:
-   So, 240 USD and -200 EUR, which implies an aggregate exchange rate of 1.2,
-   which is wildly different of the 1.4 EUR/USD rate declared above.
-
-   (Do you fill in? In my Python version, I'll prefer not to, because I think
-   that in general these will be errors rather than reflect implied rates.)
-   :PROPERTIES:
-   :Submitter: Martin Blais <blais@furius.ca>
-   :Version:  2.6
-   :Ticket:   181
-   :ID:       3E56A012-FE58-49B5-8CF0-7E80CD2B2F8A
-   :END:
-** DONE Latest build of next f35bc939 produces slow binary
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 21:32]
-   :PROPERTIES:
-   :ID:       18B7E853-848A-4211-BF98-C0C1B845E94F
-   :URL:      http://github.com/jwiegley/ledger/issues#issue/3
-   :CREATED:  [2009-10-26 Mon 21:31]
    :END:
 ** CLOSED Ledger is still getting confused by trailing whitespace                        :ATTACH:
    - State "CLOSED"     from "DONE"       [2009-06-16 Tue 17:04]
@@ -12737,12 +12768,6 @@ SCHEDULED: <2012-03-12 Mon>
    :ID:       D943AE0F-44EA-47EE-BA85-AFC513E039EB
    :CREATED:  [2008-04-07 Mon]
    :END:
-** DONE The Ledger REPL argument parser should honor quoting syntax
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 17:17]
-   :PROPERTIES:
-   :ID:       7A3DF3DE-5425-491F-90AA-C8C162F1085A
-   :CREATED:  [2009-03-03 Tue 03:02]
-   :END:
 ** CLOSED The entry command is broken
    - State "CLOSED"     from "DONE"       [2009-06-16 Tue 16:17]
    - State "DONE"       from "TODO"       [2009-06-16 Tue 16:15]
@@ -12789,18 +12814,6 @@ SCHEDULED: <2012-03-12 Mon>
    :Version:  2.6.1
    :ID:       3AB70168-D4B6-48CE-8C61-8C775E5B0E1B
    :CREATED:  [2008-10-08 Wed 15:43]
-   :END:
-** DONE When --flat is being used, sort against all accounts
-   - State "DONE"       from "TODO"       [2009-10-26 Mon 18:52]
-   :PROPERTIES:
-   :ID:       7D084EBD-3D4C-4967-9A4B-7F014E625DF6
-   :CREATED:  [2009-03-11 Wed 15:11]
-   :END:
-** DONE With --args-only, don't read ~/.pricedb
-   - State "DONE"       from "TODO"       [2009-06-28 Sun 15:21]
-   :PROPERTIES:
-   :ID:       5B07AD77-4920-4654-88F4-56CA55566BB4
-   :CREATED:  [2009-06-24 Wed 14:18]
    :END:
 ** CLOSED [[bug:166][#166]] --percent incompatible with --exchange
 - State "CLOSED"     from "DONE"       [2012-03-17 Sat 17:19]
@@ -13785,19 +13798,6 @@ SCHEDULED: <2012-03-15 Thu>
    :Message:  [[message://4aec9a0bee27d_4b733fce572cbaf4188@fe3.rs.github.com.tmail][{GitHub} drewr sent you a message]]
    :Issue:    http://github.com/jwiegley/ledger/issues#issue/7
    :CREATED:  [2009-11-01 Sun 05:51]
-   :END:
-** DONE iterations.cc, and maybe others, need to use temporaries_t
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 01:19]
-   :PROPERTIES:
-   :ID:       CE2AA70E-0B44-4A50-8D36-1DC1451F5473
-   :CREATED:  [2009-10-27 Tue 23:20]
-   :END:
-** DONE value_t::dump should render a string as it would parse it
-   - State "DONE"       from "TODO"       [2009-06-28 Sun 15:28]
-   For example, what if "foo\"bar"?
-   :PROPERTIES:
-   :ID:       BA74FF13-7F2C-487A-922F-8E6931025B61
-   :CREATED:  [2009-02-27 Fri 04:45]
    :END:
 ** NOTE Building Boost with g++-4.4:
    boost/tools/build/v2/user-config.jam:
@@ -19155,131 +19155,6 @@ how do I get you the config.log file?
    :ID:       FD55C52B-46D3-4EAE-ABE5-571B7426B842
    :CREATED:  [2009-03-04 Wed 04:43]
    :END:
-** DONE Merge in the --unrealized* baseline tests MisterN wrote
-   - State "DONE"       from "TODO"       [2009-11-25 Wed 04:51]
-   :PROPERTIES:
-   :ID:       AB515F51-E71D-4331-94DE-DC53141A5C2E
-   :CREATED:  [2009-11-24 Tue 22:11]
-   :END:
-** DONE Run Ledger through the profiler, against mondo.dat (to beat 11s)
-   - State "DONE"       from "TODO"       [2009-11-25 Wed 04:51]
-   :PROPERTIES:
-   :ID:       B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
-   :CREATED:  [2009-02-25 Wed 04:15]
-   :END:
-** DONE The regression test 13965214.test is time sensitive
-   - State "DONE"       [2009-03-02 Mon 04:41]
-   :PROPERTIES:
-   :ID:       8ED593A1-B953-4629-B0BD-411B82FF283F
-   :CREATED:  [2009-03-01 Sun 05:36]
-   :END:
-** DONE The regression tests are failing with the latest changes
-   - State "DONE"       [2009-03-06 Fri 02:37]
-   :PROPERTIES:
-   :ID:       E01A104A-2D45-4C0A-AF3C-93AF12324C53
-   :CREATED:  [2009-03-05 Thu 05:12]
-   :END:
-** DONE The tokenizer unit test can just iterate the token stream
-   - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]
-   :PROPERTIES:
-   :ID:       ABCB7791-E098-4C32-A2F6-129E61CC4B10
-   :CREATED:  [2009-10-28 Wed 17:29]
-   :END:
-** DONE UtilTests is currently getting a bus error, with the new acprep
-   - State "DONE"       [2009-03-09 Mon 22:02]
-   :PROPERTIES:
-   :ID:       C89561FB-C59F-43EE-AD70-AFC01EF93F2A
-   :CREATED:  [2009-03-09 Mon 05:26]
-   :END:
-** DONE When a test fails, output the command to run
-   - State "DONE"       from "TODO"       [2011-02-12 Sat 18:18]
-   The same way that Clang does.
-   :PROPERTIES:
-   :ID:       766AEB60-4A6D-4191-AA40-93C41447CC4F
-   :CREATED:  [2011-02-09 Wed 09:27]
-   :END:
-** DONE Write a utility to measure commenting level of functions
-   - State "DONE"       from "TODO"       [2010-06-16 Wed 03:52]
-   :PROPERTIES:
-   :ID:       9A0E5877-6D16-4328-8265-427A3F7B76B2
-   :CREATED:  [2010-06-15 Tue 17:11]
-   :END:
-** DONE Write an "xact generator", to create random xacts for testing
-   - State "DONE"       [2009-02-27 Fri 04:11]
-   :PROPERTIES:
-   :ID:       031DAD5C-8C92-40C1-837F-ABE6F29D4046
-   :CREATED:  [2009-02-24 Tue 21:46]
-   :END:
-** DONE Write an org-mode function to turn a bug TODO into a regression test
-   - State "DONE"       from "TODO"       [2009-10-25 Sun 21:58]
-   :PROPERTIES:
-   :ID:       6A4F436B-E69C-45B2-ABBA-7E550EDBCFCD
-   :CREATED:  [2009-02-27 Fri 04:41]
-   :END:
-** DONE [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
-   - State "DONE"       from "TODO"       [2010-06-18 Fri 19:47]
-   - State "TODO"       from "STARTED"    [2010-06-16 Wed 03:54]
-   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:12]
-   :PROPERTIES:
-   :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
-   :CREATED:  [2010-05-31 Mon 01:14]
-   :END:
-** DONE [[bug:317][#317]] Ledger is still failing the higher-numbered generation seed tests
-   - State "DONE"       from "DEFERRED"   [2010-06-12 Sat 05:29]
-   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
-   :PROPERTIES:
-   :ID:       B9C429C8-A894-48FE-9C8D-8068E2467D75
-   :CREATED:  [2009-03-03 Tue 15:47]
-   :END:
-** DONE [[bug:325][#325]] Migrate from CppUnit to the Boost Test FrameWork
-   - State "DONE"       from "TODO"       [2011-02-04 Fri 03:41]
-   - State "TODO"       from "DEFERRED"   [2011-02-04 Fri 03:41]
-   - State "DEFERRED"   from "TODO"       [2010-06-19 Sat 13:38]
-   - State "TODO"       from "DEFERRED"   [2010-06-15 Tue 17:00]
-   - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:17]
-   :PROPERTIES:
-   :ID:       44B30EE4-6C72-4DDE-8BDA-1E6DE683B796
-   :URL:      [[http://www.boost.org/doc/libs/1_43_0/libs/test/doc/html/tutorials/hello-the-testing-world.html][Introduction to using the Unit Test Framework]]
-   :CREATED:  [2010-06-11 Fri 17:10]
-   :END:
-** DONE [[bug:357][#357]] The parallelized RegressTests no longer notices errors
-   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
-   :PROPERTIES:
-   :ID:       943839DB-32DF-4807-9589-BA4173FA193A
-   :CREATED:  [2010-06-20 Sun 18:36]
-   :END:
-** DONE opt-prices-format.test is failing due to timezone differences
-   - State "DONE"       from "TODO"       [2009-10-22 Thu 07:09]
-   :PROPERTIES:
-   :ID:       70828011-2F1E-4823-8D7D-422720A0F8E8
-   :Message:  [[message://b0bc07100906260800m28db8cb1xd1199dd1e05675ea@mail.gmail.com][Test failure (opt-prices-format test) with git HEAD]]
-   :CREATED:  [2009-07-02 Thu 18:09]
-   :END:
-** DONE tools/proof is failing
-   - State "DONE"       [2009-03-08 Sun 04:31]
-   :PROPERTIES:
-   :ID:       72621A77-F08E-4DED-A2C6-F0B1F337CD9A
-   :CREATED:  [2009-03-01 Sun 16:22]
-   :END:
-** DONE tools/regtest is producing errors
-   - State "DONE"       [2009-02-26 Thu 04:10]
-   :PROPERTIES:
-   :ID:       C7C5BDBF-59E9-4D75-924E-0167B077F35F
-   :CREATED:  [2009-02-24 Tue 22:32]
-   :END:
-** DONE [#C] The opt-forecast-while test is time sensitive, and is failing
-   - State "DONE"       from "TODO"       [2009-10-27 Tue 19:11]
-   :PROPERTIES:
-   :ID:       7B8D466B-6F38-41E6-B2B1-964B8378C929
-   :CREATED:  [2009-03-01 Sun 05:36]
-   :END:
-** CANCELED Serialize error output from the test harness
-   - State "CANCELED"   from "TODO"       [2011-02-12 Sat 18:18]
-   This makes it possible to see test output without it being overlapped.
-   :PROPERTIES:
-   :ID:       3E4EA1F5-D949-43BD-A045-B4CD1EEA3384
-   :CREATED:  [2011-02-09 Wed 09:27]
-   :END:
 ** DONE Major areas of implementation remaining [117/117]
    - Note taken on [2009-06-26 Fri 17:49] \\
      These are all being tested (except for those marked).
@@ -19404,6 +19279,131 @@ how do I get you the config.log file?
    :PROPERTIES:
    :ID:       C6C58983-0EB1-49EC-AB04-AB00DE67D61D
    :CREATED:  [2009-02-06 Fri 15:23]
+   :END:
+** DONE Merge in the --unrealized* baseline tests MisterN wrote
+   - State "DONE"       from "TODO"       [2009-11-25 Wed 04:51]
+   :PROPERTIES:
+   :ID:       AB515F51-E71D-4331-94DE-DC53141A5C2E
+   :CREATED:  [2009-11-24 Tue 22:11]
+   :END:
+** DONE Run Ledger through the profiler, against mondo.dat (to beat 11s)
+   - State "DONE"       from "TODO"       [2009-11-25 Wed 04:51]
+   :PROPERTIES:
+   :ID:       B03634E5-C2D7-4DCE-8BBF-A787996BF7BE
+   :CREATED:  [2009-02-25 Wed 04:15]
+   :END:
+** DONE The regression test 13965214.test is time sensitive
+   - State "DONE"       [2009-03-02 Mon 04:41]
+   :PROPERTIES:
+   :ID:       8ED593A1-B953-4629-B0BD-411B82FF283F
+   :CREATED:  [2009-03-01 Sun 05:36]
+   :END:
+** DONE The regression tests are failing with the latest changes
+   - State "DONE"       [2009-03-06 Fri 02:37]
+   :PROPERTIES:
+   :ID:       E01A104A-2D45-4C0A-AF3C-93AF12324C53
+   :CREATED:  [2009-03-05 Thu 05:12]
+   :END:
+** DONE The tokenizer unit test can just iterate the token stream
+   - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]
+   :PROPERTIES:
+   :ID:       ABCB7791-E098-4C32-A2F6-129E61CC4B10
+   :CREATED:  [2009-10-28 Wed 17:29]
+   :END:
+** DONE UtilTests is currently getting a bus error, with the new acprep
+   - State "DONE"       [2009-03-09 Mon 22:02]
+   :PROPERTIES:
+   :ID:       C89561FB-C59F-43EE-AD70-AFC01EF93F2A
+   :CREATED:  [2009-03-09 Mon 05:26]
+   :END:
+** DONE When a test fails, output the command to run
+   - State "DONE"       from "TODO"       [2011-02-12 Sat 18:18]
+   The same way that Clang does.
+   :PROPERTIES:
+   :ID:       766AEB60-4A6D-4191-AA40-93C41447CC4F
+   :CREATED:  [2011-02-09 Wed 09:27]
+   :END:
+** DONE Write a utility to measure commenting level of functions
+   - State "DONE"       from "TODO"       [2010-06-16 Wed 03:52]
+   :PROPERTIES:
+   :ID:       9A0E5877-6D16-4328-8265-427A3F7B76B2
+   :CREATED:  [2010-06-15 Tue 17:11]
+   :END:
+** DONE Write an "xact generator", to create random xacts for testing
+   - State "DONE"       [2009-02-27 Fri 04:11]
+   :PROPERTIES:
+   :ID:       031DAD5C-8C92-40C1-837F-ABE6F29D4046
+   :CREATED:  [2009-02-24 Tue 21:46]
+   :END:
+** DONE Write an org-mode function to turn a bug TODO into a regression test
+   - State "DONE"       from "TODO"       [2009-10-25 Sun 21:58]
+   :PROPERTIES:
+   :ID:       6A4F436B-E69C-45B2-ABBA-7E550EDBCFCD
+   :CREATED:  [2009-02-27 Fri 04:41]
+   :END:
+** DONE [[bug:219][#219]] Add a Makefile rule ensuring all options are tested and documented
+   - State "DONE"       from "TODO"       [2010-06-18 Fri 19:47]
+   - State "TODO"       from "STARTED"    [2010-06-16 Wed 03:54]
+   - State "TODO"       from "STARTED"    [2010-06-02 Wed 17:12]
+   :PROPERTIES:
+   :ID:       F44DCE38-1191-4759-8DC7-194B8A5BF8E0
+   :CREATED:  [2010-05-31 Mon 01:14]
+   :END:
+** DONE [[bug:317][#317]] Ledger is still failing the higher-numbered generation seed tests
+   - State "DONE"       from "DEFERRED"   [2010-06-12 Sat 05:29]
+   - State "DEFERRED"   from "TODO"       [2009-10-29 Thu 01:00]
+   :PROPERTIES:
+   :ID:       B9C429C8-A894-48FE-9C8D-8068E2467D75
+   :CREATED:  [2009-03-03 Tue 15:47]
+   :END:
+** DONE [[bug:325][#325]] Migrate from CppUnit to the Boost Test FrameWork
+   - State "DONE"       from "TODO"       [2011-02-04 Fri 03:41]
+   - State "TODO"       from "DEFERRED"   [2011-02-04 Fri 03:41]
+   - State "DEFERRED"   from "TODO"       [2010-06-19 Sat 13:38]
+   - State "TODO"       from "DEFERRED"   [2010-06-15 Tue 17:00]
+   - State "DEFERRED"   from "TODO"       [2010-06-14 Mon 08:17]
+   :PROPERTIES:
+   :ID:       44B30EE4-6C72-4DDE-8BDA-1E6DE683B796
+   :URL:      [[http://www.boost.org/doc/libs/1_43_0/libs/test/doc/html/tutorials/hello-the-testing-world.html][Introduction to using the Unit Test Framework]]
+   :CREATED:  [2010-06-11 Fri 17:10]
+   :END:
+** DONE [[bug:357][#357]] The parallelized RegressTests no longer notices errors
+   - State "DONE"       from "TODO"       [2010-06-22 Tue 03:23]
+   :PROPERTIES:
+   :ID:       943839DB-32DF-4807-9589-BA4173FA193A
+   :CREATED:  [2010-06-20 Sun 18:36]
+   :END:
+** DONE opt-prices-format.test is failing due to timezone differences
+   - State "DONE"       from "TODO"       [2009-10-22 Thu 07:09]
+   :PROPERTIES:
+   :ID:       70828011-2F1E-4823-8D7D-422720A0F8E8
+   :Message:  [[message://b0bc07100906260800m28db8cb1xd1199dd1e05675ea@mail.gmail.com][Test failure (opt-prices-format test) with git HEAD]]
+   :CREATED:  [2009-07-02 Thu 18:09]
+   :END:
+** DONE tools/proof is failing
+   - State "DONE"       [2009-03-08 Sun 04:31]
+   :PROPERTIES:
+   :ID:       72621A77-F08E-4DED-A2C6-F0B1F337CD9A
+   :CREATED:  [2009-03-01 Sun 16:22]
+   :END:
+** DONE tools/regtest is producing errors
+   - State "DONE"       [2009-02-26 Thu 04:10]
+   :PROPERTIES:
+   :ID:       C7C5BDBF-59E9-4D75-924E-0167B077F35F
+   :CREATED:  [2009-02-24 Tue 22:32]
+   :END:
+** DONE [#C] The opt-forecast-while test is time sensitive, and is failing
+   - State "DONE"       from "TODO"       [2009-10-27 Tue 19:11]
+   :PROPERTIES:
+   :ID:       7B8D466B-6F38-41E6-B2B1-964B8378C929
+   :CREATED:  [2009-03-01 Sun 05:36]
+   :END:
+** CANCELED Serialize error output from the test harness
+   - State "CANCELED"   from "TODO"       [2011-02-12 Sat 18:18]
+   This makes it possible to see test output without it being overlapped.
+   :PROPERTIES:
+   :ID:       3E4EA1F5-D949-43BD-A045-B4CD1EEA3384
+   :CREATED:  [2011-02-09 Wed 09:27]
    :END:
 * Docs
   :PROPERTIES:
