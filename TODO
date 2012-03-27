@@ -4370,13 +4370,6 @@ the same scopes.
    :ID:       777AA2C1-04FF-4912-9FBD-9FE0C12AF98F
    :CREATED:  [2011-03-06 Sun 05:57]
    :END:
-** DONE [#A] [[bug:683][#683]] ledger --anon pricedb gets a seg fault
-- State "DONE"       from "TODO"       [2012-03-13 Tue 00:05]
-:PROPERTIES:
-:ID:       2CE7DADB-47DB-4226-B13F-1C65CE35103A
-:CREATED:  [2012-03-10 Sat 22:20]
-:Message: [[message://CA%2BR89Y%2B_CXrCdwopPT-n7k%3DKwMzGWuafoT14m%2B3pArMnTWaB%2Bg@mail.gmail.com][Re: ledger v3 slower than ledger v2]]
-:END:
 ** DONE [#A] ledger reg --account=payee -s, causes a segmentation fault
    - State "DONE"       from "TODO"       [2010-05-22 Sat 13:07]
    :PROPERTIES:
@@ -4583,12 +4576,6 @@ build of the next branch on Mac OS X.
    :ID:       3F07C9B0-B14E-4C59-A919-0D50A1DE85E2
    :CREATED:  [2009-11-11 Wed 05:15]
    :END:
-** DONE Allow for chaining, so that -VA works
-- State "DONE"       from "TODO"       [2012-03-07 Wed 14:32]
-:PROPERTIES:
-:ID:       EA18D948-C811-4F74-8BDF-21C53C19176B
-:CREATED:  [2012-03-07 Wed 05:33]
-:END:
 ** DONE Amount reduction is not working
    - State "DONE"       [2009-02-21 Sat 01:39]
    :PROPERTIES:
@@ -4747,30 +4734,6 @@ build of the next branch on Mac OS X.
    :ID:       03D5A6A1-94FF-4D36-883D-E04024F19DA5
    :CREATED:  [2009-02-08 Sun 05:17]
    :END:
-** DONE Complete the "stats" command
-   - State "DONE"       [2009-02-16 Mon 05:17]
-   An example from ledgerstat:
-   :OUTPUT:
-   ledgerstat reports some useful ledger statistics using beancount:
-
-   $ ledgerstat
-   Ledger status report as of 2008-05-26
-   -------------------------------------
-   File: /Users/simon/current.ledger
-   Nb accounts: 104
-   Nb postings: 357
-   Nb commodities: 2
-   Nb postings: 830
-   Nb unique payees: 1
-   Postings: 357 over 145 days (2.5 per day)
-   Postings for the past 30 days: 78 (2.6 per day)
-   The last reconciliation seems to have been: 21 days ago (on 2008-05-05)
-   The last non-future posting was: 1 day ago
-   :END:
-   :PROPERTIES:
-   :ID:       93DFA8A2-B54B-4BB5-809D-3857C8ECD472
-   :CREATED:  [2009-02-10 Tue 04:34]
-   :END:
 ** DONE Complete the outputting of error context throughout Ledger
    - State "DONE"       [2009-02-02 Mon 00:32]
    - [ ] While parsing a file
@@ -4789,12 +4752,6 @@ build of the next branch on Mac OS X.
    :ID:       9603900E-D553-4ECD-A355-50B1CAABE3A8
    :Attachments: currency.dat
    :CREATED:  [2009-12-07 Mon 18:59]
-   :END:
-** DONE Create a fmt_ handler category, for reading %P as %(payee)
-   - State "DONE"       [2009-02-15 Sun 18:34]
-   :PROPERTIES:
-   :ID:       525D3608-5CA8-40B5-A0A6-D1A0BF37C06A
-   :CREATED:  [2009-02-15 Sun 05:06]
    :END:
 ** DONE Divide by zero error using -A reg                                                :ATTACH:
    - State "DONE"       from "TODO"       [2010-01-21 Thu 04:57]
@@ -5868,15 +5825,6 @@ build of the next branch on Mac OS X.
    :Message:  [[message://20100529155642.GA9067@jirafa.cyrius.com][Problems with tags that contain spaces]]
    :CREATED:  [2010-05-30 Sun 03:33]
    :END:
-** DONE [[bug:211][#211]] The --european option not really European
-   - State "DONE"       from "TODO"       [2010-06-01 Tue 18:06] \\
-     Fixed by 038c2435.
-   :PROPERTIES:
-   :ID:       1736ACA5-5DE6-4826-AEB4-DB5B2A2217AC
-   :Submitter: Martin Michlmayr <tbm@cyrius.com>
-   :Message:  [[message://20100531102647.GA23953@jirafa.cyrius.com][--european option not really European]]
-   :CREATED:  [2010-05-31 Mon 14:32]
-   :END:
 ** DONE [[bug:227][#227]] Make --anon anonymize commodities as well
    - State "DONE"       from "TODO"       [2010-06-09 Wed 07:48] \\
      Fixed by c28fad38.
@@ -5998,14 +5946,6 @@ build of the next branch on Mac OS X.
    :ID:       900BB5CD-F210-4530-98EA-8C2753572AE5
    :CREATED:  [2010-07-01 Thu 17:55]
    :END:
-** DONE [[bug:395][#395]] Need commodity alias
-- State "DONE"       from "TODO"       [2012-03-09 Fri 07:24]
-   :PROPERTIES:
-   :ID:       13B53049-4795-4111-A679-6866AEFC4640
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :Message:  [[message://bug-395-1@http.newartisans.com/bugzilla/][{Bug 395} New: need commodity alias]]
-   :CREATED:  [2010-08-16 Mon 16:28]
-   :END:
 ** DONE [[bug:416][#416]] Not all past prices are repeatable or valid for future exchanges
 - State "DONE"       from "TODO"       [2012-03-09 Fri 20:17]
    Essentially this means that some links in the graph are not as reliable as
@@ -6086,17 +6026,6 @@ SCHEDULED: <2011-11-10 Thu>
    :CREATED:  [2011-10-01 Sat 16:37]
    :Date:     Sat, 01 Oct 2011 17:40:58 +0000
    :Message:  [[message://bug-552-1@http.bugs.ledger-cli.org/][{Bug 552} New: Missing ')' error in automated transactions with value expression predicate]]
-   :Submitter: bugzilla-daemon@mail.johnwiegley.com
-   :END:
-** DONE [[bug:555][#555]] ledger stats reports days per posting, not postings per day
-- State "DONE"       from "REVIEW"     [2012-02-28 Tue 22:58]
-- State "REVIEW"     from "TODO"       [2012-02-23 Thu 21:50]
-- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
-   :PROPERTIES:
-   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
-   :CREATED:  [2011-10-10 Mon 15:02]
-   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
-   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :END:
 ** DONE [[bug:557][#557]] Missing ')' in posting value expression does NOT cause an error
@@ -6434,15 +6363,6 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://bug-657-1@http.bugs.ledger-cli.org/][{Bug 657} New: --print removes amount]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [[bug:661][#661]] include directive causes a segmentation fault
-- State "DONE"       from "TODO"       [2012-03-01 Thu 22:00]
-:PROPERTIES:
-:ID:       39FB15C4-59C8-407F-8242-FAC66F178035
-:CREATED:  [2012-03-01 Thu 21:19]
-:Date: Thu, 01 Mar 2012 22:14:57 +0000
-:Message: [[message://bug-661-1@http.bugs.ledger-cli.org/][{Bug 661} New: In HEAD, installed today, include directive causes a segmentation fault.]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
 ** DONE [[bug:719][#719]] Creates bogus(?) Adjustment with -H -X EUR
 SCHEDULED: <2012-03-20 Tue>
 - State "DONE"       from "TODO"       [2012-03-20 Tue 04:56] \\
@@ -6452,15 +6372,6 @@ SCHEDULED: <2012-03-20 Tue>
 :CREATED:  [2012-03-20 Tue 04:25]
 :Date: Tue, 20 Mar 2012 08:59:59 +0000
 :Message: [[message://bug-719-1@http.bugs.ledger-cli.org/][{Bug 719} New: Creates bogus(?) Adjustment with -H -X EUR]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** DONE [[bug:721][#721]] Equity shows commodities that have already been sold
-- State "DONE"       from "TODO"       [2012-03-23 Fri 00:05]
-:PROPERTIES:
-:ID:       CEECC0B0-F91B-45A0-8BC3-F3A4106BD92E
-:CREATED:  [2012-03-22 Thu 13:24]
-:Date: Thu, 22 Mar 2012 18:21:06 +0000
-:Message: [[message://bug-721-1@http.bugs.ledger-cli.org/][{Bug 721} New: equity shows commodities that have already been sold]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DONE [ledger] Reverse search for drafts (#29)
@@ -9528,6 +9439,14 @@ SCHEDULED: <2012-03-09 Fri>
 :Message: [[message://bug-672-1@http.bugs.ledger-cli.org/][{Bug 672} New: Latest next/HEAD does not build]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** CLOSED [#A] [[bug:683][#683]] ledger --anon pricedb gets a seg fault
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:55]
+- State "DONE"       from "TODO"       [2012-03-13 Tue 00:05]
+:PROPERTIES:
+:ID:       2CE7DADB-47DB-4226-B13F-1C65CE35103A
+:CREATED:  [2012-03-10 Sat 22:20]
+:Message: [[message://CA%2BR89Y%2B_CXrCdwopPT-n7k%3DKwMzGWuafoT14m%2B3pArMnTWaB%2Bg@mail.gmail.com][Re: ledger v3 slower than ledger v2]]
+:END:
 ** CLOSED [#A] [[bug:701][#701]] Use of --pager corrupts the terminal
 SCHEDULED: <2012-03-16 Fri>
 - State "CLOSED"     from "DONE"       [2012-03-19 Mon 03:53]
@@ -12268,6 +12187,13 @@ SCHEDULED: <2012-03-11 Sun>
    :ID:       924DA74D-7D4F-4412-AE2A-251DC139D86A
    :CREATED:  [2009-02-22 Sun 04:33]
    :END:
+** CLOSED Allow for chaining, so that -VA works
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:54]
+- State "DONE"       from "TODO"       [2012-03-07 Wed 14:32]
+:PROPERTIES:
+:ID:       EA18D948-C811-4F74-8BDF-21C53C19176B
+:CREATED:  [2012-03-07 Wed 05:33]
+:END:
 ** CLOSED Allow for sorting by multiple criteria, like -S date,payee
 - State "CLOSED"     from "DONE"       [2012-03-22 Thu 16:51]
    - State "DONE"       [2009-02-15 Sun 23:17]
@@ -12542,6 +12468,31 @@ SCHEDULED: <2012-03-12 Mon>
    :Attachments: 0001-Fix-compile-errors-with-gcc-4.3.patch 0002-Fix-compile-errors-with-gcc-4.3.patch
    :CREATED:  [2008-05-20 Tue]
    :END:
+** CLOSED Complete the "stats" command
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:55]
+   - State "DONE"       [2009-02-16 Mon 05:17]
+   An example from ledgerstat:
+   :OUTPUT:
+   ledgerstat reports some useful ledger statistics using beancount:
+
+   $ ledgerstat
+   Ledger status report as of 2008-05-26
+   -------------------------------------
+   File: /Users/simon/current.ledger
+   Nb accounts: 104
+   Nb postings: 357
+   Nb commodities: 2
+   Nb postings: 830
+   Nb unique payees: 1
+   Postings: 357 over 145 days (2.5 per day)
+   Postings for the past 30 days: 78 (2.6 per day)
+   The last reconciliation seems to have been: 21 days ago (on 2008-05-05)
+   The last non-future posting was: 1 day ago
+   :END:
+   :PROPERTIES:
+   :ID:       93DFA8A2-B54B-4BB5-809D-3857C8ECD472
+   :CREATED:  [2009-02-10 Tue 04:34]
+   :END:
 ** CLOSED Completing currency fails
    - State "CLOSED"     [2009-02-24 Tue 13:09]
    - State "DONE"       [2009-02-20 Fri 13:08]
@@ -12611,6 +12562,13 @@ SCHEDULED: <2012-03-12 Mon>
    :ARCHIVE_TIME: 2009-06-15 Mon 17:13
    :ARCHIVE_CATEGORY: Ledger
    :CREATED:  [2009-06-03 Wed 19:11]
+   :END:
+** CLOSED Create a fmt_ handler category, for reading %P as %(payee)
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:55]
+   - State "DONE"       [2009-02-15 Sun 18:34]
+   :PROPERTIES:
+   :ID:       525D3608-5CA8-40B5-A0A6-D1A0BF37C06A
+   :CREATED:  [2009-02-15 Sun 05:06]
    :END:
 ** CLOSED Create an interactive_t object to do argument parsing
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:46] \\
@@ -13655,6 +13613,16 @@ SCHEDULED: <2011-12-21 Wed>
    :Submitter: Thierry Daucourt <thierry.daucourt@free.fr>
    :CREATED:  [2010-01-09 Sat 21:08]
    :END:
+** CLOSED [[bug:211][#211]] The --european option not really European
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:55]
+   - State "DONE"       from "TODO"       [2010-06-01 Tue 18:06] \\
+     Fixed by 038c2435.
+   :PROPERTIES:
+   :ID:       1736ACA5-5DE6-4826-AEB4-DB5B2A2217AC
+   :Submitter: Martin Michlmayr <tbm@cyrius.com>
+   :Message:  [[message://20100531102647.GA23953@jirafa.cyrius.com][--european option not really European]]
+   :CREATED:  [2010-05-31 Mon 14:32]
+   :END:
 ** CLOSED [[bug:224][#224]] A large number of GenerateTests are failing                               :ATTACH:
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:47] \\
   Cannot be tested.
@@ -14053,6 +14021,15 @@ So, I guess this is not the normal behavior expected by the second report
 :Message:  [[message://AANLkTimSSZPgYKQR6U2oZ7uaJtXBdTYF%2BmCn_3SXatko@mail.gmail.com][weekly report and monthly report (Is it a BUG?)]]
 :CREATED:  [2010-08-01 Sun 18:55]
 :END:
+** CLOSED [[bug:395][#395]] Need commodity alias
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:54]
+- State "DONE"       from "TODO"       [2012-03-09 Fri 07:24]
+   :PROPERTIES:
+   :ID:       13B53049-4795-4111-A679-6866AEFC4640
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :Message:  [[message://bug-395-1@http.newartisans.com/bugzilla/][{Bug 395} New: need commodity alias]]
+   :CREATED:  [2010-08-16 Mon 16:28]
+   :END:
 ** CLOSED [[bug:448][#448]] Only one posting with null amount allowed because of note
 - State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-02-28 Tue 02:47] \\
@@ -14180,6 +14157,18 @@ SCHEDULED: <2012-03-15 Thu>
    :Message:  [[message://bug-550-1@http.bugs.ledger-cli.org/][{Bug 550} New: Trailing white space is not ignored in tag vales]]
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :END:
+** CLOSED [[bug:555][#555]] ledger stats reports days per posting, not postings per day
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:55]
+- State "DONE"       from "REVIEW"     [2012-02-28 Tue 22:58]
+- State "REVIEW"     from "TODO"       [2012-02-23 Thu 21:50]
+- State "DONE"       from "TODO"       [2011-11-18 Fri 20:02]
+   :PROPERTIES:
+   :ID:       8F064DBC-02B3-4746-A27B-C33AE1FDC1BE
+   :CREATED:  [2011-10-10 Mon 15:02]
+   :Date:     Mon, 10 Oct 2011 19:16:34 +0000
+   :Message:  [[message://bug-555-1@http.bugs.ledger-cli.org/][{Bug 555} New: ledger stats reports days per posting, not postings per day]]
+   :Submitter: bugzilla-daemon@mail.johnwiegley.com
+   :END:
 ** CLOSED [[bug:560][#560]] Allow a space between the minus sign and its amount
 SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "WONTFIX"    [2012-03-18 Sun 18:57]
@@ -14270,6 +14259,16 @@ SCHEDULED: <2012-03-15 Thu>
 :Date: Tue, 28 Feb 2012 14:28:26 -0800
 :Message: [[message://CACHqOS-PqEUujLz5GctPLzGrRn0rzoEoHtb9adT5rAVE5Zk9uQ@mail.gmail.com][leap day]]
 :Author: Alan Bram <sf.flyboy-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** CLOSED [[bug:661][#661]] include directive causes a segmentation fault
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:55]
+- State "DONE"       from "TODO"       [2012-03-01 Thu 22:00]
+:PROPERTIES:
+:ID:       39FB15C4-59C8-407F-8242-FAC66F178035
+:CREATED:  [2012-03-01 Thu 21:19]
+:Date: Thu, 01 Mar 2012 22:14:57 +0000
+:Message: [[message://bug-661-1@http.bugs.ledger-cli.org/][{Bug 661} New: In HEAD, installed today, include directive causes a segmentation fault.]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED [[bug:674][#674]] --decimal-comma and --percent are incompatible
 - State "CLOSED"     from "DONE"       [2012-03-17 Sat 17:20]
@@ -14608,6 +14607,16 @@ Here's my reduced test case:
 :CREATED:  [2012-03-19 Mon 15:33]
 :Date: Mon, 19 Mar 2012 10:20:42 +0000
 :Message: [[message://bug-718-1@http.bugs.ledger-cli.org/][{Bug 718} New: strange <Adjustment> entries with -X -H and ledger maybe hangs?]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** CLOSED [[bug:721][#721]] Equity shows commodities that have already been sold
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:55]
+- State "DONE"       from "TODO"       [2012-03-23 Fri 00:05]
+:PROPERTIES:
+:ID:       CEECC0B0-F91B-45A0-8BC3-F3A4106BD92E
+:CREATED:  [2012-03-22 Thu 13:24]
+:Date: Thu, 22 Mar 2012 18:21:06 +0000
+:Message: [[message://bug-721-1@http.bugs.ledger-cli.org/][{Bug 721} New: equity shows commodities that have already been sold]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED acprep upload is deleting the file after it uploads it
@@ -16441,13 +16450,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :ID:       F21E8B63-C6C9-4B09-90B2-2441FBD1F517
    :CREATED:  [2008-08-26 Tue]
    :END:
-** DONE Add UTF-8 support for input files, commands and reports
-   - State "DONE"       [2009-01-29 Thu 15:30]
-   :PROPERTIES:
-   :Version:  2.6
-   :Ticket:   140
-   :ID:       BDBB79F0-9FC4-4B91-B922-D128E18982BA
-   :END:
 ** DONE Add a "fixedrate COMMODITY AMOUNT" directive                                     :ATTACH:
    - State "DONE"       from "TODO"       [2009-11-25 Wed 04:41]
    - Note taken on [2009-11-24 Tue 22:32] \\
@@ -17005,13 +17007,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :PROPERTIES:
    :ID:       4DC71FA0-7325-4F88-B145-A87C5489B9A4
    :CREATED:  [2010-05-23 Sun 17:04]
-   :END:
-** DONE [[bug:230][#230]] Make format strings backward compatible with 2.x
-- State "DONE"       from "TODO"       [2012-03-09 Fri 07:31]
-   That way, %D would be the same as %(date).
-   :PROPERTIES:
-   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
-   :CREATED:  [2010-06-03 Thu 23:22]
    :END:
 ** DONE [[bug:232][#232]] Support variant behaviors for -V
 - State "DONE"       from "TODO"       [2012-03-09 Fri 07:30]
@@ -18223,6 +18218,22 @@ interval so that I can do so.
    :ID:       AEF3A0AD-25BE-4412-ABEF-82737B9980C7
    :Message:  [[message://20100325183756.GA19406@jirafa.cyrius.com][-g/-performance removed in 3.0?]]
    :CREATED:  [2010-03-26 Fri 22:18]
+   :END:
+** CLOSED Add UTF-8 support for input files, commands and reports
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:55]
+   - State "DONE"       [2009-01-29 Thu 15:30]
+   :PROPERTIES:
+   :Version:  2.6
+   :Ticket:   140
+   :ID:       BDBB79F0-9FC4-4B91-B922-D128E18982BA
+   :END:
+** CLOSED [[bug:230][#230]] Make format strings backward compatible with 2.x
+- State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:55]
+- State "DONE"       from "TODO"       [2012-03-09 Fri 07:31]
+   That way, %D would be the same as %(date).
+   :PROPERTIES:
+   :ID:       C19E4E9B-3593-4424-8F0D-109D79D1B15E
+   :CREATED:  [2010-06-03 Thu 23:22]
    :END:
 ** CLOSED [[bug:231][#231]] Allow conversion of some but not all commodities
 SCHEDULED: <2012-03-09 Fri>
