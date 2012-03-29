@@ -14619,6 +14619,17 @@ Here's my reduced test case:
 :Message: [[message://bug-721-1@http.bugs.ledger-cli.org/][{Bug 721} New: equity shows commodities that have already been sold]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** CLOSED [[bug:757][#757]] emacs baseline test failure
+SCHEDULED: <2012-03-29 Thu>
+- State "CLOSED"     from "TODO"       [2012-03-29 Thu 03:56] \\
+  The test that was causing this error has been removed from the test suite.
+:PROPERTIES:
+:ID:       08E056AB-76EB-4738-AAF6-04A3090386BC
+:CREATED:  [2012-03-29 Thu 03:55]
+:Date: Thu, 29 Mar 2012 08:41:58 +0000
+:Message: [[message://bug-757-1@http.bugs.ledger-cli.org/][{Bug 757} New: emacs baseline test failure]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** CLOSED acprep upload is deleting the file after it uploads it
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:47] \\
   Cannot be tested.
@@ -19191,8 +19202,7 @@ how do I get you the config.log file?
 :Message: [[message://bug-720-1@http.bugs.ledger-cli.org/][{Bug 720} New: Linker warning about library locations]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [#C] make distcheck (normal) and --python proof builds failing
-SCHEDULED: <2012-03-27 Tue>
+** TODO make distcheck (normal) and --python proof builds failing
 :PROPERTIES:
 :ID:       16F91AF7-D463-4B5A-BCBF-05D15CF2EE87
 :CREATED:  [2012-03-24 Sat 18:05]
