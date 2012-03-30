@@ -45,6 +45,619 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
           (princ "\n"))))))
 #+end_src
 
+#+RESULTS:
+#+begin_example
+717,CONFIRMED,Error: Cannot convert a balance with multiple commodities to an amount
+764,CONFIRMED,csv: posted should be renamed to aux_date or aux or auxdate
+763,CONFIRMED,Error: Cannot convert a balance with multiple commodities to an amount
+762,CONFIRMED,--only doesn't work: does the same as --limit
+761,CONFIRMED,Make uncommoditized amounts behave like commoditized ones
+759,CONFIRMED,Compare a string with commodity
+686,CONFIRMED,Virtual transactions and the equity command
+201,CONFIRMED,Handling currencies that were replaced by the Euro
+207,CONFIRMED,No output to file in REPL with "push -o output.journal"
+347,CONFIRMED,All contexts should be accessible by name
+348,CONFIRMED,Make every item detail gettable and settable via metadata
+362,CONFIRMED,bal --inject=Expected '^income:ceg' output is not correct
+375,CONFIRMED,-p "until MONTH YEAR" ignores YEAR, but -p "in MONTH YEAR" works
+376,CONFIRMED,ledger reg ^exp is showing Assets in a budget report
+377,CONFIRMED,ledger -f DIRECTORY doesn't fail with a clear error
+378,CONFIRMED,budget: Cannot convert balance with multiple commodities to amount
+381,CONFIRMED,ledger bal and --forecast gives wrong result (60 * of monthly value)
+382,CONFIRMED,treats {xx} as {=xx}
+383,CONFIRMED,--lot-prices doesn't honour date-format
+384,CONFIRMED,ledger shows lot prices for fixated commodities when not requested
+387,CONFIRMED,There should be a simpler syntax for referring to past lots
+390,CONFIRMED,Cannot access account total in automated transaction
+392,CONFIRMED,Reporting multiple commodities with -J
+398,CONFIRMED,Default commodity depends on the order of postings
+400,CONFIRMED,-l commodity and -B
+401,CONFIRMED,-l "commodity = ''AA1" doesn't match when commodity contains digits
+402,CONFIRMED,Enhance color output for --budget
+403,CONFIRMED,--budget ignores "Yearly in August"-type transactions
+410,CONFIRMED,Forecasting is broken
+411,CONFIRMED,Refrain from downloading a quote if can't get newer
+412,CONFIRMED,Error masked by certain options with -J -X EUR
+415,CONFIRMED,Order of budget entries is significant
+433,CONFIRMED,Possible issue with Balanced automated transactions
+434,CONFIRMED,Problem with the new --anon and speed-test.dat
+436,CONFIRMED,Allow multiple null amounts if the rest have balance assignments
+439,CONFIRMED,Ledger does not correctly sort balance of anonymized data
+443,CONFIRMED,Ignores entry with wrong data instead of giving an error
+444,CONFIRMED,Output of lines w/ negative amounts and thousands separator is 81 chars
+445,CONFIRMED,Could handle mixing of decimal comma and decimal point better
+455,CONFIRMED,Free shares & --exchange & --total-data
+457,CONFIRMED,Comma parsing problem
+459,CONFIRMED,Expression-based automatic transaction predicate not working
+462,CONFIRMED,Default currency/commodity not respected
+469,CONFIRMED,Account / commodity periodic gain question
+470,CONFIRMED,Period support and forecast reports
+477,CONFIRMED,Ledger print command does not handle GnuCash Capital Gain Split
+480,CONFIRMED,Ledger budget expressions failing?
+482,CONFIRMED,Commodity cost basis does not transfer across different accounts
+483,CONFIRMED,House accounts
+484,CONFIRMED,Sorting problem concerning amounts and -X
+487,CONFIRMED,Multiple file-level balance assertions for the same account conflict
+488,CONFIRMED,amount_t::floor does not really floor, it rounds to nearest
+489,CONFIRMED,Confusion about a few things
+491,CONFIRMED,Automated postings match differently
+492,CONFIRMED,Running totals computed using the wrong precision
+493,CONFIRMED,Precision specified with D being ignored
+494,CONFIRMED,Problem using German date format
+499,CONFIRMED,Getting quotes?
+504,CONFIRMED,Forecast doesn't include current month's budget
+511,CONFIRMED,ledger and currency format in entry command
+513,CONFIRMED,--comm-as-payee (-x) is unrecognized
+514,CONFIRMED,'accounts' and 'commodities' should sort their output
+517,CONFIRMED,Strange balance reports
+518,CONFIRMED,Weekly report lost data?
+530,CONFIRMED,Problem with "N" command
+531,CONFIRMED,Balance assertions broken when combined with fixed commodities
+532,CONFIRMED,Every N days problem in budgeting
+533,CONFIRMED,Trailing entry going past the forecast period
+534,CONFIRMED,account_amount is listed on the man page, but is not supported
+535,CONFIRMED,Make timeclock transactions balanced
+537,CONFIRMED,Auto-balancing of transactions of no value
+540,CONFIRMED,Adjustment accounts are not collapsed by -n
+549,CONFIRMED,ledger-next-amount does not handle fixated commodity prices
+551,CONFIRMED,Clear virtual transactions based on triggering real transaction
+553,CONFIRMED,Budget period entry without interval gives error
+554,CONFIRMED,Error: Unexpected date period token '1000'
+558,CONFIRMED,Significant figure mishandling causes divide by zero.
+561,CONFIRMED,ledger xml produces duplicate transactions
+562,CONFIRMED,Metadata/Note contents can't include a ledger formatted date
+566,CONFIRMED,Selinger's multiple currency accounting & ledger
+567,CONFIRMED,Error parsing auto-xact predicate mith "expr payee"
+568,CONFIRMED,Forecast fails with "every <X> days from" for several values of <X>
+571,CONFIRMED,List differences 2.6.3->3.0.0
+576,CONFIRMED,Strange cleared report formatting
+577,CONFIRMED,Error in automated virtual postings with multiple commodities
+583,CONFIRMED,--monthly prices report SUM rather than average or end of month price
+587,CONFIRMED,ledger --anon print regex fails
+588,CONFIRMED,'getquote' only queries one commodity at a time, which can be slow
+590,CONFIRMED,Budget entry is applied only once if xacts are in reverse order
+591,CONFIRMED,Future forecast events aren't shown in forecast
+597,CONFIRMED,If total transaction in a budgeted account equals zero...
+598,CONFIRMED,Cleared report total lines are not aligned correctly
+602,CONFIRMED,Provide facility for easy generation of command line completion
+603,CONFIRMED,print ignores @tag ... @end tag
+604,CONFIRMED,print ignores @bucket
+606,CONFIRMED,Padding formatting commands does not ignore invisible characters
+607,CONFIRMED,Expand the --price-exp argument handling
+608,CONFIRMED,lot tags are wrong if more than one lot tag in a transaction
+609,CONFIRMED,Piping input file doesn't handle relative file expansion correctly
+610,CONFIRMED,Whole transaction is ignored when there's a specific comment
+611,CONFIRMED,--trace throws an assertion errors when files are @included
+612,CONFIRMED,Changing trace level has no effect
+613,CONFIRMED,Convert fails on empty lines
+615,CONFIRMED,--strict sees auto xacts at beginning of Journal as uncleared
+616,CONFIRMED,bal --amount-data fails wrong
+617,CONFIRMED,bal --anon anonymizes *before* it generates the report
+618,CONFIRMED,--anon loses all structural information
+619,CONFIRMED,Format functions do not work in --group-title-format
+621,CONFIRMED,New install will not execute without ~/.pricedb existing
+622,CONFIRMED,print ignores Y.... tag
+623,CONFIRMED,Virtual transactions cause unbalanced equity report
+624,CONFIRMED,Lack of newline at end of file causes rounding error
+626,CONFIRMED,emacs command does not report xact level comments/tags
+630,CONFIRMED,Basis cost should "follow" commodities with lot pricing
+634,CONFIRMED,Correctly implement floor(), ceil() and round()
+636,CONFIRMED,Budget report query doesn't generate correct report
+637,CONFIRMED,Trying to understand the pivot command
+648,CONFIRMED,Don't use boost::any in value.h, since it causes allocations
+649,CONFIRMED,Unrecognized initial chars in a journal should cause an error
+652,CONFIRMED,How to handle stale results from getquote
+655,CONFIRMED,Ledger no longer downloads stock prices using the -Q option
+663,CONFIRMED,Detect recursive inclusion and report an error
+667,CONFIRMED,ledger-reconcile-visit no longer functioning
+673,CONFIRMED,display_total chokes on account with non-dollar commodities
+676,CONFIRMED,Error about missing boost regex misleading when boost regex is installed but not boost regex dev
+677,CONFIRMED,Error building current next branch: no type named ‘key_type’ in ‘class ledger::date_specifier_t’
+684,CONFIRMED,Ledger v3 slower than ledger v2
+685,CONFIRMED,"truncated" does not mean what is expected in value expressions
+687,CONFIRMED,Budgeting bug?
+692,CONFIRMED,Warnings need to use the included file name
+693,CONFIRMED,Optimized Ledger crashes whenever an exception is thrown
+694,CONFIRMED,If posts_list::iterator is stable, use it in ~account_t
+695,CONFIRMED,--init-file is ignored
+696,CONFIRMED,Change to -F parsing rules (casting to int)
+697,CONFIRMED,--dc has a problem with -V and -B
+698,CONFIRMED,When format_t outputs a balance, it should know the next line width
+700,CONFIRMED,@alias segfaults
+705,CONFIRMED,Should error if file specified by --price-db does not exist
+707,CONFIRMED,Year directive confuses today for entry command
+709,CONFIRMED,Make @account/!account be a synonym for "apply account"
+712,CONFIRMED,Capital gains/losses accounted for twice
+713,CONFIRMED,Results of bal -B not intuitive when a previous capital loss/gain was made
+716,CONFIRMED,Need a better error for automated transactions with null amounts
+722,CONFIRMED,Segfault with -S t -t t
+723,CONFIRMED,-S t doesn't sort timelog entries correctly
+724,CONFIRMED,Assertion failed in "src/unistring.h" with --payee-width=1
+725,CONFIRMED,Output of cleared not aligned with --date-format
+726,CONFIRMED,Option draft (mentioned in doc/ledger.1) doesn't exist
+727,CONFIRMED,Option lisp (mentioned in doc/ledger.1) doesn't exist
+728,CLOSED,pricesdb command renamed to pricedb - preserve compatibility
+729,CONFIRMED,Output of cleared doesn't align
+730,CONFIRMED,Segmentation fault
+731,CONFIRMED,--current does not apply with --end
+732,CONFIRMED,csv command required ledger file with -f
+733,CONFIRMED,ledger convert should not generate note when note is empty
+734,CONFIRMED,ledger convert should allow empty posted date
+735,CONFIRMED,Error: Assertion failed in "src/item.h" with ledger convert when no date is specified
+736,CONFIRMED,Strange error from cvs convert
+737,CONFIRMED,ledger xact does not honour payee tag
+738,CONFIRMED,pricemap shows commodities not listed in file
+739,CONFIRMED,prices/pricedb only show pricedb info for commodities listed in transactions
+740,CONFIRMED,ledger stat calculates days incorrectly
+741,CONFIRMED,ledger stat doesn't handle future transactions well
+742,CONFIRMED,ledger stats ignores -p until
+743,CONFIRMED,ledger source: does it take file from argument or -f?
+744,CONFIRMED,ledger select: output of account contains control characters
+745,CONFIRMED,ledger budget: Error: Cannot multiply an amount with a balance
+746,CONFIRMED,ledger convert --auto-match only matches only one posting
+747,CONFIRMED,Error: Illegal option --cleared-format
+748,CONFIRMED,--primary-date / --aux-date not accepted
+749,CONFIRMED,Value expression parser confused by ( ) in commodity name
+750,CONFIRMED,--strict lists wrong line number for tag
+751,CONFIRMED,account check/assert not applied to default account
+752,CONFIRMED,ArithmeticError: Adding amounts with different commodities: EUR != EUR
+753,CONFIRMED,prices -A and prices -D doesn't work
+754,CONFIRMED,Segfault with -D and no transaction
+755,CONFIRMED,Make format strings backward compatible with 2.x
+756,CONFIRMED,Bad pricedb info with --anon pricedb
+380,WAITING,"Unbalanced remainder" pops up depending on the order of postings
+370,CONFIRMED,Let time periods use "starting" to fix the exact start date
+399,CONFIRMED,Add function to determine budgeted amount for a time period
+417,CONFIRMED,'&' in account names causes trouble during GNU Cash import
+512,CONFIRMED,--cache does nothing
+559,CONFIRMED,Improve the Ledger 3.0 stats command with ideas from hledger
+631,CONFIRMED,Minimize redundant scope walks due to multiple SCOPE bindings
+664,CONFIRMED,Value expression regexp matching should return a match object
+163,RESOLVED,Exponential slowdown when using --exchange
+189,RESOLVED,Optimize value truncation
+192,RESOLVED,Problem with the new fixed rate feature
+226,RESOLVED,print --anon fails completely
+228,RESOLVED,Make sequences comparable
+345,RESOLVED,speed-test.dat with -V is failing verification
+498,RESOLVED,File inclusion is broken
+157,RESOLVED,Make sure this is legal: = expr 'account =~ /foo/'
+158,RESOLVED,"ledger template exxons 10 from checking" applies 10 to "from"
+161,RESOLVED,ledger budget fails with "Something odd has happened"
+165,RESOLVED,--exchange seems to be ignored when combined with -M
+196,RESOLVED,Bug when not using commodities in a posting's cost
+197,RESOLVED,Bug with -J and multiple commodities
+200,RESOLVED,Commodities containing digits and ledger bal
+210,RESOLVED,Problems with tags that contain spaces
+227,RESOLVED,Make --anon anonymize commodities as well
+327,RESOLVED,Insert --input-date-format strings at the beginning of format list
+335,RESOLVED,Restore value expression functions min and max
+336,RESOLVED,ledger period 'this month' is only showing the current day
+337,RESOLVED,Rationalize formatting strings
+342,RESOLVED,Budgeting should include transactions for interstitial months
+352,RESOLVED,Account abbreviation puts too much emphasis on top-level account
+360,RESOLVED,'today' isn't today
+373,RESOLVED,Change amount/total expr evaluation to use a priority queue
+416,RESOLVED,Not all past prices are repeatable or valid for future exchanges
+454,RESOLVED,Rename actual and effective dates to primary/auxiliary
+476,RESOLVED,alias does not work across !include
+501,RESOLVED,Confusion about a few things
+506,RESOLVED,Loss of data in weekly report
+507,RESOLVED,Reproducible crash
+510,RESOLVED,Transactions match from oldest->newest
+548,RESOLVED,Are automatic transactions working in the latest 3.0.0
+552,RESOLVED,Missing ')' error in automated transactions with valexpr predicate
+557,RESOLVED,Missing ')' in posting value expression does NOT cause an error
+582,RESOLVED,Problems with account name completion
+593,RESOLVED,XML reports should output a <fullname> tag
+605,RESOLVED,Inconsistent command directive syntax
+632,RESOLVED,Strange "print" behavior in comments
+633,RESOLVED,Ledger crashes with --account=payee --monthly
+654,RESOLVED,Commodity flags cleanup
+656,RESOLVED,Historical prices with and without revaluation
+657,RESOLVED,--print removes amount
+719,RESOLVED,Creates bogus(?) Adjustment with -H -X EUR
+329,RESOLVED,Suggestions for improving the documentation
+338,RESOLVED,Issue with spaces in account names
+341,RESOLVED,Document suggestions from Russell
+343,RESOLVED,Journal with only periodic transactions gives an error
+397,RESOLVED,--price-db doesn't expand ~
+599,RESOLVED,Add index to documentation
+446,RESOLVED,Segfault on wrong command directive
+372,RESOLVED,Rename "total" to "raw_total" and "display_total" to "total"
+435,RESOLVED,Re-anonymize speed-test.dat
+406,RESOLVED,Unable to install ledger on Ubuntu Hardy
+418,RESOLVED,Ledger 3.0 will not build under cygwin on Windows
+156,RESOLVED,Instead of unistring(x).length(), have unilength(x)
+160,RESOLVED,Attached file should print out Unrealized Gains in the report
+205,RESOLVED,Specifying commodity price and total
+214,RESOLVED,Question about credit card transactions
+220,RESOLVED,In output intermediate, do not reduce prices to one per day
+326,RESOLVED,Strip out quotes in the options parser
+351,RESOLVED,print command puts tag in same line as payee
+490,RESOLVED,Pull request: Next [jwiegley/ledger GH-22]
+519,RESOLVED,ledger reg expr 'code > 100' breaks
+592,RESOLVED,'print' command does not handle multiple spaces in the payee
+651,RESOLVED,The - query prefix character no longer excludes accounts
+203,RESOLVED,Problem with fixed commodities and rounding
+332,RESOLVED,Assert failure when using tag in a limit expression
+388,RESOLVED,Can't build next branch OS X 10.6.4 (Intel)
+426,RESOLVED,ledger --budget reg|wc -l depends on order of transactions
+437,RESOLVED,Crash when using automatic rules
+440,RESOLVED,Complex command causes core dump
+503,RESOLVED,Abort trap on MacOS 10.6.7
+159,RESOLVED,--unrealized also reports realized gains
+164,RESOLVED,--balance-format overrides --exchange
+168,RESOLVED,Balance wrong because of exchange rates
+171,RESOLVED,Path handling issues in master
+204,RESOLVED,Problem with price conversions and -V
+213,RESOLVED,Balancing problems with fixated commodity prices
+222,RESOLVED,tag/pop to apply metadata does not work
+323,RESOLVED,-r does not output related accounts when using --effective
+344,RESOLVED,Budgeting behavior changed between 2.6 and 3.0
+516,RESOLVED,Ledger entry takes the first entry
+543,RESOLVED,ledger make check failure report...
+585,RESOLVED,ledger payees is not honoring its regexp argument
+614,RESOLVED,--input-date-format does not effect convert
+463,RESOLVED,Question about commodity sub-total vs. total in balance
+466,RESOLVED,Error in latest GIT version
+212,RESOLVED,Question about using the same tag twice
+508,RESOLVED,Register command doesn't filter anymore
+556,RESOLVED,Value expressions do not handle significant figures correctly
+601,RESOLVED,ledger entry command skipping digit after currency sign
+206,RESOLVED,Specifying exchange rate with @ doesn't led to expected result
+428,RESOLVED,Build is failing on Ubuntu 10.10
+429,RESOLVED,Build is failing on Ubuntu 10.10
+191,RESOLVED,Optimize conversion of commodities
+505,RESOLVED,Ampersand in GnuCash transaction creates conversion problem
+541,RESOLVED,--collapse not collapsing
+563,RESOLVED,Highlight account names with spaces
+564,RESOLVED,Double-quoted filename in Emacs output breaks reconciliation
+235,RESOLVED,Add some more configure arguments
+236,RESOLVED,Add some more configure arguments
+404,RESOLVED,Strange libboost suffix on Debian Squeeze with acprep
+478,RESOLVED,ledger-font-lock-keywords uses spaces instead of tabs
+188,CLOSED,Not calculating commodity conversions due to rounding
+353,CLOSED,No longer handles multiple postings to one account in one transacation
+420,CLOSED,Ledger will not build on OS X 10.5
+425,CLOSED,date>=[2010/02/10] causes a parsing error
+427,CLOSED,Build problems with boost_iostreams
+438,CLOSED,Case where register and balance do not agree
+449,CLOSED,Ledger build, iostreams, and boost 1.45
+565,CLOSED,Transactions with leading whitespace not detected
+650,CLOSED,Input date format not recognized
+672,CLOSED,Latest next/HEAD does not build
+683,CLOSED,ledger --anon pricedb gets a seg fault
+701,CLOSED,Use of --pager corrupts the terminal
+703,CLOSED,Assertion failed in "src/history.cc": source != price.commodity()
+708,CLOSED,Ignoring PriceDB file
+166,CLOSED,--percent incompatible with --exchange
+167,CLOSED,Another rounding issue
+193,CLOSED,Useful links from the mailing list
+198,CLOSED,Errors with using the -J option
+199,CLOSED,Issue with reporting asset history and -j/-J
+211,CLOSED,The --european option not really European
+224,CLOSED,A large number of GenerateTests are failing
+330,CLOSED,libledger_math.so: undefined reference to `vtable for ledger::expr_t'
+350,CLOSED,--gain shows wrong resuls
+354,CLOSED,Forecasting bug with terminating periodic entries
+355,CLOSED,Problem with forecasting not showing biweekly transactions
+358,CLOSED,When abbreviating account names, consume trailing whitespace
+359,CLOSED,Balance command now shows empty accounts
+374,CLOSED,Problem with periodic transactions having a null posting
+379,CLOSED,equity shows two entries for the same commodity/account
+386,CLOSED,print command should never strip quotation marks from commodity
+394,CLOSED,Weekly report and monthly report (possible bug)
+395,CLOSED,Need commodity alias
+448,CLOSED,Only one posting with null amount allowed because of note
+458,CLOSED,Spaces seem to be significant in automatic transaction predicate
+515,CLOSED,Pull request: Vim: Support for payee completion and caching
+546,CLOSED,Record timelog hours on the day(s) of check-in
+550,CLOSED,Trailing white space is not ignored in tag vales
+555,CLOSED,ledger stats reports days per posting, not postings per day
+560,CLOSED,Allow a space between the minus sign and its amount
+569,CLOSED,Problem in ledger3.texi
+570,CLOSED,Add warning to docs about whitespace in ledger format
+584,CLOSED,Trailing white space is not ignored in payee names
+600,CLOSED,-d "l>=2" performs > rather than >=
+658,CLOSED,print does not indent properly
+659,CLOSED,Date parser does not accept 2/29 this year (2012)
+661,CLOSED,include directive causes a segmentation fault
+674,CLOSED,--decimal-comma and --percent are incompatible
+678,CLOSED,-X GBP -H leads to Adjustment, or: ledger gets calculation/rounding wrong
+679,CLOSED,Error: Attempting to nail down a balance with -X -H
+680,CLOSED,ledger pricedb shows incorrect(?) entries
+681,CLOSED,Commodities revalued with -X -H when no pricedb entry for one transaction
+688,CLOSED,print command does not handle multiple spaces in the payee
+691,CLOSED,Assertion failed in "src/pool.cc" with -X -H
+702,CLOSED,No carriage return
+704,CLOSED,pricedb entries randomly repeated
+706,CLOSED,Alias is causing segfault and other strangeness
+711,CLOSED,Behavior of alias appears to have changed
+715,CLOSED,Error: Cannot divide a balance by an amount with -X -H
+718,CLOSED,Strange <Adjustment> entries with -X -H and ledger maybe hangs?
+721,CLOSED,Equity shows commodities that have already been sold
+757,CLOSED,emacs baseline test failure
+322,CLOSED,Minor typo in acprep output
+638,CONFIRMED,ledger-mode dropping first digit of inserted dates
+389,CONFIRMED,Emacs mode autocompletion issue
+391,CONFIRMED,Emacs reconciliation mode does not work on Linux
+396,CONFIRMED,ledger emacs doesn't escape double quotes
+431,CONFIRMED,Reconciling with ledger.el doesn't seem to work
+441,CONFIRMED,Patch to allow jumping between records with M-n and M-p
+442,CONFIRMED,Trouble with the emacs reconciling features
+460,CONFIRMED,ledger.el expects blank lines around transactions
+464,CONFIRMED,auto-indenting in emacs mode?
+465,CONFIRMED,ledger.el tweak for handling yyyy-mm-dd
+468,CONFIRMED,New ledger mode in master sometimes erases data when aligning amounts
+485,CONFIRMED,Problem reconciling with ledger.el: spacebar does nothing
+495,CONFIRMED,Emacs ledger mode v3 & reconcile
+509,CONFIRMED,Reconciling using ledger.el doesn't work with latest ledger from git
+521,CONFIRMED,ledger and currency format in entry command
+523,CONFIRMED,Two patches for ledger.el
+525,CONFIRMED,Trouble with Emacs ledger-mode
+526,CONFIRMED,ledger-mode.el does not recognize decimal dot separator
+527,CONFIRMED,Include check numbers in emacs reconcile buffer
+545,CONFIRMED,Create a quick entry function for Ledger to reduce keystrokes
+620,CONFIRMED,The -j option needs a way to specific the base to report values in
+635,CONFIRMED,ledger.el and support for YYYY-MM-DD dates
+653,CONFIRMED,Do automatic transactions break emacs reconcile mode?
+699,CONFIRMED,Typing chars in reconcile-mode should quick set the account name
+710,CONFIRMED,ledger-mode is ruining the undo history
+245,CONFIRMED,Add colorized highlighting to the reconciler
+246,CONFIRMED,Add folding support to ledger.el
+247,CONFIRMED,Allow for quicker reporting commands in ledger.el
+248,CONFIRMED,Allow reconciling postings in multiple included files
+249,CONFIRMED,Allow reports, such as completed tasks last week, etc.
+250,CONFIRMED,Break ledger.el up into sections
+251,CONFIRMED,C-c C-c should be magical in ledger-mode
+252,CONFIRMED,Create a hotkey for creating Ledger transactions
+253,CONFIRMED,Fix toggle-current-transaction
+254,CONFIRMED,Have ledger.el warn if the ledger version is too old
+255,CONFIRMED,Highlight transaction lines based on their status
+256,CONFIRMED,Inserting comments in ledger-mode is inserting leading whitespace
+257,CONFIRMED,Ledger-context-at-point fails to parse acct-transaction
+258,CONFIRMED,ledger.el should define its own faces
+259,CONFIRMED,Look at making ledger's new entry completion behavior cyclic
+260,CONFIRMED,Make M-x ledger-sort work on the current region
+261,CONFIRMED,Make TAB more magical in ledger-mode
+262,CONFIRMED,Pressing C-c C-c on an entry line should clear it
+263,CONFIRMED,Redesign ledger.el
+264,CONFIRMED,The Great Renaming still needs to take place in ledger.el
+265,CONFIRMED,Use of ledger.el with various invalid "ledger" binaries (and none)
+266,CONFIRMED,Use yasnippet with ledger-mode
+502,CONFIRMED,Auto-complete with Ledger.el in Emacs
+479,RESOLVED,Descriptions of cleared transactions are not highlighted
+183,RESOLVED,Adding memo field breaks ledger-add-entry
+467,CLOSED,ledger.el won't highlight account names if they have a space
+524,CLOSED,ledger.el, highlighting of account names w/spaces
+580,CLOSED,Emacs mode 'reconcile' doesn't work
+639,CLOSED,Highlight accounts with spaces in Emacs
+173,CONFIRMED,Make the prices report use standard report query terms
+174,CONFIRMED,Make path to getquote script configurable using an option
+217,CONFIRMED,Make "primary COMM ACCOUNT" force primary comm for an account
+225,CONFIRMED,Complain about mutually exclusive options (such as -M and -s)
+292,CONFIRMED,Make alias names for directives, like convert for C
+299,CONFIRMED,The CSV report should optionally generate a "title line"
+333,CONFIRMED,Add warning when duplicate meta references are given
+393,CONFIRMED,Allow lot tags to "link" to a past priced commodity
+409,CONFIRMED,Almost strictly defined accounts
+447,CONFIRMED,Make value sequences comparable
+451,CONFIRMED,Handling multiple Ledgers
+461,CONFIRMED,Balance report that shows commodities and value or basis cost
+471,CONFIRMED,Swapping out memory allocators for performance testing
+486,CONFIRMED,More formal methods of doing lot-based reporting
+522,CONFIRMED,Add a 'tags' command
+536,CONFIRMED,Add an option to Ledger to account for time rounding
+595,CONFIRMED,Add a value expression function to round non-commoditized amounts
+627,CONFIRMED,Add help option "--help-{commands|options}-plain"
+628,CONFIRMED,round(value) should take an optional precision amount
+660,CONFIRMED,Create options in Ledger to define important localized strings
+668,CONFIRMED,Add an option for specifying the separator to ledger convert
+675,CONFIRMED,Add options --commodity-value-expr and --account-value-expr
+690,CONFIRMED,Add an option to output periodic transactions
+714,CONFIRMED,Support for re-write rules (aka ledger "views", allows keeping separate books)
+172,CONFIRMED,Merge functionality of the C and P directives
+177,CONFIRMED,lot_price should be able to return if commodity is "fixed rate"
+179,CONFIRMED,Allow specification of times on transactions and postings
+182,CONFIRMED,Port Gnucash support to 3.0
+233,CONFIRMED,Make 'last' a valexpr term of the last posting output
+269,CONFIRMED,Add a "date" term to report queries
+273,CONFIRMED,Add complete calculation history in Ledger
+274,CONFIRMED,Add support for command aliases, to allow "canned reports"
+278,CONFIRMED,Allow reading an encrypted ledger file directly
+279,CONFIRMED,Annotations should allow for HH:MM:SS
+284,CONFIRMED,Greatly improve Ledger's help system
+286,CONFIRMED,Implement readline completion for the REPL
+288,CONFIRMED,Integrate Org-mode with Ledger
+290,CONFIRMED,journal_t objects should be copyable
+291,CONFIRMED,Make a curses or http GUI for Ledger
+294,CONFIRMED,Forecasting performance would be weak with a lot of period xacts
+298,CONFIRMED,Support for exceptions to interval_t
+320,CONFIRMED,Implement move constructors for amount_t, balance_t and value_t
+361,CONFIRMED,Change value expression syntax to closely match Haskell's
+365,CONFIRMED,Generalize value sequences into iterators and generators
+366,CONFIRMED,Add "each" syntax, and closures like Ruby has
+408,CONFIRMED,Enabling OFX support in Ledger 3
+413,CONFIRMED,Have a look at Boost.TimeSeries
+414,CONFIRMED,Use Boost.Accumulator for ledger stats
+432,CONFIRMED,Create a command to list all options, commands, and functions
+496,CONFIRMED,Add --time-colon option
+542,CONFIRMED,Create a --reset-amount/total option, to clear the expr series
+547,CONFIRMED,Allow Ledger to read data directly from CSV files
+589,CONFIRMED,Add ability to control color output
+629,CONFIRMED,Add ability to jump to transactions from a report buffer
+647,CONFIRMED,Add ability to pass offset dates to xact command
+670,CONFIRMED,Make ledger convert a sub-parser within textual.cc
+181,RESOLVED,Add a --group-by=EXPR option for clustered reports
+190,RESOLVED,Optimize finding and creation of annotated commodities
+232,RESOLVED,Support variant behaviors for -V
+270,RESOLVED,Add a feature for "object descriptions"
+271,RESOLVED,Add a {{total}} syntax for lot price specification
+272,RESOLVED,Add an entry type for specifying value constraints
+275,RESOLVED,Add the ability to have "typed" metadata
+276,RESOLVED,Allow for payee name mappings
+277,RESOLVED,Allow forecasting from a specific date
+280,RESOLVED,Check for duplicated transactions
+281,RESOLVED,Combine a random seed when hashing when using --anon
+283,RESOLVED,Create new files for commodity_pool and annotated commodities
+285,RESOLVED,Have an option for showing all amounts in the print report
+297,RESOLVED,Support debit/credit register and balance reports
+301,RESOLVED,When abbreviating account names, expand to fill
+334,RESOLVED,Support period expressions like "every 14 days"
+356,RESOLVED,Budgeting and forecasting should use all periodic entries
+363,RESOLVED,Make "only" a report query modifier, to match --only
+364,RESOLVED,Make "for" a special report query modifier, for period strings
+368,RESOLVED,A commodity annotation that asserts no negative quantities
+475,RESOLVED,A solution to the commodity pricing problem
+538,RESOLVED,-X should use posting dated values, and with -V should use current
+539,RESOLVED,Add 'any' and 'all' as operators in query expressions
+175,RESOLVED,Make an assert directive for Ledger
+176,RESOLVED,Make "until today", "from yesterday" work for -p
+178,RESOLVED,Have a way to set the date range to "this week" easily
+180,RESOLVED,Allow for period expressions "4 months ago" and "last 5 weeks"
+223,RESOLVED,Consider deprecating the --cache option
+293,RESOLVED,Option --bold-if
+481,RESOLVED,Add a native "test" command to Ledger
+218,RESOLVED,Make {{AMOUNT}} universal give the total cost/amount
+282,RESOLVED,Create an operator for value + post
+287,RESOLVED,In the equity report, if the "collapse" option is used ...
+295,RESOLVED,Restore the XML parser (code is in xml local branch)
+300,RESOLVED,Warn if a file link points to a missing file
+575,RESOLVED,Save file comments along with the transaction that follows them
+625,RESOLVED,Add "semiannually" interval
+267,RESOLVED,Restore the --price option
+268,RESOLVED,@@ -- allow negative costs
+497,RESOLVED,Review: CSV converter for multipart transactions
+229,RESOLVED,Have a primary directive
+289,RESOLVED,Integrate with libgcrypt so ledger files can be encrypted
+296,RESOLVED,Support alert warnings in Ledger
+581,RESOLVED,Port GnuCash support to 3.0
+230,CLOSED,Make format strings backward compatible with 2.x
+231,CLOSED,Allow conversion of some but not all commodities
+666,CLOSED,Add --daybreak to split multi-day time log entries into multiple days
+758,CLOSED,post.cost: No Python class registered for C++ class boost::optional<ledger::amount_t>
+760,CLOSED,value(eur, post.date) doesn't work
+407,CONFIRMED,Problem with decimal commas and Python integration support
+682,CONFIRMED,post.xact.posts yields: 'instancemethod' object is not iterable
+302,CONFIRMED,Add implicit conversion of mask_t to re
+303,CONFIRMED,After using python/server.py, it segfaults on exit
+304,CONFIRMED,Allow a Python function to be used to download quotes
+305,CONFIRMED,Allow to_xml methods on all Python-exposed objects
+306,CONFIRMED,Do a complete review of all the Python bindings
+307,CONFIRMED,Every ledger object should honor the iteration protocol
+308,CONFIRMED,Get ledger python to run within the build tree
+309,CONFIRMED,Have methods for serializing to and from a string
+310,CONFIRMED,Having problems exporting std::pair<T, U *> from Boost.Python
+311,CONFIRMED,In py_report.cc, export all "global" functions
+312,CONFIRMED,Make sure I'm handling object lifetime correctly for Boost.Python
+313,CONFIRMED,Standardize the find_account and find_commodity methods
+314,CONFIRMED,The error output when calling Python is out of order
+316,CONFIRMED,Write a Python demo script
+424,CONFIRMED,Make acprep compatible with Python 3
+665,RESOLVED,pymodule.value doesn't work yet for Python
+315,RESOLVED,Use Python to create a per-account debit/credit report
+184,RESOLVED,For those interested in the Python support
+234,CONFIRMED,Add some more configure arguments
+371,CONFIRMED,VS project files & Windows installer
+405,CONFIRMED,Strange libboost suffix on Debian Squeeze with acprep
+456,CONFIRMED,Building on Arch Linux
+544,CONFIRMED,Failing tests in Ledger should cause all tests to fail
+586,CONFIRMED,Improve build error for users without MacPorts or Fink
+594,CONFIRMED,ExprTests fail if --decimal-comma is specified in ~/.ledgerrc
+644,CONFIRMED,MacPorts #25213: ledger-devel Portfile
+669,CONFIRMED,Fix --no-python option
+671,CONFIRMED,--boost-file-suffix=.so.1.49.0 has not effect
+689,CONFIRMED,configure is not finding python on freebsd 8.2, 2.6 and 2.7 installed
+720,CONFIRMED,Linker warning about library locations
+216,CONFIRMED,Ledger packages for Debian
+238,CONFIRMED,Build .deb, .rpm, .exe (in .zip), and .pkg installs
+240,CONFIRMED,Setup virtual machines for every OS Ledger should run on
+339,CONFIRMED,Automate the building of Ledger binaries on CentOS 5
+573,CONFIRMED,acprep should accept --python --python-home and --python-version
+346,RESOLVED,Release Ledger 2.6.3
+472,RESOLVED,Regression failure in Ledger master
+215,RESOLVED,Compile fails for version 3.0
+321,RESOLVED,vim syntax doesn't support tag/pop
+324,RESOLVED,Get the CentOS build working for orc_emac
+328,RESOLVED,Build Ledger with Visual Studio
+331,RESOLVED,[MacPorts] #25213: ledger-devel Portfile
+367,RESOLVED,Missing install-sh in ledger-2.6.3.tar.gz
+419,RESOLVED,Resolve Clang warnings in the Ledger build
+430,RESOLVED,Build is failing on Ubuntu 10.10
+574,RESOLVED,Change acprep bindmg to include Boost and all dependencies
+237,RESOLVED,Avoid having to rm -fr ledger-proof
+239,RESOLVED,Ledger 2.6 is not building on Debian 5 latest
+421,RESOLVED,Provide a pre-built DMG of Leger for OS X 10.5 users
+572,RESOLVED,Rebuild Boost and Ledger with gcc-4.6
+162,RESOLVED,sm is seeing a segfault with the register command
+645,RESOLVED,acprep opt producing a debug executable
+473,RESOLVED,RegressTests failing on Ubuntu 10.10
+646,RESOLVED,configure is not finding python on freebsd 8.2
+185,CONFIRMED,Read through Peter's article, and make sure it all applies
+187,CONFIRMED,Use coverage analysis to determine if everything is being tested
+349,CONFIRMED,Implement empty tests in test/baseline
+318,CONFIRMED,New tests to create for Ledger [0/3]
+319,CONFIRMED,Use --cache=/dev/null when running the unit tests
+340,CONFIRMED,Create OptionsTests, which generate possible option combinations
+219,RESOLVED,Add a Makefile rule ensuring all options are tested and documented
+317,RESOLVED,Ledger is still failing the higher-numbered generation seed tests
+325,RESOLVED,Migrate from CppUnit to the Boost Test FrameWork
+357,RESOLVED,The parallelized RegressTests no longer notices errors
+169,CONFIRMED,Language translations for 3.0
+186,CONFIRMED,Rewrite the sample.dat file to be more realistic
+195,CONFIRMED,How to declare a statement reconciliation
+452,CONFIRMED,Fixes to the ledger wiki/README-1ST
+474,CONFIRMED,Create documentation stubs in ledger3.texi for all features
+500,CONFIRMED,Enforcing balanced books
+520,CONFIRMED,Ledger's Doxygen file is broken
+528,CONFIRMED,vim 'commentstring'
+529,CONFIRMED,vim indent file
+579,CONFIRMED,Depreciate assets (cars, equipment, buildings, etc)
+596,CONFIRMED,Improve download/install instructions for the Mac
+641,CONFIRMED,Add note about ledger openbsd port to ledger-cli.org
+642,CONFIRMED,Post to the Wiki that Ledger 3 is in nixpkgs
+643,CONFIRMED,Ledger syntax coloring for TextWrangler
+170,CONFIRMED,Fill out membership form for the Software Conservancy
+241,CONFIRMED,Complete the internal documentation, exported using Doxygen
+242,CONFIRMED,Ledger example: building a better "du"
+243,CONFIRMED,Using Ledger as a scientific analysis tool
+244,CONFIRMED,Using Ledger to track inventory
+369,CONFIRMED,Internalize the --help option in v3
+423,CONFIRMED,Rubygem for converting arbitrary csv files into ledger format
+422,RESOLVED,Correct definitions of release and beta in the README
+578,RESOLVED,Show Craig how to write testable Ledger examples
+194,RESOLVED,Initial example in ledger manual bogus
+209,RESOLVED,Escape @ characters in the manual
+385,RESOLVED,Syntax error in new ledger3 doc
+453,RESOLVED,Documentation patches for 3.0
+640,RESOLVED,Add the "autopoint" dependency for Debian to the README
+202,RESOLVED,doc/NEWS and xml
+208,RESOLVED,Special characters in manual don't show up in PDF
+662,RESOLVED,If Ledger crashes in std::string::_Rep::_M_dispose...
+221,RESOLVED,Value expressions don't work as documented
+450,RESOLVED,Document how to do inventory accounting
+#+end_example
+
 ** Update Bugzilla UUIDs
 #+begin_src emacs-lisp :results output
 (save-excursion
@@ -3671,6 +4284,15 @@ worse error.
 :Message: [[message://0f1d6093-d40f-49de-8c1e-e9d87de1cc9d@r27g2000vbn.googlegroups.com][Re: Automatic Transactions Question]]
 :Author: Will Goodwin <shadowcoder83-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
+** TODO [[bug:717][#717]] Error: Cannot convert a balance with multiple commodities to an amount
+SCHEDULED: <2012-03-30 Fri>
+:PROPERTIES:
+:ID:       39C05F6A-8E7D-4A4C-92E8-0F29FE7D2513
+:CREATED:  [2012-03-30 Fri 16:42]
+:Date: Mon, 19 Mar 2012 09:56:46 +0000
+:Message: [[message://bug-717-1@http.bugs.ledger-cli.org/][{Bug 717} New: Error: Cannot convert a balance with multiple commodities to an amount]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** TODO [[bug:722][#722]] Segfault with -S t -t t
 :PROPERTIES:
 :ID:       7FD0A7A5-04AA-4655-BCEA-4718CDE38129
@@ -3719,14 +4341,6 @@ worse error.
 :Message: [[message://bug-727-1@http.bugs.ledger-cli.org/][{Bug 727} New: Option lisp (mentioned in doc/ledger.1) doesn't exist]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:728][#728]] pricesdb command renamed to pricedb - preserve compatibility
-:PROPERTIES:
-:ID:       D0414B38-94C5-4B42-8B64-3494903C8372
-:CREATED:  [2012-03-23 Fri 03:56]
-:Date: Fri, 23 Mar 2012 08:49:01 +0000
-:Message: [[message://bug-728-1@http.bugs.ledger-cli.org/][{Bug 728} New: pricesdb command renamed to pricedb - preserve compatibility]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
 ** TODO [[bug:729][#729]] Output of cleared doesn't align
 :PROPERTIES:
 :ID:       52A69B4F-E7E8-4BBF-A295-07F443B45677
@@ -3759,28 +4373,28 @@ worse error.
 :Message: [[message://bug-732-1@http.bugs.ledger-cli.org/][{Bug 732} New: csv command required ledger file with -f]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:733][#733]] ledger cvs should not generate note when note is empty
+** TODO [[bug:733][#733]] ledger convert should not generate note when note is empty
 :PROPERTIES:
 :ID:       A3FA7601-CFF4-4125-9733-EBB2B46A31F3
 :CREATED:  [2012-03-25 Sun 15:12]
 :Date: Sun, 25 Mar 2012 11:09:08 +0000
-:Message: [[message://bug-733-1@http.bugs.ledger-cli.org/][{Bug 733} New: ledger cvs should not generate note when note is empty]]
+:Message: [[message://bug-733-1@http.bugs.ledger-cli.org/][{Bug 733} New: ledger convert should not generate note when note is empty]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:734][#734]] ledger cvs should allow empty posted date
+** TODO [[bug:734][#734]] ledger convert should allow empty posted date
 :PROPERTIES:
 :ID:       0DDDEBC0-4EBE-49DA-9019-66D10D26EED5
 :CREATED:  [2012-03-25 Sun 15:13]
 :Date: Sun, 25 Mar 2012 11:13:09 +0000
-:Message: [[message://bug-734-1@http.bugs.ledger-cli.org/][{Bug 734} New: ledger cvs should allow empty posted date]]
+:Message: [[message://bug-734-1@http.bugs.ledger-cli.org/][{Bug 734} New: ledger convert should allow empty posted date]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:735][#735]] Error: Assertion failed in "src/item.h" with ledger cvs when no date is specified
+** TODO [[bug:735][#735]] Error: Assertion failed in "src/item.h" with ledger convert when no date is specified
 :PROPERTIES:
 :ID:       52C0855F-5402-44BC-B21D-E915952B1DF6
 :CREATED:  [2012-03-25 Sun 15:13]
 :Date: Sun, 25 Mar 2012 11:14:15 +0000
-:Message: [[message://bug-735-1@http.bugs.ledger-cli.org/][{Bug 735} New: Error: Assertion failed in "src/item.h" with ledger cvs when no date is specified]]
+:Message: [[message://bug-735-1@http.bugs.ledger-cli.org/][{Bug 735} New: Error: Assertion failed in "src/item.h" with ledger convert when no date is specified]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO [[bug:736][#736]] Strange error from cvs convert
@@ -3952,13 +4566,45 @@ worse error.
 :Message: [[message://bug-756-1@http.bugs.ledger-cli.org/][{Bug 756} New: Bad pricedb info with --anon pricedb]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** WAITING [#A] [[bug:380][#380]] "Unbalanced remainder" pops up depending on the order of postings
-- State "WAITING"    from "TODO"       [2012-03-19 Mon 03:44]
+** TODO [[bug:759][#759]] Compare a string with commodity
 :PROPERTIES:
-:ID:       1E192DF6-AB81-4DC0-A205-1AAF00F64052
-:Submitter: bugzilla-daemon@mail.johnwiegley.com
-:Message:  [[message://bug-380-1@http.newartisans.com/bugzilla/][{Bug 380} New: "Unbalanced remainder" pops up depending on the order of postings]]
-:CREATED:  [2010-07-17 Sat 05:01]
+:ID:       C656DB06-596F-4B05-8181-1379DF0D7F66
+:CREATED:  [2012-03-29 Thu 19:21]
+:Date: Thu, 29 Mar 2012 21:30:54 +0000
+:Message: [[message://bug-759-1@http.bugs.ledger-cli.org/][{Bug 759} New: Compare a string with commodity]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:761][#761]] Make uncommoditized amounts behave like commoditized ones
+:PROPERTIES:
+:ID:       BECEDB46-95A1-4C66-BE10-1E9E92995296
+:CREATED:  [2012-03-30 Fri 03:44]
+:Date: Fri, 30 Mar 2012 08:26:46 +0000
+:Message: [[message://bug-761-1@http.bugs.ledger-cli.org/][{Bug 761} New: Make uncommoditized amounts behave like commoditized ones]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:762][#762]] --only doesn't work: does the same as --limit
+:PROPERTIES:
+:ID:       AF448E37-37EB-4441-B69C-55A701186A0D
+:CREATED:  [2012-03-30 Fri 15:11]
+:Date: Fri, 30 Mar 2012 16:01:36 +0000
+:Message: [[message://bug-762-1@http.bugs.ledger-cli.org/][{Bug 762} New: --only doesn't work: does the same as --limit]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:763][#763]] Error: Cannot convert a balance with multiple commodities to an amount
+:PROPERTIES:
+:ID:       9E0AC2EE-7720-4198-A83B-0FD0C96E12D6
+:CREATED:  [2012-03-30 Fri 15:10]
+:Date: Fri, 30 Mar 2012 16:13:43 +0000
+:Message: [[message://bug-763-1@http.bugs.ledger-cli.org/][{Bug 763} New: Error: Cannot convert a balance with multiple commodities to an amount]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:764][#764]] csv: posted should be renamed to aux_date or aux or auxdate
+:PROPERTIES:
+:ID:       D9606EC4-6B13-49EA-B75A-A07D8CCD0365
+:CREATED:  [2012-03-30 Fri 15:09]
+:Date: Fri, 30 Mar 2012 16:28:52 +0000
+:Message: [[message://bug-764-1@http.bugs.ledger-cli.org/][{Bug 764} New: csv: posted should be renamed to aux_date or aux or auxdate]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DEFERRED [[bug:370][#370]] Let time periods use "starting" to fix the exact start date
 - State "DEFERRED"   from "TODO"       [2012-03-11 Sun 20:31]
@@ -4364,6 +5010,15 @@ the same scopes.
    :ID:       5B20DC9F-277F-495F-806A-4A147E833C49
    :CREATED:  [2010-06-17 Thu 08:17]
    :END:
+** DONE [#A] [[bug:380][#380]] "Unbalanced remainder" pops up depending on the order of postings
+- State "DONE"       from "WAITING"    [2012-03-30 Fri 16:45]
+- State "WAITING"    from "TODO"       [2012-03-19 Mon 03:44]
+:PROPERTIES:
+:ID:       1E192DF6-AB81-4DC0-A205-1AAF00F64052
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:Message:  [[message://bug-380-1@http.newartisans.com/bugzilla/][{Bug 380} New: "Unbalanced remainder" pops up depending on the order of postings]]
+:CREATED:  [2010-07-17 Sat 05:01]
+:END:
 ** DONE [#A] [[bug:498][#498]] File inclusion is broken
    - State "DONE"       from "TODO"       [2011-03-25 Fri 16:40]
    :PROPERTIES:
@@ -14619,6 +15274,15 @@ Here's my reduced test case:
 :Message: [[message://bug-721-1@http.bugs.ledger-cli.org/][{Bug 721} New: equity shows commodities that have already been sold]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** CLOSED [[bug:728][#728]] pricesdb command renamed to pricedb - preserve compatibility
+- State "CLOSED"     from "TODO"       [2012-03-30 Fri 16:44]
+:PROPERTIES:
+:ID:       D0414B38-94C5-4B42-8B64-3494903C8372
+:CREATED:  [2012-03-23 Fri 03:56]
+:Date: Fri, 23 Mar 2012 08:49:01 +0000
+:Message: [[message://bug-728-1@http.bugs.ledger-cli.org/][{Bug 728} New: pricesdb command renamed to pricedb - preserve compatibility]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** CLOSED [[bug:757][#757]] emacs baseline test failure
 SCHEDULED: <2012-03-29 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-29 Thu 03:56] \\
@@ -14640,6 +15304,13 @@ SCHEDULED: <2012-03-29 Thu>
    :ARCHIVE_CATEGORY: Ledger
    :CREATED:  [2009-03-31 Tue 06:27]
    :END:
+** CLOSED amount_t::value should not return a priced commodity
+SCHEDULED: <2012-03-29 Thu>
+- State "CLOSED"     from "TODO"       [2012-03-30 Fri 00:43]
+:PROPERTIES:
+:ID:       78AB4B87-EACB-4B21-9FB6-C20DDCA70E08
+:CREATED:  [2012-03-29 Thu 16:26]
+:END:
 ** CLOSED budget misbehavior with account tree
    - State "CLOSED"     from "DONE"       [2009-11-02 Mon 01:40]
    - State "DONE"       from "TODO"       [2009-11-02 Mon 01:40]
@@ -18712,6 +19383,26 @@ make this a child scope of the Python session.
    :Submitter: thierry <thierry.daucourt@free.fr>
    :CREATED:  [2010-03-26 Fri 22:24]
    :END:
+** CLOSED [[bug:758][#758]] post.cost: No Python class registered for C++ class boost::optional<ledger::amount_t>
+SCHEDULED: <2012-03-29 Thu>
+- State "CLOSED"     from "TODO"       [2012-03-30 Fri 00:41]
+:PROPERTIES:
+:ID:       4D9288AE-2671-4707-B415-F3C542F206D6
+:CREATED:  [2012-03-29 Thu 15:38]
+:Date: Thu, 29 Mar 2012 20:04:27 +0000
+:Message: [[message://bug-758-1@http.bugs.ledger-cli.org/][{Bug 758} New: post.cost: No Python class registered for C++ class boost::optional<ledger::amount_t>]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** CLOSED [[bug:760][#760]] value(eur, post.date) doesn't work
+SCHEDULED: <2012-03-29 Thu>
+- State "CLOSED"     from "TODO"       [2012-03-30 Fri 00:50]
+:PROPERTIES:
+:ID:       9188F587-D455-42F7-872D-F46C09D11475
+:CREATED:  [2012-03-29 Thu 19:21]
+:Date: Thu, 29 Mar 2012 21:31:34 +0000
+:Message: [[message://bug-760-1@http.bugs.ledger-cli.org/][{Bug 760} New: value(eur, post.date) doesn't work]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 * Build
   :PROPERTIES:
   :CATEGORY: Build
