@@ -681,6 +681,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 * Bugs
   :PROPERTIES:
   :CATEGORY: Bugs
+  :OVERLAY: (face (:background "#fdebeb"))
   :END:
 ** TODO [#A] [[bug:686][#686]] Virtual transactions and the equity command
 - State "TODO"       from "CLOSED"     [2012-03-27 Tue 14:56] \\
@@ -770,6 +771,33 @@ that include virtual transactions?
 :Date: Sun, 04 Mar 2012 16:52:14 -0500
 :Message: [[message://87vcmkhw4x.fsf@buster.johnrakestraw.com][Virtual transactions and the equity command]]
 :Author: John Rakestraw <johnr-hdTKlMK9g6hNu5YjidvPyAC/G2K4zDHf@public.gmane.org>
+:END:
+** TODO (Howard) Question about streambuf::sputc
+:PROPERTIES:
+:ID:       C5373763-0EC4-4117-96FA-2C6DD47F6EDA
+:CREATED:  [2012-04-30 Mon 03:12]
+:Date: Sat, 28 Apr 2012 10:08:08 -0400
+:Message: [[message://71823A6C-B9EB-4F12-8605-9CE40619CF2E@apple.com][Re: Question about streambuf::sputc]]
+:Author: Howard Hinnant <hhinnant@apple.com>
+:END:
+** TODO (MAAD) Enter "absolute" account names
+I am keeping my personal and business finances with ledger and use the
+@account directive to construct the correct account hierarchy without entering
+it all every time.
+
+That poses a problem though, as I have to be able to move funds from my
+business receivable accounts to my checking account, which is not in the same
+prefix as my business transactions.
+
+Is there a way to specify that an account name is "absolute", i.e. not
+affected by @account directives? If not, how could I achieve this kind of
+result?
+:PROPERTIES:
+:ID:       857B48D4-8952-4A64-A00D-B7A9F5F6FD0E
+:CREATED:  [2012-04-15 Sun 21:34]
+:Date: Sat, 14 Apr 2012 09:47:33 -0700
+:Message: [[message://jwiegley/ledger/issues/63@github.com][{ledger} Enter "absolute" account names (#63)]]
+:Author: "Prof. MAAD" <reply+i-4118725-18fbec6d3699786681d425c444bd3552c11ef160-8460@reply.github.com>
 :END:
 ** TODO (Martin) Confusion about cost vs price
 I see how price and cost makes sense from ledger's point of view.  I'm
@@ -991,6 +1019,38 @@ Will do.
 :Message: [[message://19113789.1845.1331941956011.JavaMail.geo-discussion-forums@ynil17][Re: Trouble using the python interface]]
 :Author: thierry <thierry.daucourt-GANU6spQydw@public.gmane.org>
 :END:
+** TODO (Tom) Printing notes in register/csv
+:PROPERTIES:
+:ID:       F9C9835E-83EC-4C4D-B0BA-0CB2A9552DE3
+:CREATED:  [2012-05-13 Sun 08:51]
+:Date: Sat, 12 May 2012 02:47:51 -0700 (PDT)
+:Message: [[message://25012548.393.1336816071734.JavaMail.geo-discussion-forums@vbjb10][Re: Printing notes in register/csv]]
+:Author: Tom Usher <4dmm.tom-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (yunzheng) Account directive not giving warning with --strict
+:PROPERTIES:
+:ID:       ED7DC55C-D6A3-40A3-99F1-48CC9B32C315
+:CREATED:  [2012-04-08 Sun 23:12]
+:Date: Sat, 7 Apr 2012 07:59:19 -0700
+:Message: [[message://jwiegley/ledger/issues/62@github.com][{ledger} account directive not giving warning with --strict (#62)]]
+:Author: yunzheng <reply+i-4015598-813dfad6b62bc1f1c6e7432c8b479d21376683c1-8460@reply.github.com>
+:END:
+** TODO (yunzheng) Dated balance assertions not working
+:PROPERTIES:
+:ID:       31C9A484-6C06-4D9C-B6F1-F63E5366E4B3
+:CREATED:  [2012-04-01 Sun 14:48]
+:Date: Sun, 1 Apr 2012 09:28:34 -0700
+:Message: [[message://jwiegley/ledger/issues/61@github.com][{ledger} Dated balance assertions not working (#61)]]
+:Author: yunzheng <reply+i-3917273-42c16092c82266cb963e5014b71b6c4bdbff99c7-8460@reply.github.com>
+:END:
+** TODO Apply C++ and Understand to the Ledger codebase
+:PROPERTIES:
+:ID:       C381FBE5-790F-4D6B-A793-7588F8BB042E
+:CREATED:  [2012-04-05 Thu 16:11]
+:Date: Thu, 05 Apr 2012 12:27:22 -0400
+:Message: [[message://m2ty0yp2j9.fsf@pluto.luannocracy.com][Re: Ping]]
+:Author: Dave Abrahams <dave@boostpro.com>
+:END:
 ** TODO Merge Craig's changes into next branch [0/17]
 - [ ] 0001-correct-cleared_format-to-align-total-lines.patch
 - [ ] 0002-fixed-bug-in-budget-format-that-failed-when-total-ex.patch
@@ -1015,6 +1075,11 @@ Will do.
 :Date: Tue, 22 Nov 2011 14:35:53 -0600 (CST)
 :Message: [[message://8592039.8154.1321994153563.JavaMail.SYSTEM@dlev230][{Code Collaborator} Respond to new chat in Review #4115]]
 :Submitter: Cody Addison <c-addison@ti.com>
+:END:
+** TODO Remove <xmlattr> entries in property trees
+:PROPERTIES:
+:ID:       87CB99B7-DDD9-4DC0-A39A-CB190BF0E09B
+:CREATED:  [2012-05-18 Fri 01:38]
 :END:
 ** TODO Rewrite reporting code to use report_* variants of journal objects
 :PROPERTIES:
@@ -4285,7 +4350,6 @@ worse error.
 :Author: Will Goodwin <shadowcoder83-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
 ** TODO [[bug:717][#717]] Error: Cannot convert a balance with multiple commodities to an amount
-SCHEDULED: <2012-03-30 Fri>
 :PROPERTIES:
 :ID:       39C05F6A-8E7D-4A4C-92E8-0F29FE7D2513
 :CREATED:  [2012-03-30 Fri 16:42]
@@ -4605,6 +4669,85 @@ SCHEDULED: <2012-03-30 Fri>
 :Date: Fri, 30 Mar 2012 16:28:52 +0000
 :Message: [[message://bug-764-1@http.bugs.ledger-cli.org/][{Bug 764} New: csv: posted should be renamed to aux_date or aux or auxdate]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:765][#765]] bucket command drops first letter of following account name
+:PROPERTIES:
+:ID:       0161EB1E-8228-4D8D-A953-58B0E74B2485
+:CREATED:  [2012-04-01 Sun 22:14]
+:Date: Mon, 02 Apr 2012 03:01:41 +0000
+:Message: [[message://bug-765-1@http.bugs.ledger-cli.org/][{Bug 765} New: bucket command drops first letter of following account name]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:766][#766]] Deprecation of '@' not carried through in example file drewr3.dat
+:PROPERTIES:
+:ID:       F2A111A0-0458-4C76-A05F-8753DD1D8CB1
+:CREATED:  [2012-04-01 Sun 22:14]
+:Date: Mon, 02 Apr 2012 03:08:47 +0000
+:Message: [[message://bug-766-1@http.bugs.ledger-cli.org/][{Bug 766} New: Deprecation of '@' not carried through in example file drewr3.dat]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:767][#767]] Apparent new form of alias command is undocumented
+:PROPERTIES:
+:ID:       2DEEE815-CFB0-4005-BE3D-783EBDFE33F0
+:CREATED:  [2012-04-01 Sun 22:41]
+:Date: Mon, 02 Apr 2012 03:13:35 +0000
+:Message: [[message://bug-767-1@http.bugs.ledger-cli.org/][{Bug 767} New: Apparent new form of alias command is undocumented]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:769][#769]] Dated balance assertions not working
+I want to be able to check the (real) balance of my account and enter the
+amount (with the date) as an assertion check. So I would know if something
+doesn't match up or if I missed some transactions.
+
+Ledger 3.0 seems to have a "verification" method described in the manual:
+http://www.ledger-cli.org/3.0/doc/ledger3.html#Balance-verification
+
+I tried this method and put the check at the end of my ledger. But when I put
+it at the end it doesn't seem to work properly.
+
+I used the following test ledger:
+#+begin_src ledger
+2010-01-01 * Starting Balance
+    Assets:Bank:Checking        1000.00 EUR
+    Equity:Opening-Balances
+
+2010-01-02 * Shopping
+    Expenses:shopping           10 EUR
+    Assets:Bank:Checking
+
+2010-01-03 * Some more shopping
+    Expenses:shopping           5 EUR
+    Assets:Bank:Checking
+
+; verify balance
+2010-01-02 * Balance Check
+    Assets:Bank:Checking        -0.0 EUR    = 990.00 EUR
+#+end_src
+
+If I move the "Balance check" before the "Some more shopping" entry, it seems
+to work.
+:PROPERTIES:
+:ID:       42BEAF65-97B7-4076-B1A2-08792E72CB59
+:CREATED:  [2012-04-02 Mon 14:38]
+:END:
+** TODO account directive not giving warning with --strict
+Using ledger 3.0, with the following ledger file:
+#+begin_src ledger
+account Assets
+account Assets:Bank
+account Assets:Bank:Checking
+account Expenses:Shopping
+
+2012-04-07 * Shopping
+    Expenses:Foo:Bar                10 EUR
+    Assets:Bank:Checking
+#+end_src
+
+And the command: "ledger -f test.ledger --strict" does not give any warning
+about Expenses:Foo:Bar being not defined.
+:PROPERTIES:
+:ID:       60440873-F167-43B6-88F6-443BD08B12B8
+:CREATED:  [2012-05-27 Sun 01:28]
 :END:
 ** DEFERRED [[bug:370][#370]] Let time periods use "starting" to fix the exact start date
 - State "DEFERRED"   from "TODO"       [2012-03-11 Sun 20:31]
@@ -15294,6 +15437,14 @@ SCHEDULED: <2012-03-29 Thu>
 :Message: [[message://bug-757-1@http.bugs.ledger-cli.org/][{Bug 757} New: emacs baseline test failure]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** CLOSED [[bug:770][#770]] Options --monthly and --invert do not work together
+SCHEDULED: <2012-04-05 Thu>
+- State "CLOSED"     from "TODO"       [2012-04-06 Fri 01:02] \\
+  Fixed by ad7ace9
+:PROPERTIES:
+:ID:       FCE11C8D-D9FC-43AE-9564-0E76B2A62004
+:CREATED:  [2012-04-05 Thu 16:01]
+:END:
 ** CLOSED acprep upload is deleting the file after it uploads it
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:47] \\
   Cannot be tested.
@@ -15498,6 +15649,7 @@ SCHEDULED: <2012-03-29 Thu>
 * Emacs
   :PROPERTIES:
   :CATEGORY: Emacs
+  :OVERLAY: (face (:background "#fdebeb"))
   :END:
 ** TODO [#A] [[bug:638][#638]] ledger-mode dropping first digit of inserted dates
 I use Aquamacs on OS X.  When I use the ledger-mode facility for adding
@@ -16251,7 +16403,84 @@ to ledger.el locally and problem is fixed.
 * Features
   :PROPERTIES:
   :CATEGORY: Features
+  :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO (Tim) Reply: RESTful web service API to Ledger
+SCHEDULED: <2012-05-28 Mon>
+:PROPERTIES:
+:ID:       C4405B98-F812-415E-94D5-BB0F19C142EA
+:CREATED:  [2012-05-28 Mon 03:36]
+:Date: Sun, 27 May 2012 22:01:37 -0700 (PDT)
+:Message: [[message://29a53482-77c2-45e8-af68-2eec0aa57e7f@googlegroups.com][RESTful web service API to Ledger]]
+:Author: Tim Crews <tim-QJ3Fn9itRil4wfmgmkLWVgC/G2K4zDHf@public.gmane.org>
+:END:
+** TODO (Zack) Templating for more complicated reports?
+:PROPERTIES:
+:ID:       D781A9E0-61AF-40CD-B3FA-B5212312CD57
+:CREATED:  [2012-05-21 Mon 03:48]
+:Date: Thu, 17 May 2012 09:19:09 -0700
+:Message: [[message://CAOKFOQHi=rPwoDd1ehumrWdn2gurNfENBPsPzTk_bS0Wthp9oQ@mail.gmail.com][Templating for more complicated reports?]]
+:Author: Zack Williams <zdwzdw-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO Add the ability to enter "absolute" account names
+I am keeping my personal and business finances with ledger and use the
+@account directive to construct the correct account hierarchy without entering
+it all every time.
+
+That poses a problem though, as I have to be able to move funds from my
+business receivable accounts to my checking account, which is not in the same
+prefix as my business transactions.
+
+Is there a way to specify that an account name is "absolute", i.e. not
+affected by @account directives? If not, how could I achieve this kind of
+result?
+:PROPERTIES:
+:ID:       B28EB735-78C4-4D41-AF87-FCBF381D9D32
+:CREATED:  [2012-05-27 Sun 01:27]
+:END:
+** TODO Plan for Ledger 3.1
+- C++11
+- CMake
+- Boost.Spirit
+:PROPERTIES:
+:ID:       9866E0EA-AD4B-4C83-A4B6-5D5F9FC9F27A
+:CREATED:  [2012-05-17 Thu 17:28]
+:END:
+** TODO Use Boost.Exception instead of custom error contexts
+:PROPERTIES:
+:ID:       DD26960B-C62C-455D-BFED-17BD32346273
+:CREATED:  [2012-05-14 Mon 12:07]
+:END:
+** CANCELED Use Boost.Expressive instead of Boost.Regex
+- State "CANCELED"   from "TODO"       [2012-05-28 Mon 04:15] \\
+  No, because it doesn't support ICU.
+:PROPERTIES:
+:ID:       0E23E0F3-384F-4558-BAB7-2EB31286A3EF
+:CREATED:  [2012-05-17 Thu 18:05]
+:END:
+** TODO Use Boost.Flyweight to manage recurring objects
+:PROPERTIES:
+:ID:       A35892E5-B2E4-41BB-B33A-152579E3C39B
+:CREATED:  [2012-05-14 Mon 20:32]
+:END:
+** DONE Use Boost.Format instead of straccstream
+- State "DONE"       from "TODO"       [2012-05-28 Mon 04:15]
+:PROPERTIES:
+:ID:       4F66F351-AF52-4204-8247-00360CB703FB
+:CREATED:  [2012-05-14 Mon 12:07]
+:END:
+** TODO Use numeric_cast<> to guard against overflow casts
+SCHEDULED: <2012-05-28 Mon>
+:PROPERTIES:
+:ID:       73482649-D65A-4300-9DAF-EB7D23846BF0
+:CREATED:  [2012-05-14 Mon 12:29]
+:END:
+** TODO Use regex_token_iterator with -1 instead of strtok/Tokenizer
+SCHEDULED: <2012-05-28 Mon>
+:PROPERTIES:
+:ID:       F1C6299D-3714-40AB-B508-6C0A02931DD6
+:CREATED:  [2012-05-17 Thu 18:01]
+:END:
 ** TODO [[bug:173][#173]] Make the prices report use standard report query terms
    The idea here is that report query filtering is done before the building up
    of commodities prices, so that you can see which commodities are involved
@@ -18970,7 +19199,33 @@ SCHEDULED: <2012-03-09 Fri>
 * Python
   :PROPERTIES:
   :CATEGORY: Python
+  :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO (Henry) Getting start with Ledger and Python
+:PROPERTIES:
+:ID:       D79CDE1F-EE46-41D8-8374-25D524BC23FA
+:CREATED:  [2012-05-13 Sun 08:51]
+:Date: Fri, 11 May 2012 23:46:28 -0700 (PDT)
+:Message: [[message://64669b5f-13b4-4c93-b77e-44046bdc3ec7@dg7g2000vbb.googlegroups.com][Re: Getting start with Ledger and Python]]
+:Author: henry atting <me.henryatting-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (Michael) Segfault embedding ipython
+:PROPERTIES:
+:ID:       6790327F-4614-4623-A85D-0010EC9C17B7
+:CREATED:  [2012-04-09 Mon 00:04]
+:Date: Sun, 8 Apr 2012 20:59:45 -0400
+:Message: [[message://CANt6aO_uuXF2EXvwDu9_TMzA1=mFY4Y89GW_R40amyKfhKttCQ@mail.gmail.com][Segfault embedding ipython]]
+:Author: "Michael [Plouj] Ploujnikov" <ploujj-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (Tim) Reply: Getting start with Ledger and Python
+SCHEDULED: <2012-05-28 Mon>
+:PROPERTIES:
+:ID:       FB0B5F94-ABB8-411B-8B4B-1DDEEDAD132F
+:CREATED:  [2012-05-28 Mon 03:36]
+:Date: Sun, 27 May 2012 16:39:38 -0700 (PDT)
+:Message: [[message://893d3422-f27d-4040-bed8-bce6694bdd6d@googlegroups.com][Re: Getting start with Ledger and Python]]
+:Author: Tim Crews <tim-QJ3Fn9itRil4wfmgmkLWVgC/G2K4zDHf@public.gmane.org>
+:END:
 ** TODO [[bug:407][#407]] Problem with decimal commas and Python integration support
 - State "TODO"       from "DEFERRED"   [2012-03-11 Sun 20:31]
 - State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
@@ -19127,7 +19382,7 @@ Abort trap: 6
    :ID:       9F26072D-C8E1-49CB-BF28-E2D32B170108
    :CREATED:  [2009-11-19 Thu 17:37]
    :END:
-** DEFERRED [[bug:424][#424]] Make acprep compatible with Python 3                       :ATTACH:
+** DEFERRED [[bug:424][#424]] Make acprep compatible with Python 3                                    :ATTACH:
 - State "DEFERRED"   from "TODO"       [2012-02-28 Tue 03:19]
    - Note taken on [2010-11-26 Fri 12:55] \\
      [[message://f97b7781-0cd1-48d4-b6d6-ec75688c8241@q14g2000yqe.googlegroups.com][Re: acprep Python 3 {patch}]]
@@ -19360,7 +19615,7 @@ make this a child scope of the Python session.
    :ID:       444EFEE1-D873-4FD3-BB07-4E605BCB2BF4
    :CREATED:  [2008-10-08 Wed 00:58]
    :END:
-** WORKSFORME [#A] [[bug:184][#184]] For those interested in the Python support         :blocker:
+** WORKSFORME [#A] [[bug:184][#184]] For those interested in the Python support                      :blocker:
    - State "WORKSFORME" from "TODO"       [2010-06-08 Tue 17:26] \\
      This can happen if the Python that Ledger is linked to is not the same as the
      Python that your libboost_python is linked to.
@@ -19406,7 +19661,65 @@ SCHEDULED: <2012-03-29 Thu>
 * Build
   :PROPERTIES:
   :CATEGORY: Build
+  :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO (Andreas) Building recent git src with --prefix
+SCHEDULED: <2012-05-28 Mon>
+:PROPERTIES:
+:ID:       EA37609C-3F4F-49D8-9316-E828224C84F3
+:CREATED:  [2012-05-27 Sun 17:26]
+:Date: Sat, 26 May 2012 02:28:21 +0200
+:Message: [[message://87sjen6b16.fsf@web.de][building recent git src with --prefix]]
+:Author: Andreas Reuleaux <reuleaux-S0/GAf8tV78@public.gmane.org>
+:END:
+** TODO (Johann) Reply: Ledger has switched to CMake
+:PROPERTIES:
+:ID:       B6F12F32-4421-40EC-82DD-4F827102AEC5
+:CREATED:  [2012-05-21 Mon 03:48]
+:Date: Sun, 20 May 2012 15:59:53 +0200
+:Message: [[message://CAE+8KM34S_V+cw2Oqm12U7ARHOAqB0a=7H-Ckw2ndYY41AjvLQ@mail.gmail.com][Re: Ledger has switched to CMake]]
+:Author: Johann Klähn <kljohann-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (Max) Build error on mingw/msys
+- Note taken on [2012-04-09 Mon 00:04] \\
+  A few changes to RegressTests.py to account for different path
+  seperators, shell quoting and shell escapes and most of the baseline and
+  regress tests pass (instead of special casing python's os and os.path all
+  over the place, I am using a sitecustomize.py to patch them at
+  runtime). The path/shell fixes aren't complete , so there are still some
+  failures there, but I guess they aren't very intereseting.  Most of the
+  remaining failing tests have unicode characters.
+
+  The output is here, along with the changes to RegressTests.py:
+
+      http://paste.pocoo.org/show/577470/
+
+  I guess the problem is with file input in the mingw libraries, but I
+  haven't figured out where to look yet. Any tips there?
+So my attempt to get acprep to run aclocal doesn't work. That explains libtool
+emitting the wrong commands. A little fiddling with the autoconf stuff got it
+working (I haven't minimized and verified the commands, but I think just
+aclocal -I m4 and ./config.status libtool are enough.).
+
+The last thing missing from mingw is an implementation of strptime. I looked
+at a few and the one here is relatively self contained:
+
+http://googlesitemapgenerator.googlecode.com/svn/trunk/src/common/timesupport.cc
+
+I inserted it into the project using sha1.cpp/sha1.h as a model and the build
+completes successfully (to be clear, my primary goal is a working windows
+build and some documentation about doing that, any changes to the official
+sources that simplify those goals are a bonus).
+
+Next step is to try to get the tests working (the simple commands I have tried
+do work and at a glance do output correct values).
+:PROPERTIES:
+:ID:       66FE3CBB-C98D-4B20-97A8-BADB26B3A360
+:CREATED:  [2012-04-09 Mon 00:03]
+:Date: Sat, 24 Mar 2012 06:55:27 -0700 (PDT)
+:Message: [[message://4979b941-fe9f-4b66-b038-2980701f1cc1@lf20g2000pbb.googlegroups.com][Re: Build error on mingw/msys]]
+:Author: Max Erickson <maxerickson-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 ** TODO (Max) Build error on mingw/msys
 :PROPERTIES:
 :ID:       47B3A907-7AF6-40DC-AD70-05AAFA422F6A
@@ -19428,10 +19741,84 @@ SCHEDULED: <2012-03-29 Thu>
 :Message: [[message://bug-677-1-QslvLBxLoe@http.bugs.ledger-cli.org/][{Bug 677} Error building current next branch: no type named ‘key_type’ in ‘class ledger::date_specifier_t’]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** TODO Compare gcc optimized Ledger with gcc
+Gcc timing results:
+:OUTPUT:
+vulcan ~/src/ledger $ average ~/Products/ledger/opt/ledger -f build/mondo.dat reg exp --invert --monthly -o /dev/null
+5.24763050079
+:END:
+:PROPERTIES:
+:ID:       56C77989-E71A-4772-8FD7-5A6968E595D8
+:CREATED:  [2012-05-03 Thu 02:38]
+:END:
+** TODO Convert Ledger 3.1 to use CMake
+:PROPERTIES:
+:ID:       EE0A5F5B-EBA8-4098-8BE0-F7E8A6C3DB7E
+:CREATED:  [2012-05-16 Wed 21:13]
+:END:
+** TODO Ledger binaries for OpenBSD
+:PROPERTIES:
+:ID:       DA81FB92-BC4B-4BD0-9B29-B2EE3F4F2458
+:CREATED:  [2012-05-04 Fri 02:19]
+:Date: Fri, 4 May 2012 14:30:29 +1200
+:Message: [[message://20120504023029.GA8816@li165-50.members.linode.com][Ledger binaries]]
+:Author: alex@abushkevi.ch
+:END:
+** TODO Ledger cannot compile with icc due to lots of undefined symbols
+:OUTPUT:
+  CXXLD    ledger
+ranlib: warning for library: .libs/ledger.a the table of contents is empty (no object file members in the library define global symbols)
+ipo: warning #11060: ./.libs/libledger_report.a is an archive, but has no symbols (this can happen if ar is used where xiar is needed)
+ipo: warning #11010: file format not recognized for ./.libs/libledger_report.a
+[...]
+ipo: warning #11021: unresolved __cxa_guard_acquire
+        Referenced in /var/folders/tr/f6srfk8s709583xg8__xnnrm0000gn/T/ipo_icc2ayksM.o
+ipo: warning #11021: unresolved __cxa_guard_release
+        Referenced in /var/folders/tr/f6srfk8s709583xg8__xnnrm0000gn/T/ipo_icc2ayksM.o
+[...]
+ipo: remark #11000: performing multi-file optimizations
+ipo: remark #11006: generating object file /var/folders/tr/f6srfk8s709583xg8__xnnrm0000gn/T/ipo_icc2ayksM.o
+Undefined symbols for architecture x86_64:
+  "__ZN6ledger12_desc_bufferE", referenced from:
+      _main in ipo_icc2ayksM.o
+      __ZN6ledger14global_scope_t15execute_commandESt4listINS_6stringESaIS2_EEb in ipo_icc2ayksM.o
+      __ZN6ledger14global_scope_t9read_initEv in ipo_icc2ayksM.o
+      __ZNK6ledger8option_tINS_8report_tEE3strEv in ipo_icc2ayksM.o
+      __ZNK6ledger8option_tINS_14global_scope_tEE3strEv in ipo_icc2ayksM.o
+      __ZN6ledger8option_tINS_9session_tEE7handlerERNS_12call_scope_tE in ipo_icc2ayksM.o
+      __ZN6ledger8option_tINS_8report_tEE7handlerERNS_12call_scope_tE in ipo_icc2ayksM.o
+      ...
+[...]
+:END:
+:PROPERTIES:
+:ID:       1983C10C-5810-482D-A525-D2EAAB0F45A1
+:CREATED:  [2012-05-03 Thu 02:35]
+:END:
+** TODO Ledger gcov is failing to configure/build with Clang
+:PROPERTIES:
+:ID:       A37ED8AA-74BD-4981-9D24-603B92CDD9E1
+:CREATED:  [2012-04-27 Fri 15:33]
+:END:
+** TODO Ledger proof build is hanging
+:OUTPUT:
+46972   ??  SN     0:11.89 /opt/local/bin/valgrind -q ./ledger --verify --columns=80 --args-only -f /Users/johnw/Products/ledger/ledger-proof-python-gcc47/test/regress/4D9288AE_py.test python test/regress/4D9288AE.py
+46992   ??  SN     0:11.92 /opt/local/bin/valgrind -q ./ledger --verify --columns=80 --args-only -f /Users/johnw/Products/ledger/ledger-proof-python-gcc47/test/regress/78AB4B87_py.test python test/regress/78AB4B87.py
+47012   ??  SN     0:11.95 /opt/local/bin/valgrind -q ./ledger --verify --columns=80 --args-only -f /Users/johnw/Products/ledger/ledger-proof-python-gcc47/test/regress/9188F587_py.test python test/regress/9188F587.py
+:END:
+:PROPERTIES:
+:ID:       7130C12B-E931-43D2-B510-0CB7B6B5BF50
+:CREATED:  [2012-04-13 Fri 14:45]
+:END:
 ** TODO Report an error if the version of Boost is not high enough
 :PROPERTIES:
 :ID:       06724B9B-CD52-4440-ACFA-74FF7779EF1D
 :CREATED:  [2012-03-20 Tue 03:26]
+:END:
+** TODO Ticket #25213: ledger-devel Portfile
+:PROPERTIES:
+:ID:       0AA615B8-AEA0-4C87-8A70-78BB5DFEFCF2
+:CREATED:  [2012-05-14 Mon 23:45]
+:URL: [[https://trac.macports.org/ticket/25213][#25213 (ledger-devel Portfile)]]
 :END:
 ** TODO [[bug:234][#234]] Add some more configure arguments
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:36]
@@ -19893,6 +20280,24 @@ how do I get you the config.log file?
 :Message: [[message://bug-720-1@http.bugs.ledger-cli.org/][{Bug 720} New: Linker warning about library locations]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** TODO [[bug:768][#768]] OS X installer is incomplete
+:PROPERTIES:
+:ID:       4E65ACE6-97D3-4FCD-BFD2-EAE50C63921C
+:CREATED:  [2012-04-01 Sun 23:40]
+:Date: Mon, 02 Apr 2012 04:11:54 +0000
+:Message: [[message://bug-768-1@http.bugs.ledger-cli.org/][{Bug 768} New: OS X installer is incomplete]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO acprep check, with no build tree, fails to build dependencies
+:PROPERTIES:
+:ID:       FBA9DE92-570A-4238-95E5-6FEC5702E66C
+:CREATED:  [2012-05-20 Sun 05:17]
+:END:
+** TODO main.cc and global.cc don't use the precompiled header
+:PROPERTIES:
+:ID:       B67A337C-EB4A-478B-A209-34B3C73D41CD
+:CREATED:  [2012-05-19 Sat 18:37]
+:END:
 ** TODO make distcheck (normal) and --python proof builds failing
 :PROPERTIES:
 :ID:       16F91AF7-D463-4B5A-BCBF-05D15CF2EE87
@@ -19900,6 +20305,66 @@ how do I get you the config.log file?
 :Date: Sat, 24 Mar 2012 07:02:03 -0500
 :Message: [[message://20120324120203.GA32930@vulcan.local][{ledger} Proof build FAILED]]
 :Author: John Wiegley <johnw@boostpro.com>
+:END:
+** TODO [#C] (Craig) Wacky MPFR error with latest build
+- Note taken on [2012-05-21 Mon 20:18] \\
+  This appears to be a ledger bug, but I am at a loss to explain it, so here goes:
+
+  The MPFR assertion failure is caused when I have both the following
+  transactions in my ledger:
+
+  2012/03/29 * (DD) Travel Reimburse
+      Expenses:Millennium:Travel            $ -5495.49
+      ;Trip: 2012-03-05 Ulm/Uberlingen
+      Assets:NFCU:Checking
+
+  2012/03/29 * (DD) Travel Reimburse
+      Expenses:Millennium:Travel            $ -1653.05
+      ;Trip: 2012-03-19 Santa Fe SC68
+      Assets:NFCU:Checking
+
+  If I delete either or both of them the error goes away.
+
+  If I isolate them in there own data file and run ledger -f on that
+  file everything works.  If I remove them from my ledger and include
+  that individual data file the failure comes back.
+
+  Let me repeat: if I delete either or both of the transactions the
+  failure goes away.  If both of them are in my ledger the MPFR
+  assertion error happens.
+
+  Now it gets even stranger.  If I repeat both transactions in the
+  ledger, the error goes away.
+
+  I will keep troubleshooting.
+I can decide whether this is ledger or MPFR.
+
+I can execute commands some commands just fine:
+
+0:37:09 ~/FinanceData (master) > ledger cleared Joint
+        $ 362.10           $ 3664.26    2012/05/19    Assets:VWCU:Joint
+>
+0:38:35 ~/FinanceData (master) > ledger cleared Joint U:Grace
+       $ 1269.10           $ 4799.28                 Assets:VWCU
+        $ 893.38            $ 997.21    2012/05/18      Grace
+        $ 362.10           $ 3664.26    2012/05/19      Joint
+----------------  ----------------    ---------
+       $ 1269.10           $ 4799.28
+
+but others fail with an MPFR assertion error:
+
+10:39:10 ~/FinanceData (master) > ledger bal
+get_str.c:153: MPFR assertion failed: size_s1 >= m
+Abort trap: 6
+
+I can't seem to find any rhyme or reason to why it fails on really
+simple commands but not on more complex.
+:PROPERTIES:
+:ID:       940FBB71-CD5F-4C45-A73B-AC3C4F178D0B
+:CREATED:  [2012-05-21 Mon 20:17]
+:Date: Mon, 21 May 2012 10:41:26 -0700
+:Message: [[message://CAKs9TOJ-NT-LFkEWikffuX5Xw2Ny-gOmo98Tgtj7CbBaG=LBGQ@mail.gmail.com][Wacky MPFR error with latest build]]
+:Author: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
 ** DEFERRED [[bug:216][#216]] Ledger packages for Debian
    - State "DEFERRED"   from "TODO"       [2010-06-10 Thu 14:52]
@@ -20043,6 +20508,13 @@ how do I get you the config.log file?
    :ID:       EEA6F9AB-C03D-4FA4-88AF-7FDAC9750598
    :CREATED:  [2010-10-06 Wed 02:25]
    :END:
+** DONE Convert Ledger tests to CMake
+SCHEDULED: <2012-05-20 Sun>
+- State "DONE"       from "TODO"       [2012-05-20 Sun 16:41]
+:PROPERTIES:
+:ID:       58B7A8A6-F8A8-48F0-9DAD-F5F97A79E1F5
+:CREATED:  [2012-05-19 Sat 19:38]
+:END:
 ** DONE Create a MacPorts Portfile for Ledger
    - State "DONE"       [2008-09-28 Sun 17:09]
    :PROPERTIES:
@@ -20150,6 +20622,24 @@ how do I get you the config.log file?
    :ID:       7D51AB9B-71FB-476F-AFE4-7F4C1C543A41
    :CREATED:  [2010-06-04 Fri 06:36]
    :END:
+** DONE Ledger download link is broken
+SCHEDULED: <2012-05-16 Wed>
+- State "DONE"       from "TODO"       [2012-05-16 Wed 22:20]
+- State "TODO"       from "STARTED"    [2012-05-12 Sat 19:56]
+:PROPERTIES:
+:ID:       B9C3D782-BA5B-42DB-AC96-63DF3CB7D0A8
+:CREATED:  [2012-05-10 Thu 04:24]
+:Date: Wed, 9 May 2012 21:09:28 -0400
+:Message: [[message://CAMhgfU+Gaom9pFwBibWNHbvkWFQQVqPxMNQtrHfFPZgoyArk5A@mail.gmail.com][Link broken]]
+:Author: Pier-Luc Caron St-Pierre <pierluc.caronstpierre-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** DONE Ledger won't build with g++-4.7
+SCHEDULED: <2012-05-20 Sun>
+- State "DONE"       from "TODO"       [2012-05-20 Sun 16:41]
+:PROPERTIES:
+:ID:       2A9E75B2-480E-4468-9E1A-747446B90672
+:CREATED:  [2012-05-19 Sat 18:37]
+:END:
 ** DONE Make the optimized build for tools/push use -j16
    - State "DONE"       from "TODO"       [2009-11-27 Fri 13:51]
    :PROPERTIES:
@@ -20461,6 +20951,16 @@ how do I get you the config.log file?
    :ID:       7A3A602A-3F31-4E4C-9941-F5BBF0D58ED6
    :CREATED:  [2009-10-23 Fri 06:13]
    :END:
+** DONE acprep should report an error if cmake cannot be found
+SCHEDULED: <2012-05-22 Tue>
+- State "DONE"       from "TODO"       [2012-05-23 Wed 02:01]
+:PROPERTIES:
+:ID:       D7EE7500-7C79-4A29-8E63-5F82D002C3A8
+:CREATED:  [2012-05-22 Tue 20:28]
+:Date: Tue, 22 May 2012 19:28:16 -0500
+:Message: [[message://CAFwo6Tb0Rh-A9TeEaz_OACw3mXhVMWD++WpAo6yk0-ieo9OkbQ@mail.gmail.com][Compile-time warnings]]
+:Author: Hyrum K Wright <hyrum-krATTUSiS2OIzK9ZyXRbJA@public.gmane.org>
+:END:
 ** DONE acprep's --boost option does not accept a value
    - State "DONE"       from "TODO"       [2009-11-07 Sat 06:34]
    :PROPERTIES:
@@ -20475,12 +20975,40 @@ how do I get you the config.log file?
    :ID:       3165A1E3-F216-4BA2-A09E-9C442D900802
    :CREATED:  [2009-03-09 Mon 20:16]
    :END:
+** DONE make distcheck is failing due to path issues
+SCHEDULED: <2012-04-24 Tue>
+- State "DONE"       from "TODO"       [2012-04-25 Wed 03:26]
+:OUTPUT:
+make  check-TESTS
+'../test/regress' is not a directory or file (cwd /Volumes/Data/Products/ledger-proof-clang/default/ledger-3.0.0-20120217)FAIL: RegressTests
+'../test/baseline' is not a directory or file (cwd /Volumes/Data/Products/ledger-proof-clang/default/ledger-3.0.0-20120217)FAIL: BaselineTests
+'../test/manual' is not a directory or file (cwd /Volumes/Data/Products/ledger-proof-clang/default/ledger-3.0.0-20120217)FAIL: ManualTests
+'../test/input' is not a directory or file (cwd /Volumes/Data/Products/ledger-proof-clang/default/ledger-3.0.0-20120217)FAIL: ConfirmTests
+...................
+:END:
+:PROPERTIES:
+:ID:       F756F706-C66C-41B1-A311-ED1649219D9F
+:CREATED:  [2012-04-23 Mon 13:57]
+:Date: Mon, 23 Apr 2012 08:50:53 -0500
+:Message: [[message://20120423135053.GA49765@vulcan.local][{ledger} Proof build FAILED]]
+:Author: John Wiegley <johnw@boostpro.com>
+:END:
 ** DONE myacprep and tools/build shoud accept --opt, --prof, --gcov
    - State "DONE"       [2009-02-21 Sat 15:53]
    :PROPERTIES:
    :ID:       4CCF74DD-62AC-47F6-9E84-9D4C2EA6FB37
    :CREATED:  [2009-02-21 Sat 15:19]
    :END:
+** DONE [#C] (Philip) Disable gettext in Ledger's CMake
+SCHEDULED: <2012-05-24 Thu>
+- State "DONE"       from "TODO"       [2012-05-25 Fri 01:59]
+:PROPERTIES:
+:ID:       859E695B-282D-4372-9024-3A4EB94EE1DF
+:CREATED:  [2012-05-23 Wed 05:38]
+:Date: Wed, 23 May 2012 10:25:13 +0100
+:Message: [[message://m2mx4zntae.fsf@bo.sak.lan][Re: Ledger has switched to CMake]]
+:Author: Philip Rooke <phil-EN7OJFYE3RC1Qrn1Bg8BZw@public.gmane.org>
+:END:
 ** DONE [#C] Build Ledger master on Ubuntu so I can figure out Nafai's problem
    - State "DONE"       [2008-08-31 Sun 21:21] \\
      It's all working now, after three commits to fix things.
@@ -20700,7 +21228,7 @@ how do I get you the config.log file?
    :ID:       427F8D8D-39CB-47ED-8438-BF07BBBE6672
    :CREATED:  [2009-04-24 Fri 17:13]
    :END:
-** WONTFIX [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users       :blocker:
+** WONTFIX [[bug:421][#421]] Provide a pre-built DMG of Leger for OS X 10.5 users                    :blocker:
 - State "WONTFIX"    from "DEFERRED"   [2012-02-28 Tue 21:38]
    - State "DEFERRED"   from "TODO"       [2011-02-12 Sat 18:18]
    :PROPERTIES:
@@ -20716,7 +21244,7 @@ how do I get you the config.log file?
    :ID:       BE861EF4-241B-4D26-A12C-03E8B369DA4F
    :CREATED:  [2011-08-18 Thu 10:01]
    :END:
-** WORKSFORME [#A] [[bug:162][#162]] sm is seeing a segfault with the register command  :blocker:
+** WORKSFORME [#A] [[bug:162][#162]] sm is seeing a segfault with the register command               :blocker:
    - State "WORKSFORME" from "TODO"       [2010-06-17 Thu 20:49]
    - State "TODO"       from "WORKSFORME" [2010-06-16 Wed 18:47]
    - State "WORKSFORME" from "TODO"       [2010-06-06 Sun 03:22] \\
@@ -20846,6 +21374,7 @@ how do I get you the config.log file?
 * Tests
   :PROPERTIES:
   :CATEGORY: Tests
+  :OVERLAY: (face (:background "#fdebeb"))
   :END:
 ** TODO [[bug:185][#185]] Read through Peter's article, and make sure it all applies                  :ATTACH:
    :PROPERTIES:
@@ -21221,6 +21750,7 @@ how do I get you the config.log file?
 * Docs
   :PROPERTIES:
   :CATEGORY: Docs
+  :OVERLAY: (face (:background "#fdebeb"))
   :END:
 ** TODO (Raphael) Reply: Optimal automatic virtual transactions
 :PROPERTIES:
@@ -21229,6 +21759,11 @@ how do I get you the config.log file?
 :Date: Tue, 13 Mar 2012 19:32:43 -0700 (PDT)
 :Message: [[message://9778734.2026.1331692363192.JavaMail.geo-discussion-forums@vbmf37][Optimal automatic virtual transactions]]
 :Author: Raphael Lorenzeto <raphael.lorenzeto-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO Convert README.textile to README.md
+:PROPERTIES:
+:ID:       9CD9430C-8F97-4CA2-AC05-ABB59762D75F
+:CREATED:  [2012-05-19 Sat 19:33]
 :END:
 ** TODO Write up a mini-doc on the value expression language
 :PROPERTIES:
@@ -21329,67 +21864,6 @@ how do I get you the config.log file?
    :Submitter: press0 <press0@gmail.com>
    :Date:     Mon, 18 Apr 2011 01:20:35 -0500
    :END:
-** TODO [[bug:528][#528]] vim 'commentstring'
-   - Note taken on [2011-10-24 Mon 15:29] \\
-     Where should this be added?
-   (one liner addition, can't be bother forking)
-   
-   add this to 'contrib/vim/ftplugin/ledger.vim'
-   #+begin_src vim
-   set commentstring=;%s
-   #+end_src
-   useful for setting modelines in ledger files
-   :PROPERTIES:
-   :ID:       5E9FEB37-907E-4494-B75E-ACA9D6AA3BFA
-   :CREATED:  [2011-05-17 Tue 17:54]
-   :Message:  [[message://jwiegley/ledger/issues/28@github.com][{ledger} vim 'commentstring' (#28)]]
-   :Submitter: felix <reply+i-902603-b6d6abde0c89d70840fd263ccbd9750abc4e5819@reply.github.com>
-   :Date:     Sun, 15 May 2011 08:04:12 -0700
-   :END:
-** TODO [[bug:529][#529]] vim indent file
-   There is another one floating around but it doesn't seem to work. It is
-   basic but here it is nonetheless:
-   #+begin_src vim
-   " File Name: ledger.vim
-   " Maintainer: Felix Hanley
-   " Created: 2011-05-15
-   " Updated: 2011-05-15
-   " Description: Ledger indentation file for vim
-   
-   if exists("b:did_indent")
-       finish
-   endif
-   let b:did_indent = 1 
-   
-   setlocal indentexpr=LedgerIndent()
-   
-   if exists("*LedgerIndent")
-       finish
-   endif
-   
-   
-   function LedgerIndent()
-       let lnum = prevnonblank(v:lnum - 1)
-       let ind = 0 
-       if lnum == 0
-           return 0
-       endif
-       if indent(lnum) != 0 && getline(v:lnum - 1) !~ '^$'
-           return -1
-       endif
-       if getline(lnum) =~ '^[^\d]\S\+'
-           let ind = ind + &sw 
-       endif
-       return ind 
-   endfunction
-   #+end_src
-   :PROPERTIES:
-   :ID:       5E9B3912-B3C4-4985-BB74-FF99C7328F80
-   :CREATED:  [2011-05-17 Tue 17:55]
-   :Message:  [[message://jwiegley/ledger/issues/27@github.com][{ledger} vim indent file (#27)]]
-   :Submitter: felix <reply+i-902562-5184554569b2269b61f555ca1f9b8d0d07d8e681@reply.github.com>
-   :Date:     Sun, 15 May 2011 07:47:45 -0700
-   :END:
 ** TODO [[bug:579][#579]] Depreciate assets (cars, equipment, buildings, etc)
    I've developed a couple of apps to help out ledger with depreciation.
    Depreciation, for those that don't know, is the method of recognizing an
@@ -21471,6 +21945,15 @@ Languages.
 :Message: [[message://github-87F922.10545812012012@news.gmane.org][Ledger syntax coloring for TextWrangler]]
 :Author: Niekas <github-Vzr4Esry4JzzIImvGDD8mw@public.gmane.org>
 :END:
+** TODO [#C] Document value expressions for Craig on the mailing list
+SCHEDULED: <2012-05-28 Mon>
+:PROPERTIES:
+:ID:       72A8CF34-E693-4E25-AA3B-CB5FC3873402
+:CREATED:  [2012-05-22 Tue 18:57]
+:Date: Tue, 22 May 2012 16:03:55 -0700
+:Message: [[message://CAKs9TOJTHmcB23n8BB8uuPtSwAuOc07zvJu9uu1BUhFdbSPvmQ@mail.gmail.com][Re: {homebrew} ledger --HEAD has changed build system to cmake (#12373)]]
+:Author: Craig Earls <enderw88@gmail.com>
+:END:
 ** DEFERRED [[bug:170][#170]] Fill out membership form for the Software Conservancy
 - State "DEFERRED"   from "TODO"       [2012-03-11 Sun 20:31]
 - State "TODO"       from "WAITING"    [2012-01-11 Wed 14:25]
@@ -21491,7 +21974,7 @@ Languages.
    :ID:       986054C6-CD18-4EA1-8F8C-FF02C9842EB0
    :CREATED:  [2008-08-14 Thu]
    :END:
-** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                     :ATTACH:
+** DEFERRED [[bug:242][#242]] Ledger example: building a better "du"                                  :ATTACH:
    - State "DEFERRED"   from "TODO"       [2009-10-26 Mon 22:06]
    Since Ledger does not internally focus on finance, there is no reason why
    it can't be used in any situation where amounts are either kept in certain
@@ -21886,6 +22369,69 @@ libraries) are linked with.
    :Submitter: Jeff Kowalczyk <jeff.kowalczyk@gmail.com>
    :Message:  [[message://53ee80cf-2711-430f-8c00-e4c7959b0916@f20g2000prn.googlegroups.com][re: inventory accounting]]
    :CREATED:  [2010-12-27 Mon 03:40]
+   :END:
+** CLOSED [[bug:528][#528]] vim 'commentstring'
+- State "CLOSED"     from "TODO"       [2012-04-24 Tue 04:30]
+   - Note taken on [2011-10-24 Mon 15:29] \\
+     Where should this be added?
+   (one liner addition, can't be bother forking)
+   
+   add this to 'contrib/vim/ftplugin/ledger.vim'
+   #+begin_src vim
+   set commentstring=;%s
+   #+end_src
+   useful for setting modelines in ledger files
+   :PROPERTIES:
+   :ID:       5E9FEB37-907E-4494-B75E-ACA9D6AA3BFA
+   :CREATED:  [2011-05-17 Tue 17:54]
+   :Message:  [[message://jwiegley/ledger/issues/28@github.com][{ledger} vim 'commentstring' (#28)]]
+   :Submitter: felix <reply+i-902603-b6d6abde0c89d70840fd263ccbd9750abc4e5819@reply.github.com>
+   :Date:     Sun, 15 May 2011 08:04:12 -0700
+   :END:
+** CLOSED [[bug:529][#529]] vim indent file
+- State "CLOSED"     from "TODO"       [2012-04-24 Tue 04:30]
+   There is another one floating around but it doesn't seem to work. It is
+   basic but here it is nonetheless:
+   #+begin_src vim
+   " File Name: ledger.vim
+   " Maintainer: Felix Hanley
+   " Created: 2011-05-15
+   " Updated: 2011-05-15
+   " Description: Ledger indentation file for vim
+   
+   if exists("b:did_indent")
+       finish
+   endif
+   let b:did_indent = 1 
+   
+   setlocal indentexpr=LedgerIndent()
+   
+   if exists("*LedgerIndent")
+       finish
+   endif
+   
+   
+   function LedgerIndent()
+       let lnum = prevnonblank(v:lnum - 1)
+       let ind = 0 
+       if lnum == 0
+           return 0
+       endif
+       if indent(lnum) != 0 && getline(v:lnum - 1) !~ '^$'
+           return -1
+       endif
+       if getline(lnum) =~ '^[^\d]\S\+'
+           let ind = ind + &sw 
+       endif
+       return ind 
+   endfunction
+   #+end_src
+   :PROPERTIES:
+   :ID:       5E9B3912-B3C4-4985-BB74-FF99C7328F80
+   :CREATED:  [2011-05-17 Tue 17:55]
+   :Message:  [[message://jwiegley/ledger/issues/27@github.com][{ledger} vim indent file (#27)]]
+   :Submitter: felix <reply+i-902562-5184554569b2269b61f555ca1f9b8d0d07d8e681@reply.github.com>
+   :Date:     Sun, 15 May 2011 07:47:45 -0700
    :END:
 ** NOTE Plotting time-series histograms with R and ggplot2
    #+begin_src R :results output
