@@ -683,6 +683,127 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :CATEGORY: Bugs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO [[bug:782][#782]] Ledger produces xml/json with only one or two entries.
+:PROPERTIES:
+:ID:       A72EBA8D-AC2D-42BC-BA56-2D2A67D157E0
+:CREATED:  [2012-07-17 Tue 13:37]
+:Date: Sun, 15 Jul 2012 21:54:55 +0000
+:Message: [[message://bug-782-1@http.bugs.ledger-cli.org/][{Bug 782} New: Ledger produces xml/json with only one or two entries.]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:781][#781]] Setting precision on the command line
+:PROPERTIES:
+:ID:       80A78A11-7351-4CCE-9654-0317D3177C26
+:CREATED:  [2012-07-12 Thu 13:32]
+:Date: Thu, 12 Jul 2012 16:09:29 +0000
+:Message: [[message://bug-781-1@http.bugs.ledger-cli.org/][{Bug 781} New: Setting precision on the command line]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO jkr on #ledger says that ledger xml/json doesn't report all xacts
+:PROPERTIES:
+:ID:       408BEFFA-D021-4769-B818-AD7CC29E1B43
+:CREATED:  [2012-07-11 Wed 15:58]
+:END:
+** TODO (Martin) Setting precision on the command line
+> Is there a way so I can tell ledger - ideally on the command line - to limit
+> precision to 2 digits, so I'll get the same result as what my broker shows?
+
+At present there is no "trap" for this.  I'll have to think about it.  It may
+be really easy, or it might require some significant changes.
+
+The problem is that you can rewrite the individual posting amounts (too fine),
+and you can rewrite the final account totals (too coarse), but you can't
+rewrite the individual account totals in between.
+:PROPERTIES:
+:ID:       BF6CE22A-3472-4E8C-AD1E-4334072BDDAF
+:CREATED:  [2012-07-02 Mon 19:17]
+:Date: Sun, 1 Jul 2012 21:59:26 +0100
+:Message: [[message://20120701205926.GA21063@jirafa.cyrius.com][Setting precision on the command line]]
+:Author: Martin Michlmayr <tbm@cyrius.com>
+:END:
+** TODO [[bug:777][#777]] Error: Divide by zero for 1/9
+:PROPERTIES:
+:ID:       C2F32137-A643-49EF-9B08-87C157DA868D
+:CREATED:  [2012-07-01 Sun 22:54]
+:Date: Sun, 01 Jul 2012 12:12:45 +0000
+:Message: [[message://bug-777-1@http.bugs.ledger-cli.org/][{Bug 777} New: Error: Divide by zero for 1/9]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:778][#778]] Only one pricedb entry per day
+:PROPERTIES:
+:ID:       D7EE9BEF-5711-4E83-8DF7-3CB7DBA586D7
+:CREATED:  [2012-07-01 Sun 22:54]
+:Date: Sun, 01 Jul 2012 12:24:44 +0000
+:Message: [[message://bug-778-1@http.bugs.ledger-cli.org/][{Bug 778} New: Only one pricedb entry per day]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:779][#779]] Please add pricrdb entries in both directions
+:PROPERTIES:
+:ID:       991B7544-5237-4278-B256-43C7AA192129
+:CREATED:  [2012-07-01 Sun 22:54]
+:Date: Sun, 01 Jul 2012 12:29:28 +0000
+:Message: [[message://bug-779-1@http.bugs.ledger-cli.org/][{Bug 779} New: Please add pricrdb entries in both directions]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO (eternaleye) Automated postings with a tag = value match ignore the value
+:PROPERTIES:
+:ID:       642A1D86-87F1-4FD8-BFC3-519862E7DD78
+:CREATED:  [2012-06-26 Tue 04:12]
+:Date: Tue, 26 Jun 2012 00:04:26 -0700
+:Message: [[message://jwiegley/ledger/issues/68/6568583@github.com][Re: {ledger} Automated postings with a tag = value match ignore the value (#68)]]
+:Author: eternaleye <reply+i-5162488-36b43c31c1308c337b0d41a370952e9980b9f61f-8460@reply.github.com>
+:END:
+** TODO (Matthew) Having trouble with -Y from the command line
+:PROPERTIES:
+:ID:       4248A7DE-668D-4EE7-A22F-E0F4ED82E787
+:CREATED:  [2012-06-25 Mon 19:09]
+:Date: Sat, 23 Jun 2012 19:22:36 -0700 (PDT)
+:Message: [[message://91d960d9-530d-4b76-bf06-dad4419307e0@googlegroups.com][Re: Exploring the Python interface -- segfault]]
+:Author: Matthew Harris <mharris312@gmail.com>
+:END:
+** TODO (kirubakaran) Ledger crashes on a certain condition
+:PROPERTIES:
+:ID:       D386D03C-BF43-40A0-8C4B-07AF2C57E7D5
+:CREATED:  [2012-06-19 Tue 01:57]
+:Date: Mon, 18 Jun 2012 00:08:47 -0700
+:Message: [[message://jwiegley/ledger/issues/67/6389247@github.com][Re: {ledger} Ledger crashes on a certain condition (#67)]]
+:Author: kirubakaran <reply+i-5110041-acd6560d846bdc485f8098e5927721c926757fc2-8460@reply.github.com>
+:END:
+** TODO (Matthew) --pedantic doesn't work if specified in Ledger file
+First, I thought that I could put flags directly into my journal file and they
+would be equivalent to providing them on the command line. But with this input
+file:
+
+--pedantic
+2012/01/01 Payday
+  Assets:Checking  $100.00
+  Income
+
+'ledger -f test.dat reg' doesn't complain about unknown accounts, but 'ledger
+-f test.dat reg --pedantic' does. Why?
+:PROPERTIES:
+:ID:       AB4A1EBB-71E2-46CC-B484-8837679923B4
+:CREATED:  [2012-06-18 Mon 01:17]
+:Date: Thu, 14 Jun 2012 23:15:47 -0700 (PDT)
+:Message: [[message://ff338824-f0e9-4ea2-982b-f770838050ff@googlegroups.com][--strict and --pedantic]]
+:Author: Matthew Harris <mharris312@gmail.com>
+:END:
+** TODO [[bug:682][#682]] post.xact.posts yields: 'instancemethod' object is not iterable
+:PROPERTIES:
+:ID:       317B9815-A0D2-4B26-BAB7-3131650463AD
+:CREATED:  [2012-05-30 Wed 21:30]
+:Date: Wed, 30 May 2012 14:55:14 +0000
+:Message: [[message://bug-682-1-ncLxR8LuMD@http.bugs.ledger-cli.org/][{Bug 682} post.xact.posts yields: 'instancemethod' object is not iterable]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:772][#772]] segfault when using "short" versions of option in ledgerrc
+:PROPERTIES:
+:ID:       36367831-3BC5-417D-BBC2-15B524FDBF30
+:CREATED:  [2012-05-28 Mon 23:07]
+:Date: Mon, 28 May 2012 23:06:38 +0000
+:Message: [[message://bug-772-1@http.bugs.ledger-cli.org/][{Bug 772} New: segfault when using "short" versions of option in ledgerrc]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** TODO [#A] [[bug:686][#686]] Virtual transactions and the equity command
 - State "TODO"       from "CLOSED"     [2012-03-27 Tue 14:56] \\
   I've cloned the latest next branch this morning (even started with a clean
@@ -3399,7 +3520,9 @@ $ ledger -f budget_test.txt --budget reg ^income
 :Message: [[message://bug-607-1@http.bugs.ledger-cli.org/][{Bug 607} New: Expand the --price-exp argument handling to allow specification of hours vice only minutes]]
 :Submitter: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:608][#608]] lot tags are wrong if more than one lot tag in a transaction
+** DONE [[bug:608][#608]] lot tags are wrong if more than one lot tag in a transaction
+- State "DONE"       from "TODO"       [2012-06-27 Wed 16:56] \\
+  Fixed by 8869566
 :PROPERTIES:
 :ID:       E9B6F75D-81EE-43F9-B16A-BDFB76C56ABC
 :CREATED:  [2011-12-07 Wed 14:19]
@@ -4931,7 +5054,6 @@ the same scopes.
    :CREATED:  [2009-04-01 Wed 19:40]
    :END:
 ** DONE [#A] Any filter that uses create_account must also do so after clear
-   SCHEDULED: <2011-02-10 Thu>
    - State "DONE"       from "TODO"       [2011-02-10 Thu 22:27]
    :PROPERTIES:
    :ID:       1BCA64D0-B02B-442D-8C9B-D008E01B825F
@@ -5206,7 +5328,6 @@ the same scopes.
    :CREATED:  [2009-02-21 Sat 18:09]
    :END:
 ** DONE (Craig) Question about new parser
-  SCHEDULED: <2011-11-10 Thu>
   - State "DONE"       from "TODO"       [2011-11-10 Thu 17:32]
   :PROPERTIES:
   :ID:       FDFB690E-0072-4A4D-831D-7CD51A9A1378
@@ -5216,7 +5337,6 @@ the same scopes.
   :Submitter: Craig Earls <enderw88@gmail.com>
   :END:
 ** DONE (Hyrum) Segfault on next branch
-SCHEDULED: <2012-03-11 Sun>
 - State "DONE"       from "TODO"       [2012-03-11 Sun 19:57]
 Running the following command on the next branch results in a segfault:
 #+begin_src sh
@@ -6631,7 +6751,6 @@ build of the next branch on Mac OS X.
    :CREATED:  [2010-06-04 Fri 02:10]
    :END:
 ** DONE [[bug:327][#327]] Insert --input-date-format strings at the beginning of format list
-   SCHEDULED: <2010-06-12 Sat>
    - State "DONE"       from "STARTED"    [2010-06-13 Sun 03:58]
    This is instead of accepting only that format, so that users can specify
    multiple alternates.
@@ -6642,14 +6761,12 @@ build of the next branch on Mac OS X.
    :CREATED:  [2010-06-11 Fri 17:23]
    :END:
 ** DONE [[bug:335][#335]] Restore value expression functions min and max
-   SCHEDULED: <2010-06-13 Sun>
    - State "DONE"       from "TODO"       [2010-06-14 Mon 00:01]
    :PROPERTIES:
    :ID:       CE2468C0-EF95-4351-95FE-2B497FF2E2A2
    :CREATED:  [2010-06-13 Sun 18:53]
    :END:
 ** DONE [[bug:336][#336]] ledger period 'this month' is only showing the current day
-   SCHEDULED: <2010-06-13 Sun>
    - State "DONE"       from "TODO"       [2010-06-13 Sun 23:09]
    :PROPERTIES:
    :ID:       AA29DD59-C29E-4A56-A725-65A83AC8D1C5
@@ -6815,7 +6932,6 @@ build of the next branch on Mac OS X.
    :Submitter: Craig Earls <enderw88@gmail.com>
    :END:
 ** DONE [[bug:552][#552]] Missing ')' error in automated transactions with valexpr predicate
-SCHEDULED: <2011-11-10 Thu>
 - State "DONE"       from "TODO"       [2011-11-10 Thu 17:31]
 - State "TODO"       from "DONE"       [2011-11-10 Thu 14:26]
 - State "DONE"       from "TODO"       [2011-11-10 Thu 01:36]
@@ -6827,7 +6943,6 @@ SCHEDULED: <2011-11-10 Thu>
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :END:
 ** DONE [[bug:557][#557]] Missing ')' in posting value expression does NOT cause an error
-SCHEDULED: <2011-11-09 Wed>
 - State "DONE"       from "TODO"       [2011-11-10 Thu 01:36]
    :PROPERTIES:
    :ID:       0F6A8043-AB78-451B-95F2-80F58095B7E8
@@ -7162,7 +7277,6 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DONE [[bug:719][#719]] Creates bogus(?) Adjustment with -H -X EUR
-SCHEDULED: <2012-03-20 Tue>
 - State "DONE"       from "TODO"       [2012-03-20 Tue 04:56] \\
   Fixed by e3248ee
 :PROPERTIES:
@@ -7173,7 +7287,6 @@ SCHEDULED: <2012-03-20 Tue>
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DONE [ledger] Reverse search for drafts (#29)
-   SCHEDULED: <2011-07-19 Tue>
    - State "DONE"       from "TODO"       [2011-07-20 Wed 02:35]
    :PROPERTIES:
    :ID:       2EFFD62B-0C63-4459-8574-3418F2B64CD9
@@ -8582,7 +8695,6 @@ Error: Illegal option -x
    :CREATED:  [2010-02-17 Wed 01:39]
    :END:
 ** WORKSFORME [#A] [[bug:332][#332]] Assert failure when using tag in a limit expression
-   SCHEDULED: <2010-06-14 Mon>
    - State "WORKSFORME" from "TODO"       [2010-06-14 Mon 21:06]
    - State "TODO"       from "WORKSFORME" [2010-06-14 Mon 17:32]
    - State "WORKSFORME" from "DONE"       [2010-06-13 Sun 18:59]
@@ -9329,7 +9441,6 @@ Error: Illegal option -x
    :CREATED:  [2010-06-01 Tue 15:15]
    :END:
 ** WORKSFORME [[bug:323][#323]] -r does not output related accounts when using --effective
-   SCHEDULED: <2010-06-13 Sun>
    - State "WORKSFORME" from "TODO"       [2010-06-14 Mon 00:55] \\
      Actually, this command is doing exactly what you asked it to do.  There is no
      bug here.  In your data file you have:
@@ -9428,7 +9539,6 @@ Error: Illegal option -x
    :Submitter: Douglas Philips <dgou@mac.com>
    :END:
 ** WORKSFORME [[bug:585][#585]] ledger payees is not honoring its regexp argument
-SCHEDULED: <2011-10-22 Sat>
 - State "WORKSFORME" from "TODO"       [2011-10-22 Sat 15:31]
   :PROPERTIES:
   :ID:       CC03871C-9C1A-43A3-82A7-4F18B4803E97
@@ -10225,7 +10335,6 @@ created (https://launchpad.net/~mbudde/+archive/ledger) under Ubuntu
 :Submitter: Jonas <reply+i-2467193-d935c086e8421ab641d9f9aaddfdfcd560f8c39c-8460@reply.github.com>
 :END:
 ** CLOSED [#A] [[bug:672][#672]] Latest next/HEAD does not build
-SCHEDULED: <2012-03-09 Fri>
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:44] \\
   Cannot be tested.
 - State "DONE"       from "TODO"       [2012-03-09 Fri 14:47] \\
@@ -10246,7 +10355,6 @@ SCHEDULED: <2012-03-09 Fri>
 :Message: [[message://CA%2BR89Y%2B_CXrCdwopPT-n7k%3DKwMzGWuafoT14m%2B3pArMnTWaB%2Bg@mail.gmail.com][Re: ledger v3 slower than ledger v2]]
 :END:
 ** CLOSED [#A] [[bug:701][#701]] Use of --pager corrupts the terminal
-SCHEDULED: <2012-03-16 Fri>
 - State "CLOSED"     from "DONE"       [2012-03-19 Mon 03:53]
 - State "DONE"       from "TODO"       [2012-03-16 Fri 20:24]
 :PROPERTIES:
@@ -10257,7 +10365,6 @@ SCHEDULED: <2012-03-16 Fri>
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED [#A] [[bug:703][#703]] Assertion failed in "src/history.cc": source != price.commodity()
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-03-16 Fri 01:00] \\
   Fixed by a49e33a
@@ -10333,7 +10440,6 @@ Test case:
    :CREATED:  [2009-02-16 Mon 21:55]
    :END:
 ** CLOSED (John Raketsraw) Can't run latest next version
-SCHEDULED: <2012-03-11 Sun>
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:44] \\
   Cannot be tested.
 - State "DONE"       from "TODO"       [2012-03-11 Sun 20:36]
@@ -12757,7 +12863,6 @@ configure: exit 0
 :Author: John Rakestraw <jar34@georgetown.edu>
 :END:
 ** CLOSED (Martin) Cannot build ledger
-SCHEDULED: <2012-03-11 Sun>
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:45] \\
   Cannot be tested.
 - State "DONE"       from "TODO"       [2012-03-11 Sun 20:36]
@@ -12917,7 +13022,6 @@ make: *** [all] Error 2
 :Author: Martin Michlmayr <tbm@cyrius.com>
 :END:
 ** CLOSED (bzg) [ledger] Two tiny typos
-SCHEDULED: <2012-03-11 Sun>
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:45] \\
   Cannot be tested.
 - State "DONE"       from "TODO"       [2012-03-11 Sun 20:37]
@@ -12969,7 +13073,6 @@ SCHEDULED: <2012-03-11 Sun>
    :CREATED:  [2010-03-26 Fri 22:23]
    :END:
 ** CLOSED Add a 'locus' member to call_scope_t, for error reporting
-   SCHEDULED: <2010-06-13 Sun>
    - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:45] \\
      Cannot be tested.
    - State "DONE"       from "TODO"       [2010-06-13 Sun 18:41]
@@ -13011,7 +13114,6 @@ SCHEDULED: <2012-03-11 Sun>
   Says tested by dir-apply.test.
 - State "DONE"       from "STARTED"    [2012-03-12 Mon 23:02] \\
   Fixed by be289fb, and tested by dir-apply.test
-SCHEDULED: <2012-03-12 Mon>
 :PROPERTIES:
 :ID:       F69D587A-4160-42AF-89E1-F6C3F85D2FBE
 :CREATED:  [2012-03-12 Mon 18:39]
@@ -13586,7 +13688,6 @@ SCHEDULED: <2012-03-12 Mon>
    :CREATED:  [2008-10-11 Sat 20:11]
    :END:
 ** CLOSED Ledger is failing test/regress/D060256A.test
-SCHEDULED: <2012-02-17 Fri>
 - State "CLOSED"     from "DONE"       [2012-03-22 Thu 16:47] \\
   Can be closed since test/regress/D060256A.test no longer fails.
 - State "DONE"       from "TODO"       [2012-02-17 Fri 17:11]
@@ -13994,7 +14095,6 @@ SCHEDULED: <2012-02-17 Fri>
    :CREATED:  [2008-07-29 Tue]
    :END:
 ** CLOSED Test failure on Ubuntu Natty amd64
-   SCHEDULED: <2011-03-27 Sun>
    - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:46] \\
      Cannot be tested.
    - State "DONE"       from "TODO"       [2011-03-28 Mon 01:58]
@@ -14088,7 +14188,6 @@ SCHEDULED: <2012-02-17 Fri>
    :CREATED:  [2010-05-03 Mon 23:01]
    :END:
 ** CLOSED Unbound local variable 'package' in ./acprep dependencies script
-SCHEDULED: <2011-12-21 Wed>
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:46] \\
   Cannot be tested.
 - State "DONE"       from "TODO"       [2011-12-21 Wed 17:40]
@@ -14475,7 +14574,6 @@ SCHEDULED: <2011-12-21 Wed>
    :CREATED:  [2010-06-02 Wed 17:23]
    :END:
 ** CLOSED [[bug:330][#330]] libledger_math.so: undefined reference to `vtable for ledger::expr_t'
-   SCHEDULED: <2010-06-12 Sat>
    - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:47] \\
      Cannot be tested.
    - State "DONE"       from "STARTED"    [2010-06-13 Sun 03:58]
@@ -14570,7 +14668,6 @@ SCHEDULED: <2011-12-21 Wed>
    :CREATED:  [2010-06-20 Sun 20:17]
    :END:
 ** CLOSED [[bug:358][#358]] When abbreviating account names, consume trailing whitespace
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-16 Fri 05:30] \\
   Fixed by 6305855
 :PROPERTIES:
@@ -14585,7 +14682,6 @@ SCHEDULED: <2012-03-15 Thu>
    :CREATED:  [2010-06-21 Mon 18:18]
    :END:
 ** CLOSED [[bug:374][#374]] Problem with periodic transactions having a null posting
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-16 Fri 04:29] \\
   Fixed by 2605d8a.  The error reported is now:
   :OUTPUT:
@@ -14893,7 +14989,6 @@ I expect all three cases to not fail with an error.
 :CREATED:  [2010-11-28 Sun 20:33]
 :END:
 ** CLOSED [[bug:458][#458]] Spaces seem to be significant in automatic transaction predicate
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-16 Fri 04:09] \\
   Fixed by 7462d09
 >>  = expr account =~ /Employer:Payroll/ and amount > 500
@@ -14946,7 +15041,6 @@ transaction result in a fixed amount, rather than a percentage?
    :Submitter: Seppo Sade <sepposade1@gmail.com>
    :END:
 ** CLOSED [[bug:550][#550]] Trailing white space is not ignored in tag vales
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-16 Fri 03:50]
    :PROPERTIES:
    :ID:       AEDE9734-7FAA-4F02-9110-36C0CAF03D12
@@ -14968,7 +15062,6 @@ SCHEDULED: <2012-03-15 Thu>
    :Submitter: bugzilla-daemon@mail.johnwiegley.com
    :END:
 ** CLOSED [[bug:560][#560]] Allow a space between the minus sign and its amount
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "WONTFIX"    [2012-03-18 Sun 18:57]
 - State "WONTFIX"    from "TODO"       [2012-03-16 Fri 03:16]
    :PROPERTIES:
@@ -15017,7 +15110,6 @@ SCHEDULED: <2012-03-15 Thu>
    :Submitter: dgilman <reply+i-1546723-a9cdb41421bafec77dd1c029b11e110838cce71d@reply.github.com>
    :END:
 ** CLOSED [[bug:584][#584]] Trailing white space is not ignored in payee names
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-16 Fri 03:12]
   :PROPERTIES:
   :ID:       C9D593B3-6263-494E-AF38-6D48BE109C63
@@ -15214,7 +15306,6 @@ P 2011-04-01 EUR 0.8510 GBP
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED [[bug:688][#688]] print command does not handle multiple spaces in the payee
-SCHEDULED: <2012-03-11 Sun>
 - State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "STARTED"    [2012-03-12 Mon 05:51] \\
   Fixed by ed42a7e
@@ -15249,7 +15340,6 @@ $ ledger -f x.ledger print
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED [[bug:702][#702]] No carriage return
-SCHEDULED: <2012-03-14 Wed>
 - State "CLOSED"     from "DUPLICATE"  [2012-03-18 Sun 23:54]
 - State "DUPLICATE"  from "TODO"       [2012-03-14 Wed 20:51] \\
   Duplicate of #701
@@ -15261,7 +15351,6 @@ SCHEDULED: <2012-03-14 Wed>
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED [[bug:704][#704]] pricedb entries randomly repeated
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-03-16 Fri 03:09] \\
   Fixed by 49ec40a
@@ -15293,7 +15382,6 @@ SCHEDULED: <2012-03-15 Thu>
 :Author: Craig Earls <enderw88@gmail.com>
 :END:
 ** CLOSED [[bug:715][#715]] Error: Cannot divide a balance by an amount with -X -H
-SCHEDULED: <2012-03-18 Sun>
 - State "CLOSED"     from "TODO"       [2012-03-19 Mon 00:42] \\
   Fixed by cd50fe0
 The following test case used to show error from bug 691 but now that this is
@@ -15340,7 +15428,6 @@ Test case:
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED [[bug:718][#718]] Strange <Adjustment> entries with -X -H and ledger maybe hangs?
-SCHEDULED: <2012-03-20 Tue>
 - State "CLOSED"     from "TODO"       [2012-03-20 Tue 03:21] \\
   Fixed by f76d458
 - Note taken on [2012-03-19 Mon 23:16] \\
@@ -15427,7 +15514,6 @@ Here's my reduced test case:
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED [[bug:757][#757]] emacs baseline test failure
-SCHEDULED: <2012-03-29 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-29 Thu 03:56] \\
   The test that was causing this error has been removed from the test suite.
 :PROPERTIES:
@@ -15438,7 +15524,6 @@ SCHEDULED: <2012-03-29 Thu>
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED [[bug:770][#770]] Options --monthly and --invert do not work together
-SCHEDULED: <2012-04-05 Thu>
 - State "CLOSED"     from "TODO"       [2012-04-06 Fri 01:02] \\
   Fixed by ad7ace9
 :PROPERTIES:
@@ -15456,7 +15541,6 @@ SCHEDULED: <2012-04-05 Thu>
    :CREATED:  [2009-03-31 Tue 06:27]
    :END:
 ** CLOSED amount_t::value should not return a priced commodity
-SCHEDULED: <2012-03-29 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-30 Fri 00:43]
 :PROPERTIES:
 :ID:       78AB4B87-EACB-4B21-9FB6-C20DDCA70E08
@@ -16315,7 +16399,6 @@ my uncleared transactions.  All I get is an empty buffer.
    :ID:       863C0EE8-C193-46EE-9BAA-3A37DE73E4DB
    :END:
 ** CLOSED [[bug:467][#467]] ledger.el won't highlight account names if they have a space
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "DONE"       [2012-03-27 Tue 15:47] \\
   Cannot be tested.
 - State "DONE"       from "TODO"       [2012-03-16 Fri 03:01]
@@ -16326,7 +16409,6 @@ SCHEDULED: <2012-03-15 Thu>
    :CREATED:  [2011-01-07 Fri 04:48]
    :END:
 ** CLOSED [[bug:524][#524]] ledger.el, highlighting of account names w/spaces
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "DUPLICATE"  [2012-03-18 Sun 23:55]
 - State "DUPLICATE"  from "TODO"       [2012-03-16 Fri 03:01] \\
   467
@@ -16381,7 +16463,6 @@ SCHEDULED: <2012-03-15 Thu>
    :Submitter: peti <reply+i-1264237-1c07217de3933472fbd8fa785975d03170c352df@reply.github.com>
    :END:
 ** CLOSED [[bug:639][#639]] Highlight accounts with spaces in Emacs
-SCHEDULED: <2012-03-15 Thu>
 - State "CLOSED"     from "DUPLICATE"  [2012-03-18 Sun 23:54]
 - State "DUPLICATE"  from "TODO"       [2012-03-16 Fri 03:01] \\
   467
@@ -16405,8 +16486,13 @@ to ledger.el locally and problem is fixed.
   :CATEGORY: Features
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO Add options to control how CSV files are parsed
+For example: the separator char (, ; TAB), quoting, etc.
+:PROPERTIES:
+:ID:       31A310EB-82F2-48C8-BFE0-0B779419F91C
+:CREATED:  [2012-07-03 Tue 16:10]
+:END:
 ** TODO (Tim) Reply: RESTful web service API to Ledger
-SCHEDULED: <2012-05-28 Mon>
 :PROPERTIES:
 :ID:       C4405B98-F812-415E-94D5-BB0F19C142EA
 :CREATED:  [2012-05-28 Mon 03:36]
@@ -16470,13 +16556,11 @@ result?
 :CREATED:  [2012-05-14 Mon 12:07]
 :END:
 ** TODO Use numeric_cast<> to guard against overflow casts
-SCHEDULED: <2012-05-28 Mon>
 :PROPERTIES:
 :ID:       73482649-D65A-4300-9DAF-EB7D23846BF0
 :CREATED:  [2012-05-14 Mon 12:29]
 :END:
 ** TODO Use regex_token_iterator with -1 instead of strtok/Tokenizer
-SCHEDULED: <2012-05-28 Mon>
 :PROPERTIES:
 :ID:       F1C6299D-3714-40AB-B508-6C0A02931DD6
 :CREATED:  [2012-05-17 Thu 18:01]
@@ -18016,7 +18100,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :CREATED:  [2008-04-20 Sun]
    :END:
 ** DONE [[bug:272][#272]] Add an entry type for specifying value constraints
-   SCHEDULED: <2010-06-12 Sat>
    - State "DONE"       from "TODO"       [2010-06-13 Sun 00:46]
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:34]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
@@ -18074,7 +18157,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :CREATED:  [2009-10-23 Fri 06:14]
    :END:
 ** DONE [[bug:277][#277]] Allow forecasting from a specific date
-   SCHEDULED: <2010-06-13 Sun>
    - State "DONE"       from "TODO"       [2010-06-14 Mon 03:30] \\
      This can be done with the --now option.
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:33]
@@ -18145,7 +18227,6 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :CREATED:  [2009-11-25 Wed 02:09]
    :END:
 ** DONE [[bug:301][#301]] When abbreviating account names, expand to fill
-   SCHEDULED: <2010-06-13 Sun>
    - State "DONE"       from "TODO"       [2010-06-14 Mon 07:20]
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:30]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
@@ -18879,7 +18960,6 @@ interval so that I can do so.
    :CREATED:  [2010-04-04 Sun 15:18]
    :END:
 ** WORKSFORME [[bug:267][#267]] Restore the --price option
-   SCHEDULED: <2010-06-13 Sun>
    - State "WORKSFORME" from "TODO"       [2010-06-14 Mon 04:27]
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:06]
@@ -18977,7 +19057,6 @@ interval so that I can do so.
    :CREATED:  [2008-04-11 Fri]
    :END:
 ** WORKSFORME [[bug:268][#268]] @@ -- allow negative costs
-   SCHEDULED: <2010-06-12 Sat>
    - State "WORKSFORME" from "TODO"       [2010-06-12 Sat 18:12]
    - State "TODO"       from "DEFERRED"   [2010-06-12 Sat 05:35]
    - State "DEFERRED"   from "TODO"       [2009-10-25 Sun 22:05]
@@ -19147,7 +19226,6 @@ interval so that I can do so.
    :CREATED:  [2010-06-03 Thu 23:22]
    :END:
 ** CLOSED [[bug:231][#231]] Allow conversion of some but not all commodities
-SCHEDULED: <2012-03-09 Fri>
 - State "CLOSED"     from "DONE"       [2012-03-18 Sun 18:57]
 - State "DONE"       from "TODO"       [2012-03-09 Fri 20:14] \\
   Fixed by 2df8edc
@@ -19201,6 +19279,30 @@ SCHEDULED: <2012-03-09 Fri>
   :CATEGORY: Python
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO (Matthew) Exploring the Python interface -- segfault
+:PROPERTIES:
+:ID:       7E383E26-1495-4E1B-9BD9-AE067881E467
+:CREATED:  [2012-06-25 Mon 19:09]
+:Date: Sat, 23 Jun 2012 19:12:46 -0700 (PDT)
+:Message: [[message://9b5390eb-b15c-4a23-8fad-0737b4aee22d@googlegroups.com][Exploring the Python interface -- segfault]]
+:Author: Matthew Harris <mharris312@gmail.com>
+:END:
+** TODO [[bug:774][#774]] ledger python messes up subsequent console input
+:PROPERTIES:
+:ID:       22BD6655-3920-41E9-A9E3-DD1CC60915DC
+:CREATED:  [2012-05-31 Thu 18:48]
+:Date: Thu, 31 May 2012 20:16:11 +0000
+:Message: [[message://bug-774-1@http.bugs.ledger-cli.org/][{Bug 774} New: ledger python messes up subsequent console input]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:773][#773]] ledger python intepreter segfaults on second command entered
+:PROPERTIES:
+:ID:       A838BC24-1787-40BB-AF4E-36383960D7F7
+:CREATED:  [2012-05-31 Thu 18:48]
+:Date: Thu, 31 May 2012 20:09:24 +0000
+:Message: [[message://bug-773-1@http.bugs.ledger-cli.org/][{Bug 773} New: ledger python intepreter segfaults on second command entered]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** TODO (Henry) Getting start with Ledger and Python
 :PROPERTIES:
 :ID:       D79CDE1F-EE46-41D8-8374-25D524BC23FA
@@ -19218,7 +19320,6 @@ SCHEDULED: <2012-03-09 Fri>
 :Author: "Michael [Plouj] Ploujnikov" <ploujj-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
 ** TODO (Tim) Reply: Getting start with Ledger and Python
-SCHEDULED: <2012-05-28 Mon>
 :PROPERTIES:
 :ID:       FB0B5F94-ABB8-411B-8B4B-1DDEEDAD132F
 :CREATED:  [2012-05-28 Mon 03:36]
@@ -19639,7 +19740,6 @@ make this a child scope of the Python session.
    :CREATED:  [2010-03-26 Fri 22:24]
    :END:
 ** CLOSED [[bug:758][#758]] post.cost: No Python class registered for C++ class boost::optional<ledger::amount_t>
-SCHEDULED: <2012-03-29 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-30 Fri 00:41]
 :PROPERTIES:
 :ID:       4D9288AE-2671-4707-B415-F3C542F206D6
@@ -19649,7 +19749,6 @@ SCHEDULED: <2012-03-29 Thu>
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** CLOSED [[bug:760][#760]] value(eur, post.date) doesn't work
-SCHEDULED: <2012-03-29 Thu>
 - State "CLOSED"     from "TODO"       [2012-03-30 Fri 00:50]
 :PROPERTIES:
 :ID:       9188F587-D455-42F7-872D-F46C09D11475
@@ -19663,8 +19762,42 @@ SCHEDULED: <2012-03-29 Thu>
   :CATEGORY: Build
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO [[bug:780][#780]] Support Homebrew
+:PROPERTIES:
+:ID:       F05C7744-F526-467F-8DE0-BB0AACFB25AA
+:CREATED:  [2012-07-04 Wed 18:14]
+:Date: Wed, 04 Jul 2012 19:51:19 +0000
+:Message: [[message://bug-780-1@http.bugs.ledger-cli.org/][{Bug 780} New: Support Homebrew]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO Cannot build Ledger with -O4
+:PROPERTIES:
+:ID:       E3313DE6-C106-40D1-BCF4-AC695278F8BB
+:CREATED:  [2012-07-04 Wed 02:30]
+:END:
+** TODO Ledger will not build with ASan
+Is it linking with .a files which haven't been built with ASan?
+:PROPERTIES:
+:ID:       E55FEA99-3454-492D-8D79-8ADAA879B0AD
+:CREATED:  [2012-06-30 Sat 00:10]
+:END:
+** TODO [[bug:776][#776]] "acprep check" fails not being able to find Tests executables
+:PROPERTIES:
+:ID:       89E9699D-0B4E-46B2-A07B-D3618553D03C
+:CREATED:  [2012-06-17 Sun 16:27]
+:Date: Sun, 17 Jun 2012 19:08:07 +0000
+:Message: [[message://bug-776-1@http.bugs.ledger-cli.org/][{Bug 776} New: "acprep check" fails not being able to find Tests executables]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:775][#775]] "--local" acprep option is not honoured
+:PROPERTIES:
+:ID:       D2EA2063-3C63-4FB1-886D-B422910DA8C4
+:CREATED:  [2012-06-10 Sun 15:41]
+:Date: Sun, 10 Jun 2012 14:52:28 +0000
+:Message: [[message://bug-775-1@http.bugs.ledger-cli.org/][{Bug 775} New: "--local" acprep option is not honoured]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** TODO (Andreas) Building recent git src with --prefix
-SCHEDULED: <2012-05-28 Mon>
 :PROPERTIES:
 :ID:       EA37609C-3F4F-49D8-9316-E828224C84F3
 :CREATED:  [2012-05-27 Sun 17:26]
@@ -20509,7 +20642,6 @@ simple commands but not on more complex.
    :CREATED:  [2010-10-06 Wed 02:25]
    :END:
 ** DONE Convert Ledger tests to CMake
-SCHEDULED: <2012-05-20 Sun>
 - State "DONE"       from "TODO"       [2012-05-20 Sun 16:41]
 :PROPERTIES:
 :ID:       58B7A8A6-F8A8-48F0-9DAD-F5F97A79E1F5
@@ -20623,7 +20755,6 @@ SCHEDULED: <2012-05-20 Sun>
    :CREATED:  [2010-06-04 Fri 06:36]
    :END:
 ** DONE Ledger download link is broken
-SCHEDULED: <2012-05-16 Wed>
 - State "DONE"       from "TODO"       [2012-05-16 Wed 22:20]
 - State "TODO"       from "STARTED"    [2012-05-12 Sat 19:56]
 :PROPERTIES:
@@ -20634,7 +20765,6 @@ SCHEDULED: <2012-05-16 Wed>
 :Author: Pier-Luc Caron St-Pierre <pierluc.caronstpierre-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
 ** DONE Ledger won't build with g++-4.7
-SCHEDULED: <2012-05-20 Sun>
 - State "DONE"       from "TODO"       [2012-05-20 Sun 16:41]
 :PROPERTIES:
 :ID:       2A9E75B2-480E-4468-9E1A-747446B90672
@@ -20811,7 +20941,6 @@ SCHEDULED: <2012-05-20 Sun>
    :CREATED:  [2010-06-10 Thu 22:37]
    :END:
 ** DONE [[bug:324][#324]] Get the CentOS build working for orc_emac
-   SCHEDULED: <2010-06-13 Sun>
    - State "DONE"       from "TODO"       [2010-06-14 Mon 03:25]
    - Note taken on [2010-06-12 Sat 04:55] \\
      It's almost done building now.
@@ -20952,7 +21081,6 @@ SCHEDULED: <2012-05-20 Sun>
    :CREATED:  [2009-10-23 Fri 06:13]
    :END:
 ** DONE acprep should report an error if cmake cannot be found
-SCHEDULED: <2012-05-22 Tue>
 - State "DONE"       from "TODO"       [2012-05-23 Wed 02:01]
 :PROPERTIES:
 :ID:       D7EE7500-7C79-4A29-8E63-5F82D002C3A8
@@ -20976,7 +21104,6 @@ SCHEDULED: <2012-05-22 Tue>
    :CREATED:  [2009-03-09 Mon 20:16]
    :END:
 ** DONE make distcheck is failing due to path issues
-SCHEDULED: <2012-04-24 Tue>
 - State "DONE"       from "TODO"       [2012-04-25 Wed 03:26]
 :OUTPUT:
 make  check-TESTS
@@ -21000,7 +21127,6 @@ make  check-TESTS
    :CREATED:  [2009-02-21 Sat 15:19]
    :END:
 ** DONE [#C] (Philip) Disable gettext in Ledger's CMake
-SCHEDULED: <2012-05-24 Thu>
 - State "DONE"       from "TODO"       [2012-05-25 Fri 01:59]
 :PROPERTIES:
 :ID:       859E695B-282D-4372-9024-3A4EB94EE1DF
@@ -21175,7 +21301,6 @@ SCHEDULED: <2012-05-24 Thu>
    :CREATED:  [2007-12-10 Mon]
    :END:
 ** CANCELED [#C] Build a binary DMG of Ledger's next branch for dgou
-   SCHEDULED: <2011-07-18 Mon>
    - State "CANCELED"   from "TODO"       [2011-07-18 Mon 03:33]
    :PROPERTIES:
    :ID:       78E3E8CE-32F5-496E-867F-B38031BF4431
@@ -21185,7 +21310,6 @@ SCHEDULED: <2012-05-24 Thu>
    :Submitter: Douglas Philips <dgou@mac.com>
    :END:
 ** CANCELED [#C] Work with dgou to resolve [[bug:543][#543]]
-   SCHEDULED: <2011-07-13 Wed>
    - State "CANCELED"   from "TODO"       [2011-07-13 Wed 02:41]
    :PROPERTIES:
    :ID:       9ACD676A-B2B5-4416-99C0-4833E56D6206
@@ -21945,8 +22069,7 @@ Languages.
 :Message: [[message://github-87F922.10545812012012@news.gmane.org][Ledger syntax coloring for TextWrangler]]
 :Author: Niekas <github-Vzr4Esry4JzzIImvGDD8mw@public.gmane.org>
 :END:
-** TODO [#C] Document value expressions for Craig on the mailing list
-SCHEDULED: <2012-05-28 Mon>
+** TODO Document value expressions for Craig on the mailing list
 :PROPERTIES:
 :ID:       72A8CF34-E693-4E25-AA3B-CB5FC3873402
 :CREATED:  [2012-05-22 Tue 18:57]
@@ -22074,7 +22197,6 @@ SCHEDULED: <2012-05-28 Mon>
    :Submitter: Craig Earls <enderw88@gmail.com>
    :END:
 ** DONE (Simon) Consolidate the ledger-cli repository as a website branch
-SCHEDULED: <2012-03-11 Sun>
 - State "DONE"       from "TODO"       [2012-03-11 Sun 20:36]
 :PROPERTIES:
 :ID:       488FD290-3F00-428D-A3B7-D7F115C2E5F0
@@ -22128,7 +22250,6 @@ SCHEDULED: <2012-03-11 Sun>
    :CREATED:  [2007-09-27 Thu]
    :END:
 ** DONE Post links on Ledger Web to the new dmg and coverage report
-SCHEDULED: <2012-02-18 Sat>
 - State "DONE"       from "TODO"       [2012-02-19 Sun 02:05]
 :PROPERTIES:
 :ID:       A2E9F14E-A826-45D3-9BFB-8D3EBFD9F8C8
