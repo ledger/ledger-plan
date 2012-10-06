@@ -7,7 +7,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   (goto-char (point-min))
   (while (re-search-forward
           (concat "\\* \\([A-Z]+\\) \\(\\[#\\([A-C]\\)\\]\\s-+\\)?"
-                  "\\[\\[bug:\\([0-9]+\\)\\]\\[#[0-9]+\\]\\]\\s-+\\(.+\\)") nil t)
+                  "\\[\\[bug:\\([0-9]+\\)\\]\\[#[0-9]+\\]\\]\\s-+\\(.+\\)")
+          nil t)
     (let ((status (match-string 1))
           (priority (match-string 2))
           (bug (match-string 4))
@@ -47,12 +48,10 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 
 #+RESULTS:
 #+begin_example
-717,CONFIRMED,Error: Cannot convert a balance with multiple commodities to an amount
-764,CONFIRMED,csv: posted should be renamed to aux_date or aux or auxdate
-763,CONFIRMED,Error: Cannot convert a balance with multiple commodities to an amount
-762,CONFIRMED,--only doesn't work: does the same as --limit
-761,CONFIRMED,Make uncommoditized amounts behave like commoditized ones
-759,CONFIRMED,Compare a string with commodity
+790,CONFIRMED,Python query with -M segfaults
+771,CONFIRMED,--explicit not working
+789,CONFIRMED,Various weirdness of "fixed CURRENCY VALUE ... end fixed"
+788,CONFIRMED,Assertion failed with unbalanced remainder and input from stdin
 686,CONFIRMED,Virtual transactions and the equity command
 201,CONFIRMED,Handling currencies that were replaced by the Euro
 207,CONFIRMED,No output to file in REPL with "push -o output.journal"
@@ -144,7 +143,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 604,CONFIRMED,print ignores @bucket
 606,CONFIRMED,Padding formatting commands does not ignore invisible characters
 607,CONFIRMED,Expand the --price-exp argument handling
-608,CONFIRMED,lot tags are wrong if more than one lot tag in a transaction
 609,CONFIRMED,Piping input file doesn't handle relative file expansion correctly
 610,CONFIRMED,Whole transaction is ignored when there's a specific comment
 611,CONFIRMED,--trace throws an assertion errors when files are @included
@@ -173,6 +171,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 673,CONFIRMED,display_total chokes on account with non-dollar commodities
 676,CONFIRMED,Error about missing boost regex misleading when boost regex is installed but not boost regex dev
 677,CONFIRMED,Error building current next branch: no type named ‘key_type’ in ‘class ledger::date_specifier_t’
+682,CONFIRMED,post.xact.posts yields: 'instancemethod' object is not iterable
 684,CONFIRMED,Ledger v3 slower than ledger v2
 685,CONFIRMED,"truncated" does not mean what is expected in value expressions
 687,CONFIRMED,Budgeting bug?
@@ -190,13 +189,13 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 712,CONFIRMED,Capital gains/losses accounted for twice
 713,CONFIRMED,Results of bal -B not intuitive when a previous capital loss/gain was made
 716,CONFIRMED,Need a better error for automated transactions with null amounts
+717,CONFIRMED,Error: Cannot convert a balance with multiple commodities to an amount
 722,CONFIRMED,Segfault with -S t -t t
 723,CONFIRMED,-S t doesn't sort timelog entries correctly
 724,CONFIRMED,Assertion failed in "src/unistring.h" with --payee-width=1
 725,CONFIRMED,Output of cleared not aligned with --date-format
 726,CONFIRMED,Option draft (mentioned in doc/ledger.1) doesn't exist
 727,CONFIRMED,Option lisp (mentioned in doc/ledger.1) doesn't exist
-728,CLOSED,pricesdb command renamed to pricedb - preserve compatibility
 729,CONFIRMED,Output of cleared doesn't align
 730,CONFIRMED,Segmentation fault
 731,CONFIRMED,--current does not apply with --end
@@ -225,7 +224,26 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 754,CONFIRMED,Segfault with -D and no transaction
 755,CONFIRMED,Make format strings backward compatible with 2.x
 756,CONFIRMED,Bad pricedb info with --anon pricedb
-380,WAITING,"Unbalanced remainder" pops up depending on the order of postings
+759,CONFIRMED,Compare a string with commodity
+761,CONFIRMED,Make uncommoditized amounts behave like commoditized ones
+762,CONFIRMED,--only doesn't work: does the same as --limit
+763,CONFIRMED,Error: Cannot convert a balance with multiple commodities to an amount
+764,CONFIRMED,csv: posted should be renamed to aux_date or aux or auxdate
+765,CONFIRMED,bucket command drops first letter of following account name
+766,CONFIRMED,Deprecation of '@' not carried through in example file drewr3.dat
+767,CONFIRMED,Apparent new form of alias command is undocumented
+769,CONFIRMED,Dated balance assertions not working
+772,CONFIRMED,segfault when using "short" versions of option in ledgerrc
+777,CONFIRMED,Error: Divide by zero for 1/9
+778,CONFIRMED,Only one pricedb entry per day
+779,CONFIRMED,Please add pricrdb entries in both directions
+781,CONFIRMED,Setting precision on the command line
+782,CONFIRMED,Ledger produces xml/json with only one or two entries.
+783,CONFIRMED,Automated postings with a tag = value match ignore the value
+784,CONFIRMED,Regression on 647D5DB9.test
+785,CONFIRMED,Error message not friendly when "note" without argument
+786,CONFIRMED,Transaction check doesn't give line number for included file
+787,CONFIRMED,--yearly/quarterly gives correct output...
 370,CONFIRMED,Let time periods use "starting" to fix the exact start date
 399,CONFIRMED,Add function to determine budgeted amount for a time period
 417,CONFIRMED,'&' in account names causes trouble during GNU Cash import
@@ -239,6 +257,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 226,RESOLVED,print --anon fails completely
 228,RESOLVED,Make sequences comparable
 345,RESOLVED,speed-test.dat with -V is failing verification
+380,RESOLVED,"Unbalanced remainder" pops up depending on the order of postings
 498,RESOLVED,File inclusion is broken
 157,RESOLVED,Make sure this is legal: = expr 'account =~ /foo/'
 158,RESOLVED,"ledger template exxons 10 from checking" applies 10 to "from"
@@ -270,6 +289,7 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 582,RESOLVED,Problems with account name completion
 593,RESOLVED,XML reports should output a <fullname> tag
 605,RESOLVED,Inconsistent command directive syntax
+608,RESOLVED,lot tags are wrong if more than one lot tag in a transaction
 632,RESOLVED,Strange "print" behavior in comments
 633,RESOLVED,Ledger crashes with --account=payee --monthly
 654,RESOLVED,Commodity flags cleanup
@@ -396,7 +416,9 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 715,CLOSED,Error: Cannot divide a balance by an amount with -X -H
 718,CLOSED,Strange <Adjustment> entries with -X -H and ledger maybe hangs?
 721,CLOSED,Equity shows commodities that have already been sold
+728,CLOSED,pricesdb command renamed to pricedb - preserve compatibility
 757,CLOSED,emacs baseline test failure
+770,CLOSED,Options --monthly and --invert do not work together
 322,CLOSED,Minor typo in acprep output
 638,CONFIRMED,ledger-mode dropping first digit of inserted dates
 389,CONFIRMED,Emacs mode autocompletion issue
@@ -555,10 +577,10 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 230,CLOSED,Make format strings backward compatible with 2.x
 231,CLOSED,Allow conversion of some but not all commodities
 666,CLOSED,Add --daybreak to split multi-day time log entries into multiple days
-758,CLOSED,post.cost: No Python class registered for C++ class boost::optional<ledger::amount_t>
-760,CLOSED,value(eur, post.date) doesn't work
 407,CONFIRMED,Problem with decimal commas and Python integration support
 682,CONFIRMED,post.xact.posts yields: 'instancemethod' object is not iterable
+773,CONFIRMED,ledger python intepreter segfaults on second command entered
+774,CONFIRMED,ledger python messes up subsequent console input
 302,CONFIRMED,Add implicit conversion of mask_t to re
 303,CONFIRMED,After using python/server.py, it segfaults on exit
 304,CONFIRMED,Allow a Python function to be used to download quotes
@@ -577,6 +599,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 665,RESOLVED,pymodule.value doesn't work yet for Python
 315,RESOLVED,Use Python to create a per-account debit/credit report
 184,RESOLVED,For those interested in the Python support
+758,CLOSED,post.cost: No Python class registered for C++ class boost::optional<ledger::amount_t>
+760,CLOSED,value(eur, post.date) doesn't work
 234,CONFIRMED,Add some more configure arguments
 371,CONFIRMED,VS project files & Windows installer
 405,CONFIRMED,Strange libboost suffix on Debian Squeeze with acprep
@@ -589,6 +613,10 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 671,CONFIRMED,--boost-file-suffix=.so.1.49.0 has not effect
 689,CONFIRMED,configure is not finding python on freebsd 8.2, 2.6 and 2.7 installed
 720,CONFIRMED,Linker warning about library locations
+768,CONFIRMED,OS X installer is incomplete
+775,CONFIRMED,"--local" acprep option is not honoured
+776,CONFIRMED,"acprep check" fails not being able to find Tests executables
+780,CONFIRMED,Support Homebrew
 216,CONFIRMED,Ledger packages for Debian
 238,CONFIRMED,Build .deb, .rpm, .exe (in .zip), and .pkg installs
 240,CONFIRMED,Setup virtual machines for every OS Ledger should run on
@@ -630,8 +658,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 474,CONFIRMED,Create documentation stubs in ledger3.texi for all features
 500,CONFIRMED,Enforcing balanced books
 520,CONFIRMED,Ledger's Doxygen file is broken
-528,CONFIRMED,vim 'commentstring'
-529,CONFIRMED,vim indent file
 579,CONFIRMED,Depreciate assets (cars, equipment, buildings, etc)
 596,CONFIRMED,Improve download/install instructions for the Mac
 641,CONFIRMED,Add note about ledger openbsd port to ledger-cli.org
@@ -656,6 +682,8 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
 662,RESOLVED,If Ledger crashes in std::string::_Rep::_M_dispose...
 221,RESOLVED,Value expressions don't work as documented
 450,RESOLVED,Document how to do inventory accounting
+528,CLOSED,vim 'commentstring'
+529,CLOSED,vim indent file
 #+end_example
 
 ** Update Bugzilla UUIDs
@@ -683,126 +711,128 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :CATEGORY: Bugs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
-** TODO [[bug:782][#782]] Ledger produces xml/json with only one or two entries.
+** TODO [[bug:790][#790]] Python query with -M segfaults
+SCHEDULED: <2012-10-06 Sat>
 :PROPERTIES:
-:ID:       A72EBA8D-AC2D-42BC-BA56-2D2A67D157E0
-:CREATED:  [2012-07-17 Tue 13:37]
-:Date: Sun, 15 Jul 2012 21:54:55 +0000
-:Message: [[message://bug-782-1@http.bugs.ledger-cli.org/][{Bug 782} New: Ledger produces xml/json with only one or two entries.]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
+:ID:       309A994C-3328-4C0F-A5CA-BAEF6331F35E
+:CREATED:  [2012-10-06 Sat 03:49]
 :END:
-** TODO [[bug:781][#781]] Setting precision on the command line
+** TODO [[bug:771][#771]] --explicit not working
+SCHEDULED: <2012-10-06 Sat>
 :PROPERTIES:
-:ID:       80A78A11-7351-4CCE-9654-0317D3177C26
-:CREATED:  [2012-07-12 Thu 13:32]
-:Date: Thu, 12 Jul 2012 16:09:29 +0000
-:Message: [[message://bug-781-1@http.bugs.ledger-cli.org/][{Bug 781} New: Setting precision on the command line]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
+:ID:       BCE72F3E-F995-4C14-96D9-C45557F9ECE4
+:CREATED:  [2012-10-06 Sat 03:48]
+:URL:      [[http://bugs.ledger-cli.org/show_bug.cgi?id%3D771][Bug 771 – --explicit not working]]
 :END:
-** TODO jkr on #ledger says that ledger xml/json doesn't report all xacts
+** TODO Synchronize and organize Ledger bugs
+SCHEDULED: <2012-10-05 Fri>
 :PROPERTIES:
-:ID:       408BEFFA-D021-4769-B818-AD7CC29E1B43
-:CREATED:  [2012-07-11 Wed 15:58]
+:ID:       6C88DF37-8B9A-4902-A3C9-9E695DEEAA60
+:CREATED:  [2012-10-05 Fri 13:16]
 :END:
-** TODO (Martin) Setting precision on the command line
-> Is there a way so I can tell ledger - ideally on the command line - to limit
-> precision to 2 digits, so I'll get the same result as what my broker shows?
+** TODO (jeroendv) [ledger] bug: cleared records don't get checked wihen using --strict or --pedantic ???
+:PROPERTIES:
+:ID:       CD5E0903-8B5D-4EE4-9411-A320CB075304
+:CREATED:  [2012-10-05 Fri 11:44]
+:Date:     Fri, 5 Oct 2012 07:02:49 -0700
+:Message:  [[message://jwiegley/ledger/issues/87@github.com][{ledger} bug: cleared records don't get checked wihen using --strict or --pedantic ??? (#87)]]
+:Author:   jeroendv <notifications@github.com>
+:END:
+** TODO (jeroendv) [ledger] Bug: --strict and bucket
+:PROPERTIES:
+:ID:       7C38B696-5DF7-4A57-A799-D6AC98E137D3
+:CREATED:  [2012-10-04 Thu 23:37]
+:Date:     Thu, 4 Oct 2012 06:22:24 -0700
+:Message:  [[message://jwiegley/ledger/issues/86@github.com][{ledger} Bug: --strict and bucket  (#86)]]
+:Author:   jeroendv <notifications@github.com>
+:END:
+** TODO (Christophe) Adjustment in ledger register report with -Mn
+:PROPERTIES:
+:ID:       59BA7359-BA5E-4F35-B48F-E7DF29EB73C1
+:CREATED:  [2012-10-03 Wed 14:37]
+:Date:     Sun, 30 Sep 2012 09:04:03 +0100
+:Message:  [[message://873920kkcs.fsf@cantab.net][Adjustment in ledger register report with -Mn]]
+:Author:   Christophe Rhodes <csr21@cantab.net>
+:END:
+** TODO (Bradley) Discussion of Bug 712: Should Equity:Capital.* actually be generated automatically? (was  Re: Weirdness when converting between two fixated cost currencies in same transaction)
+:PROPERTIES:
+:ID:       B4380969-B9F0-4DED-AA09-2B433CD2740A
+:CREATED:  [2012-10-03 Wed 14:38]
+:Date:     Sun, 30 Sep 2012 13:59:10 -0400
+:Message:  [[message://87sj9z4ck1.fsf_-_@ebb.org][Discussion of Bug 712: Should Equity:Capital.* actually be generated automatically? (was  Re: Weirdness when converting between two fixated cost currencies in same transaction)]]
+:Author:   "Bradley M. Kuhn" <bkuhn@ebb.org>
+:END:
+** TODO (Alexis) RegressionTest_647D5DB9 (Failed)
+When running ctest I noticed that the following tests FAILED:
+	239 - RegressionTest_647D5DB9 (Failed)
 
-At present there is no "trap" for this.  I'll have to think about it.  It may
-be really easy, or it might require some significant changes.
+The patch below fixes the regression test for me:
+diff --git a/test/regress/647D5DB9.test b/test/regress/647D5DB9.test
+index 7e53f23..9b6d851 100644
+--- a/test/regress/647D5DB9.test
++++ b/test/regress/647D5DB9.test
+@@ -11,5 +11,5 @@ P 2009/01/31 02:18:02 AAPL $4
+ P 3000/01/01 02:18:02 APPL $100
 
-The problem is that you can rewrite the individual posting amounts (too fine),
-and you can rewrite the final account totals (too coarse), but you can't
-rewrite the individual account totals in between.
+ test bal --end 2008/12/31 -JV Equities
+-2008-12-31 1500
++2008-06-30 1500
+ end test
 :PROPERTIES:
-:ID:       BF6CE22A-3472-4E8C-AD1E-4334072BDDAF
-:CREATED:  [2012-07-02 Mon 19:17]
-:Date: Sun, 1 Jul 2012 21:59:26 +0100
-:Message: [[message://20120701205926.GA21063@jirafa.cyrius.com][Setting precision on the command line]]
-:Author: Martin Michlmayr <tbm@cyrius.com>
+:ID:       26957ECD-F5B5-40EC-958F-2FD42F2DC875
+:CREATED:  [2012-09-26 Wed 22:54]
+:Date:     Wed, 26 Sep 2012 22:45:51 +0200
+:Message:  [[message://20120926204551.GA42493@kaori.local][Re: Building with Ninja instead of Make]]
+:Author:   Alexis <surryhill@gmail.com>
 :END:
-** TODO [[bug:777][#777]] Error: Divide by zero for 1/9
+** TODO [[bug:789][#789]] Various weirdness of "fixed CURRENCY VALUE ... end fixed"
+... blocks, when compared to VALUE {=CONVERTED_VAL} syntax
 :PROPERTIES:
-:ID:       C2F32137-A643-49EF-9B08-87C157DA868D
-:CREATED:  [2012-07-01 Sun 22:54]
-:Date: Sun, 01 Jul 2012 12:12:45 +0000
-:Message: [[message://bug-777-1@http.bugs.ledger-cli.org/][{Bug 777} New: Error: Divide by zero for 1/9]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
+:ID:       8DA48C3B-B406-45B7-B9E3-2B781948A3B6
+:CREATED:  [2012-09-14 Fri 15:38]
+:Date:     Fri, 14 Sep 2012 19:35:32 +0000
+:Message:  [[message://bug-789-1@http.bugs.ledger-cli.org/][{Bug 789} New: Various weirdness of "fixed CURRENCY VALUE ... end fixed" blocks, when compared to VALUE {=CONVERTED_VAL} syntax]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:778][#778]] Only one pricedb entry per day
+** TODO (Martin) Towards ledger 3.0 (was Re: newbie confusion)
 :PROPERTIES:
-:ID:       D7EE9BEF-5711-4E83-8DF7-3CB7DBA586D7
-:CREATED:  [2012-07-01 Sun 22:54]
-:Date: Sun, 01 Jul 2012 12:24:44 +0000
-:Message: [[message://bug-778-1@http.bugs.ledger-cli.org/][{Bug 778} New: Only one pricedb entry per day]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
+:ID:       47F8DC45-EB9E-4DA6-8659-D909DF2AE349
+:CREATED:  [2012-09-10 Mon 18:45]
+:Date:     Sat, 8 Sep 2012 10:35:13 +0100
+:Message:  [[message://20120908093513.GL7425@jirafa.cyrius.com][Towards ledger 3.0 (was Re: newbie confusion)]]
+:Author:   Martin Michlmayr <tbm@cyrius.com>
 :END:
-** TODO [[bug:779][#779]] Please add pricrdb entries in both directions
+** TODO (John Rakestraw) %(code) is interepolating as (null) when there is no code
 :PROPERTIES:
-:ID:       991B7544-5237-4278-B256-43C7AA192129
-:CREATED:  [2012-07-01 Sun 22:54]
-:Date: Sun, 01 Jul 2012 12:29:28 +0000
-:Message: [[message://bug-779-1@http.bugs.ledger-cli.org/][{Bug 779} New: Please add pricrdb entries in both directions]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
+:ID:       267ECAD3-D6E0-4889-A016-6C33C0C4E1AD
+:CREATED:  [2012-09-04 Tue 15:55]
+:Date:     Tue, 4 Sep 2012 13:33:02 -0700 (PDT)
+:Message:  [[message://3ceafa25-f705-4796-8c8e-d7c8023df88e@googlegroups.com][Re: 3.0.0-20120518 (master branch): Error: Unrecognized formatting character: {]]
+:Author:   John Rakestraw <johnr@johnrakestraw.com>
 :END:
-** TODO (eternaleye) Automated postings with a tag = value match ignore the value
+** TODO [[bug:788][#788]] Assertion failed with unbalanced remainder and input from stdin
 :PROPERTIES:
-:ID:       642A1D86-87F1-4FD8-BFC3-519862E7DD78
-:CREATED:  [2012-06-26 Tue 04:12]
-:Date: Tue, 26 Jun 2012 00:04:26 -0700
-:Message: [[message://jwiegley/ledger/issues/68/6568583@github.com][Re: {ledger} Automated postings with a tag = value match ignore the value (#68)]]
-:Author: eternaleye <reply+i-5162488-36b43c31c1308c337b0d41a370952e9980b9f61f-8460@reply.github.com>
+:ID:       BF3C1F82-C18F-436F-9C56-C8720F524247
+:CREATED:  [2012-08-23 Thu 20:05]
+:Date:     Thu, 23 Aug 2012 14:21:53 +0000
+:Message:  [[message://bug-788-1@http.bugs.ledger-cli.org/][{Bug 788} New: Assertion failed with unbalanced remainder and input from stdin]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO (Matthew) Having trouble with -Y from the command line
+** TODO (Thierry) acprep check failing
 :PROPERTIES:
-:ID:       4248A7DE-668D-4EE7-A22F-E0F4ED82E787
-:CREATED:  [2012-06-25 Mon 19:09]
-:Date: Sat, 23 Jun 2012 19:22:36 -0700 (PDT)
-:Message: [[message://91d960d9-530d-4b76-bf06-dad4419307e0@googlegroups.com][Re: Exploring the Python interface -- segfault]]
-:Author: Matthew Harris <mharris312@gmail.com>
+:ID:       CA53FCF3-8FE7-4DF1-9F6E-8A62338FC439
+:CREATED:  [2012-08-23 Thu 01:57]
+:Date:     Fri, 17 Aug 2012 00:40:41 +0200
+:Message:  [[message://CA+R89YLqb4by84L=eURbhGoyNR3=Vmo=qdd1_9OPPHDLcoiRaA@mail.gmail.com][Re: acprep check failing]]
+:Author:   Thierry Daucourt <thierry.daucourt@free.fr>
 :END:
-** TODO (kirubakaran) Ledger crashes on a certain condition
+** TODO (Martin) Regression on 647D5DB9.test
 :PROPERTIES:
-:ID:       D386D03C-BF43-40A0-8C4B-07AF2C57E7D5
-:CREATED:  [2012-06-19 Tue 01:57]
-:Date: Mon, 18 Jun 2012 00:08:47 -0700
-:Message: [[message://jwiegley/ledger/issues/67/6389247@github.com][Re: {ledger} Ledger crashes on a certain condition (#67)]]
-:Author: kirubakaran <reply+i-5110041-acd6560d846bdc485f8098e5927721c926757fc2-8460@reply.github.com>
-:END:
-** TODO (Matthew) --pedantic doesn't work if specified in Ledger file
-First, I thought that I could put flags directly into my journal file and they
-would be equivalent to providing them on the command line. But with this input
-file:
-
---pedantic
-2012/01/01 Payday
-  Assets:Checking  $100.00
-  Income
-
-'ledger -f test.dat reg' doesn't complain about unknown accounts, but 'ledger
--f test.dat reg --pedantic' does. Why?
-:PROPERTIES:
-:ID:       AB4A1EBB-71E2-46CC-B484-8837679923B4
-:CREATED:  [2012-06-18 Mon 01:17]
-:Date: Thu, 14 Jun 2012 23:15:47 -0700 (PDT)
-:Message: [[message://ff338824-f0e9-4ea2-982b-f770838050ff@googlegroups.com][--strict and --pedantic]]
-:Author: Matthew Harris <mharris312@gmail.com>
-:END:
-** TODO [[bug:682][#682]] post.xact.posts yields: 'instancemethod' object is not iterable
-:PROPERTIES:
-:ID:       317B9815-A0D2-4B26-BAB7-3131650463AD
-:CREATED:  [2012-05-30 Wed 21:30]
-:Date: Wed, 30 May 2012 14:55:14 +0000
-:Message: [[message://bug-682-1-ncLxR8LuMD@http.bugs.ledger-cli.org/][{Bug 682} post.xact.posts yields: 'instancemethod' object is not iterable]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** TODO [[bug:772][#772]] segfault when using "short" versions of option in ledgerrc
-:PROPERTIES:
-:ID:       36367831-3BC5-417D-BBC2-15B524FDBF30
-:CREATED:  [2012-05-28 Mon 23:07]
-:Date: Mon, 28 May 2012 23:06:38 +0000
-:Message: [[message://bug-772-1@http.bugs.ledger-cli.org/][{Bug 772} New: segfault when using "short" versions of option in ledgerrc]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
+:ID:       9589BD5A-F486-460C-8926-C39D17DC8369
+:CREATED:  [2012-08-23 Thu 01:42]
+:Date:     Sun, 19 Aug 2012 11:42:24 +0100
+:Message:  [[message://20120819104224.GG6064@jirafa.cyrius.com][Re: Regression on 647D5DB9.test]]
+:Author:   Martin Michlmayr <tbm@cyrius.com>
 :END:
 ** TODO [#A] [[bug:686][#686]] Virtual transactions and the equity command
 - State "TODO"       from "CLOSED"     [2012-03-27 Tue 14:56] \\
@@ -961,6 +991,50 @@ accounting concept, but so far I only ran into this particular case.)
 :Message: [[message://20120318100419.GC4368@jirafa.cyrius.com][Re: Confusion about cost vs price]]
 :Author: Martin Michlmayr <tbm-R+vWnYXSFMfQT0dZR+AlfA@public.gmane.org>
 :END:
+** TODO (Martin) Setting precision on the command line
+> Is there a way so I can tell ledger - ideally on the command line - to limit
+> precision to 2 digits, so I'll get the same result as what my broker shows?
+
+At present there is no "trap" for this.  I'll have to think about it.  It may
+be really easy, or it might require some significant changes.
+
+The problem is that you can rewrite the individual posting amounts (too fine),
+and you can rewrite the final account totals (too coarse), but you can't
+rewrite the individual account totals in between.
+:PROPERTIES:
+:ID:       BF6CE22A-3472-4E8C-AD1E-4334072BDDAF
+:CREATED:  [2012-07-02 Mon 19:17]
+:Date: Sun, 1 Jul 2012 21:59:26 +0100
+:Message: [[message://20120701205926.GA21063@jirafa.cyrius.com][Setting precision on the command line]]
+:Author: Martin Michlmayr <tbm@cyrius.com>
+:END:
+** TODO (Matthew) --pedantic doesn't work if specified in Ledger file
+First, I thought that I could put flags directly into my journal file and they
+would be equivalent to providing them on the command line. But with this input
+file:
+
+--pedantic
+2012/01/01 Payday
+  Assets:Checking  $100.00
+  Income
+
+'ledger -f test.dat reg' doesn't complain about unknown accounts, but 'ledger
+-f test.dat reg --pedantic' does. Why?
+:PROPERTIES:
+:ID:       AB4A1EBB-71E2-46CC-B484-8837679923B4
+:CREATED:  [2012-06-18 Mon 01:17]
+:Date: Thu, 14 Jun 2012 23:15:47 -0700 (PDT)
+:Message: [[message://ff338824-f0e9-4ea2-982b-f770838050ff@googlegroups.com][--strict and --pedantic]]
+:Author: Matthew Harris <mharris312@gmail.com>
+:END:
+** TODO (Matthew) Having trouble with -Y from the command line
+:PROPERTIES:
+:ID:       4248A7DE-668D-4EE7-A22F-E0F4ED82E787
+:CREATED:  [2012-06-25 Mon 19:09]
+:Date: Sat, 23 Jun 2012 19:22:36 -0700 (PDT)
+:Message: [[message://91d960d9-530d-4b76-bf06-dad4419307e0@googlegroups.com][Re: Exploring the Python interface -- segfault]]
+:Author: Matthew Harris <mharris312@gmail.com>
+:END:
 ** TODO (Simon) Account aliases should match account name components
 IIRC, when I checked last year Ledger's aliases also weren't as robust at
 matching account name components - it was more like a plain text substitution,
@@ -1007,6 +1081,14 @@ Will do.
 :Date: Sun, 18 Mar 2012 18:59:04 +0100
 :Message: [[message://CA+R89YLKW+FoLyH1yA2iF66UbSf603SMKCLK5cN=DzRTxdsnKw@mail.gmail.com][Re: A call for help: creating regression tests]]
 :Author: Thierry Daucourt <thierry.daucourt@free.fr>
+:END:
+** TODO (Thierry) Regression on 647D5DB9.test
+:PROPERTIES:
+:ID:       A52C75F4-4CE1-44F5-A473-E380D9DCD701
+:CREATED:  [2012-08-16 Thu 01:09]
+:Date:     Wed, 15 Aug 2012 13:07:56 +0200
+:Message:  [[message://CA+R89Y+GzO7GCkTzBeNz0r+t-tVYYNC+s15LV8bjhAtSZkOL9A@mail.gmail.com][Re: Regression on 647D5DB9.test]]
+:Author:   Thierry Daucourt <thierry.daucourt@free.fr>
 :END:
 ** TODO (Thierry) Trouble using the python interface
 - Note taken on [2012-03-18 Sun 19:22] \\
@@ -1140,6 +1222,14 @@ Will do.
 :Message: [[message://19113789.1845.1331941956011.JavaMail.geo-discussion-forums@ynil17][Re: Trouble using the python interface]]
 :Author: thierry <thierry.daucourt-GANU6spQydw@public.gmane.org>
 :END:
+** TODO (Thierry) acprep check failing
+:PROPERTIES:
+:ID:       912AD49F-DB08-4EF9-A47B-5E7F62186E1D
+:CREATED:  [2012-08-16 Thu 01:16]
+:Date:     Mon, 13 Aug 2012 20:38:22 +0200
+:Message:  [[message://CA+R89YJ4+V5AVEVP3_dpbeYNOWLpGkwM92D5Ke6UFGkFzkYYBw@mail.gmail.com][acprep check failing]]
+:Author:   Thierry Daucourt <thierry.daucourt@free.fr>
+:END:
 ** TODO (Tom) Printing notes in register/csv
 :PROPERTIES:
 :ID:       F9C9835E-83EC-4C4D-B0BA-0CB2A9552DE3
@@ -1147,6 +1237,22 @@ Will do.
 :Date: Sat, 12 May 2012 02:47:51 -0700 (PDT)
 :Message: [[message://25012548.393.1336816071734.JavaMail.geo-discussion-forums@vbjb10][Re: Printing notes in register/csv]]
 :Author: Tom Usher <4dmm.tom-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (eternaleye) Automated postings with a tag = value match ignore the value
+:PROPERTIES:
+:ID:       642A1D86-87F1-4FD8-BFC3-519862E7DD78
+:CREATED:  [2012-06-26 Tue 04:12]
+:Date: Tue, 26 Jun 2012 00:04:26 -0700
+:Message: [[message://jwiegley/ledger/issues/68/6568583@github.com][Re: {ledger} Automated postings with a tag = value match ignore the value (#68)]]
+:Author: eternaleye <reply+i-5162488-36b43c31c1308c337b0d41a370952e9980b9f61f-8460@reply.github.com>
+:END:
+** TODO (kirubakaran) Ledger crashes on a certain condition
+:PROPERTIES:
+:ID:       D386D03C-BF43-40A0-8C4B-07AF2C57E7D5
+:CREATED:  [2012-06-19 Tue 01:57]
+:Date: Mon, 18 Jun 2012 00:08:47 -0700
+:Message: [[message://jwiegley/ledger/issues/67/6389247@github.com][Re: {ledger} Ledger crashes on a certain condition (#67)]]
+:Author: kirubakaran <reply+i-5110041-acd6560d846bdc485f8098e5927721c926757fc2-8460@reply.github.com>
 :END:
 ** TODO (yunzheng) Account directive not giving warning with --strict
 :PROPERTIES:
@@ -1206,6 +1312,15 @@ Will do.
 :PROPERTIES:
 :ID:       F3879559-16DE-42F7-85CB-8A35F080A588
 :CREATED:  [2012-03-20 Tue 05:14]
+:END:
+** TODO Segmentation fault with --unbudgeted but all account have a budget
+Segmentation fault with --unbudgeted but all accounts have a budget
+:PROPERTIES:
+:ID:       2844A6C4-FDD9-4FE6-A258-C1F5A3A9BBC7
+:CREATED:  [2012-07-19 Thu 01:50]
+:Date: Wed, 11 Jul 2012 09:31:54 -0700 (PDT)
+:Message: [[message://8cf15bad-7fe3-4e38-9126-9f0f67ae2688@googlegroups.com][Segmentation fault with --unbudgeted but all account have a budget]]
+:Author: Qwertyu <scheit@gmail.com>
 :END:
 ** TODO [[bug:201][#201]] Handling currencies that were replaced by the Euro
 - State "TODO"       from "DONE"       [2012-03-09 Fri 20:09] \\
@@ -3520,16 +3635,6 @@ $ ledger -f budget_test.txt --budget reg ^income
 :Message: [[message://bug-607-1@http.bugs.ledger-cli.org/][{Bug 607} New: Expand the --price-exp argument handling to allow specification of hours vice only minutes]]
 :Submitter: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** DONE [[bug:608][#608]] lot tags are wrong if more than one lot tag in a transaction
-- State "DONE"       from "TODO"       [2012-06-27 Wed 16:56] \\
-  Fixed by 8869566
-:PROPERTIES:
-:ID:       E9B6F75D-81EE-43F9-B16A-BDFB76C56ABC
-:CREATED:  [2011-12-07 Wed 14:19]
-:Date: Wed, 07 Dec 2011 19:47:57 +0000
-:Message: [[message://bug-608-1@http.bugs.ledger-cli.org/][{Bug 608} New: ledger gets lot tags wrong when there is more than one lot tag in a transaction]]
-:Submitter: bugzilla-daemon@mail.johnwiegley.com
-:END:
 ** TODO [[bug:609][#609]] Piping input file doesn't handle relative file expansion correctly
 :PROPERTIES:
 :ID:       CE5B3DED-BF4A-47FD-A507-87E48E46EBDC
@@ -3905,6 +4010,14 @@ https://gist.github.com/1389840
 :CREATED:  [2012-03-10 Sat 19:13]
 :Date: Sat, 10 Mar 2012 13:22:48 +0000
 :Message: [[message://bug-677-1@http.bugs.ledger-cli.org/][{Bug 677} New: Error building current next branch: no type named ‘key_type’ in ‘class ledger::date_specifier_t’]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:682][#682]] post.xact.posts yields: 'instancemethod' object is not iterable
+:PROPERTIES:
+:ID:       317B9815-A0D2-4B26-BAB7-3131650463AD
+:CREATED:  [2012-05-30 Wed 21:30]
+:Date: Wed, 30 May 2012 14:55:14 +0000
+:Message: [[message://bug-682-1-ncLxR8LuMD@http.bugs.ledger-cli.org/][{Bug 682} post.xact.posts yields: 'instancemethod' object is not iterable]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO [[bug:684][#684]] Ledger v3 slower than ledger v2
@@ -4853,6 +4966,92 @@ to work.
 :ID:       42BEAF65-97B7-4076-B1A2-08792E72CB59
 :CREATED:  [2012-04-02 Mon 14:38]
 :END:
+** TODO [[bug:772][#772]] segfault when using "short" versions of option in ledgerrc
+:PROPERTIES:
+:ID:       36367831-3BC5-417D-BBC2-15B524FDBF30
+:CREATED:  [2012-05-28 Mon 23:07]
+:Date: Mon, 28 May 2012 23:06:38 +0000
+:Message: [[message://bug-772-1@http.bugs.ledger-cli.org/][{Bug 772} New: segfault when using "short" versions of option in ledgerrc]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:777][#777]] Error: Divide by zero for 1/9
+:PROPERTIES:
+:ID:       C2F32137-A643-49EF-9B08-87C157DA868D
+:CREATED:  [2012-07-01 Sun 22:54]
+:Date: Sun, 01 Jul 2012 12:12:45 +0000
+:Message: [[message://bug-777-1@http.bugs.ledger-cli.org/][{Bug 777} New: Error: Divide by zero for 1/9]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:778][#778]] Only one pricedb entry per day
+:PROPERTIES:
+:ID:       D7EE9BEF-5711-4E83-8DF7-3CB7DBA586D7
+:CREATED:  [2012-07-01 Sun 22:54]
+:Date: Sun, 01 Jul 2012 12:24:44 +0000
+:Message: [[message://bug-778-1@http.bugs.ledger-cli.org/][{Bug 778} New: Only one pricedb entry per day]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:779][#779]] Please add pricrdb entries in both directions
+:PROPERTIES:
+:ID:       991B7544-5237-4278-B256-43C7AA192129
+:CREATED:  [2012-07-01 Sun 22:54]
+:Date: Sun, 01 Jul 2012 12:29:28 +0000
+:Message: [[message://bug-779-1@http.bugs.ledger-cli.org/][{Bug 779} New: Please add pricrdb entries in both directions]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:781][#781]] Setting precision on the command line
+:PROPERTIES:
+:ID:       80A78A11-7351-4CCE-9654-0317D3177C26
+:CREATED:  [2012-07-12 Thu 13:32]
+:Date: Thu, 12 Jul 2012 16:09:29 +0000
+:Message: [[message://bug-781-1@http.bugs.ledger-cli.org/][{Bug 781} New: Setting precision on the command line]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:782][#782]] Ledger produces xml/json with only one or two entries.
+:PROPERTIES:
+:ID:       A72EBA8D-AC2D-42BC-BA56-2D2A67D157E0
+:CREATED:  [2012-07-17 Tue 13:37]
+:Date: Sun, 15 Jul 2012 21:54:55 +0000
+:Message: [[message://bug-782-1@http.bugs.ledger-cli.org/][{Bug 782} New: Ledger produces xml/json with only one or two entries.]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:783][#783]] Automated postings with a tag = value match ignore the value
+:PROPERTIES:
+:ID:       EE82975E-9C8D-4508-91A6-3409822B98B8
+:CREATED:  [2012-08-06 Mon 14:14]
+:END:
+** TODO [[bug:784][#784]] Regression on 647D5DB9.test
+:PROPERTIES:
+:ID:       4EA7AA88-6686-4985-8C03-411ED3667283
+:CREATED:  [2012-08-14 Tue 11:52]
+:Date:     Tue, 14 Aug 2012 09:23:06 +0000
+:Message:  [[message://bug-784-1@http.bugs.ledger-cli.org/][{Bug 784} New: Regression on 647D5DB9.test]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:785][#785]] Error message not friendly when "note" without argument
+:PROPERTIES:
+:ID:       8544C94F-F8BE-49BD-B0DE-8042BD7FAD29
+:CREATED:  [2012-08-15 Wed 11:56]
+:Date:     Wed, 15 Aug 2012 16:41:39 +0000
+:Message:  [[message://bug-785-1@http.bugs.ledger-cli.org/][{Bug 785} New: error message not friendly when "note" without argument]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:786][#786]] Transaction check doesn't give line number for included file
+:PROPERTIES:
+:ID:       771A27EB-83EA-4027-86DD-DCF3F71EFE6A
+:CREATED:  [2012-08-15 Wed 11:56]
+:Date:     Wed, 15 Aug 2012 16:46:54 +0000
+:Message:  [[message://bug-786-1@http.bugs.ledger-cli.org/][{Bug 786} New: Transaction check doesn't give line number for included file]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:787][#787]] --yearly/quarterly gives correct output, but...
+... but not daily/weekly/monthly, when associated to --market
+:PROPERTIES:
+:ID:       5E711871-965D-4778-9640-5B00747683AC
+:CREATED:  [2012-08-16 Thu 14:30]
+:Date:     Thu, 16 Aug 2012 19:13:40 +0000
+:Message:  [[message://bug-787-1@http.bugs.ledger-cli.org/][{Bug 787} New: --yearly/quarterly gives correct output, but not daily/weekly/monthly, when associated to --market]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** TODO account directive not giving warning with --strict
 Using ledger 3.0, with the following ledger file:
 #+begin_src ledger
@@ -4871,6 +5070,11 @@ about Expenses:Foo:Bar being not defined.
 :PROPERTIES:
 :ID:       60440873-F167-43B6-88F6-443BD08B12B8
 :CREATED:  [2012-05-27 Sun 01:28]
+:END:
+** TODO jkr on #ledger says that ledger xml/json doesn't report all xacts
+:PROPERTIES:
+:ID:       408BEFFA-D021-4769-B818-AD7CC29E1B43
+:CREATED:  [2012-07-11 Wed 15:58]
 :END:
 ** DEFERRED [[bug:370][#370]] Let time periods use "starting" to fix the exact start date
 - State "DEFERRED"   from "TODO"       [2012-03-11 Sun 20:31]
@@ -5381,6 +5585,16 @@ build of the next branch on Mac OS X.
 :Author: Hyrum K Wright <hyrum-krATTUSiS2OIzK9ZyXRbJA@public.gmane.org>
 :END:
 
+** DONE (Hyrum) [ledger] Fix a couple of compilation warnings
+SCHEDULED: <2012-08-16 Thu>
+- State "DONE"       from "TODO"       [2012-08-16 Thu 10:51]
+:PROPERTIES:
+:ID:       53586C46-C959-41B5-8AA3-671635443D48
+:CREATED:  [2012-08-16 Thu 01:15]
+:Date:     Mon, 13 Aug 2012 22:27:55 -0700
+:Message:  [[message://jwiegley/ledger/pull/74@github.com][{ledger} Fix a couple of compilation warnings (#74)]]
+:Author:   Hyrum Wright <notifications@github.com>
+:END:
 ** DONE --begin and --end not working correctly
    - State "DONE"       [2009-02-17 Tue 22:49]
    :PROPERTIES:
@@ -6982,6 +7196,16 @@ build of the next branch on Mac OS X.
 :CREATED:  [2011-11-24 Thu 00:42]
 :Date: Thu, 24 Nov 2011 05:57:44 +0000
 :Message: [[message://bug-605-1@http.bugs.ledger-cli.org/][{Bug 605} New: inconsistent command directive syntax]]
+:Submitter: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE [[bug:608][#608]] lot tags are wrong if more than one lot tag in a transaction
+- State "DONE"       from "TODO"       [2012-06-27 Wed 16:56] \\
+  Fixed by 8869566
+:PROPERTIES:
+:ID:       E9B6F75D-81EE-43F9-B16A-BDFB76C56ABC
+:CREATED:  [2011-12-07 Wed 14:19]
+:Date: Wed, 07 Dec 2011 19:47:57 +0000
+:Message: [[message://bug-608-1@http.bugs.ledger-cli.org/][{Bug 608} New: ledger gets lot tags wrong when there is more than one lot tag in a transaction]]
 :Submitter: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DONE [[bug:632][#632]] Strange "print" behavior in comments
@@ -15735,6 +15959,28 @@ Here's my reduced test case:
   :CATEGORY: Emacs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO (Thierry) ledger-do-reconcile
+- Note taken on [2012-09-06 Thu 19:23] \\
+  Until know I had never done any elisp, but with some "let's try", I managed
+  to get it work with patch here attached.
+
+  Is this patch valid, and can it be integrated in sources ?
+
+During the refactoring you did from ledger.el to ldg-*.el, the reconcile
+section from ledger.el has been copied to leg-reconcile.el.  But the function
+ledger-do-reconcile has been emptied.  Any reason for that ?
+
+I tried to copy/paste the content of ledger-do-reconcile, from old ledger.ol
+to ledger-reconcile.el, but it did not worked...  Any idea? Should I open a
+bug for that?
+:PROPERTIES:
+:ID:       10279BF5-93FB-4726-9641-9B1CF79D4909
+:CREATED:  [2012-09-06 Thu 19:23]
+:Date:     Sun, 2 Sep 2012 22:28:40 +0200
+:Message:  [[message://CA+R89YL7uWeWf3BrhLk-h28H5SwaiWmsf4BxUxmD8umh+6qJyg@mail.gmail.com][ledger-do-reconcile]]
+:Author:   Thierry Daucourt <thierry.daucourt@free.fr>
+:END:
+
 ** TODO [#A] [[bug:638][#638]] ledger-mode dropping first digit of inserted dates
 I use Aquamacs on OS X.  When I use the ledger-mode facility for adding
 entries, ledger-mode inserts the entry without the most significant digit. For
@@ -15752,6 +15998,14 @@ Which requires hand correction.
 :Date:     Tue, 15 Nov 2011 10:07:17 -0700
 :Message:  [[message://CAKs9TOJfSSjmqfi8i7xu=JdqJ=aayRgkwdxRdvJt4CUcgW7oMQ@mail.gmail.com][Minor annoyance with emacs mode]]
 :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (Alexandre) Default values format and C-c C-a
+:PROPERTIES:
+:ID:       0FD00AFA-67EB-47F0-9415-CF95A4BA509F
+:CREATED:  [2012-07-23 Mon 17:58]
+:Date: Fri, 20 Jul 2012 06:53:47 -0700 (PDT)
+:Message: [[message://7cfd9e34-e07e-49f6-8825-225b820e1c54@googlegroups.com][default values format]]
+:Author: Alexandre Rademaker <arademaker@gmail.com>
 :END:
 ** TODO (John) ledger.el won't reconcile
 :PROPERTIES:
@@ -16486,11 +16740,29 @@ to ledger.el locally and problem is fixed.
   :CATEGORY: Features
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
-** TODO Add options to control how CSV files are parsed
-For example: the separator char (, ; TAB), quoting, etc.
+** TODO Script to convert QuickBooks transaction export to Ledger format
 :PROPERTIES:
-:ID:       31A310EB-82F2-48C8-BFE0-0B779419F91C
-:CREATED:  [2012-07-03 Tue 16:10]
+:ID:       F1E1858C-2372-4AC4-8B81-A19141F9CAD6
+:CREATED:  [2012-09-30 Sun 02:03]
+:Date:     Sun, 23 Sep 2012 10:34:56 -0700 (PDT)
+:Message:  [[message://6e96c973-175b-4a02-933f-e005d6577f20@googlegroups.com][Script to convert QuickBooks transaction export to Ledger format]]
+:Author:   Gene Goykhman <gene@indigo1.com>
+:END:
+** TODO (Thierry) Best way to slurp bank records?
+:PROPERTIES:
+:ID:       9165B461-95DF-405B-ABC6-544868B800E9
+:CREATED:  [2012-09-30 Sun 02:03]
+:Date:     Sat, 29 Sep 2012 05:37:29 -0700 (PDT)
+:Message:  [[message://53d07263-c529-4174-b470-bf905e210c95@googlegroups.com][Re: best way to slurp bank records?]]
+:Author:   thierry <thierry.daucourt@free.fr>
+:END:
+** TODO (Qwertyu) Reply: Remove <Adjustment> lines from report
+:PROPERTIES:
+:ID:       D4D6A10A-EDEC-4571-A613-782457608D6D
+:CREATED:  [2012-07-19 Thu 01:50]
+:Date: Wed, 11 Jul 2012 08:52:42 -0700 (PDT)
+:Message: [[message://a5eb1b34-fe59-4091-891f-ab1414b486f7@googlegroups.com][Re: Remove <Adjustment> lines from report]]
+:Author: Qwertyu <scheit@gmail.com>
 :END:
 ** TODO (Tim) Reply: RESTful web service API to Ledger
 :PROPERTIES:
@@ -16507,6 +16779,12 @@ For example: the separator char (, ; TAB), quoting, etc.
 :Date: Thu, 17 May 2012 09:19:09 -0700
 :Message: [[message://CAOKFOQHi=rPwoDd1ehumrWdn2gurNfENBPsPzTk_bS0Wthp9oQ@mail.gmail.com][Templating for more complicated reports?]]
 :Author: Zack Williams <zdwzdw-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO Add options to control how CSV files are parsed
+For example: the separator char (, ; TAB), quoting, etc.
+:PROPERTIES:
+:ID:       31A310EB-82F2-48C8-BFE0-0B779419F91C
+:CREATED:  [2012-07-03 Tue 16:10]
 :END:
 ** TODO Add the ability to enter "absolute" account names
 I am keeping my personal and business finances with ledger and use the
@@ -16537,23 +16815,10 @@ result?
 :ID:       DD26960B-C62C-455D-BFED-17BD32346273
 :CREATED:  [2012-05-14 Mon 12:07]
 :END:
-** CANCELED Use Boost.Expressive instead of Boost.Regex
-- State "CANCELED"   from "TODO"       [2012-05-28 Mon 04:15] \\
-  No, because it doesn't support ICU.
-:PROPERTIES:
-:ID:       0E23E0F3-384F-4558-BAB7-2EB31286A3EF
-:CREATED:  [2012-05-17 Thu 18:05]
-:END:
 ** TODO Use Boost.Flyweight to manage recurring objects
 :PROPERTIES:
 :ID:       A35892E5-B2E4-41BB-B33A-152579E3C39B
 :CREATED:  [2012-05-14 Mon 20:32]
-:END:
-** DONE Use Boost.Format instead of straccstream
-- State "DONE"       from "TODO"       [2012-05-28 Mon 04:15]
-:PROPERTIES:
-:ID:       4F66F351-AF52-4204-8247-00360CB703FB
-:CREATED:  [2012-05-14 Mon 12:07]
 :END:
 ** TODO Use numeric_cast<> to guard against overflow casts
 :PROPERTIES:
@@ -17958,6 +18223,12 @@ and t-2 would give the same entry but with the date of 2012/01/24.
    :ID:       9165C59D-8933-4115-8684-5851A1D059C6
    :CREATED:  [2009-10-28 Wed 17:29]
    :END:
+** DONE Use Boost.Format instead of straccstream
+- State "DONE"       from "TODO"       [2012-05-28 Mon 04:15]
+:PROPERTIES:
+:ID:       4F66F351-AF52-4204-8247-00360CB703FB
+:CREATED:  [2012-05-14 Mon 12:07]
+:END:
 ** DONE Use a "token context" in the query parser
    - State "DONE"       from "TODO"       [2009-10-28 Wed 17:46]
    :PROPERTIES:
@@ -18822,6 +19093,13 @@ pose scenarios, and I'll try to model them for you.
    :Ticket:   118
    :ID:       7A8607F3-87C8-4A85-A4EF-BA090BB81EDE
    :END:
+** CANCELED Use Boost.Expressive instead of Boost.Regex
+- State "CANCELED"   from "TODO"       [2012-05-28 Mon 04:15] \\
+  No, because it doesn't support ICU.
+:PROPERTIES:
+:ID:       0E23E0F3-384F-4558-BAB7-2EB31286A3EF
+:CREATED:  [2012-05-17 Thu 18:05]
+:END:
 ** CANCELED Value expression descriptions
    - State "CANCELED"   [2009-02-24 Tue 04:05]
    When parsing a value expression, allowing keeping a description tag, so that
@@ -19279,30 +19557,6 @@ interval so that I can do so.
   :CATEGORY: Python
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
-** TODO (Matthew) Exploring the Python interface -- segfault
-:PROPERTIES:
-:ID:       7E383E26-1495-4E1B-9BD9-AE067881E467
-:CREATED:  [2012-06-25 Mon 19:09]
-:Date: Sat, 23 Jun 2012 19:12:46 -0700 (PDT)
-:Message: [[message://9b5390eb-b15c-4a23-8fad-0737b4aee22d@googlegroups.com][Exploring the Python interface -- segfault]]
-:Author: Matthew Harris <mharris312@gmail.com>
-:END:
-** TODO [[bug:774][#774]] ledger python messes up subsequent console input
-:PROPERTIES:
-:ID:       22BD6655-3920-41E9-A9E3-DD1CC60915DC
-:CREATED:  [2012-05-31 Thu 18:48]
-:Date: Thu, 31 May 2012 20:16:11 +0000
-:Message: [[message://bug-774-1@http.bugs.ledger-cli.org/][{Bug 774} New: ledger python messes up subsequent console input]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** TODO [[bug:773][#773]] ledger python intepreter segfaults on second command entered
-:PROPERTIES:
-:ID:       A838BC24-1787-40BB-AF4E-36383960D7F7
-:CREATED:  [2012-05-31 Thu 18:48]
-:Date: Thu, 31 May 2012 20:09:24 +0000
-:Message: [[message://bug-773-1@http.bugs.ledger-cli.org/][{Bug 773} New: ledger python intepreter segfaults on second command entered]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
 ** TODO (Henry) Getting start with Ledger and Python
 :PROPERTIES:
 :ID:       D79CDE1F-EE46-41D8-8374-25D524BC23FA
@@ -19310,6 +19564,14 @@ interval so that I can do so.
 :Date: Fri, 11 May 2012 23:46:28 -0700 (PDT)
 :Message: [[message://64669b5f-13b4-4c93-b77e-44046bdc3ec7@dg7g2000vbb.googlegroups.com][Re: Getting start with Ledger and Python]]
 :Author: henry atting <me.henryatting-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (Matthew) Exploring the Python interface -- segfault
+:PROPERTIES:
+:ID:       7E383E26-1495-4E1B-9BD9-AE067881E467
+:CREATED:  [2012-06-25 Mon 19:09]
+:Date: Sat, 23 Jun 2012 19:12:46 -0700 (PDT)
+:Message: [[message://9b5390eb-b15c-4a23-8fad-0737b4aee22d@googlegroups.com][Exploring the Python interface -- segfault]]
+:Author: Matthew Harris <mharris312@gmail.com>
 :END:
 ** TODO (Michael) Segfault embedding ipython
 :PROPERTIES:
@@ -19353,6 +19615,22 @@ Abort trap: 6
 :Date: Sun, 11 Mar 2012 07:59:28 -0700 (PDT)
 :Message: [[message://15761882.245.1331477969030.JavaMail.geo-discussion-forums@yner4][Re: Getting start with Ledger and Python]]
 :Author: Raphael Lorenzeto <raphael.lorenzeto-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO [[bug:773][#773]] ledger python intepreter segfaults on second command entered
+:PROPERTIES:
+:ID:       A838BC24-1787-40BB-AF4E-36383960D7F7
+:CREATED:  [2012-05-31 Thu 18:48]
+:Date: Thu, 31 May 2012 20:09:24 +0000
+:Message: [[message://bug-773-1@http.bugs.ledger-cli.org/][{Bug 773} New: ledger python intepreter segfaults on second command entered]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:774][#774]] ledger python messes up subsequent console input
+:PROPERTIES:
+:ID:       22BD6655-3920-41E9-A9E3-DD1CC60915DC
+:CREATED:  [2012-05-31 Thu 18:48]
+:Date: Thu, 31 May 2012 20:16:11 +0000
+:Message: [[message://bug-774-1@http.bugs.ledger-cli.org/][{Bug 774} New: ledger python messes up subsequent console input]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO server.py no longer works with the latest version of Ledger
 :PROPERTIES:
@@ -19762,40 +20040,30 @@ make this a child scope of the Python session.
   :CATEGORY: Build
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
-** TODO [[bug:780][#780]] Support Homebrew
+** TODO (Martin) Building with Ninja instead of Make
 :PROPERTIES:
-:ID:       F05C7744-F526-467F-8DE0-BB0AACFB25AA
-:CREATED:  [2012-07-04 Wed 18:14]
-:Date: Wed, 04 Jul 2012 19:51:19 +0000
-:Message: [[message://bug-780-1@http.bugs.ledger-cli.org/][{Bug 780} New: Support Homebrew]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
+:ID:       660FD0BB-F419-40A7-939A-CF9DA3109A73
+:CREATED:  [2012-09-27 Thu 16:46]
+:Date:     Thu, 27 Sep 2012 09:09:10 +0100
+:Message:  [[message://20120927080910.GB2344@jirafa.cyrius.com][Re: Building with Ninja instead of Make]]
+:Author:   Martin Michlmayr <tbm@cyrius.com>
 :END:
-** TODO Cannot build Ledger with -O4
+** TODO (Jeremiah) Problem using dijkstra_shortest_paths with Boost 1.51
+Could you please try the new trunk version?  I tried to fix this issue.
 :PROPERTIES:
-:ID:       E3313DE6-C106-40D1-BCF4-AC695278F8BB
-:CREATED:  [2012-07-04 Wed 02:30]
+:ID:       290DC78C-3469-4B72-8C1B-9D180E1C78A1
+:CREATED:  [2012-09-27 Thu 01:19]
+:Date:     Mon, 17 Sep 2012 23:28:20 -0400 (EDT)
+:Message:  [[message://alpine.LRH.2.02.1209172327570.10825@flowerpot.osl.iu.edu][Re: Problem using dijkstra_shortest_paths with Boost 1.51]]
+:Author:   Jeremiah Willcock <jewillco@osl.iu.edu>
 :END:
-** TODO Ledger will not build with ASan
-Is it linking with .a files which haven't been built with ASan?
+** TODO (Alexis) Best way to install Ledger 3 on OS X Mountain Lion
 :PROPERTIES:
-:ID:       E55FEA99-3454-492D-8D79-8ADAA879B0AD
-:CREATED:  [2012-06-30 Sat 00:10]
-:END:
-** TODO [[bug:776][#776]] "acprep check" fails not being able to find Tests executables
-:PROPERTIES:
-:ID:       89E9699D-0B4E-46B2-A07B-D3618553D03C
-:CREATED:  [2012-06-17 Sun 16:27]
-:Date: Sun, 17 Jun 2012 19:08:07 +0000
-:Message: [[message://bug-776-1@http.bugs.ledger-cli.org/][{Bug 776} New: "acprep check" fails not being able to find Tests executables]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** TODO [[bug:775][#775]] "--local" acprep option is not honoured
-:PROPERTIES:
-:ID:       D2EA2063-3C63-4FB1-886D-B422910DA8C4
-:CREATED:  [2012-06-10 Sun 15:41]
-:Date: Sun, 10 Jun 2012 14:52:28 +0000
-:Message: [[message://bug-775-1@http.bugs.ledger-cli.org/][{Bug 775} New: "--local" acprep option is not honoured]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
+:ID:       7DA42DA5-7AEA-4810-A9E3-E73A522E51F6
+:CREATED:  [2012-09-10 Mon 18:45]
+:Date:     Sat, 8 Sep 2012 12:28:25 +0200
+:Message:  [[message://20120908102825.GB1539@kaori.local][Re: Best way to install Ledger 3 on OS X Mountain Lion]]
+:Author:   Alexis <surryhill@gmail.com>
 :END:
 ** TODO (Andreas) Building recent git src with --prefix
 :PROPERTIES:
@@ -19865,6 +20133,11 @@ do work and at a glance do output correct values).
 :PROPERTIES:
 :ID:       2689949B-2A39-4BF1-A481-4A95C6F10E9F
 :CREATED:  [2012-03-20 Tue 05:13]
+:END:
+** TODO Cannot build Ledger with -O4
+:PROPERTIES:
+:ID:       E3313DE6-C106-40D1-BCF4-AC695278F8BB
+:CREATED:  [2012-07-04 Wed 02:30]
 :END:
 ** TODO Change configure.ac so that it requires a Boost version of 1.46 or newer
 :PROPERTIES:
@@ -19941,6 +20214,12 @@ Undefined symbols for architecture x86_64:
 :PROPERTIES:
 :ID:       7130C12B-E931-43D2-B510-0CB7B6B5BF50
 :CREATED:  [2012-04-13 Fri 14:45]
+:END:
+** TODO Ledger will not build with ASan
+Is it linking with .a files which haven't been built with ASan?
+:PROPERTIES:
+:ID:       E55FEA99-3454-492D-8D79-8ADAA879B0AD
+:CREATED:  [2012-06-30 Sat 00:10]
 :END:
 ** TODO Report an error if the version of Boost is not high enough
 :PROPERTIES:
@@ -20419,6 +20698,30 @@ how do I get you the config.log file?
 :CREATED:  [2012-04-01 Sun 23:40]
 :Date: Mon, 02 Apr 2012 04:11:54 +0000
 :Message: [[message://bug-768-1@http.bugs.ledger-cli.org/][{Bug 768} New: OS X installer is incomplete]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:775][#775]] "--local" acprep option is not honoured
+:PROPERTIES:
+:ID:       D2EA2063-3C63-4FB1-886D-B422910DA8C4
+:CREATED:  [2012-06-10 Sun 15:41]
+:Date: Sun, 10 Jun 2012 14:52:28 +0000
+:Message: [[message://bug-775-1@http.bugs.ledger-cli.org/][{Bug 775} New: "--local" acprep option is not honoured]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:776][#776]] "acprep check" fails not being able to find Tests executables
+:PROPERTIES:
+:ID:       89E9699D-0B4E-46B2-A07B-D3618553D03C
+:CREATED:  [2012-06-17 Sun 16:27]
+:Date: Sun, 17 Jun 2012 19:08:07 +0000
+:Message: [[message://bug-776-1@http.bugs.ledger-cli.org/][{Bug 776} New: "acprep check" fails not being able to find Tests executables]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:780][#780]] Support Homebrew
+:PROPERTIES:
+:ID:       F05C7744-F526-467F-8DE0-BB0AACFB25AA
+:CREATED:  [2012-07-04 Wed 18:14]
+:Date: Wed, 04 Jul 2012 19:51:19 +0000
+:Message: [[message://bug-780-1@http.bugs.ledger-cli.org/][{Bug 780} New: Support Homebrew]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO acprep check, with no build tree, fails to build dependencies
@@ -21876,6 +22179,22 @@ how do I get you the config.log file?
   :CATEGORY: Docs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO (Vladimir) [ledger] @ in documentation
+:PROPERTIES:
+:ID:       86FD20F0-B32B-45D8-8690-60DF8607C8DE
+:CREATED:  [2012-10-04 Thu 23:37]
+:Date:     Thu, 4 Oct 2012 00:14:08 -0700
+:Message:  [[message://jwiegley/ledger/issues/85@github.com][{ledger} @ in documentation (#85)]]
+:Author:   Vladimir Parfinenko <notifications@github.com>
+:END:
+** TODO (jeroendv) [ledger] typo in the 3.0 documentation?
+:PROPERTIES:
+:ID:       30A911BA-4BA1-4B57-9234-8AE6E72B11ED
+:CREATED:  [2012-09-28 Fri 22:41]
+:Date:     Fri, 28 Sep 2012 07:19:53 -0700
+:Message:  [[message://jwiegley/ledger/issues/83@github.com][{ledger} typo in the 3.0 documentation? (#83)]]
+:Author:   jeroendv <notifications@github.com>
+:END:
 ** TODO (Raphael) Reply: Optimal automatic virtual transactions
 :PROPERTIES:
 :ID:       34BF68CD-F6BE-4C8A-B3CC-68C7A89647C6
@@ -21888,6 +22207,14 @@ how do I get you the config.log file?
 :PROPERTIES:
 :ID:       9CD9430C-8F97-4CA2-AC05-ABB59762D75F
 :CREATED:  [2012-05-19 Sat 19:33]
+:END:
+** TODO Document value expressions for Craig on the mailing list
+:PROPERTIES:
+:ID:       72A8CF34-E693-4E25-AA3B-CB5FC3873402
+:CREATED:  [2012-05-22 Tue 18:57]
+:Date: Tue, 22 May 2012 16:03:55 -0700
+:Message: [[message://CAKs9TOJTHmcB23n8BB8uuPtSwAuOc07zvJu9uu1BUhFdbSPvmQ@mail.gmail.com][Re: {homebrew} ledger --HEAD has changed build system to cmake (#12373)]]
+:Author: Craig Earls <enderw88@gmail.com>
 :END:
 ** TODO Write up a mini-doc on the value expression language
 :PROPERTIES:
@@ -22068,14 +22395,6 @@ Languages.
 :Date: Thu, 12 Jan 2012 10:54:58 +0100
 :Message: [[message://github-87F922.10545812012012@news.gmane.org][Ledger syntax coloring for TextWrangler]]
 :Author: Niekas <github-Vzr4Esry4JzzIImvGDD8mw@public.gmane.org>
-:END:
-** TODO Document value expressions for Craig on the mailing list
-:PROPERTIES:
-:ID:       72A8CF34-E693-4E25-AA3B-CB5FC3873402
-:CREATED:  [2012-05-22 Tue 18:57]
-:Date: Tue, 22 May 2012 16:03:55 -0700
-:Message: [[message://CAKs9TOJTHmcB23n8BB8uuPtSwAuOc07zvJu9uu1BUhFdbSPvmQ@mail.gmail.com][Re: {homebrew} ledger --HEAD has changed build system to cmake (#12373)]]
-:Author: Craig Earls <enderw88@gmail.com>
 :END:
 ** DEFERRED [[bug:170][#170]] Fill out membership form for the Software Conservancy
 - State "DEFERRED"   from "TODO"       [2012-03-11 Sun 20:31]
