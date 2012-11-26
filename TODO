@@ -773,6 +773,14 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :CATEGORY: Bugs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO Last entry in a file misread if not followed by whitespace
+:PROPERTIES:
+:ID:       67BC23E3-A448-42F8-94DC-716993842BAB
+:CREATED:  [2012-10-22 Mon 13:41]
+:Date:     Mon, 22 Oct 2012 08:26:00 -0400
+:Message:  [[message://m18vayg0br.fsf@jhu.edu][Re: Last entry in a file misread if not followed by whitespace]]
+:Author:   Jesse Rosenthal <jrosenthal@jhu.edu>
+:END:
 ** TODO [#A] [[bug:514][#514]] 'accounts' and 'commodities' should sort their output
    I'd also like to suggest that 'accounts' and 'commodities' sort their
    output, like 'payees' appears to. I don't see a reason to leave it unsorted.
@@ -3128,6 +3136,11 @@ This happens if the periodic transaction contain both Assets and Expenses.
    :Submitter: richardcooper <reply+i-1339989-90be759f0f0510a9fe33caba8e36a0b8e6a5c288@reply.github.com>
    :END:
 ** TODO [[bug:583][#583]] --monthly prices report SUM rather than average or end of month price
+- Note taken on [2012-10-18 Thu 13:20] \\
+  OK, this is not a bug.  Maybe this needs to be changed to a feature
+  request to make sure that --monthly and --average play nice together.  I
+  think most people would expect --monthly --average to report the average
+  for each month which is not what currently happesn
   :PROPERTIES:
   :ID:       49CA1DB2-060D-418D-BE28-0A6A01966F18
   :CREATED:  [2011-10-17 Mon 18:30]
@@ -3895,7 +3908,8 @@ $-200) to work right. Is this correct?
 :ID:       547279FC-8D16-47D9-948B-ED16E678E8C1
 :CREATED:  [2012-03-12 Mon 06:50]
 :END:
-** TODO [[bug:695][#695]] --init-file is ignored                                                     :blocker:
+** DONE [[bug:695][#695]] --init-file is ignored                                                     :blocker:
+- State "DONE"       from "TODO"       [2012-10-25 Thu 15:16]
 Using the option ```--init-file``` has no effect, the specified file is never
 even ```stat```ed let alone opened by ledger.
 
@@ -4375,36 +4389,12 @@ worse error.
 :Message: [[message://bug-732-1@http.bugs.ledger-cli.org/][{Bug 732} New: csv command required ledger file with -f]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:733][#733]] ledger convert should not generate note when note is empty
-:PROPERTIES:
-:ID:       A3FA7601-CFF4-4125-9733-EBB2B46A31F3
-:CREATED:  [2012-03-25 Sun 15:12]
-:Date: Sun, 25 Mar 2012 11:09:08 +0000
-:Message: [[message://bug-733-1@http.bugs.ledger-cli.org/][{Bug 733} New: ledger convert should not generate note when note is empty]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** TODO [[bug:734][#734]] ledger convert should allow empty posted date
-:PROPERTIES:
-:ID:       0DDDEBC0-4EBE-49DA-9019-66D10D26EED5
-:CREATED:  [2012-03-25 Sun 15:13]
-:Date: Sun, 25 Mar 2012 11:13:09 +0000
-:Message: [[message://bug-734-1@http.bugs.ledger-cli.org/][{Bug 734} New: ledger convert should allow empty posted date]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
 ** TODO [[bug:735][#735]] Error: Assertion failed in "src/item.h" with ledger convert when no date is specified
 :PROPERTIES:
 :ID:       52C0855F-5402-44BC-B21D-E915952B1DF6
 :CREATED:  [2012-03-25 Sun 15:13]
 :Date: Sun, 25 Mar 2012 11:14:15 +0000
 :Message: [[message://bug-735-1@http.bugs.ledger-cli.org/][{Bug 735} New: Error: Assertion failed in "src/item.h" with ledger convert when no date is specified]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** TODO [[bug:736][#736]] Strange error from cvs convert
-:PROPERTIES:
-:ID:       68917252-7ADC-481C-8581-369D6DEFB770
-:CREATED:  [2012-03-25 Sun 15:12]
-:Date: Sun, 25 Mar 2012 11:32:36 +0000
-:Message: [[message://bug-736-1@http.bugs.ledger-cli.org/][{Bug 736} New: Strange error from cvs convert]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO [[bug:737][#737]] ledger xact does not honour payee tag
@@ -4600,7 +4590,9 @@ worse error.
 :Message: [[message://bug-764-1@http.bugs.ledger-cli.org/][{Bug 764} New: csv: posted should be renamed to aux_date or aux or auxdate]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
-** TODO [[bug:765][#765]] bucket command drops first letter of following account name
+** DONE [[bug:765][#765]] bucket command drops first letter of following account name
+- State "DONE"       from "TODO"       [2012-10-25 Thu 14:50] \\
+  Johann fixed this.
 :PROPERTIES:
 :ID:       0161EB1E-8228-4D8D-A953-58B0E74B2485
 :CREATED:  [2012-04-01 Sun 22:14]
@@ -4736,7 +4728,6 @@ to work.
 :CREATED:  [2012-10-06 Sat 03:49]
 :END:
 ** TODO [[bug:791][#791]] Why is the (@) price recorded as historical price?
-SCHEDULED: <2012-10-08 Mon>
 Given the following test.dat ledger file:
 
 2012-10-01 Buy bitcoins
@@ -4882,48 +4873,6 @@ result?
 :Date: Sat, 14 Apr 2012 09:47:33 -0700
 :Message: [[message://jwiegley/ledger/issues/63@github.com][{ledger} Enter "absolute" account names (#63)]]
 :Author: "Prof. MAAD" <reply+i-4118725-18fbec6d3699786681d425c444bd3552c11ef160-8460@reply.github.com>
-:END:
-** TODO [[bug:796][#796]] Regression on 647D5DB9.test
-Yes, I confirmed it because I can reproduce it here on Debian.  The bug goes
-away when I revert commit 97693b43b54423e023091c7b866a1061b644eebc "Resolve
-account.date to latest post in the account"
-
-#+begin_src ledger
-$ ledger --args-only bal --end 2008/12/31 -JV Equities --file /tmp/647D5DB9.ledger
-#+end_src
-:OUTPUT:
-2008-06-30 1500
-:END:
-
-#+begin_src ledger
-$ ledger --args-only reg --end 2008/12/31 -JV Equities --file /tmp/647D5DB9.ledger
-#+end_src
-:OUTPUT:
-2008-01-01 2000
-2008-06-30 2500
-2008-06-30 1250
-2008-12-31 1500
-:END:
-
-#+begin_src ledger
-$ cat ./test/regress/647D5DB9.test | ledger -f - --args-only bal --end 2008/12/31 -JV Equities
-#+end_src
-:OUTPUT:
-2008-06-30 1500
-:END:
-
-#+begin_src ledger
-$ head -8 ./test/regress/647D5DB9.test | ledger -f - --args-only bal --end 2008/12/31 -JV Equities
-#+end_src
-:OUTPUT:
-2008-06-30 1250
-:END:
-:PROPERTIES:
-:ID:       9589BD5A-F486-460C-8926-C39D17DC8369
-:CREATED:  [2012-08-23 Thu 01:42]
-:Date:     Sun, 19 Aug 2012 11:42:24 +0100
-:Message:  [[message://20120819104224.GG6064@jirafa.cyrius.com][Re: Regression on 647D5DB9.test]]
-:Author:   Martin Michlmayr <tbm@cyrius.com>
 :END:
 ** TODO [[bug:797][#797]] Setting precision on the command line
 > Is there a way so I can tell ledger - ideally on the command line - to limit
@@ -5618,6 +5567,46 @@ end test
 :PROPERTIES:
 :ID:       15CE5322-71AC-4A2B-9D25-EED42CD8ACD1
 :CREATED:  [2011-11-22 Tue 17:53]
+:END:
+** TODO [[bug:854][#854]] -v maps to --verbose, it should map to --version
+:PROPERTIES:
+:ID:       63B50028-ACB3-4A6C-98CC-2F2E391014E7
+:CREATED:  [2012-10-18 Thu 12:01]
+:Date:     Wed, 10 Oct 2012 22:08:40 +0000
+:Message:  [[message://bug-854-1@http.bugs.ledger-cli.org/][{Bug 854} New: -v maps to --verbose, it should map to --version]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:857][#857]] -S in a balance report results in filename error
+:PROPERTIES:
+:ID:       B2DA508E-19EE-4045-8030-E3B1914F4865
+:CREATED:  [2012-10-18 Thu 12:01]
+:Date:     Thu, 18 Oct 2012 13:07:49 +0000
+:Message:  [[message://bug-857-1@http.bugs.ledger-cli.org/][{Bug 857} New: -S in a balance report results in filenmae error]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:858][#858]] -N returns "(null)" if no note exists
+:PROPERTIES:
+:ID:       3C5AA5BE-E859-43C6-ACE7-681B46FA3924
+:CREATED:  [2012-10-18 Thu 12:01]
+:Date:     Thu, 18 Oct 2012 13:30:07 +0000
+:Message:  [[message://bug-858-1@http.bugs.ledger-cli.org/][{Bug 858} New: -N returns "(null)" if no note exists]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:859][#859]] %a used in format strings returns error
+:PROPERTIES:
+:ID:       56050249-E439-4AAC-BF30-FA5188E67852
+:CREATED:  [2012-10-18 Thu 12:01]
+:Date:     Thu, 18 Oct 2012 13:59:47 +0000
+:Message:  [[message://bug-859-1@http.bugs.ledger-cli.org/][{Bug 859} New: %a used in format strings returns error]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:860][#860]] %D used in date_format command returns entire date
+:PROPERTIES:
+:ID:       8E9D55C2-D725-48DC-B3A7-B170FDC63B1F
+:CREATED:  [2012-10-18 Thu 12:01]
+:Date:     Thu, 18 Oct 2012 14:14:25 +0000
+:Message:  [[message://bug-860-1@http.bugs.ledger-cli.org/][{Bug 860} New: %D used in date_format command returns entire date]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DONE "ledger parse 'foo(1, 2, 3)'" now crashes
    - State "DONE"       [2009-02-28 Sat 06:10]
@@ -8128,6 +8117,33 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://bug-719-1@http.bugs.ledger-cli.org/][{Bug 719} New: Creates bogus(?) Adjustment with -H -X EUR]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** DONE [[bug:733][#733]] ledger convert should not generate note when note is empty
+- State "DONE"       from "TODO"       [2012-10-18 Thu 13:43]
+:PROPERTIES:
+:ID:       A3FA7601-CFF4-4125-9733-EBB2B46A31F3
+:CREATED:  [2012-03-25 Sun 15:12]
+:Date: Sun, 25 Mar 2012 11:09:08 +0000
+:Message: [[message://bug-733-1@http.bugs.ledger-cli.org/][{Bug 733} New: ledger convert should not generate note when note is empty]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE [[bug:734][#734]] ledger convert should allow empty posted date
+- State "DONE"       from "TODO"       [2012-10-18 Thu 13:43]
+:PROPERTIES:
+:ID:       0DDDEBC0-4EBE-49DA-9019-66D10D26EED5
+:CREATED:  [2012-03-25 Sun 15:13]
+:Date: Sun, 25 Mar 2012 11:13:09 +0000
+:Message: [[message://bug-734-1@http.bugs.ledger-cli.org/][{Bug 734} New: ledger convert should allow empty posted date]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE [[bug:736][#736]] Strange error from cvs convert
+- State "DONE"       from "TODO"       [2012-10-18 Thu 13:42]
+:PROPERTIES:
+:ID:       68917252-7ADC-481C-8581-369D6DEFB770
+:CREATED:  [2012-03-25 Sun 15:12]
+:Date: Sun, 25 Mar 2012 11:32:36 +0000
+:Message: [[message://bug-736-1@http.bugs.ledger-cli.org/][{Bug 736} New: Strange error from cvs convert]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** DONE [ledger] Reverse search for drafts (#29)
    - State "DONE"       from "TODO"       [2011-07-20 Wed 02:35]
    :PROPERTIES:
@@ -10529,6 +10545,50 @@ Error: Illegal option -x
    :Message:  [[message://20050.50236.344154.205060@dk.dks.ie][Emacs reconciliation 3.0]]
    :Submitter: "David Keegan" <dksw@eircom.net>
    :END:
+** DUPLICATE [[bug:796][#796]] Regression on 647D5DB9.test
+- State "DUPLICATE"  from "TODO"       [2012-10-18 Thu 13:19] \\
+  Duplicate of 784.
+Yes, I confirmed it because I can reproduce it here on Debian.  The bug goes
+away when I revert commit 97693b43b54423e023091c7b866a1061b644eebc "Resolve
+account.date to latest post in the account"
+
+#+begin_src ledger
+$ ledger --args-only bal --end 2008/12/31 -JV Equities --file /tmp/647D5DB9.ledger
+#+end_src
+:OUTPUT:
+2008-06-30 1500
+:END:
+
+#+begin_src ledger
+$ ledger --args-only reg --end 2008/12/31 -JV Equities --file /tmp/647D5DB9.ledger
+#+end_src
+:OUTPUT:
+2008-01-01 2000
+2008-06-30 2500
+2008-06-30 1250
+2008-12-31 1500
+:END:
+
+#+begin_src ledger
+$ cat ./test/regress/647D5DB9.test | ledger -f - --args-only bal --end 2008/12/31 -JV Equities
+#+end_src
+:OUTPUT:
+2008-06-30 1500
+:END:
+
+#+begin_src ledger
+$ head -8 ./test/regress/647D5DB9.test | ledger -f - --args-only bal --end 2008/12/31 -JV Equities
+#+end_src
+:OUTPUT:
+2008-06-30 1250
+:END:
+:PROPERTIES:
+:ID:       9589BD5A-F486-460C-8926-C39D17DC8369
+:CREATED:  [2012-08-23 Thu 01:42]
+:Date:     Sun, 19 Aug 2012 11:42:24 +0100
+:Message:  [[message://20120819104224.GG6064@jirafa.cyrius.com][Re: Regression on 647D5DB9.test]]
+:Author:   Martin Michlmayr <tbm@cyrius.com>
+:END:
 ** CLOSED !include statememt no longer accepts simple filenames
 - State "CLOSED"     from "DONE"       [2012-03-22 Thu 16:50] \\
   Tested by 89233B6D.test.
@@ -16406,6 +16466,96 @@ Which requires hand correction.
 :Message:  [[message://CAKs9TOJfSSjmqfi8i7xu=JdqJ=aayRgkwdxRdvJt4CUcgW7oMQ@mail.gmail.com][Minor annoyance with emacs mode]]
 :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
+** TODO (Russell) Another patch ;]
+- Note taken on [2012-08-06 Mon 13:59] \\
+  It appears you need (widen) after find-file-other-window to view
+  subsequent txns...
+
+  Sorry, I'm totally new to the elisp standard lib...
+This makes C-c C-c on the report open a narrowed buffer to only the
+txn in question. So close!
+
+I've actually got a receipt viewer working in elisp, and will be
+making it edit metadata based on the report view. The worst part of my
+data entry issues will go out the window in one stroke!
+:OUTPUT:
+diff --git a/lisp/ldg-report.el b/lisp/ldg-report.el
+index 10ca03f..252bd6c 100644
+--- a/lisp/ldg-report.el
++++ b/lisp/ldg-report.el
+@@ -260,7 +260,13 @@ the default."
+(destructuring-bind (file . line) prop
+(find-file-other-window file)
+(goto-char (point-min))
+-      (forward-line (1- line)))))
++      (forward-line (1- line))
++      (re-search-backward "^[0-9]+")
++      (beginning-of-line)
++      (let ((start-of-txn (point)))
++        (forward-paragraph)
++        (narrow-to-region start-of-txn (point))
++        (backward-paragraph)))))
+
+         (defun ledger-report-goto ()
+         "Goto the ledger report buffer."
+:END:
+:PROPERTIES:
+:ID:       A01E2EED-3329-46C7-9EC7-47FB356D9800
+:CREATED:  [2012-08-06 Mon 13:58]
+:Date:     Sun, 5 Aug 2012 15:32:00 -0500
+:Message:  [[message://20120805203200.GM3987@cardamom.adamsinfoserv.com][Another patch ;}]]
+:Author:   Russell Adams <RLAdams@AdamsInfoServ.Com>
+:END:
+** TODO (Russell) Test report branch
+Your split to fix the text properties was butchering your header, and
+thus the first entry could not be followed. It also left the cursor at
+the end of the report, rather than staying at the top.
+:OUTPUT:
+diff --git a/lisp/ldg-report.el b/lisp/ldg-report.el
+index 9a51c32..04bd5f7 100644
+--- a/lisp/ldg-report.el
++++ b/lisp/ldg-report.el
+@@ -237,20 +237,22 @@ the default."
+(insert (format "Report: %s\n" ledger-report-name)
+(format "Command: %s\n" cmd)
+(make-string (- (window-width) 1) ?=)
+-          "\n")
+-  (let ((register-report (string-match " reg\\(ister\\)? " cmd)))
++          "\n\n")
++  (let ((data-pos (point))
++        (register-report (string-match " reg\\(ister\\)? " cmd)))
+         (shell-command
+         (if register-report
+         (concat cmd " --prepend-format='%(filename):%(beg_line):'")
+         cmd) t nil)
+         (when register-report
+-      (goto-char (point-min))
++      (goto-char data-pos)
+       (while (re-search-forward "^\\([^:]+\\)?:\\([0-9]+\\)?:" nil t)
+       (let ((file (match-string 1))
+       (line (string-to-number (match-string 2))))
+       (delete-region (match-beginning 0) (match-end 0))
+       (set-text-properties (line-beginning-position) (line-end-position)
+-                               (list 'ledger-source (cons file line))))))))
++                               (list 'ledger-source (cons file line)))))
++      (goto-char data-pos))))
+
+       (defun ledger-report-visit-source ()
+       (interactive)
+:END:
+:PROPERTIES:
+:ID:       3ECAC391-48C3-4F3F-8552-08FEA5389CCC
+:CREATED:  [2012-08-06 Mon 14:00]
+:Date:     Sun, 5 Aug 2012 15:17:32 -0500
+:Message:  [[message://20120805201732.GL3987@cardamom.adamsinfoserv.com][Test report branch]]
+:Author:   Russell Adams <RLAdams@AdamsInfoServ.Com>
+:END:
+** TODO The "monkey patching" I did in ldg-report.el needs fixing
+It also performs very poorly.
+:PROPERTIES:
+:ID:       8C6E032E-3431-437C-9DF3-881ACEAE494B
+:CREATED:  [2012-08-10 Fri 23:33]
+:END:
 ** TODO [[bug:245][#245]] Add colorized highlighting to the reconciler
 - State "TODO"       from "DEFERRED"   [2012-10-08 Mon 13:34]
    - State "DEFERRED"   from "TODO"       [2009-10-31 Sat 05:05]
@@ -17226,6 +17376,21 @@ to ledger.el locally and problem is fixed.
   :CATEGORY: Features
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** DONE (Thierry) $commodity in automated transactions
+SCHEDULED: <2012-11-11 Sun>
+- State "DONE"       from "TODO"       [2012-11-12 Mon 01:37]
+:PROPERTIES:
+:ID:       A7173459-C03D-465B-B904-26161C29CCCE
+:CREATED:  [2012-11-11 Sun 13:04]
+:Date:     Sun, 11 Nov 2012 06:57:38 -0800 (PST)
+:Message:  [[message://3fa06231-2604-4705-af12-772716f322b2@googlegroups.com][$commodity in automated transactions]]
+:Author:   thierry <thierry.daucourt@free.fr>
+:END:
+** TODO Add a --no-revalued flag to disable Adjustment postings
+:PROPERTIES:
+:ID:       97AF6151-DA3E-470D-83E8-5210890504D1
+:CREATED:  [2012-10-20 Sat 08:52]
+:END:
 ** TODO [[bug:172][#172]] Merge functionality of the C and P directives
 - State "TODO"       from "DEFERRED"   [2012-10-08 Mon 13:34]
 - State "DEFERRED"   from "TODO"       [2012-03-11 Sun 20:31]
@@ -18167,22 +18332,6 @@ For example: the separator char (, ; TAB), quoting, etc.
 :PROPERTIES:
 :ID:       31A310EB-82F2-48C8-BFE0-0B779419F91C
 :CREATED:  [2012-07-03 Tue 16:10]
-:END:
-** TODO [[bug:812][#812]] Add the ability to enter "absolute" account names
-I am keeping my personal and business finances with ledger and use the
-@account directive to construct the correct account hierarchy without entering
-it all every time.
-
-That poses a problem though, as I have to be able to move funds from my
-business receivable accounts to my checking account, which is not in the same
-prefix as my business transactions.
-
-Is there a way to specify that an account name is "absolute", i.e. not
-affected by @account directives? If not, how could I achieve this kind of
-result?
-:PROPERTIES:
-:ID:       B28EB735-78C4-4D41-AF87-FCBF381D9D32
-:CREATED:  [2012-05-27 Sun 01:27]
 :END:
 ** TODO [[bug:813][#813]] Use Boost.Exception instead of custom error contexts
 :PROPERTIES:
@@ -19974,6 +20123,24 @@ interval so that I can do so.
    :Message:  [[message://jwiegley/ledger/issues/30@github.com][{ledger} GnuCash support? (#30)]]
    :Submitter: peti <reply+i-1264193-264a927819dca1fe83fc7c5b9a987fbdac22d9f7@reply.github.com>
    :END:
+** DUPLICATE [[bug:812][#812]] Add the ability to enter "absolute" account names
+- State "DUPLICATE"  from "TODO"       [2012-10-18 Thu 13:19] \\
+  Duplicate of 795.
+I am keeping my personal and business finances with ledger and use the
+@account directive to construct the correct account hierarchy without entering
+it all every time.
+
+That poses a problem though, as I have to be able to move funds from my
+business receivable accounts to my checking account, which is not in the same
+prefix as my business transactions.
+
+Is there a way to specify that an account name is "absolute", i.e. not
+affected by @account directives? If not, how could I achieve this kind of
+result?
+:PROPERTIES:
+:ID:       B28EB735-78C4-4D41-AF87-FCBF381D9D32
+:CREATED:  [2012-05-27 Sun 01:27]
+:END:
 ** DUPLICATE ~/.ledgerrc not being consulted
    - State "DUPLICATE"  from "TODO"       [2009-10-27 Tue 21:58] \\
      This is being caused by [[id:71FE0FAB-622D-403C-A944-C7541948AFFF]].
@@ -21247,6 +21414,8 @@ how do I get you the config.log file?
 :END:
 
 ** TODO [[bug:720][#720]] Linker warning about library locations
+- Note taken on [2012-10-18 Thu 13:20] \\
+  I am not seeing this anymore, recommend closing.
 :PROPERTIES:
 :ID:       F4E7E1F3-9E45-4132-BF8F-0EC05CBF22F6
 :CREATED:  [2012-03-21 Wed 07:47]
@@ -22908,6 +23077,18 @@ SCHEDULED: <2012-10-08 Mon>
   :CATEGORY: Docs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO Script to convert QuickBooks transaction export to Ledger format
+I am looking at Ledger as a possible replacement for QuickBooks and wrote a
+Ruby script to convert my full QuickBooks transaction history to a
+Ledger-compatible data file. In case anyone else finds it useful, I've put it
+up as a GitHub gist. I also wrote a blog post explaining basic usage.
+:PROPERTIES:
+:ID:       F1E1858C-2372-4AC4-8B81-A19141F9CAD6
+:CREATED:  [2012-09-30 Sun 02:03]
+:Date:     Sun, 23 Sep 2012 10:34:56 -0700 (PDT)
+:Message:  [[message://6e96c973-175b-4a02-933f-e005d6577f20@googlegroups.com][Script to convert QuickBooks transaction export to Ledger format]]
+:Author:   Gene Goykhman <gene@indigo1.com>
+:END:
 ** TODO [[bug:169][#169]] Language translations for 3.0
    | Name                    | E-mail                           | Language             |
    |-------------------------+----------------------------------+----------------------|
@@ -23191,40 +23372,6 @@ Languages.
 :Message: [[message://github-87F922.10545812012012@news.gmane.org][Ledger syntax coloring for TextWrangler]]
 :Author: Niekas <github-Vzr4Esry4JzzIImvGDD8mw@public.gmane.org>
 :END:
-** TODO [[bug:801][#801]] typo in the 3.0 documentation?
-Change the word 'journal' with 'ledger' to refer to the software tool.
-#+begin_src diff
-diff --git a/doc/ledger3.texi b/doc/ledger3.texi
-index 30d7d5a..966a6a2 100644
---- a/doc/ledger3.texi
-+++ b/doc/ledger3.texi
-@@ -235,8 +235,8 @@ $ ledger -f ledger.dat register Bell
-@EnD smallexample
-
-An important difference between Ledger and other finance packages is
--that journal will never alter your input file. You can create and edit
--that file in any way you prefer, but journal is only for analyzing the
-+that ledger will never alter your input file. You can create and edit
-+that file in any way you prefer, but ledger is only for analyzing the
-data, not for altering it.
-#+end_src
-:PROPERTIES:
-:ID:       30A911BA-4BA1-4B57-9234-8AE6E72B11ED
-:CREATED:  [2012-09-28 Fri 22:41]
-:Date:     Fri, 28 Sep 2012 07:19:53 -0700
-:Message:  [[message://jwiegley/ledger/issues/83@github.com][{ledger} typo in the 3.0 documentation? (#83)]]
-:Author:   jeroendv <notifications@github.com>
-:END:
-** TODO [[bug:802][#802]] @ in documentation
-@ sign is not rendered in the pdf version of 3.0 documentation from here: http:
-//ledger-cli.org/docs.html
-:PROPERTIES:
-:ID:       86FD20F0-B32B-45D8-8690-60DF8607C8DE
-:CREATED:  [2012-10-04 Thu 23:37]
-:Date:     Thu, 4 Oct 2012 00:14:08 -0700
-:Message:  [[message://jwiegley/ledger/issues/85@github.com][{ledger} @ in documentation (#85)]]
-:Author:   Vladimir Parfinenko <notifications@github.com>
-:END:
 ** TODO [[bug:803][#803]] Convert README.textile to README.md
 :PROPERTIES:
 :ID:       9CD9430C-8F97-4CA2-AC05-ABB59762D75F
@@ -23242,6 +23389,14 @@ data, not for altering it.
 :Date: Tue, 22 May 2012 16:03:55 -0700
 :Message: [[message://CAKs9TOJTHmcB23n8BB8uuPtSwAuOc07zvJu9uu1BUhFdbSPvmQ@mail.gmail.com][Re: {homebrew} ledger --HEAD has changed build system to cmake (#12373)]]
 :Author: Craig Earls <enderw88@gmail.com>
+:END:
+** TODO [[bug:855][#855]] metadata tags documentation
+:PROPERTIES:
+:ID:       5D61B8BB-4FE1-4A69-92AA-E5230116985C
+:CREATED:  [2012-10-18 Thu 12:01]
+:Date:     Fri, 12 Oct 2012 13:50:14 +0000
+:Message:  [[message://bug-855-1@http.bugs.ledger-cli.org/][{Bug 855} New: metadata tags documentation]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DONE (Simon) Consolidate the ledger-cli repository as a website branch
 - State "DONE"       from "TODO"       [2012-03-11 Sun 20:36]
@@ -23463,6 +23618,17 @@ data, not for altering it.
 :Message: [[message://20111129205858.GG21967@jirafa.cyrius.com][Re: ledger fails to build]]
 :Submitter: Martin Michlmayr <tbm@cyrius.com>
 :END:
+** DONE [[bug:802][#802]] @ in documentation
+- State "DONE"       from "TODO"       [2012-10-18 Thu 13:18]
+@ sign is not rendered in the pdf version of 3.0 documentation from here: http:
+//ledger-cli.org/docs.html
+:PROPERTIES:
+:ID:       86FD20F0-B32B-45D8-8690-60DF8607C8DE
+:CREATED:  [2012-10-04 Thu 23:37]
+:Date:     Thu, 4 Oct 2012 00:14:08 -0700
+:Message:  [[message://jwiegley/ledger/issues/85@github.com][{ledger} @ in documentation (#85)]]
+:Author:   Vladimir Parfinenko <notifications@github.com>
+:END:
 ** WONTFIX [[bug:662][#662]] If Ledger crashes in std::string::_Rep::_M_dispose...
 - State "WONTFIX"    from "TODO"       [2012-03-11 Sun 04:43]
 Check which libstdc++.6.dylib Boost and Ledger (and the other component
@@ -23619,6 +23785,32 @@ libraries) are linked with.
    :Submitter: felix <reply+i-902562-5184554569b2269b61f555ca1f9b8d0d07d8e681@reply.github.com>
    :Date:     Sun, 15 May 2011 07:47:45 -0700
    :END:
+** CLOSED [[bug:801][#801]] typo in the 3.0 documentation?
+- State "CLOSED"     from "DONE"       [2012-10-18 Thu 23:20]
+- State "DONE"       from "TODO"       [2012-10-18 Thu 13:25]
+Change the word 'journal' with 'ledger' to refer to the software tool.
+#+begin_src diff
+diff --git a/doc/ledger3.texi b/doc/ledger3.texi
+index 30d7d5a..966a6a2 100644
+--- a/doc/ledger3.texi
++++ b/doc/ledger3.texi
+@@ -235,8 +235,8 @@ $ ledger -f ledger.dat register Bell
+@EnD smallexample
+
+An important difference between Ledger and other finance packages is
+-that journal will never alter your input file. You can create and edit
+-that file in any way you prefer, but journal is only for analyzing the
++that ledger will never alter your input file. You can create and edit
++that file in any way you prefer, but ledger is only for analyzing the
+data, not for altering it.
+#+end_src
+:PROPERTIES:
+:ID:       30A911BA-4BA1-4B57-9234-8AE6E72B11ED
+:CREATED:  [2012-09-28 Fri 22:41]
+:Date:     Fri, 28 Sep 2012 07:19:53 -0700
+:Message:  [[message://jwiegley/ledger/issues/83@github.com][{ledger} typo in the 3.0 documentation? (#83)]]
+:Author:   jeroendv <notifications@github.com>
+:END:
 ** NOTE Plotting time-series histograms with R and ggplot2
    #+begin_src R :results output
    install.packages("ggplot2")
@@ -23662,6 +23854,14 @@ libraries) are linked with.
 :CREATED:  [2011-06-19 Sun 18:23]
 :END:
 * Website
+** TODO (Tom) Purge vim-ledger scripts from the Ledger repo
+:PROPERTIES:
+:ID:       973220F9-9647-4C66-9FAB-62FD0CE70B50
+:CREATED:  [2012-11-15 Thu 11:11]
+:Date:     Mon, 12 Nov 2012 19:42:38 +0000
+:Message:  [[message://20121112194238.GA19529@lenovo][Re: vim-ledger]]
+:Author:   Tom Vincent <tom@tlvince.com>
+:END:
 ** DONE Add a link to the Fink package for Ledger on the Ledger page
    - State "DONE"       [2007-10-28 Sun 22:33]
    [2007-10-27 Sat] [[message://m2ve8rnc8c.fsf@dnab423967.stanford.edu][fink package for ledger]]
