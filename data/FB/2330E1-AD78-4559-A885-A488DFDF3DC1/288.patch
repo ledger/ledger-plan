@@ -1,0 +1,30 @@
+# HG changeset patch
+# User Nathan Jones <nathanj@insightbb.com>
+# Date 1207414688 14400
+# Branch trunk
+# Node ID d15a2a53f832d40d71f532ef2f1b51afc2bc1827
+# Parent  d7f07d2dcfe34f638fd83487608cd48a05a7d318
+Correctly parse one space at end of account name.
+
+Consider the following entry:
+
+2008/01/01 Salary$
+  Bank                          $100.00$
+  Salary $
+
+In this case, the account name would be parsed as 'Salary ', not
+'Salary' as expected.
+
+diff -r d7f07d2dcfe3 -r d15a2a53f832 textual.cc
+--- a/textual.cc	Fri Apr 04 14:30:36 2008 -0400
++++ b/textual.cc	Sat Apr 05 12:58:08 2008 -0400
+@@ -138,7 +138,8 @@
+   while (! in.eof()) {
+     in.get(p);
+     if (in.eof() || (std::isspace(p) &&
+-		     (p == '\t' || std::isspace(in.peek()))))
++		     (p == '\t' || in.peek() == EOF ||
++		      std::isspace(in.peek()))))
+       break;
+     account_end++;
+   }

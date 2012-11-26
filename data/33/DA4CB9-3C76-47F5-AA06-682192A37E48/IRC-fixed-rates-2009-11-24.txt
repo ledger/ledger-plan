@@ -1,0 +1,152 @@
+15:16 < Demosthenex> jleija has the same expectation I had, in that if I used a "commodity/currency/whatever" that its value would be locked in at the txn time.
+15:16 < Demosthenex> which is not the case
+15:17 < Demosthenex> to make that happen, you'd need to specify the conversion rate in the posting on the txn with the {@$0.44} format
+15:17 < Demosthenex> er
+15:17 < Demosthenex> {=0.55}
+15:20 < Demosthenex> we keep thinking you can do commodity/currency conversion, but thats not the case
+15:20 < Demosthenex> its strictly used for things like stocks
+15:20 < orc_emac> ... forex crosses, but this is the wrong place to solve this, no?
+15:21 < Demosthenex> "forex crosses"?
+15:21 < orc_emac> I dont get it here in ledger other than for retrospective accounting, choosing a daily 'fix' or such
+15:22 < orc_emac> a non-local 'base' currency is a commodity like any other
+15:22 < orc_emac> but such prices vary by the second most of the time
+15:22 < orc_emac> forex is foreign exchange
+15:22 < Demosthenex> ah
+15:22 < Demosthenex> ledger can compute gains and fun stuff when it treats them like stocks...
+15:23 < orc_emac> s/stocks/securities/
+15:24 < Demosthenex> but it doesn't do "historical cumulative balance"
+15:24 < Demosthenex> eh, IANAA
+15:24 < jleija> Demosthenex: yes, this is another case of the same discussion you had with johnw
+15:25 < Demosthenex> it shows i'm not an isolated example
+15:25 < Demosthenex> and yet, i agree with what he said
+15:25 < Demosthenex> a txn in ledger shouldn't be dependent on anything outside the txn for its value
+15:25 < Demosthenex> that makes sense to me
+15:25 < jleija> but I didn't understand what was the outcome
+15:25 < Demosthenex> the outcome from the discussion was that it doesn't work like that now, but john may add something later at his discretion
+15:26 < Demosthenex> so the right way for you to handle your txns now is...
+15:26 < jleija> with some sort of scoped-tags i understood
+15:28 < Demosthenex> http://pastebin.com/m7630426d
+15:28 < Demosthenex> ithink
+15:29 < jleija> what's the difference between {} and @?
+15:29 < Demosthenex> that was the method described on irc...
+15:29 < Demosthenex> i'm not sure about the syntax...
+15:29 -!- sm [n=sm@pool-71-104-89-201.lsanca.dsl-w.verizon.net] has joined #ledger
+15:30 < jleija> yeah, I was afraid that that was the solution. It seems like too much duplication when you have many transactions in other currencies (for expenses anyways)
+15:31 < sm> darn, lost my #ledger window
+15:31 < sm> have you guys figured out the Right Way ?
+15:32 < jleija> i see the value of txn-self-containment but ... it doesn't feel right yet
+15:32 < jleija> sm: well, we figured out that the problem is not new and that the old solution stands
+15:33 < jleija> sm: which is to add the propper @ or {} note to each transaction
+15:33 < sm> ah
+15:33 < jleija> i was hoping for a syntax abbreviation like P or something
+15:34 < sm> what's the {} note solution ? I don't see it in the 2.x manual
+15:34 < jleija> we don't know, johnw mentioned it in the posted irc thread
+15:34 < jleija> i guess is the same as @ (?)
+15:35 < sm> ok
+15:35 < jleija> syntactically and pragmatically, for me, is the same thing
+15:51 < jleija> i was reading again http://pastebin.com/d15fcd416 and Demosthenex brought up a "date oriented pricing" directive but johnw seems to favor a scope directive (which is file-position dependant). I think the former would be a better approach to expenses in foreign currency
+15:51 < jleija> to avoid position problems
+15:54 < jleija> another, intermediate/compromised option, is to have the currency convertion per transaction next to the date, not next to each transaction amount. Just a thought
+15:55 < sm> jleija: you don't like the idea of specifying it at the account level ?
+15:55 < jleija> of course, if you have more than one currency in a transaction you'll have to do the @, as presently
+15:56 < jleija> sm: sorry, i havent' give enough though to that option yet
+15:57 < sm> it's to model more closely how most bank accounts work, which is they have a native currency and all txns are immediately converted to that at the current rate
+15:57 < jleija> sm: my first impression was that the accounts now will have to be more "intelligent" and do a little processing when aggregating them
+15:57 < jleija> sm: but i might be a good model without compromising the transactions themselves
+15:58 < sm> right now, ledger accounts can hold an arbitrary collection of currencies which is a bit too general, so it makes you work harder to model your common real-world use case
+15:58 < jleija> sm: it would work for my need, i would just "declare" payables:jlopez to be in $
+15:58 < sm> yes
+15:58 < orc_emac> jleija: why not lost load an unordered array of transactions, possibly containing curr exch rate data with tdates as well) order it all, and apply in a transaction walk through
+15:58 < orc_emac> s/lost/just/
+15:58 < orc_emac> that is the shoe box approach anyway
+16:00 -!- trie [n=rkapoor@209-145-68-57.cho.dmt.ntelos.net] has quit []
+16:00 < orc_emac> in past accounting systems where reports of payments from the past may appear async (straggle in), I have had to do that anyway
+16:02 < jleija> orc_emac: you mean in a separate script or changing ledger to do this with a new special flag? (or maybe using the python scripting abilities of which I know nothing?)
+16:03 < orc_emac> jleija: dunno -- but the data flows have to account for date unordered data somehow anyway -- seems like a exchange rate rport may be either in a txn, or free standing
+16:04 < orc_emac> (modelling reality here)
+16:06 < jleija> orc_emac: i'm not sure i'm following. If in the txn, the @ note can accomplish this (but you have to add the note to 4 lines, in my case, per transaction). If free standing, like P does, it breaks johnw idea of txn-self-containment, as i understand his opinion.
+16:08 < jleija> orc_emac: please excuse me if i don't understand. i have very limited understanding of accounting/finance. My background is in programming.
+16:09 < MisterN> most people here have no background in accounting either
+16:09 < MisterN> i have a little of that, however, but not in detail.
+16:09 < orc_emac> txn self-containment causes a need to repaet largely static data over and over, unles one treats the most recently observed in time exchange rate as persistent until a new one is seen -- and then there are intra day transations (possibly with a new rate [the man with two watches problem]) run the risk of being booked at differing rates depending on the order read, and when the new rate is seen
+16:11 < jleija> orc_emac: i am with you. If, somehow, the txn would use a date-lookup table to establish their instantaneous value and use that with -V, my problem would be solved
+16:14 < jleija> orc_emac: the thing, i believe, is that johnw doesn't favor this because the transactions then become entangled with "external data" (the lookup table). johnw argument has strong merits so we are looking for possible alternatives without compromising the txn concept.
+16:14 < sm> a single-currency (conversion-forcing) account, plus P records, provides that!
+16:15 < sm> we want to leverage P records or better, separate .pricedb, so you can just dump historic exchange rate data in there
+16:16 < jleija> yes, sm is right. That might be it.
+16:16 < sm> jleija: I mean, you'll have to specify the rate again each time it changes, which is daily, so you don't gain much from a scoping directive
+16:17 < orc_emac> sm: I get rate changes continuously, not merely daily
+16:17 < sm> there you go
+16:18 < sm> though I suspect most banks take the average daily rate
+16:18 < orc_emac> my counterparty posts in real time at either a stated rate in the transaction, or the last posted (last traded) one
+16:19 < orc_emac> and they repost their peg no less than every 5 minutes
+16:20 < jleija> orc_emac: so you keep an always-changing P database file?
+16:21 < orc_emac> jleija: I keep a continuous journal, and can re-create teh rate for each transaction by playing hte journal for mnot more than 5 min back
+16:21 < jleija> ok
+16:23  * jleija is looking into account.h file
+16:24 < Demosthenex> sm: tell me more about this "conversion-forcing account"
+16:28 < sm> Demosthenex: it's just an account that is only allowed to hold one currency, so if you transfer some amount in another currency it gets immediately converted at the current rate
+16:29 < sm> the same as regular bank accounts
+16:29 < sm> where "current rate" is whatever the price db, or @, says it is
+16:33 < MisterN> sm: hmm i like that.
+16:33 < MisterN> sm: it would be useful for, say, the Expenses account
+16:34 < Demosthenex> but...
+16:35 < Demosthenex> it made more sense to me to define two types of commodities
+16:35 < Demosthenex> a "fixed" one whose value is locked (or converted) at the date/time of the txn
+16:35 < Demosthenex> or "dynamic" which fits the securities model where you want to report on the initial cost vs current value
+16:36 < Demosthenex> but john was very specific in saying the reason for my issue here was specific to how reporting was done
+16:36 < Demosthenex> reg always converted at the date, but bal summed the commodities then converted so it always got the latest
+16:37 < Demosthenex> bal would have to be updated to convert each txn individually
+16:37 < Demosthenex> i thought the easiest way to do this was to use different directives.
+16:37 < sm> to me that sounds like implementation detail, I would like to understand how to model it first
+16:37 < Demosthenex> P for pricedb and dynamic commodities, F for fixed commodities, each txn would be calculated depending on teh commodity type
+16:38 < sm> you could do that too
+16:38 < Demosthenex> that's my recommendation
+16:38 < sm> which way is closest to the way it works in reality do you think
+16:38 < Demosthenex> the *advanced* functionality is already there, i think it was harder to implement the dynamic ones...
+16:38 < Demosthenex> i think that counts
+16:39 < Demosthenex> currency/items vs securities
+16:39 < jleija> Demosthenex: i don't understand john's position as you described. What was the problem with your idea, again?
+16:40 < orc_emac> the base settlement currency is not a commodity [by convention only], but all other forex are
+16:40 < orc_emac> all commodities are a sub-set item of 'securities'
+16:40 < MisterN> Demosthenex: may i say: the phoenicians were way cooler than the ancient greeks :P
+16:41 < MisterN> (i'm bothering you because of your nickname)
+16:45 < jleija> i'm going again through that irc conversation but i still don't understand why not fixed-and-dynamic commodities. I think it was not really discussed. I think in line 37, the value of that idea got lost (i mean the conversation moved in a different direction thus stopping further thought on the idea). (http://pastebin.com/d15fcd416)
+16:45 < Demosthenex> well it depends on development priorities
+16:46 < Demosthenex> i kinda agree that a txn shouldn't depend on external items
+16:46 < Demosthenex> we should all chime in with john here
+16:47 < Demosthenex> we should psot this log too
+16:47 < Demosthenex> or move the whole thing to the ML
+16:47 < Demosthenex> so there's a copy of what everyone's saying
+16:48 < Demosthenex> this to me sounds like a "growing pain" to make ledger really multicurrency
+16:48 < Demosthenex> if there was no commodity support there would be no issue
+16:48 < orc_emac> Demosthenex: I am not here to pick fights
+16:48 < Demosthenex> no one's fighting ;]
+16:49 < sm> says the guy named orc!
+16:49  * sm reaches for his sword
+16:49 < sm> oh oh.. I left it just here...
+16:49 < jleija> yeah, no. I just want to have better understanding. Who knows there might be a solution for everybody.
+16:49 < orc_emac> heh
+16:51 < jleija> i think expenses calls more for a fixed commodity whereas commotities, well, are commodities and ledger is well suited for them. It might just be a "growing pain" to cover a "new" need.
+16:53 < orc_emac> well, ummm -- tha answer is not some objective truth -- I may care about intra day forex rate pricing, because my counterparty settles that way -- a person whose bank where they keep all their funds, only settles daily, does not care at all
+16:53 < sm> orc_emac: what is this "forex" you mention
+16:54 < orc_emac> sm: forex is shorthand for foriegn exchange
+16:54 < jleija> i'm in to talk with john, and i wouldn't be disappointed if my need is not in his plans. Every project has its own priorities.
+16:54 < orc_emac> people who trade currencies all use that nomenclature
+16:55 < sm> ah, thanks
+16:56 < jleija> (and i thought accounting was all set-in-stone) :)
+16:56 < orc_emac> not at all -- accounting is (in the US, and theoretically) about fairly presenting an entity's financial condition
+16:56 < orc_emac> lots of judgment calls
+16:57 < jleija> i've never used other accounting apps like quickbooks, or whatever. I wonder how those apps handle these situations.
+16:59 < sm> good question
+16:59 < orc_emac> jleija: again it varies depending on the user's needs -- a McDonalds in Chicago ignores currency effects; a trinket trader greeting cruise ships from many countries and receiving lots of currencies has different needs (if he or she kept onest books)
+16:59 < orc_emac> honest
+16:59 < orc_emac> ther eis a GGFASB rule that publicly rtraded companies need to conform to in doing financial reporting -- a non-traded company may ignore that workload
+17:00 < orc_emac> there is a FASB ...
+17:02 < jleija> wow. these discussions are good. i don't want to think how things get more complex with taxes and legal stuff.
+17:03 < jleija> (and i was just doing a "simple" bookkeeping)
+17:04 < jleija> the thruth is that i have my solution with the @. However, now i'm very interested to see how fixed/immediate commodities should be handled
+17:05 < jleija> the @ solution sucks, though, most of my expenses are not in $
+17:20 -!- bkuhn [n=bkuhn@sflc/staff/conservancy.president.bkuhn] has quit ["Leaving the office.  Back online around 07:00 US/Eastern."]
+17:36 -!- trie [n=rkapoor@c-98-244-77-16.hsd1.va.comcast.net] has joined #ledger
+19:17 < jleija> good night everyone

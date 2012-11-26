@@ -1,0 +1,33 @@
+--- gnucash.cc.orig	2007-09-24 18:18:58.000000000 -0500
++++ gnucash.cc	2008-03-27 13:14:05.000000000 -0600
+@@ -162,23 +162,15 @@
+     // the transaction is worth.
+     amount_t value;
+     commodity_t * default_commodity = NULL;
+-    if (entry_comm) {
+-      default_commodity = entry_comm;
+-    } else {
+-      account_comm_map::iterator ac = account_comms.find(xact->account);
+-      if (ac != account_comms.end())
+-	default_commodity = (*ac).second;
+-    }
++    account_comm_map::iterator ac = account_comms.find(xact->account);
++    if (ac != account_comms.end())
++      default_commodity = (*ac).second;
+ 
+-    if (default_commodity) {
+-      curr_quant.set_commodity(*default_commodity);
+-      value = curr_quant.round();
++    curr_quant.set_commodity(*default_commodity); // Fixme: Check for NULL
++    value = curr_quant.round();
+ 
+-      if (curr_value.commodity() == *default_commodity)
+-	curr_value = value;
+-    } else {
+-      value = curr_quant;
+-    }
++    if (curr_value.commodity() == *default_commodity)
++      curr_value = value;
+ 
+     xact->state  = curr_state;
+     xact->amount = value;

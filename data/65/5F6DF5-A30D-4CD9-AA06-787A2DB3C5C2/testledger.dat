@@ -1,0 +1,33 @@
+~ Biweekly
+  Assets:Bank:Checking	$25000.00
+  Income:Ludicrous Salary
+
+~ Monthly
+  Expenses:Food		$350.00
+  Assets:Bank:Checking
+
+Y2009
+
+04/10 Lienholder Bank
+  Liabilities:Loan:Car		$450.00
+  Assets:Bank:Checking
+
+04/01 Taco Schmell
+  Expenses:Food:Eating Out	$6.50
+  Assets:Bank:Checking
+
+03/30=03/31 * March Food
+  Expenses:Food:Eating Out	$368.70
+  Assets:Bank:Checking
+
+03/15 * Ludicrous Employer
+  Assets:Bank:Checking		$25000.00
+  Income:Ludicrous Salary
+
+03/10=03/15 * Lienholder Bank
+  Liabilities:Loan:Car		$450.00
+  Assets:Bank:Checking
+
+03/01 * Ludicrous Employer
+  Assets:Bank:Checking		$25000.00
+  Income:Ludicrous Salary

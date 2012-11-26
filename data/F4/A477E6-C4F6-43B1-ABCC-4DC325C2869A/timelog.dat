@@ -1,0 +1,3 @@
+account Account_A
+!include a.dat
+end account

@@ -1,0 +1,58 @@
+# HG changeset patch
+# User Nathan Jones <nathanj@insightbb.com>
+# Date 1207532720 14400
+# Branch trunk
+# Node ID 6b8626f2377b98a475e671a2ef33cf551b1aeb50
+# Parent  00f91fa4d98ba8d69706490938d011569ed78665
+Further fixes to date parsing.
+
+strptime("08/02/01", "%Y/%m/%d") would parse with the year set to a
+negative number, which is why the %y variations were added to
+date_t::formats.
+
+diff -r 00f91fa4d98b -r 6b8626f2377b datetime.cc
+--- a/datetime.cc	Sat Apr 05 13:22:41 2008 -0400
++++ b/datetime.cc	Sun Apr 06 21:45:20 2008 -0400
+@@ -14,10 +14,13 @@
+ std::string  date_t::output_format = "%Y/%m/%d";
+ 
+ const char * date_t::formats[] = {
++  "%y/%m/%d",
+   "%Y/%m/%d",
+   "%m/%d",
++  "%y.%m.%d",
+   "%Y.%m.%d",
+   "%m.%d",
++  "%y-%m-%d",
+   "%Y-%m-%d",
+   "%m-%d",
+   "%a",
+@@ -343,7 +346,7 @@
+     when.tm_sec  = 0;
+ 
+     if (when.tm_year == -1)
+-      when.tm_year = ((year == -1) ? date_t::current_year : (year - 1900));
++      when.tm_year = ((year == -1) ? date_t::current_year : year) - 1900;
+ 
+     if (when.tm_mon == -1)
+       when.tm_mon = 0;
+@@ -358,6 +361,6 @@
+ 
+   bool quick_parse_date(const char * date_str, std::time_t * result)
+   {
+-    return parse_date(date_str, result, date_t::current_year + 1900);
++    return parse_date(date_str, result, date_t::current_year);
+   }
+ }
+diff -r 00f91fa4d98b -r 6b8626f2377b textual.cc
+--- a/textual.cc	Sat Apr 05 13:22:41 2008 -0400
++++ b/textual.cc	Sun Apr 06 21:45:20 2008 -0400
+@@ -711,7 +711,7 @@
+       }
+ 
+       case 'Y':                   // set the current year
+-	date_t::current_year = std::atoi(skip_ws(line + 1)) - 1900;
++	date_t::current_year = std::atoi(skip_ws(line + 1));
+ 	break;
+ 
+ #ifdef TIMELOG_SUPPORT

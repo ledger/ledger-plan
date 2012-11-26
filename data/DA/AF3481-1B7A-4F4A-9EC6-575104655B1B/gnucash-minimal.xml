@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gnc-v2
+     xmlns:gnc="http://www.gnucash.org/XML/gnc"
+     xmlns:act="http://www.gnucash.org/XML/act"
+     xmlns:book="http://www.gnucash.org/XML/book"
+     xmlns:cd="http://www.gnucash.org/XML/cd"
+     xmlns:cmdty="http://www.gnucash.org/XML/cmdty"
+     xmlns:price="http://www.gnucash.org/XML/price"
+     xmlns:slot="http://www.gnucash.org/XML/slot"
+     xmlns:split="http://www.gnucash.org/XML/split"
+     xmlns:sx="http://www.gnucash.org/XML/sx"
+     xmlns:trn="http://www.gnucash.org/XML/trn"
+     xmlns:ts="http://www.gnucash.org/XML/ts"
+     xmlns:fs="http://www.gnucash.org/XML/fs"
+     xmlns:bgt="http://www.gnucash.org/XML/bgt"
+     xmlns:recurrence="http://www.gnucash.org/XML/recurrence"
+     xmlns:lot="http://www.gnucash.org/XML/lot"
+     xmlns:cust="http://www.gnucash.org/XML/cust"
+     xmlns:job="http://www.gnucash.org/XML/job"
+     xmlns:addr="http://www.gnucash.org/XML/addr"
+     xmlns:owner="http://www.gnucash.org/XML/owner"
+     xmlns:taxtable="http://www.gnucash.org/XML/taxtable"
+     xmlns:tte="http://www.gnucash.org/XML/tte"
+     xmlns:employee="http://www.gnucash.org/XML/employee"
+     xmlns:order="http://www.gnucash.org/XML/order"
+     xmlns:billterm="http://www.gnucash.org/XML/billterm"
+     xmlns:bt-days="http://www.gnucash.org/XML/bt-days"
+     xmlns:bt-prox="http://www.gnucash.org/XML/bt-prox"
+     xmlns:invoice="http://www.gnucash.org/XML/invoice"
+     xmlns:entry="http://www.gnucash.org/XML/entry"
+     xmlns:vendor="http://www.gnucash.org/XML/vendor">
+<gnc:count-data cd:type="book">1</gnc:count-data>
+<gnc:book version="2.0.0">
+<book:id type="guid">bf8589ce945b6b7fea8311e430609a8b</book:id>
+<gnc:count-data cd:type="account">3</gnc:count-data>
+<gnc:count-data cd:type="transaction">1</gnc:count-data>
+<gnc:commodity version="2.0.0">
+  <cmdty:space>ISO4217</cmdty:space>
+  <cmdty:id>EUR</cmdty:id>
+  <cmdty:get_quotes/>
+  <cmdty:quote_source>currency</cmdty:quote_source>
+  <cmdty:quote_tz/>
+</gnc:commodity>
+<gnc:commodity version="2.0.0">
+  <cmdty:space>ISO4217</cmdty:space>
+  <cmdty:id>USD</cmdty:id>
+  <cmdty:get_quotes/>
+  <cmdty:quote_source>currency</cmdty:quote_source>
+  <cmdty:quote_tz/>
+</gnc:commodity>
+<gnc:pricedb version="1">
+  <price>
+    <price:id type="guid">47fc7d201a4f4d5a614d0dd2f5323b80</price:id>
+    <price:commodity>
+      <cmdty:space>ISO4217</cmdty:space>
+      <cmdty:id>USD</cmdty:id>
+    </price:commodity>
+    <price:currency>
+      <cmdty:space>ISO4217</cmdty:space>
+      <cmdty:id>EUR</cmdty:id>
+    </price:currency>
+    <price:time>
+      <ts:date>2008-03-22 00:00:00 -0600</ts:date>
+    </price:time>
+    <price:source>user:xfer-dialog</price:source>
+    <price:value>31/20000</price:value>
+  </price>
+</gnc:pricedb>
+<gnc:account version="2.0.0">
+  <act:name>Root Account</act:name>
+  <act:id type="guid">0595f3af16c24ce76365f433fb00125d</act:id>
+  <act:type>ROOT</act:type>
+  <act:commodity-scu>0</act:commodity-scu>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Assets</act:name>
+  <act:id type="guid">8ad41a9642f42097115f0d969039c884</act:id>
+  <act:type>ASSET</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>Assets</act:description>
+  <act:parent type="guid">0595f3af16c24ce76365f433fb00125d</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Equity</act:name>
+  <act:id type="guid">7d35072003a4aa29bc7151da3cc55289</act:id>
+  <act:type>EQUITY</act:type>
+  <act:commodity>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>Equity</act:description>
+  <act:parent type="guid">0595f3af16c24ce76365f433fb00125d</act:parent>
+</gnc:account>
+<gnc:transaction version="2.0.0">
+  <trn:id type="guid">ec45f6cb4bfdfab939faf6ef0c1c79a4</trn:id>
+  <trn:currency>
+    <cmdty:space>ISO4217</cmdty:space>
+    <cmdty:id>USD</cmdty:id>
+  </trn:currency>
+  <trn:date-posted>
+    <ts:date>2008-03-22 00:00:00 -0600</ts:date>
+  </trn:date-posted>
+  <trn:date-entered>
+    <ts:date>2008-03-22 22:54:41 -0600</ts:date>
+  </trn:date-entered>
+  <trn:description>Opening Balance</trn:description>
+  <trn:splits>
+    <trn:split>
+      <split:id type="guid">644b0d65eda7ae3b3865502276bf7da7</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>100000/100</split:value>
+      <split:quantity>100000/100</split:quantity>
+      <split:account type="guid">8ad41a9642f42097115f0d969039c884</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">d5359c718c833ab3e82c8843bdce8117</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>-100000/100</split:value>
+      <split:quantity>-66000/100</split:quantity>
+      <split:account type="guid">7d35072003a4aa29bc7151da3cc55289</split:account>
+    </trn:split>
+  </trn:splits>
+</gnc:transaction>
+</gnc:book>
+</gnc-v2>
+
+<!-- Local variables: -->
+<!-- mode: xml        -->
+<!-- End:             -->

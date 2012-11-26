@@ -1,0 +1,42 @@
+--- ledger.el.orig	2010-11-09 17:55:21.131817993 -0600
++++ ledger.el	2010-11-09 18:30:38.321818004 -0600
+@@ -273,6 +273,28 @@
+         'pending
+       'cleared)))
+ 
++(defun ledger-next-entry ()
++  (interactive)
++  (let (pos)
++    (save-excursion
++      (next-line)
++      (setq pos (re-search-forward "^[0-9]+" nil t)))
++    (if pos
++        (progn (goto-char pos)
++               (move-beginning-of-line nil) )
++      (beep) )))
++
++(defun ledger-prev-entry ()
++  (interactive)
++  (let (pos)
++    (save-excursion
++      (previous-line)
++      (setq pos (re-search-backward "^[0-9]+" nil t)))
++    (if pos
++        (progn (goto-char pos)
++               (move-beginning-of-line nil) )
++      (beep) )))
++
+ (defun ledger-entry-state ()
+   (save-excursion
+     (when (or (looking-at "^[0-9]")
+@@ -466,7 +488,9 @@
+     (define-key map [(control ?c) (control ?o) (control ?a)] 'ledger-report-redo)
+     (define-key map [(control ?c) (control ?o) (control ?s)] 'ledger-report-save)
+     (define-key map [(control ?c) (control ?o) (control ?e)] 'ledger-report-edit)
+-    (define-key map [(control ?c) (control ?o) (control ?k)] 'ledger-report-kill)))
++    (define-key map [(control ?c) (control ?o) (control ?k)] 'ledger-report-kill)
++    (define-key map [(meta ?n)] 'ledger-next-entry)
++    (define-key map [(meta ?p)] 'ledger-prev-entry)))
+ 
+ ;; Reconcile mode
+ 

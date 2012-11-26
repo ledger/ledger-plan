@@ -1,0 +1,215 @@
+From 27ea3b2c15e1ea0b231e1e0fe8648306fd2a0468 Mon Sep 17 00:00:00 2001
+From: John Piasetzki <john.piasetzki@gmail.com>
+Date: Wed, 24 Nov 2010 12:21:23 -0500
+Subject: [PATCH] Update acprep to work with Python3
+
+---
+ acprep |   51 +++++++++++++++++++++++++--------------------------
+ 1 files changed, 25 insertions(+), 26 deletions(-)
+
+diff --git a/acprep b/acprep
+index badf842..1c1a351 100755
+--- a/acprep
++++ b/acprep
+@@ -137,8 +137,8 @@ class BoostInfo(object):
+         return None
+ 
+     def locate_boost(self):
+-        lib64_dirs = map(lambda x: join(x, 'lib64'), search_prefixes)
+-        lib_dirs = map(lambda x: join(x, 'lib'), search_prefixes)
++        lib64_dirs = [search_prefix + '/lib64' for search_prefix in  search_prefixes]
++        lib_dirs = [search_prefix + '/lib' for search_prefix in  search_prefixes]
+         result = None
+         for path in lib64_dirs + lib_dirs:
+             self.log.info('Looking for Boost in %s...' % path)
+@@ -350,7 +350,7 @@ class CommandLineApp(object):
+         except KeyboardInterrupt:
+             exit_code = self.handleInterrupt()
+ 
+-        except SystemExit, msg:
++        except SystemExit as msg:
+             exit_code = msg.args[0]
+ 
+         except Exception:
+@@ -403,7 +403,7 @@ class PrepareBuild(CommandLineApp):
+         }
+ 
+         for varname in self.envvars.keys():
+-            if os.environ.has_key(varname):
++            if varname in os.environ:
+                 self.envvars[varname] = os.environ[varname]
+ 
+                 if varname.endswith('FLAGS'):
+@@ -532,7 +532,7 @@ class PrepareBuild(CommandLineApp):
+ 
+         if args:
+             cmd = args[0]
+-            if not PrepareBuild.__dict__.has_key('phase_' + cmd):
++            if not cmd in PrepareBuild.__dict__:
+                 self.log.error("Unknown build phase: " + cmd + "\n")
+                 sys.exit(1)
+             else:
+@@ -549,22 +549,22 @@ class PrepareBuild(CommandLineApp):
+ 
+     def execute(self, *args):
+         try:
+-            self.log.debug('Executing command: ' + string.join(args, ' '))
++            self.log.debug('Executing command: ' + ' '.join(args))
+ 
+             retcode = call(args, shell=False)
+             if retcode < 0:
+                 self.log.error("Child was terminated by signal", -retcode)
+                 sys.exit(1)
+             elif retcode != 0:
+-                self.log.error("Execution failed: " + string.join(args, ' '))
++                self.log.error("Execution failed: " + ' '.join(args))
+                 sys.exit(1)
+-        except OSError, e:
++        except OSError as e:
+             self.log.error("Execution failed:", e)
+             sys.exit(1)
+ 
+     def get_stdout(self, *args):
+         try:
+-            self.log.debug('Executing command: ' + string.join(args, ' '))
++            self.log.debug('Executing command: ' + ' '.join(args))
+ 
+             proc    = Popen(args, shell=False, stdout=PIPE)
+             stdout  = proc.stdout.read()
+@@ -574,10 +574,10 @@ class PrepareBuild(CommandLineApp):
+                                -retcode)
+                 sys.exit(1)
+             elif retcode != 0:
+-                self.log.error("Execution failed: " + string.join(args, ' '))
++                self.log.error("Execution failed: " + ' '.join(args))
+                 sys.exit(1)
+             return stdout[:-1]
+-        except OSError, e:
++        except OSError as e:
+             self.log.error("Execution failed:", e)
+             sys.exit(1)
+ 
+@@ -662,7 +662,7 @@ class PrepareBuild(CommandLineApp):
+ 
+     def phase_products(self, *args):
+         self.log.info('Executing phase: products')
+-        print self.products_directory()
++        print(self.products_directory())
+ 
+     def phase_info(self, *args):
+         self.log.info('Executing phase: info')
+@@ -817,7 +817,7 @@ class PrepareBuild(CommandLineApp):
+                     'lcov',
+                     'sloccount'
+                 ] + self.boost_info.dependencies('darwin')
+-                self.log.info('Executing: ' + string.join(packages, ' '))
++                self.log.info('Executing: ' + ' '.join(packages))
+                 self.execute(*packages)
+             elif exists('/sw/bin/fink'):
+                 self.log.info('Looks like you are using Fink on OS X')
+@@ -879,7 +879,7 @@ class PrepareBuild(CommandLineApp):
+                             'lcov',
+                             'sloccount'
+                         ] + self.boost_info.dependencies('ubuntu-hardy')
+-                    self.log.info('Executing: ' + string.join(packages, ' '))
++                    self.log.info('Executing: ' + ' '.join(packages))
+                     self.execute(*packages)
+ 
+             if exists('/etc/redhat-release'):
+@@ -910,7 +910,7 @@ class PrepareBuild(CommandLineApp):
+                         #'lcov',
+                         #'sloccount'
+                     ]
+-                    self.log.info('Executing: ' + string.join(packages, ' '))
++                    self.log.info('Executing: ' + ' '.join(packages))
+                     self.execute(*packages)
+ 
+     #########################################################################
+@@ -1000,9 +1000,9 @@ class PrepareBuild(CommandLineApp):
+         self.locate_darwin_libraries()
+ 
+     def setup_for_system(self):
+-        system = self.get_stdout('uname', '-s')
++        system = os.uname()
+ 
+-        self.log.info('System type is => ' + system)
++        self.log.info('System type is => ' + system[0])
+ 
+         # These options are global defaults at the moment
+         #self.option_warn()
+@@ -1086,8 +1086,7 @@ class PrepareBuild(CommandLineApp):
+     def setup_flavor(self):
+         self.setup_for_system()
+ 
+-        if not PrepareBuild.__dict__.has_key('setup_flavor_' +
+-                                             self.current_flavor):
++        if not 'setup_flavor_' + self.current_flavor in PrepareBuild.__dict__:
+             self.log.error('Unknown build flavor "%s"' % self.current_flavor)
+             sys.exit(1)
+ 
+@@ -1118,7 +1117,7 @@ class PrepareBuild(CommandLineApp):
+                 self.log.debug('Final value of %s: %s' %
+                                (var, self.envvars[var]))
+ 
+-            elif self.envvars.has_key(var):
++            elif var in self.envvars:
+                 del self.envvars[var]
+ 
+     #########################################################################
+@@ -1339,7 +1338,7 @@ class PrepareBuild(CommandLineApp):
+ 
+         for var in ('CC', 'CPPFLAGS', 'CFLAGS', 'CXX', 'CXXFLAGS',
+                     'LD', 'LDFLAGS'):
+-            if self.envvars.has_key(var) and self.envvars[var] and \
++            if var in self.envvars and self.envvars[var] and \
+                (var.endswith('FLAGS') or exists(self.envvars[var])):
+                 conf_args.append('%s=%s' % (var, self.envvars[var]))
+ 
+@@ -1391,7 +1390,7 @@ class PrepareBuild(CommandLineApp):
+                     self.log.error("Child was terminated by signal", -retcode)
+                     sys.exit(1)
+                 elif retcode != 0:
+-                    self.log.error("Execution failed: " + string.join(conf_args, ' '))
++                    self.log.error("Execution failed: " + ' '.join(conf_args))
+                     sys.exit(1)
+ 
+                 # Wipe the pre-compiled header, if there is one
+@@ -1480,7 +1479,7 @@ class PrepareBuild(CommandLineApp):
+ 
+         if not exists(dest_file):
+             shutil.copyfile(path, dest_file)
+-            os.chmod(dest_file, 0755)
++            os.chmod(dest_file,755)
+ 
+         for line in self.get_stdout('otool', '-L', dest_file).split('\n'):
+             match = re.search('/opt/local/lib/(.+?)\.dylib', line)
+@@ -1572,7 +1571,7 @@ class PrepareBuild(CommandLineApp):
+                 configure_args.append('"' + self.escape_string(arg) + '"')
+ 
+         make_args = ['DISTCHECK_CONFIGURE_FLAGS=%s' %
+-                     string.join(configure_args, ' '), 'distcheck']
++                     ' '.join(configure_args), 'distcheck']
+ 
+         self.log.debug('make_args for distcheck => ' + str(make_args))
+ 
+@@ -1664,7 +1663,7 @@ class PrepareBuild(CommandLineApp):
+     def phase_help(self, *args):
+         self.option_parser.print_help()
+ 
+-        print """ 
++        print("""
+ Of the optional ARGS, the first is an optional build FLAVOR, with the default
+ being 'debug':
+ 
+@@ -1711,7 +1710,7 @@ your options.  Here are some real-world examples:
+ 
+   ./acprep
+   ./acprep opt -- make -j3
+-  ./acprep --enable-doxygen"""
++  ./acprep --enable-doxygen""")
+         sys.exit(0)
+ 
+ PrepareBuild().run()
+-- 
+1.7.3.1
+

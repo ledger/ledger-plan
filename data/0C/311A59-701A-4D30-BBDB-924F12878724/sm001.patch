@@ -1,0 +1,13 @@
+Index: NEWS
+===================================================================
+--- NEWS	(revision 988)
++++ NEWS	(working copy)
+@@ -199,7 +199,7 @@
+ 
+   For example, say you request a --monthtly expenses report:
+ 
+-    $ ledger --monthly --descend "\$500.00" register ^Expenses
++    $ ledger --monthly register ^Expenses
+ 
+   Now, in one of the reported months you see $500.00 spent on
+   Expenses:Food.  You can ask Ledger to "descend" into, and show the

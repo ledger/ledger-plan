@@ -1,0 +1,50 @@
+From 25669c9347338d72cc16c78da8af7a7abad9d76e Mon Sep 17 00:00:00 2001
+From: Nathan Jones <nathanj@insightbb.com>
+Date: Sun, 11 May 2008 19:53:20 -0400
+Subject: [PATCH] Fix compile errors with gcc 4.3
+
+---
+ amount.cc   |    1 +
+ datetime.cc |    1 +
+ textual.cc  |    1 +
+ 3 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/amount.cc b/amount.cc
+index 4f07b0b..f9b6fc2 100644
+--- a/amount.cc
++++ b/amount.cc
+@@ -4,6 +4,7 @@
+ #include <list>
+ #include <sstream>
+ #include <cstdlib>
++#include <memory>
+ 
+ #include <gmp.h>
+ 
+diff --git a/datetime.cc b/datetime.cc
+index 040c304..d766e00 100644
+--- a/datetime.cc
++++ b/datetime.cc
+@@ -7,6 +7,7 @@
+ 
+ #include <ctime>
+ #include <cctype>
++#include <climits>
+ 
+ date_t       date_t::now(std::time(NULL));
+ int	     date_t::current_year = date_t::now.year();
+diff --git a/textual.cc b/textual.cc
+index 44ee354..4e899ee 100644
+--- a/textual.cc
++++ b/textual.cc
+@@ -19,6 +19,7 @@
+ #include <cctype>
+ #include <cstdio>
+ #include <cstdlib>
++#include <climits>
+ 
+ #ifdef HAVE_REALPATH
+ extern "C" char *realpath(const char *, char resolved_path[]);
+-- 
+1.5.5.1
+

@@ -1,0 +1,131 @@
+Index: ledger-utils.el
+===================================================================
+--- ledger-utils.el	(revision 0)
++++ ledger-utils.el	(revision 0)
+@@ -0,0 +1,126 @@
++; miscellaneous emacs utilities
++;
++; .emacs example:
++; (require 'ledger)
++; (require 'ledger-utils)
++; (global-set-key [(f11)] 'ledger-next-action)
++; (global-set-key [(f12)] 'timelog-next-action)
++; (hourstoday)
++; (balances)
++
++(defun ledgerinfo () "" (interactive)
++  (info (expand-file-name "~/src/ledger-2.6.1/ledger.info")))
++
++(defun ledger-period-today ()
++  (format "from %s to %s" ; workaround for current 2.6
++          (format-time-string "%Y/%m/%d")
++          (format-time-string "%Y/%m/%d" (time-add (current-time) (days-to-time 1)))))
++
++; magic ledger key
++
++(defun ledger-next-action () (interactive)
++  (cond
++   ((not (and
++          (equal "ledger.dat" (condition-case nil (file-name-nondirectory (buffer-file-name)) (error nil)))
++          (equal (point) (point-max)))) (show-ledger))
++   ((ledger-start-entry))))
++
++(defun ledger-start-entry () (interactive)
++  (ledger-add-entry (format-time-string "%Y/%m/%d"))
++  (end-of-line)
++  (insert " "))
++
++(defun show-ledger () (interactive)
++  (find-file (expand-file-name "~/finance/ledger.dat"))
++  (end-of-buffer))
++
++; timelog/timeclock stuff.. a bit fragile
++
++(require 'timeclock-x)
++(timeclock-initialize)
++(timeclock-setup-keys)
++
++(define-key ctl-x-map "tl" 'show-timelog) ; also f11
++(define-key ctl-x-map "ti" 'timelog-clock-in-and-show)
++(define-key ctl-x-map "to" 'timelog-clock-out-and-show)
++(define-key ctl-x-map "tR" 'timelog-show-register-today)
++(define-key ctl-x-map "tB" 'timelog-show-balance-today)
++
++(defun show-timelog () (interactive)
++  (find-file (expand-file-name "~/.timelog"))
++  (end-of-buffer)
++  (recenter))
++
++(defun timelog-clock-in-and-show () (interactive)
++  (if (timeclock-in-safe) (show-timelog)))
++
++(defun timelog-clock-out-and-show () (interactive)
++  (if (timeclock-out-safe) (show-timelog)))
++
++; magic timelog key
++(defun timelog-next-action () (interactive)
++  ;(timeclock-reread-log) ; too slow
++  (cond
++   ((window-minibuffer-p) (minibuffer-complete-and-exit))
++   ((not (and
++          (equal ".timelog" (condition-case nil (file-name-nondirectory (buffer-file-name)) (error nil)))
++          (equal (point) (point-max)))) (show-timelog))
++   ((timeclock-currently-out-p) (timelog-clock-in-and-show))
++   ((timelog-clock-out-and-show))))
++
++(defun timelog-show-register-today () (interactive)
++  (shell-command (format "ledger -f ~/.timelog -p '%s' register" (ledger-period-today)) "*timelog*"))
++
++(defun timelog-show-balance-today () (interactive)
++  (shell-command (format "ledger -f ~/.timelog -p '%s' -s balance" (ledger-period-today)) "*timelog*"))
++
++; show updating time balance
++
++(defun hourstoday ()
++  "Show today's logged hours, updating every minute."
++  (interactive)
++  (save-excursion (switch-to-buffer-other-window "hours") (toggle-read-only 1))
++  (hourstoday-stop)
++  (run-at-time nil 60 'hourstoday-update))
++
++(defun hourstoday-update ()
++  "Update the hours buffer."
++  (with-current-buffer (get-buffer "hours")
++    (erase-buffer)
++    (call-process
++     "ledger" nil t nil
++     "-f" "~/.timelog"
++     "-p" (ledger-period-today)
++     "--balance-format" "%8T  %2_%-a\n"
++     "-s" "balance")))
++
++(defun hourstoday-stop ()
++  "Stop updating the hours buffer."
++  (interactive)
++  (cancel-function-timers 'hourstoday-update))
++
++; same for financial balances
++
++(defun balances ()
++  "Show current balances, updating every minute."
++  (interactive)
++  (save-excursion (switch-to-buffer-other-window "balances") (toggle-read-only 1))
++  (balances-stop)
++  (run-at-time nil 60 'balances-update))
++
++(defun balances-update ()
++  "Update the balances buffer."
++  (with-current-buffer (get-buffer "balances")
++    (erase-buffer)
++    (call-process
++     "ledger" nil t nil
++     "-f" "~/finance/ledger.dat" ;XXX emacs in x doesn't have LEDGER env var
++     "-s" "balance" "assets")))
++
++(defun balances-stop ()
++  "Stop updating the balances buffer."
++  (interactive)
++  (cancel-function-timers 'balances-update))
++
++
++(provide 'ledger-utils)

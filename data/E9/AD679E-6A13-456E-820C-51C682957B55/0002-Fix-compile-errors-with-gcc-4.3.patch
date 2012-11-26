@@ -1,0 +1,37 @@
+From 2c447e0a077cb4a5a1a068922c54e8e30b16ba9a Mon Sep 17 00:00:00 2001
+From: Nathan Jones <nathanj@insightbb.com>
+Date: Thu, 22 May 2008 20:37:50 -0400
+Subject: [PATCH] Fix compile errors with gcc 4.3
+
+---
+ datetime.cc |    1 +
+ option.cc   |    1 +
+ 2 files changed, 2 insertions(+), 0 deletions(-)
+
+diff --git a/datetime.cc b/datetime.cc
+index d766e00..0a5f544 100644
+--- a/datetime.cc
++++ b/datetime.cc
+@@ -8,6 +8,7 @@
+ #include <ctime>
+ #include <cctype>
+ #include <climits>
++#include <cstdlib>
+ 
+ date_t       date_t::now(std::time(NULL));
+ int	     date_t::current_year = date_t::now.year();
+diff --git a/option.cc b/option.cc
+index af9c8a5..bc173e8 100644
+--- a/option.cc
++++ b/option.cc
+@@ -6,6 +6,7 @@
+ 
+ #include <iostream>
+ #include <cstdarg>
++#include <cstdlib>
+ #include <unistd.h>
+ 
+ #include "util.h"
+-- 
+1.5.5.1
+

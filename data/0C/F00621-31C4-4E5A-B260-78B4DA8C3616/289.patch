@@ -1,0 +1,49 @@
+# HG changeset patch
+# User Nathan Jones <nathanj@insightbb.com>
+# Date 1207416161 14400
+# Branch trunk
+# Node ID 00f91fa4d98ba8d69706490938d011569ed78665
+# Parent  d15a2a53f832d40d71f532ef2f1b51afc2bc1827
+Fix parsing for some inclusion dates.
+
+date_t::current_year was not in the correct format for std::mktime,
+causing '(last|this|next) month' dates to be incorrectly parsed as
+(time_t) -1.
+
+interval_t::increment did not work with negative values because the
+unsigned short fields ended up adding 65535 instead of subtracting 1.
+
+diff -r d15a2a53f832 -r 00f91fa4d98b datetime.cc
+--- a/datetime.cc	Sat Apr 05 12:58:08 2008 -0400
++++ b/datetime.cc	Sat Apr 05 13:22:41 2008 -0400
+@@ -140,7 +140,7 @@
+     bool saw_day  = true;
+ 
+     if (when.tm_year == -1) {
+-      when.tm_year = date_t::current_year;
++      when.tm_year = date_t::current_year - 1900;
+       saw_year = false;
+     }
+     if (when.tm_mon == -1) {
+diff -r d15a2a53f832 -r 00f91fa4d98b datetime.h
+--- a/datetime.h	Sat Apr 05 12:58:08 2008 -0400
++++ b/datetime.h	Sat Apr 05 13:22:41 2008 -0400
+@@ -256,12 +256,12 @@
+ 
+ struct interval_t
+ {
+-  unsigned short years;
+-  unsigned short months;
+-  unsigned short days;
+-  unsigned short hours;
+-  unsigned short minutes;
+-  unsigned short seconds;
++  short years;
++  short months;
++  short days;
++  short hours;
++  short minutes;
++  short seconds;
+ 
+   datetime_t begin;
+   datetime_t end;

@@ -1,0 +1,25 @@
+Index: scripts/hourstoday
+===================================================================
+--- scripts/hourstoday	(revision 0)
++++ scripts/hourstoday	(revision 0)
+@@ -0,0 +1,14 @@
++#!/bin/bash
++# show hours logged so far today, updating each minute
++function hourstoday {
++    #  work around 2.6 -p bug
++    ledger -f ~/.timelog -p "from `date +%Y/%m/%d` to `date +%Y/%m/%d -d tomorrow`" --balance-format='%8T  %2_%-a\n' -s balance
++}
++while true; do clear; hourstoday; sleep 60; done
++
++# to run this within emacs:
++#
++# (defun hourstoday-ansi ()
++#   "Run hourstoday in an ansi term to show today's logged time"
++#   (interactive)
++#   (ansi-term (expand-file-name "~/bin/hourstoday") "hours"))
+
+Property changes on: scripts/hourstoday
+___________________________________________________________________
+Name: svn:executable
+   + *
+
