@@ -773,6 +773,38 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :CATEGORY: Bugs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO (Vladimir) Reply: Automated transaction with many commodities
+:PROPERTIES:
+:ID:       C62D12BB-2601-4FF3-8CC1-BE2940DD5681
+:CREATED:  [2012-10-16 Tue 17:35]
+:Date:     Tue, 9 Oct 2012 00:35:56 -0700 (PDT)
+:Message:  [[message://b5e4e77d-0b77-4ac8-bfb5-0a05cdb99de6@googlegroups.com][Automated transaction with many commodities]]
+:Author:   Vladimir Parfinenko <vladimir.parfinenko@gmail.com>
+:END:
+** TODO [[bug:873][#873]] "ledger query" doesn't parse "tag" the same way as other query expressions do
+:PROPERTIES:
+:ID:       56554B9D-2112-4E26-9EBF-C6D66C9D514F
+:CREATED:  [2013-01-09 Wed 02:11]
+:Date:     Wed, 09 Jan 2013 05:04:37 +0000
+:Message:  [[message://bug-873-1@http.bugs.ledger-cli.org/][{Bug 873} New: "ledger query" doesn't parse "tag" the same way as other query expressions do]]
+:Author:   bugzilla-daemon@bugs.ledger-cli.org
+:END:
+** TODO [[bug:872][#872]] parse error in '= expr has_tag("TAG")'
+:PROPERTIES:
+:ID:       9EF7CD1A-F8D0-4199-891A-0A223103D566
+:CREATED:  [2013-01-07 Mon 22:20]
+:Date:     Tue, 08 Jan 2013 02:58:35 +0000
+:Message:  [[message://bug-872-1@http.bugs.ledger-cli.org/][{Bug 872} New: parse error in '= expr has_tag("TAG")']]
+:Author:   bugzilla-daemon@bugs.ledger-cli.org
+:END:
+** TODO [[bug:870][#870]] Cannot use --dc with --collapse or -X
+:PROPERTIES:
+:ID:       D63C7D0E-4E3F-42D1-9B52-040919283652
+:CREATED:  [2012-12-20 Thu 02:54]
+:Date:     Thu, 20 Dec 2012 08:42:03 +0000
+:Message:  [[message://bug-870-1@http.bugs.ledger-cli.org/][{Bug 870} New: Cannot use --dc with --collapse or -X]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
 ** TODO Last entry in a file misread if not followed by whitespace
 :PROPERTIES:
 :ID:       67BC23E3-A448-42F8-94DC-716993842BAB
@@ -16448,6 +16480,14 @@ Here's my reduced test case:
   :CATEGORY: Emacs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO (Craig) Reply: Reconciling with EMACS
+:PROPERTIES:
+:ID:       4F961BB5-DD4A-421D-ADAF-99667BE0F750
+:CREATED:  [2012-10-20 Sat 07:27]
+:Date:     Fri, 19 Oct 2012 23:18:04 -0700
+:Message:  [[message://CAKs9TOJp6pSs3zE9hv8y-oXgnOH3KYEUorQkkMOGmy1o-kK-AQ@mail.gmail.com][Reconciling with EMACS]]
+:Author:   Craig Earls <enderw88@gmail.com>
+:END:
 ** TODO [#A] [[bug:638][#638]] ledger-mode dropping first digit of inserted dates
 I use Aquamacs on OS X.  When I use the ledger-mode facility for adding
 entries, ledger-mode inserts the entry without the most significant digit. For
@@ -17376,6 +17416,24 @@ to ledger.el locally and problem is fixed.
   :CATEGORY: Features
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO Check out icsv2ledger
+:PROPERTIES:
+:ID:       9165B461-95DF-405B-ABC6-544868B800E9
+:CREATED:  [2012-09-30 Sun 02:03]
+:Date:     Sat, 29 Sep 2012 05:37:29 -0700 (PDT)
+:Message:  [[message://53d07263-c529-4174-b470-bf905e210c95@googlegroups.com][Re: best way to slurp bank records?]]
+:Author:   thierry <thierry.daucourt@free.fr>
+:END:
+** TODO Allow quoted arguments in ~/.ledgerrc
+:PROPERTIES:
+:ID:       29AD4A29-42AA-4BB0-ABD2-EFC742592DA9
+:CREATED:  [2012-12-18 Tue 16:19]
+:END:
+** TODO Add --ignore-bad-transactions, which treats them as if they weren't there
+:PROPERTIES:
+:ID:       4502DA28-BCFF-4E8E-B8BF-C584FEA06FC7
+:CREATED:  [2012-12-12 Wed 14:12]
+:END:
 ** DONE (Thierry) $commodity in automated transactions
 SCHEDULED: <2012-11-11 Sun>
 - State "DONE"       from "TODO"       [2012-11-12 Mon 01:37]
@@ -20244,6 +20302,14 @@ result?
   :CATEGORY: Python
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO Reply: Getting started with Ledger and Python
+:PROPERTIES:
+:ID:       FB0B5F94-ABB8-411B-8B4B-1DDEEDAD132F
+:CREATED:  [2012-05-28 Mon 03:36]
+:Date: Sun, 27 May 2012 16:39:38 -0700 (PDT)
+:Message: [[message://893d3422-f27d-4040-bed8-bce6694bdd6d@googlegroups.com][Re: Getting start with Ledger and Python]]
+:Author: Tim Crews <tim-QJ3Fn9itRil4wfmgmkLWVgC/G2K4zDHf@public.gmane.org>
+:END:
 ** TODO [[bug:302][#302]] Add implicit conversion of mask_t to re
 - State "TODO"       from "DEFERRED"   [2012-10-08 Mon 13:34]
    - State "DEFERRED"   from "TODO"       [2009-11-07 Sat 06:36]
@@ -20913,6 +20979,14 @@ make this a child scope of the Python session.
   :CATEGORY: Build
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO Reply: Ledger has switched to CMake
+:PROPERTIES:
+:ID:       B6F12F32-4421-40EC-82DD-4F827102AEC5
+:CREATED:  [2012-05-21 Mon 03:48]
+:Date: Sun, 20 May 2012 15:59:53 +0200
+:Message: [[message://CAE+8KM34S_V+cw2Oqm12U7ARHOAqB0a=7H-Ckw2ndYY41AjvLQ@mail.gmail.com][Re: Ledger has switched to CMake]]
+:Author: Johann Klähn <kljohann-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
 ** TODO [#A] [[bug:817][#817]] make distcheck (normal) and --python proof builds failing
 :PROPERTIES:
 :ID:       16F91AF7-D463-4B5A-BCBF-05D15CF2EE87
