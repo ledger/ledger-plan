@@ -773,46 +773,6 @@ LEDGER  -*- mode: org; fill-column: 78 -*-
   :CATEGORY: Bugs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
-** TODO (Vladimir) Reply: Automated transaction with many commodities
-:PROPERTIES:
-:ID:       C62D12BB-2601-4FF3-8CC1-BE2940DD5681
-:CREATED:  [2012-10-16 Tue 17:35]
-:Date:     Tue, 9 Oct 2012 00:35:56 -0700 (PDT)
-:Message:  [[message://b5e4e77d-0b77-4ac8-bfb5-0a05cdb99de6@googlegroups.com][Automated transaction with many commodities]]
-:Author:   Vladimir Parfinenko <vladimir.parfinenko@gmail.com>
-:END:
-** TODO [[bug:873][#873]] "ledger query" doesn't parse "tag" the same way as other query expressions do
-:PROPERTIES:
-:ID:       56554B9D-2112-4E26-9EBF-C6D66C9D514F
-:CREATED:  [2013-01-09 Wed 02:11]
-:Date:     Wed, 09 Jan 2013 05:04:37 +0000
-:Message:  [[message://bug-873-1@http.bugs.ledger-cli.org/][{Bug 873} New: "ledger query" doesn't parse "tag" the same way as other query expressions do]]
-:Author:   bugzilla-daemon@bugs.ledger-cli.org
-:END:
-** TODO [[bug:872][#872]] parse error in '= expr has_tag("TAG")'
-:PROPERTIES:
-:ID:       9EF7CD1A-F8D0-4199-891A-0A223103D566
-:CREATED:  [2013-01-07 Mon 22:20]
-:Date:     Tue, 08 Jan 2013 02:58:35 +0000
-:Message:  [[message://bug-872-1@http.bugs.ledger-cli.org/][{Bug 872} New: parse error in '= expr has_tag("TAG")']]
-:Author:   bugzilla-daemon@bugs.ledger-cli.org
-:END:
-** TODO [[bug:870][#870]] Cannot use --dc with --collapse or -X
-:PROPERTIES:
-:ID:       D63C7D0E-4E3F-42D1-9B52-040919283652
-:CREATED:  [2012-12-20 Thu 02:54]
-:Date:     Thu, 20 Dec 2012 08:42:03 +0000
-:Message:  [[message://bug-870-1@http.bugs.ledger-cli.org/][{Bug 870} New: Cannot use --dc with --collapse or -X]]
-:Author:   bugzilla-daemon@mail.johnwiegley.com
-:END:
-** TODO Last entry in a file misread if not followed by whitespace
-:PROPERTIES:
-:ID:       67BC23E3-A448-42F8-94DC-716993842BAB
-:CREATED:  [2012-10-22 Mon 13:41]
-:Date:     Mon, 22 Oct 2012 08:26:00 -0400
-:Message:  [[message://m18vayg0br.fsf@jhu.edu][Re: Last entry in a file misread if not followed by whitespace]]
-:Author:   Jesse Rosenthal <jrosenthal@jhu.edu>
-:END:
 ** TODO [#A] [[bug:514][#514]] 'accounts' and 'commodities' should sort their output
    I'd also like to suggest that 'accounts' and 'commodities' sort their
    output, like 'payees' appears to. I don't see a reason to leave it unsorted.
@@ -974,6 +934,22 @@ that include virtual transactions?
 :Date:     Thu, 23 Aug 2012 14:21:53 +0000
 :Message:  [[message://bug-788-1@http.bugs.ledger-cli.org/][{Bug 788} New: Assertion failed with unbalanced remainder and input from stdin]]
 :Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO (Vladimir) Reply: Automated transaction with many commodities
+:PROPERTIES:
+:ID:       C62D12BB-2601-4FF3-8CC1-BE2940DD5681
+:CREATED:  [2012-10-16 Tue 17:35]
+:Date:     Tue, 9 Oct 2012 00:35:56 -0700 (PDT)
+:Message:  [[message://b5e4e77d-0b77-4ac8-bfb5-0a05cdb99de6@googlegroups.com][Automated transaction with many commodities]]
+:Author:   Vladimir Parfinenko <vladimir.parfinenko@gmail.com>
+:END:
+** TODO Last entry in a file misread if not followed by whitespace
+:PROPERTIES:
+:ID:       67BC23E3-A448-42F8-94DC-716993842BAB
+:CREATED:  [2012-10-22 Mon 13:41]
+:Date:     Mon, 22 Oct 2012 08:26:00 -0400
+:Message:  [[message://m18vayg0br.fsf@jhu.edu][Re: Last entry in a file misread if not followed by whitespace]]
+:Author:   Jesse Rosenthal <jrosenthal@jhu.edu>
 :END:
 ** TODO [[bug:201][#201]] Handling currencies that were replaced by the Euro
 - State "TODO"       from "DONE"       [2012-03-09 Fri 20:09] \\
@@ -3940,21 +3916,6 @@ $-200) to work right. Is this correct?
 :ID:       547279FC-8D16-47D9-948B-ED16E678E8C1
 :CREATED:  [2012-03-12 Mon 06:50]
 :END:
-** DONE [[bug:695][#695]] --init-file is ignored                                                     :blocker:
-- State "DONE"       from "TODO"       [2012-10-25 Thu 15:16]
-Using the option ```--init-file``` has no effect, the specified file is never
-even ```stat```ed let alone opened by ledger.
-
-The only way to have an init file is to place it at ~/.ledgerrc.
-
-This was tested both on todays next as well as on master.
-:PROPERTIES:
-:ID:       92BF4406-AA10-48B2-B2D4-FF8007C64789
-:CREATED:  [2012-03-12 Mon 16:39]
-:Date: Mon, 12 Mar 2012 08:09:37 -0700
-:Message: [[message://jwiegley/ledger/issues/59@github.com][{ledger} --init-file is ignored (#59)]]
-:Author: "Prof. MAAD" <reply+i-3612678-600a0f35c0d3cfe7eb0fc77bcd7f70f4d29bb801-8460@reply.github.com>
-:END:
 ** TODO [[bug:696][#696]] Change to -F parsing rules (casting to int)
 Just a note in case anyone else has trouble with custom reporting formats.  I
 just built 3.0.0-20120217 and noticed a formatting rule that used to work:
@@ -4620,16 +4581,6 @@ worse error.
 :CREATED:  [2012-03-30 Fri 15:09]
 :Date: Fri, 30 Mar 2012 16:28:52 +0000
 :Message: [[message://bug-764-1@http.bugs.ledger-cli.org/][{Bug 764} New: csv: posted should be renamed to aux_date or aux or auxdate]]
-:Author: bugzilla-daemon@mail.johnwiegley.com
-:END:
-** DONE [[bug:765][#765]] bucket command drops first letter of following account name
-- State "DONE"       from "TODO"       [2012-10-25 Thu 14:50] \\
-  Johann fixed this.
-:PROPERTIES:
-:ID:       0161EB1E-8228-4D8D-A953-58B0E74B2485
-:CREATED:  [2012-04-01 Sun 22:14]
-:Date: Mon, 02 Apr 2012 03:01:41 +0000
-:Message: [[message://bug-765-1@http.bugs.ledger-cli.org/][{Bug 765} New: bucket command drops first letter of following account name]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** TODO [[bug:766][#766]] Deprecation of '@' not carried through in example file drewr3.dat
@@ -5639,6 +5590,30 @@ end test
 :Date:     Thu, 18 Oct 2012 14:14:25 +0000
 :Message:  [[message://bug-860-1@http.bugs.ledger-cli.org/][{Bug 860} New: %D used in date_format command returns entire date]]
 :Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:870][#870]] Cannot use --dc with --collapse or -X
+:PROPERTIES:
+:ID:       D63C7D0E-4E3F-42D1-9B52-040919283652
+:CREATED:  [2012-12-20 Thu 02:54]
+:Date:     Thu, 20 Dec 2012 08:42:03 +0000
+:Message:  [[message://bug-870-1@http.bugs.ledger-cli.org/][{Bug 870} New: Cannot use --dc with --collapse or -X]]
+:Author:   bugzilla-daemon@mail.johnwiegley.com
+:END:
+** TODO [[bug:872][#872]] parse error in '= expr has_tag("TAG")'
+:PROPERTIES:
+:ID:       9EF7CD1A-F8D0-4199-891A-0A223103D566
+:CREATED:  [2013-01-07 Mon 22:20]
+:Date:     Tue, 08 Jan 2013 02:58:35 +0000
+:Message:  [[message://bug-872-1@http.bugs.ledger-cli.org/][{Bug 872} New: parse error in '= expr has_tag("TAG")']]
+:Author:   bugzilla-daemon@bugs.ledger-cli.org
+:END:
+** TODO [[bug:873][#873]] "ledger query" doesn't parse "tag" the same way as other query expressions do
+:PROPERTIES:
+:ID:       56554B9D-2112-4E26-9EBF-C6D66C9D514F
+:CREATED:  [2013-01-09 Wed 02:11]
+:Date:     Wed, 09 Jan 2013 05:04:37 +0000
+:Message:  [[message://bug-873-1@http.bugs.ledger-cli.org/][{Bug 873} New: "ledger query" doesn't parse "tag" the same way as other query expressions do]]
+:Author:   bugzilla-daemon@bugs.ledger-cli.org
 :END:
 ** DONE "ledger parse 'foo(1, 2, 3)'" now crashes
    - State "DONE"       [2009-02-28 Sat 06:10]
@@ -8139,6 +8114,21 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :Message: [[message://bug-657-1@http.bugs.ledger-cli.org/][{Bug 657} New: --print removes amount]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
+** DONE [[bug:695][#695]] --init-file is ignored                                                     :blocker:
+- State "DONE"       from "TODO"       [2012-10-25 Thu 15:16]
+Using the option ```--init-file``` has no effect, the specified file is never
+even ```stat```ed let alone opened by ledger.
+
+The only way to have an init file is to place it at ~/.ledgerrc.
+
+This was tested both on todays next as well as on master.
+:PROPERTIES:
+:ID:       92BF4406-AA10-48B2-B2D4-FF8007C64789
+:CREATED:  [2012-03-12 Mon 16:39]
+:Date: Mon, 12 Mar 2012 08:09:37 -0700
+:Message: [[message://jwiegley/ledger/issues/59@github.com][{ledger} --init-file is ignored (#59)]]
+:Author: "Prof. MAAD" <reply+i-3612678-600a0f35c0d3cfe7eb0fc77bcd7f70f4d29bb801-8460@reply.github.com>
+:END:
 ** DONE [[bug:719][#719]] Creates bogus(?) Adjustment with -H -X EUR
 - State "DONE"       from "TODO"       [2012-03-20 Tue 04:56] \\
   Fixed by e3248ee
@@ -8174,6 +8164,16 @@ http://groups.google.com/group/ledger-cli/browse_thread/thread/8b3b29d3e167e6ab/
 :CREATED:  [2012-03-25 Sun 15:12]
 :Date: Sun, 25 Mar 2012 11:32:36 +0000
 :Message: [[message://bug-736-1@http.bugs.ledger-cli.org/][{Bug 736} New: Strange error from cvs convert]]
+:Author: bugzilla-daemon@mail.johnwiegley.com
+:END:
+** DONE [[bug:765][#765]] bucket command drops first letter of following account name
+- State "DONE"       from "TODO"       [2012-10-25 Thu 14:50] \\
+  Johann fixed this.
+:PROPERTIES:
+:ID:       0161EB1E-8228-4D8D-A953-58B0E74B2485
+:CREATED:  [2012-04-01 Sun 22:14]
+:Date: Mon, 02 Apr 2012 03:01:41 +0000
+:Message: [[message://bug-765-1@http.bugs.ledger-cli.org/][{Bug 765} New: bucket command drops first letter of following account name]]
 :Author: bugzilla-daemon@mail.johnwiegley.com
 :END:
 ** DONE [ledger] Reverse search for drafts (#29)
@@ -16480,14 +16480,6 @@ Here's my reduced test case:
   :CATEGORY: Emacs
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
-** TODO (Craig) Reply: Reconciling with EMACS
-:PROPERTIES:
-:ID:       4F961BB5-DD4A-421D-ADAF-99667BE0F750
-:CREATED:  [2012-10-20 Sat 07:27]
-:Date:     Fri, 19 Oct 2012 23:18:04 -0700
-:Message:  [[message://CAKs9TOJp6pSs3zE9hv8y-oXgnOH3KYEUorQkkMOGmy1o-kK-AQ@mail.gmail.com][Reconciling with EMACS]]
-:Author:   Craig Earls <enderw88@gmail.com>
-:END:
 ** TODO [#A] [[bug:638][#638]] ledger-mode dropping first digit of inserted dates
 I use Aquamacs on OS X.  When I use the ledger-mode facility for adding
 entries, ledger-mode inserts the entry without the most significant digit. For
@@ -16505,6 +16497,14 @@ Which requires hand correction.
 :Date:     Tue, 15 Nov 2011 10:07:17 -0700
 :Message:  [[message://CAKs9TOJfSSjmqfi8i7xu=JdqJ=aayRgkwdxRdvJt4CUcgW7oMQ@mail.gmail.com][Minor annoyance with emacs mode]]
 :Submitter: Craig Earls <enderw88-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+:END:
+** TODO (Craig) Reply: Reconciling with EMACS
+:PROPERTIES:
+:ID:       4F961BB5-DD4A-421D-ADAF-99667BE0F750
+:CREATED:  [2012-10-20 Sat 07:27]
+:Date:     Fri, 19 Oct 2012 23:18:04 -0700
+:Message:  [[message://CAKs9TOJp6pSs3zE9hv8y-oXgnOH3KYEUorQkkMOGmy1o-kK-AQ@mail.gmail.com][Reconciling with EMACS]]
+:Author:   Craig Earls <enderw88@gmail.com>
 :END:
 ** TODO (Russell) Another patch ;]
 - Note taken on [2012-08-06 Mon 13:59] \\
@@ -17416,6 +17416,21 @@ to ledger.el locally and problem is fixed.
   :CATEGORY: Features
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
+** TODO Add --ignore-bad-transactions, which treats them as if they weren't there
+:PROPERTIES:
+:ID:       4502DA28-BCFF-4E8E-B8BF-C584FEA06FC7
+:CREATED:  [2012-12-12 Wed 14:12]
+:END:
+** TODO Add a --no-revalued flag to disable Adjustment postings
+:PROPERTIES:
+:ID:       97AF6151-DA3E-470D-83E8-5210890504D1
+:CREATED:  [2012-10-20 Sat 08:52]
+:END:
+** TODO Allow quoted arguments in ~/.ledgerrc
+:PROPERTIES:
+:ID:       29AD4A29-42AA-4BB0-ABD2-EFC742592DA9
+:CREATED:  [2012-12-18 Tue 16:19]
+:END:
 ** TODO Check out icsv2ledger
 :PROPERTIES:
 :ID:       9165B461-95DF-405B-ABC6-544868B800E9
@@ -17423,31 +17438,6 @@ to ledger.el locally and problem is fixed.
 :Date:     Sat, 29 Sep 2012 05:37:29 -0700 (PDT)
 :Message:  [[message://53d07263-c529-4174-b470-bf905e210c95@googlegroups.com][Re: best way to slurp bank records?]]
 :Author:   thierry <thierry.daucourt@free.fr>
-:END:
-** TODO Allow quoted arguments in ~/.ledgerrc
-:PROPERTIES:
-:ID:       29AD4A29-42AA-4BB0-ABD2-EFC742592DA9
-:CREATED:  [2012-12-18 Tue 16:19]
-:END:
-** TODO Add --ignore-bad-transactions, which treats them as if they weren't there
-:PROPERTIES:
-:ID:       4502DA28-BCFF-4E8E-B8BF-C584FEA06FC7
-:CREATED:  [2012-12-12 Wed 14:12]
-:END:
-** DONE (Thierry) $commodity in automated transactions
-SCHEDULED: <2012-11-11 Sun>
-- State "DONE"       from "TODO"       [2012-11-12 Mon 01:37]
-:PROPERTIES:
-:ID:       A7173459-C03D-465B-B904-26161C29CCCE
-:CREATED:  [2012-11-11 Sun 13:04]
-:Date:     Sun, 11 Nov 2012 06:57:38 -0800 (PST)
-:Message:  [[message://3fa06231-2604-4705-af12-772716f322b2@googlegroups.com][$commodity in automated transactions]]
-:Author:   thierry <thierry.daucourt@free.fr>
-:END:
-** TODO Add a --no-revalued flag to disable Adjustment postings
-:PROPERTIES:
-:ID:       97AF6151-DA3E-470D-83E8-5210890504D1
-:CREATED:  [2012-10-20 Sat 08:52]
 :END:
 ** TODO [[bug:172][#172]] Merge functionality of the C and P directives
 - State "TODO"       from "DEFERRED"   [2012-10-08 Mon 13:34]
@@ -18410,6 +18400,16 @@ For example: the separator char (, ; TAB), quoting, etc.
 :PROPERTIES:
 :ID:       F1C6299D-3714-40AB-B508-6C0A02931DD6
 :CREATED:  [2012-05-17 Thu 18:01]
+:END:
+** DONE (Thierry) $commodity in automated transactions
+SCHEDULED: <2012-11-11 Sun>
+- State "DONE"       from "TODO"       [2012-11-12 Mon 01:37]
+:PROPERTIES:
+:ID:       A7173459-C03D-465B-B904-26161C29CCCE
+:CREATED:  [2012-11-11 Sun 13:04]
+:Date:     Sun, 11 Nov 2012 06:57:38 -0800 (PST)
+:Message:  [[message://3fa06231-2604-4705-af12-772716f322b2@googlegroups.com][$commodity in automated transactions]]
+:Author:   thierry <thierry.daucourt@free.fr>
 :END:
 ** DONE A few changes for the textual parser [4/4]
    - State "DONE"       [2009-02-15 Sun 23:22]
@@ -20979,14 +20979,6 @@ make this a child scope of the Python session.
   :CATEGORY: Build
   :OVERLAY: (face (:background "#fdebeb"))
   :END:
-** TODO Reply: Ledger has switched to CMake
-:PROPERTIES:
-:ID:       B6F12F32-4421-40EC-82DD-4F827102AEC5
-:CREATED:  [2012-05-21 Mon 03:48]
-:Date: Sun, 20 May 2012 15:59:53 +0200
-:Message: [[message://CAE+8KM34S_V+cw2Oqm12U7ARHOAqB0a=7H-Ckw2ndYY41AjvLQ@mail.gmail.com][Re: Ledger has switched to CMake]]
-:Author: Johann Klähn <kljohann-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-:END:
 ** TODO [#A] [[bug:817][#817]] make distcheck (normal) and --python proof builds failing
 :PROPERTIES:
 :ID:       16F91AF7-D463-4B5A-BCBF-05D15CF2EE87
@@ -20994,6 +20986,14 @@ make this a child scope of the Python session.
 :Date: Sat, 24 Mar 2012 07:02:03 -0500
 :Message: [[message://20120324120203.GA32930@vulcan.local][{ledger} Proof build FAILED]]
 :Author: John Wiegley <johnw@boostpro.com>
+:END:
+** TODO Reply: Ledger has switched to CMake
+:PROPERTIES:
+:ID:       B6F12F32-4421-40EC-82DD-4F827102AEC5
+:CREATED:  [2012-05-21 Mon 03:48]
+:Date: Sun, 20 May 2012 15:59:53 +0200
+:Message: [[message://CAE+8KM34S_V+cw2Oqm12U7ARHOAqB0a=7H-Ckw2ndYY41AjvLQ@mail.gmail.com][Re: Ledger has switched to CMake]]
+:Author: Johann Klähn <kljohann-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 :END:
 ** TODO [[bug:216][#216]] Ledger packages for Debian
 - State "TODO"       from "DEFERRED"   [2012-10-08 Mon 13:35]
